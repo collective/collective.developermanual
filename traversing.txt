@@ -1,0 +1,189 @@
+Traversing is a method of getting handle of persistent object in ZODB object graph by its path.
+
+Ids
+---
+
+Each content object has id string which identifies it is in the parent container.
+Id string is visible in the browser address bar when you view the object.
+Ids are also visible in Zope Management interface.
+
+Besides id strings, the content objects have Unique Identified, or UID_, which
+does not change even if the object is moved or renamed.
+
+Exploring Zope application server
+---------------------------------
+
+You can use Zope Management interface to explore the content of your Zope application server:
+
+* Sites
+
+* Folderes within the sites
+
+* ...so on
+
+ZMI does not expose individual attributes. It only exposes traversable content objects.
+
+Attribute traversing
+--------------------
+
+Zope exposes child objects as attributes.
+
+Example::
+
+	# you have obtain to plone.org portal root object somehow and it's 
+	# stored in local variable "portal"
+	
+	documentation = portal.documentation
+	howTos = getattr(portal, "how-to") # note that we need use getattr because dash is invalid in syntax
+	myHowTo = getattr(howTos, "manipulating-plone-objects-programmatically")
+	
+Container traversing
+--------------------
+
+Zope exposes child objects as container accessor.
+
+Example::
+
+	# you have obtain to plone.org portal root object somehow and it's 
+	# stored in local variable "portal"
+	
+	documentation = portal["documentation"]
+	howTos = documentation["how-to"]
+	myHowTo = howTos["manipulating-plone-objects-programmatically"]
+	
+	
+Traversing by full path
+-----------------------
+
+Any content object provides methods *restrictedTraverse()* and *unrestrictedTraverse()*. 
+Id components are separated by slashes. See Traversable_.
+
+**Security warning**: restrictedTraverse() uses priviledges of currently logged in user. 
+Unauthorized_ exception is raised if the code tries to access object for which
+user lacks Access contents information and View permissions.
+
+Example::
+
+	myHowTo = portal.restrictedTraverse("documentation/howTos/myHowTo")
+
+	# Bypass security
+	myHowTo = portal.unrestrictedTraverse("documentation/howTos/myHowTo")
+	
+Getting object path
+-------------------
+
+Object has two paths:
+
+- Physical path is the absolute location in the current ZODB object graph. This includes site instance name as the part of it.
+
+- Virtual path is the object location related to Plone site root
+
+**Path mangling warning**: Always store paths as virtual paths or stored paths will corrupt 
+if you relocate your site instance to different URL.
+
+See Traversable_.
+
+Getting physical path
+=====================
+
+Use getPhysicalPath(). Example::
+
+	path = portal.getPhysicalPath() # returns "plone"
+	
+Getting virtual path
+====================
+
+You need to map physical path to virtual path using request object physicalPathToVirtualPath(). Example::
+
+	request = self.request # HTTPRequest object
+	
+	path = portal.document.getPhysicalPath() 
+	
+	virtual_path = request.physicalPathToVirtualPath(path) # returns "document"
+	
+Getting object URL
+------------------
+
+Use absolute_url(). See Traversable_.
+
+**URL mangling warning**: absolute_url() is sensitive to virtual host URL mappings. absolute_url()
+will return different results depending on if you access your site from URLs http://yourhost/ or http://yourhost:8080/Plone.
+Do not persistently store the result of absolute_url().
+
+Example::
+
+	url = portal.absolute_url() # http://nohost/plone in unit tests
+	
+Getting the parent
+------------------
+
+Object parent is accessible is acquisition_ chain for the object is set.
+
+Use aq_parent.
+
+	parent = object.aq_parent
+	
+Parent is defined as __parent__ attribute of the object instance.
+
+	object.__parent__ = object.aq_parent.
+	
+__parent__ is set when object's __of__() method is called.
+
+	view = MyBrowserView(context, request)
+	
+	view = view.__of__(context) # Puts view to acquisition chain and acquistion functions become available
+	
+TODO: When aq_inner should be used? http://plone.org/documentation/tutorial/manipulating-plone-objects-programmatically/accessing-surroundings-portal-root-and-site-tools
+	
+Getting the site root
+---------------------
+
+You can resolve the site root if you have the handle to any context object.
+
+Example::
+
+	from Products.CMFCore.utils import getToolByName
+
+	# you know some object which is refered as "context"
+	portal_url = getToolByName(context, "portal_url")
+	portal = portal_url.getPortalObject()
+	
+	
+Site is also stored a thread local variable. In Zope each request is 
+processed in its own thread. Site thread local is set when the request processing starts.
+
+You can use this method even if you do not have the context object available, 
+assuming that your code is called after Zope has traversed the context object once.
+
+Eaxmple::
+
+	from zope.app.component.hooks import getSite
+	
+	site = getSite() # returns portal root from thread local storage
+
+Getting Zope application server handle
+--------------------------------------
+
+You can also access other sites within the same application server from your code.
+
+Example::
+
+	app = context.restrictedTraverse('/') # Zope application server root
+	site = app["plone"] # your plone instance
+	site2 = app["mysiteid"] # another site
+	
+Acquisition effect
+------------------
+
+Sometimes traversing can give you attributes which actually do not exist on the object, but are inherited from the parent objects
+in the persistent object graph. See acquisition_.
+
+
+.. _acquisition: http://docs.zope.org/zope2/zope2book/source/Acquisition.html
+
+.. _Traversable: http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=96262&view=auto
+
+.. _Unauthorized: http://svn.zope.org/Zope/trunk/src/AccessControl/unauthorized.py?rev=96262&view=auto
+
+.. _UID: http://pypi.python.org/pypi/Products.CMFUid
+
