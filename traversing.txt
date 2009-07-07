@@ -78,8 +78,8 @@ Object has two paths:
 
 - Virtual path is the object location related to Plone site root
 
-**Path mangling warning**: Always store paths as virtual paths or stored paths will corrupt 
-if you relocate your site instance to different URL.
+**Path mangling warning**: Always store paths as virtual paths or persistently stored paths will corrupt 
+if you rename your site instance.
 
 See Traversable_.
 
@@ -93,7 +93,7 @@ Use getPhysicalPath(). Example::
 Getting virtual path
 ====================
 
-You need to map physical path to virtual path using request object physicalPathToVirtualPath(). Example::
+Map physical path to virtual path using HTTP request object physicalPathToVirtualPath(). Example::
 
 	request = self.request # HTTPRequest object
 	
