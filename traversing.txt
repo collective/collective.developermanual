@@ -3,12 +3,24 @@ Traversing is a method of getting handle of persistent object in ZODB object gra
 Ids
 ---
 
-Each content object has id string which identifies it is in the parent container.
-Id string is visible in the browser address bar when you view the object.
+Each content object has an id string which identifies the object in the parent container.
+Tee id string is visible in the browser address bar when you view the object.
 Ids are also visible in Zope Management interface.
 
 Besides id strings, the content objects have Unique Identified, or UID_, which
 does not change even if the object is moved or renamed.
+
+Id should not contain spaces or slashes.
+
+Path
+----
+
+Zope paths is the location of the object in object graph. 
+It is a a sequence of id components from the parent to the child separated by slashes. 
+
+Example::
+
+	documentation/howTos/myHowTo
 
 Exploring Zope application server
 ---------------------------------
@@ -56,7 +68,7 @@ Traversing by full path
 -----------------------
 
 Any content object provides methods *restrictedTraverse()* and *unrestrictedTraverse()*. 
-Id components are separated by slashes. See Traversable_.
+See Traversable_.
 
 **Security warning**: restrictedTraverse() uses priviledges of currently logged in user. 
 Unauthorized_ exception is raised if the code tries to access object for which
@@ -178,8 +190,16 @@ Acquisition effect
 Sometimes traversing can give you attributes which actually do not exist on the object, but are inherited from the parent objects
 in the persistent object graph. See acquisition_.
 
+Other resources
+---------------
+
+See object publishing_.
+
+
 
 .. _acquisition: http://docs.zope.org/zope2/zope2book/source/Acquisition.html
+
+.. _publishing: http://docs.zope.org/zope2/zope2book/source/ZopeArchitecture.html#fundamental-zope-concepts
 
 .. _Traversable: http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=96262&view=auto
 
