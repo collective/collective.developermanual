@@ -1,0 +1,142 @@
+HTTP request and reponse
+
+Basics of HTTP lifecycle explained.
+
+Lifecycle
+---------
+
+Unlike in some other web frameworks, you do not explictly create or return HTTP response object. A HTTP request object has always a HTTP response object associated with it. Both are created when the physical requests hits the web server. The response is available for the whole lifetime of request processing. This effectively allows you to set and modify response headers in any point of code.
+
+Web servers
+-----------
+
+Usually Plone runs on Zope's ZServer_ (also known as Medusa). Other
+alternative is WSGI_ compatible web servers like Repoze_.
+
+The web server may affect how your HTTP objects are constructed.
+
+HTTP Request
+------------
+
+All incoming HTTP requests are wrapped to (Zope) ZPublisher_ HTTPRequest_ objects. 
+
+Usually your view function or instance will receive HTTP request object, along with traversed context, as its construction parameter.
+
+You can access request in your view::
+
+	from Products.Five.browser import BrowserView
+
+	class SampleView(BrowserView)::
+
+		def __init__(context, request):
+			# Each view instance receives context and request as construction parameters
+			self.context = context
+			self.request = request
+
+		def __call__(self):
+			# Entry point of request processing
+			# Dump out incoming request variables
+			print self.request.items()
+
+Request method
+==============
+
+Request method (GET or POST) can be read::
+
+  request["REQUEST_METHOD"] == "POST" # or "GET"
+
+POST variables
+==============
+
+HTTP POST varibles are available in stored in request.form dictionary:
+
+	print request.form.items() # Everything POST brought to us
+
+HTTP headers
+============
+
+HTTP headers are available through request.header 
+
+Web environment
+===============
+
+Web server exposes its own environment variables in request.other (ZServer_) or request.environ (Repoze_ and other WSGI_ based web servers)::
+
+	print request.other.items()
+
+	user_agent = request.other["HTTP_USER_AGENT"]
+
+	user_agent = request.environ["HTTP_USER_AGENT"] # WSGI or Repoze server
+
+Flat access
+===========
+
+GET, POST and web environment variables are flat mapped
+to the request object as a dictionary look up::
+
+	# Comes from POST
+	request["input_username"] == request.form["input_username"]
+	
+	# Comes from environ
+	request.get('HTTP_USER_AGENT') == request.environ["HTTP_USER_AGENT"]
+
+Request mutability
+==================
+
+Even if you can write and add your own variables to HTTP request objects 
+this behavior is discouraged. If you need to create cache variables for
+request lifecycle use annotations_. '''TODO: Add link to internal
+annotations examples when written'''
+
+HTTP response
+-------------
+
+Usually you do not return HTTP responses directly from your views. Instead, you modify the existing HTTP response object (associated with the request) and return the object which will be HTTP response payload.
+
+Returned payload object can be 
+
+* String (str) 8-bit raw data
+
+* Iterable - the response is streamed instead of memory buffered
+
+Accessing response
+==================
+
+You can access to HTTP response if you know the request::
+
+	from Products.Five.browser import BrowserView
+
+	class SampleView(BrowserView)::
+
+		def __init__(context, request):
+			# Each view instance receives context and request as construction parameters
+			self.context = context
+			self.request = request
+
+		def __call__(self):
+			response = self.request.response
+			return "<html><body>Hello world!</body></html>"
+
+Settings response headers
+-------------------------
+
+Use HTTPResponse_ setHeader() to set headers::
+
+	 # Response dynamically generated image
+	 self.request.response.setHeader("Content-type", "image/jpeg")
+	 return image_data
+
+.. _annotations: http://pypi.python.org/pypi/zope.annotation/3.4.1
+
+.. _Repoze: http://repoze.org/
+
+.. _WSGI: http://ivory.idyll.org/articles/wsgi-intro/what-is-wsgi.html
+
+.. _ZServer: http://svn.zope.org/Zope/trunk/src/ZServer/README.txt?rev=96262&view=markup
+
+.. _ZPublisher: http://www.python.org/
+
+.. _HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
+
+.. _HTTPResponse: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPResponse.py?rev=99866&view=markup
+
