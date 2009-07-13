@@ -1,4 +1,69 @@
+
+Layer introduction
+------------------
+
+Layers are marker interface applied to HTTPRequest_ object. They are usually
+used in conjunction of ZCML directives to dynamically activate various parts
+of the configuration (theme files, add-on product functionality).
+
+Layers ensure that only one add-on product can override the specific Plone instance functionality
+in your site once and you can have several possible conflicting add-on products
+in your buildout and ZCML once. Many ZCML directives take optional *layer* parameter. See example, resourceDirectory_
+
+Layers can be activated when an add-on product is installed or a certain theme
+is picked.
+
+Creating a layer
+----------------
+
+Theme layer
+===========
+
+Theme layers can be created with following steps
+
+1. Subclass an interface from IDefaultPloneLayer::
+
+	from plone.theme.interfaces import IDefaultPloneLayer
+
+	class IThemeSpecific(IDefaultPloneLayer):
+	    """Marker interface that defines a Zope 3 skin layer bound to a Skin
+	       Selection in portal_skins.
+	       If you need to register a viewlet only for the "YourSkin"
+	       skin, this is the interface that must be used for the layer attribute
+	       in YourSkin/browser/configure.zcml.
+	    """
+
+2. Register in in ZCML. Name must match theme name. Example::
+
+    <interface
+        interface=".interfaces.IThemeSpecific"
+        type="zope.publisher.interfaces.browser.IBrowserSkinType"
+        name="SitsSkin"
+        />
+
+3. Declare your layer in GenericSetup browserlayers.xml. Example::
+
+	TODO
+
+4. Declare your theme in skins.xml. Example::
+
+	<skin-path name="SitsSkin" based-on="Plone Default">
+	  <layer name="plone_skins_style_folder_name"
+		 insert-before="*"/>
+	</skin-path>
+
+Manual layers
+=============
+
+Apply your layer to HTTPRequest in before_traverse hook.
+
+Checking active layers
+----------------------
+
 [21:00:43] <Moo-__-> what's good way to debug which layers are active on HTTP request?
 [21:00:52] <Moo-__-> (theming conflicts here)
-[21:00:53] <davisagli> aclark: the expected process does not always match reality...
 [21:01:31] <davisagli> Moo-__-: request.__provided__.__iro__ will give you the interfaces in order of precedence
+
+.. HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
+
+.. _resourceDirectory: http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/resourceDirectory/index.html

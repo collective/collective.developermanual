@@ -1,0 +1,24 @@
+
+Creating Javascripts for Plone
+------------------------------
+
+1. Put ZMI -> portal_javascripts to debug mode
+
+2. Put in new Javascript via ZMI upload (you can use Page Template type)
+   or add-on product resourceDirectory_ directive
+
+3. Register Javascript in portal_javascripts
+
+Executing Javascript code on page load
+--------------------------------------
+
+1. Create following snippet::
+
+
+    jq(document)load(function() {
+        // TODO: Code goes here
+    })
+
+2. Add your file to portal_javascripts.
+.. _resourceDirectory: http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/resourceDirectory/index.html
+
