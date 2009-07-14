@@ -1,0 +1,59 @@
+
+
+
+
+Registering event handler
+-------------------------
+
+Subscribing in ZCML
+===================
+
+Custom event example::
+
+   <subscriber
+     for=".interfaces.IMyObject
+          .interfaces.IMyEvent"
+     handler=".content.MyObject.myEventHandler" 
+     />      
+      
+Life cycle events example::
+
+   <subscriber
+     zcml:condition="installed zope.lifecycleevent"
+     for=".interfaces.ISitsPatient
+          zope.lifecycleevent.IObjectModifiedEvent"
+     handler=".content.SitsPatient.objectModified" 
+     />      
+
+
+Subscribing in Python
+=====================
+
+The following subscription is valid through the process life cycle. In unit tests, 
+it is important to clear test event handlers between the test steps.
+
+Example::
+
+	import zope.component
+
+    def my_event_handler(context, event):
+        """            
+        @param context: Zope object for which the event was fired for. Usually this is Plone content object.
+        
+        @param event: Subclass of event.
+        """
+		pass
+            
+    gsm = zope.component.getGlobalSiteManager()
+    gsm.registerHandler(my_event_handler, (IMyObject,IMyEvent))
+	
+
+See also
+--------
+
+http://pypi.python.org/pypi/zope.event/3.4.1
+
+http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/subscriber/index.html
+
+zope.component.registry
+

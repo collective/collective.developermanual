@@ -1,0 +1,50 @@
+
+
+Examining current widgets
+-------------------------
+
+Example::
+
+	from z3c.form import form
+
+	class MyForm(form.Form):
+	
+	    def updateWidgets(self):
+	        """ Customize widget options before rendering the form. """
+	        form.Form.updateWidgets(self)
+	        
+	        # Dump out all widgets - note that each <fieldset> is a subform and this function only
+	        # concerns the current fieldset
+	        for i in self.widgets.items():
+	        	print i
+	        	
+	        	
+Modifying a widget
+-----------------
+
+Widgets are stored in form.widgets dictionary. Mapping is field name -> widget. Widget label can be different than field name.
+
+Example::
+
+	
+	from z3c.form import form
+
+	class MyForm(form.Form):
+	
+	    def updateWidgets(self):
+	        """ Customize widget options before rendering the form. """
+	
+			self.widgets["myfield"].label = u"Foobar"
+	
+	
+Creating forms dynamically
+--------------------------
+
+z3c.form assumes you have a static schema which you turn to a form. Always this is not the case and you might need to generate forms dynamically.
+
+Getting group name
+------------------
+
+
+
+

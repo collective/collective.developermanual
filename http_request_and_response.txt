@@ -44,6 +44,23 @@ Request method
 Request method (GET or POST) can be read::
 
   request["REQUEST_METHOD"] == "POST" # or "GET"
+  
+  
+Request path
+============
+
+Request URI path can be read from request.path. request.path is a a list of path components.
+request.path is virtual path and has site id component removed from it.
+
+Example::
+
+	reconstructed_path = "/".join(request.path) # will be 
+	
+Other possible headers::
+
+	('PATH_INFO', '/plonecommunity/Members')
+	('PATH_TRANSLATED', '/plonecommunity/Members')
+
 
 POST variables
 ==============
@@ -55,7 +72,22 @@ HTTP POST varibles are available in stored in request.form dictionary:
 HTTP headers
 ============
 
-HTTP headers are available through request.header 
+HTTP headers are available through request.get_header() and request.header dictionary.
+
+Example::
+
+	referer = self.request.get_header("referer") # Page referer (the page from user came from)
+	
+	if referer == None: # referer will be none if it was missing
+		pass
+	
+Query string
+============
+
+To access raw HTTP GET query string::
+
+	query_string = request["QUERY_STRING"]
+
 
 Web environment
 ===============
