@@ -1,0 +1,37 @@
+
+Mixed zope.viewpagetemplate and Five.viewpagetemplate
+-----------------------------------------------------
+
+Example traceback::
+
+	  Module zope.tales.tales, line 696, in evaluate
+	   - URL: /home/moo/sits/src/plone.z3cform/plone/z3cform/crud/crud-master.pt
+	   - Line 17, Column 2
+	   - Expression: <PathExpr standard:u'form/render'>
+	   - Names:
+	      {'args': (),
+	       'context': <SitsPatient at /folder_sits/sitsngta/intranet/sitsdatabase/sitscountry_TE/sitshospital_TES/sitspatient.TETES2009062217>,
+	       'default': <object object at 0xb7d76538>,
+	       'loop': {},
+	       'nothing': None,
+	       'options': {},
+	       'repeat': {},
+	       'request': <HTTPRequest, URL=http://localhost:9000/folder_sits/sitsngta/intranet/sitsdatabase/sitscountry_TE/sitshospital_TES/sitspatient.TETES2009062217/@@ar>,
+	       'template': <zope.app.pagetemplate.viewpagetemplatefile.ViewPageTemplateFile object at 0xc6e552c>,
+	       'usage': <zope.pagetemplate.pagetemplate.TemplateUsage object at 0xf7fb78c>,
+	       'view': <Products.SitsPatient.browser.ar.ARCrudForm object at 0xf928ccc>,
+	       'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0xf7b4a0c>}
+	  Module Products.PTProfiler.ProfilerPatch, line 32, in __patched_call__
+	  Module zope.tales.expressions, line 217, in __call__
+	  Module zope.tales.expressions, line 211, in _eval
+	  Module z3c.form.form, line 143, in render
+	  Module Shared.DC.Scripts.Bindings, line 313, in __call__
+	  Module Shared.DC.Scripts.Bindings, line 348, in _bindAndExec
+	  Module Shared.DC.Scripts.Bindings, line 1, in ?
+	  Module Shared.DC.Scripts.Bindings, line 293, in _getTraverseSubpath
+	AttributeError: 'str' object has no attribute 'other'
+	
+Five ViewPageTemplate class file is slightly different than Zope 3's normal ViewPageTemplate file.
+In this case Five ViewPageTemplate was used, when Zope 3's normal ViewPageTemplate was expected.
+
+ 

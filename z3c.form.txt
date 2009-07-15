@@ -143,6 +143,24 @@ zope.schema Field is stored as a *field* attribute of a widget. Example::
 
 **widget.field is not z3c.form.field.Field object**.
 
+Getting selection widget vocabulary value as human readable text
+================================================================
+
+Example::
+
+	widget = self.widgets["myselectionlist"]
+	
+	token = widget.value[0] # widget.value is list of unicode strings, each is token for the vocabulary
+	
+	user_readable = widget.terms.getTermByToken(token).title
+	
+Example (page template)::
+
+	<td tal:define="widget view/widgets/myselectionlist">
+    	<span tal:define="token python:widget.value[0]" tal:content="python:widget.terms.getTermByToken(token).title" />
+   	</td>
+	
+
 CRUD form
 ---------
 

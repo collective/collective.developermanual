@@ -1,5 +1,52 @@
-z3c.testbrowser is an browser emulator used in unit tests.
+zope.testbrowser is an browser emulator used in unit tests. There also exists `zc.testbrowser <http://pypi.python.org/pypi/zc.testbrowser>`_,
+but this documentation concerns zope.testbrowser. 
 
+For available API see `zope.testbrowser home page <http://pypi.python.org/pypi/zope.testbrowser>`_.
+
+All code assumes here is is executed in unit test context where self.portal is your unit test site instance.
+
+Preparing error logger
+----------------------
+
+Since zope.testbrowser uses normal Plone paging mechanism, you won't get nice tracebacks to your console.
+
+The following snippet allows you to extract traceback data from site.error_log utility and print it to the console.
+Put it to your afterSetUp()::
+
+    	self.browser.handleErrors = False
+        self.portal.error_log._ignored_exceptions = ()
+
+        def raising(self, info):
+            import traceback
+            traceback.print_tb(info[2])
+            print info[1]
+            
+        from Products.SiteErrorLog.SiteErrorLog import SiteErrorLog
+        SiteErrorLog.raising = raising
+        
+Opening an URL
+--------------
+
+Example::
+
+	from Products.Five.testbrowser import Browser
+
+	self.browser = Browser()
+	
+	self.browser.open(self.portal.absolute_url())
+
+Logging in
+----------
+
+Example::
+
+		from Products.PloneTestCase.setup import portal_owner, default_password
+
+	     # Go admin
+        browser.open(self.portal.absolute_url() + "/login_form")
+        browser.getControl(name='__ac_name').value = portal_owner
+        browser.getControl(name='__ac_password').value = default_password
+        browser.getControl(name='submit').click()
 
 Showing the current page source
 -------------------------------
@@ -13,7 +60,20 @@ Listing available form controls
 
 Cannot be done. Check available controls from the form source code.
 
+Selecting a checkbox
+--------------------
 
+Checkboxes are usually presented as name:list style names::
 
+	checkbox = form.getControl(name="myitem.select:list")	
+	checkbox.value = [u"selected"]
+
+Clicking a button
+-----------------
+
+Example::
+
+	button = form.getControl(name="mybuttonname")
+	button.click()
 
 
