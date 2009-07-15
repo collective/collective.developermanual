@@ -1,0 +1,14 @@
+Setting a status message
+------------------------
+
+Status messages have text (unicode) and type (str). All pending status messages
+are shown to the user when the next page is rendered.
+
+Example::
+
+	from Products.statusmessages.interfaces import IStatusMessage
+
+	messages = IStatusMessage(self.request)
+
+	messages.addStatusMessage(u"Item deleted", type="info")
+
