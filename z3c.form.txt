@@ -8,35 +8,18 @@ Example::
 	from z3c.form import form
 
 	class MyForm(form.Form):
-	
+
 	    def updateWidgets(self):
 	        """ Customize widget options before rendering the form. """
 	        form.Form.updateWidgets(self)
-	        
+
 	        # Dump out all widgets - note that each <fieldset> is a subform and this function only
 	        # concerns the current fieldset
 	        for i in self.widgets.items():
 	        	print i
-	        	
-	        	
-Modifying a widget
------------------
 
-Widgets are stored in form.widgets dictionary. Mapping is field name -> widget. Widget label can be different than field name.
 
-Example::
 
-	
-	from z3c.form import form
-
-	class MyForm(form.Form):
-	
-	    def updateWidgets(self):
-	        """ Customize widget options before rendering the form. """
-	
-			self.widgets["myfield"].label = u"Foobar"
-	
-	
 Creating forms dynamically
 --------------------------
 
@@ -44,6 +27,128 @@ z3c.form assumes you have a static schema which you turn to a form. Always this 
 
 Getting group name
 ------------------
+
+Fields
+------
+
+Field is responsible for 1) prepopulating form values from context 2) storing data to context after succesful POST.
+
+Form fields are stored in form.fields variable which is instance of Fields class (ordered dictionary like).
+
+Creating a field
+================
+
+Fields are created by adapting one or more zope.schema fields for z3c.form using Fields() constructor.
+
+Example of creating one field::
+
+		schema_field = zope.schema.TextLine()
+        form_fields = z3c.form.field.Fields(schema_field)
+        one_form_field = zfields.values()[0]
+
+Adding a field to a form
+========================
+
+Use overridden += operator. Fields instances can be added to the existing Fields instances.
+
+Example::
+
+	self.form.fields += z3c.form.Fields(schema_field)
+
+Modifying a field
+=================
+
+Fields can be accessed by their name in form.fields. Example::
+
+	self.form.fields["myfieldname"].name = u"Foobar"
+
+Accesing schema of the field
+============================
+
+zope.schema Field is stored as a *field* attribute of a field. Example::
+
+	textline = self.form.fields["myfieldname"].field # zope.schema.TextLine
+
+Widgets
+=======
+
+Widget is responsible for 1) rendering HTML code for input 2) parsing HTTP post input.
+
+Widgets are stored as widgets attribute of a form. It is presented by ordered dict like Widgets class.
+
+Widgets are not available until form's update() and updateWidgets() methods have been called.
+updateWidgets() will bind() widgets to the form context. For example, vocabularies defined by
+name are resolved in this point.
+
+Widget has two names:
+
+	* widget.__name__ is the name of the corresponding field. Look ups from form.widgets[] can be done using this name.
+
+	* widget.name is the decorated name used in HTML code. It is in format ${form name}.${field set name}.${widget.__name__}.
+
+Accessing a widget
+==================
+
+Widget can be accessed by its field's name. Example::
+
+	class MyForm(z3c.form.Form):
+
+		def update(self):
+			z3c.form.Form.update(self)
+			widget = form.widgets["myfieldname"] # Get one wiget
+
+			for w in wiget.items(): print w # Dump all widgets
+
+Modifying a widget
+==================
+
+Widgets are stored in form.widgets dictionary. Mapping is field name -> widget. Widget label can be different than field name.
+
+Example::
+
+
+	from z3c.form import form
+
+	class MyForm(form.Form):
+
+	    def updateWidgets(self):
+	        """ Customize widget options before rendering the form. """
+
+			self.widgets["myfield"].label = u"Foobar"
+
+Widget save
+===========
+
+By default widgets use datamanger.AttributeField and tries to store its value as a member attribute of the form context object.
+
+TODO: How do add custom DataManager
+
+Adding a CSS class
+==================
+
+Widgets have a method addClass() to add extra CSS classes. This is useful if you have
+Javascript/JQuery associated with your special form::
+
+	widget.addClass("myspecialwidgetclass")
+
+Note that these classes are directly applied to <input>, <select> etc. itself and
+not the wrapping <div> element.
+
+Accesing schema of the field
+============================
+
+zope.schema Field is stored as a *field* attribute of a widget. Example::
+
+	textline = form.widgets["myfieldname"].field # zope.schema.TextLine
+
+**widget.field is not z3c.form.field.Field object**.
+
+CRUD form
+---------
+
+https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/browser/channel.py
+
+
 
 
 
