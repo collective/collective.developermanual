@@ -1,0 +1,37 @@
+Archetypes ReferenceFields
+---------------------------
+Archetypes comes with a kind of field called ReferenceField which is used
+to store references to other Archetypes objects, or any object providing the
+IReferenceable interface.
+
+References are mantained in the uid_catalog and reference_catalog catalogs. You
+can find both at the root of your Plone site. Check them to see their indexes
+and metadata. 
+
+Althought you could use the ZCatalogs API to manage Arhchetypes references,
+these catalogs are rarely used directly. The Products.Archetypes.interfaces
+IReferenceable and IReference APIs are used instead.
+
+Example declaration of a ReferenceWidget inside a schema::
+
+    MyCTSchema = atapi.Schema((
+    ...
+        atapi.ReferenceField('myReferenceField',
+            relationship = 'somerelationship',
+            ),
+    ...
+    ))
+
+Archetypes reference fields just store the UID (Universal Object Identifier)
+of an object providing the IReferenceable interface. Continuing with the example
+above, you will usually use the regular field API (getters/setters)::
+
+    >>> areferenceableobject_uid = areferenceableobject.UID()
+    >>> myct1.setMyReferenceField(areferenceableobject_uid)
+    >>> myct1.getMyReferenceField() == areferenceableobject
+    True
+
+TODO:
+Code to exercise the IReferenceable API, including relationships and
+back-references.
+
