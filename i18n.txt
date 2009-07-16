@@ -1,8 +1,29 @@
+
+
+Setting portal languages
+------------------------
+
+Put this to your setuphandlers.py and trigger it as an external import step::
+
+        # Setup site langauge settings
+        portal = context.getSite()
+        ltool = portal.portal_languages
+        defaultLanguage = 'en'
+        supportedLanguages = ['en','es']
+        ltool.manage_setLanguageSettings(defaultLanguage, supportedLanguages,
+                                              setUseCombinedLanguageCodes=False)
+
+		# THIS IS FOR UNIT TESTING ONLY
+        # Normally called by pretraverse hook,
+        # but must be called manually for the unit tests
+        # Goes only for the current request
+        ltool.setLanguageBindings()
+
 http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
 
 http://maurits.vanrees.org/weblog/archive/2007/09/i18n-locales-and-plone-3.0
 
 http://blogs.ingeniweb.com/blogs/user/7/tag/i18ndude/
 
-http://plone.org/products/archgenxml/documentation/how-to/handling-i18n-translation-files-with-archgenxml-and-i18ndude/view?searchterm=
 
+http://plone.org/products/archgenxml/documentation/how-to/handling-i18n-translation-files-with-archgenxml-and-i18ndude/view?searchterm=
