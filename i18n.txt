@@ -1,7 +1,7 @@
 
 
-Setting portal languages
-------------------------
+Change site languages
+---------------------
 
 Put this to your setuphandlers.py and trigger it as an external import step::
 
@@ -18,6 +18,16 @@ Put this to your setuphandlers.py and trigger it as an external import step::
         # but must be called manually for the unit tests
         # Goes only for the current request
         ltool.setLanguageBindings()
+
+
+Using GenericSetup and propertiestool.xml::
+
+	<object name="portal_properties" meta_type="Plone Properties Tool">
+	   <object name="site_properties" meta_type="Plone Property Sheet">
+	      <property name="default_language" type="string">en</property>
+	   </object>
+	</object>
+
 
 http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
 
