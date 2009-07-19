@@ -29,6 +29,13 @@ To append a row to DFG, you need to read it, manipulate the list, and then reset
 	rows.append({ "column1" : "value", "column2" : "something else" })
 	myobject.setMyDGF(rows) # Now set the value with one new row
 
+
+Modify cell value in DGF::
+
+	rows = myobject.getMyDGF() # This returns a copy which you can modify freely
+	rows[0]["column1"] = "newvalue" # Set a string value for row 1, cell 1 (cell using column id column1)
+	myobject.setMyDGF(rows) # Now set the value with one new row
+
 Other resources
 ---------------
 
