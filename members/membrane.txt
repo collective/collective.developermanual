@@ -1,5 +1,5 @@
 remember (small r) and membrane are framework add-on products for Plone which allows you to manipulate site members
-as they were normal content object. The product also allows distributed user management and 
+as they were normal content objects. The product also allows distributed user management and 
 different user classes.
 
 Basics
@@ -8,6 +8,18 @@ Basics
 See the example Products.membrane.example.
 
 Read documents at Products.remember/docs/tutorial.
+
+
+Getting member by username
+--------------------------
+
+Example::
+
+	from Products.CMFCore.utils  import getToolByName
+
+    membrane = getToolByName(context, "membrane_tool")
+    sits_user = membrane.getUserAuthProvider(username) 
+    return sits_user
 
 Creating a member
 -----------------
@@ -40,6 +52,7 @@ The following snippet works in unit tests::
         
         mdata.invokeFactory("MyUserPortalType", name)
         member = getattr(mdata, name) #
+       
         
 Populating member fields automatically
 --------------------------------------

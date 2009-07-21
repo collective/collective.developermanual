@@ -1,0 +1,17 @@
+Sessions are served-side data stored by per user basis.
+Sessions are available for logged in and anonymous users. 
+Session is identified by a cookie. 
+
+Setting a session parameter
+---------------------------
+
+Plone has a tool called session_data_manager. 
+
+Example::
+
+   sdm = self.context.session_data_manager
+   session = sdm.getSessionData(create=True)
+   session.set("my_option", any_python_object_supporting_pickling)
+   
+   
+   
