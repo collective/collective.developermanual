@@ -101,6 +101,10 @@ Widget has two names:
 	* widget.__name__ is the name of the corresponding field. Look ups from form.widgets[] can be done using this name.
 
 	* widget.name is the decorated name used in HTML code. It is in format ${form name}.${field set name}.${widget.__name__}.
+	
+	
+Zope publisher will also mangle widget names based on what kind of input the widget takes. When HTTP POST request comes in,
+Zope publisher automatically converts <select> dropdowns to lists and so on. 
 
 Accessing a widget
 ==================

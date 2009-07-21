@@ -1,7 +1,6 @@
 
-
-Change site languages
----------------------
+Set site language settings
+--------------------------
 
 Put this to your setuphandlers.py and trigger it as an external import step::
 
@@ -12,6 +11,9 @@ Put this to your setuphandlers.py and trigger it as an external import step::
         supportedLanguages = ['en','es']
         ltool.manage_setLanguageSettings(defaultLanguage, supportedLanguages,
                                               setUseCombinedLanguageCodes=False)
+
+
+For unit testing, you need to run this in afterSetUp() after setting up the languages::
 
 		# THIS IS FOR UNIT TESTING ONLY
         # Normally called by pretraverse hook,
@@ -29,11 +31,94 @@ Using GenericSetup and propertiestool.xml::
 	</object>
 
 
+Customizing language selector
+-----------------------------
+
+Multilingual Plone has two kinds of language selector viewlets
+
+* Plone vanilla 
+
+* LinguaPlone - this one comes with LinguaPlone_ product and translates language names
+
+LinguaPlone uses `selector.pt <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py>`_ 
+file to render the language selector. 
+
+Making language flags point to different top level domains
+==========================================================
+
+If you use multiple domain names for different language it is often desirable to make the language selector
+point to a different domain. Search engines do not really like the dynamic language switcher and will 
+index switching links, messing up your site search results.
+
+Example::
+
+	<tal:language
+	    tal:define="available view/available;
+	                languages view/languages;
+	                showFlags view/showFlags;">
+	
+	
+	    <ul id="portal-languageselector"
+	        tal:condition="python:available and len(languages)>=2">
+	        <tal:language repeat="lang languages">
+	        <li tal:define="code lang/code;
+	                        selected lang/selected"
+	            tal:attributes="class python: selected and 'currentLanguage' or '';">
+	
+	                <a href=""
+	                   tal:condition="python:code =='fi'"
+	                   tal:define="flag lang/flag|nothing;
+	                               name lang/name"
+	                   tal:attributes="href string:http://www.twinapex.fi;
+	                                   title name">
+	                    <tal:flag condition="python:showFlags and flag">
+	                        <img
+	                             width="14"
+	                             height="11"
+	                             alt=""
+	                             tal:attributes="src string:${view/portal_url}${flag};
+	                                             title python: name;
+	                                             class python: selected and 'currentItem' or '';" />
+	                    </tal:flag>
+	                    <tal:nonflag condition="python:not showFlags or not flag"
+	                                 replace="name">language name</tal:nonflag>
+	                </a>
+	
+	                <a href=""
+	                   tal:condition="python:code =='en'"
+	                   tal:define="flag lang/flag|nothing;
+	                               name lang/name"
+	                   tal:attributes="href string:http://www.twinapex.com;
+	                                   title name">
+	                    <tal:flag condition="python:showFlags and flag">
+	                        <img
+	                             width="14"
+	                             height="11"
+	                             alt=""
+	                             tal:attributes="src string:${view/portal_url}${flag};
+	                                             title python: name;
+	                                             class python: selected and 'currentItem' or '';" />
+	                    </tal:flag>
+	                    <tal:nonflag condition="python:not showFlags or not flag"
+	                                 replace="name">language name</tal:nonflag>
+	                </a>&nbsp; 
+	
+	        </li>
+	        </tal:language>
+	    </ul>
+	</tal:language>
+
+
+Other
+-----
+
 http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
 
 http://maurits.vanrees.org/weblog/archive/2007/09/i18n-locales-and-plone-3.0
 
 http://blogs.ingeniweb.com/blogs/user/7/tag/i18ndude/
 
-
 http://plone.org/products/archgenxml/documentation/how-to/handling-i18n-translation-files-with-archgenxml-and-i18ndude/view?searchterm=
+
+
+
