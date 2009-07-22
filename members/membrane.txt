@@ -18,6 +18,9 @@ Example::
 	from Products.CMFCore.utils  import getToolByName
 
     membrane = getToolByName(context, "membrane_tool")
+    
+    # getUserAuthProvider returns None if there is no membrane based user match for username
+    # e.g. this will return None for Zope admin user
     sits_user = membrane.getUserAuthProvider(username) 
     return sits_user
 

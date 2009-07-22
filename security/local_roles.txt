@@ -1,3 +1,10 @@
+Local roles allows user accounts to have special priviledges for a folder and its children.
+
+Local role caching
+------------------
+
+Resolving effective local roles is a cumbersome operation, so the result is cached. 
+
 **Unit test warning**: Local roles are cached per request basis. You need to clear this cache after
 modifying object's local roles or switching user if you want to get proper readings.
 
@@ -75,4 +82,13 @@ The following example will reset local roles based on external input (membrane s
             if not username in usernames:
                 print "Clearing:" + username
                 self.manage_delLocalRoles([username])
+                
+Debugging
+---------
 
+Please see `zopyx.plone.cassandra <http://pypi.python.org/pypi/zopyx.plone.cassandra>`_ add-on product.
+
+Other
+-----
+
+* http://toutpt.wordpress.com/2009/03/14/plone-and-local-roles-too-quiet/
