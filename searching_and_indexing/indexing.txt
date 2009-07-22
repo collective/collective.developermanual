@@ -1,0 +1,52 @@
+Index types
+-----------
+
+Zope 2 product PluginIndexes_ defines various portal_catalog index types used by Plone.
+Read the product source code for non-existent documentation.
+
+ExtendedPathIndex_ is used for indexing content object locations.
+
+Manual object indexing
+----------------------
+
+**Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
+However, in unit tests this does not apply, since the test runs in one transaction. Thus, you must manually
+call reindexObject() for each object you modify and want to subsequently query from portal_catalog.
+
+Custom index methods
+--------------------
+
+** Version warning:** Available since Plone 3.3.
+
+plone.indexer provides method to create custom indexing functions.
+
+	import Missing
+	
+	from plone.indexer.decorator import indexer
+	  
+	# indexer decorator matches all objects against a marker interface before being run 
+	@indexer(IConvergenceSupport)
+	def getContentMedias(object, portal, **kw):
+	    """ Provide indexing hooksk for portal_catalog """
+	
+	    if IConvergenceSupport.providedBy(object):
+	        
+	        schema = object.Schema()
+	
+	        if not "contentMedias" in schema:        	            
+	            # Missing.Value must be returned if the indexing
+	            # cannot be complete for the object
+	            return Missing.Value
+	        else:
+	            filter = getUtility(IConvergenceMediaFilter)
+	            return filter.getContentMedia(object)
+                    
+ 
+Other
+-----
+
+* http://toutpt.wordpress.com/2008/12/14/archetype_tool-queuecatalog-becareful-with-indexing-with-plones-portal_catalog/
+
+.. _ExtendedPathIndex: https://svn.plone.org/svn/plone/Products.ExtendedPathIndex/trunk/README.txt
+
+.. _PluginxIndexes: http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/

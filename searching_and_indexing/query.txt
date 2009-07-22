@@ -1,8 +1,21 @@
-Indices
+Preface
 -------
 
+**Warning**: Usually if you pass in None as the match value it will match all objects instead of zero objects.
+
+Plone queries are performed using portal_catalog tool. Calling this class instance is a shortcut
+to query method itself, but it is also possible to use other query functions::
+
+	# portal_catalog is defined in the site root
+	portal_catalog = site.portal_catalog
+	
+	# The following call does not return the actual objects,
+	# but brains instead
+	# The call takes list of indices and match values as arguments
+	brains = portal_catalog(Title="Get all objects with Title "Foobar")
+
 Brain objects
-=============
+-------------
 
 portal_catalog queries return iterable of catalog brain objects.
 
@@ -20,26 +33,9 @@ You can access the brain object information by following::
 	# Load the actual object from the database (SLOW!)
 	object = brain.getObject()
 
-Index types
-===========
-
-Zope 2 product PluginIndexes_ defines various portal_catalog index types used by Plone.
-Read the product source code for non-existent documentation.
-
-Manual object indexing
-======================
-
-**Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
-However, in unit tests this does not apply, since the test runs in one transaction. Thus, you must manually
-call reindexObject() for each object you modify and want to subsequently query from portal_catalog.  
-	
-Querying
---------
-
-**Warning**: Usually if you pass in None as the match value it will match all objects instead of zero objects.
 
 Dumping portal catalog content
-==============================
+------------------------------
 
 Following is useful in unit test debugging::
 
@@ -49,7 +45,7 @@ Following is useful in unit test debugging::
 ** Security warning**: Respects priviledges of the current user 
 
 Bypassing query security check
-==============================
+------------------------------
 
 ** Security warning**: All portal_catalog queries are limited to the current user permissions by default.
 
@@ -61,7 +57,7 @@ Example::
 	for i in portal_catalog.unrestrictedSearchResults(): print i.getURL() 
 
 Querying by path
-================
+----------------
 
 ExtendedPathIndex_ is the index used for content object paths.
 Path index stores the physical path of the objects. 
@@ -73,12 +69,12 @@ Example::
 	portal_catalog(path={ query: "/myploneinstance/myfolder" }) # return myfolder and all child content 
 
 Querying by interface
-=====================
+---------------------
 
 See `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.
 
 Combining queries using Boolean operators
-=========================================
+-----------------------------------------
 
 See AdvancedQuery_.
 
