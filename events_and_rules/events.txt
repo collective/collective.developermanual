@@ -42,7 +42,19 @@ Example::
             
     gsm = zope.component.getGlobalSiteManager()
     gsm.registerHandler(my_event_handler, (IMyObject,IMyEvent))
-	
+
+Event types
+-----------
+
+Modified events
+===============
+
+Two different content event types are available and might work differently depending on your scenario
+
+* Products.Archetypes.interfaces.IObjectEditedEvent - called for Archetypes object which are not 
+  anymore in the creation stage
+
+* zope.lifecycleevent.IObjectModifiedEvent - called for creation stage events too
 
 See also
 --------
