@@ -1,0 +1,28 @@
+`plone.memoize <http://pypi.python.org/pypi/plone.memoize>`_ package offers helpful function decorators to cache the resulting values.
+
+Cache result for process lifecycle
+----------------------------------
+
+Example::
+
+	@forever.memoize
+	def getFields(area, subject):
+	    """ Get all fields inside area / subject.
+	
+	    Results is cached for process lifetime.
+	
+	    @return: List of internal fields
+	    """
+	    schema = getSchema(area)
+	    return [ field for field in schema if field["subject"] == subject ]
+
+	    
+
+Other resources
+---------------
+
+* `plone.memoize source code <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/>`_.
+
+* `zope.app.cache source code <http://svn.zope.org/zope.app.cache/trunk/src/zope/app/cache/>`_
+
+
