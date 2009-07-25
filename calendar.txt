@@ -21,7 +21,9 @@ from Products.CMFCore.utils import getToolByName
 
 def addCalendarTypes(portal):
     portal_calendar = getToolByName(portal, 'portal_calendar')
-    portal_calendar.calendar_types.append('DD Training Class')
+    # 'Event' was already here, we're just adding the
+    # 'DD Training Class' content-type.
+    portal_calendar.calendar_types = ('Event', 'DD Training Class')
 
 def importVarious(context):
     """Miscellanous steps import handle
