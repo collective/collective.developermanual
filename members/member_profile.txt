@@ -1,0 +1,24 @@
+Getting member profile properties
+---------------------------------
+
+*Note*: Following concerns vanilla Plone only. If you have customized membership behavior
+it doesn't necessarily work.
+
+Member profile properties (title, address, biography, etc.) are stored in portal_membership tool.
+
+Available fields can be found in ZMI -> portal_membership -> Properties tab.
+
+`ToolbarViewlet has some sample code <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py>`_
+how to retrieve these properties.
+
+Getting member fullname
+=======================
+
+In template you can do something along the lines::
+
+	<tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/fullname">
+		You are are <span class="name" tal:content="fullname" />
+	</tal:with-fullname>
+
+Note that this code won't work for anonymous users.
+
