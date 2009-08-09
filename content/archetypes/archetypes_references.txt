@@ -9,10 +9,10 @@ can find both at the root of your Plone site. Check them to see their indexes
 and metadata. 
 
 Althought you could use the ZCatalogs API to manage Arhchetypes references,
-these catalogs are rarely used directly. The Products.Archetypes.interfaces
-IReferenceable and IReference APIs are used instead.
+these catalogs are rarely used directly. A ReferenceField and its API is used
+instead.
 
-Example declaration of a ReferenceWidget inside a schema::
+Example declaration of a ReferenceField inside a schema::
 
     MyCTSchema = atapi.Schema((
     ...
@@ -22,12 +22,30 @@ Example declaration of a ReferenceWidget inside a schema::
     ...
     ))
 
+Check the Fields Reference section into the Archetypes Developer Manual at
+plone.org to learn about the ReferenceField available options.
+
 Archetypes reference fields just store the UID (Universal Object Identifier)
 of an object providing the IReferenceable interface. Continuing with the example
-above, you will usually use the regular field API (getters/setters)::
+above, you will usually use the regular field API (getters/setters).
+
+You can get the UID of a referenceable object easily::
 
     >>> areferenceableobject_uid = areferenceableobject.UID()
+
+To set a reference, you can use the the setter method with either a list of
+UIDs or one UID string, or one object or a list of objects (in the case the
+ReferenceField is multi-valued) to which you want to add a reference to. None
+and [] are equal.
+
+In this example we set a reference from the 'myct1' object to the
+'areferenceableobject' object and check it::
+
     >>> myct1.setMyReferenceField(areferenceableobject_uid)
+
+To get the object(s) referenced, just use the getter. Note that what you get is
+the objects themselves, not their brains:: 
+
     >>> myct1.getMyReferenceField() == areferenceableobject
     True
 
