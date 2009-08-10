@@ -1,0 +1,35 @@
+Register a viewlet
+------------------
+
+# Your product must have GenericSetup profile registered::
+
+	<configure
+	    xmlns="http://namespaces.zope.org/zope"
+	    xmlns:five="http://namespaces.zope.org/five"
+	    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+	    i18n_domain="plone.app.headeranimation">
+
+
+		<!-- Register the installation GenericSetup extension profile -->
+	  	<genericsetup:registerProfile
+	      name="default"
+	      title="Header Animations"
+	      directory="profiles/default"
+	      description="Integrating external content to Plone site"
+	      provides="Products.GenericSetup.interfaces.EXTENSION"
+	      />
+
+
+	</configure>
+
+Viewlet behavior
+----------------
+
+Viewlets have two important methods
+
+# update - set up all variables
+
+# render - output the template
+
+See http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
+
