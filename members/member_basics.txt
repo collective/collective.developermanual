@@ -1,0 +1,24 @@
+In Plone, there is two not tightly coupled user subsystems
+
+# Managing authentication and permission information (acl_users under site root)
+
+# Managing member profile (portal_membership under site root)
+
+Getting logged in member
+------------------------
+
+The following code will get authentication data for the logged in user.
+
+Example::
+
+ 	mt = getToolByName(context, 'portal_membership')
+    if mt.isAnonymousUser(): # the user has not logged in
+        False
+    else:
+        member = mt.getAuthenticatedMember()
+        username = member.getUserName()
+
+or in template::
+
+	username context/portal_membership/getAuthenticatedMember/getUserName
+
