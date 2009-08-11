@@ -1,0 +1,23 @@
+Content translations are handled by well-established `LinguaPlone add-on product <http://plone.org/products/linguaplone>`_.
+
+See example: http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/examples/LinguaItem.py
+
+Translating content
+-------------------
+
+LinguaPlone contains some unit test code which shows how to create translations.
+You can use context.addTranslation(language_code) and context.getTranslation(language_code) methods.
+
+Example::
+
+	from Products.LinguaPlone.I18NBaseObject import AlreadyTranslated
+
+	try:
+        object.addTranslation(lang)
+    except AlreadyTranslated:
+        pass
+
+    translated = object.getTranslation(lang)
+
+
+See http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/tests/translate_edit.txt

@@ -1,0 +1,18 @@
+Plone maintains available content types in portal_types tool.
+
+portal_types is a folderish content where type information are child objects,
+keyed by portal_type metadata.
+
+`TypesTool source code <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/TypesTool.py?rev=101748&view=auto>`_.
+
+Setting type implictly allowed
+------------------------------
+
+The following example allows creation of Large Plone Folder anywhere at the site
+(it is disabled by default). For available properties, see TypesTool._advanced_properties.
+
+Example::
+
+    portal_types = self.context.portal_types
+    lpf = portal_types["Large Plone Folder"]
+    lpf.global_allow = True # This is "Globally allowed" property
