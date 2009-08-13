@@ -85,9 +85,33 @@ See `plone.app.z3cform.z2 <http://svn.zope.org/plone.z3cform/trunk/plone/z3cform
 Checking active layers
 ----------------------
 
-[21:00:43] <Moo-__-> what's good way to debug which layers are active on HTTP request?
-[21:00:52] <Moo-__-> (theming conflicts here)
-[21:01:31] <davisagli> Moo-__-: request.__provided__.__iro__ will give you the interfaces in order of precedence
+Checking if particular theme is active
+======================================
+
+Example::
+
+	from interfaces import IThemeSpecific
+	
+	
+  	from plone.browserlayer.utils import registered_layers
+  	
+    if IThemeSpecific in registered_layers():
+    	# Theme specific code
+    	pass
+    else:
+    	# General code
+    	pass
+
+Debugging active layers
+=======================
+
+You can check the activated layers from HTTP request object in request.__provided__.__iro__.
+
+Discussion::
+
+	[21:00:43] <Moo-__-> what's good way to debug which layers are active on HTTP request?
+	[21:00:52] <Moo-__-> (theming conflicts here)
+	[21:01:31] <davisagli> Moo-__-: request.__provided__.__iro__ will give you the interfaces in order of precedence
 
 .. HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
 
