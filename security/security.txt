@@ -121,6 +121,19 @@ In programming, use pseudoconstants instead of permission string values:
 
 * See `AccessControl.Permissions <http://svn.zope.org/Zope/trunk/src/AccessControl/Permissions.py?rev=96262&view=markup>`_
 
+Catching Unauthorized
+---------------------
+
+Gracefully failing when the user does not have a permission. Example::
+
+		from AccessControl import Unauthorized
+		
+        try:
+            portal_state = context.restrictedTraverse("@@plone_portal_state")
+        except Unauthorized:
+            # portal_state may be limited to admin users only
+            portal_state = None
+
 Other references
 ----------------
 
