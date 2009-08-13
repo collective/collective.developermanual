@@ -15,8 +15,8 @@ Id should not contain spaces or slashes.
 Path
 ----
 
-Zope paths is the location of the object in object graph. 
-It is a a sequence of id components from the parent to the child separated by slashes. 
+Zope paths is the location of the object in object graph.
+It is a a sequence of id components from the parent to the child separated by slashes.
 
 Example::
 
@@ -42,13 +42,13 @@ Zope exposes child objects as attributes.
 
 Example::
 
-	# you have obtain to plone.org portal root object somehow and it's 
+	# you have obtain to plone.org portal root object somehow and it's
 	# stored in local variable "portal"
-	
+
 	documentation = portal.documentation
 	howTos = getattr(portal, "how-to") # note that we need use getattr because dash is invalid in syntax
 	myHowTo = getattr(howTos, "manipulating-plone-objects-programmatically")
-	
+
 Container traversing
 --------------------
 
@@ -56,21 +56,21 @@ Zope exposes child objects as container accessor.
 
 Example::
 
-	# you have obtain to plone.org portal root object somehow and it's 
+	# you have obtain to plone.org portal root object somehow and it's
 	# stored in local variable "portal"
-	
+
 	documentation = portal["documentation"]
 	howTos = documentation["how-to"]
 	myHowTo = howTos["manipulating-plone-objects-programmatically"]
-	
-	
+
+
 Traversing by full path
 -----------------------
 
-Any content object provides methods *restrictedTraverse()* and *unrestrictedTraverse()*. 
+Any content object provides methods *restrictedTraverse()* and *unrestrictedTraverse()*.
 See Traversable_.
 
-**Security warning**: restrictedTraverse() uses priviledges of currently logged in user. 
+**Security warning**: restrictedTraverse() uses priviledges of currently logged in user.
 Unauthorized_ exception is raised if the code tries to access object for which
 user lacks Access contents information and View permissions.
 
@@ -80,7 +80,7 @@ Example::
 
 	# Bypass security
 	myHowTo = portal.unrestrictedTraverse("documentation/howTos/myHowTo")
-	
+
 Getting object path
 -------------------
 
@@ -90,7 +90,7 @@ Object has two paths:
 
 - Virtual path is the object location related to Plone site root
 
-**Path mangling warning**: Always store paths as virtual paths or persistently stored paths will corrupt 
+**Path mangling warning**: Always store paths as virtual paths or persistently stored paths will corrupt
 if you rename your site instance.
 
 See Traversable_.
@@ -101,18 +101,18 @@ Getting physical path
 Use getPhysicalPath(). Example::
 
 	path = portal.getPhysicalPath() # returns "plone"
-	
+
 Getting virtual path
 ====================
 
 Map physical path to virtual path using HTTP request object physicalPathToVirtualPath(). Example::
 
 	request = self.request # HTTPRequest object
-	
-	path = portal.document.getPhysicalPath() 
-	
+
+	path = portal.document.getPhysicalPath()
+
 	virtual_path = request.physicalPathToVirtualPath(path) # returns "document"
-	
+
 Getting object URL
 ------------------
 
@@ -125,7 +125,7 @@ Do not persistently store the result of absolute_url().
 Example::
 
 	url = portal.absolute_url() # http://nohost/plone in unit tests
-	
+
 Getting the parent
 ------------------
 
@@ -134,19 +134,51 @@ Object parent is accessible is acquisition_ chain for the object is set.
 Use aq_parent.
 
 	parent = object.aq_parent
-	
+
 Parent is defined as __parent__ attribute of the object instance.
 
 	object.__parent__ = object.aq_parent.
-	
+
 __parent__ is set when object's __of__() method is called.
 
 	view = MyBrowserView(context, request)
-	
+
 	view = view.__of__(context) # Puts view to acquisition chain and acquistion functions become available
-	
-TODO: When aq_inner should be used? http://plone.org/documentation/tutorial/manipulating-plone-objects-programmatically/accessing-surroundings-portal-root-and-site-tools
-	
+
+Getting all parents
+===================
+
+Example::
+
+	from Products.CMFCore.interfaces import ISiteRoot
+
+	def getParents(object):
+	    """ Get object parents as iterable.
+
+	    Example::
+
+	        parents = getParents(self.context)
+	        print "I have parents:" + str(list(parents))
+
+	    @param object: Any content object
+	    @return: Iterable of all parents from the direct parent to the site root
+	    """
+
+	    # It is important to use inner to bootstrap the traverse,
+	    # or otherwise we might get surprising parents
+	    # E.g. the context of the view has the view as the parent
+	    # unless inner is used
+	    inner = object.aq_inner
+
+	    parent = inner.aq_parent
+	    while not ISiteRoot.providedBy(parent):
+	        yield parent
+
+	        if not hasattr(parent, "aq_parent"):
+	            raise RuntimeError("Parent traversing interrupted by object: " + str(parent))
+
+	        parent = parent.aq_parent
+
 Getting the site root
 ---------------------
 
@@ -159,18 +191,18 @@ Example::
 	# you know some object which is refered as "context"
 	portal_url = getToolByName(context, "portal_url")
 	portal = portal_url.getPortalObject()
-	
-	
-Site is also stored a thread local variable. In Zope each request is 
+
+
+Site is also stored a thread local variable. In Zope each request is
 processed in its own thread. Site thread local is set when the request processing starts.
 
-You can use this method even if you do not have the context object available, 
+You can use this method even if you do not have the context object available,
 assuming that your code is called after Zope has traversed the context object once.
 
 Eaxmple::
 
 	from zope.app.component.hooks import getSite
-	
+
 	site = getSite() # returns portal root from thread local storage
 
 Getting Zope application server handle
@@ -183,7 +215,7 @@ Example::
 	app = context.restrictedTraverse('/') # Zope application server root
 	site = app["plone"] # your plone instance
 	site2 = app["mysiteid"] # another site
-	
+
 Acquisition effect
 ------------------
 

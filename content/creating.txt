@@ -1,0 +1,11 @@
+Creating content objects
+------------------------
+
+Use invokeFactory(portal_type, id). invokeFactory() is available on all folderish content objects.
+
+Example (from unit tests)::
+
+    self.loginAsPortalOwner()
+    self.portal.invokeFactory("Folder", "folder")
+    self.portal.folder.invokeFactory("Folder", "subfolder")
+    self.portal.folder.subfolder.invokeFactory("Document", "doc")

@@ -1,2 +1,47 @@
 http://plone.org/documentation/tutorial/borg/zope-3-views
 
+Creating a view
+---------------
+
+Example::
+
+	# We must use BrowserView from view, not from zope.browser
+	# Zope version does not
+	from Products.Five.browser import BrowserView
+
+	class MyView(BrowserView):
+
+		def __init__(self, context, request):
+			self.context = context
+			self.requet = request
+
+		# by default call will call self.index() method which is mapped
+		# to ViewPageTemplateFile specified in ZCML
+		#def __call__():
+		#
+
+Getting a view by id
+--------------------
+
+Below is an example how to resolve a view for any contentish object
+using traverse. View is also put into acquisition chain using __of__()
+method (necessary for rendering Plone templates).
+
+Example::
+
+	def getView(context, name):
+	    """ Return a view which is associated with context object and current HTTP request.
+
+		@param context: Any Plone content object
+	    @param name: Attribute name holding the view name
+	    """
+
+
+	    try:
+	        view = context.unrestrictedTraverse("@@" + name)
+	    except AttributeError:
+	        raise RuntimeError("Instance %s did not have view %s" % (str(context), name))
+
+	    view = view.__of__(context)
+
+	    return view
