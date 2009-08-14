@@ -73,6 +73,47 @@ Querying by interface
 
 See `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.
 
+
+Querying by date
+----------------
+
+See `DateIndex <http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/DateIndex/tests/test_DateIndex.py?rev=102443&view=auto>`_.
+
+Example::
+
+	items = portal_catalog(effective_date = {'date': {'query':(DateTime('2002-05-08 15:16:17'),
+                                            DateTime('2062-05-08 15:16:17')),
+                                   'range': 'min:max'})
+                                   
+Another example how to get news items for a particular year in the template code::
+
+	<div metal:fill-slot="main" id="content-news"
+     tal:define="boundLanguages here/portal_languages/getLanguageBindings;
+                 prefLang python:boundLanguages[0];
+                 DateTime python:modules['DateTime'].DateTime;
+                 start_year request/year| python: 2004;
+                 end_year request/year| python: 2099;
+                 start_year python: int(start_year);
+                 end_year python: int(end_year);       
+     			 results python:container.portal_catalog(
+     			 	portal_type='News Item',
+     			 	sort_on='Date',
+     			 	sort_order='reverse',
+     			 	review_state='published', 
+     			 	id=prefLang,
+     			 	created={ 'query' : [DateTime(start_year,1,1), DateTime(end_year,12,31)], 'range':'minmax'}
+     			 	);
+                 results python:[r for r in results if r.getObject()];
+                 Batch python:modules['Products.CMFPlone'].Batch;
+                 b_start python:request.get('b_start',0);
+                 portal_discussion nocall:here/portal_discussion;
+                 isDiscussionAllowedFor nocall:portal_discussion/isDiscussionAllowedFor;
+                 getDiscussionFor nocall:portal_discussion/getDiscussionFor;
+                 home_url python: mtool.getHomeUrl;
+                 localized_time python: modules['Products.CMFPlone.PloneUtilities'].localized_time;">
+    	...
+    </div>                              
+
 Combining queries using Boolean operators
 -----------------------------------------
 
