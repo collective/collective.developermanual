@@ -1,0 +1,86 @@
+DCWorkflow product manages the default Plone workflow system.
+
+Workflow state is not directly stored on the object. Instead, separate
+portal_workflow tool must be used to access workflow state. Workflow look-ups
+involve extra database fetch.
+
+Creating workflows
+------------------
+
+The recommended method is use portal_workflow user interface in Zope Management Interface
+to construct the workflow through-the-web and then you can export it using GenericSetup's portal_setup tool.
+
+Include necessarty parts from exported workflows.xml and workflows folder in your add-on product
+GenericSetup profile (add-on folder profiles/default).
+
+Assigning the workflow to a particular contente type
+-----------------------------------------------------
+
+This is done by workflows.xml. You can edit it online in portal_workflows in Zope Management Interface.
+
+Getting the current workflow state
+-----------------------------------
+
+Example::
+
+    workflowTool = getToolByName(self.portal, "portal_workflow")
+    # Returns workflow state object
+    status = workflowTool.getStatusOf("plone_workflow", object)
+    # Plone workflows use variable called "review_state" to store state id
+    # of the object state
+    state = status["review_state"]
+    assert state == "published", "Got state:" + str(state)
+
+Changing workflow state
+----------------------
+
+You cannot directly set the workflow to any state, but you must push
+it through legal state transitions.
+
+**Security warning**: Workflows may have security assertations which are bypassed by admin user.
+Always test your workflow methods using a normal.
+
+Example::
+
+        portal.invokeFactory("SampleContent", id="sampleProperty")
+
+        workflowTool = getToolByName(context, "portal_workflow")
+        workflowTool.doActionFor(portal.sampleProperty, "submit")
+
+
+Gets the list of ids of all installed workflows
+------------------------------------------------
+
+Useful to test if a particular workflow is installed::
+
+  # Get all site workflows
+  ids = workflowTool.getWorkflowIds()
+  self.failUnless("link_workflow" in ids, "Had workflows " + str(ids))
+
+Getting default workflow for a portal type
+------------------------------------------
+
+Get default workflow for the type::
+
+ chain = workflowTool.getChainForPortalType(ExpensiveLink.portal_type)
+ self.failUnless(chain == ("link_workflow",), "Had workflow chain" + str(chain))
+
+Getting workflows for an object
+-------------------------------
+
+How to test which workflow the object has::
+
+	# See that we have a right workflow in place
+	workflowTool = getToolByName(context, "portal_workflow")
+	# Returns tuple of all workflows assigned for a context object
+	chain = workflowTool.getChainFor(context)
+
+	# there must be only one workflow for our object
+	self.failUnless(len(chain) == 1)
+
+	# this must must be the workflow name
+	self.failUnless(chain[0] == 'link_workflow', "Had workflow " + str(chain[0]))
+
+
+
+

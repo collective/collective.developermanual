@@ -1,0 +1,35 @@
+Python logging package is used to log from Plone.
+
+By default, logs go to *var/log/instance.log*.
+
+Default log level is *INFO*. To enable more verbose logging, edit buildout.cfg,
+change log level by editing `[instance] section event-log-level <http://pypi.python.org/pypi/plone.recipe.zope2instance>`_.
+
+Logging from Python code
+------------------------
+
+Example::
+
+	import logging
+
+	logger = logging.getLogger("Plone")
+
+	class MySomething(object):
+		...
+		def function(self):
+			logger.info("Reached function()")
+			...
+
+Logging from page templates and RestrictedPython scripts
+--------------------------------------------------------
+
+Python logging module doesn't provide Zope 2 security assertations.
+Python script plone_log exposes logging for sandboxed environments.
+
+Example::
+
+	context.plone_log("This is so fun")
+
+
+
+
