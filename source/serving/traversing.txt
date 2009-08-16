@@ -1,4 +1,19 @@
+===============
+Traversing
+===============
+
+In Plone, all content is mapped to a single tree: content objects, user objects, templates, etc.
+Even almost all object methods are directly mapped to HTTP visible URIs.
+
+Each object has a path depending on its location.
 Traversing is a method of getting handle of persistent object in ZODB object graph by its path.
+
+Traversing can happen in two places
+
+* When HTTP request hits the server the object method, which will generate the HTTP response,
+  is looked up using travering
+
+* You can manually traverse ZODB tree in your code to locate objects by their path
 
 Ids
 ---

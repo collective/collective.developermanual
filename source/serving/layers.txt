@@ -1,6 +1,14 @@
+=========
+Layers
+=========
 
-Layer introduction
-------------------
+Layers allow you to activate different code paths and modules depending on the external configuration
+
+Examples:
+
+* Theme code is only activated when theme is being selected
+
+* Mobile browsing code is only activated when the site is being browser on a mobile phone
 
 Layers are marker interface applied to HTTPRequest_ object. They are usually
 used in conjunction of ZCML directives to dynamically activate various parts
@@ -62,7 +70,7 @@ Theme layers can be created with following steps
         />
     </layer>
    </layers>
-   
+
 Product layer
 =============
 
@@ -91,10 +99,10 @@ Checking if particular theme is active
 Example::
 
 	from interfaces import IThemeSpecific
-	
-	
+
+
   	from plone.browserlayer.utils import registered_layers
-  	
+
     if IThemeSpecific in registered_layers():
     	# Theme specific code
     	pass

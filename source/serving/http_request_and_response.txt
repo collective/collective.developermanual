@@ -1,11 +1,18 @@
-HTTP request and reponse
+=========================
+HTTP request and response
+=========================
 
 Basics of HTTP lifecycle explained.
 
 Lifecycle
 ---------
 
-Unlike in some other web frameworks, you do not explictly create or return HTTP response object. A HTTP request object has always a HTTP response object associated with it. Both are created when the physical requests hits the web server. The response is available for the whole lifetime of request processing. This effectively allows you to set and modify response headers in any point of code.
+Unlike in some other web frameworks, in Plone you do not explictly create or return HTTP response object.
+A HTTP request object has always a HTTP response object associated with it and response object is created
+when the request hits the web server.
+
+The response is available for the whole lifetime of request processing.
+This effectively allows you to set and modify response headers in any point of code.
 
 Web servers
 -----------
@@ -18,7 +25,7 @@ The web server may affect how your HTTP objects are constructed.
 HTTP Request
 ------------
 
-All incoming HTTP requests are wrapped to (Zope) ZPublisher_ HTTPRequest_ objects. 
+All incoming HTTP requests are wrapped to (Zope) ZPublisher_ HTTPRequest_ objects.
 
 Usually your view function or instance will receive HTTP request object, along with traversed context, as its construction parameter.
 
@@ -44,8 +51,8 @@ Request method
 Request method (GET or POST) can be read::
 
   request["REQUEST_METHOD"] == "POST" # or "GET"
-  
-  
+
+
 Request path
 ============
 
@@ -54,8 +61,8 @@ request.path is virtual path and has site id component removed from it.
 
 Example::
 
-	reconstructed_path = "/".join(request.path) # will be 
-	
+	reconstructed_path = "/".join(request.path) # will be
+
 Other possible headers::
 
 	('PATH_INFO', '/plonecommunity/Members')
@@ -77,10 +84,10 @@ HTTP headers are available through request.get_header() and request.header dicti
 Example::
 
 	referer = self.request.get_header("referer") # Page referer (the page from user came from)
-	
+
 	if referer == None: # referer will be none if it was missing
 		pass
-	
+
 Query string
 ============
 
@@ -108,14 +115,14 @@ to the request object as a dictionary look up::
 
 	# Comes from POST
 	request["input_username"] == request.form["input_username"]
-	
+
 	# Comes from environ
 	request.get('HTTP_USER_AGENT') == request.environ["HTTP_USER_AGENT"]
 
 Request mutability
 ==================
 
-Even if you can write and add your own variables to HTTP request objects 
+Even if you can write and add your own variables to HTTP request objects
 this behavior is discouraged. If you need to create cache variables for
 request lifecycle use annotations_. '''TODO: Add link to internal
 annotations examples when written'''
@@ -125,7 +132,7 @@ HTTP response
 
 Usually you do not return HTTP responses directly from your views. Instead, you modify the existing HTTP response object (associated with the request) and return the object which will be HTTP response payload.
 
-Returned payload object can be 
+Returned payload object can be
 
 * String (str) 8-bit raw data
 
