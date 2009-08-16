@@ -1,4 +1,12 @@
-Plone can be tailored several ways.
+==================
+Customizing Plone
+==================
+
+Plone can be customized in two different ways.
+
+* Through-the-web
+
+* By add-on products
 
 You should never edit Plone files directly, instead you usually create a customized version of the
 item you wish to modify and then configure Plone to use your customized version instead of stock one.
@@ -31,3 +39,14 @@ Possible through-the-web changes are
 Throught the code changes
 --------------------------
 
+When you need to do expand Plone through Python the only way is to create your own add-on product for Plone.
+Add-on products are distributed as packaged Python modules called eggs_.
+The recommended way is to use paster_ command to generate add-on product skeleton which you can
+use as a starting point for your development. Paster also contains useful subcommands, like addcontent,
+which automatize various tasks of Plone add-on development.
+
+* Another `paster tutorial <http://www.unc.edu/~jj/plone/>`_
+
+.. _paster: http://plone.org/documentation/how-to/use-paster>
+
+.. _eggs: http://plone.org/documentation/tutorial/buildout/packages-products-and-eggs
