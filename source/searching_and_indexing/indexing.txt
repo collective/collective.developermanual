@@ -74,34 +74,68 @@ indexing adapter.
 	  <use_stopwords value="False"/>
 	</index>
 
-# Create adapter which will add TextIndexNG3 indexing support for your custom fields
-
+# Create adapter which will add TextIndexNG3 indexing support for your custom fields. Example::
+	
+	import logging
+	
+	from Products.TextIndexNG3.adapters.cmf_adapters import CMFContentAdapter
+	from zope.component import adapts
+	
+	logger = logging.getLogger("Plone")
+	
 	class TextIndexNG3SearchAdapter(CMFContentAdapter):
 	    """ Adapter which provides custom field specific index information for TextIndexNG3
 	    """
 	
-	    adapts(IYourCustomContentMarker)
+		# Your content marker interface here
+	    adapts(IDescriptionBase)
 	
 	    def indexableContent(self, fields):
+	        """ Produce TextIndexNG3 indexing information for the object
+	        
+	        Traceback::
+	        
+	              ZCatalog.py(536)catalog_object()
+	            -> update_metadata=update_metadata)
+	              Catalog.py(360)catalogObject()
+	            -> blah = x.index_object(index, object, threshold)
+	              Products/TextIndexNG3/TextIndexNG3.py(91)index_object()
+	            -> result = self.index.index_object(obj, docid)
+	              Products/TextIndexNG3/src/textindexng/index.py(114)index_object()
+	            -> default_language=self.languages[0])
+	              Products/TextIndexNG3/src/textindexng/content.py(99)extract_content()
+	            -> icc = adapter.indexableContent(fields)
+	            > indexableContent()
+	                        
+	        """         
+	        logging.debug("Indexing" + str(self.context))
 	        
 	        # Use superclass to construct generic field adapters (id, title, description, SearchableText)
 	        icc = CMFContentAdapter.indexableContent(self, fields)
 	        
 	        # These fields have their own TextIndexNG3 indexes which 
 	        # are queried separately from SearchableText
-	        accessors = [ "getClassifications", "getOtherNames", "getYourFieldXXX" ]
+	        accessors = [ "getClassifications", "getOtherNames" ]
 	        
 	        for accessor in accessors:
+	                            
+	            try:
+	                method = getattr(self.context, accessor)
+	            except AttributeError:
+	                logger.warn("Declared indexing for unsuppoted accessor:" + accesor)
+	                continue
 	            
-	            value = getattr(self.context, accessor)()
+	            value = method()
 	            
 	            # We might have a value which is not a real string,
 	            # but must be first stringified
 	            try:            
 	                value = unicode(value)
-	            except UnicodeDecodeError:
+	            except UnicodeDecodeError, e:
 	                # Bad things happen here?
-	                return icc                
+	                logger.warn("Failed to index field:" + accessor)
+	                logger.exception(e)
+	                continue
 	            
 	            # Convert value to text format (utf-8) expected
 	            # by the indexer
@@ -109,7 +143,8 @@ indexing adapter.
 	                    
 	            icc.addContent(accessor, text, self.language)
 	            
-	            return icc
+	        return icc
+        
         
 
 # Add adapter in your ZCML::

@@ -98,7 +98,43 @@ There is not yet (Plone 3.1.x) GenericSetup XML way to do it.
 	  
 # If you have customized the edit process of your content type, 
   make sure that your edit action traverses to update_version_before_edit.cpt. For hints how to do this,
-  see portal_form_controller actions tab.
+  see portal_form_controller actions tab. Example::
+  
+  
+    ## Script (Python) "diagnose_content_edit"
+	##title=Custom editing script for diagnose content type
+	##bind container=container
+	##bind context=context
+	##bind namespace=
+	##bind script=script
+	##bind state=state
+	##bind subpath=traverse_subpath
+	##parameters=id=''
+	##
+	
+	context.plone_log("Diagnose edit by doctor")
+	
+	#
+	# TODO:
+	# No freaking idea which of the update_version handlers is supposed to be run and when
+	#
+	
+	# Run versioning support code  
+	# context.update_version_before_edit()
+	
+	state = context.content_edit_impl(state, id)
+	
+	# Run versioning support code 
+	context.update_version_on_edit()
+	
+	context.plone_log("Done")
+	
+	
+	# Automatically trigger the workflow state change on edit
+	context.portal_workflow.doActionFor(context, "push_to_review")
+	
+	return state
+	  
   
 # If you are using custom roles you need to have at least CMFEditions: Save new version
   permission enabled for the roles or you'll get exception::
