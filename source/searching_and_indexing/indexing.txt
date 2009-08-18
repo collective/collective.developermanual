@@ -40,6 +40,81 @@ plone.indexer provides method to create custom indexing functions.
 	        else:
 	            filter = getUtility(IConvergenceMediaFilter)
 	            return filter.getContentMedia(object)
+	            
+TextIndexNG3
+------------
+
+`TextIndexNG3 <http://www.zopyx.de/projects/TextIndexNG3>`_ is advanced text indexing solution for Zope.
+
+Please read TextIndexNG3 README.txt regarding how to add support for custom fields.
+Besides installing TextIndexNG3 in GenericSetup XML you need to provide a custom
+indexing adapter.
+
+# Add TextIndexNG3 in catalog.xml. Example::
+
+	<index name="getYourFieldName" meta_type="TextIndexNG3">
+	
+	  <field value="getYourFieldName"/>
+	
+	  <autoexpand value="off"/>
+	  <autoexpand_limit value="4"/>
+	  <dedicated_storage value="False"/>
+	  <default_encoding value="utf-8"/>	  
+	  <index_unknown_languages value="True"/>
+	  <language value="en"/>
+	  <lexicon value="txng.lexicons.default"/>
+	  <query_parser value="txng.parsers.en"/>
+	  <ranking value="True"/>
+	  <splitter value="txng.splitters.simple"/>
+	  <splitter_additional_chars value="_-"/>
+	  <splitter_casefolding value="True"/>
+	  <storage value="txng.storages.term_frequencies"/>
+	  <use_normalizer value="False"/>
+	  <use_stemmer value="False"/>
+	  <use_stopwords value="False"/>
+	</index>
+
+# Create adapter which will add TextIndexNG3 indexing support for your custom fields
+
+	class TextIndexNG3SearchAdapter(CMFContentAdapter):
+	    """ Adapter which provides custom field specific index information for TextIndexNG3
+	    """
+	
+	    adapts(IYourCustomContentMarker)
+	
+	    def indexableContent(self, fields):
+	        
+	        # Use superclass to construct generic field adapters (id, title, description, SearchableText)
+	        icc = CMFContentAdapter.indexableContent(self, fields)
+	        
+	        # These fields have their own TextIndexNG3 indexes which 
+	        # are queried separately from SearchableText
+	        accessors = [ "getClassifications", "getOtherNames", "getYourFieldXXX" ]
+	        
+	        for accessor in accessors:
+	            
+	            value = getattr(self.context, accessor)()
+	            
+	            # We might have a value which is not a real string,
+	            # but must be first stringified
+	            try:            
+	                value = unicode(value)
+	            except UnicodeDecodeError:
+	                # Bad things happen here?
+	                return icc                
+	            
+	            # Convert value to text format (utf-8) expected
+	            # by the indexer
+	            text = self._c(value)
+	                    
+	            icc.addContent(accessor, text, self.language)
+	            
+	            return icc
+        
+
+# Add adapter in your ZCML::
+
+    <adapter factory=".customcontent.TextIndexNG3SearchAdapter"/> 
                     
  
 Other
