@@ -1,3 +1,6 @@
+===========================
+Internationalization
+============================
 
 Set site language settings
 --------------------------
@@ -36,18 +39,18 @@ Customizing language selector
 
 Multilingual Plone has two kinds of language selector viewlets
 
-* Plone vanilla 
+* Plone vanilla
 
 * LinguaPlone - this one comes with LinguaPlone_ product and translates language names
 
-LinguaPlone uses `selector.pt <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py>`_ 
-file to render the language selector. 
+LinguaPlone uses `selector.pt <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py>`_
+file to render the language selector.
 
 Making language flags point to different top level domains
 ==========================================================
 
 If you use multiple domain names for different language it is often desirable to make the language selector
-point to a different domain. Search engines do not really like the dynamic language switcher and will 
+point to a different domain. Search engines do not really like the dynamic language switcher and will
 index switching links, messing up your site search results.
 
 Example::
@@ -56,15 +59,15 @@ Example::
 	    tal:define="available view/available;
 	                languages view/languages;
 	                showFlags view/showFlags;">
-	
-	
+
+
 	    <ul id="portal-languageselector"
 	        tal:condition="python:available and len(languages)>=2">
 	        <tal:language repeat="lang languages">
 	        <li tal:define="code lang/code;
 	                        selected lang/selected"
 	            tal:attributes="class python: selected and 'currentLanguage' or '';">
-	
+
 	                <a href=""
 	                   tal:condition="python:code =='fi'"
 	                   tal:define="flag lang/flag|nothing;
@@ -83,7 +86,7 @@ Example::
 	                    <tal:nonflag condition="python:not showFlags or not flag"
 	                                 replace="name">language name</tal:nonflag>
 	                </a>
-	
+
 	                <a href=""
 	                   tal:condition="python:code =='en'"
 	                   tal:define="flag lang/flag|nothing;
@@ -101,8 +104,8 @@ Example::
 	                    </tal:flag>
 	                    <tal:nonflag condition="python:not showFlags or not flag"
 	                                 replace="name">language name</tal:nonflag>
-	                </a>&nbsp; 
-	
+	                </a>&nbsp;
+
 	        </li>
 	        </tal:language>
 	    </ul>

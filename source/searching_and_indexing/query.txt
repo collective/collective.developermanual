@@ -1,3 +1,9 @@
+==========
+Querying
+=========
+
+Quering is action to retrieve data from search indexes.
+
 Preface
 -------
 
@@ -8,7 +14,7 @@ to query method itself, but it is also possible to use other query functions::
 
 	# portal_catalog is defined in the site root
 	portal_catalog = site.portal_catalog
-	
+
 	# The following call does not return the actual objects,
 	# but brains instead
 	# The call takes list of indices and match values as arguments
@@ -19,17 +25,17 @@ Brain objects
 
 portal_catalog queries return iterable of catalog brain objects.
 
-Brains contain subset of the actual content object information. Available subset is defined 
+Brains contain subset of the actual content object information. Available subset is defined
 by metadata columns in portal_catalog.
 
 You can access the brain object information by following::
 
 	# Return arbitary metadata field by metadata field name
-	title = brain["Title"] 
-		
+	title = brain["Title"]
+
 	# Return object absolute_url()
 	url = brain.getURL()
-	
+
 	# Load the actual object from the database (SLOW!)
 	object = brain.getObject()
 
@@ -40,33 +46,33 @@ Dumping portal catalog content
 Following is useful in unit test debugging::
 
 	# Print all objects visible to the currently logged in user
-	for i in portal_catalog(): print i.getURL() 
-	
-** Security warning**: Respects priviledges of the current user 
+	for i in portal_catalog(): print i.getURL()
+
+** Security warning**: Respects priviledges of the current user
 
 Bypassing query security check
 ------------------------------
 
 ** Security warning**: All portal_catalog queries are limited to the current user permissions by default.
 
-If you want to bypass this restrictions, use method unrestrictedSearchResults().  
+If you want to bypass this restrictions, use method unrestrictedSearchResults().
 
 Example::
 
 	# Print absolute content of portal_catalog
-	for i in portal_catalog.unrestrictedSearchResults(): print i.getURL() 
+	for i in portal_catalog.unrestrictedSearchResults(): print i.getURL()
 
 Querying by path
 ----------------
 
 ExtendedPathIndex_ is the index used for content object paths.
-Path index stores the physical path of the objects. 
+Path index stores the physical path of the objects.
 
 ** Warning: ** If you ever rename your Plone site instance, path index needs to be rebuild.
 
 Example::
 
-	portal_catalog(path={ query: "/myploneinstance/myfolder" }) # return myfolder and all child content 
+	portal_catalog(path={ query: "/myploneinstance/myfolder" }) # return myfolder and all child content
 
 Querying by interface
 ---------------------
@@ -84,7 +90,7 @@ Example::
 	items = portal_catalog(effective_date = {'date': {'query':(DateTime('2002-05-08 15:16:17'),
                                             DateTime('2062-05-08 15:16:17')),
                                    'range': 'min:max'})
-                                   
+
 Another example how to get news items for a particular year in the template code::
 
 	<div metal:fill-slot="main" id="content-news"
@@ -94,12 +100,12 @@ Another example how to get news items for a particular year in the template code
                  start_year request/year| python: 2004;
                  end_year request/year| python: 2099;
                  start_year python: int(start_year);
-                 end_year python: int(end_year);       
+                 end_year python: int(end_year);
      			 results python:container.portal_catalog(
      			 	portal_type='News Item',
      			 	sort_on='Date',
      			 	sort_order='reverse',
-     			 	review_state='published', 
+     			 	review_state='published',
      			 	id=prefLang,
      			 	created={ 'query' : [DateTime(start_year,1,1), DateTime(end_year,12,31)], 'range':'minmax'}
      			 	);
@@ -112,7 +118,7 @@ Another example how to get news items for a particular year in the template code
                  home_url python: mtool.getHomeUrl;
                  localized_time python: modules['Products.CMFPlone.PloneUtilities'].localized_time;">
     	...
-    </div>                              
+    </div>
 
 Combining queries using Boolean operators
 -----------------------------------------
@@ -120,35 +126,35 @@ Combining queries using Boolean operators
 See AdvancedQuery_.
 
 Example::
- 
-        from Products import AdvancedQuery 
-                
+
+        from Products import AdvancedQuery
+
         portal_catalog = self.portal_catalog # Acquire portal_catalog from higher hierarchy level
-               
+
         path = self.getPhysicalPath() # Limit the search to the current folder and its children
-        
+
         # object.getPhysicalPath() returns the path as tuples of path parts
         # Convert path to string
         path = "/".join(path)
-                
-        # Limit search to path in the current contex object and 
+
+        # Limit search to path in the current contex object and
         # match all children implementing either of two interfaces
         # AdvancedQuery operations can be combined using Python expressions & | and ~
-        # or AdvancedQuery objects                                    
+        # or AdvancedQuery objects
         query = AdvancedQuery.Eq("path", path) & (AdvancedQuery.Eq("getMyIndexGetter1", "foo") | AdvancedQuery.Eq("getMyIndexGetter2", "bar"))
-        
+
         # The following result variable contains iterable of CatalogBrain objects
         results = portal_catalog.evalAdvancedQuery(query)
-              
+
         # Convert the catalog brains to a Python list containing tuples of object unique ID and Title
         pairs = []
         for nc in results:
             pairs.append((nc["UID"], nc["Title"]))
-        
+
 
 # query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 
-	query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target) 
+	query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 
 	return self.context.portal_catalog.evalAdvancedQuery(query)
 

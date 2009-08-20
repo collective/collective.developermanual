@@ -1,3 +1,9 @@
+=======
+Events
+=======
+
+This document briefly discuss about doing event handling using zope.event module.
+
 Registering event handler
 -------------------------
 
@@ -9,23 +15,23 @@ Custom event example::
    <subscriber
      for=".interfaces.IMyObject
           .interfaces.IMyEvent"
-     handler=".content.MyObject.myEventHandler" 
-     />      
-      
+     handler=".content.MyObject.myEventHandler"
+     />
+
 Life cycle events example::
 
    <subscriber
      zcml:condition="installed zope.lifecycleevent"
      for=".interfaces.ISitsPatient
           zope.lifecycleevent.IObjectModifiedEvent"
-     handler=".content.SitsPatient.objectModified" 
-     />      
+     handler=".content.SitsPatient.objectModified"
+     />
 
 
 Subscribing in Python
 =====================
 
-The following subscription is valid through the process life cycle. In unit tests, 
+The following subscription is valid through the process life cycle. In unit tests,
 it is important to clear test event handlers between the test steps.
 
 Example::
@@ -33,13 +39,13 @@ Example::
 	import zope.component
 
     def my_event_handler(context, event):
-        """            
+        """
         @param context: Zope object for which the event was fired for. Usually this is Plone content object.
-        
+
         @param event: Subclass of event.
         """
 		pass
-            
+
     gsm = zope.component.getGlobalSiteManager()
     gsm.registerHandler(my_event_handler, (IMyObject,IMyEvent))
 
@@ -51,7 +57,7 @@ Modified events
 
 Two different content event types are available and might work differently depending on your scenario
 
-* Products.Archetypes.interfaces.IObjectEditedEvent - called for Archetypes object which are not 
+* Products.Archetypes.interfaces.IObjectEditedEvent - called for Archetypes object which are not
   anymore in the creation stage
 
 * zope.lifecycleevent.IObjectModifiedEvent - called for creation stage events too

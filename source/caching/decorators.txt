@@ -1,3 +1,9 @@
+=================
+Decorators
+=================
+
+Cache decorators allow easy caching of function return values.
+
 `plone.memoize <http://pypi.python.org/pypi/plone.memoize>`_ package offers helpful function decorators to cache the resulting values.
 
 Cache result for process lifecycle
@@ -8,15 +14,15 @@ Example::
 	@forever.memoize
 	def getFields(area, subject):
 	    """ Get all fields inside area / subject.
-	
+
 	    Results is cached for process lifetime.
-	
+
 	    @return: List of internal fields
 	    """
 	    schema = getSchema(area)
 	    return [ field for field in schema if field["subject"] == subject ]
 
-	    
+
 
 Other resources
 ---------------
