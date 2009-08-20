@@ -34,7 +34,7 @@ Form
 Setting form status message
 ===========================
 
-Form global status message tells whether the form action succeeded or not. 
+Form global status message tells whether the form action succeeded or not.
 
 Form status message will be rendered only on the form.
 If you want to set a message which will be visible even if the user renders other page after form,
@@ -101,10 +101,10 @@ Widget has two names:
 	* widget.__name__ is the name of the corresponding field. Look ups from form.widgets[] can be done using this name.
 
 	* widget.name is the decorated name used in HTML code. It is in format ${form name}.${field set name}.${widget.__name__}.
-	
-	
+
+
 Zope publisher will also mangle widget names based on what kind of input the widget takes. When HTTP POST request comes in,
-Zope publisher automatically converts <select> dropdowns to lists and so on. 
+Zope publisher automatically converts <select> dropdowns to lists and so on.
 
 Accessing a widget
 ==================
@@ -169,22 +169,38 @@ Getting selection widget vocabulary value as human readable text
 Example::
 
 	widget = self.widgets["myselectionlist"]
-	
+
 	token = widget.value[0] # widget.value is list of unicode strings, each is token for the vocabulary
-	
+
 	user_readable = widget.terms.getTermByToken(token).title
-	
+
 Example (page template)::
 
 	<td tal:define="widget view/widgets/myselectionlist">
     	<span tal:define="token python:widget.value[0]" tal:content="python:widget.terms.getTermByToken(token).title" />
    	</td>
-	
+
 
 CRUD form
 ---------
 
-https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/browser/channel.py
+CRUD (Create, read, update, delete) forms manage list of objects.
+
+* `Singing & dancing channel manager example <https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/browser/channel.py>`_
+
+Glossary
+
+* Add form creates new objects
+
+* Edit sub-form edits existing object
+
+* Edit form lists all objects and allows deleting them
+
+* CRUD form orchestrates the whole thing and renders add and edit forms
+
+
+Notes: context attribute of add and edit form is the parent CRUD form. Context attribute of edit sub form
+is the edit form.
 
 
 

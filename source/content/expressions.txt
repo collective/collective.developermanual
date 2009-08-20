@@ -1,0 +1,39 @@
+=============
+Expressions
+=============
+
+Expressions are user or site-administration through-the-web-written conditions which can be evaluated.
+You might want to use expressions in your own add-on product to provide user written conditions
+for viewlet visibility, portlets, dynamic text, etc.
+
+Plone has built-in support for TALES expression. They are internally used at least in
+Javascript and CSS machinery to pick the files, actions to determine whether the action is visible or not.
+
+Expression variables are defined in CMFCore/Expressions.py::
+
+    data = {
+        'object_url':   object_url,
+        'folder_url':   folder.absolute_url(),
+        'portal_url':   portal.absolute_url(),
+        'object':       object,
+        'folder':       folder,
+        'portal':       portal,
+        'nothing':      None,
+        'request':      getattr(portal, 'REQUEST', None),
+        'modules':      SecureModuleImporter,
+        'member':       member,
+        'here':         object,
+        }
+
+Some sample expressions::
+
+	python:if object.getSomething() == True
+
+	string:object/Title
+
+	object/Title
+
+	object/getSomething
+
+
+

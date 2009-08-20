@@ -1,0 +1,45 @@
+================
+Utilities
+================
+
+Utility classes provide site-wide utility functions. They are registered by marker interfaces.
+Site customization logic or add-on products can override utility for enhanced functionality.
+
+Read more in `zope.component documentation <http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_.
+
+Register utility
+-----------------
+
+Utility is constructed when Plone is started and ZCML is read.
+Utilities take no constructor parameters. If you need to use parameters
+like context or request, consider using views or adapters instead.
+
+ZCML example::
+
+   <!-- Register header animation picking logic - override this for your custom logic -->
+   <utility
+	 provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
+	 factory=".picker.RandomHeaderAnimationPicker" />
+
+Getting utility
+---------------
+
+There are two functions
+
+	* zope.component.getUtility will raise exception if utility is not found
+
+	* zope.component.queryUtility will return None if utility is not found
+
+
+Utility query parameters are passed to the utility class constructor.
+
+Example::
+
+	from zope.component import getUtility, queryUtility
+
+	# context and request are passed to the utility class constructor
+	# they are optional and depend on the utility itself
+	picker = getUtility(IHeaderAnimationPicker, context, request)
+
+
+

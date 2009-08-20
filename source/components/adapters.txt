@@ -1,0 +1,91 @@
+=================
+ Adapters
+=================
+
+Adapters allow extending the class behavior outside the class itself. This allows more modular,
+nice looking code in complex systems where there are hundreds of applicable methods per class.
+
+* Class interface itself is more readable (less visible clutter)
+
+* Class functionality can be extended outside the class source code
+
+* Add-on products may extend or override parts of the class functionality
+
+The downside is that adapters cannot be found by "exploring" classes or source code. They must
+be well documented to be discoverable.
+
+Read more about adapters in `zope.component README <http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_.
+
+`Adapter ZCML <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/adapter/index.html>`_.
+
+Adapters are matched by
+
+* Provider interface (what functionality adapter provides)
+
+* Parameter interfaces
+
+There are two kinds of adapters
+
+* Normal adapters take in only one parameter
+
+* Multi-adapters take many parameters as tuple
+
+
+Getting adapter
+---------------
+
+There are two functions
+
+	* zope.component.getAdapter will raise exception if adapter is not found
+
+	* zope.component.queryAdapter will return None if adapter is not found
+
+getAdapter/queryAdapter arguments
+
+# Tuple consisting of (Object implementing interface in <adapter for=""> first declaration, object implementing interface in <adapter for=""> second declaration, ...)
+
+# Adapter marker interface
+
+Example registration::
+
+	<!-- Register header animation picking logic - override this for your custom logic -->
+    <adapter
+	 provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
+	 for="plone.app.headeranimation.behaviors.IHeaderBehavior
+	      Products.CMFCore.interfaces.IContentish
+	      zope.publisher.interfaces.browser.IBrowserRequest
+	      "
+	 factory=".picker.RandomHeaderAnimationPicker" />
+
+
+Corresponding query code::
+
+	from zope.component import getUtility, getAdapter, getMultiAdapter
+
+	# header implements IHeaderBehavior
+	# doc implements Products.CMFCore.interfaces.IContentish
+	# request implements zope.publisher.interfaces.browser.IBrowserRequest
+
+    from Products.CMFCore.interfaces import IContentish
+    from zope.publisher.interfaces.browser import IBrowserRequest
+
+    self.assertTrue(IHeaderBehavior.providedBy(header))
+    self.assertTrue(IContentish.providedBy(doc))
+    self.assertTrue(IBrowserRequest.providedBy(self.portal.REQUEST))
+
+    # Throws exception if not found
+    picker = getMultiAdapter((header, doc, self.portal.REQUEST), IHeaderAnimationPicker)
+
+
+Listing adapter registers
+-------------------------
+
+The following code checks if IHeaderBehavior adapter is registered correctly::
+
+        from zope.component import getGlobalSiteManager
+        sm = getGlobalSiteManager()
+
+        registrations = [a for a in sm.registeredAdapters() if a.provided == IHeaderBehavior ]
+        self.assertEqual(len(registrations), 1)
+
+
