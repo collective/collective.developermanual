@@ -1,0 +1,16 @@
+============
+Publishing
+============
+
+Publishing is an action to make objects available in Zope traverse graph and URLS.
+
+Published object may have reverse-mapping of object path via getPhysicalPath() or
+absolute_url() but this is not always the requirement.
+
+You can publish objects by providing browser:page view which implements
+zope.publisher.interfaces.IPublishTraverse interface.
+
+Example publishers
+------------------
+
+* `plone.formwidgets.namedfile.widget exposes widget files downloadable <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.py>`_.

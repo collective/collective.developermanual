@@ -9,8 +9,6 @@ The schema is model describing how data is stored. Usually form fields can be ge
 
 * `Dexterity field list <http://plone.org/products/dexterity/documentation/manual/developer-manual/reference/referencemanual-all-pages>`_.
 
-* `plone.namedfield BLOB support <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/>`_ and `plone.formwidget.namefield File upload and download <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.txt>`_.
-
 * `Stock Zope schema field list <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_ and `more <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_.
 
 Field constructor parameters
@@ -120,5 +118,19 @@ Example:
 	                               required=False, default=[],
 	                               value_type=schema.Object()
 	                               )
+
+Files
+=====
+
+* `plone.namedfield BLOB support <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/>`_ and
+  `plone.formwidget.namefield File upload and download <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.txt>`_.
+
+If you are not storing NamedFile objects directly in content objects, you might need to create a
+special publisher which makes files available from some URL.
+
+* See `plone.namedfile.browser <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/browser.py>`_.
+
+* See `plone.formwidget.namedfile.widget <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.py>`_.
+
 
 

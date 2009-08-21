@@ -1,13 +1,17 @@
 remember (small r) and membrane are framework add-on products for Plone which allows you to manipulate site members
-as they were normal content objects. The product also allows distributed user management and 
+as they were normal content objects. The product also allows distributed user management and
 different user classes.
 
 Basics
 ------
 
-See the example Products.membrane.example.
+* Read `membrane tutorial <http://plone.org/documentation/tutorial/borg/membrane>`_.
 
-Read documents at Products.remember/docs/tutorial.
+* See the example code Products.membrane.example.
+
+* Read documents at Products.remember/docs/tutorial.
+
+* See `Weblion FacultyStaffDirectory product <https://weblion.psu.edu/trac/weblion/wiki/FacultyStaffDirectory>`_.
 
 
 Getting member by username
@@ -18,10 +22,10 @@ Example::
 	from Products.CMFCore.utils  import getToolByName
 
     membrane = getToolByName(context, "membrane_tool")
-    
+
     # getUserAuthProvider returns None if there is no membrane based user match for username
     # e.g. this will return None for Zope admin user
-    sits_user = membrane.getUserAuthProvider(username) 
+    sits_user = membrane.getUserAuthProvider(username)
     return sits_user
 
 Creating a member
@@ -30,18 +34,18 @@ Creating a member
 The following snippet works in unit tests::
 
     	mem_password = 'secret'
-        
+
         def_mem_data = {
             'email': 'noreply@xxxxxxxxyyyyyy.com',
             'password': mem_password,
             'confirm_password': mem_password,
              }
-            
+
         mem_data = {
                 'portal_member':
                 {
                   'fullname': 'Portal Member',
-                  'mail_me': True,          
+                  'mail_me': True,
                 },
                 'admin_member':
                 {
@@ -50,13 +54,13 @@ The following snippet works in unit tests::
                 'blank_member':
                 {},
             }
-        
+
         mdata = getToolByName(self.portal, 'portal_memberdata')
-        
+
         mdata.invokeFactory("MyUserPortalType", name)
         member = getattr(mdata, name) #
-       
-        
+
+
 Populating member fields automatically
 --------------------------------------
 
@@ -64,25 +68,25 @@ Use the following unit test snippet::
 
     def populateUser(self, member):
         """ Auto-ppulate member object required fields based on Archetypes schema.
-        
+
         @param member: Memberane member content object
         """
-    
+
         from Products.SitsHospital.content.SitsUser import SitsUser
-            
+
         schema = SitsUser.schema
-        
+
         data={}
-                    
-        for f in schema._fields.values():            
-            
+
+        for f in schema._fields.values():
+
             if not f.required:
                 continue
-            
+
             if f.__name__ in [ "password", "id" ]:
                 # Do not set password or member id
                 continue
-            
+
             # Autofill member field values
             if f.vocabulary:
                 value = f.vocabulary[0][0]
@@ -90,12 +94,12 @@ Use the following unit test snippet::
                 value = "test@xyz.com"
             else:
                 value = "foo"
-                
+
             # print "filling in field:" + str(f)
-            
+
             data[f.__name__] = value
-            
-        member.update(**data) 
+
+        member.update(**data)
 
 Checking member validy
 ----------------------
@@ -104,7 +108,7 @@ The following snippet is useful for unit testing::
 
     def assertValidMember(self, member):
         """ Emulate Products.remember.content.member validation behavior with verbose output.
-        
+
         """
         errors = {}
         # make sure object has required data and metadata
