@@ -1,0 +1,75 @@
+==================
+ Permissions
+==================
+
+Dealing with Zope permissions in Python code.
+
+Checking permission manually
+----------------------------
+
+Example::
+
+	from AccessControl import getSecurityManager
+	from AccessControl import Unauthorized
+
+	# Import permission names as pseudo-constants strings from somewhere... see security doc for more info
+	from Products.CMFCore import permissions
+
+	def some_function(self):
+
+		# This will
+        if not getSecurityManager().checkPermission(permissions.ModifyPortalContent):
+            raise Unauthorized("You need ModifyPortalContent permission to edit header animations")
+
+         # ...
+         # we have security clearance here
+         #
+
+Bypassing permission checks
+---------------------------
+
+The current user is defined by active security manager. In both restricted and unrestricted execution certain functions may do their own security checks (invokeFactory, workflow, search)
+to filter out results. If function does its own security check, there usually exist a version without security check.
+
+Example:
+
+* context.restrictedTraverse() vs. context.unrestrictedTraverse()
+
+* portal_catalog.searchResults() vs. portal_catalog.unrestrictedSearchResults()
+
+To bypass the security checks do the following::
+
+**This is not a recommended practice in product code. Use only for testing**
+
+    from AccessControl import ClassSecurityInfo, getSecurityManager
+    from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
+    from AccessControl.User import nobody
+
+    sm = getSecurityManager()
+    try:
+        user = sm.getUser()
+        try:
+            newSecurityManager(None, nobody)
+
+            # Do priviledged code here
+            callMyCode()
+        except:
+            # If special exception handlers are needed, run them here
+            raise
+    finally:
+        setSecurityManager(sm)
+
+Catching Unauthorized
+---------------------
+
+Gracefully failing when the user does not have a permission. Example::
+
+		from AccessControl import Unauthorized
+
+        try:
+            portal_state = context.restrictedTraverse("@@plone_portal_state")
+        except Unauthorized:
+            # portal_state may be limited to admin users only
+            portal_state = None
+
+

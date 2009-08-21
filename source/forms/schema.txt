@@ -9,7 +9,8 @@ The schema is model describing how data is stored. Usually form fields can be ge
 
 * `Dexterity field list <http://plone.org/products/dexterity/documentation/manual/developer-manual/reference/referencemanual-all-pages>`_.
 
-* `Stock Zope schema field list <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_ and `more <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_.
+* `Stock Zope schema field list <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_ and
+  `more <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_.
 
 Field constructor parameters
 ============================
@@ -25,7 +26,19 @@ See full list `here <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstr
 
 * required - boolean, whether the field is required
 
+* default - Default value if the attribute is not present
+
 * etc.
+
+.. warning::
+
+	Do not initialize any non-primitive values using *default* keyword parameter of schema fields.
+	Python and ZODB stores objects by their reference. Python code will construct only one field value,
+	during schema contstruction, and share its content across all objects. Instead, initialize
+	objects in __init__() method of your schema implementor.
+
+	Dangerous defaults: default=[], default={}, default=SomeObject()
+
 
 Persistent objects and schema
 =============================
@@ -86,6 +99,7 @@ Now you see the magic::
 	header = HeaderBehavior()
 	# it hits alternatives accessor which returns the default value which is empty list
 	assert header.alternatives = []
+
 
 Collections
 ============

@@ -5,7 +5,7 @@ Plone has two modes of traversing and code execution
 
 * Unrestricted: Python code is executed normally and the code can access the full Zope application server environment. This includes other site instances too.
 
-* Restricted: Traversing and function calls go through AccessControl_ / RestrictedPython_ / zope.security checks.  and 
+* Restricted: Traversing and function calls go through AccessControl_ / RestrictedPython_ / zope.security checks.  and
   Every function call and attribute access is evaluated against ClassSecurityInfo_ and ModuleSecurityInfo_.
 
 Restricted execution is enabled:
@@ -21,7 +21,7 @@ Restricted execution has some performance penalty.
 Restricted execution special cases
 ==================================
 
-Zope traversing mechanism does not expose 
+Zope traversing mechanism does not expose
 
 * Functions without docstring (the """ comment at the beginning of the function)
 
@@ -46,39 +46,6 @@ Instead, use Zope 3 techniques:
 
 * Put Security declarations in ZCML file
 
-Bypassing permission checks
----------------------------
-
-The current user is defined by active security manager. In both restricted and unrestricted execution certain functions may do their own security checks (invokeFactory, workflow, search)
-to filter out results. If function does its own security check, there usually exist a version without security check.
-
-Example:
-
-* context.restrictedTraverse() vs. context.unrestrictedTraverse()
-
-* portal_catalog.searchResults() vs. portal_catalog.unrestrictedSearchResults()
-
-To bypass the security checks do the following::
-
-**This is not a recommended practice in product code. Use only for testing**
-
-    from AccessControl import ClassSecurityInfo, getSecurityManager
-    from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
-    from AccessControl.User import nobody
-
-    sm = getSecurityManager()
-    try:
-        user = sm.getUser()
-        try:
-            newSecurityManager(None, nobody)
-
-            # Do priviledged code here            
-            callMyCode()
-        except:
-            # If special exception handlers are needed, run them here
-            raise
-    finally:
-        setSecurityManager(sm)        
 
 Declaring view security
 -----------------------
@@ -90,7 +57,7 @@ See `browser:page reference <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl_
 Example::
 
         <!-- permission comes from -->
-        
+
         <browser:page
                 for="getpaid.core.interfaces.IStore"
                 name="null_payment_button"
@@ -111,28 +78,15 @@ For available ZCML permission mappings see
 Available permissions
 ---------------------
 
-Each permission name is a string. 
+Each permission name is a string.
 
 To see available permissions, click Security tab at your site root in Zope Management Interface.
 
 In programming, use pseudoconstants instead of permission string values:
 
-* See `CMFCore.permissions <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/permissions.py?rev=94487&view=markup>`_ 
+* See `CMFCore.permissions <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/permissions.py?rev=94487&view=markup>`_
 
 * See `AccessControl.Permissions <http://svn.zope.org/Zope/trunk/src/AccessControl/Permissions.py?rev=96262&view=markup>`_
-
-Catching Unauthorized
----------------------
-
-Gracefully failing when the user does not have a permission. Example::
-
-		from AccessControl import Unauthorized
-		
-        try:
-            portal_state = context.restrictedTraverse("@@plone_portal_state")
-        except Unauthorized:
-            # portal_state may be limited to admin users only
-            portal_state = None
 
 Other references
 ----------------

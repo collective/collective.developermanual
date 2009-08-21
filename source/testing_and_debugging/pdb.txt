@@ -1,0 +1,55 @@
+=======================
+ Python debugger (pdb)
+=======================
+
+Python debugger (pdb) is interactive command-line debugger.
+It is very limited in functionality, but it will work in every environment
+and console.
+
+Using pdb
+----------
+
+.. warning:: In following text word *set_trace* has been replaced with xxx_trace
+ 	         due to commit problems.
+
+# Go to your code and insert statemet *import pdb ; pdb.xxx_trace*. When the code is run next time
+  the execution will stop there and you can examine the current context variables from
+  Python command prompt
+
+# After you have put *import pdb ; pdb.xxx_trace()* to your code, stop Zope and start it
+  on foreground using *bin/instance fg* command.
+
+Example::
+
+	class AREditForm(crud.EditForm):
+	    """ Present edit table containing rows per each item added and delete controls """
+	    editsubform_factory = AREditSubForm
+
+	    template = viewpagetemplatefile.ViewPageTemplateFile('ar-crud-table.pt')
+
+	    @property
+	    def fields(self):
+
+	    	#
+	    	# Execution will stop here and interactive Python prompt is opened
+	    	#
+
+	    	import pdb ; xxx.set_trace()
+	        constructor = ARFormConstructor(self.context, self.context.context, self.request)
+	        return constructor.getFields()
+
+Useful pdb snippets
+---------------------
+
+Output object's class::
+
+	print obj.__class__
+
+Output object attributes and methods:
+
+	for i in dir(obj): print i
+
+Print local variables:
+
+	print locals()
+

@@ -1,0 +1,17 @@
+================
+Transactions
+================
+
+
+Plone uses `ZODB database <http://en.wikipedia.org/wiki/Zope_Object_Database>` which follows
+`Multiversion concurrency control pararigm <http://en.wikipedia.org/wiki/Multiversion_concurrency_control>`_.
+
+Simply during the HTTP request Ploen completes all writes of the request processing or
+none of the writes. There cannot end partially written data to database.
+
+Transaction boundary events
+----------------------------
+
+It is possible to perform actions before transaction is written to the database.
+
+TODO
