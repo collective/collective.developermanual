@@ -9,6 +9,8 @@ The following code will get authentication data for the logged in user.
 
 Example::
 
+	from Products.CMFCore.utils  import getToolByName
+
  	mt = getToolByName(context, 'portal_membership')
     if mt.isAnonymousUser(): # the user has not logged in
         False

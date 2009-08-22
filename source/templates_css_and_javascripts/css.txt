@@ -1,0 +1,54 @@
+=======
+CSS
+=======
+
+Generating CSS classes programmatically in templates
+----------------------------------------------------
+
+# Try to put string generation code your view/viewlet if you have one
+
+# If you do not have view (main_template) you can create a view and call it as in the following example.
+
+View class generating CSS class spans::
+
+	from Products.Five.browser import BrowserView
+	from Products.CMFCore.utils  import getToolByName
+
+	class CSSHelperView(BrowserView):
+	    """ Used by main_template <body> to set CSS classes """
+
+	    def __init__(self, context, request):
+	        self.context = context
+	        self.requet = request
+
+	    def logged_in_class(self):
+	        """ Get CSS class telling whether the user is logged in or not
+
+	        This allows us to fine-tune layout when edit frame et. al.
+	        are on the screen.
+	        """
+	        mt = getToolByName(self.context, 'portal_membership')
+	        if mt.isAnonymousUser(): # the user has not logged in
+	            return "member-anonymous"
+	        else:
+	            return "member-logged-in"
+
+Registering the view in ZCML::
+
+  <browser:view
+	      for="*"
+	      name="css_class_helper"
+	      class=".views.CSSHelperView"
+	      permission="zope.Public"
+	      allowed_attributes="logged_in_class"
+	      />
+
+Calling the view in main_template.pt::
+
+  <body tal:define="css_class_helper nocall:here/@@css_class_helper" tal:attributes="class string:${here/getSectionFromURL} template-${template/id} ${css_class_helper/logged_in_class};
+                        dir python:test(isRTL, 'rtl', 'ltr')">
+
+Defining CSS styles reaction to the presence of the class::
+
+	#region-content { padding: 0 0 0 0px !important;}
+	.member-logged-in #region-content { padding: 0 0 0 4px !important;}
