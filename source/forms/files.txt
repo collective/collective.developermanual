@@ -4,6 +4,11 @@ Files
 
 This chapter discuss about file uploads and downloads in zope.schema and z3c.form packages.
 
+ZODB is not especially good handling large files - file systems were designed for that purpose.
+BLOBs are a way to store file data outside the database, but still maintaining database references
+
+For more about `Plone and BLOBs read these notes <http://myriadicity.net/Sundry/PloneBlobs>`_.
+
 * `plone.namedfield BLOB support <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/>`_ and
   `plone.formwidget.namefield File upload and download <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.txt>`_.
 
@@ -17,6 +22,19 @@ special publisher which makes files available from some URL.
 BLOBs pose a problem for unit-tests, because default ZODB DemoStorage doesn't support writing BLOBS.
 Please read `how z3c.blobfile <http://svn.zope.org/z3c.blobfile/trunk/src/z3c/blobfile/testing.py?rev=98849&view=auto>`
 tests this.
+
+Form encoding
+-------------
+
+.. warning::
+
+	Make sure that all forms containing file content are posted as enctype="multipart/form-data".
+	Otherwise Zope decodes request POST values as string input and you get either empty strings
+	or filenames as your file content data.
+
+Example correct form header::
+
+  <form action="." enctype="multipart/form-data" method="post" tal:attributes="action request/getURL">
 
 File field contents
 ---------------------------
@@ -68,8 +86,154 @@ Example::
 	animation = HeaderAnimation()
 	animation.file = namedfile.NamedBlobFile(sample_data, filename=u"flash.swf")
 
+Constring download URLs
+------------------------
+
+You need to expose file content to the site user through a view and then
+refer to the URL of the view in your HTML template. There are some tricks you need to keep in mind
+
+* All file download URLs should be timestamped or the reupload file change is not reflected in the browser
+
+* You might want to serve different file types from different URLs and set
+  special HTTP headers for them
+
+Complex example (plone.app.headeranimations)::
+
+	from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
+
+	# <browser:page> providing blob object traverse and streaming
+	# using download_blob() function below
+	download_view_name = "@@header_animation_helper"
+
+	def construct_url(context, animation_object_id, blob):
+	    """ Construct download URL for delivering files.
+
+	    Adds file upload timestamp to URL to prevent cache issues.
+
+	    @param context: Content object who own the files
+
+	    @param animation_object_id: Unique identified for the animation in the animation container
+	           (in the case there are several of them)
+
+	    @param field_value: NamedBlobFile or NamedBlobImage or None
+
+	    @return: None if there is no blob or the blob field value is empty (file has been removed from admin interface)
+	    """
+
+	    if blob == None:
+	        return None
+
+	    # This case occurs when the file has been removed thorugh form interfaces
+	    # (one of keep, replace, remove options on file widget)
+
+
+	    if animation_object_id == None:
+	        raise RuntimeError("Cannot have None id")
+
+	    # Timestamping prevents caching issues,
+	    # otherwise the browser shows the old version after reupload
+	    if hasattr(blob, "_p_mtime"):
+	        # Zope persistency timestamp is float seconds since epoch
+	        timestamp = blob._p_mtime
+	    else:
+	        timestamp = ""
+
+	    # We have different BrowserView methods for download depending on the file type
+	    # (to apply Flash fix)
+	    if INamedBlobFile.providedBy(blob):
+	        func_name = "download_animation"
+	    else:
+	        func_name = "download_image"
+
+	    # This looks like
+	    return context.absolute_url() + "/" + download_view_name + "/" + func_name + "?timestamp=" + str(timestamp)
+
+Streaming file data
+-------------------
+
+File data is deliever to the browser as stream. The view function returns streaming iterator instead
+of data as is. This greatly reduces the latency and memory usage when the file must not be buffered
+as whole to the memory before sending to the wite.
+
+Example (plone.app.headeranimation)::
+
+	from zope.publisher.interfaces import IPublishTraverse, NotFound
+
+	from plone.namedfile.utils import set_headers, stream_data
+	from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
+
+	def download_blob(context, request, file):
+	    """ Stream animation or image BLOB to the browser.
+
+	    @param context: Context object name is used to set the filename if blob itself doesn't provide one
+
+	    @param request: HTTP request
+
+	    @param file: Blob object
+	    """
+	    if file == None:
+	        raise NotFound(context, '', request)
+
+	    # Try determine blob name and default to "context_id_download"
+	    # This is only visible if the user tried to save the file to local computer
+	    filename = getattr(file, 'filename', context.id + "_download")
+
+	    set_headers(file, request.response)
+
+	    # Set headers for Flash 10
+	    # http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/
+	    cd = 'inline; filename=%s' % filename
+	    request.response.setHeader("Content-Disposition", cd)
+
+	    return stream_data(file)
+
+	class HeaderAnimationFieldDownload(BrowserView):
+	    """ Allow file and image downloads in form widgets.
+
+	    Unlike HeaderAnimationHelper, this does not do
+	    any kind of header resolving, but serves files always
+	    from the context object itself.
+	    """
+
+	    def __init__(self, context, request):
+	        self.context = context
+	        self.request = request
+	        self.behavior = IHeaderBehavior(self.context)
+
+	        self.animation_object_id = self.request.form["animation_object_id"]
+
+
+	    def lookUpAnimation(self):
+	        """ Don't do look-up in init, since failure there will raise ComponentLookupError instead of NotFound.
+
+	        @return: Blob object to be streamed
+	        """
+	        if not self.animation_object_id in self.behavior.alternatives:
+	            raise NotFound(self, "Bad animation id:" + self.animation_object_id , self.request)
+
+	        return self.behavior.alternatives[self.animation_object_id]
+
+	    def download_animation(self):
+	        """ """
+	        animation = self.lookUpAnimation()
+	        return download_blob(self.context, self.request, animation.animation)
+
+	    def download_image(self):
+	        """ """
+	        animation = self.lookUpAnimation()
+	        stream_iterator = download_blob(self.context, self.request, animation.image)
+	        return stream_iterator
+
 Widget download URLs
 -------------------------
+
+Some things you might want to keep in mind when playing with forms and images
+
+* Image data might be incomplete (no width/height) during the first POST
+
+* Image URL might change in the middle of request (image was updated)
+
+
 
 If you form content is something else than traversable context object then you must fix
 file download URLs manually.
