@@ -152,6 +152,59 @@ Example::
 
 			self.widgets["myfield"].label = u"Foobar"
 
+Setting widget types
+=======================
+
+By default, widgets for form fields are determined by FieldWidget adapters (defined in ZCML).
+You can override adapters per field using field's widgetFactory property.
+
+
+Below is an example which creates a custom widget, its FieldWidget factory and uses it for
+one field in one form::
+
+
+	from zope.component import adapter, getMultiAdapter
+	from zope.interface import implementer, implements, implementsOnly
+
+	from z3c.form.interfaces import IFieldWidget
+	from z3c.form.widget import FieldWidget
+
+	from plone.formwidget.namedfile.widget import NamedFileWidget, NamedImageWidget
+
+
+	class HeaderFileWidget(HeaderWidgetMixin, NamedFileWidget):
+
+ 		# Get download url for HeaderAnimation object's file.
+	    # Download URL is set externally by edit sub form and
+	    download_url = None
+
+	class HeaderImageWidget(HeaderWidgetMixin, NamedImageWidget):
+	    pass
+
+	@implementer(IFieldWidget)
+	def HeaderFileFieldWidget(field, request):
+	    """ Factory for creating HeaderFileWidget which is bound to one field """
+	    return FieldWidget(field, HeaderFileWidget(request))
+
+	class EditHeaderAnimationSubForm(crud.EditSubForm):
+	    """
+	    """
+
+	    def updateWidgets(self):
+	        """ Enforce custom widget types which get file/image attachment URL right """
+	        # Custom widget types are provided by FieldWidget factories
+	        # before updateWidgets() is called
+	        self.fields["animation"].widgetFactory = HeaderFileFieldWidget
+
+	        crud.EditSubForm.updateWidgets(self)
+
+	        # Make edit form aware of correct image download URLs
+	        self.widgets["animation"].download_url = "http://mymagicalurl.com"
+
+
+Alternatively, you can use `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_
+to add widget hints to form schema.
+
 Widget save
 ===========
 
@@ -195,6 +248,76 @@ Example (page template)::
 	<td tal:define="widget view/widgets/myselectionlist">
     	<span tal:define="token python:widget.value[0]" tal:content="python:widget.terms.getTermByToken(token).title" />
    	</td>
+
+Setting widget templates
+========================
+
+Usually the correct way to set the widget template is using <z3c:widgetTemplate> ZCML::
+
+ <z3c:widgetTemplate
+        mode="display"
+        widget=".interfaces.INamedFileWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="file_display.pt"
+        />
+
+You can also enforce widget template in the render() method of the widget class::
+
+	from zope.component import adapter, getMultiAdapter
+	from zope.interface import implementer, implements, implementsOnly
+	from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+
+	from z3c.form.interfaces import IFieldWidget, INPUT_MODE, DISPLAY_MODE, HIDDEN_MODE
+	from z3c.form.widget import FieldWidget
+
+	from plone.formwidget.namedfile.widget import NamedFileWidget, NamedImageWidget
+
+	class HeaderFileWidget(NamedFileWidget):
+		""" Subclass widget a use a custom template """
+
+	    display_template = ViewPageTemplateFile("header_file_display.pt")
+
+	    def render(self):
+	        """See z3c.form.interfaces.IWidget."""
+
+	        if self.mode == DISPLAY_MODE:
+	            # Enforce template and do not query it from the widget template factory
+	            template = self.display_template
+
+	        return NamedFileWidget.render(self)
+
+Widget template example::
+
+	<span id="" class="" i18n:domain="plone.formwidget.namedfile"
+	      tal:attributes="id view/id;
+	                      class view/klass;
+	                      style view/style;
+	                      title view/title;
+	                      lang view/lang;
+	                      onclick view/onclick;
+	                      ondblclick view/ondblclick;
+	                      onmousedown view/onmousedown;
+	                      onmouseup view/onmouseup;
+	                      onmouseover view/onmouseover;
+	                      onmousemove view/onmousemove;
+	                      onmouseout view/onmouseout;
+	                      onkeypress view/onkeypress;
+	                      onkeydown view/onkeydown;
+	                      onkeyup view/onkeyup"
+	        tal:define="value view/value;
+	                    exists python:value is not None">
+	    <span tal:define="fieldname view/field/__name__ | nothing;
+	                      filename view/filename;
+	                      filename_encoded view/filename_encoded;"
+	            tal:condition="python: exists and fieldname">
+	        <a tal:content="filename"
+	           tal:attributes="href string:${view/download_url}">Filename</a>
+	        <span class="discreet"> &mdash; <span tal:define="sizekb view/file_size" tal:replace="sizekb">100</span> KB</span>
+	    </span>
+	    <span tal:condition="not:exists" class="discreet" i18n:translate="no_file">
+	        No file
+	    </span>
+	</span>
 
 
 Customizing form frame
@@ -283,15 +406,21 @@ CRUD form
 
 CRUD (Create, read, update, delete) forms manage list of objects.
 
-Glossary
+CRUD form elements
 
-* Add form creates new objects
+* Add form creates new objects and renders the form below the table
 
-* Edit sub-form edits existing object
+* Edit sub-form edits existing object and renders one table row
 
-* Edit form lists all objects and allows deleting them
+* Edit form lists all objects and allows deleting them (table master)
 
 * CRUD form orchestrates the whole thing and renders add and edit forms
+
+* view_schema outputs read-only fields in CRUD table
+
+* update_schema outputs editable fields in CRUD table. Usually you want either view_schema or update_schema
+
+* add_schema outputs add form
 
 Notes: context attribute of add and edit form is the parent CRUD form. Context attribute of edit sub form
 is the edit form.

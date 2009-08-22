@@ -90,11 +90,57 @@ Choosing skin layer dynamically 2: http://code.google.com/p/plonegomobile/source
 
 See `plone.app.z3cform.z2 <http://svn.zope.org/plone.z3cform/trunk/plone/z3cform/z2.py?rev=88331&view=markup>`_ module.
 
+In the example below we turn on a layer for request which is later checked by the rendering code.
+This way some pages can ask special View/Viewlet rendering.
+
+Example::
+
+	# Defining layer
+
+	from zope.publisher.interfaces.browser import IBrowserRequest
+
+	class INoHeaderLayer(IBrowserRequest):
+	    """ When applied to HTTP request object, hedaer animations or images are not rendered on this.
+
+	    If this layer is on request do not render header images.
+	    This allows uncluttered editing of header animations and images.
+	    """
+
+	# Applying layer for some requests (manually done in view)
+	# The browser page which renders the form
+	class EditHeaderAnimationsView(FormWrapper):
+
+	    form = HeaderCRUDForm
+
+	    def __call__(self):
+	        """ """
+
+	        # Signal viewlet layer that we are rendering
+	        # edit view for header animations and it is not meaningful
+	        # to try to render the big animation on this page
+	        zope.interface.alsoProvides(self.request, INoHeaderLayer)
+
+	        # Render the edit form
+	        return FormWrapper.__call__(self)
+
 Checking active layers
 ----------------------
 
-Checking if particular theme is active
+Layers are activated on the current request object
+================================================================
+
+Example::
+
+    if INoHeaderLayer.providedBy(self.request):
+        # The page has asked to suspend rendering of the header animations
+        return ""
+
+Active themes and add-on products
 ======================================
+
+registered_layers() method returns list of all layers active on the site.
+Note that this is different list of layers which are application on the current
+HTTP request object - request object may contain manually activated layers.
 
 Example::
 
@@ -104,7 +150,7 @@ Example::
   	from plone.browserlayer.utils import registered_layers
 
     if IThemeSpecific in registered_layers():
-    	# Theme specific code
+    	# Your theme specific code
     	pass
     else:
     	# General code

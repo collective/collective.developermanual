@@ -1,0 +1,81 @@
+=====
+Files
+=====
+
+This chapter discuss about file uploads and downloads in zope.schema and z3c.form packages.
+
+* `plone.namedfield BLOB support <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/>`_ and
+  `plone.formwidget.namefield File upload and download <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.txt>`_.
+
+If you are not storing NamedFile objects directly in content objects, you might need to create a
+special publisher which makes files available from some URL.
+
+* See `plone.namedfile.browser <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/browser.py>`_.
+
+* See `plone.formwidget.namedfile.widget <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.py>`_.
+
+BLOBs pose a problem for unit-tests, because default ZODB DemoStorage doesn't support writing BLOBS.
+Please read `how z3c.blobfile <http://svn.zope.org/z3c.blobfile/trunk/src/z3c/blobfile/testing.py?rev=98849&view=auto>`
+tests this.
+
+File field contents
+---------------------------
+
+Example::
+
+	from zope import schema
+	from zope.interface import implements, alsoProvides
+	from persistent import Persistent
+	from plone.namedfile.field import NamedBlobFile, NamedBlobImage
+	from zope.schema.fieldproperty import FieldProperty
+
+	class IHeaderAnimation(form.Schema):
+	    """ Alternative header flash animation/imagae """
+
+	    animation = NamedBlobFile(title=u"Header flash animation", description=u"Upload SWF file which is shown in the header", required=False)
+
+
+	# Sample file data used in simulated uploads
+	sample_data = (
+	         'GIF89a\x10\x00\x10\x00\xd5\x00\x00\xff\xff\xff\xff\xff\xfe\xfc\xfd\xfd'
+	         '\xfa\xfb\xfc\xf7\xf9\xfa\xf5\xf8\xf9\xf3\xf6\xf8\xf2\xf5\xf7\xf0\xf4\xf6'
+	         '\xeb\xf1\xf3\xe5\xed\xef\xde\xe8\xeb\xdc\xe6\xea\xd9\xe4\xe8\xd7\xe2\xe6'
+	         '\xd2\xdf\xe3\xd0\xdd\xe3\xcd\xdc\xe1\xcb\xda\xdf\xc9\xd9\xdf\xc8\xd8\xdd'
+	         '\xc6\xd7\xdc\xc4\xd6\xdc\xc3\xd4\xda\xc2\xd3\xd9\xc1\xd3\xd9\xc0\xd2\xd9'
+	         '\xbd\xd1\xd8\xbd\xd0\xd7\xbc\xcf\xd7\xbb\xcf\xd6\xbb\xce\xd5\xb9\xcd\xd4'
+	         '\xb6\xcc\xd4\xb6\xcb\xd3\xb5\xcb\xd2\xb4\xca\xd1\xb2\xc8\xd0\xb1\xc7\xd0'
+	         '\xb0\xc7\xcf\xaf\xc6\xce\xae\xc4\xce\xad\xc4\xcd\xab\xc3\xcc\xa9\xc2\xcb'
+	         '\xa8\xc1\xca\xa6\xc0\xc9\xa4\xbe\xc8\xa2\xbd\xc7\xa0\xbb\xc5\x9e\xba\xc4'
+	         '\x9b\xbf\xcc\x98\xb6\xc1\x8d\xae\xbaFgs\x00\x00\x00\x00\x00\x00\x00\x00'
+	         '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+	         '\x00,\x00\x00\x00\x00\x10\x00\x10\x00\x00\x06z@\x80pH,\x12k\xc8$\xd2f\x04'
+	         '\xd4\x84\x01\x01\xe1\xf0d\x16\x9f\x80A\x01\x91\xc0ZmL\xb0\xcd\x00V\xd4'
+	         '\xc4a\x87z\xed\xb0-\x1a\xb3\xb8\x95\xbdf8\x1e\x11\xca,MoC$\x15\x18{'
+	         '\x006}m\x13\x16\x1a\x1f\x83\x85}6\x17\x1b $\x83\x00\x86\x19\x1d!%)\x8c'
+	         '\x866#\'+.\x8ca`\x1c`(,/1\x94B5\x19\x1e"&*-024\xacNq\xba\xbb\xb8h\xbeb'
+	         '\x00A\x00;'
+	         )
+
+	class HeaderAnimation(Persistent):
+	    """ Persistent storage object used in IHeaderBehavior.alternatives list.
+
+	    This holds information about one animation/image upload.
+	    """
+	    implements(IHeaderAnimation)
+
+	    animation = FieldProperty(IHeaderAnimation["animation"])
+
+	animation = HeaderAnimation()
+	animation.file = namedfile.NamedBlobFile(sample_data, filename=u"flash.swf")
+
+Widget download URLs
+-------------------------
+
+If you form content is something else than traversable context object then you must fix
+file download URLs manually.
+
+`See example in plone.app.headeranimations <https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/widgets.py>`_.
+
+
+
+

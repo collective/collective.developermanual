@@ -69,12 +69,25 @@ Other possible headers::
 	('PATH_TRANSLATED', '/plonecommunity/Members')
 
 
+GET variables
+=============
+
+HTTP GET variables are available in request.form if REQUEST_METHOD was GET.
+
+Example::
+
+
+	# http://yoursite.com/@@testview/?my_param_id=something
+	print self.request.form["my_param_id"]
+
 POST variables
 ==============
 
-HTTP POST varibles are available in stored in request.form dictionary:
+HTTP POST varibles are available in stored in request.form dictionary::
 
 	print request.form.items() # Everything POST brought to us
+
+There is no difference in accessing GET and POST variables.
 
 HTTP headers
 ============

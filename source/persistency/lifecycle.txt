@@ -1,0 +1,18 @@
+===================
+Object lifecycles
+===================
+
+Plone has different lifecycles for different objects
+
+* In-process objects, or "static" objects are created when the server application is launched
+  and they are gone when the application quits. Usually these objects are set-up during Plone
+  initialization and they are read-only for served HTTP requests. Examples:
+  content type vocabulary lists.
+
+* Request attached objects and thread-local objects: Each HTTP request is processed by
+  its own Python thread. These objects disappear when the request has been procesed.
+  Examples: request object itself, getSite() thread-local way to access the site object,
+  request specific permission caches.
+
+* Persistent objects:
+
