@@ -5,7 +5,7 @@ Internationalization
 Set site language settings
 --------------------------
 
-Put this to your setuphandlers.py and trigger it as an external import step::
+Manually::
 
         # Setup site langauge settings
         portal = context.getSite()
@@ -31,6 +31,24 @@ Using GenericSetup and propertiestool.xml::
 	   <object name="site_properties" meta_type="Plone Property Sheet">
 	      <property name="default_language" type="string">en</property>
 	   </object>
+	</object>
+
+On Linguaplone enabled sites, using GenericSetup XML portal_languages.xml::
+
+	<?xml version="1.0"?>
+	<object>
+	 <default_language value="fi"/>
+	 <use_path_negotiation value="False"/>
+	 <use_cookie_negotiation value="True"/>
+	 <use_request_negotiation value="False"/>
+	 <use_cctld_negotiation value="False"/>
+	 <use_combined_language_codes value="False"/>
+	 <display_flags value="True"/>
+	 <start_neutral value="False"/>
+	 <supported_langs>
+	  <element value="en"/>
+	  <element value="fi"/>
+	 </supported_langs>
 	</object>
 
 

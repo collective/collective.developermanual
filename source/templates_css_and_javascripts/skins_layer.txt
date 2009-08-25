@@ -1,0 +1,64 @@
+===========
+Skin layers
+===========
+
+Skin layers, portal_skins and CMFCore.SkinsTool are old-fashioned way to manage Plone templates.
+
+* Each Plone theme has set of folders it will pick from portal_skins. There
+  are defined in portal_skins -> properties.
+
+* Skins layers are searched for a template by template name, higher layers first.
+
+* Skin layers can be reordered through-the-web in portal_skins -> properties
+
+
+Defining a skin layer
+---------------------
+
+Skin files are put under *skins* folder in your add-on product.
+
+The structure looks like:
+
+* yourproduct/namespace/configure.zcml
+
+* yourproduct/namespace/profiles/default/skins.xml
+
+* yourproduct/namespace/skins
+
+* yourproduct/namespace/skins/layer1folder
+
+* yourproduct/namespace/skins/layer2folder/document_view.pt
+
+* yourproduct/namespace/skins/layer2folder
+
+* ...
+
+GenericSetup skins.xml::
+
+	<?xml version="1.0"?>
+	<object name="portal_skins" meta_type="Plone Skins Tool">
+	 <object name="headeranimation" meta_type="Filesystem Directory View"
+	         directory="plone.app.headeranimation:skins/headeranimation"/>
+	  <skin-path name="*">
+	    <layer name="headeranimation" insert-after="custom"/>
+	  </skin-path>
+	</object>
+
+ZCML to register the layer::
+
+	<configure
+	    xmlns="http://namespaces.zope.org/zope"
+	    xmlns:five="http://namespaces.zope.org/five"
+	    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+	 	xmlns:plone="http://namespaces.plone.org/plone"
+	    xmlns:grok="http://namespaces.zope.org/grok"    
+	    xmlns:cmf="http://namespaces.zope.org/cmf"          
+	    i18n_domain="plone.app.headeranimation">
+	
+		<cmf:registerDirectory name="skins" directory="skins" recursive="True" />
+	
+	</configure>    
+
+
+	
+	

@@ -8,3 +8,18 @@ are designed to catch broken functionality over the code evolution.
 
 `Plone unit testing tutorial <http://plone.org/documentation/tutorial/richdocument/unit-testing>`_.
 
+Running add-on installers and extensions profiles for unit tests
+-----------------------------------------------------------------
+
+By default, no add-on installers or extension profiles are installed.
+
+You need to modify PloneTestCase.setupPloneSite() call in your 
+base unit tests.
+
+Simple example::
+
+	ptc.setupPloneSite(products=['namespace.yourproduct'])
+
+Complex example::
+
+	ptc.setupPloneSite(products=['harvinaiset.app', 'TickingMachine'], extension_profiles=["harvinaiset.app:tests","harvinaiset.app:default"])  
