@@ -1,3 +1,7 @@
+============
+ Workflows
+============
+
 DCWorkflow product manages the default Plone workflow system.
 
 Workflow state is not directly stored on the object. Instead, separate
@@ -42,10 +46,18 @@ Always test your workflow methods using a normal.
 
 Example::
 
+		from Products.CMFCore.WorkflowCore import WorkflowException
+		
         portal.invokeFactory("SampleContent", id="sampleProperty")
 
         workflowTool = getToolByName(context, "portal_workflow")
-        workflowTool.doActionFor(portal.sampleProperty, "submit")
+        try:
+        	workflowTool.doActionFor(portal.sampleProperty, "submit")
+        except WorkflowException:
+        	# Workflow exception is risen if the state transition is not available
+        	# (the sampleProperty content is in a workflow state which
+        	# does not have "submit" transition)
+        	pass
 
 
 Gets the list of ids of all installed workflows
