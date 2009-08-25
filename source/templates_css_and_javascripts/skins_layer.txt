@@ -4,7 +4,7 @@ Skin layers
 
 Skin layers, portal_skins and CMFCore.SkinsTool are old-fashioned way to manage Plone templates.
 
-* Each Plone theme has set of folders it will pick from portal_skins. There
+* Each Plone theme has set of folders it will pick from portal_skins. These sets
   are defined in portal_skins -> properties.
 
 * Skins layers are searched for a template by template name, higher layers first.
@@ -58,7 +58,51 @@ ZCML to register the layer::
 		<cmf:registerDirectory name="skins" directory="skins" recursive="True" />
 	
 	</configure>    
+	
 
+Unit testing and portal_skins
+=============================
 
+If you test templates in your unit testing code you might need to call PloneTestCase._refreshSkinData()::
+
+    def afterSetUp(self):
+        # Must be called to load our add-on skins folders
+        # for unit testing
+        self._refreshSkinData()
+	
+Rendering template
+------------------
+
+Templates must be bound to context object before rendering.
+Plone acquisition magic maps templates as acquired attributes of all contentish objects.
+
+Example::
+
+	# Any page object
+	doc = portal.doc
+	
+	# portal_skins/plone_content/document_view.pt template bound to document
+	doc.document_view 
+	
+	# Resulting HTML is rendered when template object is called
+	doc.document_view() 
+	 
+
+Testing templates
+-----------------
+
+Below is some example code how templates behave.
+
+Example::
+
+	(Pdb) doc
+	<ATDocument at /plone/doc>
+	(Pdb) template = doc.document_view
+	(Pdb) template
+	<FSPageTemplate at /plone/document_view used for /plone/doc>
+	(Pdb) template._filepath 
+	'/home/moo/workspace2/plone.app.headeranimation/plone/app/headeranimation/skins/headeranimation/document_view.pt'
+	
+	
 	
 	
