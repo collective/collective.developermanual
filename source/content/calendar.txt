@@ -4,35 +4,35 @@ How to show a new content-type in the calendar
 Use-case: you've created a content-type and want it to be shown in 
 the calendar portlet.
 
-profiles/default/import_steps.xml
----------------------------------
-<?xml version="1.0"?>
-<import-steps>
-    <import-step id="compass-types-various" version="20090725-02"
-        handler="compass.types.setuphandlers.importVarious"
-        title="Additional Compass Types Setup">
-    </import-step>
-</import-steps>
+profiles/default/import_steps.xml::
+
+	<?xml version="1.0"?>
+	<import-steps>
+	    <import-step id="compass-types-various" version="20090725-02"
+	        handler="compass.types.setuphandlers.importVarious"
+	        title="Additional Compass Types Setup">
+	    </import-step>
+	</import-steps>
 
 
-setuphandlers.py
-----------------
-from Products.CMFCore.utils import getToolByName
+setuphandlers.py::
 
-def addCalendarTypes(portal):
-    portal_calendar = getToolByName(portal, 'portal_calendar')
-    # 'Event' was already here, we're just adding the
-    # 'DD Training Class' content-type.
-    portal_calendar.calendar_types = ('Event', 'DD Training Class')
-
-def importVarious(context):
-    """Miscellanous steps import handle
-    """
-    if context.readDataFile('compass.types_various.txt') is None:
-        return
-    portal = context.getSite()
-
-    addCalendarTypes(portal)
+	from Products.CMFCore.utils import getToolByName
+	
+	def addCalendarTypes(portal):
+	    portal_calendar = getToolByName(portal, 'portal_calendar')
+	    # 'Event' was already here, we're just adding the
+	    # 'DD Training Class' content-type.
+	    portal_calendar.calendar_types = ('Event', 'DD Training Class')
+	
+	def importVarious(context):
+	    """Miscellanous steps import handle
+	    """
+	    if context.readDataFile('compass.types_various.txt') is None:
+	        return
+	    portal = context.getSite()
+	
+	    addCalendarTypes(portal)
 
 Credits: ecarloshanson, optilude.
 
