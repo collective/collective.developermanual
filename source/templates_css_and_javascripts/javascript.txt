@@ -1,6 +1,5 @@
 
-Creating Javascripts for Plone
-------------------------------
+Creating Javascripts for Plone------------------------------
 
 1. Put ZMI -> portal_javascripts to debug mode
 
@@ -15,10 +14,76 @@ Executing Javascript code on page load
 1. Create following snippet::
 
 
-    jq(document)load(function() {
-        // TODO: Code goes here
-    })
+    jq(document).ready(function() {
+        // TODO: Execute your page manipulating Javascript code here
+    });
 
 2. Add your file to portal_javascripts.
+
 .. _resourceDirectory: http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/resourceDirectory/index.html
+
+Registering javascripts to portal_javascripts
+---------------------------------------------
+
+Javascripts need to be registered in order to appear in <html> <head>
+and in the compression bundles.
+
+The following options are available
+
+* *id* (required): URI from where the Javascript is loaded
+
+* *expression* empty string or TAL condition which determintes whether the file is served to the user.
+  The files with the same condition are grouped to the same compression bundle.
+
+* *cookable* is merging of Javascript files allowed during the compression
+
+* *inline* is script server as inline inside <script>...</script> tag
+
+* *enabled* shortcut to disable some Javascripts 
+
+* *compression* none, safe or full. See full option list from portal_javascripts. 
+
+* *insert-before* and *insert-after* control the position of the Javascript file
+  in relation to other served Javascript files
+  
+`Full description in the source code <https://svn.plone.org/svn/plone/ResourceRegistries/trunk/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
+
+Bundles
+=======
+
+There are several compressed Javascript bundles cooked (compressed & merged)
+from Javascript definitions automatically.
+
+* Anonymous users (no condition)
+
+* Logged in users (condition: not: portal/portal_membership/isAnonymousUser)
+
+* Visual editor (Kupu) related Javascripts (condition: python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request))
+
+Javascript for anonymous
+========================
+
+The following example includes Javascript file intended for anonymous site users.
+It is included after toc.js so that the file ends up to anonymous users compression bundle.
+
+The Javascript file itself is in folder plonetheme/xxx/browser/scripts and it is 
+mapped to ++resource++plonetheme.xxx.scripts namespace using <resourceDirectotory>
+ZCML directive.
+
+Example::
+
+	<javascript 
+	    id="++resource++plonetheme.xxx.scripts/cufon-yui.js"
+	    cacheable="True" compression="safe" cookable="True"
+	    enabled="True" expression=""  inline="False" insert-after="toc.js"/>
+
+The following example registers an anonymous user Javascript file, but does
+no place it to the compression bundle, because it is very big and
+slows down the page loading. It is placed before dropdown.js
+which is the first script for logged in users::
+	
+	<javascript 
+	    id="++resource++plonetheme.xxx.scripts/XXX_Script_400.font.js"
+	    cacheable="True" compression="none" cookable="False"
+	    enabled="True" expression=""  inline="False" insert-before="dropdown.js"/>
 
