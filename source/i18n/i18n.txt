@@ -2,6 +2,31 @@
 Internationalization
 ====================
 
+Getting content language
+------------------------
+
+All content object don't necessarily support Language()
+look-up defined by IDublinCore interface. Below is the
+safe way to extract the served language on the content.  
+
+Example BrowserView method::
+
+from Acquisition import aq_inner
+
+def language(self):
+    """ Get the language of the context.
+    
+    Useful in producing <html> tag.                
+    You need to output language for every HTML page, see http://www.w3.org/TR/xhtml1/#strict
+    
+
+    @return: The two letter language code of the current content.  
+    """
+    portal_state = self.context.unrestrictedTraverse("@@plone_portal_state")
+     
+    return aq_inner(self.context).Language() or portal_state.default_language()
+
+
 Set site language settings
 --------------------------
 

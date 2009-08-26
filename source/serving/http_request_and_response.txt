@@ -178,6 +178,23 @@ Use HTTPResponse_ setHeader() to set headers::
 	 self.request.response.setHeader("Content-type", "image/jpeg")
 	 return image_data
 
+Post-publication hook
+---------------------
+
+Post publication hook is run when
+
+* After the context object has been traversed
+
+* After the view has been called and the view has rendered the response
+
+* Before response is sent to browser
+
+* Before transaction is committed
+
+This is practical for caching purposes: it is the ideal place to determine and insert caching headers into the response.
+
+Read more on `plone.postpublicationhook package page <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
+
 .. _annotations: http://pypi.python.org/pypi/zope.annotation/3.4.1
 
 .. _Repoze: http://repoze.org/

@@ -60,6 +60,9 @@ from Javascript definitions automatically.
 
 * Visual editor (Kupu) related Javascripts (condition: python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request))
 
+To inspect bundles and whether Javascripts have been registered succesfully, 
+go to portal_javascripts -> Merged composition tab in ZMI.
+
 Javascript for anonymous
 ========================
 
@@ -69,6 +72,9 @@ It is included after toc.js so that the file ends up to anonymous users compress
 The Javascript file itself is in folder plonetheme/xxx/browser/scripts and it is 
 mapped to ++resource++plonetheme.xxx.scripts namespace using <resourceDirectotory>
 ZCML directive.
+
+If insert-after or insert-before is omitted, the script will end up as the last
+of the Javascript registry.
 
 Example::
 

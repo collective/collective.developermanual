@@ -1,0 +1,53 @@
+==========
+Interfaces
+==========
+
+See `zope.interface package README <http://pypi.python.org/pypi/zope.interface>`.
+
+Getting interface string id
+---------------------------
+
+Interface id is stored as __identifier__ attribute.
+
+Example file yourpackage/interfaces.py ::
+
+	import zope.interface
+
+	class IFoo(zope.interface.Interaface).
+		pass
+	
+	
+	# id is yourpackage.interfaces.IFoo
+	id = IFoo.__identifier__
+
+
+Note that this attribute does not respect import aliasing.
+
+Example::
+
+	Products.ATContentTypes.interfaces.IATDocument.__identifier__ is
+	Products.ATContentTypes.interfaces.document.IATDocument
+	
+Getting interface class by its string id
+----------------------------------------
+
+Use `zope.dottedname package <http://pypi.python.org/pypi/zope.dottedname>`_.
+
+Example::
+
+	import zope.interface
+	from zope.dottedname.resolve import resolve
+
+	class IFoo(zope.interface.Interaface).
+		pass
+		
+		
+	# id is yourpackage.interfaces.IFoo
+	id = IFoo.__identifier__
+	
+	interface_class == resolve(id)
+	
+	assert IFoo == interface_class
+
+
+	

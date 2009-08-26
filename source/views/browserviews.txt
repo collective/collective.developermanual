@@ -9,11 +9,6 @@ the code readability and reuse is achieved.
 
 `Read Zope view tutorial <http://plone.org/documentation/tutorial/borg/zope-3-views>`_.
 
-Zope 2 views vs. Zope 3 views
-------------------------------
-
-
-
 Creating a view
 ---------------
 
@@ -33,6 +28,56 @@ Example::
 		# to ViewPageTemplateFile specified in ZCML
 		#def __call__():
 		#
+
+See also `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
+and `Five version (one with acquisition support) <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_.
+
+Relationship between views and templates
+----------------------------------------
+
+ZCML <browser:view template=""> will override class index value.
+
+Eaxmple::
+	
+	<browser:page
+		for="*"
+		name="test"
+        permission="zope2.Public"
+        class=".views.MyView"        
+        />    
+	
+	from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+	class MyView(BrowserView):
+	
+		index = ViewPageTemplateFile("my-template.pt") 
+
+
+is equal to::
+
+	<browser:page
+		for="*"
+		name="test"
+        permission="zope2.Public"
+        class=".views.MyView"
+        template="my-template.pt"        
+        />   
+
+	class MyView(BrowserView):
+		pass
+		
+Rendering of the view is done by following:
+
+	class MyView(BrowserView):
+		
+		# This may be overridden in ZCML
+		index = ViewPageTemplateFile("my-template.pt")
+	
+		def render(self):
+			return self.index()
+	
+		def __call__(self):
+			return self.render()
 
 Getting a view by id
 --------------------
@@ -59,3 +104,8 @@ Example::
 	    view = view.__of__(context)
 
 	    return view
+	    
+Zope 2 views vs. Zope 3 views
+------------------------------
+
+TODO	    
