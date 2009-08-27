@@ -33,3 +33,225 @@ Viewlets have two important methods
 
 See http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
 
+Rendering viewlets with accurate layout
+---------------------------------------
+
+Default viewlet managers render viewlets as HTML code string concatenation, in the order of appearance.
+This is unsuitable to build complex layouts.
+
+Below is an example which defines master viewlet *HeaderViewlet* which will place other viewlets
+into the manually tuned HTML table.
+
+header.py::
+
+	from Acquisition import aq_inner
+	
+	# Use template files with acquisition support
+	from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+	
+	# Import default Plone viewlet classes
+	from plone.app.layout.viewlets import common as base 
+	
+	# Import our customized viewlet classes
+	import plonetheme.something.browser.viewlets.common as something  
+	
+	def render_viewlet(factory, context, request):
+	    """ Helper method to render a viewlet """
+	        
+	    context = aq_inner(context)
+	    viewlet = factory(context, request, None, None).__of__(context)
+	    viewlet.update()
+	    return viewlet.render()
+	
+	
+	class HeaderViewlet(base.ViewletBase):
+	    """ Render header with special table layout.
+	    
+	    Though we render viewlets internally we not inherit from the viewlet manager,
+	    since we do not offer the option for the site manager or integrator 
+	    shuffle viewlets - they are fixed to our templates.    
+	    """
+	    
+	    index = ViewPageTemplateFile('header_items.pt')
+	    
+	    def update(self):
+	        
+	        base.ViewletBase.update(self)
+	       
+	        # Dictionary containing all viewlets which are rendered inside this viewlet.
+	        # This is populated during render()
+	        self.subviewlets = {}
+	    
+	    def renderViewlet(self, viewlet_class):
+	        """ Render one viewlet 
+	        
+	        @param viewlet_class: Class which manages the viewlet
+	        @return: Resulting HTML as string
+	        """
+	        return render_viewlet(viewlet_class, self.context, self.request)
+	        
+	                
+	    def render(self):
+	            
+	        self.subviewlets["logo"] = self.renderViewlet(something.SomethingLogoViewlet) # Customized viewlet
+	        self.subviewlets["second_level_navigation"] = self.renderViewlet(something.SecondLevelSectionsViewlet)
+	        self.subviewlets["sections"] = self.renderViewlet(something.SomethingGlobalSectionsViewlet)
+	        self.subviewlets["search"] = self.renderViewlet(base.SearchBoxViewlet) # Default Plone viewlet
+	        self.subviewlets["selector"] = self.renderViewlet(something.SomethingTranslatableLanguageSelector)
+	        self.subviewlets["site_actions"] = self.renderViewlet(something.SiteActionsViewlet)
+	        
+	        # Call template to perform rendering 
+	        return self.index()
+
+
+	        
+header_items.pt
+
+.. highlight:: html
+
+	<table class="something-header">
+		<tbody>
+			<tr class="upper">
+				<td class="left">
+					<div tal:replace="structure view/subviewlets/logo" />
+				</td>
+				
+				<td>
+					<table class="right">
+						<tbody>
+							<tr>
+								<td>
+									<div tal:replace="structure view/subviewlets/search" />
+								</td>
+							</tr>
+	
+							<tr>
+							
+								<td>
+									<a href="http://www.something.fi">
+										<img tal:attributes="src string:${view/site_url}/++resource++plonetheme.something/something_logo.gif" />
+									</a>
+								</td>
+							
+								<td>
+									<div tal:replace="structure view/subviewlets/selector" />
+								</td>
+							</tr>
+	
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			
+			<tr class="lower">
+				<td class="left">
+					<div tal:replace="structure view/subviewlets/sections" />				
+				</td>
+				<td class="right">
+					<div tal:replace="structure view/subviewlets/site_actions" />			
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+configure.zcml
+
+.. highlight:: xml
+
+	<configure xmlns="http://namespaces.zope.org/zope"
+	           xmlns:browser="http://namespaces.zope.org/browser"
+	           xmlns:plone="http://namespaces.plone.org/plone"
+	           xmlns:zcml="http://namespaces.zope.org/zcml"
+	           >
+	
+	    <!-- 
+	    
+	    	Public localizable site header
+	
+	   	    See viewlets.xml for order/hidden
+	    -->
+	
+	
+	    <!-- Header viewlet which replaces the standard plone.header-->
+	    <browser:viewlet
+	        name="plone.header"
+	        manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+	        class=".header.HeaderViewlet"
+	        permission="zope2.View" 
+	        layer="..interfaces.IThemeSpecific"
+	        />
+	        
+	        
+	     <!-- Site actions-->     
+	     <browser:viewlet
+	         name="plonetheme.something.site_actions"
+	         class=".common.SiteActionsViewlet"        
+	         permission="zope2.View"
+	         template="site_actions.pt"
+	         layer="..interfaces.IThemeSpecific"
+	         allowed_attributes="site_actions"
+	         manager="..interfaces.IHeader"
+	         />
+	         
+	    <!-- The logo -->
+	    <browser:viewlet
+	        name="plonetheme.something.logo"
+	        class=".common.SomethingLogoViewlet"
+	        permission="zope2.View"
+	        layer="..interfaces.IThemeSpecific"
+			template="logo.pt"
+	        manager="..interfaces.IHeader"		
+	        />
+	        
+	    <!-- Searchbox -->
+	     <browser:viewlet
+	         name="plone.searchbox"
+	         for="*"
+			 class="plone.app.layout.viewlets.common.SearchBoxViewlet"
+	         permission="zope2.View"
+	         template="searchbox.pt"
+	         layer="..interfaces.IThemeSpecific"
+	         manager="..interfaces.IHeader"
+	         />        
+	
+		 <!-- First level navigation -->
+	     <browser:viewlet
+	         name="plonetheme.something.global_sections"
+	         for="*"
+	         class=".common.SomethingGlobalSectionsViewlet"
+	         permission="zope2.View"
+	         template="sections.pt"
+	         layer="..interfaces.IThemeSpecific"
+	         manager="..interfaces.IHeader"
+	         />
+	
+		<!-- Second level navigation -->
+	     <browser:viewlet
+	         name="plonetheme.something.second_level_sections"
+	         class=".common.SecondLevelSectionsViewlet"
+	         permission="zope2.View"
+	         template="second_level_sections.pt"
+	         layer="..interfaces.IThemeSpecific"
+	         manager="..interfaces.IHeader"
+	         />
+	
+	         
+		<!-- Language selector-->
+			<browser:viewlet
+			  name="something.languageselector"
+			  class=".common.SomethingTranslatableLanguageSelector"
+			  permission="zope2.View"
+			  layer="..interfaces.IThemeSpecific"
+			  manager="..interfaces.IHeader"
+			 />
+	</configure>
+	
+
+portal_header.pt
+
+.. highlight:: html
+
+	<div id="portal-header">
+		<div tal:replace="structure provider:something.header" />
+	</div>
+	
