@@ -1,3 +1,36 @@
+----------
+Sandboxing
+----------
+
+Plone has two modes of traversing and code execution
+
+* Unrestricted: Python code is executed normally and the code can access the full Zope application server environment. This includes other site instances too.
+
+* Restricted: Traversing and function calls go through AccessControl_ / RestrictedPython_ / zope.security checks.  and
+  Every function call and attribute access is evaluated against ClassSecurityInfo_ and ModuleSecurityInfo_.
+
+Restricted execution is enabled:
+
+* When incoming HTTP requests are traversed (everything you can type to your browser address bar)
+
+* Page templates: everything you put in tal:content, tal:condition, etc.
+
+* Script (Python) code is executed (plone_skins layer Python scripts and old style form management)
+
+Restricted execution has some performance penalty.
+
+Restricted execution special cases
+----------------------------------
+
+Zope traversing mechanism does not expose
+
+* Functions without docstring (the """ comment at the beginning of the function)
+
+* Functions whose name begins with underscore ("_"-character)
+
+Testing RestrictedPython
+------------------------
+
 RestrictedPython_ code is problematic, because RestrictedPython hardening is done on Abstract Syntax Tree level and
 effectively means all evaluated code must be available in the source code form. This makes testing RestrictedPython
 code little difficult.
@@ -87,3 +120,13 @@ Below are few useful unit test functions::
 		# Run RestrictedPython in unit test code
 		# myCustomUserCreationFunction() is view/Python script/method you must call in the restricted mode 
 		self.execUntrusted('portal.myCustomUserCreationFunction(username="national_coordinator", email="nationalcoordinator@redinnovation.com")', portal=self.portal)
+
+Other references
+----------------
+
+* `zope.security <http://pypi.python.org/pypi/zope.security>`_
+
+.. _AccessControl: http://svn.zope.org/Zope/trunk/src/AccessControl
+
+.. _RestrictedPython: http://pypi.python.org/pypi/RestrictedPython>
+

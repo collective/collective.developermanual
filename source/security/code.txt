@@ -1,0 +1,48 @@
+=====================
+ Securing your code
+=====================
+
+Old style vs. new style
+-----------------------
+
+Try to avoid old style (Zope 2) techniques in new code:
+
+* ClassSecurityInfo_
+
+* ModuleSecurityInfo_
+
+* security.declareProtected() / security.declarePublic() declarations
+
+* Script (Python) snippets
+
+Instead, use Zope 3 techniques:
+
+* Expose data through View and BrowserView instances
+
+* Put Security declarations in ZCML file
+
+
+Declaring view security
+-----------------------
+
+<browser:page> takes in an attribute permission.
+
+See `browser:page reference <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_.
+
+Example::
+
+        <!-- permission comes from -->
+
+        <browser:page
+                for="getpaid.core.interfaces.IStore"
+                name="null_payment_button"
+                class=".button.NullPaymentButton"
+                permission="zope2.View"
+                template="templates/button.pt"
+                />
+
+
+
+.. _ClassSecurityInfo: http://svn.zope.org/Zope/trunk/src/AccessControl/SecurityInfo.py?rev=96262&view=markup
+
+-- _ModuleSecurityInfo: http://svn.zope.org/Zope/trunk/src/AccessControl/SecurityInfo.py?rev=96262&view=markup
