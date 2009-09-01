@@ -1,0 +1,79 @@
+===================
+ Login and logout
+===================
+
+This chapter contains login and logout related messages.
+
+Post-login actions
+-------------------
+
+Post-login actions are executed after a successful login. Post-login actions which you could want to change are
+
+* Where to redirect the user after login
+
+* Setting the status message after login
+
+Post-login code is defined in CMFPlone/skins/plone_scripts/logged_in.cpy.
+
+You need make a copy of both logged_in.cpy and logged_in.cpy.metadata to your add-on product skins structure to override these.
+
+Example logged_in.cpy::
+	
+	## Controller Python Script "logged_in"
+	##bind container=container
+	##bind context=context
+	##bind namespace=
+	##bind script=script
+	##bind state=state
+	##bind subpath=traverse_subpath
+	##parameters=
+	##title=Initial post-login actions
+	##
+	
+	from Products.CMFCore.utils import getToolByName
+	from Products.CMFPlone import PloneMessageFactory as _
+	REQUEST=context.REQUEST
+	
+	membership_tool=getToolByName(context, 'portal_membership')
+	if membership_tool.isAnonymousUser():
+	    REQUEST.RESPONSE.expireCookie('__ac', path='/')
+	    context.plone_utils.addPortalMessage(_(u'Login failed. Both login name and password are case sensitive, check that caps lock is not enabled.'), 'error')
+	    return state.set(status='failure')
+	
+	member = membership_tool.getAuthenticatedMember()
+	login_time = member.getProperty('login_time', '2000/01/01')
+	initial_login = int(str(login_time) == '2000/01/01')
+	state.set(initial_login=initial_login)
+	
+	must_change_password = member.getProperty('must_change_password', 0)
+	state.set(must_change_password=must_change_password)
+	
+	if initial_login:
+	    state.set(status='initial_login')
+	elif must_change_password:
+	    state.set(status='change_password')
+	
+	membership_tool.loginUser(REQUEST)
+	
+	#
+	# Special login code specific login code
+	#
+	
+	# Debug log output about the user we are dealing with 
+	context.plone_log("Got member:" + str(member))
+	
+	# Check that if the user has a custom method which marks our special members
+	# needing special actions 
+	if hasattr(member, "getLoginRedirect"):
+	
+		# Show a custom login message
+	    context.plone_utils.addPortalMessage(_(u'You are now logged in. Welcome to supa-dupa-system.'), 'info') # This message is in Plone i18n domain
+	    
+	    # Go to a custom page after login
+	    REQUEST.RESPONSE.redirect(member.getLoginRedirect())
+	
+	return state
+	
+	
+
+
