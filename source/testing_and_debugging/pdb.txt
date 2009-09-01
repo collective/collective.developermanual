@@ -37,6 +37,21 @@ Example::
 	    	import pdb ; xxx.set_trace()
 	        constructor = ARFormConstructor(self.context, self.context.context, self.request)
 	        return constructor.getFields()
+	        
+Useful pdb commands
+-------------------
+
+Just type the letter and hit enter
+
+* s = step into, go into the function in the cursor
+
+* n = step over, execute the function under the cursor without stepping into it
+
+* c = continue, resume program
+
+* bt = print stack trace
+
+* up = go to the scope of the caller function	        
 
 Useful pdb snippets
 ---------------------
@@ -49,7 +64,7 @@ Output object attributes and methods:
 
 	for i in dir(obj): print i
 
-Print local variables:
+Print local variables in the current function:
 
 	print locals()
 
