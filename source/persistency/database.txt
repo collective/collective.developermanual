@@ -1,0 +1,22 @@
+========
+Database
+========
+
+This chapter is about working with ZODB database directly.
+
+Plone uses ZODB database. The default ZODB version with Plone 3.x is ZODB 3.7.x. ZODB 3.8.x is not officially supported, but has been reported to work.
+
+Packing the database offline
+-----------------------------
+
+`See this blog post <http://blog.twinapex.fi/2009/09/01/packing-and-copying-data-fs-from-production-server-for-local-development/>`_.
+
+Example how to pack a copy of Data.fs in offline using Python snippet::
+
+	import time
+	import ZODB.FileStorage
+	import ZODB.serialize
+
+	storage=ZODB.FileStorage.FileStorage('/tmp/Data.fs.copy')
+	storage.pack(time.time(),ZODB.serialize.referencesf)
+
