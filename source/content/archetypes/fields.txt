@@ -1,0 +1,39 @@
+==================
+Fields and widgets
+==================
+
+Accessing Archetypes field value
+-------------------------------
+
+Each field has accessor method. Accessor method is
+
+	* In your content type class
+
+	* Automatically generated if you don't give it manually
+	
+	* Has name get + schema field name with first letter uppercase. E.g. yourfield has accessor method context.getYourfield()
+	
+
+Rendering widget
+----------------
+
+Archetypes is hardwired to render widgets from viewless TAL page templates.
+
+Example how to render widget for field 'maintext'::
+
+          <tal:fields tal:define="field_macro here/widgets/field/macros/view;
+		  						  field python:here.Schema()['maintext']">
+
+            <tal:if_visible define="mode string:view;
+                                    visState python:field.widget.isVisible(here, mode);
+                                    visCondition python:field.widget.testCondition(context.aq_inner.aq_parent, portal, context);"
+                            condition="python:visState == 'visible' and visCondition">
+              <metal:use_field use-macro="field_macro" />
+            </tal:if_visible>
+          </tal:fields>
+
+
+
+	
+
+ 
