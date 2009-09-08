@@ -1,0 +1,75 @@
+====================
+ GenericSetup
+====================
+
+GenericSetup is an XML-based way to import and export Plone site configurations.
+
+GenericSetup is mostly used to apply add-on specific changes to the site configuration 
+and enabled add-on specific behavior when the add-on installer is run.
+
+* `GenericSetup tutorial <http://plone.org/documentation/tutorial/genericsetup>`_
+
+* `GenericSetup product page <http://pypi.python.org/pypi/Products.GenericSetup/1.4.5>`_.
+
+* `Source code <http://svn.zope.org/Products.GenericSetup/trunk/Products/GenericSetup/README.txt?rev=87436&view=auto>`_.
+
+Add-on specific issues
+----------------------
+
+Add-on product may contain
+
+* Default GenericSetup XML profile which is automatically run when the product is quick installer. The profile name is "default".
+
+* Other profiles which the user may install through portal_setup Import tab or which can be manually enabled for unit tests
+
+* "Import various" step which runs Python code every time GenericSetup XML profile is installed
+
+
+Listing available profiles
+--------------------------
+
+Example::
+
+        # Run the default quick installer profile
+        setup_tool = self.portal.portal_setup
+        
+        profiles = setup_tool.listProfileInfo()
+        for profile in profiles:
+            print  str(profile)
+        
+Results::
+
+	{'product': 'PluggableAuthService', 'description': 'Content for an empty PAS (plugins registry only).', 'for': <InterfaceClass Products.PluggableAuthService.interfaces.authservice.IPluggableAuthService>, 'title': 'Empty PAS Content Profile', 'version': 'PluggableAuthService-1.5.3', 'path': 'profiles/empty', 'type': 1, 'id': 'PluggableAuthService:empty'}
+	{'product': 'Products.CMFDefault', 'description': u'Profile for a default CMFSite.', 'for': <InterfaceClass Products.CMFCore.interfaces._content.ISiteRoot>, 'title': u'CMFDefault Site', 'version': 'CMF-2.1.1', 'path': u'profiles/default', 'type': 1, 'id': u'Products.CMFDefault:default'}
+	{'product': 'Products.CMFPlone', 'description': u'Profile for a default Plone.', 'for': <InterfaceClass Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot>, 'title': u'Plone Site', 'version': u'3.1.7', 'path': u'/home/moo/sits/parts/plone/CMFPlone/profiles/default', 'type': 1, 'id': u'Products.CMFPlone:plone'}
+	{'product': 'Products.Archetypes', 'description': u'Extension profile for default Archetypes setup.', 'for': None, 'title': u'Archetypes', 'version': u'1.5.7', 'path': u'/home/moo/sits/parts/plone/Archetypes/profiles/default', 'type': 2, 'id': u'Products.Archetypes:Archetypes'}
+	...
+	
+Installing a profile
+--------------------
+
+This is usually unit test specific question how to enable certain add-ons for unit testing.
+
+PloneTestCase.setupPloneSite
+============================
+
+See *Running add-on installers and extensions profiles for unit tests*.
+
+Manually
+=========
+
+You might want to install profiles manually if they need to be enabled only for certain tests.
+
+Profile name is in format profile-${product name}:${profile id}
+
+Unit testing example::
+            
+    # Run the extended profile which will create email_catalog
+    setup_tool.runAllImportStepsFromProfile('profile-betahaus.emaillogin:exdended')
+    
+	
+
+
+
+
+

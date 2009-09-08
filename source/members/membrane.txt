@@ -13,6 +13,8 @@ Basics
 
 * See `Weblion FacultyStaffDirectory product <https://weblion.psu.edu/trac/weblion/wiki/FacultyStaffDirectory>`_.
 
+* It is recommended to enabled debug level logging output for membrane related unit tests,
+  as PlonePAS code swallows several exceptions and do not output them unless debug level is activated 
 
 Getting member by username
 --------------------------
@@ -115,3 +117,14 @@ The following snippet is useful for unit testing::
         member.Schema().validate(member, None, errors, 1, 1)
         if errors:
             raise AssertionError("Member contained errors:" + str(errors))
+            
+Setting user password
+---------------------
+
+Passwords are stored hashed and can be set using BaseMember._setPassword() method.
+
+Example::
+
+	user_object._setPassword("secret")
+	
+	

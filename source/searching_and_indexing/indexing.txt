@@ -2,7 +2,7 @@
 Indexing
 ==========
 
-Indexing is action to make data searchable.
+Indexing is action to make object data searchable.
 
 Index types
 -----------
@@ -12,12 +12,41 @@ Read the product source code for non-existent documentation.
 
 ExtendedPathIndex_ is used for indexing content object locations.
 
-Manual object indexing
-----------------------
+Indexing an object
+------------------
 
-**Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
-However, in unit tests this does not apply, since the test runs in one transaction. Thus, you must manually
-call reindexObject() for each object you modify and want to subsequently query from portal_catalog.
+.. warning::
+
+	**Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
+	If you modify the object yourself you are responsible to notify related catalogs about the new object data.
+	
+Indexing an object is done by calling reindexObject() method. reindexObject() method is defined
+in `ICatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/interfaces/_content.py?rev=91414&view=auto>`_ interface.
+
+Plone calls reindexObject() if  
+
+* The object is modified by the user using the standard edit forms
+
+You must call reindexObject() if you
+
+* Directly call object field mutators
+
+* Otherwise directly change object data
+
+reindexObject() method takes optional argument *idxs* which will list the changed indexes. 
+If idxs is not given, all related indexes are updated even though they were not changed. 
+
+Example::
+
+	object.setTitle("Foobar")
+	
+	# Object.reindexObject() method is called to reflect the changed data in portal_catalog.
+	# In our example, we change the title. The new title is not updated in the navigation,
+	# since the navigation tree and folder listing pulls object title from the catalog.
+	 
+	object.reindexObject(idxs=["Title"])
+
+Also, if you modify security related parameters (permissions), you need to call reindexObjectSecurity().
 
 Custom index methods
 --------------------

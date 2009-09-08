@@ -29,8 +29,36 @@ Example::
 		#def __call__():
 		#
 
-See also `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
-and `Five version (one with acquisition support) <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_.
+Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
+-------------------------------------------------------
+
+.. *warning*: There are two ViewPageTemplateFile classes with the same name.
+
+* Zope  `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
+
+* `Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_. Products.Five is a way
+  to stick some of Zope 3 technologies to Zope 2 codebase used by Plone.
+
+Difference in code::
+
+    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+	
+	vs.
+	
+	from zope.app.pagetemplate import ViewPageTemplateFile
+		
+
+Difference is that Five version supports
+
+* Acquisition
+
+* provider: TAL expression
+
+* Other Plone specific TAL expression functions like test()
+
+* Usually Plone code needs Five version of ViewPageTemplateFile
+
+* Some components, notably z3c.form, expect Zope 3 version of ViewPageTemplateFile 
 
 Relationship between views and templates
 ----------------------------------------
