@@ -43,7 +43,7 @@ Manually::
 
 For unit testing, you need to run this in afterSetUp() after setting up the languages::
 
-		# THIS IS FOR UNIT TESTING ONLY
+        # THIS IS FOR UNIT TESTING ONLY
         # Normally called by pretraverse hook,
         # but must be called manually for the unit tests
         # Goes only for the current request
@@ -52,29 +52,29 @@ For unit testing, you need to run this in afterSetUp() after setting up the lang
 
 Using GenericSetup and propertiestool.xml::
 
-	<object name="portal_properties" meta_type="Plone Properties Tool">
-	   <object name="site_properties" meta_type="Plone Property Sheet">
-	      <property name="default_language" type="string">en</property>
-	   </object>
-	</object>
+    <object name="portal_properties" meta_type="Plone Properties Tool">
+       <object name="site_properties" meta_type="Plone Property Sheet">
+          <property name="default_language" type="string">en</property>
+       </object>
+    </object>
 
 On Linguaplone enabled sites, using GenericSetup XML portal_languages.xml::
 
-	<?xml version="1.0"?>
-	<object>
-	 <default_language value="fi"/>
-	 <use_path_negotiation value="False"/>
-	 <use_cookie_negotiation value="True"/>
-	 <use_request_negotiation value="False"/>
-	 <use_cctld_negotiation value="False"/>
-	 <use_combined_language_codes value="False"/>
-	 <display_flags value="True"/>
-	 <start_neutral value="False"/>
-	 <supported_langs>
-	  <element value="en"/>
-	  <element value="fi"/>
-	 </supported_langs>
-	</object>
+    <?xml version="1.0"?>
+    <object>
+     <default_language value="fi"/>
+     <use_path_negotiation value="False"/>
+     <use_cookie_negotiation value="True"/>
+     <use_request_negotiation value="False"/>
+     <use_cctld_negotiation value="False"/>
+     <use_combined_language_codes value="False"/>
+     <display_flags value="True"/>
+     <start_neutral value="False"/>
+     <supported_langs>
+      <element value="en"/>
+      <element value="fi"/>
+     </supported_langs>
+    </object>
 
 
 Customizing language selector
@@ -98,61 +98,61 @@ index switching links, messing up your site search results.
 
 Example::
 
-	<tal:language
-	    tal:define="available view/available;
-	                languages view/languages;
-	                showFlags view/showFlags;">
+    <tal:language
+        tal:define="available view/available;
+                    languages view/languages;
+                    showFlags view/showFlags;">
 
 
-	    <ul id="portal-languageselector"
-	        tal:condition="python:available and len(languages)>=2">
-	        <tal:language repeat="lang languages">
-	        <li tal:define="code lang/code;
-	                        selected lang/selected"
-	            tal:attributes="class python: selected and 'currentLanguage' or '';">
+        <ul id="portal-languageselector"
+            tal:condition="python:available and len(languages)>=2">
+            <tal:language repeat="lang languages">
+            <li tal:define="code lang/code;
+                            selected lang/selected"
+                tal:attributes="class python: selected and 'currentLanguage' or '';">
 
-	                <a href=""
-	                   tal:condition="python:code =='fi'"
-	                   tal:define="flag lang/flag|nothing;
-	                               name lang/name"
-	                   tal:attributes="href string:http://www.twinapex.fi;
-	                                   title name">
-	                    <tal:flag condition="python:showFlags and flag">
-	                        <img
-	                             width="14"
-	                             height="11"
-	                             alt=""
-	                             tal:attributes="src string:${view/portal_url}${flag};
-	                                             title python: name;
-	                                             class python: selected and 'currentItem' or '';" />
-	                    </tal:flag>
-	                    <tal:nonflag condition="python:not showFlags or not flag"
-	                                 replace="name">language name</tal:nonflag>
-	                </a>
+                    <a href=""
+                       tal:condition="python:code =='fi'"
+                       tal:define="flag lang/flag|nothing;
+                                   name lang/name"
+                       tal:attributes="href string:http://www.twinapex.fi;
+                                       title name">
+                        <tal:flag condition="python:showFlags and flag">
+                            <img
+                                 width="14"
+                                 height="11"
+                                 alt=""
+                                 tal:attributes="src string:${view/portal_url}${flag};
+                                                 title python: name;
+                                                 class python: selected and 'currentItem' or '';" />
+                        </tal:flag>
+                        <tal:nonflag condition="python:not showFlags or not flag"
+                                     replace="name">language name</tal:nonflag>
+                    </a>
 
-	                <a href=""
-	                   tal:condition="python:code =='en'"
-	                   tal:define="flag lang/flag|nothing;
-	                               name lang/name"
-	                   tal:attributes="href string:http://www.twinapex.com;
-	                                   title name">
-	                    <tal:flag condition="python:showFlags and flag">
-	                        <img
-	                             width="14"
-	                             height="11"
-	                             alt=""
-	                             tal:attributes="src string:${view/portal_url}${flag};
-	                                             title python: name;
-	                                             class python: selected and 'currentItem' or '';" />
-	                    </tal:flag>
-	                    <tal:nonflag condition="python:not showFlags or not flag"
-	                                 replace="name">language name</tal:nonflag>
-	                </a>&nbsp;
+                    <a href=""
+                       tal:condition="python:code =='en'"
+                       tal:define="flag lang/flag|nothing;
+                                   name lang/name"
+                       tal:attributes="href string:http://www.twinapex.com;
+                                       title name">
+                        <tal:flag condition="python:showFlags and flag">
+                            <img
+                                 width="14"
+                                 height="11"
+                                 alt=""
+                                 tal:attributes="src string:${view/portal_url}${flag};
+                                                 title python: name;
+                                                 class python: selected and 'currentItem' or '';" />
+                        </tal:flag>
+                        <tal:nonflag condition="python:not showFlags or not flag"
+                                     replace="name">language name</tal:nonflag>
+                    </a>&nbsp;
 
-	        </li>
-	        </tal:language>
-	    </ul>
-	</tal:language>
+            </li>
+            </tal:language>
+        </ul>
+    </tal:language>
 
 
 Other

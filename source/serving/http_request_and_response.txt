@@ -31,19 +31,19 @@ Usually your view function or instance will receive HTTP request object, along w
 
 You can access request in your view::
 
-	from Products.Five.browser import BrowserView
+    from Products.Five.browser import BrowserView
 
-	class SampleView(BrowserView)::
+    class SampleView(BrowserView)::
 
-		def __init__(context, request):
-			# Each view instance receives context and request as construction parameters
-			self.context = context
-			self.request = request
+        def __init__(context, request):
+            # Each view instance receives context and request as construction parameters
+            self.context = context
+            self.request = request
 
-		def __call__(self):
-			# Entry point of request processing
-			# Dump out incoming request variables
-			print self.request.items()
+        def __call__(self):
+            # Entry point of request processing
+            # Dump out incoming request variables
+            print self.request.items()
 
 Request method
 ==============
@@ -61,12 +61,12 @@ request.path is virtual path and has site id component removed from it.
 
 Example::
 
-	reconstructed_path = "/".join(request.path) # will be
+    reconstructed_path = "/".join(request.path) # will be
 
 Other possible headers::
 
-	('PATH_INFO', '/plonecommunity/Members')
-	('PATH_TRANSLATED', '/plonecommunity/Members')
+    ('PATH_INFO', '/plonecommunity/Members')
+    ('PATH_TRANSLATED', '/plonecommunity/Members')
 
 
 GET variables
@@ -77,15 +77,15 @@ HTTP GET variables are available in request.form if REQUEST_METHOD was GET.
 Example::
 
 
-	# http://yoursite.com/@@testview/?my_param_id=something
-	print self.request.form["my_param_id"]
+    # http://yoursite.com/@@testview/?my_param_id=something
+    print self.request.form["my_param_id"]
 
 POST variables
 ==============
 
 HTTP POST varibles are available in stored in request.form dictionary::
 
-	print request.form.items() # Everything POST brought to us
+    print request.form.items() # Everything POST brought to us
 
 There is no difference in accessing GET and POST variables.
 
@@ -96,17 +96,17 @@ HTTP headers are available through request.get_header() and request.header dicti
 
 Example::
 
-	referer = self.request.get_header("referer") # Page referer (the page from user came from)
+    referer = self.request.get_header("referer") # Page referer (the page from user came from)
 
-	if referer == None: # referer will be none if it was missing
-		pass
+    if referer == None: # referer will be none if it was missing
+        pass
 
 Query string
 ============
 
 To access raw HTTP GET query string::
 
-	query_string = request["QUERY_STRING"]
+    query_string = request["QUERY_STRING"]
 
 
 Web environment
@@ -114,11 +114,11 @@ Web environment
 
 Web server exposes its own environment variables in request.other (ZServer_) or request.environ (Repoze_ and other WSGI_ based web servers)::
 
-	print request.other.items()
+    print request.other.items()
 
-	user_agent = request.other["HTTP_USER_AGENT"]
+    user_agent = request.other["HTTP_USER_AGENT"]
 
-	user_agent = request.environ["HTTP_USER_AGENT"] # WSGI or Repoze server
+    user_agent = request.environ["HTTP_USER_AGENT"] # WSGI or Repoze server
 
 Flat access
 ===========
@@ -126,11 +126,11 @@ Flat access
 GET, POST and web environment variables are flat mapped
 to the request object as a dictionary look up::
 
-	# Comes from POST
-	request["input_username"] == request.form["input_username"]
+    # Comes from POST
+    request["input_username"] == request.form["input_username"]
 
-	# Comes from environ
-	request.get('HTTP_USER_AGENT') == request.environ["HTTP_USER_AGENT"]
+    # Comes from environ
+    request.get('HTTP_USER_AGENT') == request.environ["HTTP_USER_AGENT"]
 
 Request mutability
 ==================
@@ -156,27 +156,27 @@ Accessing response
 
 You can access to HTTP response if you know the request::
 
-	from Products.Five.browser import BrowserView
+    from Products.Five.browser import BrowserView
 
-	class SampleView(BrowserView)::
+    class SampleView(BrowserView)::
 
-		def __init__(context, request):
-			# Each view instance receives context and request as construction parameters
-			self.context = context
-			self.request = request
+        def __init__(context, request):
+            # Each view instance receives context and request as construction parameters
+            self.context = context
+            self.request = request
 
-		def __call__(self):
-			response = self.request.response
-			return "<html><body>Hello world!</body></html>"
+        def __call__(self):
+            response = self.request.response
+            return "<html><body>Hello world!</body></html>"
 
 Settings response headers
 -------------------------
 
 Use HTTPResponse_ setHeader() to set headers::
 
-	 # Response dynamically generated image
-	 self.request.response.setHeader("Content-type", "image/jpeg")
-	 return image_data
+     # Response dynamically generated image
+     self.request.response.setHeader("Content-type", "image/jpeg")
+     return image_data
 
 Post-publication hook
 ---------------------

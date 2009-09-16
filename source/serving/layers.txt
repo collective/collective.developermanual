@@ -36,15 +36,15 @@ Theme layers can be created with following steps
 
 1. Subclass an interface from IDefaultPloneLayer::
 
-	from plone.theme.interfaces import IDefaultPloneLayer
+    from plone.theme.interfaces import IDefaultPloneLayer
 
-	class IThemeSpecific(IDefaultPloneLayer):
-	    """Marker interface that defines a Zope 3 skin layer bound to a Skin
-	       Selection in portal_skins.
-	       If you need to register a viewlet only for the "YourSkin"
-	       skin, this is the interface that must be used for the layer attribute
-	       in YourSkin/browser/configure.zcml.
-	    """
+    class IThemeSpecific(IDefaultPloneLayer):
+        """Marker interface that defines a Zope 3 skin layer bound to a Skin
+           Selection in portal_skins.
+           If you need to register a viewlet only for the "YourSkin"
+           skin, this is the interface that must be used for the layer attribute
+           in YourSkin/browser/configure.zcml.
+        """
 
 2. Register in in ZCML. Name must match theme name. Example::
 
@@ -56,10 +56,10 @@ Theme layers can be created with following steps
 
 3. Declare your theme in profiles/default/skins.xml. Example::
 
-	<skin-path name="SitsSkin" based-on="Plone Default">
-	  <layer name="plone_skins_style_folder_name"
-		 insert-before="*"/>
-	</skin-path>
+    <skin-path name="SitsSkin" based-on="Plone Default">
+      <layer name="plone_skins_style_folder_name"
+         insert-before="*"/>
+    </skin-path>
 
 4. Create profiles/default/browlayers.xml. Example::
 
@@ -95,33 +95,33 @@ This way some pages can ask special View/Viewlet rendering.
 
 Example::
 
-	# Defining layer
+    # Defining layer
 
-	from zope.publisher.interfaces.browser import IBrowserRequest
+    from zope.publisher.interfaces.browser import IBrowserRequest
 
-	class INoHeaderLayer(IBrowserRequest):
-	    """ When applied to HTTP request object, hedaer animations or images are not rendered on this.
+    class INoHeaderLayer(IBrowserRequest):
+        """ When applied to HTTP request object, hedaer animations or images are not rendered on this.
 
-	    If this layer is on request do not render header images.
-	    This allows uncluttered editing of header animations and images.
-	    """
+        If this layer is on request do not render header images.
+        This allows uncluttered editing of header animations and images.
+        """
 
-	# Applying layer for some requests (manually done in view)
-	# The browser page which renders the form
-	class EditHeaderAnimationsView(FormWrapper):
+    # Applying layer for some requests (manually done in view)
+    # The browser page which renders the form
+    class EditHeaderAnimationsView(FormWrapper):
 
-	    form = HeaderCRUDForm
+        form = HeaderCRUDForm
 
-	    def __call__(self):
-	        """ """
+        def __call__(self):
+            """ """
 
-	        # Signal viewlet layer that we are rendering
-	        # edit view for header animations and it is not meaningful
-	        # to try to render the big animation on this page
-	        zope.interface.alsoProvides(self.request, INoHeaderLayer)
+            # Signal viewlet layer that we are rendering
+            # edit view for header animations and it is not meaningful
+            # to try to render the big animation on this page
+            zope.interface.alsoProvides(self.request, INoHeaderLayer)
 
-	        # Render the edit form
-	        return FormWrapper.__call__(self)
+            # Render the edit form
+            return FormWrapper.__call__(self)
 
 Checking active layers
 ----------------------
@@ -144,17 +144,17 @@ HTTP request object - request object may contain manually activated layers.
 
 Example::
 
-	from interfaces import IThemeSpecific
+    from interfaces import IThemeSpecific
 
 
-  	from plone.browserlayer.utils import registered_layers
+    from plone.browserlayer.utils import registered_layers
 
     if IThemeSpecific in registered_layers():
-    	# Your theme specific code
-    	pass
+        # Your theme specific code
+        pass
     else:
-    	# General code
-    	pass
+        # General code
+        pass
 
 Debugging active layers
 =======================
@@ -163,9 +163,9 @@ You can check the activated layers from HTTP request object in request.__provide
 
 Discussion::
 
-	[21:00:43] <Moo-__-> what's good way to debug which layers are active on HTTP request?
-	[21:00:52] <Moo-__-> (theming conflicts here)
-	[21:01:31] <davisagli> Moo-__-: request.__provided__.__iro__ will give you the interfaces in order of precedence
+    [21:00:43] <Moo-__-> what's good way to debug which layers are active on HTTP request?
+    [21:00:52] <Moo-__-> (theming conflicts here)
+    [21:01:31] <davisagli> Moo-__-: request.__provided__.__iro__ will give you the interfaces in order of precedence
 
 .. HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
 

@@ -36,7 +36,7 @@ it is important to clear test event handlers between the test steps.
 
 Example::
 
-	import zope.component
+    import zope.component
 
     def my_event_handler(context, event):
         """
@@ -44,7 +44,7 @@ Example::
 
         @param event: Subclass of event.
         """
-		pass
+        pass
 
     gsm = zope.component.getGlobalSiteManager()
     gsm.registerHandler(my_event_handler, (IMyObject,IMyEvent))

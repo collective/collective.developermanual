@@ -14,12 +14,12 @@ You can use context.addTranslation(language_code) and context.getTranslation(lan
 
 Example::
 
-	from Products.LinguaPlone.I18NBaseObject import AlreadyTranslated
+    from Products.LinguaPlone.I18NBaseObject import AlreadyTranslated
 
-	try:
+    try:
         object.addTranslation(lang)
     except AlreadyTranslated:
-    	# Note: AlreadyTranslated is always risen if Products.Linguaplone is not installed
+        # Note: AlreadyTranslated is always risen if Products.Linguaplone is not installed
         pass
 
     translated = object.getTranslation(lang)

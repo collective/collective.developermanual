@@ -6,7 +6,7 @@ Method contentItems is defined in CMFCore/PortalFolder.py.
 See source code for details, e.g. filtering and other forms of listing::
 
 
-	items = folder.contentItems() # return Python list of children object tuple (id, object)
+    items = folder.contentItems() # return Python list of children object tuple (id, object)
 
 **Performance warning:**
 Listing objetcs like this is very very costly, since it will return the actual content objects,
@@ -35,8 +35,8 @@ Getting folder item ids
 
 If you need to get ids only, use objectIds() method. This is a fast method::
 
-	# Return a list of object ids in the folder
-	ids = folder.objectIds()
+    # Return a list of object ids in the folder
+    ids = folder.objectIds()
 
 
 Checking for the existence of a particular object id
@@ -47,16 +47,16 @@ If you want to know whether the folder has a certain item or not, you can use th
 There is a special case for Large Plone Folders (BTree based).
 The following is optimal code, but you can simplify it if you don't need to check if the folder is BTreeFolder::
 
-	# Use the BTreeFolder API if possible
-	myid = "index_html"
+    # Use the BTreeFolder API if possible
+    myid = "index_html"
 
-	if base_hasattr(context, 'has_key'):
-	    # BTreeFolder's has_key returns numeric values
-	    return context.has_key(myid) and True or False
-	elif myid in context.objectIds():
-	    return True
-	else:
-	    return False
+    if base_hasattr(context, 'has_key'):
+        # BTreeFolder's has_key returns numeric values
+        return context.has_key(myid) and True or False
+    elif myid in context.objectIds():
+        return True
+    else:
+        return False
 
 Getting folder items using portal_catalog
 -----------------------------------------
@@ -66,42 +66,42 @@ because they return catalog brain objects of real content objects (less database
 
 This example is taken from Products.CMFPlone/skins/plone_scripts/getFolderContents::
 
-	mtool = context.portal_membership
-	cur_path = '/'.join(context.getPhysicalPath())
-	path = {}
+    mtool = context.portal_membership
+    cur_path = '/'.join(context.getPhysicalPath())
+    path = {}
 
-	if not contentFilter:
-	    # The form and other are what really matters
-	    contentFilter = dict(getattr(context.REQUEST, 'form',{}))
-	    contentFilter.update(dict(getattr(context.REQUEST, 'other',{})))
-	else:
-	    contentFilter = dict(contentFilter)
+    if not contentFilter:
+        # The form and other are what really matters
+        contentFilter = dict(getattr(context.REQUEST, 'form',{}))
+        contentFilter.update(dict(getattr(context.REQUEST, 'other',{})))
+    else:
+        contentFilter = dict(contentFilter)
 
-	if not contentFilter.get('sort_on', None):
-	    contentFilter['sort_on'] = 'getObjPositionInParent'
+    if not contentFilter.get('sort_on', None):
+        contentFilter['sort_on'] = 'getObjPositionInParent'
 
-	if contentFilter.get('path', None) is None:
-	    path['query'] = cur_path
-	    path['depth'] = 1
-	    contentFilter['path'] = path
+    if contentFilter.get('path', None) is None:
+        path['query'] = cur_path
+        path['depth'] = 1
+        contentFilter['path'] = path
 
-	show_inactive = mtool.checkPermission('Access inactive portal content', context)
+    show_inactive = mtool.checkPermission('Access inactive portal content', context)
 
-	# Evaluate in catalog context because some containers override queryCatalog
-	# with their own unrelated method (Topics)
-	contents = context.portal_catalog.queryCatalog(contentFilter, show_all=1,
-	                                                  show_inactive=show_inactive)
+    # Evaluate in catalog context because some containers override queryCatalog
+    # with their own unrelated method (Topics)
+    contents = context.portal_catalog.queryCatalog(contentFilter, show_all=1,
+                                                      show_inactive=show_inactive)
 
-	if full_objects:
-	    contents = [b.getObject() for b in contents]
+    if full_objects:
+        contents = [b.getObject() for b in contents]
 
-	if batch:
-	    from Products.CMFPlone import Batch
-	    b_start = context.REQUEST.get('b_start', 0)
-	    batch = Batch(contents, b_size, int(b_start), orphan=0)
-	    return batch
+    if batch:
+        from Products.CMFPlone import Batch
+        b_start = context.REQUEST.get('b_start', 0)
+        batch = Batch(contents, b_size, int(b_start), orphan=0)
+        return batch
 
-	return contents
+    return contents
 
 
  Getting raw Zope objects
@@ -111,7 +111,7 @@ This example is taken from Products.CMFPlone/skins/plone_scripts/getFolderConten
 
  Example::
 
- 	for id, item in folder.objectItems():
- 		# id is 8-bit string of object id in the folder
- 		# item is the object itself
- 		pass
+    for id, item in folder.objectItems():
+        # id is 8-bit string of object id in the folder
+        # item is the object itself
+        pass

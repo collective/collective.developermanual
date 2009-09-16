@@ -17,7 +17,7 @@ Since zope.testbrowser uses normal Plone paging mechanism, you won't get nice tr
 The following snippet allows you to extract traceback data from site.error_log utility and print it to the console.
 Put it to your afterSetUp()::
 
-    	self.browser.handleErrors = False
+        self.browser.handleErrors = False
         self.portal.error_log._ignored_exceptions = ()
 
         def raising(self, info):
@@ -33,20 +33,20 @@ Opening an URL
 
 Example::
 
-	from Products.Five.testbrowser import Browser
+    from Products.Five.testbrowser import Browser
 
-	self.browser = Browser()
+    self.browser = Browser()
 
-	self.browser.open(self.portal.absolute_url())
+    self.browser.open(self.portal.absolute_url())
 
 Logging in
 ----------
 
 Example::
 
-		from Products.PloneTestCase.setup import portal_owner, default_password
+        from Products.PloneTestCase.setup import portal_owner, default_password
 
-	     # Go admin
+         # Go admin
         browser.open(self.portal.absolute_url() + "/login_form")
         browser.getControl(name='__ac_name').value = portal_owner
         browser.getControl(name='__ac_password').value = default_password
@@ -57,7 +57,7 @@ Showing the current page source
 
 Example::
 
-	print browser.contents # browser is z3c.testbrowser.Browser instance
+    print browser.contents # browser is z3c.testbrowser.Browser instance
 
 Listing available form controls
 -------------------------------
@@ -69,16 +69,16 @@ Selecting a checkbox
 
 Checkboxes are usually presented as name:list style names::
 
-	checkbox = form.getControl(name="myitem.select:list")
-	checkbox.value = [u"selected"]
+    checkbox = form.getControl(name="myitem.select:list")
+    checkbox.value = [u"selected"]
 
 Clicking a button
 -----------------
 
 Example::
 
-	button = form.getControl(name="mybuttonname")
-	button.click()
+    button = form.getControl(name="mybuttonname")
+    button.click()
 
 Functional test case skeleton
 ------------------------------

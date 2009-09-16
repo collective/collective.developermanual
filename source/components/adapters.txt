@@ -36,9 +36,9 @@ Getting adapter
 
 There are two functions
 
-	* zope.component.getAdapter will raise exception if adapter is not found
+    * zope.component.getAdapter will raise exception if adapter is not found
 
-	* zope.component.queryAdapter will return None if adapter is not found
+    * zope.component.queryAdapter will return None if adapter is not found
 
 getAdapter/queryAdapter arguments
 
@@ -48,23 +48,23 @@ getAdapter/queryAdapter arguments
 
 Example registration::
 
-	<!-- Register header animation picking logic - override this for your custom logic -->
+    <!-- Register header animation picking logic - override this for your custom logic -->
     <adapter
-	 provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
-	 for="plone.app.headeranimation.behaviors.IHeaderBehavior
-	      Products.CMFCore.interfaces.IContentish
-	      zope.publisher.interfaces.browser.IBrowserRequest
-	      "
-	 factory=".picker.RandomHeaderAnimationPicker" />
+     provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
+     for="plone.app.headeranimation.behaviors.IHeaderBehavior
+          Products.CMFCore.interfaces.IContentish
+          zope.publisher.interfaces.browser.IBrowserRequest
+          "
+     factory=".picker.RandomHeaderAnimationPicker" />
 
 
 Corresponding query code::
 
-	from zope.component import getUtility, getAdapter, getMultiAdapter
+    from zope.component import getUtility, getAdapter, getMultiAdapter
 
-	# header implements IHeaderBehavior
-	# doc implements Products.CMFCore.interfaces.IContentish
-	# request implements zope.publisher.interfaces.browser.IBrowserRequest
+    # header implements IHeaderBehavior
+    # doc implements Products.CMFCore.interfaces.IContentish
+    # request implements zope.publisher.interfaces.browser.IBrowserRequest
 
     from Products.CMFCore.interfaces import IContentish
     from zope.publisher.interfaces.browser import IBrowserRequest

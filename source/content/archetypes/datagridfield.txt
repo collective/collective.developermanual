@@ -13,32 +13,32 @@ DataGridField acts as any other Archetypes based field.
 
 To read DGF content use *accessor* function::
 
-	data = myobject.getMyDGF() #
+    data = myobject.getMyDGF() #
 
 Data is a Python list of dictionaries. Each dictionary presents one row. Dictionary keys are column ids
 and dictionary values are cell values.
 
 To set DGF content you must replace all rows at once::
 
-	mydata = [
-		{ "column1" : "value", "column2" : "something else" }, # row 1
-		{ "column1" : "xxx", "column2" : "yyy" } # row 2
-		]
+    mydata = [
+        { "column1" : "value", "column2" : "something else" }, # row 1
+        { "column1" : "xxx", "column2" : "yyy" } # row 2
+        ]
 
-	context.setMyDGF(mydata)
+    context.setMyDGF(mydata)
 
 To append a row to DFG, you need to read it, manipulate the list, and then reset the value::
 
-	rows = myobject.getMyDGF() # This returns a copy which you can modify freely
-	rows.append({ "column1" : "value", "column2" : "something else" })
-	myobject.setMyDGF(rows) # Now set the value with one new row
+    rows = myobject.getMyDGF() # This returns a copy which you can modify freely
+    rows.append({ "column1" : "value", "column2" : "something else" })
+    myobject.setMyDGF(rows) # Now set the value with one new row
 
 
 Modify cell value in DGF::
 
-	rows = myobject.getMyDGF() # This returns a copy which you can modify freely
-	rows[0]["column1"] = "newvalue" # Set a string value for row 1, cell 1 (cell using column id column1)
-	myobject.setMyDGF(rows) # Now set the value with one new row
+    rows = myobject.getMyDGF() # This returns a copy which you can modify freely
+    rows[0]["column1"] = "newvalue" # Set a string value for row 1, cell 1 (cell using column id column1)
+    myobject.setMyDGF(rows) # Now set the value with one new row
 
 Other resources
 ---------------

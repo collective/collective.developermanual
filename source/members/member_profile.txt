@@ -16,9 +16,9 @@ Getting member fullname
 
 In template you can do something along the lines::
 
-	<tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/fullname">
-		You are are <span class="name" tal:content="fullname" />
-	</tal:with-fullname>
+    <tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/fullname">
+        You are are <span class="name" tal:content="fullname" />
+    </tal:with-fullname>
 
 Note that this code won't work for anonymous users.
 

@@ -28,9 +28,9 @@ Form encoding
 
 .. warning::
 
-	Make sure that all forms containing file content are posted as enctype="multipart/form-data".
-	Otherwise Zope decodes request POST values as string input and you get either empty strings
-	or filenames as your file content data.
+    Make sure that all forms containing file content are posted as enctype="multipart/form-data".
+    Otherwise Zope decodes request POST values as string input and you get either empty strings
+    or filenames as your file content data.
 
 Example correct form header::
 
@@ -41,50 +41,50 @@ File field contents
 
 Example::
 
-	from zope import schema
-	from zope.interface import implements, alsoProvides
-	from persistent import Persistent
-	from plone.namedfile.field import NamedBlobFile, NamedBlobImage
-	from zope.schema.fieldproperty import FieldProperty
+    from zope import schema
+    from zope.interface import implements, alsoProvides
+    from persistent import Persistent
+    from plone.namedfile.field import NamedBlobFile, NamedBlobImage
+    from zope.schema.fieldproperty import FieldProperty
 
-	class IHeaderAnimation(form.Schema):
-	    """ Alternative header flash animation/imagae """
+    class IHeaderAnimation(form.Schema):
+        """ Alternative header flash animation/imagae """
 
-	    animation = NamedBlobFile(title=u"Header flash animation", description=u"Upload SWF file which is shown in the header", required=False)
+        animation = NamedBlobFile(title=u"Header flash animation", description=u"Upload SWF file which is shown in the header", required=False)
 
 
-	# Sample file data used in simulated uploads
-	sample_data = (
-	         'GIF89a\x10\x00\x10\x00\xd5\x00\x00\xff\xff\xff\xff\xff\xfe\xfc\xfd\xfd'
-	         '\xfa\xfb\xfc\xf7\xf9\xfa\xf5\xf8\xf9\xf3\xf6\xf8\xf2\xf5\xf7\xf0\xf4\xf6'
-	         '\xeb\xf1\xf3\xe5\xed\xef\xde\xe8\xeb\xdc\xe6\xea\xd9\xe4\xe8\xd7\xe2\xe6'
-	         '\xd2\xdf\xe3\xd0\xdd\xe3\xcd\xdc\xe1\xcb\xda\xdf\xc9\xd9\xdf\xc8\xd8\xdd'
-	         '\xc6\xd7\xdc\xc4\xd6\xdc\xc3\xd4\xda\xc2\xd3\xd9\xc1\xd3\xd9\xc0\xd2\xd9'
-	         '\xbd\xd1\xd8\xbd\xd0\xd7\xbc\xcf\xd7\xbb\xcf\xd6\xbb\xce\xd5\xb9\xcd\xd4'
-	         '\xb6\xcc\xd4\xb6\xcb\xd3\xb5\xcb\xd2\xb4\xca\xd1\xb2\xc8\xd0\xb1\xc7\xd0'
-	         '\xb0\xc7\xcf\xaf\xc6\xce\xae\xc4\xce\xad\xc4\xcd\xab\xc3\xcc\xa9\xc2\xcb'
-	         '\xa8\xc1\xca\xa6\xc0\xc9\xa4\xbe\xc8\xa2\xbd\xc7\xa0\xbb\xc5\x9e\xba\xc4'
-	         '\x9b\xbf\xcc\x98\xb6\xc1\x8d\xae\xbaFgs\x00\x00\x00\x00\x00\x00\x00\x00'
-	         '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-	         '\x00,\x00\x00\x00\x00\x10\x00\x10\x00\x00\x06z@\x80pH,\x12k\xc8$\xd2f\x04'
-	         '\xd4\x84\x01\x01\xe1\xf0d\x16\x9f\x80A\x01\x91\xc0ZmL\xb0\xcd\x00V\xd4'
-	         '\xc4a\x87z\xed\xb0-\x1a\xb3\xb8\x95\xbdf8\x1e\x11\xca,MoC$\x15\x18{'
-	         '\x006}m\x13\x16\x1a\x1f\x83\x85}6\x17\x1b $\x83\x00\x86\x19\x1d!%)\x8c'
-	         '\x866#\'+.\x8ca`\x1c`(,/1\x94B5\x19\x1e"&*-024\xacNq\xba\xbb\xb8h\xbeb'
-	         '\x00A\x00;'
-	         )
+    # Sample file data used in simulated uploads
+    sample_data = (
+             'GIF89a\x10\x00\x10\x00\xd5\x00\x00\xff\xff\xff\xff\xff\xfe\xfc\xfd\xfd'
+             '\xfa\xfb\xfc\xf7\xf9\xfa\xf5\xf8\xf9\xf3\xf6\xf8\xf2\xf5\xf7\xf0\xf4\xf6'
+             '\xeb\xf1\xf3\xe5\xed\xef\xde\xe8\xeb\xdc\xe6\xea\xd9\xe4\xe8\xd7\xe2\xe6'
+             '\xd2\xdf\xe3\xd0\xdd\xe3\xcd\xdc\xe1\xcb\xda\xdf\xc9\xd9\xdf\xc8\xd8\xdd'
+             '\xc6\xd7\xdc\xc4\xd6\xdc\xc3\xd4\xda\xc2\xd3\xd9\xc1\xd3\xd9\xc0\xd2\xd9'
+             '\xbd\xd1\xd8\xbd\xd0\xd7\xbc\xcf\xd7\xbb\xcf\xd6\xbb\xce\xd5\xb9\xcd\xd4'
+             '\xb6\xcc\xd4\xb6\xcb\xd3\xb5\xcb\xd2\xb4\xca\xd1\xb2\xc8\xd0\xb1\xc7\xd0'
+             '\xb0\xc7\xcf\xaf\xc6\xce\xae\xc4\xce\xad\xc4\xcd\xab\xc3\xcc\xa9\xc2\xcb'
+             '\xa8\xc1\xca\xa6\xc0\xc9\xa4\xbe\xc8\xa2\xbd\xc7\xa0\xbb\xc5\x9e\xba\xc4'
+             '\x9b\xbf\xcc\x98\xb6\xc1\x8d\xae\xbaFgs\x00\x00\x00\x00\x00\x00\x00\x00'
+             '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+             '\x00,\x00\x00\x00\x00\x10\x00\x10\x00\x00\x06z@\x80pH,\x12k\xc8$\xd2f\x04'
+             '\xd4\x84\x01\x01\xe1\xf0d\x16\x9f\x80A\x01\x91\xc0ZmL\xb0\xcd\x00V\xd4'
+             '\xc4a\x87z\xed\xb0-\x1a\xb3\xb8\x95\xbdf8\x1e\x11\xca,MoC$\x15\x18{'
+             '\x006}m\x13\x16\x1a\x1f\x83\x85}6\x17\x1b $\x83\x00\x86\x19\x1d!%)\x8c'
+             '\x866#\'+.\x8ca`\x1c`(,/1\x94B5\x19\x1e"&*-024\xacNq\xba\xbb\xb8h\xbeb'
+             '\x00A\x00;'
+             )
 
-	class HeaderAnimation(Persistent):
-	    """ Persistent storage object used in IHeaderBehavior.alternatives list.
+    class HeaderAnimation(Persistent):
+        """ Persistent storage object used in IHeaderBehavior.alternatives list.
 
-	    This holds information about one animation/image upload.
-	    """
-	    implements(IHeaderAnimation)
+        This holds information about one animation/image upload.
+        """
+        implements(IHeaderAnimation)
 
-	    animation = FieldProperty(IHeaderAnimation["animation"])
+        animation = FieldProperty(IHeaderAnimation["animation"])
 
-	animation = HeaderAnimation()
-	animation.file = namedfile.NamedBlobFile(sample_data, filename=u"flash.swf")
+    animation = HeaderAnimation()
+    animation.file = namedfile.NamedBlobFile(sample_data, filename=u"flash.swf")
 
 Constring download URLs
 ------------------------
@@ -99,54 +99,54 @@ refer to the URL of the view in your HTML template. There are some tricks you ne
 
 Complex example (plone.app.headeranimations)::
 
-	from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
+    from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
 
-	# <browser:page> providing blob object traverse and streaming
-	# using download_blob() function below
-	download_view_name = "@@header_animation_helper"
+    # <browser:page> providing blob object traverse and streaming
+    # using download_blob() function below
+    download_view_name = "@@header_animation_helper"
 
-	def construct_url(context, animation_object_id, blob):
-	    """ Construct download URL for delivering files.
+    def construct_url(context, animation_object_id, blob):
+        """ Construct download URL for delivering files.
 
-	    Adds file upload timestamp to URL to prevent cache issues.
+        Adds file upload timestamp to URL to prevent cache issues.
 
-	    @param context: Content object who own the files
+        @param context: Content object who own the files
 
-	    @param animation_object_id: Unique identified for the animation in the animation container
-	           (in the case there are several of them)
+        @param animation_object_id: Unique identified for the animation in the animation container
+               (in the case there are several of them)
 
-	    @param field_value: NamedBlobFile or NamedBlobImage or None
+        @param field_value: NamedBlobFile or NamedBlobImage or None
 
-	    @return: None if there is no blob or the blob field value is empty (file has been removed from admin interface)
-	    """
+        @return: None if there is no blob or the blob field value is empty (file has been removed from admin interface)
+        """
 
-	    if blob == None:
-	        return None
+        if blob == None:
+            return None
 
-	    # This case occurs when the file has been removed thorugh form interfaces
-	    # (one of keep, replace, remove options on file widget)
+        # This case occurs when the file has been removed thorugh form interfaces
+        # (one of keep, replace, remove options on file widget)
 
 
-	    if animation_object_id == None:
-	        raise RuntimeError("Cannot have None id")
+        if animation_object_id == None:
+            raise RuntimeError("Cannot have None id")
 
-	    # Timestamping prevents caching issues,
-	    # otherwise the browser shows the old version after reupload
-	    if hasattr(blob, "_p_mtime"):
-	        # Zope persistency timestamp is float seconds since epoch
-	        timestamp = blob._p_mtime
-	    else:
-	        timestamp = ""
+        # Timestamping prevents caching issues,
+        # otherwise the browser shows the old version after reupload
+        if hasattr(blob, "_p_mtime"):
+            # Zope persistency timestamp is float seconds since epoch
+            timestamp = blob._p_mtime
+        else:
+            timestamp = ""
 
-	    # We have different BrowserView methods for download depending on the file type
-	    # (to apply Flash fix)
-	    if INamedBlobFile.providedBy(blob):
-	        func_name = "download_animation"
-	    else:
-	        func_name = "download_image"
+        # We have different BrowserView methods for download depending on the file type
+        # (to apply Flash fix)
+        if INamedBlobFile.providedBy(blob):
+            func_name = "download_animation"
+        else:
+            func_name = "download_image"
 
-	    # This looks like
-	    return context.absolute_url() + "/" + download_view_name + "/" + func_name + "?timestamp=" + str(timestamp)
+        # This looks like
+        return context.absolute_url() + "/" + download_view_name + "/" + func_name + "?timestamp=" + str(timestamp)
 
 Streaming file data
 -------------------
@@ -157,72 +157,72 @@ as whole to the memory before sending to the wite.
 
 Example (plone.app.headeranimation)::
 
-	from zope.publisher.interfaces import IPublishTraverse, NotFound
+    from zope.publisher.interfaces import IPublishTraverse, NotFound
 
-	from plone.namedfile.utils import set_headers, stream_data
-	from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
+    from plone.namedfile.utils import set_headers, stream_data
+    from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
 
-	def download_blob(context, request, file):
-	    """ Stream animation or image BLOB to the browser.
+    def download_blob(context, request, file):
+        """ Stream animation or image BLOB to the browser.
 
-	    @param context: Context object name is used to set the filename if blob itself doesn't provide one
+        @param context: Context object name is used to set the filename if blob itself doesn't provide one
 
-	    @param request: HTTP request
+        @param request: HTTP request
 
-	    @param file: Blob object
-	    """
-	    if file == None:
-	        raise NotFound(context, '', request)
+        @param file: Blob object
+        """
+        if file == None:
+            raise NotFound(context, '', request)
 
-	    # Try determine blob name and default to "context_id_download"
-	    # This is only visible if the user tried to save the file to local computer
-	    filename = getattr(file, 'filename', context.id + "_download")
+        # Try determine blob name and default to "context_id_download"
+        # This is only visible if the user tried to save the file to local computer
+        filename = getattr(file, 'filename', context.id + "_download")
 
-	    set_headers(file, request.response)
+        set_headers(file, request.response)
 
-	    # Set headers for Flash 10
-	    # http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/
-	    cd = 'inline; filename=%s' % filename
-	    request.response.setHeader("Content-Disposition", cd)
+        # Set headers for Flash 10
+        # http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/
+        cd = 'inline; filename=%s' % filename
+        request.response.setHeader("Content-Disposition", cd)
 
-	    return stream_data(file)
+        return stream_data(file)
 
-	class HeaderAnimationFieldDownload(BrowserView):
-	    """ Allow file and image downloads in form widgets.
+    class HeaderAnimationFieldDownload(BrowserView):
+        """ Allow file and image downloads in form widgets.
 
-	    Unlike HeaderAnimationHelper, this does not do
-	    any kind of header resolving, but serves files always
-	    from the context object itself.
-	    """
+        Unlike HeaderAnimationHelper, this does not do
+        any kind of header resolving, but serves files always
+        from the context object itself.
+        """
 
-	    def __init__(self, context, request):
-	        self.context = context
-	        self.request = request
-	        self.behavior = IHeaderBehavior(self.context)
+        def __init__(self, context, request):
+            self.context = context
+            self.request = request
+            self.behavior = IHeaderBehavior(self.context)
 
-	        self.animation_object_id = self.request.form["animation_object_id"]
+            self.animation_object_id = self.request.form["animation_object_id"]
 
 
-	    def lookUpAnimation(self):
-	        """ Don't do look-up in init, since failure there will raise ComponentLookupError instead of NotFound.
+        def lookUpAnimation(self):
+            """ Don't do look-up in init, since failure there will raise ComponentLookupError instead of NotFound.
 
-	        @return: Blob object to be streamed
-	        """
-	        if not self.animation_object_id in self.behavior.alternatives:
-	            raise NotFound(self, "Bad animation id:" + self.animation_object_id , self.request)
+            @return: Blob object to be streamed
+            """
+            if not self.animation_object_id in self.behavior.alternatives:
+                raise NotFound(self, "Bad animation id:" + self.animation_object_id , self.request)
 
-	        return self.behavior.alternatives[self.animation_object_id]
+            return self.behavior.alternatives[self.animation_object_id]
 
-	    def download_animation(self):
-	        """ """
-	        animation = self.lookUpAnimation()
-	        return download_blob(self.context, self.request, animation.animation)
+        def download_animation(self):
+            """ """
+            animation = self.lookUpAnimation()
+            return download_blob(self.context, self.request, animation.animation)
 
-	    def download_image(self):
-	        """ """
-	        animation = self.lookUpAnimation()
-	        stream_iterator = download_blob(self.context, self.request, animation.image)
-	        return stream_iterator
+        def download_image(self):
+            """ """
+            animation = self.lookUpAnimation()
+            stream_iterator = download_blob(self.context, self.request, animation.image)
+            return stream_iterator
 
 Widget download URLs
 -------------------------

@@ -11,16 +11,16 @@ Cache result for process lifecycle
 
 Example::
 
-	@forever.memoize
-	def getFields(area, subject):
-	    """ Get all fields inside area / subject.
+    @forever.memoize
+    def getFields(area, subject):
+        """ Get all fields inside area / subject.
 
-	    Results is cached for process lifetime.
+        Results is cached for process lifetime.
 
-	    @return: List of internal fields
-	    """
-	    schema = getSchema(area)
-	    return [ field for field in schema if field["subject"] == subject ]
+        @return: List of internal fields
+        """
+        schema = getSchema(area)
+        return [ field for field in schema if field["subject"] == subject ]
 
 
 

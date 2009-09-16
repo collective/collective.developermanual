@@ -37,19 +37,19 @@ code little difficult.
 
 Below are few useful unit test functions::
 
-	# Zope security imports
-	from AccessControl import getSecurityManager
-	from AccessControl.SecurityManagement import newSecurityManager
-	from AccessControl.SecurityManagement import noSecurityManager
-	from AccessControl.SecurityManager import setSecurityPolicy
-	from AccessControl import ZopeGuards
-	from AccessControl.ZopeGuards import guarded_getattr, get_safe_globals, safe_builtins
-	from AccessControl.ImplPython import ZopeSecurityPolicy
-	from AccessControl import Unauthorized
+    # Zope security imports
+    from AccessControl import getSecurityManager
+    from AccessControl.SecurityManagement import newSecurityManager
+    from AccessControl.SecurityManagement import noSecurityManager
+    from AccessControl.SecurityManager import setSecurityPolicy
+    from AccessControl import ZopeGuards
+    from AccessControl.ZopeGuards import guarded_getattr, get_safe_globals, safe_builtins
+    from AccessControl.ImplPython import ZopeSecurityPolicy
+    from AccessControl import Unauthorized
 
-	# Restricted Python imports
-	from RestrictedPython import compile_restricted
-	from RestrictedPython.SafeMapping import SafeMapping
+    # Restricted Python imports
+    from RestrictedPython import compile_restricted
+    from RestrictedPython.SafeMapping import SafeMapping
 
     def _execUntrusted(self, debug, function_body, **kwargs):
         """ Sets up a sandboxed Python environment with Zope security in place.
@@ -116,10 +116,10 @@ Below are few useful unit test functions::
         
         raise AssertionError, 'Unauthorized exception was expected'
 
-	def test_xxx(self):
-		# Run RestrictedPython in unit test code
-		# myCustomUserCreationFunction() is view/Python script/method you must call in the restricted mode 
-		self.execUntrusted('portal.myCustomUserCreationFunction(username="national_coordinator", email="nationalcoordinator@redinnovation.com")', portal=self.portal)
+    def test_xxx(self):
+        # Run RestrictedPython in unit test code
+        # myCustomUserCreationFunction() is view/Python script/method you must call in the restricted mode 
+        self.execUntrusted('portal.myCustomUserCreationFunction(username="national_coordinator", email="nationalcoordinator@redinnovation.com")', portal=self.portal)
 
 Other references
 ----------------

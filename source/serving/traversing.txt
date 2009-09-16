@@ -35,7 +35,7 @@ It is a a sequence of id components from the parent to the child separated by sl
 
 Example::
 
-	documentation/howTos/myHowTo
+    documentation/howTos/myHowTo
 
 Exploring Zope application server
 ---------------------------------
@@ -57,12 +57,12 @@ Zope exposes child objects as attributes.
 
 Example::
 
-	# you have obtain to plone.org portal root object somehow and it's
-	# stored in local variable "portal"
+    # you have obtain to plone.org portal root object somehow and it's
+    # stored in local variable "portal"
 
-	documentation = portal.documentation
-	howTos = getattr(portal, "how-to") # note that we need use getattr because dash is invalid in syntax
-	myHowTo = getattr(howTos, "manipulating-plone-objects-programmatically")
+    documentation = portal.documentation
+    howTos = getattr(portal, "how-to") # note that we need use getattr because dash is invalid in syntax
+    myHowTo = getattr(howTos, "manipulating-plone-objects-programmatically")
 
 Container traversing
 --------------------
@@ -71,12 +71,12 @@ Zope exposes child objects as container accessor.
 
 Example::
 
-	# you have obtain to plone.org portal root object somehow and it's
-	# stored in local variable "portal"
+    # you have obtain to plone.org portal root object somehow and it's
+    # stored in local variable "portal"
 
-	documentation = portal["documentation"]
-	howTos = documentation["how-to"]
-	myHowTo = howTos["manipulating-plone-objects-programmatically"]
+    documentation = portal["documentation"]
+    howTos = documentation["how-to"]
+    myHowTo = howTos["manipulating-plone-objects-programmatically"]
 
 
 Traversing by full path
@@ -91,16 +91,16 @@ user lacks Access contents information and View permissions.
 
 Example::
 
-	myHowTo = portal.restrictedTraverse("documentation/howTos/myHowTo")
+    myHowTo = portal.restrictedTraverse("documentation/howTos/myHowTo")
 
-	# Bypass security
-	myHowTo = portal.unrestrictedTraverse("documentation/howTos/myHowTo")
+    # Bypass security
+    myHowTo = portal.unrestrictedTraverse("documentation/howTos/myHowTo")
 
 
 .. warning::
 
-	restrictedTraverse()/unrestrictedTraverse() does not honor IPublishTraverse
-	adapters. `Read more about the issue in this discussion <http://mail.zope.org/pipermail/zope-dev/2009-May/036665.html>`_.
+    restrictedTraverse()/unrestrictedTraverse() does not honor IPublishTraverse
+    adapters. `Read more about the issue in this discussion <http://mail.zope.org/pipermail/zope-dev/2009-May/036665.html>`_.
 
 Getting object path
 -------------------
@@ -121,18 +121,18 @@ Getting physical path
 
 Use getPhysicalPath(). Example::
 
-	path = portal.getPhysicalPath() # returns "plone"
+    path = portal.getPhysicalPath() # returns "plone"
 
 Getting virtual path
 ====================
 
 Map physical path to virtual path using HTTP request object physicalPathToVirtualPath(). Example::
 
-	request = self.request # HTTPRequest object
+    request = self.request # HTTPRequest object
 
-	path = portal.document.getPhysicalPath()
+    path = portal.document.getPhysicalPath()
 
-	virtual_path = request.physicalPathToVirtualPath(path) # returns "document"
+    virtual_path = request.physicalPathToVirtualPath(path) # returns "document"
 
 Getting object URL
 ------------------
@@ -145,7 +145,7 @@ Do not persistently store the result of absolute_url().
 
 Example::
 
-	url = portal.absolute_url() # http://nohost/plone in unit tests
+    url = portal.absolute_url() # http://nohost/plone in unit tests
 
 Getting the parent
 ------------------
@@ -154,51 +154,51 @@ Object parent is accessible is acquisition_ chain for the object is set.
 
 Use aq_parent.
 
-	parent = object.aq_parent
+    parent = object.aq_parent
 
 Parent is defined as __parent__ attribute of the object instance.
 
-	object.__parent__ = object.aq_parent.
+    object.__parent__ = object.aq_parent.
 
 __parent__ is set when object's __of__() method is called.
 
-	view = MyBrowserView(context, request)
+    view = MyBrowserView(context, request)
 
-	view = view.__of__(context) # Puts view to acquisition chain and acquistion functions become available
+    view = view.__of__(context) # Puts view to acquisition chain and acquistion functions become available
 
 Getting all parents
 ===================
 
 Example::
 
-	from Products.CMFCore.interfaces import ISiteRoot
+    from Products.CMFCore.interfaces import ISiteRoot
 
-	def getParents(object):
-	    """ Get object parents as iterable.
+    def getParents(object):
+        """ Get object parents as iterable.
 
-	    Example::
+        Example::
 
-	        parents = getParents(self.context)
-	        print "I have parents:" + str(list(parents))
+            parents = getParents(self.context)
+            print "I have parents:" + str(list(parents))
 
-	    @param object: Any content object
-	    @return: Iterable of all parents from the direct parent to the site root
-	    """
+        @param object: Any content object
+        @return: Iterable of all parents from the direct parent to the site root
+        """
 
-	    # It is important to use inner to bootstrap the traverse,
-	    # or otherwise we might get surprising parents
-	    # E.g. the context of the view has the view as the parent
-	    # unless inner is used
-	    inner = object.aq_inner
+        # It is important to use inner to bootstrap the traverse,
+        # or otherwise we might get surprising parents
+        # E.g. the context of the view has the view as the parent
+        # unless inner is used
+        inner = object.aq_inner
 
-	    parent = inner.aq_parent
-	    while not ISiteRoot.providedBy(parent):
-	        yield parent
+        parent = inner.aq_parent
+        while not ISiteRoot.providedBy(parent):
+            yield parent
 
-	        if not hasattr(parent, "aq_parent"):
-	            raise RuntimeError("Parent traversing interrupted by object: " + str(parent))
+            if not hasattr(parent, "aq_parent"):
+                raise RuntimeError("Parent traversing interrupted by object: " + str(parent))
 
-	        parent = parent.aq_parent
+            parent = parent.aq_parent
 
 Getting the site root
 ---------------------
@@ -207,11 +207,11 @@ You can resolve the site root if you have the handle to any context object.
 
 Example::
 
-	from Products.CMFCore.utils import getToolByName
+    from Products.CMFCore.utils import getToolByName
 
-	# you know some object which is refered as "context"
-	portal_url = getToolByName(context, "portal_url")
-	portal = portal_url.getPortalObject()
+    # you know some object which is refered as "context"
+    portal_url = getToolByName(context, "portal_url")
+    portal = portal_url.getPortalObject()
 
 
 Site is also stored a thread local variable. In Zope each request is
@@ -222,9 +222,9 @@ assuming that your code is called after Zope has traversed the context object on
 
 Eaxmple::
 
-	from zope.app.component.hooks import getSite
+    from zope.app.component.hooks import getSite
 
-	site = getSite() # returns portal root from thread local storage
+    site = getSite() # returns portal root from thread local storage
 
 Getting Zope application server handle
 --------------------------------------
@@ -233,9 +233,9 @@ You can also access other sites within the same application server from your cod
 
 Example::
 
-	app = context.restrictedTraverse('/') # Zope application server root
-	site = app["plone"] # your plone instance
-	site2 = app["mysiteid"] # another site
+    app = context.restrictedTraverse('/') # Zope application server root
+    site = app["plone"] # your plone instance
+    site2 = app["mysiteid"] # another site
 
 Acquisition effect
 ------------------

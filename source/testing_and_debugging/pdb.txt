@@ -10,7 +10,7 @@ Using pdb
 ----------
 
 .. warning:: In following text word *set_trace* has been replaced with xxx_trace
- 	         due to commit problems.
+             due to commit problems.
 
 # Go to your code and insert statemet *import pdb ; pdb.xxx_trace*. When the code is run next time
   the execution will stop there and you can examine the current context variables from
@@ -21,23 +21,23 @@ Using pdb
 
 Example::
 
-	class AREditForm(crud.EditForm):
-	    """ Present edit table containing rows per each item added and delete controls """
-	    editsubform_factory = AREditSubForm
+    class AREditForm(crud.EditForm):
+        """ Present edit table containing rows per each item added and delete controls """
+        editsubform_factory = AREditSubForm
 
-	    template = viewpagetemplatefile.ViewPageTemplateFile('ar-crud-table.pt')
+        template = viewpagetemplatefile.ViewPageTemplateFile('ar-crud-table.pt')
 
-	    @property
-	    def fields(self):
+        @property
+        def fields(self):
 
-	    	#
-	    	# Execution will stop here and interactive Python prompt is opened
-	    	#
+            #
+            # Execution will stop here and interactive Python prompt is opened
+            #
 
-	    	import pdb ; xxx.set_trace()
-	        constructor = ARFormConstructor(self.context, self.context.context, self.request)
-	        return constructor.getFields()
-	        
+            import pdb ; xxx.set_trace()
+            constructor = ARFormConstructor(self.context, self.context.context, self.request)
+            return constructor.getFields()
+            
 Useful pdb commands
 -------------------
 
@@ -51,22 +51,22 @@ Just type the letter and hit enter
 
 * bt = print stack trace
 
-* up = go to the scope of the caller function	        
+* up = go to the scope of the caller function           
 
 Useful pdb snippets
 ---------------------
 
 Output object's class::
 
-	print obj.__class__
+    print obj.__class__
 
 Output object attributes and methods:
 
-	for i in dir(obj): print i
+    for i in dir(obj): print i
 
 Print local variables in the current function:
 
-	print locals()
+    print locals()
 
 Dumping incoming HTTP GET or HTTP
  POST:

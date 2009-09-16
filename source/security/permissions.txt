@@ -9,15 +9,15 @@ Checking permission manually
 
 Example::
 
-	from AccessControl import getSecurityManager
-	from AccessControl import Unauthorized
+    from AccessControl import getSecurityManager
+    from AccessControl import Unauthorized
 
-	# Import permission names as pseudo-constants strings from somewhere... see security doc for more info
-	from Products.CMFCore import permissions
+    # Import permission names as pseudo-constants strings from somewhere... see security doc for more info
+    from Products.CMFCore import permissions
 
-	def some_function(self):
+    def some_function(self):
 
-		# This will
+        # This will
         if not getSecurityManager().checkPermission(permissions.ModifyPortalContent):
             raise Unauthorized("You need ModifyPortalContent permission to edit header animations")
 
@@ -64,7 +64,7 @@ Catching Unauthorized
 
 Gracefully failing when the user does not have a permission. Example::
 
-		from AccessControl import Unauthorized
+        from AccessControl import Unauthorized
 
         try:
             portal_state = context.restrictedTraverse("@@plone_portal_state")

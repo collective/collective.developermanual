@@ -13,10 +13,10 @@ Packing the database offline
 
 Example how to pack a copy of Data.fs in offline using Python snippet::
 
-	import time
-	import ZODB.FileStorage
-	import ZODB.serialize
+    import time
+    import ZODB.FileStorage
+    import ZODB.serialize
 
-	storage=ZODB.FileStorage.FileStorage('/tmp/Data.fs.copy')
-	storage.pack(time.time(),ZODB.serialize.referencesf)
+    storage=ZODB.FileStorage.FileStorage('/tmp/Data.fs.copy')
+    storage.pack(time.time(),ZODB.serialize.referencesf)
 

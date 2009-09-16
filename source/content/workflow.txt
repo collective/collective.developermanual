@@ -46,18 +46,18 @@ Always test your workflow methods using a normal.
 
 Example::
 
-		from Products.CMFCore.WorkflowCore import WorkflowException
-		
+        from Products.CMFCore.WorkflowCore import WorkflowException
+        
         portal.invokeFactory("SampleContent", id="sampleProperty")
 
         workflowTool = getToolByName(context, "portal_workflow")
         try:
-        	workflowTool.doActionFor(portal.sampleProperty, "submit")
+            workflowTool.doActionFor(portal.sampleProperty, "submit")
         except WorkflowException:
-        	# Workflow exception is risen if the state transition is not available
-        	# (the sampleProperty content is in a workflow state which
-        	# does not have "submit" transition)
-        	pass
+            # Workflow exception is risen if the state transition is not available
+            # (the sampleProperty content is in a workflow state which
+            # does not have "submit" transition)
+            pass
 
 
 Gets the list of ids of all installed workflows
@@ -82,16 +82,16 @@ Getting workflows for an object
 
 How to test which workflow the object has::
 
-	# See that we have a right workflow in place
-	workflowTool = getToolByName(context, "portal_workflow")
-	# Returns tuple of all workflows assigned for a context object
-	chain = workflowTool.getChainFor(context)
+    # See that we have a right workflow in place
+    workflowTool = getToolByName(context, "portal_workflow")
+    # Returns tuple of all workflows assigned for a context object
+    chain = workflowTool.getChainFor(context)
 
-	# there must be only one workflow for our object
-	self.failUnless(len(chain) == 1)
+    # there must be only one workflow for our object
+    self.failUnless(len(chain) == 1)
 
-	# this must must be the workflow name
-	self.failUnless(chain[0] == 'link_workflow', "Had workflow " + str(chain[0]))
+    # this must must be the workflow name
+    self.failUnless(chain[0] == 'link_workflow', "Had workflow " + str(chain[0]))
 
 
 

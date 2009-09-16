@@ -12,13 +12,13 @@ Preface
 Plone queries are performed using portal_catalog tool. Calling this class instance is a shortcut
 to query method itself, but it is also possible to use other query functions::
 
-	# portal_catalog is defined in the site root
-	portal_catalog = site.portal_catalog
+    # portal_catalog is defined in the site root
+    portal_catalog = site.portal_catalog
 
-	# The following call does not return the actual objects,
-	# but brains instead
-	# The call takes list of indices and match values as arguments
-	brains = portal_catalog(Title="Get all objects with Title "Foobar")
+    # The following call does not return the actual objects,
+    # but brains instead
+    # The call takes list of indices and match values as arguments
+    brains = portal_catalog(Title="Get all objects with Title "Foobar")
 
 Brain objects
 -------------
@@ -30,14 +30,14 @@ by metadata columns in portal_catalog.
 
 You can access the brain object information by following::
 
-	# Return arbitary metadata field by metadata field name
-	title = brain["Title"]
+    # Return arbitary metadata field by metadata field name
+    title = brain["Title"]
 
-	# Return object absolute_url()
-	url = brain.getURL()
+    # Return object absolute_url()
+    url = brain.getURL()
 
-	# Load the actual object from the database (SLOW!)
-	object = brain.getObject()
+    # Load the actual object from the database (SLOW!)
+    object = brain.getObject()
 
 
 Dumping portal catalog content
@@ -45,8 +45,8 @@ Dumping portal catalog content
 
 Following is useful in unit test debugging::
 
-	# Print all objects visible to the currently logged in user
-	for i in portal_catalog(): print i.getURL()
+    # Print all objects visible to the currently logged in user
+    for i in portal_catalog(): print i.getURL()
 
 ** Security warning**: Respects priviledges of the current user
 
@@ -59,8 +59,8 @@ If you want to bypass this restrictions, use method unrestrictedSearchResults().
 
 Example::
 
-	# Print absolute content of portal_catalog
-	for i in portal_catalog.unrestrictedSearchResults(): print i.getURL()
+    # Print absolute content of portal_catalog
+    for i in portal_catalog.unrestrictedSearchResults(): print i.getURL()
 
 Querying by path
 ----------------
@@ -72,7 +72,7 @@ Path index stores the physical path of the objects.
 
 Example::
 
-	portal_catalog(path={ query: "/myploneinstance/myfolder" }) # return myfolder and all child content
+    portal_catalog(path={ query: "/myploneinstance/myfolder" }) # return myfolder and all child content
 
 Querying by interface
 ---------------------
@@ -87,13 +87,13 @@ See `DateIndex <http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/DateIn
 
 Example::
 
-	items = portal_catalog(effective_date = {'date': {'query':(DateTime('2002-05-08 15:16:17'),
+    items = portal_catalog(effective_date = {'date': {'query':(DateTime('2002-05-08 15:16:17'),
                                             DateTime('2062-05-08 15:16:17')),
                                    'range': 'min:max'})
 
 Another example how to get news items for a particular year in the template code::
 
-	<div metal:fill-slot="main" id="content-news"
+    <div metal:fill-slot="main" id="content-news"
      tal:define="boundLanguages here/portal_languages/getLanguageBindings;
                  prefLang python:boundLanguages[0];
                  DateTime python:modules['DateTime'].DateTime;
@@ -101,14 +101,14 @@ Another example how to get news items for a particular year in the template code
                  end_year request/year| python: 2099;
                  start_year python: int(start_year);
                  end_year python: int(end_year);
-     			 results python:container.portal_catalog(
-     			 	portal_type='News Item',
-     			 	sort_on='Date',
-     			 	sort_order='reverse',
-     			 	review_state='published',
-     			 	id=prefLang,
-     			 	created={ 'query' : [DateTime(start_year,1,1), DateTime(end_year,12,31)], 'range':'minmax'}
-     			 	);
+                 results python:container.portal_catalog(
+                    portal_type='News Item',
+                    sort_on='Date',
+                    sort_order='reverse',
+                    review_state='published',
+                    id=prefLang,
+                    created={ 'query' : [DateTime(start_year,1,1), DateTime(end_year,12,31)], 'range':'minmax'}
+                    );
                  results python:[r for r in results if r.getObject()];
                  Batch python:modules['Products.CMFPlone'].Batch;
                  b_start python:request.get('b_start',0);
@@ -117,7 +117,7 @@ Another example how to get news items for a particular year in the template code
                  getDiscussionFor nocall:portal_discussion/getDiscussionFor;
                  home_url python: mtool.getHomeUrl;
                  localized_time python: modules['Products.CMFPlone.PloneUtilities'].localized_time;">
-    	...
+        ...
     </div>
 
 Combining queries using Boolean operators
@@ -154,9 +154,9 @@ Example::
 
 # query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 
-	query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
+    query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 
-	return self.context.portal_catalog.evalAdvancedQuery(query)
+    return self.context.portal_catalog.evalAdvancedQuery(query)
 
 
 .. _AdvancedQuery: http://www.dieter.handshake.de/pyprojects/zope/AdvancedQuery.html

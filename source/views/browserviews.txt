@@ -14,20 +14,20 @@ Creating a view
 
 Example::
 
-	# We must use BrowserView from view, not from zope.browser
-	# Zope version does not
-	from Products.Five.browser import BrowserView
+    # We must use BrowserView from view, not from zope.browser
+    # Zope version does not
+    from Products.Five.browser import BrowserView
 
-	class MyView(BrowserView):
+    class MyView(BrowserView):
 
-		def __init__(self, context, request):
-			self.context = context
-			self.requet = request
+        def __init__(self, context, request):
+            self.context = context
+            self.requet = request
 
-		# by default call will call self.index() method which is mapped
-		# to ViewPageTemplateFile specified in ZCML
-		#def __call__():
-		#
+        # by default call will call self.index() method which is mapped
+        # to ViewPageTemplateFile specified in ZCML
+        #def __call__():
+        #
 
 Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
 -------------------------------------------------------
@@ -42,11 +42,11 @@ Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
 Difference in code::
 
     from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-	
-	vs.
-	
-	from zope.app.pagetemplate import ViewPageTemplateFile
-		
+    
+    vs.
+    
+    from zope.app.pagetemplate import ViewPageTemplateFile
+        
 
 Difference is that Five version supports
 
@@ -66,46 +66,46 @@ Relationship between views and templates
 ZCML <browser:view template=""> will override class index value.
 
 Eaxmple::
-	
-	<browser:page
-		for="*"
-		name="test"
+    
+    <browser:page
+        for="*"
+        name="test"
         permission="zope2.Public"
         class=".views.MyView"        
         />    
-	
-	from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    
+    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-	class MyView(BrowserView):
-	
-		index = ViewPageTemplateFile("my-template.pt") 
+    class MyView(BrowserView):
+    
+        index = ViewPageTemplateFile("my-template.pt") 
 
 
 is equal to::
 
-	<browser:page
-		for="*"
-		name="test"
+    <browser:page
+        for="*"
+        name="test"
         permission="zope2.Public"
         class=".views.MyView"
         template="my-template.pt"        
         />   
 
-	class MyView(BrowserView):
-		pass
-		
+    class MyView(BrowserView):
+        pass
+        
 Rendering of the view is done by following:
 
-	class MyView(BrowserView):
-		
-		# This may be overridden in ZCML
-		index = ViewPageTemplateFile("my-template.pt")
-	
-		def render(self):
-			return self.index()
-	
-		def __call__(self):
-			return self.render()
+    class MyView(BrowserView):
+        
+        # This may be overridden in ZCML
+        index = ViewPageTemplateFile("my-template.pt")
+    
+        def render(self):
+            return self.index()
+    
+        def __call__(self):
+            return self.render()
 
 Getting a view by id
 --------------------
@@ -116,24 +116,24 @@ method (necessary for rendering Plone templates).
 
 Example::
 
-	def getView(context, name):
-	    """ Return a view which is associated with context object and current HTTP request.
+    def getView(context, name):
+        """ Return a view which is associated with context object and current HTTP request.
 
-		@param context: Any Plone content object
-	    @param name: Attribute name holding the view name
-	    """
+        @param context: Any Plone content object
+        @param name: Attribute name holding the view name
+        """
 
 
-	    try:
-	        view = context.unrestrictedTraverse("@@" + name)
-	    except AttributeError:
-	        raise RuntimeError("Instance %s did not have view %s" % (str(context), name))
+        try:
+            view = context.unrestrictedTraverse("@@" + name)
+        except AttributeError:
+            raise RuntimeError("Instance %s did not have view %s" % (str(context), name))
 
-	    view = view.__of__(context)
+        view = view.__of__(context)
 
-	    return view
-	    
+        return view
+        
 Zope 2 views vs. Zope 3 views
 ------------------------------
 
-TODO	    
+TODO        

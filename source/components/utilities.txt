@@ -18,28 +18,28 @@ ZCML example::
 
    <!-- Register header animation picking logic - override this for your custom logic -->
    <utility
-	 provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
-	 factory=".picker.RandomHeaderAnimationPicker" />
+     provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
+     factory=".picker.RandomHeaderAnimationPicker" />
 
 Getting utility
 ---------------
 
 There are two functions
 
-	* zope.component.getUtility will raise exception if utility is not found
+    * zope.component.getUtility will raise exception if utility is not found
 
-	* zope.component.queryUtility will return None if utility is not found
+    * zope.component.queryUtility will return None if utility is not found
 
 
 Utility query parameters are passed to the utility class constructor.
 
 Example::
 
-	from zope.component import getUtility, queryUtility
+    from zope.component import getUtility, queryUtility
 
-	# context and request are passed to the utility class constructor
-	# they are optional and depend on the utility itself
-	picker = getUtility(IHeaderAnimationPicker, context, request)
+    # context and request are passed to the utility class constructor
+    # they are optional and depend on the utility itself
+    picker = getUtility(IHeaderAnimationPicker, context, request)
 
 
 
