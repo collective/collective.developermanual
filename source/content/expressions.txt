@@ -43,5 +43,18 @@ class and call the view method in the expression::
 	
 	object/@@my_view_name/my_method
 
+And::
 
-
+	class MyViewName(BrowserView):
+		""" Exposes methods for expression conditions """ 
+			
+		def my_method(self):
+			""" Funky condition 
+			
+			self.context = object for which this view was traversed
+			"""
+			if self.context.Title().startswith("a"):
+				return True
+			else:
+				return False
+		
