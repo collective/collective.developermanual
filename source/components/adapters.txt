@@ -9,7 +9,11 @@ nice looking code in complex systems where there are hundreds of applicable meth
 
 * Class functionality can be extended outside the class source code
 
-* Add-on products may extend or override parts of the class functionality
+* Add-on products may extend or override parts of the class functionality.
+  Frameworks use adapters excessively, because adapters provide easy joint points.
+  External code can override adapters to retrofit/modify functiolity. An example
+  is that a theme product might want to override a searchbox viewlet to have
+  little different search box functionality with theme specific goodies.
 
 The downside is that adapters cannot be found by "exploring" classes or source code. They must
 be well documented to be discoverable.
@@ -29,6 +33,88 @@ There are two kinds of adapters
 * Normal adapters take in only one parameter
 
 * Multi-adapters take many parameters as tuple
+
+Registering an adapter
+----------------------
+
+Adapter provides functionality for an class and this functionality
+becomes available when interface is queried from the instance of class.
+
+Below is an example how to make custom "image provider". Image provider
+provides list of images for arbitary content.
+
+This is the image provider interface::
+
+	from zope.interface import Interface
+
+	class IProductImageProvider(Interface):
+
+	    def getImages(self):
+	        """ Get Images associated with the product.
+
+	        @return: iterable of Image objects
+	        """
+
+This is our content class::
+
+	class MyShoppableItemType(folder.ATFolder):
+	    """ Buyable physical good with variants of title and price and multiple images """
+	    implements(IVariantProduct)
+
+	    meta_type = "VariantProduct"
+	    schema = VariantProductSchema
+
+This is adapter for the content class::
+
+	import zope.interface
+
+	from getpaid.variantsproduct.interfaces.multiimageproduct import IProductImageProvider
+
+	class FolderishProductImageProvider(object):
+	    """ Mix-in class which provide product image management functions.
+
+	    Assume the content itself is folderish archetype content type and
+	    all contained image objects are product images.
+	    """
+
+	    zope.interface.implements(IProductImageProvider)
+
+	    def __init__(self, context):
+	    	# Each adapter takes the object itself as the contruction parameter
+	    	# and possibly provided other parameters for the interface adaption
+	        self.context = context
+
+	    def getImages(self):
+	        """ Return sequence of images.
+
+	        Perform folder listing and filter image content from it.
+	        """
+
+	        images = self.context.listFolderContents(contentFilter={"portal_type" : "Image"})
+	        return images
+
+configure.zcml registers the adapter for my custom content type MyShoppableItemType::
+
+  <adapter for=".shop.MyShoppableItemType"
+           provides=".interfaces.IProductImageProvider"
+		   factory=".images.FolderishProductImageProvider"
+
+Then we can query the adapter and use it. Unit testing example::
+
+    def test_get_images(self):
+
+        self.loginAsPortalOwner()
+
+        self.portal.invokeFactory("MyShoppableItemType", "product")
+
+        product = self.portal.product
+
+        image_provider = IProductImageProvider(product)
+
+        images = image_provider.getImages()
+
+        # Not yet any uploaded images
+        self.assertEqual(len(images), 0)
 
 
 Getting adapter
