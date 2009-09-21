@@ -26,6 +26,34 @@ is picked.
 
 For more information, read `Browser Layer tutorial <http://plone.org/documentation/tutorial/customization-for-developers/browser-layers>`_.
 
+Using layers
+------------
+
+Some ZCML directives (example: `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_) take layer attribute.
+
+If you have 
+
+ # plonetheme.yourthemename.interfaces.IThemeSpecific layer defined in Python code 
+ 
+ # YourTheme product installed through add-on product installer on your site instance
+  
+Views and viewlets will be active on the site instance using the following ZCML::
+
+     <!-- Site actions override in YourTheme -->
+     <browser:viewlet
+         name="plone.site_actions"
+         manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+         class=".siteactions.SiteActionsViewlet"
+         layer="plonetheme.yourthemename.interfaces.IThemeSpecific"
+         permission="zope2.View"
+         />
+
+Unconditional overrides
+=======================
+
+If you want to override view or viewlet unconditionally for all sites without the add-on product installer
+support you need to use overrides.zcml.
+
 Creating a layer
 ----------------
 
