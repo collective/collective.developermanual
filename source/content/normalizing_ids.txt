@@ -22,7 +22,28 @@ See`plone.i18n.normalizers package <http://svn.plone.org/svn/plone/plone.i18n/tr
 Examples
 ========
 
+Simple example for CSS id::
+
+	from zope.component import getUtility
+	from plone.i18n.normalizer.interfaces import IIDNormalizer
+
+    normalizer = getUtility(IIDNormalizer)
+    id = "portlet-static-%s" % normalizer.normalize(header)
+    
+Language specific example for URL::
+
+	from zope.component import getUtility
+	from plone.i18n.normalizer.interfaces import IURLNormalizer
+	
+	util = queryUtility(IURLNormalizer, name="el")
+    
+To see available language specific localizers, see the source code of plone.i18n.normalizers package.
+
+More examples:
+
 * `Static text portlets normalizes portlet title for CSS class <https://svn.plone.org/svn/plone/plone.portlet.static/trunk/plone/portlet/static/static.py>`_.
+
+
 
 Creating ids programmatically
 -----------------------------
