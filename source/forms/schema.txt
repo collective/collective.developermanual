@@ -201,3 +201,22 @@ Example::
 	terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
 	
 	vocabulary = SimpleVocabulary(terms)
+	
+Getting a term
+==============
+
+By term value::
+
+	# Returns SimpleTerm object by value look-up
+	term = vocabulary.getTerm("value1")
+	
+	print "Term value is %s token is %s and title is %s" + (term.value, term.token, term.title)
+	
+Listing a vocabulary
+====================
+
+Example::
+
+ for term in vocabulary:
+    # Iterate vocabulry SimpleTerm objects
+    print term.value + ": " + term.title 
