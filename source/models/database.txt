@@ -1,0 +1,54 @@
+=============
+ Database
+=============
+
+Plone uses ZODB database. ZODB happily eats any Python
+object with any attributes - there is no need to write 
+"database schemas" as it is with SQL based systems.
+
+Classes inherit for persistent.Persistent will
+have all their attributes written to database.
+Lists and dictionaries will be automatically converted
+to persistent versions.
+
+Schema based database look-ups
+------------------------------
+
+To craete schema based database query services,
+catalogs are used. Please read more about this
+in chapter *Search and indexing*.
+
+Data validation
+---------------
+
+Even though ZODB does not force schema for persistent
+objects, it is often the best practive to use zope.schema
+and its FieldProperty decorator to force data validation
+before writing it to the database.
+
+Example::
+
+    from persistent import Persistent
+    from zope import schema
+    from zope.interface import Interface
+    from zope.schema.fieldproperty import FieldProperty
+
+
+    class IMyObject(Interface):
+        """ Define *content* of MyObject attributes.
+        
+        New attributes can be still added, unless you
+        use Python __slots__ mechanism.
+        """
+        my_bool = schema.Bool(title=u"Define bool", description=u"object.my_bool only accepts boolean values")
+
+    class MyObject(Persistent):
+        """ Sample persistent object for the IMyObject schema """
+        implements(IHeaderBehavior)
+
+        # Force validation of my_bool attribute
+        # during the set. FieldProperty will create
+        # Python property setter and getter methods
+        # which will take care of the validation
+        my_bool = FieldProperty(IMyObject["inheritable"])
+

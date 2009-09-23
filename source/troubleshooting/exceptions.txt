@@ -39,3 +39,52 @@ Example traceback::
 Five ViewPageTemplate class file is slightly different than Zope 3's normal ViewPageTemplate file.
 In this case Five ViewPageTemplate was used, when Zope 3's normal ViewPageTemplate was expected.
 
+iteration over non-sequence in _normalizeargs 
+----------------------------------------------
+
+The following log trace will appear when you try to render
+the site, but you can access ZMI normally::
+
+	2009-09-23 20:47:18 WARNING OFS.Uninstalled Could not import class 'IPloneCommentsLayer' from module 'quintagroup.plonecomments.interfaces'
+	2009-09-23 20:47:18 ERROR Zope.SiteErrorLog 1253728038.160.534632167217 http://localhost:9444/XXX
+	Traceback (innermost last):
+	  Module plone.postpublicationhook.hook, line 65, in publish
+	  Module ZPublisher.BaseRequest, line 424, in traverse
+	  Module ZPublisher.BeforeTraverse, line 99, in __call__
+	  Module Products.CMFCore.PortalObject, line 94, in __before_publishing_traverse__
+	  Module zope.event, line 23, in notify
+	  Module zope.component.event, line 26, in dispatch
+	  Module zope.component._api, line 130, in subscribers
+	  Module zope.component.registry, line 290, in subscribers
+	  Module zope.interface.adapter, line 535, in subscribers
+	  Module zope.component.event, line 33, in objectEventNotify
+	  Module zope.component._api, line 130, in subscribers
+	  Module zope.component.registry, line 290, in subscribers
+	  Module zope.interface.adapter, line 535, in subscribers
+	  Module plone.browserlayer.layer, line 18, in mark_layer
+	  Module zope.interface.declarations, line 848, in directlyProvides
+	  Module zope.interface.declarations, line 1371, in _normalizeargs
+	  Module zope.interface.declarations, line 1370, in _normalizeargs
+	TypeError: iteration over non-sequence
+	2009-09-23 20:47:18 ERROR root Exception while rendering an error message
+	Traceback (most recent call last):
+	  File "/home/moo/XXX/parts/zope2/lib/python/OFS/SimpleItem.py", line 227, in raise_standardErrorMessage
+	    v = s(**kwargs)
+	  File "/home/moo/workspace2/collective.skinny/collective/skinny/patch.py", line 8, in standard_error_message
+	    return self.restrictedTraverse('@@404.html')()
+	  File "/home/moo/workspace2/collective.skinny/collective/skinny/fourohfour.py", line 22, in __call__
+	    return skins.plone_templates.standard_error_message.__of__(
+	  File "/home/moo/XXX/eggs/Products.CMFCore-2.1.2-py2.4.egg/Products/CMFCore/FSPythonScript.py", line 140, in __call__
+	    return Script.__call__(self, *args, **kw)
+	  File "/home/moo/XXX/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 313, in __call__
+	    return self._bindAndExec(args, kw, None)
+	  File "/home/moo/XXX/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 350, in _bindAndExec
+	    return self._exec(bound_data, args, kw)
+	  File "/home/moo/XXX/eggs/Products.CMFCore-2.1.2-py2.4.egg/Products/CMFCore/FSPythonScript.py", line 196, in _exec
+	    result = f(*args, **kw)
+	  File "Script (Python)", line 27, in standard_error_message
+	AttributeError: default_error_message
+
+This usually means that you have copied Data.fs from another
+system, but you do not have identical add-on product configuration
+installed.

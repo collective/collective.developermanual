@@ -6,12 +6,29 @@ Transactions
 Plone uses `ZODB database <http://en.wikipedia.org/wiki/Zope_Object_Database>` which follows
 `Multiversion concurrency control pararigm <http://en.wikipedia.org/wiki/Multiversion_concurrency_control>`_.
 
-Simply during the HTTP request Ploen completes all writes of the request processing or
-none of the writes. There cannot end partially written data to database.
+During the HTTP request process, Plone completes all modifications of the data or
+none of them. There cannot end partially written data to database.
+
+Using transactions
+------------------
+
+Normally transactions are managed by Plone and the developer should not be interested in them.
+
+Special cases where one would want to manage transaction life-cycle may include
+
+* Batch creation or editing of many items once
+
+Example code
+
+* `transaction source code <http://svn.zope.org/transaction/trunk/transaction/?rev=104430>`_.
+
+http://www.zope.org/Members/mcdonc/HowTos/transaction
+
+https://bugs.launchpad.net/zope3/+bug/98382
 
 Transaction boundary events
 ----------------------------
 
-It is possible to perform actions before transaction is written to the database.
+It is possible to perform actions before and after transaction is written to the database.
 
-TODO
+http://svn.zope.org/transaction/trunk/transaction/_transaction.py?rev=81646&view=auto
