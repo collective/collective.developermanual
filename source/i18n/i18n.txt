@@ -2,8 +2,29 @@
 Internationalization
 ====================
 
-Getting content language
-------------------------
+Each session has a language associated with.
+
+Active language is "negotiated" by plone.i18n.negotiator
+module. Several factors may involve determining what the 
+language should be:
+
+* Cookies (setting from the language selector)
+
+* Domain name (like .fi for Finnish, .se for Swedish)
+
+* Context (current content) language
+
+* Browser language headers
+
+Language is negotiated at the beginning of the page view.
+
+Getting the current language
+----------------------------
+
+
+
+Getting language of content item
+--------------------------------
 
 All content object don't necessarily support Language()
 look-up defined by IDublinCore interface. Below is the
