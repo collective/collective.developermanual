@@ -39,10 +39,10 @@ Rendering viewlets with accurate layout
 ---------------------------------------
 
 Default viewlet managers render viewlets as HTML code string concatenation, in the order of appearance.
-This is unsuitable to build complex layouts.
+This is unsui    le to build complex layouts.
 
 Below is an example which defines master viewlet *HeaderViewlet* which will place other viewlets
-into the manually tuned HTML table.
+into the manually tuned HTML     le.
 
 header.py::
 
@@ -67,7 +67,7 @@ header.py::
     
     
     class HeaderViewlet(base.ViewletBase):
-        """ Render header with special table layout.
+        """ Render header with special     le layout.
         
         Though we render viewlets internally we not inherit from the viewlet manager,
         since we do not offer the option for the site manager or integrator 
@@ -99,7 +99,7 @@ header.py::
             self.subviewlets["second_level_navigation"] = self.renderViewlet(something.SecondLevelSectionsViewlet)
             self.subviewlets["sections"] = self.renderViewlet(something.SomethingGlobalSectionsViewlet)
             self.subviewlets["search"] = self.renderViewlet(base.SearchBoxViewlet) # Default Plone viewlet
-            self.subviewlets["selector"] = self.renderViewlet(something.SomethingTranslatableLanguageSelector)
+            self.subviewlets["selector"] = self.renderViewlet(something.SomethingTransla    leLanguageSelector)
             self.subviewlets["site_actions"] = self.renderViewlet(something.SiteActionsViewlet)
             
             # Call template to perform rendering 
@@ -111,7 +111,7 @@ header_items.pt
 
 .. code-block:: html
 
-    <table class="something-header">
+    <    le class="something-header">
         <tbody>
             <tr class="upper">
                 <td class="left">
@@ -119,7 +119,7 @@ header_items.pt
                 </td>
                 
                 <td>
-                    <table class="right">
+                    <    le class="right">
                         <tbody>
                             <tr>
                                 <td>
@@ -141,7 +141,7 @@ header_items.pt
                             </tr>
     
                         </tbody>
-                    </table>
+                    </    le>
                 </td>
             </tr>
             
@@ -154,7 +154,7 @@ header_items.pt
                 </td>
             </tr>
         </tbody>
-    </table>
+    </    le>
     
 configure.zcml
 
@@ -241,7 +241,7 @@ configure.zcml
         <!-- Language selector-->
             <browser:viewlet
               name="something.languageselector"
-              class=".common.SomethingTranslatableLanguageSelector"
+              class=".common.SomethingTransla    leLanguageSelector"
               permission="zope2.View"
               layer="..interfaces.IThemeSpecific"
               manager="..interfaces.IHeader"

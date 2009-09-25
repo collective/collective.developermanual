@@ -2,7 +2,7 @@
 Zope 3 schemas
 ==============
 
-Zope 3 schema is database-neutral and form library-neutral way to describe Python data models.
+Zope 3 schema is da    ase-neutral and form library-neutral way to describe Python data models.
 Various Plone form engines use `zope.schema <http://pypi.python.org/pypi/zope.schema>`_ package to describe data structures.
 
 The schema is model describing how data is stored. Usually form fields can be generated based on this model.
@@ -74,7 +74,7 @@ Example::
 
     class IHeaderBehavior(form.Schema):
         """ Sample schema """
-        inheritable = schema.Bool(title=u"Inherit header", description=u"This header is visible on child content", required=False, default=False)
+        inheri    le = schema.Bool(title=u"Inherit header", description=u"This header is visible on child content", required=False, default=False)
 
         block_parents = schema.Bool(title=u"Block parent headers", description=u"Do not show parent headers for this content", required=False, default=False)
 
@@ -99,7 +99,7 @@ Example::
 
         # We need to declare field properties so that objects will
         # have input data validation and default values taken from schema above
-        inheritable = FieldProperty(IHeaderBehavior["inheritable"])
+        inheri    le = FieldProperty(IHeaderBehavior["inheri    le"])
         block_parents = FieldProperty(IHeaderBehavior["block_parents"])
         alternatives = FieldProperty(IHeaderBehavior["alternatives"])
 

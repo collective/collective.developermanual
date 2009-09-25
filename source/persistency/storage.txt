@@ -3,12 +3,12 @@ Storage
 =======
 
 This chapter explains details how ZODB stores data. The information here
-is important to know to understand Plone database behavior and how to optimize your application.
+is important to know to understand Plone da    ase behavior and how to optimize your application.
 
 Pickling
 --------
 
-ZODB is object oriented database. All data in ZODB is `pickled Python objects <http://docs.python.org/library/pickle.html>`.
+ZODB is object oriented da    ase. All data in ZODB is `pickled Python objects <http://docs.python.org/library/pickle.html>`.
 Pickle is object serialization module for Python.
 
 * Each time object is read and it is not cached, object is read from ZODB data storage and unpickled
@@ -31,7 +31,7 @@ Pickle format is series of bytes. Here is example what it does look like::
 It is not very human readable format.
 
 Even if you use SQL based `RelStorage <http://pypi.python.org/pypi/RelStorage/>`_ ZODB backends, the objects
-are still pickled to the database; SQL does not support varying table schema per row and Python objects
+are still pickled to the da    ase; SQL does not support varying     le schema per row and Python objects
 do not have fixed schema format.
 
 Binary trees
@@ -41,7 +41,7 @@ Data is usually organized to binary trees (`BTrees <http://wiki.zope.org/ZODB/gu
 More specifically, data is usually stored as Object Oriented Binary Tree
 (OOBtree `http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBTree/index.html>`_
 which provides Python object as key and Python object value mappings. Key is the object id in the parent container as a string and value
-is any pickleable Python object or primitive you store in your database.
+is any pickleable Python object or primitive you store in your da    ase.
 
 `ZODB data structure interfaces <http://svn.zope.org/ZODB/trunk/src/BTrees/Interfaces.py?rev=88776&view=markup>`_.
 
@@ -51,7 +51,7 @@ Buckets
 BTree stores data in buckets (OOBBucket <http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBucket/index.html>`_).
 
 Bucket is the smallest unit of data
-which is written to the database once. Buckets are loaded lazily: BTree only loads
+which is written to the da    ase once. Buckets are loaded lazily: BTree only loads
 buckets storing values of keys being accessed.
 
 BTree tries to stick as much data into one bucket once as possible.
@@ -70,7 +70,7 @@ Plone has two kinds of fundamental way to store data
   OOBtree for storing objects in name-conflict free way.
 
 When storing objects in annotation storage, reading object
-values need at least one extra database look up to load the first bucket
+values need at least one extra da    ase look up to load the first bucket
 of OOBTree.
 
 If the value is going to be used frequently, and especially if it is read when viewing the content object,
@@ -102,7 +102,7 @@ the whole data to the memory first (slow).
 SQL values
 ----------
 
-Plone's Archetypes subsystem supports storing individual Archetypes fields in SQL database.
+Plone's Archetypes subsystem supports storing individual Archetypes fields in SQL da    ase.
 This is mainly an integration feature. Read more about this in Archetypes manual.
 
 Transaction sizes

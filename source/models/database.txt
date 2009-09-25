@@ -1,20 +1,20 @@
 =============
- Database
+ Da    ase
 =============
 
-Plone uses ZODB database. ZODB happily eats any Python
+Plone uses ZODB da    ase. ZODB happily eats any Python
 object with any attributes - there is no need to write 
-"database schemas" as it is with SQL based systems.
+"da    ase schemas" as it is with SQL based systems.
 
 Classes inherit for persistent.Persistent will
-have all their attributes written to database.
+have all their attributes written to da    ase.
 Lists and dictionaries will be automatically converted
 to persistent versions.
 
-Schema based database look-ups
+Schema based da    ase look-ups
 ------------------------------
 
-To craete schema based database query services,
+To craete schema based da    ase query services,
 catalogs are used. Please read more about this
 in chapter *Search and indexing*.
 
@@ -24,7 +24,7 @@ Data validation
 Even though ZODB does not force schema for persistent
 objects, it is often the best practive to use zope.schema
 and its FieldProperty decorator to force data validation
-before writing it to the database.
+before writing it to the da    ase.
 
 Example::
 
@@ -50,5 +50,5 @@ Example::
         # during the set. FieldProperty will create
         # Python property setter and getter methods
         # which will take care of the validation
-        my_bool = FieldProperty(IMyObject["inheritable"])
+        my_bool = FieldProperty(IMyObject["inheri    le"])
 
