@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Plone Developer Manual'
-copyright = u'2009, Twinapex Research and Plone community'
+copyright = u'2009 Twinapex and Plone community'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -110,7 +110,8 @@ html_theme = 'default'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_style='plone.css'
+html_logo='_static/logo.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -158,7 +159,7 @@ html_static_path = ['_static']
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'PloneDeveloperManualdoc'
+htmlhelp_basename = 'PloneDeveloperManual'
 
 
 # -- Options for LaTeX output --------------------------------------------------
