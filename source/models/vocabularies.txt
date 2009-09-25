@@ -3,8 +3,8 @@ Vocabularies
 
 Vocabularies specify options for choice fields.
 
-Vocabularies are normally described using 
-zope.schema.vocabulary.SimpleVocabulary 
+Vocabularies are normally described using
+zope.schema.vocabulary.SimpleVocabulary
 and zope.schema.vocabulary.SimpleTerm objects.
 `See the source code <http://svn.zope.org/zope.schema/trunk/src/zope/schema/vocabulary.py?rev=75170&view=auto>`_.
 
@@ -17,27 +17,27 @@ Some info::
 
 	class ITerm(Interface):
 	    """Object representing a single value in a vocabulary."""
-	
+
 	    value = Attribute(
 	        "value", "The value used to represent vocabulary term in a field.")
-	
-	
+
+
 	class ITokenizedTerm(ITerm):
 	    """Object representing a single value in a tokenized vocabulary.
 	    """
-	
+
 	    # TODO: There should be a more specialized field type for this.
 	    token = Attribute(
 	        "token",
 	        """Token which can be used to represent the value on a stream.
-	
+
 	        The value of this attribute must be a non-empty 7-bit string.
 	        Control characters are not allowed.
 	        """)
-	
+
 	class ITitledTokenizedTerm(ITokenizedTerm):
 	    """A tokenized term that includes a title."""
-	
+
 	    title = TextLine(title=_(u"Title"))
 
 Creating a vocabulary
@@ -45,14 +45,30 @@ Creating a vocabulary
 
 Example::
 
-	from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm 
-	
+	from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+
 	items = [ ("value1", u"This is label for item"), ("value2", u"This is label for value 2")]
-		
+
 	terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
-	
+
 	vocabulary = SimpleVocabulary(terms)
-	
+
+Example 2::
+
+	from plone.directives import form
+
+	from zope import schema
+	from zope.schema.vocabulary import SimpleVocabulary
+
+	myVocabulary = SimpleVocabulary.fromItems((
+	    (u"Foo", "id_foo"),
+	    (u"Bar", "id_bar")))
+
+	class ISampleSchema(form.Schema):
+
+	    contentMedias = schema.Choice(vocabulary=myVocabulary,
+	                                  title=u"Test choice")
+
 Getting a term
 ==============
 
@@ -60,9 +76,9 @@ By term value::
 
 	# Returns SimpleTerm object by value look-up
 	term = vocabulary.getTerm("value1")
-	
+
 	print "Term value is %s token is %s and title is %s" + (term.value, term.token, term.title)
-	
+
 Listing a vocabulary
 ====================
 
