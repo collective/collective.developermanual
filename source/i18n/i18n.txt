@@ -5,7 +5,7 @@ Internationalization
 Each session has a language associated with.
 
 Active language is "negotiated" by plone.i18n.negotiator
-module. Several factors may involve determining what the 
+module. Several factors may involve determining what the
 language should be:
 
 * Cookies (setting from the language selector)
@@ -21,31 +21,31 @@ Language is negotiated at the beginning of the page view.
 Getting the current language
 ----------------------------
 
-
+TODO
 
 Getting language of content item
 --------------------------------
 
 All content object don't necessarily support Language()
 look-up defined by IDublinCore interface. Below is the
-safe way to extract the served language on the content.  
+safe way to extract the served language on the content.
 
 Example BrowserView method::
 
-from Acquisition import aq_inner
+    from Acquisition import aq_inner
 
-def language(self):
-    """ Get the language of the context.
-    
-    Useful in producing <html> tag.                
-    You need to output language for every HTML page, see http://www.w3.org/TR/xhtml1/#strict
-    
+    def language(self):
+        """ Get the language of the context.
 
-    @return: The two letter language code of the current content.  
-    """
-    portal_state = self.context.unrestrictedTraverse("@@plone_portal_state")
-     
-    return aq_inner(self.context).Language() or portal_state.default_language()
+        Useful in producing <html> tag.
+        You need to output language for every HTML page, see http://www.w3.org/TR/xhtml1/#strict
+
+
+        @return: The two letter language code of the current content.
+        """
+        portal_state = self.context.unrestrictedTraverse("@@plone_portal_state")
+
+        return aq_inner(self.context).Language() or portal_state.default_language()
 
 
 Set site language settings
@@ -71,7 +71,9 @@ For unit testing, you need to run this in afterSetUp() after setting up the lang
         ltool.setLanguageBindings()
 
 
-Using GenericSetup and propertiestool.xml::
+Using GenericSetup and propertiestool.xml
+
+.. code-block: xml::
 
     <object name="portal_properties" meta_type="Plone Properties Tool">
        <object name="site_properties" meta_type="Plone Property Sheet">
@@ -79,7 +81,9 @@ Using GenericSetup and propertiestool.xml::
        </object>
     </object>
 
-On Linguaplone enabled sites, using GenericSetup XML portal_languages.xml::
+On Linguaplone enabled sites, using GenericSetup XML portal_languages.xml
+
+.. code-block: xml::
 
     <?xml version="1.0"?>
     <object>
@@ -105,7 +109,8 @@ Multilingual Plone has two kinds of language selector viewlets
 
 * Plone vanilla
 
-* LinguaPlone - this one comes with LinguaPlone_ product and translates language names
+* LinguaPlone -  LinguaPlone has its own language selector which replaces the default Plone selector if the add on
+  product is installed
 
 LinguaPlone uses `selector.pt <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py>`_
 file to render the language selector.
@@ -117,7 +122,9 @@ If you use multiple domain names for different language it is often desirable to
 point to a different domain. Search engines do not really like the dynamic language switcher and will
 index switching links, messing up your site search results.
 
-Example::
+Example
+
+.. code-block: html::
 
     <tal:language
         tal:define="available view/available;

@@ -37,9 +37,11 @@ Example:
 
 * portal_catalog.searchResults() vs. portal_catalog.unrestrictedSearchResults()
 
-To bypass the security checks do the following::
+To bypass the security checks do the following.
 
-**This is not a recommended practice in product code. Use only for testing**
+.. warning:: This is not a recommended practice in product code. Use only for testing
+
+Example::
 
     from AccessControl import ClassSecurityInfo, getSecurityManager
     from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager

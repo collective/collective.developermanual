@@ -13,6 +13,7 @@ files=`find . -iname "*.txt"`
 
 for iter in $files
 do
-	echo $iter
-    sed 's/tab/    /g' "${iter}" > filename.notabs && mv filename.notabs "${iter}"
+    echo $iter
+    # DOES NOT WORK
+    # sed 's/	/    /g' "${iter}" > filename.notabs && mv filename.notabs "${iter}"
 done
