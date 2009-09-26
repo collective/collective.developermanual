@@ -1,11 +1,50 @@
-====================
- GenericSetup
-====================
+===========================
+ GenericSetup and profiles
+===========================
 
 GenericSetup is an XML-based way to import and export Plone site configurations.
 
-GenericSetup is mostly used to apply add-on specific changes to the site configuration 
+GenericSetup is mostly used to apply add-on specific changes to the site configuration
 and enabled add-on specific behavior when the add-on installer is run.
+
+GenericSetup XML files are usually under *profiles/default* folder inside
+the add-on product.
+
+All run-time configurable items, like viewlets order through /@@manage-viewlets
+page, are made repeatable using GenericSetup profile files.
+
+You do not need to hand-edit GenericSetup profile files.
+You can always change the configuration options through Plone
+or Zope Management Interface. Then you can produce the profile
+XML file using *Export* tab in *portal_setup* ZMI tool.
+
+Directly
+editing XML profile files do not change anything on the site, even after Zope
+restart. This is because run-time configurable items are stored in
+the database. If you edit profile files, you need reimport
+edited files using portal_setup tool or rerun the add-on
+product installer in Plone control panel. This import will
+read XML files and change Plone database accordingly.
+
+
+.. note::
+
+    Difference between ZCML and GenericSetup
+
+    ZCML changes affect loaded Python code in
+    **all** sites inside Zope whereas
+    GenericSetup XML files affect ony one Plone site and its database.
+    GenericSetup XML files are always database changes.
+
+    Relationship between ZCML and site-specific behavior is usually done
+    using :doc:`\layers </traversing/layers>`. ZCML
+    directives, like viewlets and views, are registered
+    to be active on a certain layer only using `layer`
+    attribute. When GenericSetup XML is imported
+    through portal_setup, or the product add-on installer is
+    run for a Plone site, the layer is activated for the
+    particular site only, enabling all views registered
+    for this layer.
 
 * `GenericSetup tutorial <http://plone.org/documentation/tutorial/genericsetup>`_
 
@@ -32,11 +71,11 @@ Example::
 
         # Run the default quick installer profile
         setup_tool = self.portal.portal_setup
-        
+
         profiles = setup_tool.listProfileInfo()
         for profile in profiles:
             print  str(profile)
-        
+
 Results::
 
     {'product': 'PluggableAuthService', 'description': 'Content for an empty PAS (plugins registry only).', 'for': <InterfaceClass Products.PluggableAuthService.interfaces.authservice.IPluggableAuthService>, 'title': 'Empty PAS Content Profile', 'version': 'PluggableAuthService-1.5.3', 'path': 'profiles/empty', 'type': 1, 'id': 'PluggableAuthService:empty'}
@@ -44,7 +83,7 @@ Results::
     {'product': 'Products.CMFPlone', 'description': u'Profile for a default Plone.', 'for': <InterfaceClass Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot>, 'title': u'Plone Site', 'version': u'3.1.7', 'path': u'/home/moo/sits/parts/plone/CMFPlone/profiles/default', 'type': 1, 'id': u'Products.CMFPlone:plone'}
     {'product': 'Products.Archetypes', 'description': u'Extension profile for default Archetypes setup.', 'for': None, 'title': u'Archetypes', 'version': u'1.5.7', 'path': u'/home/moo/sits/parts/plone/Archetypes/profiles/default', 'type': 2, 'id': u'Products.Archetypes:Archetypes'}
     ...
-    
+
 Installing a profile
 --------------------
 
@@ -63,11 +102,11 @@ You might want to install profiles manually if they need to be enabled only for 
 Profile name is in format profile-${product name}:${profile id}
 
 Unit testing example::
-            
+
     # Run the extended profile which will create email_catalog
     setup_tool.runAllImportStepsFromProfile('profile-betahaus.emaillogin:exdended')
-    
-    
+
+
 
 
 
