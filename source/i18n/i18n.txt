@@ -21,7 +21,18 @@ Language is negotiated at the beginning of the page view.
 Getting the current language
 ----------------------------
 
-TODO
+Example
+
+.. code-block:: python
+
+	from Acquisition import aq_inner
+	from zope.component import getMultiAdapter
+
+	context = aq_inner(self.context)
+	portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+    
+	current_language = portal_state.language()
+        
 
 Getting language of content item
 --------------------------------

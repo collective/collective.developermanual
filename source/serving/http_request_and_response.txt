@@ -108,7 +108,6 @@ To access raw HTTP GET query string::
 
     query_string = request["QUERY_STRING"]
 
-
 Web environment
 ===============
 
@@ -119,6 +118,38 @@ Web server exposes its own environment variables in request.other (ZServer_) or 
     user_agent = request.other["HTTP_USER_AGENT"]
 
     user_agent = request.environ["HTTP_USER_AGENT"] # WSGI or Repoze server
+    
+Host name
+=========
+
+Below is an example to get HTTP server name in virtual host safe manner.
+
+.. code-block:: python
+
+	def get_host_name(request):
+	    """ Extract host name in virtual host safe manner 
+	    
+	    @param request: HTTPRequest object, assumed contains environ dictionary
+	    
+	    @return: Host DNS name, as requested by client. Lowercased, no port part. 
+	             Return None if host name is not present in HTTP request headers
+	             (e.g. unit testing).
+	    """
+	    
+	    if "HTTP_X_FORWARDED_HOST" in request.environ:
+	        # Virtual host
+	        host = request.environ["HTTP_X_FORWARDED_HOST"]
+	    elif "HTTP_HOST" in request.environ:
+	        # Direct client request
+	        host = request.environ["HTTP_HOST"]
+	    else:
+	        host = None
+	        
+	    # separate to domain name and port sections
+	    host=host.split(":")[0].lower()
+	        
+	    return host 
+
 
 Flat access
 ===========
