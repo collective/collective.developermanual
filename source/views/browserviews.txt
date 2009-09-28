@@ -189,16 +189,16 @@ ZCML includes allowed_attributes::
 
 Python class exposes the variable::
 
-	from Acquisition import aq_inner
-	from zope.component import getMultiAdapter
+    from Acquisition import aq_inner
+    from zope.component import getMultiAdapter
         
-	class MyView(BrowserView):
+    class MyView(BrowserView):
         
-	@property
-	def portal_state(self):
-		context = aq_inner(self.context)
-		portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-		return portal_state
+        @property
+        def portal_state(self):
+            context = aq_inner(self.context)
+            portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+            return portal_state
 		    
 Template can use it::
 
