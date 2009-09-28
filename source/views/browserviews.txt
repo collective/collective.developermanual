@@ -105,7 +105,7 @@ is equal to::
     class MyView(BrowserView):
         pass
         
-Rendering of the view is done by following:
+Rendering of the view is done by following::
 
     class MyView(BrowserView):
         
@@ -170,12 +170,12 @@ Example how to get the current language::
 	from Acquisition import aq_inner
 	from zope.component import getMultiAdapter
 
-    context = aq_inner(self.context)
-    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+	context = aq_inner(self.context)
+	portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
     
-    current_language = portal_state.language()
+	current_language = portal_state.language()
         
-Example how to expose porta_state to template::
+Example how to expose portal_state to template:
 
 ZCML includes allowed_attributes::
 
@@ -186,23 +186,21 @@ ZCML includes allowed_attributes::
         class=".views.MyView"
         allowed_attributes="portal_state"
         />
-        
 
-Python class exposes the variable.
+Python class exposes the variable::
 
 	from Acquisition import aq_inner
 	from zope.component import getMultiAdapter
-
-             
-    class MyView(BrowserView):
         
-		@propert
-		def portal_state(self):
-		    context = aq_inner(self.context)
-		    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-		    return portal_state
+	class MyView(BrowserView):
+        
+	@property
+	def portal_state(self):
+		context = aq_inner(self.context)
+		portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+		return portal_state
 		    
-Template can use it:
+Template can use it::
 
 	<div>
 		The language is <span tal:content="view/portal_state/language" /> 
@@ -254,7 +252,7 @@ Example::
 	from Acquisition import aq_inner
 	from zope.component import getMultiAdapter
 
-    context = aq_inner(self.context)
+	context = aq_inner(self.context)
 	tools = getMultiAdapter((context, self.request), name=u'plone_tools') 
 	
 	portal_url = tools.url()
@@ -275,9 +273,9 @@ getToolByName gets any Plone portal root item using acquisition.
 
 Example::
 
-    from Products.CMFCore.WorkflowCore import WorkflowException
-    
+	from Products.CMFCore.WorkflowCore import WorkflowException
+	
 	# Do the workflow transition "submit" for the current context
-    workflowTool = getToolByName(self.context, "portal_workflow")
+	workflowTool = getToolByName(self.context, "portal_workflow")
 	workflowTool.doActionFor(self.context, "submit")
 
