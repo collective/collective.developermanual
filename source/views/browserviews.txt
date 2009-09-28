@@ -160,6 +160,10 @@ to access miscencancellous information useful for the
 current page render. The views are cached properly,
 so they should access the information quite effective manner
 
+IPortalState is mapped as *plone_portal_state* view for traversing.
+
+IContextState is mapped as *plone_portal_state* view for traversing.
+
 To see what's available through the interface,
 read documentation in  
 `plone.app.layout.globals.interfaces <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
@@ -239,13 +243,14 @@ They are visible in ZMI. Tools include things like
 
 * portal_membership - User registration information
 
-
 ITools interface
 ++++++++++++++++
 
 `plone.app.layout.globals.interfaces.ITools interface <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
 and Tools BrowserView provide cached access for most often 
 needed tools.
+
+ITools is mapped as *plone_tools* view for traversing.
 
 Example::
 
@@ -260,7 +265,9 @@ Example::
 	# The root URL of the site is got by using portal_url.__call__()
 	# method
 	
-	the_current_root_url_of_the_site = portal_url() 	
+	the_current_root_url_of_the_site = portal_url()
+	
+	 	
 
 getToolByName
 +++++++++++++

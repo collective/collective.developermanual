@@ -24,6 +24,9 @@ Expression variables are defined in CMFCore/Expressions.py::
         'member':       member,
         'here':         object,
         }
+        
+Examples
+--------
 
 Some sample expressions::
 
@@ -34,6 +37,55 @@ Some sample expressions::
     object/Title
 
     object/getSomething
+    
+Getting the current language
+============================
+
+We traverse to plone_portal_status view
+(documented at plone.app.layout.globals.interfaces.IPortalStatus interface)
+and call its language() method to get the current language.
+
+The language is returned as two letter language code.
+
+Example::
+    
+    object/@plone_portal_status/language
+    
+See chapter View helpers to get more information how to 
+use utility views in expressions. 
+    
+Using expression in your own code
+---------------------------------
+
+Expressions are persistent objects. You usually
+want to attach them to something, but this is not necessary.
+
+Example::
+
+	from Products.CMFCore.Expression import Expression, getExprContext
+	
+	# Create a sample expression - usually this is taken from
+	# the user input
+	expression = Expression("python:context.Title() == 'foo')
+	
+	expression_context = getExprContext(self.context)  
+	
+	# Evaluate expression by calling
+	# Expression.__call__(). This
+	# will return whatever value expression evaluation gives
+	value = expression(expression_context)
+	
+	if value.strip() == "":
+		# Usually empty expression field means that
+		# expression should be True
+		value = True
+	
+	if value:
+		# Expression succeeded
+		pass
+	else:
+		pass
+		
     
 Custom expression code
 ----------------------
