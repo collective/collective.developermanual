@@ -20,6 +20,8 @@ TAL
 `TAL <http://wiki.zope.org/ZPT/TALSpecification14>`_ is template language used Plone.
 TAL is XML based language, which puts programming logic to XML attributes.
 
+* `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_
+
 Escaped and unescaped content
 =============================
 
@@ -50,24 +52,37 @@ Will output unescaped HTML source code::
 METAL
 ------
 
+METAL is TAL extension to provide macros and slots to the template language.
+
+Using METAL macros is no longer recommended, since they couple 
+programming logic too tightly with the template language.
+You should use views instead.
+
+Read more about in `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_.
+
 TALES expressions
 ----------------------
 
-* string:
+TALES expressions are condition clauses used in TAL templates and various other parts of Plone
 
-* nocall
+* CSS, Javascript and KSS registries whether to include a particular file
 
-* python:
+* Action conditions whether to show or hide action link
 
+* Workflow security guards whether to allow workflow state transition
 
+* etc.
+
+Read more about expressions in `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_.
+
+See :doc:`Expressions chapter </content/expressions>`_ for more information.
 
 Overriding templates
 --------------------
 
-# Old stype templates can be overridden by register a new skins layer in plone_skins
+#. Old stype templates can be overridden by register a new skins layer in plone_skins
 
-# New style templates can be overridden by add-on product configure.zcml using a theme layer
-  or or add-on product overrides.zcml if the change is global
+#. New style templates can be overridden by overriding the view using the template.
 
 
 View page template
@@ -78,3 +93,4 @@ http://lionfacelemonface.wordpress.com/2009/03/02/i-used-macros-in-my-browser-vi
 Old style page template
 =======================
 
+TODO
