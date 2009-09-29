@@ -17,6 +17,36 @@ See `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namesp
 TAL
 ---
 
+`TAL <http://wiki.zope.org/ZPT/TALSpecification14>`_ is template language used Plone.
+TAL is XML based language, which puts programming logic to XML attributes.
+
+Escaped and unescaped content
+=============================
+
+By default, all TAL output is escaped for the security reasons.
+
+.. code-block:: python
+
+	view.text = "<b>Test</b>"
+
+.. code-block:: html
+
+	<div tal:content="view/text" />
+	
+Will output escaped HTML source code::
+
+	&lt;b&gt;Testlt;/b&gt;
+	
+Unescaped content can be outputted using tal:replace attribute and structure.
+
+.. code-block:: html
+
+	<div tal:replace="structure view/text" />
+	
+Will output unescaped HTML source code::
+
+	<b>Test</b>
+
 METAL
 ------
 
