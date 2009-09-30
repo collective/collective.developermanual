@@ -1,0 +1,29 @@
+====================
+ Resource folders
+====================
+
+Resource folders are Zope 3 way to expose static media files to
+Plone URL mapping.
+
+
+GROK way
+========
+
+The easiest way to manage static resources is to make use of the static resource directory feature in five.grok.
+Simply add a directory called static in the package and make sure that the <grok:grok package="." />
+line appears in configure.zcml.
+
+If a static resource directory in the example.conference package contains a file called conference.css,
+it will be accessible on a URL like http://<server>/site/++resource++example.conference/conference.css.
+The resource name is the same as the package name wherein the static directory appears.
+
+(paragraph by Martin Aspeli)
+
+More manual way
+===============
+
+If you want to customize media folder mapping point, you need to use
+Zope 3's resourceDirectory directive.
+
+* `Example <http://www.themeswiki.org/Creating_a_Custom_theme_for_Plone#Image_Resources>`_
+

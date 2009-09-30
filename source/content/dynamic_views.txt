@@ -1,0 +1,79 @@
+====================
+ Dynamic views
+=====================
+
+Dynamic views are views which the content editor can choose for his/her content
+from *Display...* drop down menu in the green edit frame.
+
+By default, Plone comes with dynamic views for
+
+* Folder listing
+
+* Summary
+
+* Photo album
+
+* etc.
+
+Creating dynamic view
+---------------------
+
+Dynamic view can be skins template or BrowserView. Dynamic view machinery
+only cares about the path name coming after the context object.
+
+Register dynamic view menu item
+===============================
+
+Your content type must support dynamic views
+
+* Content type subclasses Products.CMFDynamicViewFTI.BrowserDefaultMixin
+
+You need to register dynamic view menu item with the corresponding view in configure.zcml::
+
+.. code-block:: xml
+
+  <browser:menuItem
+        for="Products.ATContentTypes.interfaces.IATFolder"
+        menu="plone_displayviews"
+        title="Product listing"
+        action="@@product_listing"
+        description="List folder contents as product summary view"
+        />
+
+The view must be listed in portal_types for the content type. In this case
+we should enable it for Archetypes folder using the following GenericSetup XML
+
+.. code-block:: xml
+
+Checking that your view is available
+-------------------------------------
+
+Products.CMFDynamicViewFTI.browserdefault.BrowserDefaultMixin.getAvailableLayouts() returns
+the list of known layouts like following::
+
+	[('folder_summary_view', 'Summary view'),
+	('folder_tabular_view', 'Tabular view'),
+	('atct_album_view', 'Thumbnail view'),
+	('folder_listing', 'Standard view'),
+	('product_listing', u'Product listing')]
+
+
+.. code-block:: python
+
+	self.assertTrue("product_list" in self.portal.folder.getAvailableLayouts())
+
+Changing default view programmatically
+--------------------------------------
+
+.. code-block:: python
+
+    self.portal.folder.setLayout("product_listing")
+
+Other resources
+----------------
+
+* http://blog.jphoude.qc.ca/2008/09/14/plone-changing-title-zope3-views/
+
+* http://plone.org/documentation/how-to/how-to-create-and-set-a-custom-homepage-template-using-generic-setup
+
+* `CMFDynamicView plone.org product page <http://plone.org/products/cmfdynamicviewfti/>`_

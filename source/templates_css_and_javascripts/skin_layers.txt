@@ -47,18 +47,13 @@ GenericSetup skins.xml::
 ZCML to register the layer::
 
     <configure
-        xmlns="http://namespaces.zope.org/zope"
-        xmlns:five="http://namespaces.zope.org/five"
-        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-        xmlns:plone="http://namespaces.plone.org/plone"
-        xmlns:grok="http://namespaces.zope.org/grok"    
-        xmlns:cmf="http://namespaces.zope.org/cmf"          
-        i18n_domain="plone.app.headeranimation">
-    
+        ...
+        xmlns:cmf="http://namespaces.zope.org/cmf">
+
         <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
-    
-    </configure>    
-    
+
+    </configure>
+
 
 Unit testing and portal_skins
 =============================
@@ -69,7 +64,7 @@ If you test templates in your unit testing code you might need to call PloneTest
         # Must be called to load our add-on skins folders
         # for unit testing
         self._refreshSkinData()
-    
+
 Rendering template
 ------------------
 
@@ -80,13 +75,13 @@ Example::
 
     # Any page object
     doc = portal.doc
-    
+
     # portal_skins/plone_content/document_view.pt template bound to document
-    doc.document_view 
-    
+    doc.document_view
+
     # Resulting HTML is rendered when template object is called
-    doc.document_view() 
-     
+    doc.document_view()
+
 
 Testing templates
 -----------------
@@ -100,9 +95,9 @@ Example::
     (Pdb) template = doc.document_view
     (Pdb) template
     <FSPageTemplate at /plone/document_view used for /plone/doc>
-    (Pdb) template._filepath 
+    (Pdb) template._filepath
     '/home/moo/workspace2/plone.app.headeranimation/plone/app/headeranimation/skins/headeranimation/document_view.pt'
-    
-    
-    
-    
+
+
+
+

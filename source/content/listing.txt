@@ -127,6 +127,14 @@ Here is an example how to create a view which will render custom listing for a f
 The view is called ProductSummaryView and it is registered with name *productsummary*. This example
 is not suitable for your add-on product as is, but you need to tailor it for your specific needs.
 
+.. warning::
+
+	If you are going to call item/getObject for a catalog brain it might cause
+	excessive database load as it causes a new database query per object.
+	Try use information available in the catalog
+    or add more catalog indexes. To know more about the
+ 	issue read about waking up database objects.
+
 * First let's register our view
 
 	We could limit content types for which view is enabled by putting *Products.ATContentTypes.interface.IATFolder*
@@ -142,90 +150,90 @@ is not suitable for your add-on product as is, but you need to tailor it for you
       allowed_interface=".productcardsummaryview.IProductCardSummaryView"
       permission="zope2.View"
       />
-      
-* Below is the example view code, named as *productcardsummaryview.py*. 
+
+* Below is the example view code, named as *productcardsummaryview.py*.
 
 .. code-block:: python
 
 	from zope.interface import implements, Interface
-	
+
 	from zope import schema
-	
+
 	from Products.Five import BrowserView
 	from Products.CMFCore.utils import getToolByName
-	
+
 	from Products.ATContentTypes.interface import IATTopic
-	
+
 	# zope.18n message translator for your add-on product
 	from yourproduct.namespace import appMessageFactory as _
-	
+
 	class IProductCardSummaryView(Interface):
-	    """ Allowed template variables exposed from the view.    
+	    """ Allowed template variables exposed from the view.
 	    """
-	
+
 	    # Item list as iterable Products.CMFPlone.PloneBatch.Batch object
 	    contents = schema.Object(Interface)
-	
-	
+
+
 	class ProductCardSummaryView(BrowserView):
 	    """
 	    List summary information for all product cards in the folder.
-	    
-	    Batch results.    
+
+	    Batch results.
 	    """
 	    implements(IProductCardSummaryView)
-	        
+
 	    def query(self, start, limit, contentFilter):
 	        """ Make catalog query for the folder listing.
-	        
-	        @param start: First index to query 
-	        
+
+	        @param start: First index to query
+
 	        @param limit: maximum number of items in the batch
-	        
+
 	        @param contentFilter: portal_catalog filtering dictionary with index -> value pairs.
-	        
+
 	        @return: Products.CMFPlone.PloneBatch.Batch object
 	        """
-	        
+
 	        # Batch size
 	        b_size = limit
-	        
+
 	        # Batch start index, zero based
 	        b_start = start
-	        
+
 	        # We use different query method, depending on
-	        # whether we do listing for topic or folder        
+	        # whether we do listing for topic or folder
 	        if IATTopic.providedBy(self.context):
 	            # ATTopic like content
 	            # Call Products.ATContentTypes.content.topic.ATTopic.queryCatalog() method
-	            # This method handles b_start internally and 
+	            # This method handles b_start internally and
 	            # grabs it from HTTPRequest object
-	            return self.context.queryCatalog(contentFilter, batch=True, b_size=b_size) 
+	            return self.context.queryCatalog(contentFilter, batch=True, b_size=b_size)
 	        else:
 	            # Folder or Large Folder like content
 	            # Call CMFPlone(/skins/plone_scripts/getFolderContents Python script
 	            # This method handles b_start parametr internally and grabs it from the request object
 	            return self.context.getFolderContents(contentFilter, batch=True, b_size=b_size)
-	        
+
 	    def __call__(self):
 	        """ Render the content item listing.
 	        """
-	        
+
 	        # How many items is one one page
-	        limit = 3        
-	        
+	        limit = 3
+
 	        # What kind of query we perform?
 	        # Here we limit results to ProductCard content type
 	        filter = { "portal_type" : "ProductCard" }
-	        
+
 	        # Read the first index of the selected batch parameter as HTTP GET request query parameter
-	        start = self.request.get("b_start", 0)      
-	        
+	        start = self.request.get("b_start", 0)
+
 	        # Perform portal_catalog query
 	        self.contents = self.query(start, limit, filter)
-	                        
+
 	        # Return the rendered template (productcardsummaryview.pt), with content listing information filled in
-	        return self.index()	        
+	        return self.index()
 
 * Below is the corresponding page template skeleton productcardsummaryview.pt
 
@@ -241,26 +249,26 @@ is not suitable for your add-on product as is, but you need to tailor it for you
 	           tal:define="kssClassesView context/@@kss_field_decorator_view;
 	                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
 	                       ">
-			
-	
+
+
 		        <div tal:replace="structure provider:plone.abovecontenttitle" />
-		
+
 		        <h1 metal:use-macro="here/kss_generic_macros/macros/generic_title_view">
 		            Title or id
 		        </h1>
-		
+
 		        <div tal:replace="structure provider:plone.belowcontenttitle" />
-		
+
 		        <p metal:use-macro="here/kss_generic_macros/macros/generic_description_view">
 		            Description
 		        </p>
-		
-		        <div tal:replace="structure provider:plone.abovecontentbody" />	
-		      
+
+		        <div tal:replace="structure provider:plone.abovecontentbody" />
+
 		        <tal:listing define="batch view/contents">
-		
+
 		            <tal:block tal:repeat="item batch">
-		                <div class="tileItem visualIEFloatFix vevent" 
+		                <div class="tileItem visualIEFloatFix vevent"
 		                     tal:define="item_url item/getURL|item/absolute_url;
 		                                       item_id item/getId|item/id;
 		                                       item_title_or_id item/pretty_title_or_id;
@@ -275,30 +283,29 @@ is not suitable for your add-on product as is, but you need to tailor it for you
 		                                       item_creator item/Creator;
 		                                       item_start item/start/ISO|item/StartDate|nothing;
 		                                       item_end item/end/ISO|item/EndDate|nothing;
-		                                       item_object item/getObject;
 		                                   "
 		                     tal:attributes="class string:tileItem visualIEFloatFix vevent ${item_type_class}">
-		
+
 		                    <a href="#"
 		                       tal:attributes="href item_url">
 		                        <img src="" alt=""
 		                             tal:condition="item_object/main_image|python:False"
 		                             tal:attributes="src item_object/main_image" />
 		                    </a>
-		
-		
+
+
 		                    <h2 class="tileHeadline"
 		                        metal:define-macro="listitem">
-		
+
 		                        <a href="#"
 		                           class="summary url"
 		                           tal:attributes="href item_url"
 		                           tal:content="item_title_or_id">
 		                            Item Title
 		                        </a>
-	
+
 		                    </h2>
-			
+
 		                    <p class="tileBody">
 		                        <span tal:omit-tag="" tal:condition="not:item_description">
 		                            &nbsp;
@@ -307,7 +314,7 @@ is not suitable for your add-on product as is, but you need to tailor it for you
 		                            description
 		                        </span>
 		                    </p>
-		
+
 		                    <p class="tileFooter">
 		                        <a href=""
 		                           tal:attributes="href item_url"
@@ -315,23 +322,23 @@ is not suitable for your add-on product as is, but you need to tailor it for you
 		                        Read More&hellip;
 		                        </a>
 		                    </p>
-	
+
 		                    <div class="visualClear"><!-- --></div>
-		
+
 		                </div>
 		            </tal:block>
-		
+
 		            <!-- Navigation -->
 		            <div metal:use-macro="here/batch_macros/macros/navigation" />
-		
+
 		        </tal:listing>
-					
+
 		        <div tal:replace="structure provider:plone.belowcontentbody" />
-	
+
 	        </tal:main-macro>
 	    </div>
 	</body>
 	</html>
-	
-* Go to view page by adding /@@productsummary to your folder URL. 
+
+* Go to view page by adding /@@productsummary to your folder URL.
 
