@@ -1,0 +1,23 @@
+=====================
+ Image-like content
+=====================
+
+If you want to have your custom content type behave like
+Plone stock Image content type.
+
+* Inherit content class from Products.ATContentType.content.image.ATImage
+  and use schema correspondingly
+
+* Make your GenericSetup types XML to look like `Image.xml <http://svn.plone.org/svn/plone/Plone/branches/3.3/Products/CMFPlone/profiles/default/types/Image.xml>`_.
+
+* Do not set workflow for your type in *profiles/default/workflows.xml*
+
+.. code-block:: xml
+
+	<?xml version="1.0"?>
+	<object name="portal_workflow" meta_type="Plone Workflow Tool">
+
+	 <bindings>
+	  <type type_id="YourImageType"/>
+	 </bindings>
+	</object>

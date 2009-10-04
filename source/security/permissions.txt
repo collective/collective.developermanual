@@ -7,7 +7,10 @@ Dealing with Zope permissions in Python code.
 Checking permission manually
 ----------------------------
 
-Example::
+The following code checks whether the logged in user
+has a certain permission for the some object.
+
+.. code-block:: python
 
     from AccessControl import getSecurityManager
     from AccessControl import Unauthorized
@@ -15,15 +18,18 @@ Example::
     # Import permission names as pseudo-constants strings from somewhere... see security doc for more info
     from Products.CMFCore import permissions
 
-    def some_function(self):
+    def some_function(self, object):
+
 
         # This will
-        if not getSecurityManager().checkPermission(permissions.ModifyPortalContent):
+        if not getSecurityManager().checkPermission(permissions.ModifyPortalContent, object):
             raise Unauthorized("You need ModifyPortalContent permission to edit header animations")
 
          # ...
          # we have security clearance here
          #
+
+
 
 Bypassing permission checks
 ---------------------------

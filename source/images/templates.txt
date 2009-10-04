@@ -1,0 +1,49 @@
+=========================
+Images in page templates
+=========================
+
+tag() method
+-------------
+
+Some content provide handy tag() method to generate <img src="" /> tags
+with different image sizes.
+
+tag() is available in
+
+* Archetypes ImageField
+
+* ATNewsItem
+
+* ATImage
+
+* FSImage (Zope 2 image object in file-system)
+
+tag() is defined in `OFS.Image <http://svn.zope.org/Zope/trunk/src/OFS/Image.py?rev=96262&view=auto>`_.
+
+Scaling images
+==============
+
+tag() supports scaling. Scale sizes are predefined.
+When ATImage is uploaded
+various scaled versions of it are stored in the database.
+
+Displaying a version of the image using scale "preview"
+
+.. code-block:: python
+
+	image.tag(scale="preview", alt="foobar text")
+
+Will give out::
+
+	<img src="http://something/folder/image/image_preview" alt="foobar text" />
+
+.. note::
+
+	If you are not using alt attribute you should always set it to
+	empty string alt="". Otherwise screen readers will read
+	the src attribute of the <img> aloud.
+
+
+Default scale names and sizes are defined in ImageField declaration for custom ImageFields.
+For ATImage those are in `Products.ATContentTypes.content.image <http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py>`_.
+
