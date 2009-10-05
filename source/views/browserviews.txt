@@ -37,36 +37,6 @@ Example::
         #def __call__():
         #
 
-Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
--------------------------------------------------------
-
-.. *warning*: There are two ViewPageTemplateFile classes with the same name.
-
-* Zope  `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
-
-* `Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_. Products.Five is a way
-  to stick some of Zope 3 technologies to Zope 2 codebase used by Plone.
-
-Difference in code::
-
-    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-    
-    vs.
-    
-    from zope.app.pagetemplate import ViewPageTemplateFile
-        
-
-Difference is that Five version supports
-
-* Acquisition
-
-* provider: TAL expression
-
-* Other Plone specific TAL expression functions like test()
-
-* Usually Plone code needs Five version of ViewPageTemplateFile
-
-* Some components, no    ly z3c.form, expect Zope 3 version of ViewPageTemplateFile 
 
 Relationship between views and templates
 ----------------------------------------
@@ -141,7 +111,14 @@ Example
 	def getView(context, request, name):
 		context = aq_inner(context)
 		# Will raise ComponentLookUpError
-		portal_state = getMultiAdapter((context, request), name=name)
+		view = getMultiAdapter((context, request), name=name)
+		
+		
+Usually Plone views rely on acquisition. You need to also do::
+
+	view = view.__of__(context)
+
+to put view to the acquisition chain. 	
  
 By using traversing
 ===================
@@ -169,6 +146,14 @@ Example
         view = view.__of__(context)
 
         return view
+        
+You can also do direct view looks up and method calls in template by using @@ notation in traversing.
+
+.. code-block:: html
+
+	<div tal:attributes="lang context/@@plone_portal_state/current_language">
+		We look up lang attribute by using BrowserView which name is "plone_portal_state"
+	</div>
         
 View helpers
 -------------
@@ -312,3 +297,33 @@ Example::
 	workflowTool = getToolByName(self.context, "portal_workflow")
 	workflowTool.doActionFor(self.context, "submit")
 
+Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
+-------------------------------------------------------
+
+.. *warning*: There are two ViewPageTemplateFile classes with the same name.
+
+* Zope  `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
+
+* `Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_. Products.Five is a way
+  to stick some of Zope 3 technologies to Zope 2 codebase used by Plone.
+
+Difference in code::
+
+    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    
+    vs.
+    
+    from zope.app.pagetemplate import ViewPageTemplateFile
+        
+
+Difference is that Five version supports
+
+* Acquisition
+
+* provider: TAL expression
+
+* Other Plone specific TAL expression functions like test()
+
+* Usually Plone code needs Five version of ViewPageTemplateFile
+
+* Some components, no    ly z3c.form, expect Zope 3 version of ViewPageTemplateFile 

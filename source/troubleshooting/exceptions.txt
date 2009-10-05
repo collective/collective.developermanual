@@ -90,3 +90,27 @@ the site, but you can access ZMI normally::
 This usually means that you have copied Data.fs from another
 system, but you do not have identical add-on product configuration
 installed.
+
+METAL macros problem
+--------------------
+
+Exception::
+
+	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 217, in __call__
+	    return self._eval(econtext)
+	  File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 155, in _eval
+	    ob = self._subexprs[-1](econtext)
+	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 124, in _eval
+	    ob = self._traverser(ob, element, econtext)
+	  File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 85, in boboAwareZopeTraverse
+	    request=request)
+	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 164, in traversePathElement
+	    return traversable.traverse(nm, further_path)
+	   - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master')
+	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 52, in traverse
+	    raise TraversalError(subject, name)
+	   - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master', [])
+	TraversalError: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master') (Also, the following error occurred while attempting to render the standard error message, please see the event log for full details: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master'))
+
+Some template tries to call macro inside another template and the macro is not defined in the target template.
+

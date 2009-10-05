@@ -29,6 +29,32 @@ Please read `Timed caching decorator with plone.memoize <http://danielnouri.org/
 
 * `Another example <https://svn.plone.org/svn/collective/collective.externalcontent/trunk/collective/externalcontent/tests/test_vocabulary.py>`_.
 
+Caching per request
+-------------------
+
+This is useful if the same view/utility is going to be called many time from different sources for the same HTTP request.
+
+`plone.memoize.view <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/view.txt>`_
+package provides necessary decorators for BrowserView based classes.
+
+
+.. code-block:: python
+
+    from plone.memoize.view import memoize, memoize_contextless
+
+	class MyView(BrowserView):
+	
+	
+		@memoize
+		def getValue():
+			""" This value is recalculated for every new BrowserView context per request """
+			return "something"
+
+		@memoize_contextless
+		def getValueNoContext():
+			""" This value is recalculated for all context objects once per request """
+			return "something"
+
 Other resources
 ---------------
 

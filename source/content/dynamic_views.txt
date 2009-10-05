@@ -42,26 +42,25 @@ You need to register dynamic view menu item with the corresponding view in confi
 
 The view must be listed in portal_types for the content type. In this case
 we should enable it for Archetypes folder using the following GenericSetup XML
-*profiles/default/types/Folder.xml*::
+*profiles/default/types/Folder.xml*.
 
 .. code-block:: xml
-
+	
 	<?xml version="1.0"?>
 	<object name="Folder"
 	   meta_type="Factory-based Type Information with dynamic views"
 	   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-	 <property name="view_methods">
-	  <element value="folder_summary_view"/>
-	  <element value="folder_tabular_view"/>
-	  <element value="atct_album_view"/>
-	  <element value="folder_listing"/>
-
-	  <!-- We retrofit these new views for Folders in portal_types info -->
-	  <element value="product_listing"/>
-
-	 </property>
+		 <property name="view_methods">
+		  <element value="folder_summary_view"/>
+		  <element value="folder_tabular_view"/>
+		  <element value="atct_album_view"/>
+		  <element value="folder_listing"/>
+	
+		  <!-- We retrofit these new views for Folders in portal_types info -->
+		  <element value="product_listing"/>
+	
+		 </property>
 	</object>
-
 
 Also if you want to Collections have this listing you need to add
 the following *profiles/default/types/Topic.xml*
