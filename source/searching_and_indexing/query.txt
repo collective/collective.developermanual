@@ -37,8 +37,26 @@ You can access the brain object information by following::
     url = brain.getURL()
 
     # Load the actual object from the database (SLOW!)
+    # and modify it
     object = brain.getObject()
+    object.setSomething("foobar")
+    
+Text format
+===========
 
+Since most indexes use Archetypes accessors to index the field value,
+the returned text is UTF-8 encoded. This is limitations
+inherid from the early ages of Plone.
+
+To get unicode value for e.g. title you need to do the following::
+
+    title = brain["Title"]
+    title = title.decode("utf-8")
+    
+    if title[0] == u"å":
+    	# Unicode text matching etc. functions work correctly now
+    	pass
+    	
 
 Dumping portal catalog content
 ------------------------------
