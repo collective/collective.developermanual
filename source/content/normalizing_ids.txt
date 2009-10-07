@@ -27,19 +27,25 @@ Examples
 
 Simple example for CSS id::
 
-	from zope.component import getUtility
-	from plone.i18n.normalizer.interfaces import IIDNormalizer
+    from zope.component import getUtility
+    from plone.i18n.normalizer.interfaces import IIDNormalizer
 
     normalizer = getUtility(IIDNormalizer)
     id = "portlet-static-%s" % normalizer.normalize(header)
-    
+
+Hard-coded id localizer which directly uses class instance and does not allow override by utility configuration::
+
+    from plone.app.i18n.normalizer import idnormalizer
+
+    id = idnormalizer(u"Älä ärjy")
+
 Language specific example for URL::
 
-	from zope.component import getUtility
-	from plone.i18n.normalizer.interfaces import IURLNormalizer
-	
-	util = queryUtility(IURLNormalizer, name="el")
-    
+    from zope.component import getUtility
+    from plone.i18n.normalizer.interfaces import IURLNormalizer
+
+    util = queryUtility(IURLNormalizer, name="el")
+
 To see available language specific localizers, see the source code of plone.i18n.normalizers package.
 
 More examples:

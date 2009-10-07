@@ -8,76 +8,84 @@ zope.schema.vocabulary.SimpleVocabulary
 and zope.schema.vocabulary.SimpleTerm objects.
 `See the source code <http://svn.zope.org/zope.schema/trunk/src/zope/schema/vocabulary.py?rev=75170&view=auto>`_.
 
-Vocabulary term options
+Vocabulary terms
 =======================
 
 zope.schema defines different vocabulary term possibilities.
 
+A term is an entry in the vocabulary. The term has a value. Most terms are tokenised terms which also have a token, and some terms are titled, meaning they have a title that is different to the token.
+
+* The token must be an ASCII string. It is the value passed with the request when the form is submitted. A token must uniquely identify a term.
+
+* The value is the actual value stored on the object. This is not passed to the browser or used in the form. The value is often a unicode string, but can be any type of object.
+
+* The title is a unicode string or translatable message. It is used in the form.
+
 Some info::
 
-	class ITerm(Interface):
-	    """Object representing a single value in a vocabulary."""
+    class ITerm(Interface):
+        """Object representing a single value in a vocabulary."""
 
-	    value = Attribute(
-	        "value", "The value used to represent vocabulary term in a field.")
+        value = Attribute(
+            "value", "The value used to represent vocabulary term in a field.")
 
 
-	class ITokenizedTerm(ITerm):
-	    """Object representing a single value in a tokenized vocabulary.
-	    """
+    class ITokenizedTerm(ITerm):
+        """Object representing a single value in a tokenized vocabulary.
+        """
 
-	    # TODO: There should be a more specialized field type for this.
-	    token = Attribute(
-	        "token",
-	        """Token which can be used to represent the value on a stream.
+        # TODO: There should be a more specialized field type for this.
+        token = Attribute(
+            "token",
+            """Token which can be used to represent the value on a stream.
 
-	        The value of this attribute must be a non-empty 7-bit string.
-	        Control characters are not allowed.
-	        """)
+            The value of this attribute must be a non-empty 7-bit string.
+            Control characters are not allowed.
+            """)
 
-	class ITitledTokenizedTerm(ITokenizedTerm):
-	    """A tokenized term that includes a title."""
+    class ITitledTokenizedTerm(ITokenizedTerm):
+        """A tokenized term that includes a title."""
 
-	    title = TextLine(title=_(u"Title"))
+        title = TextLine(title=_(u"Title"))
 
 Creating a vocabulary
 =====================
 
 Example::
 
-	from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+    from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
-	items = [ ("value1", u"This is label for item"), ("value2", u"This is label for value 2")]
+    items = [ ("value1", u"This is label for item"), ("value2", u"This is label for value 2")]
 
-	terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
+    terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
 
-	vocabulary = SimpleVocabulary(terms)
+    vocabulary = SimpleVocabulary(terms)
 
 Example 2::
 
-	from plone.directives import form
+    from plone.directives import form
 
-	from zope import schema
-	from zope.schema.vocabulary import SimpleVocabulary
+    from zope import schema
+    from zope.schema.vocabulary import SimpleVocabulary
 
-	myVocabulary = SimpleVocabulary.fromItems((
-	    (u"Foo", "id_foo"),
-	    (u"Bar", "id_bar")))
+    myVocabulary = SimpleVocabulary.fromItems((
+        (u"Foo", "id_foo"),
+        (u"Bar", "id_bar")))
 
-	class ISampleSchema(form.Schema):
+    class ISampleSchema(form.Schema):
 
-	    contentMedias = schema.Choice(vocabulary=myVocabulary,
-	                                  title=u"Test choice")
+        contentMedias = schema.Choice(vocabulary=myVocabulary,
+                                      title=u"Test choice")
 
 Getting a term
 ==============
 
 By term value::
 
-	# Returns SimpleTerm object by value look-up
-	term = vocabulary.getTerm("value1")
+    # Returns SimpleTerm object by value look-up
+    term = vocabulary.getTerm("value1")
 
-	print "Term value is %s token is %s and title is %s" + (term.value, term.token, term.title)
+    print "Term value is %s token is %s and title is %s" + (term.value, term.token, term.title)
 
 Listing a vocabulary
 ====================
@@ -87,3 +95,77 @@ Example::
  for term in vocabulary:
     # Iterate vocabulry SimpleTerm objects
     print term.value + ": " + term.title
+
+Dynamic vocabularies
+====================
+
+Dynamic vocabularies' values may change run-time.
+They are usually generated based on some context data.
+
+Note that the examples below need grok package installed and <grok:grok package="...">
+directive in configure.zcml.
+
+Complex example
+
+.. code-block:: python
+
+    def make_terms(items):
+        """ Create zope.schema terms for vocab from tuples """
+        terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
+        return terms
+
+    from five import grok
+    from zope.schema.interfaces import IContextSourceBinder
+    from zope.schema.vocabulary import SimpleVocabulary
+    from Products.CMFCore.utils import getToolByName
+    from plone.i18n.normalizer import idnormalizer
+
+    @grok.provider(IContextSourceBinder)
+    def area_source(context):
+        """
+        Populate vocabulary with values from portal_catalog.
+
+        Custom index name getArea contains utf-8 strings of
+        possible area field values found on all content objects.
+
+        @param context: Form context object.
+
+        @return: SimpleVocabulary containg all areas as terms.
+        """
+
+        # Get catalog brain objects of all accommondation content
+        accommondations = context.queryAllAccommondation()
+
+        # Extract getArea index from the brains
+        areas = [ a["getArea"] for a in accommondations ]
+        # result will contain tuples (term, title) of accetable items
+        result = []
+
+        # Create a form choice "do not filter"
+        # which is always present
+        result.append( ("all", _(u"All")) )
+
+        # done list filter outs duplicates
+        done = []
+        for area in areas:
+            if area != None and area not in done:
+
+                # Archetype accessors return utf-8
+                area_unicode = area.decode("utf-8")
+
+                # Id must be 7-bit
+                id = idnormalizer.normalize(area_unicode)
+                # Decode area name to unicode
+                # show that form shows international area
+                # names correctly
+                entry = (id, area_unicode)
+                result.append(entry)
+                done.append(area)
+
+        # Convert tuples to SimpleTerm objects
+        terms = make_terms(result)
+
+        return SimpleVocabulary(terms)
+
+For another example, see `Dynamic sources <http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/vocabularies>`_
+chapter in Dexterity manual.

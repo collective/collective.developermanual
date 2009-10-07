@@ -193,7 +193,22 @@ Example how to sort by id::
                                                    portal_type="Document",
                                                    sort_order="reverse")
 
-See also
+Unique values
+-------------
+
+ZCatalog has *uniqueValuesFor()* method to retrieve all unique values for a certain index.
+It is intended to work on FieldIndexes only.
+
+Example::
+
+    # getArea() is Archetype accessor for area field
+    # which is a string and tells the contet area.
+    # Custom getArea FieldIndex indexes these values
+    # to portal catalog.
+    # The following line gives all area values
+    # inputted on the site.
+    areas = portal_catalog.uniqueValuesFor("getArea")
+
 
 * `Indexing tutorial <http://plone.org/documentation/tutorial/using-portal_catalog/tutorial-all-pages>`_ on plone.org
 
