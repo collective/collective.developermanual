@@ -41,76 +41,78 @@ In this case Five ViewPageTemplate was used, when Zope 3's normal ViewPageTempla
 
 Another reason is that acquisition chain is not properly set-up in your custom views.
 
-iteration over non-sequence in _normalizeargs 
+iteration over non-sequence in _normalizeargs
 ----------------------------------------------
 
 The following log trace will appear when you try to render
 the site, but you can access ZMI normally::
 
-	2009-09-23 20:47:18 WARNING OFS.Uninstalled Could not import class 'IPloneCommentsLayer' from module 'quintagroup.plonecomments.interfaces'
-	2009-09-23 20:47:18 ERROR Zope.SiteErrorLog 1253728038.160.534632167217 http://localhost:9444/XXX
-	Traceback (innermost last):
-	  Module plone.postpublicationhook.hook, line 65, in publish
-	  Module ZPublisher.BaseRequest, line 424, in traverse
-	  Module ZPublisher.BeforeTraverse, line 99, in __call__
-	  Module Products.CMFCore.PortalObject, line 94, in __before_publishing_traverse__
-	  Module zope.event, line 23, in notify
-	  Module zope.component.event, line 26, in dispatch
-	  Module zope.component._api, line 130, in subscribers
-	  Module zope.component.registry, line 290, in subscribers
-	  Module zope.interface.adapter, line 535, in subscribers
-	  Module zope.component.event, line 33, in objectEventNotify
-	  Module zope.component._api, line 130, in subscribers
-	  Module zope.component.registry, line 290, in subscribers
-	  Module zope.interface.adapter, line 535, in subscribers
-	  Module plone.browserlayer.layer, line 18, in mark_layer
-	  Module zope.interface.declarations, line 848, in directlyProvides
-	  Module zope.interface.declarations, line 1371, in _normalizeargs
-	  Module zope.interface.declarations, line 1370, in _normalizeargs
-	TypeError: iteration over non-sequence
-	2009-09-23 20:47:18 ERROR root Exception while rendering an error message
-	Traceback (most recent call last):
-	  File "/home/moo/XXX/parts/zope2/lib/python/OFS/SimpleItem.py", line 227, in raise_standardErrorMessage
-	    v = s(**kwargs)
-	  File "/home/moo/workspace2/collective.skinny/collective/skinny/patch.py", line 8, in standard_error_message
-	    return self.restrictedTraverse('@@404.html')()
-	  File "/home/moo/workspace2/collective.skinny/collective/skinny/fourohfour.py", line 22, in __call__
-	    return skins.plone_templates.standard_error_message.__of__(
-	  File "/home/moo/XXX/eggs/Products.CMFCore-2.1.2-py2.4.egg/Products/CMFCore/FSPythonScript.py", line 140, in __call__
-	    return Script.__call__(self, *args, **kw)
-	  File "/home/moo/XXX/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 313, in __call__
-	    return self._bindAndExec(args, kw, None)
-	  File "/home/moo/XXX/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 350, in _bindAndExec
-	    return self._exec(bound_data, args, kw)
-	  File "/home/moo/XXX/eggs/Products.CMFCore-2.1.2-py2.4.egg/Products/CMFCore/FSPythonScript.py", line 196, in _exec
-	    result = f(*args, **kw)
-	  File "Script (Python)", line 27, in standard_error_message
-	AttributeError: default_error_message
+    2009-09-23 20:47:18 WARNING OFS.Uninstalled Could not import class 'IPloneCommentsLayer' from module 'quintagroup.plonecomments.interfaces'
+    2009-09-23 20:47:18 ERROR Zope.SiteErrorLog 1253728038.160.534632167217 http://localhost:9444/XXX
+    Traceback (innermost last):
+      Module plone.postpublicationhook.hook, line 65, in publish
+      Module ZPublisher.BaseRequest, line 424, in traverse
+      Module ZPublisher.BeforeTraverse, line 99, in __call__
+      Module Products.CMFCore.PortalObject, line 94, in __before_publishing_traverse__
+      Module zope.event, line 23, in notify
+      Module zope.component.event, line 26, in dispatch
+      Module zope.component._api, line 130, in subscribers
+      Module zope.component.registry, line 290, in subscribers
+      Module zope.interface.adapter, line 535, in subscribers
+      Module zope.component.event, line 33, in objectEventNotify
+      Module zope.component._api, line 130, in subscribers
+      Module zope.component.registry, line 290, in subscribers
+      Module zope.interface.adapter, line 535, in subscribers
+      Module plone.browserlayer.layer, line 18, in mark_layer
+      Module zope.interface.declarations, line 848, in directlyProvides
+      Module zope.interface.declarations, line 1371, in _normalizeargs
+      Module zope.interface.declarations, line 1370, in _normalizeargs
+    TypeError: iteration over non-sequence
+    2009-09-23 20:47:18 ERROR root Exception while rendering an error message
+    Traceback (most recent call last):
+      File "/home/moo/XXX/parts/zope2/lib/python/OFS/SimpleItem.py", line 227, in raise_standardErrorMessage
+        v = s(**kwargs)
+      File "/home/moo/workspace2/collective.skinny/collective/skinny/patch.py", line 8, in standard_error_message
+        return self.restrictedTraverse('@@404.html')()
+      File "/home/moo/workspace2/collective.skinny/collective/skinny/fourohfour.py", line 22, in __call__
+        return skins.plone_templates.standard_error_message.__of__(
+      File "/home/moo/XXX/eggs/Products.CMFCore-2.1.2-py2.4.egg/Products/CMFCore/FSPythonScript.py", line 140, in __call__
+        return Script.__call__(self, *args, **kw)
+      File "/home/moo/XXX/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 313, in __call__
+        return self._bindAndExec(args, kw, None)
+      File "/home/moo/XXX/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 350, in _bindAndExec
+        return self._exec(bound_data, args, kw)
+      File "/home/moo/XXX/eggs/Products.CMFCore-2.1.2-py2.4.egg/Products/CMFCore/FSPythonScript.py", line 196, in _exec
+        result = f(*args, **kw)
+      File "Script (Python)", line 27, in standard_error_message
+    AttributeError: default_error_message
 
 This usually means that you have copied Data.fs from another
 system, but you do not have identical add-on product configuration
 installed.
+
+`For more info see this error reference on plone.org <http://plone.org/documentation/error/typeerror-iteration-over-non-sequence>`_.
 
 METAL macros problem
 --------------------
 
 Exception::
 
-	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 217, in __call__
-	    return self._eval(econtext)
-	  File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 155, in _eval
-	    ob = self._subexprs[-1](econtext)
-	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 124, in _eval
-	    ob = self._traverser(ob, element, econtext)
-	  File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 85, in boboAwareZopeTraverse
-	    request=request)
-	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 164, in traversePathElement
-	    return traversable.traverse(nm, further_path)
-	   - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master')
-	  File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 52, in traverse
-	    raise TraversalError(subject, name)
-	   - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master', [])
-	TraversalError: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master') (Also, the following error occurred while attempting to render the standard error message, please see the event log for full details: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master'))
+      File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 217, in __call__
+        return self._eval(econtext)
+      File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 155, in _eval
+        ob = self._subexprs[-1](econtext)
+      File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 124, in _eval
+        ob = self._traverser(ob, element, econtext)
+      File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 85, in boboAwareZopeTraverse
+        request=request)
+      File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 164, in traversePathElement
+        return traversable.traverse(nm, further_path)
+       - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master')
+      File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 52, in traverse
+        raise TraversalError(subject, name)
+       - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master', [])
+    TraversalError: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master') (Also, the following error occurred while attempting to render the standard error message, please see the event log for full details: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master'))
 
 Some template tries to call macro inside another template and the macro is not defined in the target template.
 

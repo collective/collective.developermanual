@@ -40,7 +40,7 @@ You can access the brain object information by following::
     # and modify it
     object = brain.getObject()
     object.setSomething("foobar")
-    
+
 Text format
 ===========
 
@@ -52,11 +52,11 @@ To get unicode value for e.g. title you need to do the following::
 
     title = brain["Title"]
     title = title.decode("utf-8")
-    
+
     if title[0] == u"å":
-    	# Unicode text matching etc. functions work correctly now
-    	pass
-    	
+        # Unicode text matching etc. functions work correctly now
+        pass
+
 
 Dumping portal catalog content
 ------------------------------
@@ -176,6 +176,28 @@ Example::
 
     return self.context.portal_catalog.evalAdvancedQuery(query)
 
+Sorting results
+---------------
+
+portal_catalog query takes *sort_on* argument which tells the index used for sorting.
+*sort_order* defines sort direction. It can be string "reverse".
+
+Sorting is supported only on FieldIndexes.
+Due to nature of searchable text indexes (they index split text, not strings) they
+cannot be used for sorting. For example, to do sorting by title, an index
+called *sortable_tite* should be used.
+
+Example how to sort by id::
+
+    results = context.portal_catalog.searchResults(sort_on="id",
+                                                   portal_type="Document",
+                                                   sort_order="reverse")
+
+See also
+
+* `Indexing tutorial <http://plone.org/documentation/tutorial/using-portal_catalog/tutorial-all-pages>`_ on plone.org
+
+* `Manual sorting example <http://www.universalwebservices.net/web-programming-resources/zope-plone/advanced-sorting-of-plone-search-results/>`_
 
 .. _AdvancedQuery: http://www.dieter.handshake.de/pyprojects/zope/AdvancedQuery.html
 
