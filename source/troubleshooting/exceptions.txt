@@ -116,3 +116,34 @@ Exception::
 
 Some template tries to call macro inside another template and the macro is not defined in the target template.
 
+AttributeError in setRoles due to workflow state transition
+-----------------------------------------------------------
+
+Example::
+
+	Traceback (innermost last):
+	Module ZPublisher.Publish, line 115, in publish
+	Module ZPublisher.mapply, line 88, in mapply
+	Module ZPublisher.Publish, line 41, in call_object
+	Module Products.CMFPlone.FactoryTool, line 361, in __call__
+	Module Products.CMFPlone.FactoryTool, line 147, in __getitem__
+	Module Products.CMFPlone.PloneFolder, line 406, in invokeFactory
+	Module Products.CMFCore.TypesTool, line 934, in constructContent
+	Module Products.CMFCore.TypesTool, line 345, in constructInstance
+	Module Products.CMFCore.TypesTool, line 357, in _finishConstruction
+	Module Products.CMFCore.CMFCatalogAware, line 145, in notifyWorkflowCreated
+	Module Products.CMFCore.WorkflowTool, line 355, in notifyCreated
+	Module Products.DCWorkflow.DCWorkflow, line 392, in notifyCreated
+	Module Products.DCWorkflow.DCWorkflow, line 476, in _changeStateOf
+	Module Products.DCWorkflow.DCWorkflow, line 571, in _executeTransition
+	Module Products.DCWorkflow.DCWorkflow, line 435, in updateRoleMappingsFor
+	Module Products.DCWorkflow.utils, line 60, in modifyRolesForPermission
+	Module AccessControl.Permission, line 93, in setRoles
+	AttributeError: appname
+
+Possible reasons
+
+#. You are using AnnotationStorage but you forgot to declare atapi.ATFieldProperty in your class body
+
+#. You are inhering schema in Archetypes, but you do not inherit the class itself
+
