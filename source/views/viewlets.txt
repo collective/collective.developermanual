@@ -19,6 +19,8 @@ Other resources
 
 * `Customizing main template and viewlets <http://plone.org/documentation/tutorial/customizing-main-template-viewlets/introduction>`_
 
+* `ZCML viewlet definition <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/viewlet/index.html>`_.
+
 Register a viewlet
 ------------------
 
@@ -50,20 +52,25 @@ Viewlet behavior
 
 Viewlets have two important methods
 
-# update - set up all variables
+#. update() - set up all variables
 
-# render - output the template
+#. render() - generate the resulting HTML code by evaluating the template with context variables set up in update()
 
 See http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
+
+Rendering viewlet by name
+-------------------------
+
+
 
 Rendering viewlets with accurate layout
 ---------------------------------------
 
 Default viewlet managers render viewlets as HTML code string concatenation, in the order of appearance.
-This is unsui    le to build complex layouts.
+This is unsuitable to build complex layouts.
 
 Below is an example which defines master viewlet *HeaderViewlet* which will place other viewlets
-into the manually tuned HTML     le.
+into the manually tuned HTMLable.
 
 header.py::
 
@@ -132,7 +139,7 @@ header_items.pt
 
 .. code-block:: html
 
-    <    le class="something-header">
+    <table class="something-header">
         <tbody>
             <tr class="upper">
                 <td class="left">

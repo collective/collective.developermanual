@@ -36,14 +36,6 @@ Example::
 
 
 
-Creating forms dynamically
---------------------------
-
-z3c.form assumes you have a static schema which you turn to a form. Always this is not the case and you might need to generate forms dynamically.
-
-Getting group name
-------------------
-
 Form
 ----
 
@@ -59,6 +51,49 @@ you need to use Products.statusmessage.
 To set the form status message::
 
     form.status = u"My message"
+    
+Rendering form manually
+=======================
+
+Usually a a wrapper is used to render the form which takes care of setting up rendering requirements.
+If you want to render your from inside viewlet or part of the other view, you 
+can do the following::
+
+Emulationg form POST in unit tests
+==================================
+
+#. HTTP request must have field at least one of buttons filled
+
+#. Form widget naming must match HTTP post values. Usually widgets have *form.widgets* prefix.
+
+#. You must emulate the ZPublisher behavior
+   which automatically converts string input to Python primitives.
+   For example, all choice/select values are Python lists. 
+   
+#. Some z3c widgets, like <select>, need to have WIDGETNAME-empty-marker value set to
+   interger 1 to be processed
+
+#. Usually you can get the dummy HTTP request object via acquisition self.portal.REQUEST    
+
+Example (incomplete)::
+
+        layout = "accommondationsummary_view"
+        
+        # Zope publisher uses Python list to mark <select> values
+        self.portal.REQUEST["form.widgets.area"] = [SAMPLE_AREA] 
+        self.portal.REQUEST["form.buttons.search"] = u"Search"
+        view = self.portal.cards.restrictedTraverse(layout)
+        
+        # Call update() for form
+        view.process_form()
+        print view.form.render()
+
+		# Always check form errors after update()
+        errors = view.errors
+        self.assertEqual(len(errors), 0, "Got errors:" + str(errors))
+        
+
+ 
 
 Fields
 ------

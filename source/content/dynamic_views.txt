@@ -100,7 +100,8 @@ the list of known layouts like following::
 
 .. code-block:: python
 
-	self.assertTrue("product_list" in self.portal.folder.getAvailableLayouts())
+	layout_ids = [ id for id, title in self.portal.folder.getAvailableLayouts() ]
+	self.assertTrue("product_list" in layout_ids)
 
 Changing default view programmatically
 --------------------------------------
