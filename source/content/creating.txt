@@ -27,3 +27,38 @@ More examples in
 * `Singing & Dancing <https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/channel.py>`_.
 
 .. _OFS: `IObjectManager definition <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_.
+
+Archetypes object construction
+-------------------------------
+
+The following applies to Archetypes based objects only.
+
+Archetypes content contruction has two phases
+
+#. Object is created using ?createType= URL or Folder.invokeFactory() call. If createType is used
+   then the object is given a temporary id. Object has a "in creationg" flag set.
+
+#. Object is saved for the first time and the final id is generated based on the object title.
+   Object id is renamed. Creation flag is cleared.
+
+You are supposed to call either object.unmarkCreationFlag() or
+object.processForm() after content is created manually using
+invokeFactory().
+
+processForm() will perform following tasks:
+
+- unmarks creation flag
+
+- renames object according to title
+
+- reindexes object
+
+- invokes after_creation script and fires ObjectInitialzed event
+
+If you don't want to do particular step, look to
+Archetypes/BaseObject.py and call only what you really want.
+But unless unmarkCreationFlag() is called the object will behave strangely
+after the first edit.
+
+
+
