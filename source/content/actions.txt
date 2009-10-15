@@ -1,0 +1,165 @@
+==============
+ Actions
+==============
+
+Plone has concept of actions which refer the end user functionality associated with site
+or content objects:
+
+* View, edit, sharing etc. are actions
+
+* Sitemap is action
+
+* Contact form is action
+
+* Cut, copy, paste are actions
+
+Actions are managed by
+
+* portal_actions for generic actions
+
+* portal_types for view, edit etc. actions and object default action
+
+Action URLs
+-----------
+
+Actions are applied to objects by adding action name to url.
+
+E.g.
+
+    http://localhost:8080/site/page/view
+
+for view action and
+
+    http://localhost:8080/site/page/edit
+
+for edit action.
+
+Default action
+--------------
+
+Default action is executed when the content URL is opened without any
+prefix.
+
+Default action is defined in portal_types.
+
+Default action can be dynamic - meaning that
+site editor may set it from Display menu. For more information see
+Dynamic Views.
+
+Action export/import
+--------------------
+
+Type actions
+============
+
+Content-type specific actions can be registered in portal_types.
+Actions are viewable and editable in Zope Management Interface under portal_types.
+After editing actions,
+content type XML can be  exported and placed to your content type add-on product.
+
+GenericSetup example file for content type "ProductCard" which has a new tab added
+next to view, edit, sharing, etc. File is located in profiles/default/types/ProductCard.xml.
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object name="ProductCard"
+       meta_type="Factory-based Type Information with dynamic views"
+       i18n:domain="saariselka.app" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+      <property name="title" i18n:translate="">Tuotekortti</property>
+      ....
+      <alias from="(Default)" to="(dynamic view)" />
+      <alias from="edit" to="atct_edit" />
+      <alias from="sharing" to="@@sharing" />
+      <alias from="view" to="(selected layout)" />
+      <action title="View" action_id="view" category="object" condition_expr=""
+        url_expr="string:${object_url}/" visible="True">
+        <permission value="View" />
+      </action>
+      <action title="Edit" action_id="edit" category="object" condition_expr=""
+        url_expr="string:${object_url}/edit" visible="True">
+        <permission value="Modify portal content" />
+      </action>
+
+      <!-- Custom action code goes here. We add a new tab with title "Data" and
+             uri @@productdata_view which is a registered BrowserView for the content type.
+        -->
+
+     <action title="Data" action_id="productdata_view" category="object" condition_expr=""
+        url_expr="string:${object_url}/@@productdata_view" visible="True">
+        <permission value="Modify portal content" />
+      </action>
+
+    </object>
+
+The corresponding BrowserView is registered as any other view in *browse/configure.zcml*::
+
+.. code-block:: xml
+
+  <browser:page
+      for="*"
+      name="productdata_view"
+      class=".productdataview.ProductDataView"
+      template="productdataview.pt"
+      allowed_attributes="renderData"
+      permission="zope2.View"
+      />
+
+
+Non-type actions
+=================
+
+Usually all actions are rewritten by site policy product using portal_actions import/export.
+Actions are in GenericSetup profile file *default/profiles/actions.xml*.
+
+#. actions.xml is exported from the development instance using portal_setup
+
+#. actions.xml is made part of the site policy product
+
+Alternatively, if you are developing add-on product, you can add actions one-by-one by
+manually creating entries in actions.xml.
+
+Example:
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object name="portal_actions" meta_type="Plone Actions Tool"
+       xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+     <object name="document_actions" meta_type="CMF Action Category">
+      <property name="title"></property>
+      <object name="sendto" meta_type="CMF Action" i18n:domain="plone">
+       <property name="title" i18n:translate="">Send this</property>
+       <property name="description" i18n:translate=""></property>
+       <property name="url_expr">string:$object_url/sendto_form</property>
+       <property name="icon_expr"></property>
+       <property name="available_expr">object/@@shareable</property>
+       <property name="permissions">
+        <element value="Allow sendto"/>
+       </property>
+       <property name="visible">True</property>
+      </object>
+    </object>
+
+Toggling action visibility programmatically
+--------------------------------------------
+
+.. warning::
+
+    This applies only for Plone 2.5. You should use actions.xml instead.
+
+Example::
+
+    def disable_actions(portal):
+        """ Remove unneeded Plone actions
+
+        @param portal Plone instance
+        """
+
+        # getActionObject takes parameter category/action id
+        # For ids and categories please refer to portal_actins in ZMI
+        actionInformation = portal.portal_actions.getActionObject("document_actions/rss")
+
+        # See ActionInformation.py / ActionInformation for available edits
+        actionInformation.edit(visible=False)
+
