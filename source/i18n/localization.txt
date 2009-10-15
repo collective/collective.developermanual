@@ -1,5 +1,5 @@
 ====================================
-Internationalization (i18n) files
+Translating text strings
 ====================================
 
 Internationalization is a process to make your code locale and language aware.
@@ -9,44 +9,44 @@ used in the code.
 Plone internally uses UNIX standard `gettext <http://www.gnu.org/software/gettext/>`_
 tool to perform i18n.
 
-There are two separate gettext systems. Both use `.po <http://www.gnu.org/software/hello/manual/gettext/PO-Files.html>` 
+There are two separate gettext systems. Both use `.po <http://www.gnu.org/software/hello/manual/gettext/PO-Files.html>`
 file format to describe translations.
 
 Note that this chapter concerns only code-level translations. Content translations are
-managed by Products.LinguaPlone add-on product. 
+managed by Products.LinguaPlone add-on product.
 
 zope.i18n
 ---------
 
-* Follows gettext best practices 
+* Follows gettext best practices
 
 * Translations are stored in *locales* folder of your application. Example: *i18n/LC_MESSAGES/fi/your.app.po*
 
 * Has zope.i18nmessageid package which is string-like class allowing storing translation domain
   with translatable text strings easily
-  
+
 * `.po` files must be manually converted to `.mo` binary files every time the translations are updated.
   See i18ndude.
-  
+
 Each module declares its own MessageFactory which is a callable and marks strings with translation domain.
-MessageFactory is declared at main __init__.py file of your package.  
+MessageFactory is declared at main __init__.py file of your package.
 
 .. code-block:: python
 
-	from zope.i18nmessageid import MessageFactory
+    from zope.i18nmessageid import MessageFactory
 
-    # your.app.package must match domain declaration in .po files 
- 	yourAppMessageFactory = MessageFactory('your.app.package')
- 	
+    # your.app.package must match domain declaration in .po files
+     yourAppMessageFactory = MessageFactory('your.app.package')
+
 Then you can use it in your code to mark strings with translation domains.
 i18ndude translation utilities use underscore _ to mark translatable strings (gettext message ids).
 Message ids must be unicode strings.
 
 .. code-block:: python
 
-	from your.app.package import yourAppMessageFactory as _
-	
-	my_text = _(u"My text")
+    from your.app.package import yourAppMessageFactory as _
+
+    my_text = _(u"My text")
 
 When my_text is run through context.translate() function the actual translation is performed.
 Various user interface elements, like TAL page templates, perform this automatically
@@ -56,13 +56,13 @@ You also need to have the following ZCML entry:
 
 .. code-block:: xml
 
-	<configure
-	    xmlns:i18n="http://namespaces.zope.org/i18n">
-	
-	    <i18n:registerTranslations directory="locales" />
-	
-	</configure>
-  	
+    <configure
+        xmlns:i18n="http://namespaces.zope.org/i18n">
+
+        <i18n:registerTranslations directory="locales" />
+
+    </configure>
+
 
 There are also other message id markers in code outside Python domain
 
@@ -80,7 +80,7 @@ PlacessTranslationService
 
 * Historic, being phased out
 
-* Stores .po files in *i18n* folder of your add-on product  
+* Stores .po files in *i18n* folder of your add-on product
 
 * Used for main "plone" translation catalog
 
@@ -102,23 +102,23 @@ Examples
 
 * `i18ndude example for Plone 2.5 <http://blogs.ingeniweb.com/blogs/user/7/tag/i18ndude/>`_
 
-Setting up folder structure for Finnish and English 
+Setting up folder structure for Finnish and English
 ===================================================
 
 Example::
 
-	mkdir locales
-	mkdir locales/fi
-	mkdir locales/en
-	mkdir locales/fi/LC_MESSAGES
-	mkdir locales/en/LC_MESSAGES
+    mkdir locales
+    mkdir locales/fi
+    mkdir locales/en
+    mkdir locales/fi/LC_MESSAGES
+    mkdir locales/en/LC_MESSAGES
 
 Creating .pot base file
 =======================
 
 Example::
 
-	i18ndude rebuild-pot --pot locales/mydomain.pot --create your.app.package .	
+    i18ndude rebuild-pot --pot locales/mydomain.pot --create your.app.package .
 
 Managing .po files
 ===================
@@ -128,55 +128,55 @@ actual package of your product:
 
 .. code-block:: sh
 
-	#!/bin/sh
-	#
-	# Shell script to manage .po files.
-	# 
-	# Run this file in the folder main __init__.py of product
-	# 
-	# E.g. if your product is yourproduct.name
-	# you run this file in yourproduct.name/yourproduct/name 
-	#
-	#
-	# Copyright 2009 Twinapex Research http://www.twinapex.com
-	#
-	
-	# Assume the product name is the current folder name
-	CURRENT_PATH=`pwd` 
-	PRODUCTNAME="yourproduct.app"
-	
-	# List of languages
-	LANGUAGES="en fi"
-	
-	# Create locales folder structure for languages
-	install -d locales
-	for lang in $LANGUAGES; do
-		install -d locales/$lang/LC_MESSAGES
-	done
-	
-	# Rebuild .pot
-	i18ndude rebuild-pot --pot locales/$PRODUCTNAME.pot --create $PRODUCTNAME .
-	
-	# Compile po files
-	for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
-	
-	    if test -d $lang/LC_MESSAGES; then
-	    		
-			PO=$lang/LC_MESSAGES/${PRODUCTNAME}.po
-	
-	    	# Create po file if not exists
-	    	touch $PO 
-	
-			# Sync po file
-			echo "Syncing $PO"
-			i18ndude sync --pot locales/$PRODUCTNAME.pot $PO    	
-	    	
-	    	# Compile .po to .mo
-	    	MO=$lang/LC_MESSAGES/${PRODUCTNAME}.mo
-	    	echo "Compiling $MO"
-	        msgfmt -o $MO $lang/LC_MESSAGES/${PRODUCTNAME}.po
-	    fi
-	done
+    #!/bin/sh
+    #
+    # Shell script to manage .po files.
+    #
+    # Run this file in the folder main __init__.py of product
+    #
+    # E.g. if your product is yourproduct.name
+    # you run this file in yourproduct.name/yourproduct/name
+    #
+    #
+    # Copyright 2009 Twinapex Research http://www.twinapex.com
+    #
+
+    # Assume the product name is the current folder name
+    CURRENT_PATH=`pwd`
+    PRODUCTNAME="yourproduct.app"
+
+    # List of languages
+    LANGUAGES="en fi"
+
+    # Create locales folder structure for languages
+    install -d locales
+    for lang in $LANGUAGES; do
+        install -d locales/$lang/LC_MESSAGES
+    done
+
+    # Rebuild .pot
+    i18ndude rebuild-pot --pot locales/$PRODUCTNAME.pot --create $PRODUCTNAME .
+
+    # Compile po files
+    for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
+
+        if test -d $lang/LC_MESSAGES; then
+
+            PO=$lang/LC_MESSAGES/${PRODUCTNAME}.po
+
+            # Create po file if not exists
+            touch $PO
+
+            # Sync po file
+            echo "Syncing $PO"
+            i18ndude sync --pot locales/$PRODUCTNAME.pot $PO
+
+            # Compile .po to .mo
+            MO=$lang/LC_MESSAGES/${PRODUCTNAME}.mo
+            echo "Compiling $MO"
+            msgfmt -o $MO $lang/LC_MESSAGES/${PRODUCTNAME}.po
+        fi
+    done
 
 
 
