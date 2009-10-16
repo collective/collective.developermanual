@@ -4,6 +4,20 @@
 
 Tips for Plone performance tuning.
 
+Memcached as session storage
+----------------------------
+
+Storing sessions in ZEO/ZODB is not scaling up since they are
+very prone to raise ConflictErrors if there is considerable load
+on the system.
+
+Memcached provides more scalable session backend.
+
+For more information, see `lovely.session add-on product <http://pypi.python.org/pypi/lovely.session/0.2.2>`_.
+
+Input/output performance of the server
+--------------------------------------
+
 http://plope.com/Members/chrism/iostat_debugging
 
 Clarification::
@@ -11,5 +25,10 @@ Clarification::
     <mcdonc> well, the example has await at about 40X svctime.. that's pretty shitty
     <mcdonc> i mean that box was useless
 
+
+Tuning complex configurations
+-----------------------------
+
 http://www.lovelysystems.com/the-decathlon-of-computer-science/
+
 
