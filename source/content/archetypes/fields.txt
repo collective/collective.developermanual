@@ -18,6 +18,39 @@ Reordering fields
 
 See moveField() in `Schema/__init__.py <http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/Schema/__init__.py>`_.
 
+Example
+
+.. code-block:: python
+
+
+    ProductCardFolderSchema = MountPointSchema.copy() + atapi.Schema((
+
+        # -*- Your Archetypes field definitions here ... -*-
+        atapi.StringField(
+            'pageTitle',
+            storage=atapi.AnnotationStorage(),
+            widget=atapi.StringWidget(
+                label=_(u"Page title"),
+                description=_(u"Title shown on the page text if differs from the navigation title"),
+            ),
+            default=""
+        ),
+
+       ...
+
+
+    ))
+
+
+    schemata.finalizeATCTSchema(
+        ProductCardFolderSchema,
+        folderish=True,
+        moveDiscussion=False
+    )
+
+    # Reorder schema fields to the final order,
+    # show special pageTitle field after actual Title field
+    ProductCardFolderSchema.moveField("pageTitle", after="title")
 
 Rendering widget
 ----------------
