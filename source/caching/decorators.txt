@@ -11,6 +11,8 @@ Cache result for process lifecycle
 
 Example::
 
+    from plone.memoize import forever
+
     @forever.memoize
     def getFields(area, subject):
         """ Get all fields inside area / subject.
@@ -42,18 +44,18 @@ package provides necessary decorators for BrowserView based classes.
 
     from plone.memoize.view import memoize, memoize_contextless
 
-	class MyView(BrowserView):
-	
-	
-		@memoize
-		def getValue():
-			""" This value is recalculated for every new BrowserView context per request """
-			return "something"
+    class MyView(BrowserView):
 
-		@memoize_contextless
-		def getValueNoContext():
-			""" This value is recalculated for all context objects once per request """
-			return "something"
+
+        @memoize
+        def getValue():
+            """ This value is recalculated for every new BrowserView context per request """
+            return "something"
+
+        @memoize_contextless
+        def getValueNoContext():
+            """ This value is recalculated for all context objects once per request """
+            return "something"
 
 Other resources
 ---------------
