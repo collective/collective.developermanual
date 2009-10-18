@@ -12,5 +12,30 @@ Plone uses annotations for
 
 * Storing settings information in portal object (various add-on products)
 
-http://plone.org/documentation/tutorial/embrace-and-extend-the-zope-3-way/annotations
+See `zope.annotation package <http://pypi.python.org/pypi/zope.annotation/3.4.1>`.
 
+HTTP request example
+--------------------
+
+Store cached values on HTTP request during the life cycle of one request processing.
+This allows you to cache computed values if the computation function is called
+from the different, unrelated, code paths.
+
+.. code-block:: python
+
+    from zope.annotation.interfaces import IAnnotations
+
+	# Non-conflicting key
+	KEY = "mypackage.something"
+
+	annotations = IAnnoations(request)
+
+	value = annotations.get(KEY, None)
+	if no value:
+		# Compute value and store it on request object for further look-ups
+		value = annotations[KEY] = something()
+
+Other resources
+---------------
+
+* http://plone.org/documentation/tutorial/embrace-and-extend-the-zope-3-way/annotations
