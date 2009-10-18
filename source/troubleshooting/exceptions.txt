@@ -121,25 +121,25 @@ AttributeError in setRoles due to workflow state transition
 
 Example::
 
-	Traceback (innermost last):
-	Module ZPublisher.Publish, line 115, in publish
-	Module ZPublisher.mapply, line 88, in mapply
-	Module ZPublisher.Publish, line 41, in call_object
-	Module Products.CMFPlone.FactoryTool, line 361, in __call__
-	Module Products.CMFPlone.FactoryTool, line 147, in __getitem__
-	Module Products.CMFPlone.PloneFolder, line 406, in invokeFactory
-	Module Products.CMFCore.TypesTool, line 934, in constructContent
-	Module Products.CMFCore.TypesTool, line 345, in constructInstance
-	Module Products.CMFCore.TypesTool, line 357, in _finishConstruction
-	Module Products.CMFCore.CMFCatalogAware, line 145, in notifyWorkflowCreated
-	Module Products.CMFCore.WorkflowTool, line 355, in notifyCreated
-	Module Products.DCWorkflow.DCWorkflow, line 392, in notifyCreated
-	Module Products.DCWorkflow.DCWorkflow, line 476, in _changeStateOf
-	Module Products.DCWorkflow.DCWorkflow, line 571, in _executeTransition
-	Module Products.DCWorkflow.DCWorkflow, line 435, in updateRoleMappingsFor
-	Module Products.DCWorkflow.utils, line 60, in modifyRolesForPermission
-	Module AccessControl.Permission, line 93, in setRoles
-	AttributeError: appname
+    Traceback (innermost last):
+    Module ZPublisher.Publish, line 115, in publish
+    Module ZPublisher.mapply, line 88, in mapply
+    Module ZPublisher.Publish, line 41, in call_object
+    Module Products.CMFPlone.FactoryTool, line 361, in __call__
+    Module Products.CMFPlone.FactoryTool, line 147, in __getitem__
+    Module Products.CMFPlone.PloneFolder, line 406, in invokeFactory
+    Module Products.CMFCore.TypesTool, line 934, in constructContent
+    Module Products.CMFCore.TypesTool, line 345, in constructInstance
+    Module Products.CMFCore.TypesTool, line 357, in _finishConstruction
+    Module Products.CMFCore.CMFCatalogAware, line 145, in notifyWorkflowCreated
+    Module Products.CMFCore.WorkflowTool, line 355, in notifyCreated
+    Module Products.DCWorkflow.DCWorkflow, line 392, in notifyCreated
+    Module Products.DCWorkflow.DCWorkflow, line 476, in _changeStateOf
+    Module Products.DCWorkflow.DCWorkflow, line 571, in _executeTransition
+    Module Products.DCWorkflow.DCWorkflow, line 435, in updateRoleMappingsFor
+    Module Products.DCWorkflow.utils, line 60, in modifyRolesForPermission
+    Module AccessControl.Permission, line 93, in setRoles
+    AttributeError: appname
 
 Possible reasons
 
@@ -147,3 +147,60 @@ Possible reasons
 
 #. You are inhering schema in Archetypes, but you do not inherit the class itself
 
+
+Add-on installer error: too many values to unpack
+--------------------------------------------------
+
+An exception prevents running a quick installer.
+
+Example::
+
+      Module ZPublisher.Publish, line 119, in publish
+      Module ZPublisher.mapply, line 88, in mapply
+      Module ZPublisher.Publish, line 42, in call_object
+      Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 589, in installProducts
+      Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 475, in installProduct
+       - __traceback_info__: ('gomobile.mobile',)
+      Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 396, in snapshotPortal
+      Module five.localsitemanager.registry, line 194, in registeredUtilities
+      Module zope.component.registry, line 127, in registeredUtilities
+    ValueError: too many values to unpack
+
+Reason:
+
+You have run Data.fs with zope.component 3.5.1, but later downgraded / moved Data.fs.
+Pin zope.component to 3.5.1.
+
+`See discussion <See http://plone.org/support/forums/general#nabble-td3257712%7Ca3257712>`_.
+
+Add-on installer error: This object was originally created by a product that is no longer installed
+---------------------------------------------------------------------------------------------------
+
+Example::
+
+    2009-10-18 13:11:20 ERROR Zope.SiteErrorLog 1255860680.760.514176531634 http://localhost:8080/twinapex/portal_quickinstaller/installProducts
+    Traceback (innermost last):
+      Module ZPublisher.Publish, line 125, in publish
+      Module Zope2.App.startup, line 238, in commit
+      Module transaction._manager, line 93, in commit
+      Module transaction._transaction, line 325, in commit
+      Module transaction._transaction, line 424, in _commitResources
+      Module ZODB.Connection, line 541, in commit
+      Module ZODB.Connection, line 586, in _commit
+      Module ZODB.Connection, line 620, in _store_objects
+      Module ZODB.serialize, line 407, in serialize
+      Module OFS.Uninstalled, line 40, in __getstate__
+    SystemError: This object was originally created by a product that
+                is no longer installed.  It cannot be updated.
+                (<Salt at broken>)
+
+Data.fs contains objects for which the code is not present.
+You have probably moved Data.fs or edited buildout.cfg.
+
+Check that eggs and zcml contain all necessary products in buildout.cfg.
+
+Discussion
+
+* http://plone.org/support/forums/general#nabble-td3523234
+
+* http://article.gmane.org/gmane.comp.web.zope.plone.setup/3232
