@@ -24,19 +24,23 @@ Many ZCML directives take optional *layer* parameter. See example, resourceDirec
 Layers can be activated when an add-on product is installed or a certain theme
 is picked.
 
-For more information, read `Browser Layer tutorial <http://plone.org/documentation/tutorial/customization-for-developers/browser-layers>`_.
+For more information, read
+
+* `Browser Layer tutorial <http://plone.org/documentation/tutorial/customization-for-developers/browser-layers>`_.
+
+* `Zope 3 Developer Handbook, Skinning <http://zope3.xmu.me/skinning.html>`_
 
 Using layers
 ------------
 
 Some ZCML directives (example: `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_) take layer attribute.
 
-If you have 
+If you have
 
- # plonetheme.yourthemename.interfaces.IThemeSpecific layer defined in Python code 
- 
+ # plonetheme.yourthemename.interfaces.IThemeSpecific layer defined in Python code
+
  # YourTheme product installed through add-on product installer on your site instance
-  
+
 Views and viewlets will be active on the site instance using the following ZCML::
 
      <!-- Site actions override in YourTheme -->
@@ -183,6 +187,15 @@ Example::
     else:
         # General code
         pass
+        
+Getting active theme layer
+==========================
+
+Only one theme layer can be activate once.
+
+Active theme name is defined in portal_skins properties.
+This name can be resolved to a theme layer.
+
 
 Debugging active layers
 =======================

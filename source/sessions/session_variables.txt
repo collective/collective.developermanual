@@ -1,17 +1,39 @@
-Sessions are served-side data stored by per user basis.
-Sessions are available for logged in and anonymous users. 
-Session is identified by a cookie. 
+============
+ Sessions
+============
+
+Sessions are visitor sessions at the site.
+
+Sessions have features life
+
+* Login and logout, but also identified by a cookie
+
+* Timeout
+
+* Hold arbitary per-user data on server side
+
+* Identified by cookies
+
+In Plone, sessions are managed by Zope's session_data_manager tool.
+The source code is in `Products.Sessions <http://svn.zope.org/Zope/trunk/src/Products/Sessions/>`_.
+
+Getting session id
+------------------
+
+Each session has unique id associated with it.
+
+
 
 Setting a session parameter
 ---------------------------
 
-Plone has a tool called session_data_manager. 
+Plone has a tool called session_data_manager.
 
 Example::
 
    sdm = self.context.session_data_manager
    session = sdm.getSessionData(create=True)
    session.set("my_option", any_python_object_supporting_pickling)
-   
-   
-   
+
+
+

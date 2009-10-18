@@ -45,59 +45,59 @@ provides list of images for arbitary content.
 
 This is the image provider interface::
 
-	from zope.interface import Interface
+    from zope.interface import Interface
 
-	class IProductImageProvider(Interface):
+    class IProductImageProvider(Interface):
 
-	    def getImages(self):
-	        """ Get Images associated with the product.
+        def getImages(self):
+            """ Get Images associated with the product.
 
-	        @return: iterable of Image objects
-	        """
+            @return: iterable of Image objects
+            """
 
 This is our content class::
 
-	class MyShoppableItemType(folder.ATFolder):
-	    """ Buyable physical good with variants of title and price and multiple images """
-	    implements(IVariantProduct)
+    class MyShoppableItemType(folder.ATFolder):
+        """ Buyable physical good with variants of title and price and multiple images """
+        implements(IVariantProduct)
 
-	    meta_type = "VariantProduct"
-	    schema = VariantProductSchema
+        meta_type = "VariantProduct"
+        schema = VariantProductSchema
 
 This is adapter for the content class::
 
-	import zope.interface
+    import zope.interface
 
-	from getpaid.variantsproduct.interfaces.multiimageproduct import IProductImageProvider
+    from getpaid.variantsproduct.interfaces.multiimageproduct import IProductImageProvider
 
-	class FolderishProductImageProvider(object):
-	    """ Mix-in class which provide product image management functions.
+    class FolderishProductImageProvider(object):
+        """ Mix-in class which provide product image management functions.
 
-	    Assume the content itself is folderish archetype content type and
-	    all contained image objects are product images.
-	    """
+        Assume the content itself is folderish archetype content type and
+        all contained image objects are product images.
+        """
 
-	    zope.interface.implements(IProductImageProvider)
+        zope.interface.implements(IProductImageProvider)
 
-	    def __init__(self, context):
-	    	# Each adapter takes the object itself as the contruction parameter
-	    	# and possibly provided other parameters for the interface adaption
-	        self.context = context
+        def __init__(self, context):
+            # Each adapter takes the object itself as the contruction parameter
+            # and possibly provided other parameters for the interface adaption
+            self.context = context
 
-	    def getImages(self):
-	        """ Return sequence of images.
+        def getImages(self):
+            """ Return sequence of images.
 
-	        Perform folder listing and filter image content from it.
-	        """
+            Perform folder listing and filter image content from it.
+            """
 
-	        images = self.context.listFolderContents(contentFilter={"portal_type" : "Image"})
-	        return images
+            images = self.context.listFolderContents(contentFilter={"portal_type" : "Image"})
+            return images
 
 configure.zcml registers the adapter for my custom content type MyShoppableItemType::
 
   <adapter for=".shop.MyShoppableItemType"
            provides=".interfaces.IProductImageProvider"
-		   factory=".images.FolderishProductImageProvider"
+           factory=".images.FolderishProductImageProvider"
 
 Then we can query the adapter and use it. Unit testing example::
 
@@ -116,6 +116,23 @@ Then we can query the adapter and use it. Unit testing example::
         # Not yet any uploaded images
         self.assertEqual(len(images), 0)
 
+
+Multi-adapter registration
+===========================
+
+You can specify any number of interface in <adapter for="" />
+
+Below is a view like example which registers against
+
+* any context (zope.interface.Interace)
+
+* HTTP request objects (zope.publisher.interfaces.browser.IBrowserRequest)
+
+.. code-block:: xml
+
+    <adapter for="zope.interface.Interface zope.publisher.interfaces.browser.IBrowserRequest"
+           provides="gomobile.mobile.interfaces.IMobileTracker"
+           factory=".bango.BangoTracker"
 
 Getting adapter
 ---------------

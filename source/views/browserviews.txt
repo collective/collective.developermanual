@@ -1,11 +1,17 @@
 ===============
- Browser views
+ Views
 ===============
+
+Plone/Zope uses view pattern to create HTML pages.
+
+Views are usually combination of Python user interface logic class + corresponding page template.
+
+The most usual view type is *BrowserView*
 
 BrowserView classes are a combination of Python object-oriented class code and
 page template to produce a HTML page. By keeping as much of the logic code
 in a separate Python class and making page template as dump as possible
-the code readability and reuse is achieved.
+better component readability and reuse is achieved.
 
 `Read Zope view tutorial <http://plone.org/documentation/tutorial/borg/zope-3-views>`_.
 
@@ -13,12 +19,34 @@ Each BrowserView class is callable. BrowserView.__call__()
 method acts as an entry point of executing the view code.
 
 Usually BrowserView have also index attribute which
-is instance of ViewPageTemplateFile class. 
+is instance of ViewPageTemplateFile class.
 If BrowserView.__call__() is not overridden, it will
 return the value of self.index() call.
 
+Internals
+---------
+
+Views are Zope component architecture multi-adapter registrations.
+If you are doing manual view look-ups then this information concerns you.
+
+Views are looked up by name. Zope publisher does forced
+view look-up, instead of traversing, if the traversing name is prefixed with @@.
+
+Views are resolved against different interfaces
+
+* context: Any class/interface. If not given zope.interface.Interface is used (corresponds for="*")
+
+* request: Always HTTP request. Interface zope.publisher.interfaces.browser.IBrowserRequest is used.
+
+* layer: Theme layer interface. If not given zope.publisher.interfaces.browser.IDefaultBrowserLayer is used.
+
+See also `related source code <http://svn.zope.org/zope.browserpage/trunk/src/zope/browserpage/metaconfigure.py?rev=103273&view=auto>`_.
+
+Creating and registering
+------------------------
+
 Creating a view
----------------
+===============
 
 Example::
 
@@ -37,6 +65,42 @@ Example::
         #def __call__():
         #
 
+Registering a view
+==================
+
+The following example registers a new view
+
+* for="*" means for all content. This equals for registering views
+  to zope.interface.Interface base class.
+
+* name is view name (can be used in traversing or multi-adapter look up, explained below)
+
+* Permission is permission needed to render the view, see security chapter
+
+* class is Python dotted name for BrowserView based class which is
+  responsible for managing the view. Class __call__() method
+  is the entry point for view processing and rendering.
+
+.. code-block:: xml
+
+  <browser:page
+        for="*"
+        name="test"
+        permission="zope2.Public"
+        class=".views.MyView"
+        />
+
+Creating and register view, grok approach
+=========================================
+
+five.grok provides alternative, less verbose, mechanism for above.
+
+See
+
+* `SimpleView chapter in Dexterity manual <http://plone.org/products/dexterity/documentation/manual/developer-manual/custom-views/simple-views>`_.
+
+* `Grok view and Grok template <http://grok.zope.org/documentation/tutorial/adder-an-adding-machine-sample-application/a-grok-view>`_.
+
 
 Relationship between views and templates
 ----------------------------------------
@@ -47,19 +111,19 @@ The default view __call__() method will return the value
 returned by self.index() call.
 
 Example::
-    
+
     <browser:page
         for="*"
         name="test"
         permission="zope2.Public"
-        class=".views.MyView"        
-        />    
-    
+        class=".views.MyView"
+        />
+
     from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
     class MyView(BrowserView):
-    
-        index = ViewPageTemplateFile("my-template.pt") 
+
+        index = ViewPageTemplateFile("my-template.pt")
 
 
 is equal to::
@@ -69,26 +133,27 @@ is equal to::
         name="test"
         permission="zope2.Public"
         class=".views.MyView"
-        template="my-template.pt"        
-        />   
+        template="my-template.pt"
+        />
 
     class MyView(BrowserView):
         pass
-        
+
 Rendering of the view is done by following::
 
-	from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
     class MyView(BrowserView):
-        
+
         # This may be overridden in ZCML
         index = ViewPageTemplateFile("my-template.pt")
-    
+
         def render(self):
             return self.index()
-    
+
         def __call__(self):
             return self.render()
+
 
 Getting a view by id
 --------------------
@@ -106,26 +171,24 @@ This is the most efficient way in Python.
 Example
 
 .. code-block:: python
-	
-	from Acquisition import aq_inner
-	from zope.component import getMultiAdapter
 
-	def getView(context, request, name):
-		context = aq_inner(context)
-		# Will raise ComponentLookUpError
-		view = getMultiAdapter((context, request), name=name)
-		
-		
-Usually Plone views rely on acquisition. You need to also do::
+    from Acquisition import aq_inner
+    from zope.component import getMultiAdapter
 
-	view = view.__of__(context)
+    def getView(context, request, name):
+        # Remove acquisition wrapper which made cause false context assumptions
+        context = aq_inner(context)
+        # Will raise ComponentLookUpError
+        view = getMultiAdapter((context, request), name=name)
+        # Put view to acquisition chain
+        view = view.__of__(context)
+        return view
 
-to put view to the acquisition chain. 	
- 
+
 By using traversing
 ===================
 
-Traversing is slower than direct getMultiAdapter() call. 
+Traversing is slower than direct getMultiAdapter() call.
 However, traversing is available in templates and RestrictedPython modules easily.
 
 Example
@@ -148,15 +211,15 @@ Example
         view = view.__of__(context)
 
         return view
-        
+
 You can also do direct view looks up and method calls in template by using @@ notation in traversing.
 
 .. code-block:: html
 
-	<div tal:attributes="lang context/@@plone_portal_state/current_language">
-		We look up lang attribute by using BrowserView which name is "plone_portal_state"
-	</div>
-        
+    <div tal:attributes="lang context/@@plone_portal_state/current_language">
+        We look up lang attribute by using BrowserView which name is "plone_portal_state"
+    </div>
+
 View helpers
 -------------
 
@@ -169,7 +232,7 @@ IPortalState and IContextState
 ==============================
 
 IPortalState define IContextState view-like interfaces
-to access miscencancellous information useful for the 
+to access miscencancellous information useful for the
 current page render. The views are cached properly,
 so they should access the information quite effective manner
 
@@ -178,20 +241,20 @@ IPortalState is mapped as *plone_portal_state* view for traversing.
 IContextState is mapped as *plone_portal_state* view for traversing.
 
 To see what's available through the interface,
-read documentation in  
+read documentation in
 `plone.app.layout.globals.interfaces <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
 module.
 
 Example how to get the current language::
 
-	from Acquisition import aq_inner
-	from zope.component import getMultiAdapter
+    from Acquisition import aq_inner
+    from zope.component import getMultiAdapter
 
-	context = aq_inner(self.context)
-	portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-    
-	current_language = portal_state.language()
-        
+    context = aq_inner(self.context)
+    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+
+    current_language = portal_state.language()
+
 Example how to expose portal_state to template:
 
 ZCML includes allowed_attributes::
@@ -208,43 +271,43 @@ Python class exposes the variable::
 
     from Acquisition import aq_inner
     from zope.component import getMultiAdapter
-        
+
     class MyView(BrowserView):
-        
+
         @property
         def portal_state(self):
             context = aq_inner(self.context)
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
             return portal_state
-		    
+
 Template can use it::
 
-	<div>
-		The language is <span tal:content="view/portal_state/language" /> 
-	</div>
-	
-You can directly look up portal_state in template using acquisition 
+    <div>
+        The language is <span tal:content="view/portal_state/language" />
+    </div>
+
+You can directly look up portal_state in template using acquisition
 magic and view traversing, without need of ZCML code
 or Python view code changes. This is useful e.g. overridden
 viewlet templates::
 
-	<!--
-	
-		In traversing @@ marks that the traversing
-		machine should look up a view by that name.
-		
-		First we look up the view and then use 
-		it to access the variables defined in 
-		IPortalState interface.
-		
-	-->
+    <!--
 
-	<div tal:define="portal_state context/@@plone_portal_state" >
-		The language is <span tal:content="portal_state/language" /> 
-	</div>
-	
-			    
-Tools 
+        In traversing @@ marks that the traversing
+        machine should look up a view by that name.
+
+        First we look up the view and then use
+        it to access the variables defined in
+        IPortalState interface.
+
+    -->
+
+    <div tal:define="portal_state context/@@plone_portal_state" >
+        The language is <span tal:content="portal_state/language" />
+    </div>
+
+
+Tools
 ======
 
 Tools are persistent utility classes available in the site root.
@@ -260,27 +323,27 @@ ITools interface
 ++++++++++++++++
 
 `plone.app.layout.globals.interfaces.ITools interface <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
-and Tools BrowserView provide cached access for most often 
+and Tools BrowserView provide cached access for most often
 needed tools.
 
 ITools is mapped as *plone_tools* view for traversing.
 
 Example::
 
-	from Acquisition import aq_inner
-	from zope.component import getMultiAdapter
+    from Acquisition import aq_inner
+    from zope.component import getMultiAdapter
 
-	context = aq_inner(self.context)
-	tools = getMultiAdapter((context, self.request), name=u'plone_tools') 
-	
-	portal_url = tools.url()
-	
-	# The root URL of the site is got by using portal_url.__call__()
-	# method
-	
-	the_current_root_url_of_the_site = portal_url()
-	
-	 	
+    context = aq_inner(self.context)
+    tools = getMultiAdapter((context, self.request), name=u'plone_tools')
+
+    portal_url = tools.url()
+
+    # The root URL of the site is got by using portal_url.__call__()
+    # method
+
+    the_current_root_url_of_the_site = portal_url()
+
+
 
 getToolByName
 +++++++++++++
@@ -293,11 +356,11 @@ getToolByName gets any Plone portal root item using acquisition.
 
 Example::
 
-	from Products.CMFCore.WorkflowCore import WorkflowException
-	
-	# Do the workflow transition "submit" for the current context
-	workflowTool = getToolByName(self.context, "portal_workflow")
-	workflowTool.doActionFor(self.context, "submit")
+    from Products.CMFCore.WorkflowCore import WorkflowException
+
+    # Do the workflow transition "submit" for the current context
+    workflowTool = getToolByName(self.context, "portal_workflow")
+    workflowTool.doActionFor(self.context, "submit")
 
 Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
 -------------------------------------------------------
@@ -312,11 +375,11 @@ Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
 Difference in code::
 
     from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-    
+
     vs.
-    
+
     from zope.app.pagetemplate import ViewPageTemplateFile
-        
+
 
 Difference is that Five version supports
 
@@ -328,4 +391,4 @@ Difference is that Five version supports
 
 * Usually Plone code needs Five version of ViewPageTemplateFile
 
-* Some components, no    ly z3c.form, expect Zope 3 version of ViewPageTemplateFile 
+* Some components, no    ly z3c.form, expect Zope 3 version of ViewPageTemplateFile

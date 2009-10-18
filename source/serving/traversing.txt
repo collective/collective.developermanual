@@ -171,37 +171,37 @@ Getting all parents
 
 Example::
 
-	def getAcquisitionChain(object):
-	    """
-	    @return: List of objects from context, its parents to the portal root
-	
-	    Example::
-	
-	        chain = getAcquisitionChain(self.context)
-	        print "I will look up objects:" + str(list(chain))
-	
-	    @param object: Any content object
-	    @return: Iterable of all parents from the direct parent to the site root
-	    """
-	
-	    # It is important to use inner to bootstrap the traverse,
-	    # or otherwise we might get surprising parents
-	    # E.g. the context of the view has the view as the parent
-	    # unless inner is used
-	    inner = object.aq_inner
-	
-	    iter = inner
-	
-	    while iter:
-	        yield iter
-	
-	        if ISiteRoot.providedBy(iter):
-	           break
-	
-	        if not hasattr(iter, "aq_parent"):
-	            raise RuntimeError("Parent traversing interrupted by object: " + str(parent))
-	
-	        iter = iter.aq_parent
+    def getAcquisitionChain(object):
+        """
+        @return: List of objects from context, its parents to the portal root
+
+        Example::
+
+            chain = getAcquisitionChain(self.context)
+            print "I will look up objects:" + str(list(chain))
+
+        @param object: Any content object
+        @return: Iterable of all parents from the direct parent to the site root
+        """
+
+        # It is important to use inner to bootstrap the traverse,
+        # or otherwise we might get surprising parents
+        # E.g. the context of the view has the view as the parent
+        # unless inner is used
+        inner = object.aq_inner
+
+        iter = inner
+
+        while iter:
+            yield iter
+
+            if ISiteRoot.providedBy(iter):
+               break
+
+            if not hasattr(iter, "aq_parent"):
+                raise RuntimeError("Parent traversing interrupted by object: " + str(parent))
+
+            iter = iter.aq_parent
 
 Getting the site root
 ---------------------
@@ -245,6 +245,16 @@ Acquisition effect
 
 Sometimes traversing can give you attributes which actually do not exist on the object, but are inherited from the parent objects
 in the persistent object graph. See acquisition_.
+
+Custom traversing
+-----------------
+
+You can create your own traversing hooks.
+
+* 
+
+.. warning:: If AttributeError is risen inside traverse() function bad things happen,
+   as Zope publisher specially handles this and raises NotFound exception.
 
 Other resources
 ---------------
