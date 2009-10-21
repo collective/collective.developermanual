@@ -2,6 +2,10 @@
 Deleting
 ===========
 
+
+Deleting content by id
+----------------------
+
 Deleting content objects is done by IObjectManager.
 
 `IObjectManager definition <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_.
@@ -10,3 +14,21 @@ Example::
 
     # manage_delObjects takes list of ids as an argument
     folder.manage_delObjects(["list", "of", "ids", "to", "delete])
+
+
+Deleting all content in a folder
+--------------------------------
+
+Little tricky. An example:
+
+.. code-block:: python
+
+	ids = folder.objectIds()
+	
+    if len(ids) > 0:
+        # manage_delObject will mutate the list
+        # so we cannot give it tuple returned by objectIds()
+        ids = list(ids)
+        folder.manage_delObjects(ids)
+
+    
