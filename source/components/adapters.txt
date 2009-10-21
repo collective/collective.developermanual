@@ -97,7 +97,7 @@ configure.zcml registers the adapter for my custom content type MyShoppableItemT
 
   <adapter for=".shop.MyShoppableItemType"
            provides=".interfaces.IProductImageProvider"
-           factory=".images.FolderishProductImageProvider"
+           factory=".images.FolderishProductImageProvider" />
 
 Then we can query the adapter and use it. Unit testing example::
 
@@ -116,6 +116,16 @@ Then we can query the adapter and use it. Unit testing example::
         # Not yet any uploaded images
         self.assertEqual(len(images), 0)
 
+Generic adapter contexts
+========================
+
+Following interfaces are useful when registering adapters
+
+* zope.interface.Interface: Adapts to any object
+
+* Products.CMFCore.interfaces.IContentish: Adapts to any Plone content object
+
+* zope.publisher.interfaces.IBrowserView: Adapts to any BrowserView(context, request) object
 
 Multi-adapter registration
 ===========================
@@ -132,7 +142,7 @@ Below is a view like example which registers against
 
     <adapter for="zope.interface.Interface zope.publisher.interfaces.browser.IBrowserRequest"
            provides="gomobile.mobile.interfaces.IMobileTracker"
-           factory=".bango.BangoTracker"
+           factory=".bango.BangoTracker" />
 
 Getting adapter
 ---------------

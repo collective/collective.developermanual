@@ -109,16 +109,18 @@ Complex example
 
 .. code-block:: python
 
+
+    from five import grok
+    from zope.schema.interfaces import IContextSourceBinder
+    from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+    from Products.CMFCore.utils import getToolByName
+    from plone.i18n.normalizer import idnormalizer
+
     def make_terms(items):
         """ Create zope.schema terms for vocab from tuples """
         terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
         return terms
 
-    from five import grok
-    from zope.schema.interfaces import IContextSourceBinder
-    from zope.schema.vocabulary import SimpleVocabulary
-    from Products.CMFCore.utils import getToolByName
-    from plone.i18n.normalizer import idnormalizer
 
     @grok.provider(IContextSourceBinder)
     def area_source(context):
@@ -166,6 +168,12 @@ Complex example
         terms = make_terms(result)
 
         return SimpleVocabulary(terms)
+
+	class ISearchCriteria(form.Schema):
+	    """ Alternative header flash animation/imagae """
+
+
+	    area = schema.Choice(source=area_source, title=_("Area"), required=False)
 
 For another example, see `Dynamic sources <http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/vocabularies>`_
 chapter in Dexterity manual.

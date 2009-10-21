@@ -11,14 +11,19 @@ Schema is not used only forms, but it is also used
 
 * To describe validation and defaults of persistent data
 
-* To describe fields in ZCML 
+* To describe fields in ZCML
+
+Furthe reading
+==============
+
+* http://zope3.xmu.me/schema.html
 
 Schema data definitions
 =======================
 
 * `Stock Zope schema field list <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_ and
   `more <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_.
-  
+
   * `Dexterity field list <http://plone.org/products/dexterity/documentation/manual/developer-manual/reference/referencemanual-all-pages>`_.
 
 Field constructor parameters
@@ -47,6 +52,32 @@ See full list `here <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstr
     objects in __init__() method of your schema implementor.
 
     Dangerous defaults: default=[], default={}, default=SomeObject()
+
+
+Schema introspection
+====================
+
+zope.schema._schema module provides some introspection functions::
+
+* getFieldNames(schema)
+
+* getFields
+
+* getFieldsInOrder(schema)
+
+* getFieldNamesInOrder(schema)
+
+Example::
+
+	import zope.schema
+	import zope.interface
+
+	class IMyInterface(zope.interface.Interface):
+
+		text = zope.schema.TextLine()
+
+
+	fields = zope.schema.getFields(IMyInterface)
 
 
 Persistent objects and schema
@@ -110,12 +141,15 @@ Now you see the magic::
     assert header.alternatives = []
 
 
-Collections
-============
+Collections (and multichoice fields)
+====================================
 
 Collections are fields composed of several other fields.
+Collections also act as multi-choice fields.
 
 For more information see
+
+* `Using Zope schemas with a complex vocabulary and multi-select fields <http://www.upfrontsystems.co.za/Members/izak/sysadman/using-zope-schemas-with-a-complex-vocabulary-and-multi-select-fields>`_
 
 * Collections bit in `zope.schema documentation <http://apidoc.zope.org/++apidoc++/Code/zope/schema/fields.txt/index.html>`_
 
@@ -133,36 +167,36 @@ Below is code to create Python logging level choice::
 	import logging
 
 	from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-	
+
 	def _createLoggingVocabulary():
 	    """ Create zope.schema vocabulary from Python logging levels.
-	    
+
 	    Note that term.value is int, not string.
-	    
+
 	    _levelNames looks like::
-	    
-	        {0: 'NOTSET', 'INFO': 20, 'WARNING': 30, 40: 'ERROR', 10: 'DEBUG', 'WARN': 30, 50: 
-	        'CRITICAL', 'CRITICAL': 50, 20: 'INFO', 'ERROR': 40, 'DEBUG': 10, 'NOTSET': 0, 30: 'WARNING'} 
-	    
-	    @return: Iterable of SimpleTerm objects    
+
+	        {0: 'NOTSET', 'INFO': 20, 'WARNING': 30, 40: 'ERROR', 10: 'DEBUG', 'WARN': 30, 50:
+	        'CRITICAL', 'CRITICAL': 50, 20: 'INFO', 'ERROR': 40, 'DEBUG': 10, 'NOTSET': 0, 30: 'WARNING'}
+
+	    @return: Iterable of SimpleTerm objects
 	    """
 	    for level, name in logging._levelNames.items():
-	        
+
 	        # logging._levelNames dictionary is bidirectional, let's
 	        # get numeric keys only
-	        
-	        if type(level) == int:        
+
+	        if type(level) == int:
 	            term = SimpleTerm(value=level, token=str(level), title=name)
 	            yield term
-	
+
 	# Construct SimpleVocabulary objects of log level -> name mappings
 	logging_vocabulary = SimpleVocabulary(list(_createLoggingVocabulary()))
 
 	class ISyncRunOptions(Interface):
-	    	    
-	    log_level = schema.Choice(vocabulary=logging_vocabulary, 
-	    				          title=u"Log level", 
-	    				          description=u"One of python logging module constants", 
+
+	    log_level = schema.Choice(vocabulary=logging_vocabulary,
+	    				          title=u"Log level",
+	    				          description=u"One of python logging module constants",
 	    				          default=logging.INFO)
 
 List example
@@ -187,4 +221,4 @@ Dictionaries
 
 Read about problem of zope.schema and PersistentDict persistent dictionaries.
 
- 
+
