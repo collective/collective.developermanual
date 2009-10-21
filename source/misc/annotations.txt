@@ -28,10 +28,10 @@ from the different, unrelated, code paths.
 	# Non-conflicting key
 	KEY = "mypackage.something"
 
-	annotations = IAnnoations(request)
+	annotations = IAnnotations(request)
 
 	value = annotations.get(KEY, None)
-	if no value:
+	if value is None:
 		# Compute value and store it on request object for further look-ups
 		value = annotations[KEY] = something()
 
