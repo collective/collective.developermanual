@@ -1,0 +1,35 @@
+==================
+ Images
+==================
+
+Images are not loading
+----------------------
+
+Images are not loading. More specifically resize versions are not available.
+
+This is usually caused by broken PIL installation: PIL used by Python virtual machine driving 
+Plone does not have proper native libraries (libjpeg) available to perform imaging operations.
+
+
+How to test if PIL works
+========================
+
+Example::
+
+	wget http://upload.wikimedia.org/wikipedia/commons/b/bb/JohnCarrollGilbertStuart.jpg
+	
+	python2.4
+	
+	>>> import PIL
+	>>> from PIL import Image
+	>>> im = Image.open("JohnCarrollGilbertStuart.jpg")
+	>>> im.thumbnail((64, 64), Image.ANTIALIAS)
+	>>> im.save("test.jpg")
+	
+	
+No exceptions should be risen.
+
+
+	
+	
+	

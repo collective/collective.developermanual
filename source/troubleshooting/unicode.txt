@@ -1,0 +1,83 @@
+=========================
+ Unicode handling
+=========================
+
+Why unicode is difficult?
+-------------------------
+
+Python 2.x does not make clear distinction between
+
+* 8-bit strings (byte data)
+
+* 16-bit unicode strings (character data)
+
+Developers use these two formats interchangeable, because it is so easy and Python does not warn you about this.
+
+However, it will only work as long as the input does not encounter any international, non-ASCII, characters.
+When 8-bit encoded string data and 16-bit raw Unicode string data gets mixed, usually exception is risen
+and your world just collapses.
+
+sys.setdefaultencoding()
+-------------------------
+
+Python has **system-wide** setting to enforce encoding of all unicode input
+automatically to utf-8 when used as 8-bit string.
+
+.. warning::
+
+	This is a wrong way to fix things and it will break other things.
+	You have been warned. 
+
+* http://tarekziade.wordpress.com/2008/01/08/syssetdefaultencoding-is-evil/ 
+
+UnicodeEncodeError
+------------------
+
+UnicodeEncodeError: 'ascii' codec can't encode character u'\xe4' in position 4: ordinal not in range(128)
+
+This is usually because you are trying to output/store unicode data in archaid means
+
+* print
+
+* logging
+
+* 7-bit ids 
+
+Instead of::
+
+	print foo
+	
+Do::
+
+	print foo.encode("utf-8") # You are sure this is unicode string
+	
+Filtering example::
+
+	def safe_print(x):
+		""" Do not die on bad input when doing debug prints """
+		if type(x) == str:
+			print x
+		else:
+			print x.decode("utf-8") 
+
+UnicodeDecodeError
+------------------
+
+* http://wiki.python.org/moin/UnicodeDecodeError
+
+Safe way to decode() strings
+=================================
+
+This example will accept all string input and convert them to proper 
+unicode strings.
+
+Example::
+
+	if type(value) == str:
+		# Ignore errors even if the string is not proper UTF-8 or have broken marker bytes
+		# Python built-in function unicode() can do this.
+		value = unicode(value, "utf-8", errors="ignore")
+	else:
+	    # Assume value is unicode
+    	value = unicode(value)
+
