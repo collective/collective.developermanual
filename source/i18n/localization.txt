@@ -75,6 +75,55 @@ There are also other message id markers in code outside Python domain
 Plone (at least 3.3) uses only file path and name to search the translation files.
 Information in the .po file headers is ignored.
 
+Translation string substitution
+-------------------------------
+
+Translation string substitutions must be used when the final translated
+message contains variable strings in it.
+
+Plone content classes inherit translate() function which can be 
+used to get the final translated string.  
+It will use the currently activate language.
+Translation domain will be taken from the msgid object
+itself, which is string-like zope.i18nmessageid instance.
+
+Message ids are immutable (read-only)
+objects so you need to always create a new message id 
+if you use different variable substituion mappings.
+
+Python code:
+
+.. code-block:: python
+
+
+	from saariselka.app import appMessageFactory as _
+
+	class SomeView(BrowserView):
+	
+	
+		def do_stuff(self):
+
+		    msgid = _(u"search_results_found_msg", default=u"Found ${results} results", mapping={ u"results" : len(self.contents)})
+		    
+		    # Use inherited translate() function to get the final text string                        
+		    translated = self.context.translate(msgid)
+
+			# Show the final result count to the user as a portal status message
+		    messages = IStatusMessage(self.request)
+		    messages.addStatusMessage(translated, type="info")
+
+Corresponding .po file entry::
+
+	#. Default: "Found ${results} results"
+	#: ./browser/accommondationsummaryview.py:429
+	msgid "search_results_found_msg"
+	msgstr "Löytyi ${results} majoituskohdetta"
+
+
+For more information, see
+
+* http://wiki.zope.org/zope3/TurningMessageIDsIntoRocks
+
 PlacessTranslationService
 -------------------------
 
@@ -186,6 +235,8 @@ Other
 * http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
 
 * http://plone.org/products/archgenxml/documentation/how-to/handling-i18n-translation-files-with-archgenxml-and-i18ndude/view?searchterm=
+
+* http://dev.plone.org/plone/ticket/9089
 
 
 
