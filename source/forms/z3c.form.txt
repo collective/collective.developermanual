@@ -59,21 +59,23 @@ Usually a a wrapper is used to render the form which takes care of setting up re
 If you want to render your from inside viewlet or part of the other view, you 
 can do the following::
 
-Emulationg form POST in unit tests
-==================================
+TODO
 
-#. HTTP request must have field at least one of buttons filled
+Emulating form HTTP POST in unit tests
+========================================
 
-#. Form widget naming must match HTTP post values. Usually widgets have *form.widgets* prefix.
+* HTTP request must have field at least one of buttons filled
 
-#. You must emulate the ZPublisher behavior
+* Form widget naming must match HTTP post values. Usually widgets have *form.widgets* prefix.
+
+* You must emulate the ZPublisher behavior
    which automatically converts string input to Python primitives.
    For example, all choice/select values are Python lists. 
    
-#. Some z3c widgets, like <select>, need to have WIDGETNAME-empty-marker value set to
+* Some z3c widgets, like <select>, need to have WIDGETNAME-empty-marker value set to
    interger 1 to be processed
 
-#. Usually you can get the dummy HTTP request object via acquisition self.portal.REQUEST    
+* Usually you can get the dummy HTTP request object via acquisition self.portal.REQUEST    
 
 Example (incomplete)::
 

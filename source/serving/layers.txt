@@ -10,7 +10,7 @@ Examples:
 
 * Mobile browsing code is only activated when the site is being browser on a mobile phone
 
-Layers are marker interface applied to HTTPRequest_ object. They are usually
+Layers are marker interface applied to HTTPRequest object. They are usually
 used in conjunction of ZCML directives to dynamically activate various parts
 of the configuration (theme files, add-on product functionality).
 
@@ -66,7 +66,9 @@ Theme layer
 
 Theme layers can be created with following steps
 
-1. Subclass an interface from IDefaultPloneLayer::
+1. Subclass an interface from IDefaultPloneLayer
+
+.. code-block:: python
 
     from plone.theme.interfaces import IDefaultPloneLayer
 
@@ -78,7 +80,9 @@ Theme layers can be created with following steps
            in YourSkin/browser/configure.zcml.
         """
 
-2. Register in in ZCML. Name must match theme name. Example::
+2. Register in in ZCML. Name must match theme name. 
+
+.. code-block:: xml
 
     <interface
         interface=".interfaces.IThemeSpecific"
@@ -86,14 +90,18 @@ Theme layers can be created with following steps
         name="SitsSkin"
         />
 
-3. Declare your theme in profiles/default/skins.xml. Example::
+3. Declare your theme in profiles/default/skins.xml. Example.
+
+.. code-block:: xml
 
     <skin-path name="SitsSkin" based-on="Plone Default">
       <layer name="plone_skins_style_folder_name"
          insert-before="*"/>
     </skin-path>
 
-4. Create profiles/default/browlayers.xml. Example::
+4. Create profiles/default/browlayers.xml. 
+
+.. code-block:: xml
 
    <layers>
     <layer
