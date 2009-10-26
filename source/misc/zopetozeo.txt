@@ -1,0 +1,33 @@
+=======================================
+Convering instance to ZEO based one
+=======================================
+
+See `ZEO <http://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer/to-zeo-or-not-to-zeohttp://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer/to-zeo-or-not-to-zeo>`_.
+
+See `plone.app.blob product page <http://plone.org/products/plone.app.blob>` for good ZEO configuration example.
+
+Steps
+-----
+
+How to modify buildout.cfg:
+
+* Add [zeo] section
+
+* Convert [instance] to [client1].
+
+	* Add zeoclient = on
+	
+	* Add zeo-address
+
+	* Add shared-blob = on if blobs are used
+	
+* Add [client2] ... [clientN] sections
+
+* Reconfigure [buildout] parts to include zeo, client1, client2...
+
+* Change all ${instance:...} references to ${client1:...} 
+
+Other resources
+---------------
+
+* http://blog.twinapex.fi/2008/07/07/zope-zeo-setupconversion-and-zeo-vs-standalone-performance-review/

@@ -1,0 +1,113 @@
+=============================
+ Command-line scripting
+============================
+
+Zope provides facilities to run command-line scripts.
+or maintenance work, like migration script.
+
+* The output to terminal is instance (Plone buffers HTML output)
+
+* You can stop processing using CTRL+C
+
+* You can integrate scripts with standard UNIX tools, like cron
+
+Command line scripts are also useful for long-running transaction processing
+
+* Normal site runs on one ZEO client
+
+* Asynchronous long-running transactions are running from other ZEO client,
+  without disturbing the normal site functionality
+  
+See also
+
+* `lovely.remotetask package <http://pypi.python.org/pypi/lovely.remotetask>`_ 
+  for more fine-graned control and Zope-based cron jobs
+  
+Running scripts
+---------------
+
+Use *bin/instance run* command. 
+
+Example::
+
+	bin/instance run src/namespace.mypackage/namespace/mypackage/bin/script.py 
+	
+Script context
+--------------
+
+The script gets following context
+
+* *app* global variable which holds the root of Zope application server
+
+* sys.argv contains command-line parameters after python script name
+
+	* argv[0] = script name
+	
+	* arvg[1] = first command line argument
+	
+Setting up ZEO for command line-processing
+------------------------------------------
+
+Plone site HTTP requests are processed by one process per requests.
+One process cannot handle more than one request once. If you need
+to have long-running transactions you need to at least two
+front end processes, ZEO clients, so that long-running
+transactions won't block your site. 
+
+* :doc:`Converting instance to ZEO based configuration </misc/zopetozeo>`
+
+Your code might want to call transaction.commit() now and then to commit the 
+current transaction.
+
+Posing as user
+--------------
+
+Zope functionality often assumes you have logged in as certain
+user or you are anonymous user. Command-line scripts
+do not have user information set by default.
+
+How to set the effective Zope user to admin::
+
+  from AccessControl.SecurityManagement import newSecurityManager
+  
+  # Use Zope application server user database (not plone site) 
+  admin=app.acl_users.getUserById("admin")
+  newSecurityManager(None, admin)
+  
+Spoofing HTTP request
+---------------------
+
+When running from command-line, HTTP request object is not available.
+Some Zope code might expect this and you need to spoof the request.
+
+Example how to create a dummy request (collective.mountpoint package)::
+
+    def spoofRequest(self, site):
+        """
+        Some broken code may the existence of HTTPRequest object via acquisition.
+        
+        Note that you can use environment variables given on the command-line to control
+        the possible request parameters.
+        
+        @param site: Plone site object
+        """
+        from ZPublisher.HTTPRequest import HTTPRequest
+        
+        # Fake HTTP request input
+        stdin = StringIO("")
+                
+        request = HTTPRequest(stdin=stdin, environ=os.environ, response=FauxResponse())                
+        
+        site.REQUEST = request 
+        
+You can set HTTP request parameters in command-line script.
+
+.. code-block:: sh
+
+	SERVER_NAME=www.mysite.fi
+	SERVER_PORT=9445
+	export SERVER_NAME
+	export SERVER_PORT
+	bin/client2 run src/collective.mountpoint/collective/mountpoint/bin/update.py mysite
+
+
