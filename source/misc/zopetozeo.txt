@@ -1,6 +1,6 @@
-=======================================
-Convering instance to ZEO based one
-=======================================
+====================================================
+Convering single process instance to ZEO cluster
+====================================================
 
 See `ZEO <http://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer/to-zeo-or-not-to-zeohttp://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer/to-zeo-or-not-to-zeo>`_.
 
@@ -25,7 +25,20 @@ How to modify buildout.cfg:
 
 * Reconfigure [buildout] parts to include zeo, client1, client2...
 
-* Change all ${instance:...} references to ${client1:...} 
+* Change all ${instance:...} references to ${client1:...}
+
+Starting ZEO cluster
+--------------------
+
+You need to start ZEO and clients independently
+
+* bin/zeo start
+
+* bin/client1 start
+
+* bin/client2 state
+
+* etc. 
 
 Other resources
 ---------------
