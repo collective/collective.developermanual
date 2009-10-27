@@ -45,6 +45,30 @@ The script gets following context
 	
 	* arvg[1] = first command line argument
 	
+zopepy
+------
+
+zopepy buildout recipe creating bin/zopepy command which you can use to run Python scripts in Zope environment set-up
+(PYTHONPATH, database connection, etc.)
+
+* http://pypi.python.org/pypi/zc.recipe.egg
+
+buildout.cfg example::
+
+	[zopepy]
+	# For more information on this step and configuration options see:
+	# 
+	recipe = zc.recipe.egg
+	eggs = ${client1:eggs}
+	interpreter = zopepy
+	extra-paths = ${zope2:location}/lib/python
+	scripts = zopepy
+
+Then running::
+
+	bin/zopepy path/to/myscript.py
+	
+
 Setting up ZEO for command line-processing
 ------------------------------------------
 
