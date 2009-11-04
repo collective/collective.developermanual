@@ -33,11 +33,12 @@ Simple example for CSS id::
     normalizer = getUtility(IIDNormalizer)
     id = "portlet-static-%s" % normalizer.normalize(header)
 
-Hard-coded id localizer which directly uses class instance and does not allow override by utility configuration::
+Hard-coded id localizer which directly uses class instance and does not allow override by utility configuration.
+You can use normalizers this way also when getUtility() is not available (e.g. start up code)::
 
-    from plone.app.i18n.normalizer import idnormalizer
+    from plone.i18n.normalizer import idnormalizer
 
-    id = idnormalizer(u"ÅÄÖrjy")
+    id = idnormalizer.normalize(u"ÅÄÖrjy")
 
 Language specific example for URL::
 
@@ -51,8 +52,6 @@ To see available language specific localizers, see the source code of plone.i18n
 More examples:
 
 * `Static text portlets normalizes portlet title for CSS class <https://svn.plone.org/svn/plone/plone.portlet.static/trunk/plone/portlet/static/static.py>`_.
-
-
 
 Creating ids programmatically
 -----------------------------

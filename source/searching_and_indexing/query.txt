@@ -145,32 +145,32 @@ See AdvancedQuery_.
 
 Example::
 
-        from Products import AdvancedQuery
+    from Products import AdvancedQuery
 
-        portal_catalog = self.portal_catalog # Acquire portal_catalog from higher hierarchy level
+    portal_catalog = self.portal_catalog # Acquire portal_catalog from higher hierarchy level
 
-        path = self.getPhysicalPath() # Limit the search to the current folder and its children
+    path = self.getPhysicalPath() # Limit the search to the current folder and its children
 
-        # object.getPhysicalPath() returns the path as tuples of path parts
-        # Convert path to string
-        path = "/".join(path)
+    # object.getPhysicalPath() returns the path as tuples of path parts
+    # Convert path to string
+    path = "/".join(path)
 
-        # Limit search to path in the current contex object and
-        # match all children implementing either of two interfaces
-        # AdvancedQuery operations can be combined using Python expressions & | and ~
-        # or AdvancedQuery objects
-        query = AdvancedQuery.Eq("path", path) & (AdvancedQuery.Eq("getMyIndexGetter1", "foo") | AdvancedQuery.Eq("getMyIndexGetter2", "bar"))
+    # Limit search to path in the current contex object and
+    # match all children implementing either of two interfaces
+    # AdvancedQuery operations can be combined using Python expressions & | and ~
+    # or AdvancedQuery objects
+    query = AdvancedQuery.Eq("path", path) & (AdvancedQuery.Eq("getMyIndexGetter1", "foo") | AdvancedQuery.Eq("getMyIndexGetter2", "bar"))
 
-        # The following result variable contains iterable of CatalogBrain objects
-        results = portal_catalog.evalAdvancedQuery(query)
+    # The following result variable contains iterable of CatalogBrain objects
+    results = portal_catalog.evalAdvancedQuery(query)
 
-        # Convert the catalog brains to a Python list containing tuples of object unique ID and Title
-        pairs = []
-        for nc in results:
-            pairs.append((nc["UID"], nc["Title"]))
+    # Convert the catalog brains to a Python list containing tuples of object unique ID and Title
+    pairs = []
+    for nc in results:
+        pairs.append((nc["UID"], nc["Title"]))
 
 
-# query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
+    # query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 
     query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 

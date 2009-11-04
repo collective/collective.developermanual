@@ -174,6 +174,30 @@ Complex example
 
 
 	    area = schema.Choice(source=area_source, title=_("Area"), required=False)
-
+	    
+	 
 For another example, see `Dynamic sources <http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/vocabularies>`_
 chapter in Dexterity manual.
+
+<vocabularies> directive
+------------------------
+
+On older Plones you can use <utility> in ZCML to register vocabularies
+
+.. code-block:: xml
+
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="zope.app.gary.paths.Favorites"
+      name="garys-favorite-path-references"
+      />
+      
+Then you can refer to vocabulary by its name::
+
+
+    class ISearchCriteria(form.Schema):
+        """ Alternative header flash animation/imagae """
+
+        area = schema.Choice(source="garys-favorite-path-references", title=_("Area"), required=False)
+
+For more information see `vocabularies API doc <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/vocabulary/index.html>`_.  
