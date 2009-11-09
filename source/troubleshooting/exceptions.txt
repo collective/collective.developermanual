@@ -205,3 +205,74 @@ Discussion
 * http://plone.org/support/forums/general#nabble-td3523234
 
 * http://article.gmane.org/gmane.comp.web.zope.plone.setup/3232
+
+Cannot manage portlets
+----------------------
+
+When you try to access @@manage-portlets an exception a NotFound exception is raised:
+
+    2009-11-09 12:56:13 ERROR Zope.SiteErrorLog 1257764173.180.738005333766 http://localhost:8080/saariselka/@@manage-portlets
+    Traceback (innermost last):
+      Module ZPublisher.Publish, line 119, in publish
+        Module Products.PageTemplates.Expressions, line 223, in evaluateStructure
+        ...
+      Module zope.tales.tales, line 696, in evaluate
+       - URL: file:/Users/moo/workspace/plonetheme.saariselka/plonetheme/saariselka/skins/plonetheme_saariselka_custom_templates/main_template.pt
+       - Line 92, Column 18
+       - Expression: <StringExpr u'plone.leftcolumn'>
+       - Names:
+          {'container': <PloneSite at /saariselka>,
+           'context': <PloneSite at /saariselka>,
+           'default': <object object at 0x194520>,
+           'here': <PloneSite at /saariselka>,
+           'loop': {},
+           'nothing': None,
+           'options': {'args': (<Products.Five.metaclass.SimpleViewClass from /Users/moo/saariselka/eggs/plone.app.portlets-1.2-py2.4.egg/plone/app/portlets/browser/templates/manage-contextual.pt object at 0x67e43b0>,)},
+           'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x73b59b8>,
+           'request': <HTTPRequest, URL=http://localhost:8080/saariselka/@@manage-portlets>,
+           'root': <Application at >,
+           'template': <ImplicitAcquirerWrapper object at 0x73b29f0>,
+           'traverse_subpath': [],
+           'user': <PropertiedUser 'admin'>,
+           'view': <Products.Five.metaclass.SimpleViewClass from /Users/moo/saariselka/eggs/plone.app.portlets-1.2-py2.4.egg/plone/app/portlets/browser/templates/manage-contextual.pt object at 0x67e43b0>,
+           'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0x73b23d0>}
+      Module Products.Five.browser.providerexpression, line 37, in __call__
+      ...
+      Module zope.tales.tales, line 696, in evaluate
+       - URL: index
+       - Line 18, Column 12
+       - Expression: <PathExpr standard:'view/addable_portlets'>
+       - Names:
+          {'container': <PloneSite at /saariselka>,
+           'context': <PloneSite at /saariselka>,
+           'default': <object object at 0x194520>,
+           'here': <PloneSite at /saariselka>,
+           'loop': {},
+           'nothing': None,
+           'options': {'args': ()},
+           'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x7941be8>,
+           'request': <HTTPRequest, URL=http://localhost:8080/saariselka/@@manage-portlets>,
+           'root': <Application at >,
+           'template': <ImplicitAcquirerWrapper object at 0x78be050>,
+           'traverse_subpath': [],
+           'user': <PropertiedUser 'admin'>,
+           'view': <plone.app.portlets.browser.editmanager.ContextualEditPortletManagerRenderer object at 0x789eb90>,
+           'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0x790a870>}
+      Module zope.tales.expressions, line 217, in __call__
+      Module Products.PageTemplates.Expressions, line 163, in _eval
+      Module Products.PageTemplates.Expressions, line 125, in render
+      Module plone.app.portlets.browser.editmanager, line 154, in addable_portlets
+      Module plone.app.portlets.browser.editmanager, line 149, in check_permission
+      Module OFS.Traversable, line 301, in restrictedTraverse
+      Module OFS.Traversable, line 284, in unrestrictedTraverse
+       - __traceback_info__: ([], 'collective.easytemplate.TemplatedPortlet')
+    NotFound: collective.easytemplate.TemplatedPortlet
+
+This usually means that your site has an portlet assignment which code is not present anymore.
+
+In this case you can see that portlet type "collective.easytemplate.TemplatedPortlet" is missing.
+
+#. Check that you include the corresponding product (collective.easytemplate) in eggs= section in buildout.cfg
+
+#. Check that you include the corresponding product (collective.easytemplate) in zcml= section in buildout.cfg
+
