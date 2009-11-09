@@ -231,6 +231,65 @@ Example (plone.app.headeranimation)::
             stream_iterator = download_blob(self.context, self.request, animation.image)
             return stream_iterator
 
+POSKeyError
+-----------
+
+POSKeyError is raised when you try to access blob *attributes*, but the actual
+file is not available on the disk. You can still load the blob object itself
+fine (as its being stored in ZODB, not FS).
+
+Example::
+
+    Module ZPublisher.Publish, line 119, in publish
+    Module ZPublisher.mapply, line 88, in mapply
+    Module ZPublisher.Publish, line 42, in call_object
+    Module plone.app.headeranimation.browser.views, line 92, in download_image
+    Module plone.app.headeranimation.browser.views, line 75, in _download_blob
+    Module plone.app.headeranimation.browser.download, line 90, in download_blob
+    Module plone.namedfile.utils, line 58, in stream_data
+    Module ZODB.Connection, line 811, in setstate
+    Module ZODB.Connection, line 876, in _setstate
+    Module ZODB.blob, line 623, in loadBlob
+    POSKeyError: 'No blob file'
+
+This might occur for example because you have copied Data.fs to another computer, but
+not blob files.
+
+You probably want to catch POSKeyErrors and make them return something
+more sane::
+
+    def download_blob(context, request, file):
+        """ Stream animation or image BLOB to the browser.
+
+        @param context: Context object name is used to set the filename if blob itself doesn't provide one
+
+        @param request: HTTP request
+
+        @param file: Blob object
+        """
+
+        from ZODB.POSException import POSKeyError
+        try:
+            if file == None:
+                raise NotFound(context, '', request)
+
+            # Try determine blob name and default to "context_id_download"
+            # This is only visible if the user tried to save the file to local computer
+            filename = getattr(file, 'filename', context.id + "_download")
+
+            set_headers(file, request.response)
+
+            # Set headers for Flash 10
+            # http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/
+            cd = 'inline; filename=%s' % filename
+            request.response.setHeader("Content-Disposition", cd)
+
+            return stream_data(file)
+        except POSKeyError:
+            # Blob storage damaged
+            logger.warn("Could not load blob for " + str(context))
+            raise NotFound(context, '', request)
+
 Widget download URLs
 -------------------------
 
