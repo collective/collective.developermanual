@@ -13,8 +13,8 @@ Schema is not used only forms, but it is also used
 
 * To describe fields in ZCML
 
-Furthe reading
-==============
+Further reading
+===============
 
 * http://zope3.xmu.me/schema.html
 
@@ -79,6 +79,40 @@ Example::
 
 	fields = zope.schema.getFields(IMyInterface)
 
+Field order
+===========
+
+The order attribute can be used to determine the order in
+which fields in a schema were defined. If one field is created
+after another (in the same thread), its order will be
+greater.
+
+Default values
+==============
+
+To make default values of schema effective, class attributes must be implemented using
+FieldProperty.
+
+Example::
+
+	import zope.interface
+	from zope import schema
+	from zope.schema.fieldproperty import FieldProperty
+
+
+    class ISomething(zope.interface.Interface):
+        """ Sample schema """
+        some_value = schema.Bool(default=True)
+
+
+    class SomeStorage(object):
+
+    	some_value = FieldProperty(ISomething["some_value"])
+
+
+	something = SomeStorage()
+	assert something.some_value == True
+
 
 Persistent objects and schema
 =============================
@@ -105,7 +139,7 @@ Example::
 
     class IHeaderBehavior(form.Schema):
         """ Sample schema """
-        inheri    le = schema.Bool(title=u"Inherit header", description=u"This header is visible on child content", required=False, default=False)
+        inheritable = schema.Bool(title=u"Inherit header", description=u"This header is visible on child content", required=False, default=False)
 
         block_parents = schema.Bool(title=u"Block parent headers", description=u"Do not show parent headers for this content", required=False, default=False)
 
@@ -130,7 +164,7 @@ Example::
 
         # We need to declare field properties so that objects will
         # have input data validation and default values taken from schema above
-        inheri    le = FieldProperty(IHeaderBehavior["inheri    le"])
+        inheritable = FieldProperty(IHeaderBehavior["inheritable"])
         block_parents = FieldProperty(IHeaderBehavior["block_parents"])
         alternatives = FieldProperty(IHeaderBehavior["alternatives"])
 
@@ -159,8 +193,11 @@ For more information see
 
 * `List field <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/List/index.html>`_.
 
-Choice example
---------------
+
+Single choice example
+---------------------
+
+Only one value can be chosen.
 
 Below is code to create Python logging level choice::
 
@@ -199,21 +236,28 @@ Below is code to create Python logging level choice::
 	    				          description=u"One of python logging module constants",
 	    				          default=logging.INFO)
 
-List example
-------------
+Multi-choice example
+--------------------
 
-Create list of custom objects. Note that this field cannot be edited in the form directly.
+Using zope.schema.List, many values can be chosen once.
+Each value is atomically constrained by *value_type* schema field.
 
 Example::
 
-    class IHeaderBehavior(form.Schema):
+	from zope import schema
+	from plone.directives import form
+
+    class IMultiChoice(form.Schema):
         ...
 
-        # Contains list of HeaderAnimation objects
+        # Contains lists of values from Choice list using special "get_field_list" vocabulary
+        # We also give a plone.form.directives hint to render this as
+        # multiple checbox choices
+        form.widget(enabled_overrides=CheckBoxFieldWidget)
         alternatives = schema.List(title=u"Available headers and animations",
                                    description=u"Headers and animations uploaded here",
                                    required=False, default=[],
-                                   value_type=schema.Object()
+                                   value_type=zope.schema.Choice(source=get_field_list),
                                    )
 
 Dictionaries
