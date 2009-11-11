@@ -20,3 +20,16 @@ PIL binaries.
 * Make sure that you don't have PIL without libjpeg
   support in your system-wide Python setup
 
+Installing libjpeg on OS X
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Get http://www.ijg.org/files/jpegsrc.v7.tar.gz, and then::
+
+    tar zxvf jpegsrc.v7.tar.gz
+    cd jpeg-7
+    cp /usr/share/libtool/config.sub .
+    cp /usr/share/libtool/config.guess .
+    ./configure --enable-shared --enable-static
+    sudo make
+
+Then you can install PIL with JPEG support.
