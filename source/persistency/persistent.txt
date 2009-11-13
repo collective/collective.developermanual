@@ -5,8 +5,24 @@
 Persistent objects will have their data transparently serialized to a
 persistent storage when the transaction completes.
 
-`About persistent objects
-<http://www.zope.org/Documentation/Books/ZDG/current/Persistence.stx>`_.
+If your class inherits from higher level Plone base classes 
+persistency is handled transparently for you. Plone also handles
+transaction automatically for each HTTP request. Unless you wish
+to do manual transactions there is no need to call transaction.commit().
 
-`Persistent interface description <http://apidoc.zope.org/++apidoc++/Interface/persistent.interfaces.IPersistent/index.html>`_.
+If you want to do your own persistent classes please read the following
 
+* `Writing a persistent class <http://docs.zope.org/zodb/zodbguide/prog-zodb.html#writing-a-persistent-class>`_
+
+* `About persistent objects <http://www.zope.org/Documentation/Books/ZDG/current/Persistence.stx>`_
+
+* `Persistent interface description <http://apidoc.zope.org/++apidoc++/Interface/persistent.interfaces.IPersistent/index.html>`_.
+
+
+Lists and dictionaries
+----------------------
+
+If you modify objects inside persistent lists and dictionaries, the change is not automatically 
+reflected to the parent container.
+
+* `Modifying mutable objects <http://docs.zope.org/zodb/zodbguide/prog-zodb.html#writing-a-persistent-class>`_
