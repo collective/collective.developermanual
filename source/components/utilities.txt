@@ -21,6 +21,16 @@ ZCML example::
      provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
      factory=".picker.RandomHeaderAnimationPicker" />
 
+Python example::
+
+	def registerOnsitePaymentProcessor(processor_class):
+	    """ """
+
+	    # Make OnsitePaymentProcessor class available as utiltiy
+	    processor = processor_class()
+	    gsm = component.getGlobalSiteManager()
+	    gsm.registerUtility(processor, interfaces.IOnsitePaymentProcessor, processor.name)
+
 Getting utility
 ---------------
 
@@ -41,5 +51,24 @@ Example::
     # they are optional and depend on the utility itself
     picker = getUtility(IHeaderAnimationPicker, context, request)
 
+Getting all named utilities of one interface
+--------------------------------------------
+
+Use zope.component.getUtilitiesFor().
+
+Example
+
+.. code-block:: python
+
+	def OnsitePaymentProcessors(context):
+	    """ List all registered on-site payment processors.
+
+	    Mostly useful for validating form input.
+
+	    Vocabulary contains all payment processors, not just active ones.
+
+	    @return: zope.vocabulary.SimpleVocabulary
+	    """
+	    processors = component.getUtilitiesFor(interfaces.IOnsitePaymentProcessor)
 
 
