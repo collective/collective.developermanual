@@ -69,7 +69,9 @@ Example
 
 	    @return: zope.vocabulary.SimpleVocabulary
 	    """
-	    processors = component.getUtilitiesFor(interfaces.IOnsitePaymentProcessor)
+	    utilities = component.getUtilitiesFor(interfaces.IOnsitePaymentProcessor)
+	    for name, instance in utilities:
+	    	pass
 
 Unregistering utilities
 ------------------------
