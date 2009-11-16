@@ -45,44 +45,44 @@ we should enable it for Archetypes folder using the following GenericSetup XML
 *profiles/default/types/Folder.xml*.
 
 .. code-block:: xml
-	
-	<?xml version="1.0"?>
-	<object name="Folder"
-	   meta_type="Factory-based Type Information with dynamic views"
-	   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-		 <property name="view_methods">
-		  <element value="folder_summary_view"/>
-		  <element value="folder_tabular_view"/>
-		  <element value="atct_album_view"/>
-		  <element value="folder_listing"/>
-	
-		  <!-- We retrofit these new views for Folders in portal_types info -->
-		  <element value="product_listing"/>
-	
-		 </property>
-	</object>
+
+    <?xml version="1.0"?>
+    <object name="Folder"
+       meta_type="Factory-based Type Information with dynamic views"
+       i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+         <property name="view_methods">
+          <element value="folder_summary_view"/>
+          <element value="folder_tabular_view"/>
+          <element value="atct_album_view"/>
+          <element value="folder_listing"/>
+
+          <!-- We retrofit these new views for Folders in portal_types info -->
+          <element value="product_listing"/>
+
+         </property>
+    </object>
 
 Also if you want to Collections have this listing you need to add
 the following *profiles/default/types/Topic.xml*
 
 .. code-block:: xml
 
-	<?xml version="1.0"?>
-	<object name="Topic"
-	   meta_type="Factory-based Type Information with dynamic views"
-	   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-	 <property name="view_methods">
-	  <element value="folder_listing"/>
-	  <element value="folder_summary_view"/>
-	  <element value="folder_tabular_view"/>
-	  <element value="atct_album_view"/>
-	  <element value="atct_topic_view"/>
+    <?xml version="1.0"?>
+    <object name="Topic"
+       meta_type="Factory-based Type Information with dynamic views"
+       i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+     <property name="view_methods">
+      <element value="folder_listing"/>
+      <element value="folder_summary_view"/>
+      <element value="folder_tabular_view"/>
+      <element value="atct_album_view"/>
+      <element value="atct_topic_view"/>
 
-	  <!-- We retrofit these new views for Folders in portal_types info -->
-	  <element value="product_listing"/>
+      <!-- We retrofit these new views for Folders in portal_types info -->
+      <element value="product_listing"/>
 
-	 </property>
-	</object>
+     </property>
+    </object>
 
 
 Checking that your view is available
@@ -91,17 +91,17 @@ Checking that your view is available
 Products.CMFDynamicViewFTI.browserdefault.BrowserDefaultMixin.getAvailableLayouts() returns
 the list of known layouts like following::
 
-	[('folder_summary_view', 'Summary view'),
-	('folder_tabular_view', 'Tabular view'),
-	('atct_album_view', 'Thumbnail view'),
-	('folder_listing', 'Standard view'),
-	('product_listing', u'Product listing')]
+    [('folder_summary_view', 'Summary view'),
+    ('folder_tabular_view', 'Tabular view'),
+    ('atct_album_view', 'Thumbnail view'),
+    ('folder_listing', 'Standard view'),
+    ('product_listing', u'Product listing')]
 
 
 .. code-block:: python
 
-	layout_ids = [ id for id, title in self.portal.folder.getAvailableLayouts() ]
-	self.assertTrue("product_list" in layout_ids)
+    layout_ids = [ id for id, title in self.portal.folder.getAvailableLayouts() ]
+    self.assertTrue("product_list" in layout_ids)
 
 Changing default view programmatically
 --------------------------------------
@@ -109,6 +109,41 @@ Changing default view programmatically
 .. code-block:: python
 
     self.portal.folder.setLayout("product_listing")
+
+Default page
+------------
+
+Default page is the *content* chosen to display when the visitor arrives
+to URL without any subpages or views selected.
+
+This is useful if you are doing folder listing manually
+and you want to filter out the default view.
+
+default_page helper view can be used to manipulate default pages.
+
+Getting default page
+
+.. code-block:: python
+
+    # Filter out default content
+    container = self.getListingContainer()
+    default_page_helper = getMultiAdapter((container, self.request), name='default_page')
+
+    # Return content object which is the default page or None if not set
+    default_page = default_page_helper.getDefaultPage(container)
+
+Setting default page can be done as simple as setting default_page attribute
+of the folder to be the id of the default page:
+
+.. code-block:: python
+
+    folder.default_page = "my_content_id"
+
+More information can be found in
+
+* https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/context.py
+
+* https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/navigation/defaultpage.py
 
 Other resources
 ----------------

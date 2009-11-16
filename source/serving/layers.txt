@@ -80,7 +80,7 @@ Theme layers can be created with following steps
            in YourSkin/browser/configure.zcml.
         """
 
-2. Register in in ZCML. Name must match theme name. 
+2. Register in in ZCML. Name must match theme name.
 
 .. code-block:: xml
 
@@ -99,7 +99,7 @@ Theme layers can be created with following steps
          insert-before="*"/>
     </skin-path>
 
-4. Create profiles/default/browlayers.xml. 
+4. Create profiles/default/browlayers.xml.
 
 .. code-block:: xml
 
@@ -195,7 +195,7 @@ Example::
     else:
         # General code
         pass
-        
+
 Getting active theme layer
 ==========================
 
@@ -208,13 +208,8 @@ This name can be resolved to a theme layer.
 Debugging active layers
 =======================
 
-You can check the activated layers from HTTP request object in request.__provided__.__iro__.
-
-Discussion::
-
-    [21:00:43] <Moo-__-> what's good way to debug which layers are active on HTTP request?
-    [21:00:52] <Moo-__-> (theming conflicts here)
-    [21:01:31] <davisagli> Moo-__-: request.__provided__.__iro__ will give you the interfaces in order of precedence
+You can check the activated layers from HTTP request object in self.request.__provides__.__iro__.
+Layers are evaluated from zero index (highest priority) the last index (lowest priority)
 
 .. HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
 
