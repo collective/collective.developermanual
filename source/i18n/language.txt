@@ -1,5 +1,5 @@
 ====================
-Language functions 
+Language functions
 ====================
 
 Each session has a language associated with.
@@ -25,14 +25,14 @@ Example
 
 .. code-block:: python
 
-	from Acquisition import aq_inner
-	from zope.component import getMultiAdapter
+    from Acquisition import aq_inner
+    from zope.component import getMultiAdapter
 
-	context = aq_inner(self.context)
-	portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-    
-	current_language = portal_state.language()
-        
+    context = aq_inner(self.context)
+    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+
+    current_language = portal_state.language()
+
 
 Getting language of content item
 --------------------------------
@@ -123,8 +123,14 @@ Multilingual Plone has two kinds of language selector viewlets
 * LinguaPlone -  LinguaPlone has its own language selector which replaces the default Plone selector if the add on
   product is installed
 
-LinguaPlone uses `selector.pt <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py>`_
-file to render the language selector.
+
+More information
+
+* https://svn.plone.org/svn/plone/plone.app.i18n/trunk/plone/app/i18n/locales/browser/selector.py
+
+* https://svn.plone.org/svn/plone/plone.app.i18n/trunk/plone/app/i18n/locales/browser/languageselector.pt
+
+* http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py
 
 Making language flags point to different top level domains
 ==========================================================

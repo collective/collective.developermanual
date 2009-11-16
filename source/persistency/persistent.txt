@@ -5,7 +5,7 @@
 Persistent objects will have their data transparently serialized to a
 persistent storage when the transaction completes.
 
-If your class inherits from higher level Plone base classes 
+If your class inherits from higher level Plone base classes
 persistency is handled transparently for you. Plone also handles
 transaction automatically for each HTTP request. Unless you wish
 to do manual transactions there is no need to call transaction.commit().
@@ -22,7 +22,69 @@ If you want to do your own persistent classes please read the following
 Lists and dictionaries
 ----------------------
 
-If you modify objects inside persistent lists and dictionaries, the change is not automatically 
+If you modify objects inside persistent lists and dictionaries, the change is not automatically
 reflected to the parent container.
 
 * `Modifying mutable objects <http://docs.zope.org/zodb/zodbguide/prog-zodb.html#writing-a-persistent-class>`_
+
+
+Volatile references
+--------------------
+
+Volatile attributes are attributes on persistent objects which never get stored.
+ZODB assumes variable is volatile if it has _v_ prefix.
+
+Volatiles are useful when framework expects the object to conform certain interface,
+like form frameworks. However, your persistent object edited by form cannot
+have persitent attributes for all variables the form expects to see.
+
+Example::
+
+    from persistent import Persistent
+    from zope.annotation import IAnnotations
+
+    class VolatileContext(object):
+        """ Mix-in class to provide context variable to persistent classes which is not persitent.
+
+        Some subsystems (e.g. forms) expect objects to have a reference to parent/site/whatever.
+        However, it might not be a wise idea to have circular persistent references.
+
+        This helper class creates a context property which is volatile (never persistent),
+        but can be still set on the object after creation or after database load.
+        """
+
+        # _v_ attribute prefix marks volatile ZODB references
+        _v_context = None
+
+
+        def _set_context(self, context):
+            self._v_context = context
+
+        def _get_context(self):
+            return self._v_context
+
+    class MobileBehaviorStorage(VolatileContext, Persistent):
+        """Set moible specific field properties on the context object and return the context object itself.#
+
+        This allows to use attribute storage with schema input validation.
+        """
+
+        mobileFolderListing = FieldPropertyDelegate(IMobileBehavior["mobileFolderListing"])
+
+
+    KEY = "mobile"
+
+    def manufacture_mobile_behavior(context):
+
+        annotations = IAnnotations(context)
+        if not KEY in annotations:
+            annotations[KEY] = MobileBehaviorStorage()
+
+        object = annotations[KEY]
+
+        # Set volatile context
+        object.context = context
+
+        return object
+
+

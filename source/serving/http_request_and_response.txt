@@ -92,7 +92,7 @@ There is no difference in accessing GET and POST variables.
 HTTP headers
 ============
 
-HTTP headers are available through request.get_header() and request.header dictionary.
+HTTP headers are available through request.get_header() and request.environ dictionary.
 
 Example::
 
@@ -100,6 +100,11 @@ Example::
 
     if referer == None: # referer will be none if it was missing
         pass
+
+Dumping all headers::
+
+    for name, value in request.environ.items():
+        print "%s: %s" % (name, value)
 
 Query string
 ============
@@ -126,29 +131,29 @@ Below is an example to get HTTP server name in virtual host safe manner.
 
 .. code-block:: python
 
-	def get_host_name(request):
-	    """ Extract host name in virtual host safe manner
+    def get_host_name(request):
+        """ Extract host name in virtual host safe manner
 
-	    @param request: HTTPRequest object, assumed contains environ dictionary
+        @param request: HTTPRequest object, assumed contains environ dictionary
 
-	    @return: Host DNS name, as requested by client. Lowercased, no port part.
-	             Return None if host name is not present in HTTP request headers
-	             (e.g. unit testing).
-	    """
+        @return: Host DNS name, as requested by client. Lowercased, no port part.
+                 Return None if host name is not present in HTTP request headers
+                 (e.g. unit testing).
+        """
 
-	    if "HTTP_X_FORWARDED_HOST" in request.environ:
-	        # Virtual host
-	        host = request.environ["HTTP_X_FORWARDED_HOST"]
-	    elif "HTTP_HOST" in request.environ:
-	        # Direct client request
-	        host = request.environ["HTTP_HOST"]
-	    else:
-	        host = None
+        if "HTTP_X_FORWARDED_HOST" in request.environ:
+            # Virtual host
+            host = request.environ["HTTP_X_FORWARDED_HOST"]
+        elif "HTTP_HOST" in request.environ:
+            # Direct client request
+            host = request.environ["HTTP_HOST"]
+        else:
+            host = None
 
-	    # separate to domain name and port sections
-	    host=host.split(":")[0].lower()
+        # separate to domain name and port sections
+        host=host.split(":")[0].lower()
 
-	    return host
+        return host
 
 
 Flat access
