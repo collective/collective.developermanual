@@ -1,0 +1,47 @@
+-------------------------
+Unique identifiers (UIDs)
+-------------------------
+
+UID is a unique, non-human-readable identifier for a content object which stays
+on the object even if the object is moved.
+
+Plone uses UIDs for
+
+* Storing content-to-content references (Archetypes, ReferenceField)
+
+* Linking by UIDs (Kupu) - this enables persistent links even though the object is moved
+
+.. warning::
+
+	Dexterity content framework does not use UIDS, but integer ids (intids)
+	to manage references.
+
+* `More information about Dexterity reference system <http://plone.org/products/dexterity/documentation/manual/developer-manual/referencemanual-all-pages>`_
+
+Getting the object's UID
+------------------------
+
+Use UID() accessor function:
+
+	>>> site.events.UID()
+	'ce380ef0f10a85beb864025928e1819b'
+
+
+Looking up object by UID
+-------------------------
+
+Use lookupObject() in reference catalog.
+
+	>>> site.reference_catalog.lookupObject('ce380ef0f10a85beb864025928e1819b')
+	<ATBTreeFolder at /test/events>
+
+*None* will be returned if there is content item with matching UID (the item has been deleted).
+
+
+
+
+
+
+
+
+
