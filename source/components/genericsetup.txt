@@ -4,6 +4,20 @@
 
 GenericSetup is an XML-based way to import and export Plone site configurations.
 
+It is mainly used for prepare Plone site database for add-on product
+
+* Register CSS files
+
+* Registering Javascript files
+
+* Setting various properties
+
+* Registering portlets
+
+* Registering portal_catalog search query indexes
+
+* ...and so on...
+
 GenericSetup is mostly used to apply add-on specific changes to the site configuration
 and enabled add-on specific behavior when the add-on installer is run.
 
@@ -51,6 +65,36 @@ read XML files and change Plone database accordingly.
 * `GenericSetup product page <http://pypi.python.org/pypi/Products.GenericSetup/1.4.5>`_.
 
 * `Source code <http://svn.zope.org/Products.GenericSetup/trunk/Products/GenericSetup/README.txt?rev=87436&view=auto>`_.
+
+
+Creating a profile
+------------------
+
+You use <genericsetup> directive in your add-on product's configure.zcml.
+The name for the default profile executed by Plone add-on installer
+is "default". If you need different profiles for e.g. unit testing
+you can declare them here.
+
+Profile XML files go to profiles/default folder inside your add-on product.
+
+.. code-block:: xml
+
+	<configure
+	    xmlns="http://namespaces.zope.org/zope"
+	    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+	    i18n_domain="gomobile.mobile">
+
+	    <genericsetup:registerProfile
+	      name="default"
+	      title="Plone Go Mobile"
+	      directory="profiles/default"
+	      description='Mobile CMS add-on'
+	      provides="Products.GenericSetup.interfaces.EXTENSION"
+	      />
+
+	</configure>
+
+
 
 Add-on specific issues
 ----------------------
