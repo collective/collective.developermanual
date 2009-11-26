@@ -1,0 +1,21 @@
+==================
+ Not found errors
+==================
+
+Here are listed possible issues if you get Plone's "Page not found" page when trying to access a legimate URL.
+
+
+Cannot access @@manage-portlets
+-------------------------------
+
+There might be portlet naming issue. Portlet name referred in GenericSetup XML
+or previously installed add-on product is not anymore available in the system.
+
+Possible solutions:
+
+* Make sure that portlet name is the same in ZCML and GenericSetup XML
+
+* Make sure you use <include package=".portlets" /> in your code
+
+* Reinstall removed egg which has the code for the portlet
+
