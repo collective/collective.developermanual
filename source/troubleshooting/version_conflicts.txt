@@ -1,8 +1,19 @@
-====================
- Version conflicts
-====================
+===========================
+Buildout version conflicts
+===========================
 
-How to resolve buildout.cfg version conflicts
+This document tells how to resolve buildout.cfg version conflicts.
+Buildout gives you an error if there is a dependency shared by two components, and
+one of the components wants to have a different version of this dependency.
+
+Example::
+
+      Installing.
+      Getting section zeoserver.
+      Initializing part zeoserver.
+    Error: There is a version conflict.
+    We already have: zope.component 3.8.0
+    but five.localsitemanager 1.1 requires 'zope.component<3.6dev'.
 
 * If your buildout is fetching out strange versions, try running buildout in verbose mode and figure out from the output which causes the wrong version to be pulled in
 
@@ -12,4 +23,4 @@ How to resolve buildout.cfg version conflicts
 
 * Manually pindown version in [versions]
 
-* Use `good-py <http://plone.org/products/dexterity/documentation/manual/developer-manual/pre-requisites/buildout-configuration>` with `Dexterity configurations <http://good-py.appspot.com/release/dexterity>`_
+* Use `good-py <http://plone.org/products/dexterity/documentation/manual/developer-manual/pre-requisites/buildout-configuration>`_ with `Dexterity configurations <http://good-py.appspot.com/release/dexterity>`_
