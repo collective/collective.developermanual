@@ -28,6 +28,12 @@ zope.i18n
 * `.po` files must be manually converted to `.mo` binary files every time the translations are updated.
   See i18ndude.
 
+Plone (at least 3.3) uses only file path and name to search the translation files.
+Information in the .po file headers is ignored.
+
+Marking translatable strings
+============================
+
 Each module declares its own MessageFactory which is a callable and marks strings with translation domain.
 MessageFactory is declared at main __init__.py file of your package.
 
@@ -37,20 +43,6 @@ MessageFactory is declared at main __init__.py file of your package.
 
     # your.app.package must match domain declaration in .po files
      yourAppMessageFactory = MessageFactory('your.app.package')
-
-Then you can use it in your code to mark strings with translation domains.
-i18ndude translation utilities use underscore _ to mark translatable strings (gettext message ids).
-Message ids must be unicode strings.
-
-.. code-block:: python
-
-    from your.app.package import yourAppMessageFactory as _
-
-    my_text = _(u"My text")
-
-When my_text is run through context.translate() function the actual translation is performed.
-Various user interface elements, like TAL page templates, perform this automatically
-when being processed.
 
 You also need to have the following ZCML entry:
 
@@ -63,6 +55,71 @@ You also need to have the following ZCML entry:
 
     </configure>
 
+Marking translatable strings
+============================
+
+After the set-up above you can use message factory to mark strings with translation domains.
+i18ndude translation utilities use underscore _ to mark translatable strings (gettext message ids).
+Message ids must be unicode strings.
+
+.. code-block:: python
+
+    from your.app.package import yourAppMessageFactory as _
+
+    my_translatable_text = _(u"My text") # my_text is zope.
+
+The object will still look like a string::
+
+    >>> my_translatable_text
+    u'Test'
+
+But in reality it is zope.i18nmessageid.message.Message object.
+
+    >>> my_translatable_text.__class__
+    <type 'zope.i18nmessageid.message.Message'>
+
+    >>> my_translatable_text.domain
+    'your.app.package'
+
+
+Automatically translated message ids
+=====================================
+
+Plone will automatically perform translation for message ids which are outputted in page templates.
+
+The following code would translate my_translateable_text to the native language
+activated for the current page.
+
+.. code-block:: xml
+
+    <span tal:content="view/my_translateable_text">
+
+Note that since my_translateable_text is zope.i18nmessageid.message.Message containing
+its own gettext domain information, the i18n:domain attribute in page templates does not
+affect message ids declared through message factories.
+
+Manually translated message ids
+===============================
+
+If you need to manipulate translated text outside page templates, you need
+to perform the final translation manually.
+
+Translation always needs context (i.e. under which site the translation happens),
+as the active language and other preferences are read from the HTTP request object
+and site object settings.
+
+Translation can be performed using context.translate() method::
+
+    # Translate some text
+    msgid = _(u"My text") # my_text is zope.
+
+    # Use inherited translate() function to get the final text string
+    translated = self.context.translate(msgid)
+
+    # translated is now u"Käännetty teksti" (in Finnish)
+
+Non-python message ids
+======================
 
 There are also other message id markers in code outside Python domain
 
@@ -72,8 +129,6 @@ There are also other message id markers in code outside Python domain
 
 * TAL page templates have their own mechanism
 
-Plone (at least 3.3) uses only file path and name to search the translation files.
-Information in the .po file headers is ignored.
 
 Translation string substitution
 -------------------------------
@@ -81,14 +136,14 @@ Translation string substitution
 Translation string substitutions must be used when the final translated
 message contains variable strings in it.
 
-Plone content classes inherit translate() function which can be 
-used to get the final translated string.  
+Plone content classes inherit translate() function which can be
+used to get the final translated string.
 It will use the currently activate language.
 Translation domain will be taken from the msgid object
 itself, which is string-like zope.i18nmessageid instance.
 
 Message ids are immutable (read-only)
-objects so you need to always create a new message id 
+objects so you need to always create a new message id
 if you use different variable substituion mappings.
 
 Python code:
@@ -96,28 +151,28 @@ Python code:
 .. code-block:: python
 
 
-	from saariselka.app import appMessageFactory as _
+    from saariselka.app import appMessageFactory as _
 
-	class SomeView(BrowserView):
-	
-	
-		def do_stuff(self):
+    class SomeView(BrowserView):
 
-		    msgid = _(u"search_results_found_msg", default=u"Found ${results} results", mapping={ u"results" : len(self.contents)})
-		    
-		    # Use inherited translate() function to get the final text string                        
-		    translated = self.context.translate(msgid)
 
-			# Show the final result count to the user as a portal status message
-		    messages = IStatusMessage(self.request)
-		    messages.addStatusMessage(translated, type="info")
+        def do_stuff(self):
+
+            msgid = _(u"search_results_found_msg", default=u"Found ${results} results", mapping={ u"results" : len(self.contents)})
+
+            # Use inherited translate() function to get the final text string
+            translated = self.context.translate(msgid)
+
+            # Show the final result count to the user as a portal status message
+            messages = IStatusMessage(self.request)
+            messages.addStatusMessage(translated, type="info")
 
 Corresponding .po file entry::
 
-	#. Default: "Found ${results} results"
-	#: ./browser/accommondationsummaryview.py:429
-	msgid "search_results_found_msg"
-	msgstr "Löytyi ${results} majoituskohdetta"
+    #. Default: "Found ${results} results"
+    #: ./browser/accommondationsummaryview.py:429
+    msgid "search_results_found_msg"
+    msgstr "Löytyi ${results} majoituskohdetta"
 
 
 For more information, see
@@ -172,7 +227,7 @@ Example::
 Managing .po files
 ===================
 
-Example shell script to manage i18n files. Change PRODUCTNAME to reflect the
+Example shell script to manage i18n files. Change CATALOGNAME to reflect the
 actual package of your product:
 
 .. code-block:: sh
@@ -192,7 +247,7 @@ actual package of your product:
 
     # Assume the product name is the current folder name
     CURRENT_PATH=`pwd`
-    PRODUCTNAME="yourproduct.app"
+    CATALOGNAME="yourproduct.app"
 
     # List of languages
     LANGUAGES="en fi"
@@ -204,26 +259,26 @@ actual package of your product:
     done
 
     # Rebuild .pot
-    i18ndude rebuild-pot --pot locales/$PRODUCTNAME.pot --create $PRODUCTNAME .
+    i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --create $CATALOGNAME .
 
     # Compile po files
     for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
 
         if test -d $lang/LC_MESSAGES; then
 
-            PO=$lang/LC_MESSAGES/${PRODUCTNAME}.po
+            PO=$lang/LC_MESSAGES/${CATALOGNAME}.po
 
             # Create po file if not exists
             touch $PO
 
             # Sync po file
             echo "Syncing $PO"
-            i18ndude sync --pot locales/$PRODUCTNAME.pot $PO
+            i18ndude sync --pot locales/$CATALOGNAME.pot $PO
 
             # Compile .po to .mo
-            MO=$lang/LC_MESSAGES/${PRODUCTNAME}.mo
+            MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
             echo "Compiling $MO"
-            msgfmt -o $MO $lang/LC_MESSAGES/${PRODUCTNAME}.po
+            msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
         fi
     done
 
