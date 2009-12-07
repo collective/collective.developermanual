@@ -2,42 +2,43 @@
  Images
 ==================
 
+
 Images are not loading
 ----------------------
 
 Images are not loading. More specifically resize versions are not available.
 
-This is usually caused by broken PIL installation: PIL used by Python virtual machine driving 
+This is usually caused by broken PIL installation: PIL used by Python virtual machine driving
 Plone does not have proper native libraries (libjpeg) available to perform imaging operations.
 
 If you run Zope on foreground you usually see errors like this::
 
-	2009-10-22T17:31:04 ERROR Archetypes None
-	Traceback (most recent call last):
-	  File "/home/xxx/xxx/parts/plone/Archetypes/Field.py", line 2333, in createScales
-	    imgdata, format = self.scale(data, w, h)
-	  File "/home/xxx/xxx/parts/plone/Archetypes/Field.py", line 2382, in scale
-	    image.thumbnail(size, self.pil_resize_algo)
-	  File "/usr/lib/python2.5/site-packages/PIL/Image.py", line 1523, in thumbnail
-	    self.load()
-	  File "/usr/lib/python2.5/site-packages/PIL/ImageFile.py", line 155, in load
-	    self.load_prepare()
-	  File "/usr/lib/python2.5/site-packages/PIL/ImageFile.py", line 223, in load_prepare
-	    self.im = Image.core.new(self.mode, self.size)
-	  File "/usr/lib/python2.5/site-packages/PIL/Image.py", line 36, in __getattr__
-	    raise ImportError("The _imaging C module is not installed")
-	ImportError: The _imaging C module is not installed
-	
-	
+    2009-10-22T17:31:04 ERROR Archetypes None
+    Traceback (most recent call last):
+      File "/home/xxx/xxx/parts/plone/Archetypes/Field.py", line 2333, in createScales
+        imgdata, format = self.scale(data, w, h)
+      File "/home/xxx/xxx/parts/plone/Archetypes/Field.py", line 2382, in scale
+        image.thumbnail(size, self.pil_resize_algo)
+      File "/usr/lib/python2.5/site-packages/PIL/Image.py", line 1523, in thumbnail
+        self.load()
+      File "/usr/lib/python2.5/site-packages/PIL/ImageFile.py", line 155, in load
+        self.load_prepare()
+      File "/usr/lib/python2.5/site-packages/PIL/ImageFile.py", line 223, in load_prepare
+        self.im = Image.core.new(self.mode, self.size)
+      File "/usr/lib/python2.5/site-packages/PIL/Image.py", line 36, in __getattr__
+        raise ImportError("The _imaging C module is not installed")
+    ImportError: The _imaging C module is not installed
+
+
 In the above case PYTHONPATH incorrectly tries to load Python 2.5 libraries,
 though Plone 3.x exclusively uses Python 2.4. In this case the proper fix
 is to clean-up damaged start up scripts in bin/ folder::
 
-	xxx@xxx:~/xxx/bin$ grep -Ri "python2.5" *
-	buildout:  '/usr/lib/python2.5/site-packages',
-	instance:  '/usr/lib/python2.5/site-packages',
-	zopepy:  '/usr/lib/python2.5/site-packages',
-	
+    xxx@xxx:~/xxx/bin$ grep -Ri "python2.5" *
+    buildout:  '/usr/lib/python2.5/site-packages',
+    instance:  '/usr/lib/python2.5/site-packages',
+    zopepy:  '/usr/lib/python2.5/site-packages',
+
 This can be achieved by
 
 * Removed all py2.5 eggs under eggs/ folder
@@ -53,25 +54,24 @@ How to test if PIL works
 
 Example how to do it with system-wide Python::
 
-	wget http://upload.wikimedia.org/wikipedia/commons/b/bb/JohnCarrollGilbertStuart.jpg
-	
-	python2.4
-	
-	>>> import PIL
-	>>> from PIL import Image
-	>>> im = Image.open("JohnCarrollGilbertStuart.jpg")
-	>>> im.thumbnail((64, 64), Image.ANTIALIAS)
-	>>> im.save("test.jpg")
-	
+    wget http://upload.wikimedia.org/wikipedia/commons/b/bb/JohnCarrollGilbertStuart.jpg
+
+    python2.4
+
+    >>> import PIL
+    >>> from PIL import Image
+    >>> im = Image.open("JohnCarrollGilbertStuart.jpg")
+    >>> im.thumbnail((64, 64), Image.ANTIALIAS)
+    >>> im.save("test.jpg")
+
 No exceptions should be risen.
 
 You can do the same thing in Zope console, started by::
 
-	bin/instance debug
-	
+    bin/instance debug
 
 
 
-	
-	
-	
+
+
+

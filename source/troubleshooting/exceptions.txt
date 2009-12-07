@@ -212,23 +212,23 @@ z3c.form based form updateWidgets() raises ComponentLookupError
 
 Example::
 
-	Error in test test_render_form (gomobile.convergence.tests.test_mobile_overrides.TestMobileOverrides)
-	Traceback (most recent call last):
-	  File "/Users/moo/twinapex/twinapex/parts/zope2/lib/python/Testing/ZopeTestCase/profiler.py", line 98, in __call__
-	    testMethod()
-	  File "/Users/moo/twinapex/twinapex/src/gomobile.convergence/gomobile/convergence/tests/test_mobile_overrides.py", line 65, in test_render_form
-	    result()
-	  File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 189, in __call__
-	    self.update()
-	  File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 184, in update
-	    super(Form, self).update()
-	  File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 134, in update
-	    self.updateWidgets()
-	  File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 120, in updateWidgets
-	    self.widgets = zope.component.getMultiAdapter(
-	  File "/Users/moo/twinapex/twinapex/eggs/zope.component-3.5.1-py2.4.egg/zope/component/_api.py", line 104, in getMultiAdapter
-	    raise ComponentLookupError(objects, interface, name)
-	ComponentLookupError: ((<Products.Five.metaclass.documentoverriderform object at 0x711c6f0>, <HTTPRequest, URL=http://nohost>, <ATDocument at /plone/doc>), <InterfaceClass z3c.form.interfaces.IWidgets>, u'')
+    Error in test test_render_form (gomobile.convergence.tests.test_mobile_overrides.TestMobileOverrides)
+    Traceback (most recent call last):
+      File "/Users/moo/twinapex/twinapex/parts/zope2/lib/python/Testing/ZopeTestCase/profiler.py", line 98, in __call__
+        testMethod()
+      File "/Users/moo/twinapex/twinapex/src/gomobile.convergence/gomobile/convergence/tests/test_mobile_overrides.py", line 65, in test_render_form
+        result()
+      File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 189, in __call__
+        self.update()
+      File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 184, in update
+        super(Form, self).update()
+      File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 134, in update
+        self.updateWidgets()
+      File "/Users/moo/twinapex/twinapex/eggs/z3c.form-1.9.0-py2.4.egg/z3c/form/form.py", line 120, in updateWidgets
+        self.widgets = zope.component.getMultiAdapter(
+      File "/Users/moo/twinapex/twinapex/eggs/zope.component-3.5.1-py2.4.egg/zope/component/_api.py", line 104, in getMultiAdapter
+        raise ComponentLookupError(objects, interface, name)
+    ComponentLookupError: ((<Products.Five.metaclass.documentoverriderform object at 0x711c6f0>, <HTTPRequest, URL=http://nohost>, <ATDocument at /plone/doc>), <InterfaceClass z3c.form.interfaces.IWidgets>, u'')
 
 Reason: To use z3c.form based forms z3c.form.interfaces.IFormRequest must be enabled for HTTP request
 object to make form layer adaptions work.
@@ -240,7 +240,7 @@ How to fix:
 annot manage portlets
 ----------------------
 
-When you try to access @@manage-portlets an exception a NotFound exception is raised:
+When you try to access @@manage-portlets an exception a NotFound exception is raised::
 
     2009-11-09 12:56:13 ERROR Zope.SiteErrorLog 1257764173.180.738005333766 http://localhost:8080/saariselka/@@manage-portlets
     Traceback (innermost last):
