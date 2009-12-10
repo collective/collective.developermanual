@@ -347,4 +347,38 @@ This usually means that you should have used context.aq_inner when you have used
 absolute_url() tries to get the path to the object, but object parent is set to view (context.aq_parent)
 instead of real container object (context.aq_inner.aq_parent).
 
+.. warning::
+	
+	When setting a member attribute in BrowserView, the acquisition parent of objec changes to BrowserView instance.
+	All member attributes receive ImplicitAcquisitionWrapper automatically.
+	
+Demostration
+============
 
+We try to set BrowserView member attribute defining_context to be some context object.
+
+	(Pdb) self.defining_context = context
+	(Pdb) context.aq_parent
+	<PloneSite at /plone>
+	(Pdb) self.defining_context.aq_parent
+	<Products.Five.metaclass.HeaderAnimationHelper object at 0xadb5750>
+	(Pdb) self.defining_context.aq_inner.aq_parent
+	<Products.Five.metaclass.HeaderAnimationHelper object at 0xadb5750>
+	(Pdb) self.defining_context.aq_parent.aq_parent
+	<ATDocument at /plone/doc>
+	(Pdb) self.defining_context.aq_parent.aq_parent.aq_inner
+	<ATDocument at /plone/doc>
+	(Pdb) self.defining_context.aq_parent.aq_parent.aq_parent
+	<PloneSite at /plone>
+
+To get the real object (as it was before set was called) you can create a helper getter::
+
+    def getDefiningContext(self):        
+        """        
+        Un-fuse automatically injected view from the acquisition chain
+        
+        @return: Real defining context object without bad acquistion 
+        """
+        if self.defining_context is not None:
+            return self.defining_context.aq_parent.aq_inner.aq_parent
+        return None
