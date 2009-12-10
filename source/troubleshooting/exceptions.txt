@@ -4,6 +4,7 @@ Exceptions
 
 List of common developer errors you might encounter and solutions for them.
 
+.. contents ::
 
 Mixed zope.viewpagetemplate and Five.viewpagetemplate
 -----------------------------------------------------
@@ -306,4 +307,44 @@ In this case you can see that portlet type "collective.easytemplate.TemplatedPor
 #. Check that you include the corresponding product (collective.easytemplate) in eggs= section in buildout.cfg
 
 #. Check that you include the corresponding product (collective.easytemplate) in zcml= section in buildout.cfg
+
+AttributeError: getPhysicalPath()
+---------------------------------- 
+
+::
+
+	  Module zope.tal.talinterpreter, line 408, in do_startTag
+	  Module zope.tal.talinterpreter, line 485, in attrAction_tal
+	  Module Products.PageTemplates.Expressions, line 230, in evaluateText
+	  Module zope.tales.tales, line 696, in evaluate
+	   - URL: edit_header
+	   - Line 25, Column 14
+	   - Expression: <PythonExpr (view.getHeaderDefiner().absolute_url())>
+	   - Names:
+	      {'container': <Frontpage at /saariselka/matkailijalle/saariselka-1>,
+	       'context': <Frontpage at /saariselka/matkailijalle/saariselka-1>,
+	       'default': <object object at 0x7fabf9cec1f0>,
+	       'here': <Frontpage at /saariselka/matkailijalle/saariselka-1>,
+	       'loop': {},
+	       'nothing': None,
+	       'options': {'args': ()},
+	       'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0xe617d88>,
+	       'request': <HTTPRequest, URL=http://localhost:9444/saariselka/matkailijalle/saariselka-1/@@edit_header>,
+	       'root': <Application at >,
+	       'template': <ImplicitAcquirerWrapper object at 0xe6105d0>,
+	       'traverse_subpath': [],
+	       'user': <PropertiedUser 'admin'>,
+	       'view': <Products.Five.metaclass.EditHeaderBehaviorView object at 0xe51ed10>,
+	       'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0xe610c10>}
+	  Module zope.tales.pythonexpr, line 59, in __call__
+	   - __traceback_info__: (view.getHeaderDefiner().absolute_url())
+	  Module <string>, line 0, in ?
+	  Module OFS.Traversable, line 64, in absolute_url
+	  Module OFS.Traversable, line 117, in getPhysicalPath
+	AttributeError: getPhysicalPath
+
+This usually means that you should have used context.aq_inner when you have used context.
+absolute_url() tries to get the path to the object, but object parent is set to view (context.aq_parent)
+instead of real container object (context.aq_inner.aq_parent).
+
 
