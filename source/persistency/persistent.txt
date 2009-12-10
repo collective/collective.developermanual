@@ -27,6 +27,15 @@ reflected to the parent container.
 
 * `Modifying mutable objects <http://docs.zope.org/zodb/zodbguide/prog-zodb.html#writing-a-persistent-class>`_
 
+PersistentList vs. normal Python list
+-------------------------------------
+
+All items in normal Python list are stored as one write and loaded on one write. 
+PersistentList is slower, but allows individual objects picked from the list without loading the whole list.  
+
+For more information, see 
+
+* https://mail.zope.org/pipermail/zodb-dev/2009-December/013011.html
 
 Volatile references
 --------------------
