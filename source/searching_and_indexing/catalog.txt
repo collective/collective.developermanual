@@ -56,6 +56,21 @@ Example::
     email_catalog = self.portal.email_catalog
     email_catalog.reindexObject(myuserobject)
 
+Rebuilding a catalog
+--------------------
+
+Catalog rebuild means walking through all the objects on Plone site and adding them to the catalog.
+Rebuilding the catalog is very slow as the whole database must be read through.
+Reasons for you to do this in code could be
+
+* Creating catalog after setting up objects in the unit tests
+
+* Rebuilding after massive content migration
+
+How to trigger rebuild::
+
+    portal_catalog = self.portal.portal_catalog
+    portal_catalog.clearFindAndRebuild()
 
 archetype_tool catalog map
 ==========================
