@@ -22,4 +22,15 @@ or in template::
 
     username context/portal_membership/getAuthenticatedMember/getUserName
 
+Groups
+------
 
+Getting available groups
+========================
+
+Possible through acl_users and source_groups folder which provide functionality to manipulate Plone groups.
+
+Example::
+
+	acl_users = site.acl_users
+	groups = acl.source_groups.getGroupIds() # Iterable of id strings
