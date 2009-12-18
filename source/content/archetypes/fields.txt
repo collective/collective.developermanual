@@ -12,7 +12,16 @@ Each field has accessor method. Accessor method is
     * Automatically generated if you don't give it manually
 
     * Has name get + schema field name with first letter uppercase. E.g. yourfield has accessor method context.getYourfield()
+    
+Modifying all fields in schema
+------------------------------
 
+You might want to modify all schema fields based on some criteria.
+
+Example how to hide all metadata fields::
+
+	for f in ExperienceEducatorSchema.filterFields(isMetadata=True): f.widget.visible = { "edit" : "invisible" }
+	
 Reordering fields
 -----------------
 

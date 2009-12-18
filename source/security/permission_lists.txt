@@ -4,7 +4,7 @@ Available permissions
 
 Each permission name is a string.
 
-To see available permissions, click Security      at your site root in Zope Management Interface.
+To see available permissions, click Security tab at your site root in Zope Management Interface.
 
 In programming, use pseudoconstants instead of permission string values:
 
@@ -23,5 +23,10 @@ For available ZCML permission mappings see
 	* zope.Public
 
 ...or search string "<permission" in *.zcml files in your codebase.
+
+Example using UNIX grep tool::
+
+	grep -C 3 -Ri --include=*.zcml "<permission" *
+	
 
 
