@@ -30,12 +30,27 @@ reflected to the parent container.
 PersistentList vs. normal Python list
 -------------------------------------
 
-All items in normal Python list are stored as one write and loaded on one write. 
-PersistentList is slower, but allows individual objects picked from the list without loading the whole list.  
+All items in normal Python list are stored as one write and loaded on one write.
+PersistentList is slower, but allows individual objects picked from the list without loading the whole list.
 
-For more information, see 
+For more information, see
 
 * https://mail.zope.org/pipermail/zodb-dev/2009-December/013011.html
+
+
+Persistent, modifications, __setattr__ and transactions
+--------------------------------------------------------
+
+When Persitent object is modified, via attribute set or __setattr__() call,
+the current transaction is converted to a write transaction.
+Write transactions are usually undoable (visible on Zope's Undo tab).
+
+If you are using Python property mutator and even if it does not write to the object it
+still will trigger the object rewrite.
+
+More info
+
+* https://mail.zope.org/pipermail/zodb-dev/2009-December/013047.html
 
 Volatile references
 --------------------
@@ -61,10 +76,6 @@ Example::
         This helper class creates a context property which is volatile (never persistent),
         but can be still set on the object after creation or after database load.
         """
-
-        # _v_ attribute prefix marks volatile ZODB references
-        _v_context = None
-
 
         def _set_context(self, context):
             self._v_context = context

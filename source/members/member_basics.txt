@@ -2,21 +2,37 @@
 Basics
 =========
 
-Getting logged in member
-------------------------
+In Plone, there is two not tightly coupled user subsystems
 
-The following code will get authentication data for the logged in user.
+# Managing authentication and permission information (acl_users under site root),
+  managed by Pluggable Authentication System (PAS)
+
+# Managing member profile (portal_membership under site root)
+
+Active user
+-----------
+
+Getting logged in member
+========================
+
+The following view method code will get the username for the logged in user.
 
 Example::
 
     from Products.CMFCore.utils  import getToolByName
 
-    mt = getToolByName(context, 'portal_membership')
-    if mt.isAnonymousUser(): # the user has not logged in
-        False
-    else:
-        member = mt.getAuthenticatedMember()
-        username = member.getUserName()
+    def getActiveUser(self):
+        """
+        """
+
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser(): # the user has not logged in
+            return None
+        else:
+            member = mt.getAuthenticatedMember()
+            username = member.getUserName()
+            return username
+
 
 or in template::
 
@@ -25,12 +41,24 @@ or in template::
 Groups
 ------
 
+Groups are stored as PloneGroup objects, which is subclass of PloneUser.
+
+* https://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/plugins/ufactory.py
+
+* https://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/plugins/group.py
+
 Getting available groups
 ========================
 
-Possible through acl_users and source_groups folder which provide functionality to manipulate Plone groups.
+Getting all groups on the site is possible through acl_users and source_groups folder which provide functionality to manipulate Plone groups.
 
 Example::
 
-	acl_users = site.acl_users
-	groups = acl.source_groups.getGroupIds() # Iterable of id strings
+    acl_users = site.acl_users
+    groups = acl.source_groups.getGroupIds() # Iterable of id strings
+
+
+Getting groups for a certain user
+=================================
+
+Below is an example how to get groups for the logged in user::
