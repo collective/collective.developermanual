@@ -14,7 +14,36 @@ Example (from unit tests)::
     self.portal.invokeFactory("Folder", "folder")
     self.portal.folder.invokeFactory("Folder", "subfolder")
     self.portal.folder.subfolder.invokeFactory("Document", "doc")
+    
+Restricting available types per folder
+--------------------------------------
 
+Plone can restrict available content types for creation per folder.
+In UI you can access this feature through *Add...* menu *Restrict* option.
+
+Type contraining is managed by ATContentTypes product
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/lib/constraintypes.py
+
+Example::
+
+    # Set allowed content types
+    from Products.ATContentTypes.lib import constraintypes
+
+    # Enable contstraining
+    folder.setConstrainTypesMode(constraintypes.ENABLED)
+
+    # Types for which we perform Unauthorized check
+    folder.setLocallyAllowedTypes(["ExperienceEducator"])
+
+    # Add new... menu  listing
+    folder.setImmediatelyAddableTypes(["ExperienceEducator"])
+
+You can also override contraintypes accessor method to have programmable logic which types are addable and which not.
+
+More info
+
+* http://plone.org/documentation/kb/restrict-addable-types
 
 Creating OFS objects
 --------------------------

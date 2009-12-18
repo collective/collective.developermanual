@@ -15,12 +15,18 @@ Example::
     We already have: zope.component 3.8.0
     but five.localsitemanager 1.1 requires 'zope.component<3.6dev'.
 
-* If your buildout is fetching out strange versions, try running buildout in verbose mode and figure out from the output which causes the wrong version to be pulled in
+* If your buildout is fetching out strange versions
 
-::
-
-    bin/buildout vvv
+	* try running buildout in verbose mode  bin/buildout vvv
+	
+	* Use helper recipe `dumppickedversions <http://pypi.python.org/pypi/buildout.dumppickedversions>`_
+        
 
 * Manually pindown version in [versions]
 
 * Use `good-py <http://plone.org/products/dexterity/documentation/manual/developer-manual/pre-requisites/buildout-configuration>`_ with `Dexterity configurations <http://good-py.appspot.com/release/dexterity>`_
+
+Plone 3.1
+---------
+
+* See http://plone.org/documentation/kb/repair-a-plone-3.1-buildout
