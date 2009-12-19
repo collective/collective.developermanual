@@ -2,7 +2,13 @@
 Indexing
 ==========
 
+Basics
+------
+
 Indexing is action to make object data searchable.
+Plone stores available indexes in the database.
+You can create them through-the-web and inspect existing indexes
+in portal_catalog on Index tab.
 
 Index types
 -----------
@@ -19,11 +25,11 @@ Indexing an object
 
     **Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
     If you modify the object yourself you are responsible to notify related catalogs about the new object data.
-    
+
 Indexing an object is done by calling reindexObject() method. reindexObject() method is defined
 in `ICatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/interfaces/_content.py?rev=91414&view=auto>`_ interface.
 
-Plone calls reindexObject() if  
+Plone calls reindexObject() if
 
 * The object is modified by the user using the standard edit forms
 
@@ -33,17 +39,17 @@ You must call reindexObject() if you
 
 * Otherwise directly change object data
 
-reindexObject() method takes optional argument *idxs* which will list the changed indexes. 
-If idxs is not given, all related indexes are updated even though they were not changed. 
+reindexObject() method takes optional argument *idxs* which will list the changed indexes.
+If idxs is not given, all related indexes are updated even though they were not changed.
 
 Example::
 
     object.setTitle("Foobar")
-    
+
     # Object.reindexObject() method is called to reflect the changed data in portal_catalog.
     # In our example, we change the title. The new title is not updated in the navigation,
     # since the navigation tree and folder listing pulls object title from the catalog.
-     
+
     object.reindexObject(idxs=["Title"])
 
 Also, if you modify security related parameters (permissions), you need to call reindexObjectSecurity().
@@ -58,26 +64,26 @@ plone.indexer provides method to create custom indexing functions.
 .. code-block:: python
 
     import Missing
-    
+
     from plone.indexer.decorator import indexer
-      
-    # indexer decorator matches all objects against a marker interface before being run 
+
+    # indexer decorator matches all objects against a marker interface before being run
     @indexer(IConvergenceSupport)
     def getContentMedias(object, portal, **kw):
         """ Provide indexing hooksk for portal_catalog """
-    
+
         if IConvergenceSupport.providedBy(object):
-            
+
             schema = object.Schema()
-    
-            if not "contentMedias" in schema:                       
+
+            if not "contentMedias" in schema:
                 # Missing.Value must be returned if the indexing
                 # cannot be complete for the object
                 return Missing.Value
             else:
                 filter = getUtility(IConvergenceMediaFilter)
                 return filter.getContentMedia(object)
-                
+
 TextIndexNG3
 ------------
 
@@ -90,13 +96,13 @@ indexing adapter.
 # Add TextIndexNG3 in catalog.xml. Example::
 
     <index name="getYourFieldName" meta_type="TextIndexNG3">
-    
+
       <field value="getYourFieldName"/>
-    
+
       <autoexpand value="off"/>
       <autoexpand_limit value="4"/>
       <dedicated_storage value="False"/>
-      <default_encoding value="utf-8"/>   
+      <default_encoding value="utf-8"/>
       <index_unknown_languages value="True"/>
       <language value="en"/>
       <lexicon value="txng.lexicons.default"/>
@@ -112,26 +118,26 @@ indexing adapter.
     </index>
 
 # Create adapter which will add TextIndexNG3 indexing support for your custom fields. Example::
-    
+
     import logging
-    
+
     from Products.TextIndexNG3.adapters.cmf_adapters import CMFContentAdapter
     from zope.component import adapts
-    
+
     logger = logging.getLogger("Plone")
-    
+
     class TextIndexNG3SearchAdapter(CMFContentAdapter):
         """ Adapter which provides custom field specific index information for TextIndexNG3
         """
-    
+
         # Your content marker interface here
         adapts(IDescriptionBase)
-    
+
         def indexableContent(self, fields):
             """ Produce TextIndexNG3 indexing information for the object
-            
+
             Traceback::
-            
+
                   ZCatalog.py(536)catalog_object()
                 -> update_metadata=update_metadata)
                   Catalog.py(360)catalogObject()
@@ -143,59 +149,59 @@ indexing adapter.
                   Products/TextIndexNG3/src/textindexng/content.py(99)extract_content()
                 -> icc = adapter.indexableContent(fields)
                 > indexableContent()
-                            
-            """         
+
+            """
             logging.debug("Indexing" + str(self.context))
-            
+
             # Use superclass to construct generic field adapters (id, title, description, SearchableText)
             icc = CMFContentAdapter.indexableContent(self, fields)
-            
-            # These fields have their own TextIndexNG3 indexes which 
+
+            # These fields have their own TextIndexNG3 indexes which
             # are queried separately from SearchableText
             accessors = [ "getClassifications", "getOtherNames" ]
-            
+
             for accessor in accessors:
-                                
+
                 try:
                     method = getattr(self.context, accessor)
                 except AttributeError:
                     logger.warn("Declared indexing for unsuppoted accessor:" + accesor)
                     continue
-                
+
                 value = method()
-                
+
                 # We might have a value which is not a real string,
                 # but must be first stringified
-                try:            
+                try:
                     value = unicode(value)
                 except UnicodeDecodeError, e:
                     # Bad things happen here?
                     logger.warn("Failed to index field:" + accessor)
                     logger.exception(e)
                     continue
-                
+
                 # Convert value to text format (utf-8) expected
                 # by the indexer
                 text = self._c(value)
-                        
+
                 icc.addContent(accessor, text, self.language)
-                
+
             return icc
-        
-        
+
+
 
 # Add adapter in your ZCML::
 
     <adapter factory=".customcontent.TextIndexNG3SearchAdapter"/>
-    
+
 Default indexes
 ---------------
 
 This paragraph contains notes about portal_catalog indexes supplied with Plone out-of-the-box.
 
 * portal_type vs. Type - Use the former (what's exact reason... does Type index metatype or translated type text?)
-                    
- 
+
+
 Other
 -----
 

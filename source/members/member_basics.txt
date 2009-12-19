@@ -57,10 +57,20 @@ Getting available groups
 
 Getting all groups on the site is possible through acl_users and source_groups folder which provide functionality to manipulate Plone groups.
 
-Example::
+Example to get only ids::
 
     acl_users = site.acl_users
     groups = acl.source_groups.getGroupIds() # Iterable of id strings
+
+Example to get full group information::
+
+    site = context.portal_url.getPortalObject()
+    users = site.acl_users
+    list = users.source_groups.getGroups()
+
+    for group in list:
+        # group is PloneGroup object
+        yield (group.getName(), group.title)
 
 
 Getting groups for a certain user
