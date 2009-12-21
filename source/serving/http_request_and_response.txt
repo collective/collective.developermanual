@@ -52,6 +52,19 @@ Request method (GET or POST) can be read::
 
   request["REQUEST_METHOD"] == "POST" # or "GET"
 
+Request URL
+===========
+
+To get the asked URL:
+
+    >>> request["ACTUAL_URL"]
+    'http://localhost:8080/site')
+
+To get the URL of the served object use the following. This might be
+different from the asked URL, since Plone does all kinds of default page and default view magic.
+
+    >>> request["URL"]
+    'http://m.localhost:8080/site/matkailijallefolder/@@frontpage'
 
 Request path
 ============
@@ -222,6 +235,34 @@ Use HTTPResponse.setStatus(self, status, reason=None, lock=None).
 If lock=True the further modifications of HTTPResponse are prevented
 and will result to silent failure.
 
+Middleware-like hooks
+---------------------
+
+Plone does not have middleware concept, as everything happens through traversing.
+Middleware behavior can be emulated with *before traverse* hook.
+Before traverse hook can be installed on any persistent object in the
+traversing graph. The hook is persistent, so it is a database change
+and must be installed using custom GenericSetup Python code.
+
+.. warning::
+
+    Before traverse hooks cannot create new HTTP response or return alternative HTTP response.
+    Only exception-like HTTP response modification is supported,
+    like HTTP redirects. If you need to rewrite the whole response,
+    post-publication hook must be used.
+
+For more information see
+
+* http://blog.fourdigits.nl/changing-your-plone-theme-skin-based-on-the-objects-portal_type
+
+* http://zebert.blogspot.com/2008_01_01_archive.html
+
+* http://svn.repoze.org/thirdparty/zopelib/branches/2.9.8/ZPublisher/tests/testBeforeTraverse.py
+
+Examples
+
+* Redirector: https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.mobile/gomobile/mobile/postpublication.py
+
 Post-publication hook
 ---------------------
 
@@ -237,7 +278,13 @@ Post publication hook is run when
 
 This is practical for caching purposes: it is the ideal place to determine and insert caching headers into the response.
 
-Read more on `plone.postpublicationhook package page <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
+Read more on
+
+* `plone.postpublicationhook package page <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
+
+* `Source code <http://svn.zope.org/plone.postpublicationhook/trunk/plone/postpublicationhook/>`_.
+
+*  https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.mobile/gomobile/mobile/postpublication.py
 
 Other resources
 ---------------
