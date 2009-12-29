@@ -251,3 +251,63 @@ Difference is that Five version supports
 * Usually Plone code needs Five version of ViewPageTemplateFile
 
 * Some components, no    ly z3c.form, expect Zope 3 version of ViewPageTemplateFile
+
+
+Overriding a view class in a product
+------------------------------------
+
+Most of the code in this section is copied from a `tutorial by Martin Aspeli 
+(on slideshare.net)
+<http://www.slideshare.net/wooda/martin-aspeli-extending-and-customising-plone-3>`_.
+The main change is that, at least for Plone 4, the interface should subclass 
+plone.theme.interfaces.IDefaultPloneLayer instead of zope.interface.Interface.
+
+In this example we override the "@@register" form from the 
+plone.app.users package, creating a custom form which subclasses the original.
+
+* Create an interface in interfaces.py:
+
+.. code-block:: python
+
+    from plone.theme.interfaces import IDefaultPloneLayer
+
+    class IExamplePolicy(IDefaultPloneLayer):
+        """ A marker interface for the theme layer 
+        """
+
+* Then create profiles/default/browserlayer.xml:
+
+.. code-block:: xml
+
+    <layers>
+      <layer 
+        name="example.policy.layer"
+        interface="example.policy.interfaces.IExamplePolicy" 
+      />
+    </layers>
+
+* Create browser/configure.zcml:
+
+.. code-block:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        i18n_domain="example.policy">
+      <browser:page
+          name="register"
+          class=".customregistration.CustomRegistrationForm"
+          permission="zope2.View"
+          layer="..interfaces.IExamplePolicy"
+          />
+    </configure>
+
+* Create browser/customregistration.py:
+
+.. code-block:: python
+
+    from plone.app.users.browser.register import RegistrationForm
+
+    class CustomRegistrationForm(RegistrationForm):
+        """ Subclass the standard registration form
+        """
