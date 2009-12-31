@@ -81,3 +81,21 @@ Gracefully failing when the user does not have a permission. Example::
             portal_state = None
 
 
+Assigning permissions to users (roles)
+--------------------------------------
+
+Permissions are usually assigned to roles, which are assigned to users through
+the web.
+
+To assign a permission to a role, use profiles/default/rolemap.xml:
+
+.. code-block:: xml
+
+   <?xml version="1.0"?>
+    <rolemap>
+      <permissions>
+        <permission name="MyProduct: MyPermission" acquire="False">
+          <role name="Member"/>
+        </permission>
+      </permissions>
+    </rolemap> 

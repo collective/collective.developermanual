@@ -1,0 +1,42 @@
+==================
+Custom permissions
+==================
+
+Creating special permissions for your product.
+
+Defining permissions
+--------------------
+
+If you want to protect certain actions in your product by a special permission,
+you most likely will want to assign this permission to a role when the product
+is installed.  You will want to use Generic Setup's rolemap.xml to assign these
+permissions.  A new permission will be added to the Zope instance by calling
+setDefaultRoles on it. 
+
+However, at the time when Generic Setup is run, almost none of your code has
+actually been run, so the permission doesn't exist yet.  That's why we define
+the permissions in permissions.py, and call this from __init__.py:
+
+.. code-block:: python
+
+    # __init__.py:
+
+    import permissions
+
+.. code-block:: python
+
+    # permissions.py:
+
+    from Products.CMFCore import permissions as CMFCorePermissions
+    from AccessControl.SecurityInfo import ModuleSecurityInfo
+    from Products.CMFCore.permissions import setDefaultRoles
+
+    security = ModuleSecurityInfo('MyProduct')
+    security.declarePublic('MyPermission')
+    MyPermission = 'MyProduct: MyPermission'
+    setDefaultRoles(MyPermission, ())
+
+When working with permissions, always use the variable name instead of the
+string value.  This ensures that you can't make typos with the string value,
+which are hard to debug.  If you do make a typo in the variable name, you'll
+get an ImportError or NameError.
