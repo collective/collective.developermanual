@@ -2,8 +2,6 @@
 HTTP request and response
 =========================
 
-.. contents ::
-
 Basics of HTTP lifecycle explained.
 
 Lifecycle
@@ -53,6 +51,7 @@ Request method
 Request method (GET or POST) can be read::
 
   request["REQUEST_METHOD"] == "POST" # or "GET"
+
 
 Request URL
 ===========
@@ -220,8 +219,8 @@ You can access to HTTP response if you know the request::
             response = self.request.response
             return "<html><body>Hello world!</body></html>"
 
-Settings response headers
--------------------------
+Response headers
+==========================
 
 Use HTTPResponse_ setHeader() to set headers::
 
@@ -229,13 +228,25 @@ Use HTTPResponse_ setHeader() to set headers::
      self.request.response.setHeader("Content-type", "image/jpeg")
      return image_data
 
-Setting response return code
-----------------------------
+Return code
+===========
 
-Use HTTPResponse.setStatus(self, status, reason=None, lock=None).
+Use HTTPResponse.setStatus(self, status, reason=None, lock=None)
+to set HTTP return status (404 Not Found, 500 Internal error, etc.).
 
 If lock=True the further modifications of HTTPResponse are prevented
 and will result to silent failure.
+
+Response body
+=====================
+
+You might want to read or manipualte response body
+in post-publication hook.
+
+Response body may not be string or basestring:
+it might be generator or iterable for blob data.
+
+Body is avaialble is response.body attribute.
 
 Middleware-like hooks
 ---------------------
@@ -265,6 +276,7 @@ Examples
 
 * Redirector: https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.mobile/gomobile/mobile/postpublication.py
 
+
 Post-publication hook
 ---------------------
 
@@ -280,18 +292,7 @@ Post publication hook is run when
 
 This is practical for caching purposes: it is the ideal place to determine and insert caching headers into the response.
 
-Read more on
-
-* `plone.postpublicationhook package page <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
-
-* `Source code <http://svn.zope.org/plone.postpublicationhook/trunk/plone/postpublicationhook/>`_.
-
-*  https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.mobile/gomobile/mobile/postpublication.py
-
-Other resources
----------------
-
-* http://wiki.zope.org/zope2/REQUESTX
+Read more on `plone.postpublicationhook package page <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
 
 .. _annotations: http://pypi.python.org/pypi/zope.annotation/3.4.1
 

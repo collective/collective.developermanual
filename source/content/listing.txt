@@ -29,9 +29,25 @@ which is a list of allowed portal types::
 
         return self.listFolderContents(contentFilter={"portal_type" : "CourseModulePage"})
 
-**Security warning**: listFolderContents() honors the currently logged in user roles.
+.. warning::
 
-**Performance warning**: Slow.
+	Security warning: listFolderContens() honors the currently logged in user roles.
+
+.. warning::
+
+	Performance warning: Slow for big folders. Preferably use portal_catalog and path based query
+	to query items in a big folder.
+
+Rules for filtering items
+-------------------------
+
+Plone applies some default rules for listFolderContents()
+
+* portal_properties.nav_tree_properties.metaTypesNotToQuery: folders (large folders) don't generate listing
+
+* :doc:`default_page </content/dynamic_views>` is not listed
+
+* portal_properties.nav_tree_properties.: meta types marked here do not appear in the listing
 
 Getting folder item ids
 -----------------------
@@ -40,6 +56,7 @@ If you need to get ids only, use objectIds() method. This is a fast method::
 
     # Return a list of object ids in the folder
     ids = folder.objectIds()
+
 
 
 Checking for the existence of a particular object id
@@ -107,8 +124,8 @@ This example is taken from Products.CMFPlone/skins/plone_scripts/getFolderConten
     return contents
 
 
-Getting raw Zope objects
--------------------------
+ Getting raw Zope objects
+ -------------------------
 
  This listing method applies to all `OFS.Folder.Folder objects <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_, not just Plone content objects.
 
@@ -118,14 +135,6 @@ Getting raw Zope objects
         # id is 8-bit string of object id in the folder
         # item is the object itself
         pass
-        
-Folder listing views and templates
-------------------------------------------
-
-plone.app.content product has views for the default folder listing 
-template (content tab).
-
-* http://svn.plone.org/svn/plone/plone.app.content/trunk/plone/app/content/browser/
 
 Custom folder listing
 ---------------------
