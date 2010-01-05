@@ -9,6 +9,12 @@ Plone uses `ZODB database <http://en.wikipedia.org/wiki/Zope_Object_database>` w
 During the HTTP request process, Plone completes all modifications of the data or
 none of them. There cannot end partially written data to database.
 
+Plone and the underlying Zope handles transactions transparently.
+
+.. note::
+
+	 Every transaction is read transaction until something is being written
+
 Using transactions
 ------------------
 
@@ -32,3 +38,8 @@ Transaction boundary events
 It is possible to perform actions before and after transaction is written to the database.
 
 http://svn.zope.org/transaction/trunk/transaction/_transaction.py?rev=81646&view=auto
+
+Viewing transaction content and debugging transactions
+-------------------------------------------------------
+
+Please see :doc:`Transaction troubleshooting </troubleshooting/transactions>`
