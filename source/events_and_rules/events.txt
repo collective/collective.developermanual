@@ -3,6 +3,24 @@ Events
 =======
 
 This document briefly discuss about doing event handling using zope.event module.
+Zope component architecture's 'zope.event package <http://pypi.python.org/pypi/zope.event>' is
+used to manage subscribeable events in Plone.
+
+
+Introduction
+------------
+
+There are few notable characters in Plone event system
+
+* It is simple
+
+* Subscriber calling order is not modifiable - you cannot set the order how the event handlers are called
+
+* Event cannot be cancelled - all handlers will get the event always
+
+* Event handlers cannot have return values 
+
+* Exceptions raised from an event handler will interrupt the request processing
 
 Registering event handler
 -------------------------
@@ -48,6 +66,19 @@ Example::
 
     gsm = zope.component.getGlobalSiteManager()
     gsm.registerHandler(my_event_handler, (IMyObject,IMyEvent))
+    
+Firing an event
+---------------
+
+Use zope.event.notify() to fire event objects to their subscribers.
+
+Example how to fire an event in unit tests::
+
+        import zope.event
+        from plone.postpublicationhook.event import AfterPublicationEvent
+                
+        event = AfterPublicationEvent(self.portal, self.portal.REQUEST)
+        zope.event.notify(event)
 
 Event types
 -----------
