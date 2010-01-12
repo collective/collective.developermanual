@@ -81,7 +81,27 @@ Other possible headers::
 
     ('PATH_INFO', '/plonecommunity/Members')
     ('PATH_TRANSLATED', '/plonecommunity/Members')
+    
+REQUEST_URI
+===========    
 
+To get the variable which corresponds REQUEST_URI in PHP the following helps::
+
+    # Concatenate the user visible URL and query parameters    
+    full_url = request.ACTUAL_URL + "?" + request.QUERY_STRING
+    parsed = urlparse.urlsplit(full_url)
+        
+    # Extract path part and add the query if it existed
+    uri = parsed[2]
+    if parsed[3]:
+        uri += "?" + parsed[3]
+    
+     
+For more information see
+
+* http://www.teamrubber.com/blog/_serverrequest_uri-in-zope/
+
+* http://www.doughellmann.com/PyMOTW/urlparse/index.html
 
 GET variables
 =============
