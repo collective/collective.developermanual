@@ -10,16 +10,16 @@ Examples:
 
 * Mobile browsing code is only activated when the site is being browser on a mobile phone
 
-Layers are marker interface applied to HTTPRequest object. They are usually
-used in conjunction of ZCML directives to dynamically activate various parts
+Layers are marker interfacse applied to HTTPRequest object. They are usually
+used in conjunction with ZCML directives to dynamically activate various parts
 of the configuration (theme files, add-on product functionality).
 
 Layers ensure that only one add-on product can override the specific Plone instance functionality
-in your site once, but still leaving you with an option to have possibly conflicting add-on products
+in your site at a time, but still leaving you with an option to have possibly conflicting add-on products
 in your buildout and ZCML once. Remember that multiple Plone site instances can share
 the same ZCML and code files.
 
-Many ZCML directives take optional *layer* parameter. See example, resourceDirectory_
+Many ZCML directives take the optional *layer* parameter. See example, resourceDirectory_
 
 Layers can be activated when an add-on product is installed or a certain theme
 is picked.
@@ -55,7 +55,7 @@ Views and viewlets will be active on the site instance using the following ZCML:
 Unconditional overrides
 =======================
 
-If you want to override view or viewlet unconditionally for all sites without the add-on product installer
+If you want to override a view or a viewlet unconditionally for all sites without the add-on product installer
 support you need to use overrides.zcml.
 
 Creating a layer
@@ -64,7 +64,7 @@ Creating a layer
 Theme layer
 ===========
 
-Theme layers can be created with following steps
+Theme layers can be created with the following steps
 
 1. Subclass an interface from IDefaultPloneLayer
 
@@ -80,7 +80,7 @@ Theme layers can be created with following steps
            in YourSkin/browser/configure.zcml.
         """
 
-2. Register in in ZCML. Name must match theme name.
+2. Register in in ZCML. Name must match the theme name.
 
 .. code-block:: xml
 
@@ -199,7 +199,7 @@ Example::
 Getting active theme layer
 ==========================
 
-Only one theme layer can be activate once.
+Only one theme layer can be activate at once.
 
 Active theme name is defined in portal_skins properties.
 This name can be resolved to a theme layer.

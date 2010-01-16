@@ -44,7 +44,7 @@ You can use Zope Management interface to explore the content of your Zope applic
 
 * Sites
 
-* Folderes within the sites
+* Folders within the sites
 
 * ...so on
 
@@ -57,7 +57,7 @@ Zope exposes child objects as attributes.
 
 Example::
 
-    # you have obtain to plone.org portal root object somehow and it's
+    # you have obtained the plone.org portal root object somehow and it's
     # stored in local variable "portal"
 
     documentation = portal.documentation
@@ -71,7 +71,7 @@ Zope exposes child objects as container accessor.
 
 Example::
 
-    # you have obtain to plone.org portal root object somehow and it's
+    # you have obtained the plone.org portal root object somehow and it's
     # stored in local variable "portal"
 
     documentation = portal["documentation"]
@@ -164,7 +164,7 @@ __parent__ is set when object's __of__() method is called.
 
     view = MyBrowserView(context, request)
 
-    view = view.__of__(context) # Puts view to acquisition chain and acquistion functions become available
+    view = view.__of__(context) # Inserts view into acquisition chain and acquistion functions become available
 
 Getting all parents
 ===================
@@ -223,7 +223,7 @@ processed in its own thread. Site thread local is set when the request processin
 You can use this method even if you do not have the context object available,
 assuming that your code is called after Zope has traversed the context object once.
 
-Eaxmple::
+Example::
 
     from zope.app.component.hooks import getSite
 
