@@ -13,6 +13,7 @@ Register utility
 Utility is constructed when Plone is started and ZCML is read.
 Utilities take no constructor parameters. If you need to use parameters
 like context or request, consider using views or adapters instead.
+Utilities may or may not have a name.
 
 ZCML example::
 
@@ -21,7 +22,7 @@ ZCML example::
      provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
      factory=".picker.RandomHeaderAnimationPicker" />
 
-Python example::
+Python example (named utility)::
 
 	def registerOnsitePaymentProcessor(processor_class):
 	    """ """

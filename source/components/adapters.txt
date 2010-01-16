@@ -40,8 +40,8 @@ Registering an adapter
 Adapter provides functionality for an class and this functionality
 becomes available when interface is queried from the instance of class.
 
-Below is an example how to make custom "image provider". Image provider
-provides list of images for arbitary content.
+Below is an example how to make a custom "image provider". Image provider
+provides a list of images for arbitary content.
 
 This is the image provider interface::
 
@@ -64,7 +64,7 @@ This is our content class::
         meta_type = "VariantProduct"
         schema = VariantProductSchema
 
-This is adapter for the content class::
+This is the adapter for the content class::
 
     import zope.interface
 
@@ -130,7 +130,7 @@ Following interfaces are useful when registering adapters
 Multi-adapter registration
 ===========================
 
-You can specify any number of interface in <adapter for="" />
+You can specify any number of interface in <adapter for="" /> . Separate them with space or newline.
 
 Below is a view like example which registers against
 
@@ -146,7 +146,7 @@ Emulate view registration (context, request):
            provides="gomobile.mobile.interfaces.IMobileTracker"
            factory=".bango.BangoTracker" />
 
-Getting adapter
+Getting the adapter
 ---------------
 
 There are two functions
