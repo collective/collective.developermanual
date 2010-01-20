@@ -8,10 +8,15 @@ Zope DateTime predates Python datetime which was added in Python 2.4.
 Zope DateTime is old code, so do rites necessary
 for your religion before programming with it.
 
+* `Zope DateTime HTML API documentation <http://pypi.python.org/pypi/DateTime/>`_
+
+* `Python datetime documentation <http://docs.python.org/library/datetime.html>`_
+
 .. note::
 
 	Using Python datetime is recommended if possible.
-	Zope DateTime should be dealt in legacy systems only.
+	Zope DateTime should be dealt in legacy systems only
+	as Python datetime is much more documented and widely used.
 	
 	
 DateTime API
@@ -24,3 +29,20 @@ You may find the following links useful
 * `README <http://svn.zope.org/DateTime/trunk/src/DateTime/DateTime.txt?rev=96241&view=auto>`_ 
 
 * `Interface description <http://svn.zope.org/DateTime/trunk/src/DateTime/interfaces.py?rev=96241&view=auto>`_
+
+Converting between DateTime and datetime
+----------------------------------------
+
+Since two different datetime object types are used, you need to often convert between them.
+
+Please see
+
+* http://api.plone.org/Plone/2.1.4/public/frames/ATContentTypes/ATContentTypes.utils-module.html
+
+DateTime to datetime::
+
+        from Products.ATContentTypes.utils import DT2dt
+        
+        python_dt = DT2dt(zope_dt)
+        
+        
