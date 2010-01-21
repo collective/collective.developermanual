@@ -55,8 +55,8 @@ Example::
     
     assert IFoo == interface_class
 
-Applying marker interfaces for content types
---------------------------------------------
+Applying marker interfaces for several content types
+-----------------------------------------------------
 
 You can retrofit content types with a marker interface afterwards.
 
@@ -66,7 +66,14 @@ Example use cases
 
 * You want to enable certain behavior on certain content types
 
-This can be done in ZCML using <class> declaration::
+.. note::
+
+        Retrofitting is needed only when you need to create a common nominator for several otherwise unrelated classes.
+        You can use one existing class or interface as a context without explicitly 
+        creating a marker interface. Places accepting zope.interface.Interface as a context
+        usually accept a normal Python class as well (isinstance behavior).  
+
+You can assign the marker interface for several classes in ZCML using <class> declaration::
 
    <!-- List pages where last modified viewlet is enabled -->
    <class class="Products.ATContentTypes.content.document.ATDocument">
@@ -98,4 +105,7 @@ Then we can have a viewlet for these content types only using the following (gro
             grok.context(ILastModifiedSupport)
             grok.viewletmanager(IBelowContent)
         
-    
+Related:
+
+        * `zope.dottedname <http://pypi.python.org/pypi/zope.dottedname>`_ allows you to resolve dotted names to Python objects
+           manually    
