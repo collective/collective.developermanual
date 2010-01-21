@@ -144,6 +144,39 @@ Example::
 review_state is a portal_catalog index which reads portal_workflow variable "review_state".
 For more information, see what portal_workflow tool *Content* tab in ZMI contains.        
 
+Getting a random item
+=====================
+
+The following view snippet allows you to get one random item on the site::
+
+    import random
+
+    def getRandomCampaign(self):
+        """
+        """
+        
+        
+        campaign_brains = self.context.portal_catalog(portal_type="CampaignPage", review_state="published")
+        
+        # Filter out the current item which we have
+        
+        bad_ids = [ "you", "might", "want to black  list some ids here" ] 
+        
+        items = [ brain for brain in campaign_brains if brain["getId"] not in bad_ids ]
+        
+        # Check that we have items left after filtering
+        
+        items = list(items)
+        
+        if len(items) >= 1:
+            # Pick one
+            chosen = random.choice(items)
+            return chosen.getObject()
+        else:
+            # Fallback to the current content item if no random options available
+            return self.context            
+    
+   
 
 Querying by date
 ----------------
