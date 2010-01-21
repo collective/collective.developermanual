@@ -247,6 +247,28 @@ Use HTTPResponse_ setHeader() to set headers::
      # Response dynamically generated image
      self.request.response.setHeader("Content-type", "image/jpeg")
      return image_data
+     
+     
+Content disposition
+===================
+
+Content disposition header is used to set the filename of download.
+It is also used by Flash 10 to check whether Flash download is valid.
+
+Example how to force download and downloadable filename::
+
+        response = self.request.response
+        response.setHeader("Content-type", "text/x-vCard; charset=utf-8")        
+        response.setHeader("Content-Transfer-Encoding", "8bit")
+        
+        cd = 'attachment; filename=%s.vcf' % (context.id)
+        response.setHeader('Content-Disposition', cd)
+
+Other information
+
+* http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/
+
+* http://support.microsoft.com/kb/260519
 
 Return code
 ===========
