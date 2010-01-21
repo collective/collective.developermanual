@@ -130,6 +130,21 @@ To get all catalog brains of certain content type on the whole site::
         
 To see available type names, visit in portal_types tool in ZMI.
 
+Query published items
+---------------------
+
+By default, the portal_catalog query does not care about the workflow state. 
+You might want to limit the query to published items.
+
+Example::
+
+        campaign_brains = self.context.portal_catalog(portal_type="News Item", review_state="published")
+        
+
+review_state is a portal_catalog index which reads portal_workflow variable "review_state".
+For more information, see what portal_workflow tool *Content* tab in ZMI contains.        
+
+
 Querying by date
 ----------------
 
