@@ -90,7 +90,9 @@ Then we can have a viewlet for these content types only using the following (gro
         from plone.app.layout.viewlets.interfaces import IBelowContent
         
         class LastModified(grok.Viewlet):
-            """ Viewlet to change the document last modification time.
+            """ Viewlet to show the document last modification time.
+            
+            This is enabled on Page, Event and News Item wich implement ILastModofiedSupport marker interface.
             """
             
             grok.context(ILastModifiedSupport)
