@@ -55,5 +55,45 @@ Example::
     
     assert IFoo == interface_class
 
+Applying marker interfaces for content types
+--------------------------------------------
 
+You can retrofit content types with a marker interface afterwards.
+
+Example use cases
+
+* You want to assign a viewlet for a set of particular content types
+
+* You want to enable certain behavior on certain content types
+
+This can be done in ZCML using <class> declaration::
+
+   <!-- List pages where last modified viewlet is enabled -->
+   <class class="Products.ATContentTypes.content.document.ATDocument">
+          <implements interface=".interfaces.ILastModifiedSupport" />
+   </class>
+
+   <class class="Products.ATContentTypes.content.event.ATEvent">
+          <implements interface=".interfaces.ILastModifiedSupport" />
+   </class>
+
+   <class class="Products.ATContentTypes.content.newsitem.ATNewsItem">
+          <implements interface=".interfaces.ILastModifiedSupport" />
+   </class>
+
+
+Then we can have a viewlet for these content types only using the following (grok example)::
+
+
+        from five import grok
+        from interfaces import ILastModifiedSupport
+        from plone.app.layout.viewlets.interfaces import IBelowContent
+        
+        class LastModified(grok.Viewlet):
+            """ Viewlet to change the document last modification time.
+            """
+            
+            grok.context(ILastModifiedSupport)
+            grok.viewletmanager(IBelowContent)
+        
     
