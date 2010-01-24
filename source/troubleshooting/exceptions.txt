@@ -6,8 +6,8 @@ List of common developer errors you might encounter and solutions for them.
 
 .. contents ::
 
-Mixed zope.viewpagetemplate and Five.viewpagetemplate
------------------------------------------------------
+AttributeError: 'str' object has no attribute 'other' (Mixed zope.viewpagetemplate and Five.viewpagetemplate)
+--------------------------------------------------------------------------------------------------------------
 
 Example traceback::
 
@@ -43,7 +43,7 @@ In this case Five ViewPageTemplate was used, when Zope 3's normal ViewPageTempla
 
 Another reason is that acquisition chain is not properly set-up in your custom views.
 
-iteration over non-sequence in _normalizeargs
+Iteration over non-sequence in _normalizeargs
 ----------------------------------------------
 
 The following log trace will appear when you try to render
@@ -95,8 +95,8 @@ installed.
 
 `For more info see this error reference on plone.org <http://plone.org/documentation/error/typeerror-iteration-over-non-sequence>`_.
 
-METAL macros problem
---------------------
+TraversalError with lots of tuples and lists (METAL problem)
+------------------------------------------------------------
 
 Exception::
 
@@ -382,3 +382,49 @@ To get the real object (as it was before set was called) you can create a helper
         if self.defining_context is not None:
             return self.defining_context.aq_parent.aq_inner.aq_parent
         return None
+
+        
+RuntimeError: maximum recursion depth exceeded (Archetypes field problem)
+--------------------------------------------------------------------------
+
+Example::
+
+           atapi.ImageField( 
+                'memberimage', 
+                # storage=atapi.AnnotationStorage(), # paster version 
+                storage=atapi.AttributeStorage(), # results in "max recursion depth exceeded" error 
+                widget=atapi.ImageWidget( 
+                    label=_(u"New Field"), 
+                    description=_(u"Field description"), 
+                ), 
+                validators=('isNonEmptyFile'), 
+                original_size=(600,600), 
+                sizes={ 'mini' : (80,80), 
+                        'normal' : (200,200), 
+                        'big' : (300,300), 
+                        'maxi' : (500,500)}, 
+            ), 
+        
+        
+        This results in an exception when I try to access the object: 
+        
+           - __traceback_info__: ('memberimage', <TTMemberImage at tt_member_image.2010-01-23.8138248069>, {'field': <Field memberimage(image:rw)>}) 
+          Module Products.Archetypes.Storage, line 96, in get 
+          Module Products.Archetypes.utils, line 808, in shasattr 
+          Module Products.Archetypes.fieldproperty, line 101, in __get__ 
+          Module Products.Archetypes.Field, line 997, in get 
+          Module Products.Archetypes.Field, line 709, in get 
+           - __traceback_info__: ('memberimage', <TTMemberImage at tt_member_image.2010-01-23.8138248069>, {'field': <Field memberimage(image:rw)>}) 
+        RuntimeError: maximum recursion depth exceeded 
+       
+Reason: Schema fields using AttributeStorage (usually images, files) **cannot** have ATFieldProperty in the class::
+
+        class Sample(base.ATCTContent):
+               
+            # This does not work with AttributeStorage
+            memberimage = atapi.ATFieldProperty('memberimage')
+            
+To fix this simply remobe ATFieldProperty() declaration for the problematic field. You cannot 
+access the field value anymore by calling *object.memberimage* but you need to call *object.getMemberimage()* instead.
+                         
+         
