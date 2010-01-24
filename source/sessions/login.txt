@@ -15,7 +15,8 @@ Post-login actions are executed after a successful login. Post-login actions whi
 
 * Setting the status message after login
 
-Post-login code is defined in *CMFPlone/skins/plone_scripts/logged_in.cpy*.
+Post-login code is defined in *CMFPlone/skins/plone_scripts/logged_in.cpy*. To modify this RestrictedPython script,
+your add-on product must have its own ::doc::`plone_skins layer </templates_css_and_javascripts/skin_layers.txt>`. 
 
 You need make a copy of both 
 
@@ -24,6 +25,8 @@ You need make a copy of both
 * logged_in.cpy.metadata 
 
 to your add-on product skins structure to override these.
+
+You need to add custom login logic after *membership_tool.loginUser(REQUEST)* and before *return state*.
 
 Example of modified logged_in.cpy::
     
@@ -69,16 +72,9 @@ Example of modified logged_in.cpy::
     
     # Debug log output about the user we are dealing with 
     context.plone_log("Got member:" + str(member))
-    
-    # Check that if the user has a custom method which marks our special members
-    # needing special actions 
-    if hasattr(member, "getLoginRedirect"):
-    
-        # Show a custom login message
-        context.plone_utils.addPortalMessage(_(u'You are now logged in. Welcome to supa-dupa-system.'), 'info') # This message is in Plone i18n domain
-        
-        # Go to a custom page after login
-        REQUEST.RESPONSE.redirect(context.portal_url() + "/some_folder")
+               
+    # Redirect users to a specific folder
+    REQUEST.RESPONSE.redirect(context.portal_url() + "/some_folder")
     
     return state
     
