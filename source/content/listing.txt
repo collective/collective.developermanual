@@ -120,16 +120,28 @@ Listing the folder items using portal_catalog
 This should be your preferred method for querying folder items. portal_catalog searches are fast,
 because they return catalog brain objects of real content objects (less database look ups).
 
+.. warning::
+
+        Returned catalog brain data, like Title, will be UTF-8 encoded.
+        You need to call brain["title"].decode("utf-8") or similar
+        to all strings you want to extract from the data.
+
 Simple example how to get all items in a folder::
 
     # Get the physical path (includes Plone site name)
     # to the folder    
     path = folder.getPhysicalPath()
     
-    # This will fetch catalog brains (not actual objects)
+    # Convert getPhysicalPath() tuples result to 
+    # slash separated string, which is used by ExtendedPathIndex
+    path = "/".join(path)
+    
+    # This will fetch catalog brains.
     # Includes also unreleased items, not caring about workflow state.
-    # depth = 1 means that subfolder items are not included    
+    # depth = 1 means that subfolder items are not included
+        
     brains = context.portal_catalog(path={"query" : path, "depth" : 1})
+
 
 Complex example how to perform various filtering and honour some default
 Plone filtering rules. This example is taken from Products.CMFPlone/skins/plone_scripts/getFolderContents::
