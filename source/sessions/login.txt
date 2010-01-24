@@ -4,85 +4,10 @@
 
 This chapter contains login and logout related code snippets.
 
-Extracting credentials
-----------------------
+.. contents ::
 
-Extracting credentials try to extract log-in (username, password) from HTTP request.
-
-Below is an example how to extract and authenticate the user manually. 
-It is mostly sui    le for unit testing.
-Note that given login field isn't necessarily the username. For example,
-`betahaus.emaillogin <http://pypi.python.org/pypi/betahaus.emaillogin>`_ add-on authenticates users by their email addresses.
-
-Credential extraction will go through all plug-ins registered for 
-`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_ system.
-
-The first found login/password pair attempt will be used for user authentication.  
-
-Unit test example::
-
-    def extract_credentials(self, login, password):
-        """ Spoof HTTP login attempt.
-        
-        Functional test using zope.testbrowser would be 
-        more appropriate way to test this.
-        """
-        
-        request  = self.portal.REQUEST
-        
-        # Assume publishing process has succeeded and object has been found by traversing
-        # (this is usually set by ZPublisher)
-        request['PUBLISHED'] = self.portal
-                
-        # More ugly ZPublisher stubs
-        request['PARENTS'] = [self.portal]
-        request.steps = [self.portal]
-        
-        # Spoof HTTP request login fields
-        request["__ac_name"] = login
-        request["__ac_password"] = password
-        
-        # Call PluggableAuthService._extractUserIds()
-        # which will return a list of user ids  extracted from the request
-        plugins = self.portal.acl_users.plugins
-        
-        users = self.portal.acl_users._extractUserIds(request, plugins)
-                
-        if len(users) == 0:
-            return None
-        
-        self.assertEqual(len(users), 1)
-        
-        # User will be none if the authentication fails
-        # or anonymous if there were no credential fields in HTTP request
-        return users[0]
-        
-
-Authenticating the user
-------------------------
-
-Authenticating the user will check that username and password are correct.
-
-Pluggable Authentication Service (acl_users under site root)
-will go through all authentication plug-ins and return the first succesful
-authenticated users.
-
-Read more in 
-`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_.
-
-Unit test example::
-
-    def authenticate_using_credentials(self, login, password):
-    
-        request = self.portal.REQUEST
-        
-        # Will return valid user object
-        user = self.portal.acl_users.authenticate(login, password, request)                        
-        self.assertNotEqual(user, None)
-
-
-Post-login actions
--------------------
+Post-login actions and redirect
+-------------------------------
 
 Post-login actions are executed after a successful login. Post-login actions which you could want to change are
 
@@ -95,9 +20,15 @@ Post-login actions are executed after a successful login. Post-login actions whi
 
 Post-login code is defined in CMFPlone/skins/plone_scripts/logged_in.cpy.
 
-You need make a copy of both logged_in.cpy and logged_in.cpy.metadata to your add-on product skins structure to override these.
+You need make a copy of both 
 
-Example logged_in.cpy::
+* logged_in.cpy 
+
+* logged_in.cpy.metadata 
+
+to your add-on product skins structure to override these.
+
+Example of modified logged_in.cpy::
     
     ## Controller Python Script "logged_in"
     ##bind container=container
@@ -154,6 +85,82 @@ Example logged_in.cpy::
     
     return state
     
+
+Authenticating the user manually
+---------------------------------
+
+Authenticating the user will check that username and password are correct.
+
+Pluggable Authentication Service (acl_users under site root)
+will go through all authentication plug-ins and return the first succesful
+authenticated users.
+
+Read more in 
+`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_.
+
+Unit test example::
+
+    def authenticate_using_credentials(self, login, password):
+    
+        request = self.portal.REQUEST
+        
+        # Will return valid user object
+        user = self.portal.acl_users.authenticate(login, password, request)                        
+        self.assertNotEqual(user, None)
+
+Extracting login credentials
+----------------------------
+
+Extracting credentials try to extract log-in (username, password) from HTTP request.
+
+Below is an example how to extract and authenticate the user manually. 
+It is mostly sui    le for unit testing.
+Note that given login field isn't necessarily the username. For example,
+`betahaus.emaillogin <http://pypi.python.org/pypi/betahaus.emaillogin>`_ add-on authenticates users by their email addresses.
+
+Credential extraction will go through all plug-ins registered for 
+`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_ system.
+
+The first found login/password pair attempt will be used for user authentication.  
+
+Unit test example::
+
+    def extract_credentials(self, login, password):
+        """ Spoof HTTP login attempt.
+        
+        Functional test using zope.testbrowser would be 
+        more appropriate way to test this.
+        """
+        
+        request  = self.portal.REQUEST
+        
+        # Assume publishing process has succeeded and object has been found by traversing
+        # (this is usually set by ZPublisher)
+        request['PUBLISHED'] = self.portal
+                
+        # More ugly ZPublisher stubs
+        request['PARENTS'] = [self.portal]
+        request.steps = [self.portal]
+        
+        # Spoof HTTP request login fields
+        request["__ac_name"] = login
+        request["__ac_password"] = password
+        
+        # Call PluggableAuthService._extractUserIds()
+        # which will return a list of user ids  extracted from the request
+        plugins = self.portal.acl_users.plugins
+        
+        users = self.portal.acl_users._extractUserIds(request, plugins)
+                
+        if len(users) == 0:
+            return None
+        
+        self.assertEqual(len(users), 1)
+        
+        # User will be none if the authentication fails
+        # or anonymous if there were no credential fields in HTTP request
+        return users[0]
+        
     
 
 
