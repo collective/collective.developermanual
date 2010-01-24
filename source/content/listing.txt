@@ -11,7 +11,11 @@ Plone has several methods of getting the list of folder items depending on wheth
   
 * You want to get Plone's contentish items only (contentItems) or Zope 2 management objects too (objectIds),
   the latter covers various site utilities found in the portal root and otherwise hidden magical items
-  
+    
+Special attentation must be paid also on object ids. Zope looks all objects by traversing site graph
+using ids. The id mapping is usually the property of a parent object, not child. Thus most of the listing 
+methods tend to return (id, object) tuples instead of plain objects.   
+    
 .. contents ::
 
 Getting all content objects inside a folder
@@ -21,7 +25,7 @@ Method contentItems is defined in CMFCore/PortalFolder.py.
 See source code for details, e.g. filtering and other forms of listing::
 
 
-    items = folder.contentItems() # return Python list of children object tuple (id, object)
+    items = folder.contentItems() # return Python list of children object tuples (id, object)
 
 .. warning::
 
