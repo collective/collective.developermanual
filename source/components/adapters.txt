@@ -203,4 +203,12 @@ The following code checks if IHeaderBehavior adapter is registered correctly::
         registrations = [a for a in sm.registeredAdapters() if a.provided == IHeaderBehavior ]
         self.assertEqual(len(registrations), 1)
 
+Local adapters
+--------------
 
+Local adapters are effective only inside a certain container, 
+like a folder. They use five.localsitemanager to register themselves.
+
+* http://opkode.net/media/blog/schema-extending-an-object-only-inside-a-specific-folder
+
+ 
