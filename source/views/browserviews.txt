@@ -4,24 +4,51 @@
 
 Plone/Zope uses view pattern to create HTML pages.
 
-Views are usually combination of Python user interface logic class + corresponding page template.
+.. content ::
 
-The most usual view type is *BrowserView*
+Introduction
+-------------
 
-BrowserView classes are a combination of Python object-oriented class code and
-page template to produce a HTML page. By keeping as much of the logic code
+Views are usually combination of 
+
+* Python class which performs the user interface logic settup  
+
+* Corresponding page template (in TAL language) or direct Python string output 
+
+By keeping as much of the logic code
 in a separate Python class and making page template as dump as possible
-better component readability and reuse is achieved.
+better component readability and reuse is achieved. You can override
+either Python logic or the template file separately.
 
-`Read Zope view tutorial <http://plone.org/documentation/tutorial/borg/zope-3-views>`_.
+When you are working with Plone, the most usual view type is *BrowserView* from 
+Products.Five package, but there are others. 
 
-Each BrowserView class is callable. BrowserView.__call__()
-method acts as an entry point of executing the view code.
+Each BrowserView class is a Python callable. BrowserView.__call__()
+method acts as an entry point of executing the view code. From Zope point of view,
+even a function would be enough as it is callable.
 
-Usually BrowserView have also index attribute which
-is instance of ViewPageTemplateFile class.
-If BrowserView.__call__() is not overridden, it will
-return the value of self.index() call.
+Plain Zope 3 vs. Grok
+=====================
+
+Views were introduced in Zope 3 and made available in Plone by Products.Five package
+(which provides some Plone/Zope 2 specific adaption hooks). 
+However, Zope 3's way of XML based configuration languae ZCML and separating things to three different files 
+(Python module, ZCML configuration, TAL template) was later seen as cumbersome to maintain.
+
+Later a project called `Grok <http://grok.zope.org/>`_ was started to introduce easy API to Zope,
+including how to set up and maintain views. For more information how to use Grok (five.grok package)
+with Plone, please read `Plone and Grok tutorial <http://plone.org/products/dexterity/documentation/manual/five.grok>`_. 
+
+.. note::
+	
+	 When writing this (Q1/2010), all project templates in Paster still use old-style Zope views. 
+
+More information
+================
+
+* `Zope view tutorial <http://plone.org/documentation/tutorial/borg/zope-3-views>`_.
+
+* `Grok view tutorial <http://plone.org/products/dexterity/documentation/manual/five.grok/browser-components/views>`_.
 
 Internals
 ---------
@@ -90,18 +117,6 @@ The following example registers a new view
         class=".views.MyView"
         />
 
-Creating and register view, grok approach
-=========================================
-
-five.grok provides alternative, less verbose, mechanism for above.
-
-See
-
-* `SimpleView chapter in Dexterity manual <http://plone.org/products/dexterity/documentation/manual/developer-manual/custom-views/simple-views>`_.
-
-* `Grok view and Grok template <http://grok.zope.org/documentation/tutorial/adder-an-adding-machine-sample-application/a-grok-view>`_.
-
-
 Relationship between views and templates
 ----------------------------------------
 
@@ -153,7 +168,13 @@ Rendering of the view is done by following::
 
         def __call__(self):
             return self.render()
+            
+Template start tag, content type and mimetype
+=============================================
 
+If you need to produce other output than (X)HTML here are some resources
+
+* http://n2.nabble.com/Setting-a-mime-type-on-a-Zope-3-browser-view-tp4442770p4442770.html           
 
 Getting a view by id
 --------------------
@@ -163,8 +184,8 @@ using traverse. View is also put into acquisition chain using __of__()
 method (necessary for rendering Plone templates).
 
 
-By using getMultiAdapter
-========================
+By using getMultiAdapter()
+==========================
 
 This is the most efficient way in Python.
 
