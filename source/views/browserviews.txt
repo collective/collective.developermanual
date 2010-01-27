@@ -41,8 +41,8 @@ with Plone, please read `Plone and Grok tutorial <http://plone.org/products/dext
 
 .. note::
 	
-	 When writing this (Q1/2010), all project templates in Paster still use old-style Zope views. 
-
+	 When writing this (Q1/2010), all project templates in Paster still use old-style Zope views.
+	 
 More information
 ================
 
@@ -50,8 +50,8 @@ More information
 
 * `Grok view tutorial <http://plone.org/products/dexterity/documentation/manual/five.grok/browser-components/views>`_.
 
-Internals
----------
+View components
+===============
 
 Views are Zope component architecture multi-adapter registrations.
 If you are doing manual view look-ups then this information concerns you.
@@ -69,8 +69,10 @@ Views are resolved against different interfaces
 
 See also `related source code <http://svn.zope.org/zope.browserpage/trunk/src/zope/browserpage/metaconfigure.py?rev=103273&view=auto>`_.
 
-Creating and registering
-------------------------
+Creating and registering a view
+-------------------------------
+
+This shows how to create and register view in Zope 3 manner.
 
 Creating a view
 ===============
@@ -169,6 +171,26 @@ Rendering of the view is done by following::
         def __call__(self):
             return self.render()
             
+Layers
+======
+
+Views can be registered against a specific layer interface. This means that
+views are only looked up if the specific layer is effective.
+Since one Zope application server can contain multiple Plone sites, layers
+are used to determine which Python code is effective for which Plone site.
+
+Layer can be be effective when
+
+* certain theme is active
+
+* if a specific add-on product is installed
+
+You should generally always register your views against a certain layer in your own code.
+
+For more information, see 
+
+* ::doc::`browser layers </serving/layers>`.     
+            
 Template start tag, content type and mimetype
 =============================================
 
@@ -176,13 +198,16 @@ If you need to produce other output than (X)HTML here are some resources
 
 * http://n2.nabble.com/Setting-a-mime-type-on-a-Zope-3-browser-view-tp4442770p4442770.html           
 
-Getting a view by id
+Getting a view
 --------------------
 
-Below is an example how to resolve a view for any contentish object
-using traverse. View is also put into acquisition chain using __of__()
-method (necessary for rendering Plone templates).
+You need to get access to view in your code if you are 
 
+* Calling a view from inside another view
+
+* Calling a view from unit test code
+
+Below are two different approach.
 
 By using getMultiAdapter()
 ==========================
@@ -271,7 +296,7 @@ Difference is that Five version supports
 
 * Usually Plone code needs Five version of ViewPageTemplateFile
 
-* Some components, no    ly z3c.form, expect Zope 3 version of ViewPageTemplateFile
+* Some subsystems, notably z3c.form package, expect Zope 3 version of ViewPageTemplateFile instances
 
 
 Overriding a view class in a product
