@@ -238,8 +238,13 @@ How to fix:
 
 * Wrap views with plone.z3cform.layour.wrap_form
 
-NotFound error when accessing manage-portlets
-----------------------------------------------
+NotFound error (Page not found) when accessing @@manage-portlets
+--------------------------------------------------------------------
+
+If you get *Page not found* error when accessing @@manage-portlets the first thing
+you need to do is to enable logging of NotFound exceptions in ZMI in error_log.
+
+After that reload @@manage-portlets.
 
 When you try to access @@manage-portlets an exception a NotFound exception is raised::
 
@@ -304,9 +309,16 @@ This usually means that your site has an portlet assignment which code is not pr
 
 In this case you can see that portlet type "collective.easytemplate.TemplatedPortlet" is missing.
 
-#. Check that you include the corresponding product (collective.easytemplate) in eggs= section in buildout.cfg
+Ä Check that you include the corresponding product (collective.easytemplate) in eggs= section in buildout.cfg
 
-#. Check that you include the corresponding product (collective.easytemplate) in zcml= section in buildout.cfg
+* Reinstall removed egg which has the code for the portlet
+
+* Check that you include the corresponding product (collective.easytemplate) in zcml= section in buildout.cfg
+
+* Make sure that portlet name is the same in ZCML and GenericSetup XML
+
+* Make sure you use <include package=".portlets" /> in your code
+
 
 AttributeError: getPhysicalPath()
 ---------------------------------- 
@@ -342,6 +354,10 @@ AttributeError: getPhysicalPath()
 	  Module OFS.Traversable, line 64, in absolute_url
 	  Module OFS.Traversable, line 117, in getPhysicalPath
 	AttributeError: getPhysicalPath
+	
+Another possibility::
+
+	AttributeError: absolute_url
 
 This usually means that you should have used context.aq_inner when you have used context.
 absolute_url() tries to get the path to the object, but object parent is set to view (context.aq_parent)
