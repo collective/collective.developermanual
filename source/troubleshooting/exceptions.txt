@@ -444,3 +444,84 @@ To fix this simply remobe ATFieldProperty() declaration for the problematic fiel
 access the field value anymore by calling *object.memberimage* but you need to call *object.getMemberimage()* instead.
                          
          
+Invalid or Duplicate property id
+--------------------------------
+
+The following exception may appear during Plone migration to the newer version::
+
+            *   Dry run selected.
+            * Starting the migration from version: 3.1.4
+            * Attempting to upgrade from: 3.1.4
+            * Upgrade aborted
+            * Error type: zExceptions.BadRequest
+            * Error value: Invalid or duplicate property id
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/MigrationTool.py",
+        line 210, in upgrade newv, msgs = self._upgrade(newv)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/MigrationTool.py",
+        line 321, in _upgrade res = function(self.aq_parent)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/migrations/v3_1/final_three1x.py",
+        line 15, in three14_three15 loadMigrationProfile(portal,
+        'profile-Products.CMFPlone.migrations:3.1.3-3.1.4')
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/migrations/migration_util.py",
+        line 107, in loadMigrationProfile tool.runAllImportStepsFromProfile(profile,
+        purge_old=False)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Products.GenericSetup-1.4.5-py2.4.egg/Products/GenericSetup/tool.py",
+        line 390, in runAllImportStepsFromProfile
+        ignore_dependencies=ignore_dependencies)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Products.GenericSetup-1.4.5-py2.4.egg/Products/GenericSetup/tool.py",
+        line 1179, in _runImportStepsFromContext message =
+        self._doRunImportStep(step, context)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Products.GenericSetup-1.4.5-py2.4.egg/Products/GenericSetup/tool.py",
+        line 1090, in _doRunImportStep return handler(context)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/exportimport/propertiestool.py",
+        line 37, in importPloneProperties importer.body = body
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Products.GenericSetup-1.4.5-py2.4.egg/Products/GenericSetup/utils.py",
+        line 544, in _importBody self._importNode(dom.documentElement)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/exportimport/propertiestool.py",
+        line 103, in _importNode self._initObjects(node)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/exportimport/propertiestool.py",
+        line 154, in _initObjects importer.node = child
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Plone-3.3-py2.4.egg/Products/CMFPlone/exportimport/propertiestool.py",
+        line 77, in _importNode self._initProperties(node)
+            * File
+        "/usr/local/Plone3.2.3/buildout-cache/eggs/Products.GenericSetup-1.4.5-py2.4.egg/Products/GenericSetup/utils.py",
+        line 724, in _initProperties obj._setProperty(prop_id, val, prop_type)
+            * File
+        "/usr/local/Plone3.2.3/Zope-2.10.7-final-py2.4/lib/python/OFS/PropertyManager.py",
+        line 186, in _setProperty raise BadRequest, 'Invalid or duplicate property
+        id'
+            * End of upgrade path, migration has finished
+            * The upgrade path did NOT reach current version
+            * Migration has failed
+            * Dry run selected, transaction aborted
+            
+It is caused by a property (site setting) which already exists and migration tries to create it.
+The usual reason is that one has edited site settings in new Plone version before running the migration.
+
+Try remove violating property ids from the site_properties manually in Zope.
+
+Potential candidates to be removed:
+
+* enable_inline_editing
+
+* lock_on_ttw_edit (boolean)
+
+Potential candidates which need to be added manually:
+
+* redirect_links (boolean) 
+
+More info:
+
+* http://www.mail-archive.com/setup@lists.plone.org/msg03988.html
