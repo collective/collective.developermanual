@@ -83,6 +83,24 @@ Example how to fire an event in unit tests::
 Event types
 -----------
 
+Creation events
+===============
+
+
+* Products.Archetypes.interfaces.IObjectInitializedEvent is fired for Archetypes object when it's being initialised, i.e. populated for the first time
+
+* Products.Archetypes.interfaces.IWebDAVObjectInitializedEvent is fired for Archetypes object when it's being initialised via WebDAV
+
+* zope.lifecycleevent.IObjectCreatedEvent is fired for all Zopeish objects when an object is created (doesn't necessarily need to be content object)
+
+.. warning:: 
+
+   Archetypes and Zope 3 events might not be compatible with each other. Please see links below.   
+   
+**Other resources**
+
+* http://plone.org/documentation/manual/developer-manual/archetypes/other-useful-archetypes-features/how-to-use-events-to-hook-the-archetypes-creation-process
+
 Modified events
 ===============
 
@@ -93,6 +111,13 @@ Two different content event types are available and might work differently depen
 
 * zope.lifecycleevent.IObjectModifiedEvent - called for creation stage events too
 
+* Products.Archetypes.interfaces.IWebDAVObjectEditedEvent - called for Archetypes object when it's being edited via WebDAV
+
+* Products.Archetypes.interfaces.IEditBegunEvent - called for Archetypes object when an edit operation is begun
+
+* Products.Archetypes.interfaces.IEditCancelledEvent - called for Archetypes object when an edit operation is cancelled
+
+
 Delete events
 ==============
 
@@ -101,13 +126,10 @@ Some delete event transactions are rolled back.
 
 * `Read more about Delete events in this discussion <http://n2.nabble.com/Event-on-object-deletion-tp3670562p3670562.html>`_.
 
+Copy events
+============
 
-invokeFactory and events
-========================
-
-When using invokeFactory, event such as ObjectInitializedEvent is not
-triggered. `Read more
-<http://plone.org/documentation/manual/developer-manual/archetypes/other-useful-archetypes-features/how-to-use-events-to-hook-the-archetypes-creation-process>`_.
+* zope.lifecycleevent.IObjectCopiedEvent is triggered when an object is copied
 
 See also
 --------
