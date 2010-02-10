@@ -2,6 +2,7 @@
  Creating objects
 ==================
 
+.. contents ::
 
 Creating content objects
 ------------------------
@@ -18,12 +19,35 @@ Example (from unit tests)::
 Restricting available types per folder
 --------------------------------------
 
-Plone can restrict available content types for creation per folder.
-In UI you can access this feature through *Add...* menu *Restrict* option.
+Plone can restrict available content types which you can create in folder
+through *Add...* menu.
+
+Restricting available types per content type
+===============================================
+
+portal_types defines which content can be created inside which content type.
+This is allowed_content_types setting and you can change it through ZMI as well.
+
+You can set the restriction in GenericSetup profiles/default/types/YourType.xml::
+
+        <property name="filter_content_types">True</property>
+        
+        <property name="allowed_content_types">
+                <element value="YourContentTypeName" />
+                <element value="Image" />
+                <element value="News Item" />
+                ...
+        </property>
+
+Restricting available types per folder instance
+===============================================
+
+In UI, you can access this feature through *Add...* menu *Restrict* option.
 
 Type contraining is managed by ATContentTypes product
 
 * http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/lib/constraintypes.py
+
 
 Example::
 
