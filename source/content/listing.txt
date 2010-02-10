@@ -2,6 +2,11 @@
  Listing objects
 ===================
 
+.. contents ::
+
+Introduction
+------------
+
 Plone has several methods of getting the list of folder items depending on whether
 
 * You want to get all items or items visible for the currently logged in user
@@ -15,8 +20,7 @@ Plone has several methods of getting the list of folder items depending on wheth
 Special attentation must be paid also on object ids. Zope looks all objects by traversing site graph
 using ids. The id mapping is usually the property of a parent object, not child. Thus most of the listing 
 methods tend to return (id, object) tuples instead of plain objects.   
-    
-.. contents ::
+   
 
 Getting all content objects inside a folder
 -------------------------------------------
@@ -99,8 +103,6 @@ Example::
         # item is the object itself
         pass
 
-
-
 Checking for the existence of a particular object id
 -----------------------------------------------------
 
@@ -119,7 +121,8 @@ The following is optimal code, but you can simplify it if you don't need to chec
         return True
     else:
         return False
-
+        
+       
 Listing the folder items using portal_catalog
 ---------------------------------------------
 
@@ -189,6 +192,33 @@ Plone filtering rules. This example is taken from Products.CMFPlone/skins/plone_
 
     return contents
 
+Count of content items
+-----------------------
+
+Counting items using getFolderContents
+======================================
+
+The least expensive call for this for tens of items is to call len() for getFolderContents() which is portal_catalog based query::
+
+        items = len(self.getFolderContents())
+
+Counting items using contentItems
+======================================
+
+Alternative, if you know there are not many objects in in the folder, you can call contentItems() as this
+will potentially wake less items than complex catalog query. 
+
+.. warning:: 
+
+        Security: This method does not consider access rights.  
+
+Example (AT content class method)::
+
+    def getMainImage(self):
+        items = self.contentItems() # id, object tuples
+        if len(items) > 0:
+            return items[1]
+        
 
 Custom folder listing
 ---------------------
