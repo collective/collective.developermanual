@@ -2,6 +2,11 @@
  Python debugger (pdb)
 =======================
 
+.. contents ::
+
+Introduction
+------------
+
 Python debugger (pdb) is interactive command-line debugger.
 It is very limited in functionality, but it will work in every environment
 and console.
@@ -41,6 +46,47 @@ Example::
             import pdb ; xxx.set_trace()
             constructor = ARFormConstructor(self.context, self.context.context, self.request)
             return constructor.getFields()
+            
+Pretty printing objects
+-----------------------
+
+Example::
+
+        >>> from pprint import PrettyPrinter
+        >>> PrettyPrinter().pprint(folder.__dict__)
+        {
+          '_Access_contents_information_Permission': ['Anonymous',
+                                                      'Manager',
+                                                      'Reviewer'],
+          '_List_folder_contents_Permission': ('Manager', 'Owner', 'Member'),
+          '_Modify_portal_content_Permission': ('Manager', 'Owner'),
+          '_View_Permission': ['Anonymous', 'Manager', 'Reviewer'],
+          '__ac_local_roles__': {'gregweb': ['Owner']},
+          '_objects': ({'meta_type': 'Document', 'id': 'doc1'},
+                       {'meta_type': 'Document', 'id': 'doc2'}),
+          'contributors': (),
+          'creation_date': DateTime('2005/02/14 20:03:37.171 GMT+1'),
+          'description': 'Dies ist der Mitglieder-Ordner.',
+          'doc1': <Document at doc1>,
+          'doc2': <Document at doc2>,
+          'effective_date': None,
+          'expiration_date': None,
+          'format': 'text/html',
+          'id': 'folder',
+          'language': '',
+          'modification_date': DateTime('2005/02/14 20:03:37.203 GMT+1'),
+          'portal_type': 'Folder',
+          'rights': '',
+          'subject': (),
+          'title': "Documents",
+          'workflow_history': {'folder_workflow': ({'action': None, 
+            'review_state': 'visible', 'comments': '', 'actor': 'gregweb', 
+            'time': DateTime('2005/02/14 20:03:37.187 GMT+1')},)}
+        }
+
+Fore more information:
+
+* http://svn.zope.de/plone.org/collective/Products.CMFEditions/trunk/doc/DevelDoc.html                    
             
 Useful pdb commands
 -------------------

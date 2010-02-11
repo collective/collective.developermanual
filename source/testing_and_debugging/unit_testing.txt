@@ -33,6 +33,20 @@ Creating tests
 
 * http://pypi.python.org/pypi/Products.PloneTestCase
 
+
+AttributeError: 'module' object has no attribute 'test_suite'
+=============================================================
+
+If you get the above error message there are potential reasons
+
+* Having both tests.py and tests folder
+
+* Old version: Zope version X unit test framework was updated not to need 
+  anymore explicit test_suite declaration in test module. 
+  Instead, all classes subclasses TestCase are automatically picked.
+  However, this change is backwards incompatible.
+  http://wiki.zope.org/zope2/HowToRunZopeUnitTests 
+
 Unit tests and skin data
 ------------------------
 
