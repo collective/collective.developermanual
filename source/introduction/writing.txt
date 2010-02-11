@@ -1,0 +1,156 @@
+====================================
+ Writing and updating this document
+====================================
+
+.. contents ::
+
+Introduction
+------------
+
+This chapter will tell basics how to contribute to this document.
+
+Contributions needed
+--------------------
+
+Below is the list of documentation and references we'd like to see
+
+- New code snippets and system descriptions
+
+- Links to external documentation
+
+- Links to component READMEs
+
+- Links to blog posts talking about particular issue
+
+- Links to email list dicussions
+
+- Links to source code (directly to the version control)
+
+Contributing methods
+--------------------
+
+Having Plone collective Subversion version control access
+=========================================================
+
+This is the recommended method. Please do not be afraid to commit.
+If you break the documentation or put in invalid information,
+it will be cleaned up sonner or later and no one is going to blame you:
+human errors happen all the time.
+
+* Learn about `Sphinx <http://sphinx.pocoo.org/>`_ and `restructured text <http://sphinx.pocoo.org/rest.html>`_.
+
+* `Get Plone collective commit access <https://dev.plone.org/plone.org/wiki/SubversionAccess>`_
+
+* Get documentation source files::
+
+    svn co https://svn.plone.org/svn/collective/collective.developermanual/trunk collective.developermanual
+
+* Edit the file which you want to update
+
+* Check that Sphinx building does not give warnings::
+
+    sphinx-build source build
+
+* Commit changes::
+
+    svn commit -m "My message what I changed"
+
+Using a proxy person
+====================
+
+If you do not pose technical skills to use Subversion or edit reST format text,
+you can email suggestion to:
+
+* mikko.ohtamaa (at) mfabrik (dot) com
+
+.. note ::
+
+        The suggestions should contain the text which will be directly placed to 
+        the documentation. It is rare to get volunteers to write instructions for you
+        just because you ask.
+        
+Document page format
+--------------------
+
+Here are some rules the documentation page should follow.
+
+Page structure
+==============
+
+Each page must contain, in this order:
+
+* Main heading: This will be visible in table of contents
+
+* contents directive: Sphinx will generate shortcut links at the start of the page
+
+* Introduction paragraph: Telling what's this page is all about
+
+* N number of paragraphs: The actual content of the document page
+
+Section structure
+=================
+
+Each section (folder) must contain
+
+* index.txt with
+
+        * Section heading: This will be visible in table of contents
+        
+        * One paragraph headingless paragraph of what this section is all about. This will be mapped
+          to Plone folder description.        
+
+        * Sphinx toctree directive, maxdepth 2. Each txt file in the folder should be linked to this toctree.                   
+
+Information boxes
+-----------------
+
+Below are some information boxes which are used across this documentation.
+They use Sphinx *warning* and *note* formatting directives. 
+
+Security warning
+================
+
+.. warning:: 
+ 
+ Security: This box is used when the outcome of a function might depend on Plone security features.
+ It means that the function behaves differently depending on who you are logged in and in which context you call
+ the function.
+
+Example 
+
+.. warning::
+
+  Security: invokeFactory() checks the logged in user permission whether he/she can create the content.
+  
+Test warning
+============
+
+.. warning:: 
+
+        Testing warning: This box is used when the outcome of a function might be
+        different when code is run in unit or functional tests. Usually this is because
+        there is no normal HTTP request/response lifecycle and some HTTP request specific
+        caches are not being invalidated properly.
+
+Example: 
+
+.. warning::
+        
+        Unit testing code does not respect RestrictedPython restrictions
+        per se, as no HTTP request traversing is done when fetching the object. 
+
+
+Deprecation warning
+===================        
+
+.. warning::
+        
+        Deprecation: This approach is not recommended anymore and the same
+        functionality can be achieved using newer technology.
+
+Example: 
+
+.. warning::
+
+        Deprecation: plone_skins based CSS and image are discouraged and Zope 3 resourceDirectives
+        should replace them.
