@@ -2,40 +2,27 @@
 History and versioning
 ======================
 
+.. contents ::
+
+Introduction
+------------
+
+Plone versioning allows you to go back between older edits of the same content object.
+         
 `Versioning allows you to restore and diff previous copies of the same content <http://plone.org/documentation/manual/plone-3-user-manual/managing-content/versioning-plone-v3.0-plone-v3.2>`_.
 More about `CMFEditions here <http://plone.org/products/cmfeditions/documentation/refmanual/cmfeditionoverview>`_.
 
-See also `this versioning for custom content types tutorial <http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-enable-versioning-history-    -for-a-custom-content-type>`_. 
+See also 
+
+* `Versioning tutorial for custom content types <http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-enable-versioning-history-for-a-custom-content-type>`_. 
+
+Enabling versioning on your custom content type
+-----------------------------------------------
 
 By default, version history is not enabled for custom content types.
+Below are some notes how to enable it.
 
-Inspecting versioning policies
-------------------------------
-
-Example::
-
-    portal_repository = context.portal_repository
-    map = portal_repository.getPolicyMap()
-    for i in map.items(): print i
-    
-Will output (inc. some custom content types)::
-
-    ('File Disease Description', ['at_edit_autoversion', 'version_on_revert'])
-    ('Document', ['at_edit_autoversion', 'version_on_revert'])
-    ('Free Text Disease Description', ['at_edit_autoversion', 'version_on_revert'])
-    ('ATDocument', ['at_edit_autoversion', 'version_on_revert'])
-    ('Diagnose Description', ['at_edit_autoversion', 'version_on_revert'])
-    ('ATNewsItem', ['at_edit_autoversion', 'version_on_revert'])
-    ('Link', ['at_edit_autoversion', 'version_on_revert'])
-    ('News Item', ['at_edit_autoversion', 'version_on_revert'])
-    ('Event', ['at_edit_autoversion', 'version_on_revert'])
-
-Enabling history
-----------------
-
-There is not yet (Plone 3.1.x) GenericSetup XML way to do it.
-
-# Inherit HistoryAwareMixin in your content type class::
+* Inherit HistoryAwareMixin in your content type class::
 
     from Products.ATContentTypes.lib.historyaware import HistoryAwareMixin
 
@@ -43,7 +30,7 @@ There is not yet (Plone 3.1.x) GenericSetup XML way to do it.
 
     class CustomContent(base.ATCTContent, HistoryAwareMixin):
 
-# Add versioning migration code to your setuphandlers.py / custom import steps::
+* Add versioning migration code to your setuphandlers.py / custom import steps::
 
         
     from Products.CMFCore.utils import getToolByName
@@ -78,7 +65,7 @@ There is not yet (Plone 3.1.x) GenericSetup XML way to do it.
         configurator = DPSetup()
         configurator.configureVersioning(site)
         
-# To see which fields differ between versions, diff tool must be configured to support your custom content types. 
+* To see which fields differ between versions, diff tool must be configured to support your custom content types. 
   GenericSetup support is available after Plone 3.2. For older you must manually create entries in portal_diff_tool.
   Example GenericSetup difftool.xml::
 
@@ -96,7 +83,7 @@ There is not yet (Plone 3.1.x) GenericSetup XML way to do it.
 
       
       
-# If you have customized the edit process of your content type, 
+* If you have customized the edit process of your content type, 
   make sure that your edit action traverses to update_version_before_edit.cpt. For hints how to do this,
   see portal_form_controller actions     . Example::
   
@@ -136,7 +123,7 @@ There is not yet (Plone 3.1.x) GenericSetup XML way to do it.
     return state
       
   
-# If you are using custom roles you need to have at least CMFEditions: Save new version
+* If you are using custom roles you need to have at least CMFEditions: Save new version
   permission enabled for the roles or you'll get exception::
   
     ...    
@@ -148,7 +135,11 @@ There is not yet (Plone 3.1.x) GenericSetup XML way to do it.
     * Module Products.CMFEditions.CopyModifyMergeRepositoryTool, line 287, in save
     * Module Products.CMFEditions.CopyModifyMergeRepositoryTool, line 408, in _assertAuthorized
 
-    Unauthorized: You are not allowed to access 'save' in this context 
+    Unauthorized: You are not allowed to access 'save' in this context
+    
+For more information
+
+* http://plone.org/documentation/manual/developer-manual/archetypes/appendix-practicals/enabling-versioning-on-your-custom-content-types 
 
 Checking whether versioning is enabled
 --------------------------------------
@@ -166,4 +157,36 @@ The following check is performed by update_versioning_before_edit and update_ver
         # Something is wrong....
         pass
         
+Inspecting versioning policies
+------------------------------
+
+Example::
+
+    portal_repository = context.portal_repository
+    map = portal_repository.getPolicyMap()
+    for i in map.items(): print i
+    
+Will output (inc. some custom content types)::
+
+    ('File Disease Description', ['at_edit_autoversion', 'version_on_revert'])
+    ('Document', ['at_edit_autoversion', 'version_on_revert'])
+    ('Free Text Disease Description', ['at_edit_autoversion', 'version_on_revert'])
+    ('ATDocument', ['at_edit_autoversion', 'version_on_revert'])
+    ('Diagnose Description', ['at_edit_autoversion', 'version_on_revert'])
+    ('ATNewsItem', ['at_edit_autoversion', 'version_on_revert'])
+    ('Link', ['at_edit_autoversion', 'version_on_revert'])
+    ('News Item', ['at_edit_autoversion', 'version_on_revert'])
+    ('Event', ['at_edit_autoversion', 'version_on_revert'])
+
+How versioning (CMFEditions) works
+----------------------------------
+
+* http://svn.zope.de/plone.org/collective/Products.CMFEditions/trunk/doc/DevelDoc.html
+
+.. note::
+
+        You might actually want to check out the package to get your web browser to 
+        properly read the file.
+        
+
         
