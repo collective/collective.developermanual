@@ -90,6 +90,7 @@ Other possible headers::
 
     ('PATH_INFO', '/plonecommunity/Members')
     ('PATH_TRANSLATED', '/plonecommunity/Members')
+
     
 REQUEST_URI
 ===========    
@@ -191,9 +192,9 @@ Below is an example to get HTTP server name in virtual host safe manner.
             # Direct client request
             host = request.environ["HTTP_HOST"]
         else:
-            host = None
+            return None
 
-        # separate to domain name and port sections
+        # separate to domain name and port sections        
         host=host.split(":")[0].lower()
 
         return host
