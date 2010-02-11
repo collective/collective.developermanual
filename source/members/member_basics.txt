@@ -78,6 +78,13 @@ Getting groups for a certain user
 
 Below is an example how to get groups for the logged in user::
 
+        (portal.portal_membership.getAuthenticatedMember().has_role('Manager')) or 
+        ('Organizzazione' in portal.portal_membership.getAuthenticatedMember().getGroups())
+        
+        
+.. warning ::
+
+        Deprecation: This method won't work in Plone 4.        
 
 Automatic member creation
 -------------------------
