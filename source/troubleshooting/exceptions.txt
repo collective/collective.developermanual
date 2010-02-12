@@ -525,3 +525,33 @@ Potential candidates which need to be added manually:
 More info:
 
 * http://www.mail-archive.com/setup@lists.plone.org/msg03988.html
+
+
+TraversalError: No traversable adapter found
+----------------------------------------------
+
+Traceback (innermost last):
+
+    * Module ZPublisher.Publish, line 202, in publish_module_standard
+    * Module Products.LinguaPlone.patches, line 66, in new_publish
+    * Module ZPublisher.Publish, line 150, in publish
+    * Module Zope2.App.startup, line 221, in zpublisher_exception_hook
+    * Module ZPublisher.Publish, line 119, in publish
+    * Module ZPublisher.mapply, line 88, in mapply
+    * Module ZPublisher.Publish, line 42, in call_object
+    * Module Shared.DC.Scripts.Bindings, line 313, in __call__
+    * Module Shared.DC.Scripts.Bindings, line 350, in _bindAndExec
+    * Module Products.CMFCore.FSPageTemplate, line 216, in _exec
+    * Module Products.CMFCore.FSPageTemplate, line 155, in pt_render
+    * Module Products.PageTemplates.PageTemplate, line 98, in pt_render
+    * Module zope.pagetemplate.pagetemplate, line 117, in pt_render
+      Warning: Macro expansion failed
+      Warning: zope.traversing.interfaces.TraversalError: ('No traversable adapter found',
+      
+Usual cause: Some add-on product fails to initialize.
+
+Start Zope in foreground mode (bin/instance fg) to see which product fails.
+
+
+
+ 
