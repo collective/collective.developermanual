@@ -1,14 +1,47 @@
-==========
-Indexing
-==========
+======================
+Indexes and metadata
+======================
 
-Basics
-------
+.. contents ::
+
+Introduction
+------------
 
 Indexing is action to make object data searchable.
 Plone stores available indexes in the database.
 You can create them through-the-web and inspect existing indexes
 in portal_catalog on Index tab.
+
+Indexes and metadata
+--------------------
+
+portal_catalog does subset of object field as a copy and makes them searchable.
+
+* Indexes make content searchable: Indexes are are stored values which are used to match queries. Indexed might be preprocessed
+  to make the matching possible. For example, full text search indices run incoming text output
+  through splitters and such filters to generate fast searchable data out of it.  
+
+* Metadata make content summariable: 
+  Metadata, also known as columns, are stored values which can be displayed to the user with the search hit. 
+  They usually copy the field value as is. 
+
+Metadata can exist without index and vice versa.
+
+See also 
+
+* http://maurits.vanrees.org/weblog/archive/2009/12/catalog
+
+
+Viewing indexed data
+--------------------
+
+You can do this through portal_catalog tool in ZMI.
+
+* Click portal_catalog in the portal root
+
+* Click *Catalog* tab
+
+* Click any object  
 
 Index types
 -----------
