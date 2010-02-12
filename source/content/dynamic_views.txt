@@ -2,6 +2,11 @@
  Dynamic views
 ====================
 
+.. contents ::
+
+Introduction
+------------
+
 Dynamic views are views which the content editor can choose for his/her content
 from *Display...* drop down menu in the green edit frame.
 
@@ -33,7 +38,7 @@ You need to register dynamic view menu item with the corresponding view in confi
 .. code-block:: xml
 
   <browser:menuItem
-        for="Products.ATContentTypes.interfaces.IATFolder"
+        for="Products.ATContentTypes.interface.IATFolder"
         menu="plone_displayviews"
         title="Product listing"
         action="@@product_listing"
@@ -43,6 +48,10 @@ You need to register dynamic view menu item with the corresponding view in confi
 The view must be listed in portal_types for the content type. In this case
 we should enable it for Archetypes folder using the following GenericSetup XML
 *profiles/default/types/Folder.xml*.
+
+Note that you don't need to copy the whole Folder.xml / Topic.xml from
+Products/CMFPlone/profiles/default/types, but including the changed fields
+(view_methods) in XML code is enough.
 
 .. code-block:: xml
 
