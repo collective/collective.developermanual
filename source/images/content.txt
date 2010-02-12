@@ -2,6 +2,24 @@
  Image-like content
 =====================
 
+.. contents ::
+
+Introduction
+------------
+
+Plone provides image upload in two ways
+
+* As content type, will be visible in the sitemap. This is the default "Image" content,
+  but you can add your custom content type.
+  
+  
+* As a field. Then the image is directly associated with one content object. 
+  Use Archetypes.fields.ImageField.
+  
+ 
+Custom image content type 
+--------------------------
+
 If you want to have your custom content type behave like
 Plone stock Image content type.
 
@@ -21,3 +39,66 @@ Plone stock Image content type.
 	  <type type_id="YourImageType"/>
 	 </bindings>
 	</object>
+	
+
+Image scales
+--------------------
+
+When the image is  uploaded, both field or content, Plone creates default scaled down versions
+from it.
+
+These are configured as ImageField *sizes* parameter. See ImageField class notes here:
+
+*  http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/Field.py
+
+Default image scales for Image content are configured in
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+
+Configuration::
+
+               sizes= {'large'   : (768, 768),
+                       'preview' : (400, 400),
+                       'mini'    : (200, 200),
+                       'thumb'   : (128, 128),
+                       'tile'    :  (64, 64),
+                       'icon'    :  (32, 32),
+                       'listing' :  (16, 16),
+                      },
+                      
+getScale()
+==========
+
+ImageField provides function getScale() to get the scaled version of the image based
+on the *sizes* configuration key.
+
+See example in __bobo_traverse__
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py                       
+
+Accessing image
+---------------
+
+ImageField is mapped to traversable attribute of your content type.
+If your content object has field "imageOne" and content is in URL::
+
+        http://yoursite/content
+        
+Image can be directly downloaded from::
+
+        http://yoursite/content/imageOne
+        
+
+Scaled versions for Image content (ATImage)
+============================================
+
+If you want different scales you can add image_XXX prefix where XXX is the corresponding scale name::
+
+        http://yoursite/content/imageOne/image_preview
+        
+This hook is defined in __bobo_traverse__ in ATImage class        
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py               
+
+        
+               
