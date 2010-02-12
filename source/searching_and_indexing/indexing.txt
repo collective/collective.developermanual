@@ -47,9 +47,43 @@ Index types
 -----------
 
 Zope 2 product PluginIndexes defines various portal_catalog index types used by Plone.
-Read the product source code for non-existent documentation.
 
-ExtendedPathIndex_ is used for indexing content object locations.
+* FieldIndex stores values as is
+
+* DateIndex and DateRangeIndex store dates (Zope 2 DateTime objects) in searhable format. The latter
+  provides ranged searches.
+
+* KeywordIndex allows keyword-style look-ups (query term is matched against the all values of a stored list)
+
+* ZCTextIndex is used for full text indexing
+
+* ExtendedPathIndex_ is used for indexing content object locations.
+
+Default Plone indexes and metadata columns
+------------------------------------------
+
+Some interesting indexes
+
+* start and end: Calendar event timestamps, used to make up calendar portlet
+
+* sortable_title: Title provided for sorting
+
+* portal_type: Content type as it appears in portal_types
+
+* Type: Translated, human readable, type of the content
+
+* path: Where the object is (getPhysicalPath accessor method).
+
+* object_provides: What interfaces and marker interfaces object has. KeywordIndex of 
+  interface full names. 
+
+Some interesting columns
+
+* getRemoteURL: Where to go when the object is clicked
+
+* getIcon: Which content type icon is used for this object in the navigation
+
+* exclude_from_nav: If True the object won't appear in sitemap, navigation tree
 
 Indexing an object
 ------------------
@@ -231,14 +265,6 @@ indexing adapter.
 # Add adapter in your ZCML::
 
     <adapter factory=".customcontent.TextIndexNG3SearchAdapter"/>
-
-Default indexes
----------------
-
-This paragraph contains notes about portal_catalog indexes supplied with Plone out-of-the-box.
-
-* portal_type vs. Type - Use the former (what's exact reason... does Type index metatype or translated type text?)
-
 
 Other
 -----
