@@ -2,6 +2,11 @@
 Interfaces
 ==========
 
+.. contents ::
+
+Introduction
+-------------
+
 Interfaces define what methods object provides. 
 
 Interface defines the shape of a hole where you can drop different pieces.
@@ -55,7 +60,7 @@ Example::
     
     assert IFoo == interface_class
 
-Applying marker interfaces for several content types
+Applying interfaces for several content types
 -----------------------------------------------------
 
 You can retrofit content types with a marker interface afterwards.
@@ -109,3 +114,26 @@ Related:
 
         * `zope.dottedname <http://pypi.python.org/pypi/zope.dottedname>`_ allows you to resolve dotted names to Python objects
            manually    
+
+Dynamic marker interfaces
+--------------------------
+
+Zope allows to you to dynamically turn on and off interfaces on any content objects through ZMI.
+Choose any object and Interfaces tab. 
+
+Marker interfaces might need to be explicitly declared using ZCML <interface> directive,
+so that Zope finds them::
+
+  <!-- Declare marker interface, so that it is available in ZMI -->
+  <interface interface="mfabrik.app.interfaces.promotion.IPromotionsPage" />
+  
+.. note ::
+
+        Interface dotted name must be directly to the interface class and not an import
+        from other module, like __init__.py.
+        
+         
+
+
+
+          
