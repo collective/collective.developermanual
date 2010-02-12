@@ -44,6 +44,11 @@ You need to register dynamic view menu item with the corresponding view in confi
         action="@@product_listing"
         description="List folder contents as product summary view"
         />
+        
+.. note ::
+
+        Products.ATContentTypes uses non-standard name for "interfaces" package.
+        It is "interface" there, when all other packages use "interfaces".         
 
 The view must be listed in portal_types for the content type. In this case
 we should enable it for Archetypes folder using the following GenericSetup XML
@@ -52,6 +57,12 @@ we should enable it for Archetypes folder using the following GenericSetup XML
 Note that you don't need to copy the whole Folder.xml / Topic.xml from
 Products/CMFPlone/profiles/default/types, but including the changed fields
 (view_methods) in XML code is enough.
+
+You can also change this through portal_types in ZMI.    
+    
+.. note::
+
+        view_methods must not have @@ view signature in the method name.
 
 .. code-block:: xml
 
@@ -72,7 +83,7 @@ Products/CMFPlone/profiles/default/types, but including the changed fields
     </object>
 
 Also if you want to Collections have this listing you need to add
-the following *profiles/default/types/Topic.xml*
+the following *profiles/default/types/Topic.xml*.
 
 .. code-block:: xml
 
@@ -92,6 +103,7 @@ the following *profiles/default/types/Topic.xml*
 
      </property>
     </object>
+    
 
 
 Checking that your view is available
@@ -115,7 +127,9 @@ the list of known layouts like following::
 Getting active layout
 ---------------------
 
+.. note::
 
+        Need code example.
 
 Changing default view programmatically
 --------------------------------------
