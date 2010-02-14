@@ -555,6 +555,33 @@ Usual cause: Some add-on product fails to initialize.
 
 Start Zope in foreground mode (bin/instance fg) to see which product fails.
 
+ImportError: Inappropriate file type for dynamic loading
+---------------------------------------------------------
 
+Exception when starting Zope::
 
- 
+          File "/Users/moo/twinapex/twinapex/parts/zope2/lib/python/ZConfig/datatypes.py", line 398, in get
+            t = self.search(name)
+          File "/Users/moo/twinapex/twinapex/parts/zope2/lib/python/ZConfig/datatypes.py", line 423, in search
+            package = __import__(n, g, g, component)
+          File "/Users/moo/twinapex/twinapex/parts/zope2/lib/python/Zope2/Startup/datatypes.py", line 20, in ?
+            from ZODB.config import ZODBDatabase
+          File "/Users/moo/twinapex/twinapex/eggs/ZODB3-3.8.2-py2.4-macosx-10.6-i386.egg/ZODB/__init__.py", line 20, in ?
+            from persistent import TimeStamp
+          File "/Users/moo/twinapex/twinapex/eggs/ZODB3-3.8.2-py2.4-macosx-10.6-i386.egg/persistent/__init__.py", line 19, in ?
+            from cPersistence import Persistent, GHOST, UPTODATE, CHANGED, STICKY
+        ImportError: Inappropriate file type for dynamic loading
+        
+You probably have files lying over from wrong CPU architecture
+
+* Hand copied eggs between servers
+
+* Migrated OS to new version
+
+* You have several Python interpreters installed and you try to run Zope using 
+  the wrong interpreter (the one which the code is not compiled for)
+
+How to solve problem
+
+* Delete /parts and /eggs buildout folders, run bootstrap, run buildout.
+
