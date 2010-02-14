@@ -164,6 +164,22 @@ Unit test example::
         # or anonymous if there were no credential fields in HTTP request
         return users[0]
         
+Redirect on Unauthorized
+------------------------
+
+When HTTP processing encounters Unauthorized exception, Plone redirects to login page,
+even if you are logged in and logged in as Zope admin.
+This behavior is part of PluggableAuthService.
+
+* http://svn.zope.org/Products.PluggableAuthService/trunk/Products/PluggableAuthService/?rev=109031
+
+and its CookieAuthHelper
+
+* http://svn.zope.org/Products.PluggableAuthService/trunk/Products/PluggableAuthService/plugins/CookieAuthHelper.py?rev=80080&view=auto
+
+It can be disabled by the following::
+
+        portal.acl_users.credentials_cookie_auth.login_path = ""
     
 
 

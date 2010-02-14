@@ -166,6 +166,9 @@ Example::
         
         import urllib2 
         
+        # Disable redirect on security error
+        self.portal.acl_users.credentials_cookie_auth.login_path = ""
+        
         # Unfuse exception tracking for debugging
         # as set up in afterSetUp()
         self.browser.handleErrors = True
@@ -182,7 +185,7 @@ Example::
         except urllib2.HTTPError,  e:
             # Mechanize, the engine under testbrowser
             # uses urlllib2 and will raise this exception
-            self.assertEqual(e.code, 503, "Got HTTP response code:" + str(e.code))
+            self.assertEqual(e.code, 401, "Got HTTP response code:" + str(e.code))
 
 Setting test browser user agent
 -------------------------------
