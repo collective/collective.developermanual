@@ -4,13 +4,18 @@ Functional testing
 
 .. contents ::
 
+Introduction
+------------
 
-Basics
-------
+PloneTestCase product provides `FunctionalTestCase <https://svn.plone.org/svn/collective/Products.PloneTestCase/trunk/Products/PloneTestCase/PloneTestCase.py>`_
+base class for functional testing. Unlike unit tests, functional tests simulate real HTTP requests with transaction life cycle.
 
-PloneTestCase provides `FunctionalTestCase <https://svn.plone.org/svn/collective/Products.PloneTestCase/trunk/Products/PloneTestCase/PloneTestCase.py>`_
-base class for functional testing. Unlike unit tests, functional tests simulate real HTTP requests with transaction life cycle
-(all unit test methods happen in a single transactions).
+* Functional tests has different transaction for each browser.open() request
+
+* Functional tests do traversing and can check e.g. for cookie based permissions
+
+* Unit test method is executed in a single transaction and this might make impossible to
+  test cache related behavior
 
 Test browser
 ------------
@@ -148,6 +153,36 @@ Example::
 
     button = form.getControl(name="mybuttonname")
     button.click()
+    
+Checking Unauthorized response
+------------------------------
+
+Example::
+
+    def checkIsUnauthorized(self, url):
+        """
+        Check whether URL gives Unauthorized response. 
+        """
+        
+        import urllib2 
+        
+        # Unfuse exception tracking for debugging
+        # as set up in afterSetUp()
+        self.browser.handleErrors = True
+        
+        def raising(self, info):
+            pass
+        self.portal.error_log._ignored_exceptions = ("Unauthorized")
+        from Products.SiteErrorLog.SiteErrorLog import SiteErrorLog
+        SiteErrorLog.raising = raising
+        
+        try:
+            self.browser.open(url)
+            raise AssertionError("No Unauthorized risen:" + url)
+        except urllib2.HTTPError,  e:
+            # Mechanize, the engine under testbrowser
+            # uses urlllib2 and will raise this exception
+            self.assertEqual(e.code, 503, "Got HTTP response code:" + str(e.code))
 
 Setting test browser user agent
 -------------------------------
