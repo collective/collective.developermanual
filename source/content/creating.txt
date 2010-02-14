@@ -144,3 +144,28 @@ See
 * `Scriptable Types Information HOW TO <http://www.zope.org/Products/CMF/docs/devel/using_scriptable_type_info/view>`_
 
 * `Notes Zope types mechanism <http://www.zope.org/Products/CMF/docs/devel/taming_types_tool/view>`_
+
+Content does not show in Add Menu or Unauthorized errors
+----------------------------------------------------------
+
+When creating new content types, many factors can silently fail due to human errors in the complex content type setup chain and security limitations. 
+The effect is that you don't see your content type in Add drop down menu. Here are tips for debugging.
+
+* Is your product broken due to Python import time errors? Check Zope Management Interface -> Control panel -> Products. Turn on Zope debugging mode to trace import errors.
+
+* Have you rerun the quick installer (GenericSetup) after creating/modifying the content type?
+
+* Do you have a correct Add permission for the product? Check __init__.py ContentInit() call.
+
+* Does it show up in the portal factory? Check ZMI -> portal_factory and factorytool.xml. 
+
+* Is it corretly registered as a portal type and implictly addable? Check ZMI -> portal_types. Check default/profiles/type/yourtype.xml
+
+* Does it have correct product name defined? Check ZMI -> portal_types.
+
+* Does it have a proper factory method? Check ZMI -> types_tool. Check Zope logs for _queryFactory and import errors.
+
+* Does it register itself with Archetypes? Check ZMI -> archetypes_tool. Make sure that you have ContentInit properly run in your __init__.py. Make sure that all modules having Archetypes content types defined and registerType() call are imported in __init__py.
+
+
+
