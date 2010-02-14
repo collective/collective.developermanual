@@ -94,6 +94,14 @@ Example::
         #def __call__():
         #
 
+.. warning::
+
+        Do not attempt to run any code in __init__() method of a view.
+        If this code fails and exception is caused, zope.component machinery
+        remaps this as "View not found" exception or traversing error.
+        Instead, use a pattern where you have setup() or similar
+        method which __call__() or view users explicitly call.
+        
 Registering a view
 ==================
 
