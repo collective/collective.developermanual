@@ -1,23 +1,56 @@
 =================
-Type information
+Content types
 =================
+
+.. contents ::
+
+Introduction
+-------------
+
+Plone has two kind of content types subsystems
+
+* Archetypes based
+
+* Dexteriry based (Plone 4, new)
+
+Flexible architecture allows other kinds of content type subsystems as well.
 
 Plone maintains available content types in portal_types tool.
 
 portal_types is a folderish content where type information are child objects,
 keyed by portal_type metadata.
 
+portal_factory is a tool responsible for creating the persistent object representing the content.
+
 `TypesTool source code <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/TypesTool.py?rev=101748&view=auto>`_.
 
+Creating a new content type
+----------------------------
 
-Registering a new type
-----------------------
+This instructions apply for ::doc::`Archetypes subsystem based content types </content/archetypes/>`
 
-Use paster addcontent template to create new types. Creating types by hand is not worth of the problems.
+* You need to have an add-on product code skeleton created using paster's *archetypes* template
 
-If you still try to create types by hand and something goes wrong please read
-`Why doesn't my custom content type show up in add menu <http://plone.org/documentation/faq/why-doesnt-my-custom-content-type-show-up-in-add-menu/>`_
-checklist.
+* Use *paster addcontent content* command new types. 
+
+.. note ::
+
+        Creating types by hand is not worth of the problems. Please use a 
+        code generator to create the skeleton for your new content type.
+
+.. warning::
+
+        Content type name must not contain spaces. Content type name or description
+        must not contain non-ASCII letters. If you need to change these please
+        create a translation catalog which will translate the text to 
+        one with spaces or international letters.  
+
+Debugging new content type problems
+===================================
+
+Creating types by hand is not worth of the problems.
+
+* `Why doesn't my custom content type show up in add menu <http://plone.org/documentation/faq/why-doesnt-my-custom-content-type-show-up-in-add-menu/>`_ checklist.
 
 Implictly allowed
 ------------------
