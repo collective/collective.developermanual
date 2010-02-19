@@ -2,6 +2,11 @@
 Buildout version conflicts
 ===========================
 
+.. contents ::
+
+Introduction
+------------
+
 This document tells how to resolve buildout.cfg version conflicts.
 Buildout gives you an error if there is a dependency shared by two components, and
 one of the components wants to have a different version of this dependency.
@@ -30,3 +35,20 @@ Plone 3.1
 ---------
 
 * See http://plone.org/documentation/kb/repair-a-plone-3.1-buildout
+
+Here is the latest pindown example (02/2010)::
+
+        [versions]
+        # zope.app.catalog 3.6.0 requires zope.index 3.5.0
+        # zope.index 3.5.0 requires 'ZODB3>=3.8.0b1'
+        # This will conflict with the fake ZODB egg.
+        zope.app.catalog = 3.5.2
+        zope.component = 3.5.1 
+        plone.app.z3cform=0.4.2
+        plone.recipe.zope2instance = 3.6
+        zope.sendmail = 3.6.0
+        Products.PluggableAuthService = 1.6.2
+        plone.z3cform = 0.5.8
+        five.intid=0.4.2
+        plone.reload = 0.11
+        Products.GenericSetup = 1.5.0
