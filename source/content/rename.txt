@@ -1,0 +1,38 @@
+=========================================
+ Renaming objects (changing object ids)
+=========================================
+
+.. contents ::
+
+Introduction
+------------
+
+This page tells how to rename Plone content objects and change their ids.
+
+* This only concerns URL path ids
+
+* Unique ID (UID) is not affected
+
+* Title can be changed using setTitle() etc. mutator
+
+Renaming objects
+----------------
+
+OFS interface has facilities to rename objects
+
+* http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=105745&view=auto
+
+* manage_renameObject(oldid, newid) for one item
+
+* manage_renameObject([oldid, oldid2], [newid, newid2]) for rename many items
+
+* Products.CMFPlone.PloneFolder overrides manage_renameObject() to have hooks
+  to reindex the new object path
+
+Example how to rename object id to have *-old* suffix::
+
+        id = lc.getId()
+        parent = lc.aq_parent
+        parent.manage_renameObject(id, id + "-old")
+        
+        

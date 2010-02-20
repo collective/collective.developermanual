@@ -2,6 +2,12 @@
 Deleting
 ===========
 
+.. contents ::
+
+Introduction
+------------
+
+This document tells how to programmatically delete objects in Plone.
 
 Deleting content by id
 ----------------------
@@ -13,7 +19,12 @@ Deleting content objects is done by IObjectManager.
 Example::
 
     # manage_delObjects takes list of ids as an argument
-    folder.manage_delObjects(["list", "of", "ids", "to", "delete])
+    folder.manage_delObjects(["list", "of", "ids", "to", "delete"])
+
+Or::
+
+    parent = context.aq_parent
+    parent.manage_delObjects([context.getId()])
 
 
 Deleting all content in a folder
