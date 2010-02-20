@@ -71,6 +71,9 @@ Field exposes its name through getName() attribute::
 Accessing Archetypes field value
 --------------------------------
 
+Accessor method
+===============
+
 Each field has accessor method. Accessor method is
 
     * In your content type class
@@ -78,6 +81,32 @@ Each field has accessor method. Accessor method is
     * Automatically generated if you don't give it manually
 
     * Has name get + schema field name with first letter uppercase. E.g. yourfield has accessor method context.getYourfield()
+
+Indirect access
+==================
+
+You can use field.get(context) to read values of fields indirectly, without knowing the accessor method.
+
+This example shows how to read and duplicate all values of lc object to nc::
+
+        from Products.Archetypes import public as atapi
+
+
+        nc = createObjectSomehow()
+        # This will mark creation flag set, must be done before we 
+        # start updating all fields
+        nc.processForm() 
+        
+        # Duplicate field data from one object to another
+        for field in lc.Schema().fields():
+            name = field.getName()
+            
+            # ComputedFields are handled specially
+            if not isinstance(field, atapi.ComputedField):
+                value = field.get(lc)            
+                newfield = nc.Schema()[name]
+                newfield.set(nc, value)
+            
     
 Modifying all fields in schema
 ------------------------------
