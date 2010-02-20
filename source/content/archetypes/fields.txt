@@ -93,19 +93,23 @@ This example shows how to read and duplicate all values of lc object to nc::
 
 
         nc = createObjectSomehow()
-        # This will mark creation flag set, must be done before we 
-        # start updating all fields
-        nc.processForm() 
         
+        # List of field names which we cannot copy
+        do_not_copy = ["id"]
+                
         # Duplicate field data from one object to another
         for field in lc.Schema().fields():
             name = field.getName()
             
-            # ComputedFields are handled specially
-            if not isinstance(field, atapi.ComputedField):
-                value = field.get(lc)            
+            # ComputedFields are handled specially,
+            # and UID also
+            if not isinstance(field, atapi.ComputedField) and name not in do_not_copy:
+                value = field.getRaw(lc)            
                 newfield = nc.Schema()[name]
                 newfield.set(nc, value)
+     
+        # Mark creation flag to be set
+        nc.processForm()
             
     
 Modifying all fields in schema
