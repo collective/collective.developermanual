@@ -148,8 +148,23 @@ Setting user password
 
 Passwords are stored hashed and can be set using BaseMember._setPassword() method.
 
-Example::
+_setPassword() takes password as plain-text argument and hashes it before storing::
 
     user_object._setPassword("secret")
     
+Accessing hashed password
+=========================
+
+Use password attribute directly.
+
+    hashed = user_object.password
     
+Password hash should be unicode string.
+
+.. note ::
+
+        By default, Products.remember uses HMACHash hasher. As a salt, 
+        str(context) string is used. This means that it is not possible to move hashed
+        password from one context item to another. For more information see
+        Products.remember.content.password_hashers module.
+        

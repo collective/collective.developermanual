@@ -1,24 +1,21 @@
-=========
-Basics
-=========
+========================
+Reading member records 
+========================
 
 .. contents ::
 
 Introduction
 ------------
 
-In Plone, there is two not tightly coupled user subsystems
+In Plone, there are two loosely coupled member related subsystems
 
-# Managing authentication and permission information (acl_users under site root),
-  managed by Pluggable Authentication System (PAS)
+* Authentication and permission information (acl_users under site root),
+  managed by Pluggable Authentication System (PAS). 
 
-# Managing member profile (portal_membership under site root)
-
-Active user
------------
+* Member profile information, accessible through portal_membership tool 
 
 Getting logged in member
-========================
+------------------------
 
 The following view method code will get the username for the logged in user.
 
@@ -42,6 +39,12 @@ Example::
 or in template::
 
     username context/portal_membership/getAuthenticatedMember/getUserName
+
+Getting any member
+------------------
+
+
+* 
 
 Groups
 ------
