@@ -82,6 +82,15 @@ Each field has accessor method. Accessor method is
 
     * Has name get + schema field name with first letter uppercase. E.g. yourfield has accessor method context.getYourfield()
 
+Raw access
+==========
+
+Archetypes has to kind of access methods
+
+* Normal, getSomething(), which filters output
+
+* Raw, so calle edit accessor, getSomethingRaw() which does not filter output
+
 Indirect access
 ==================
 
@@ -111,7 +120,33 @@ This example shows how to read and duplicate all values of lc object to nc::
         # Mark creation flag to be set
         nc.processForm()
             
-    
+Validating objects
+------------------
+
+Example for *nc* AT object::
+
+        errors = {}
+        nc.Schema().validate(nc, None, errors, True, True)
+        if errors:
+            assert not errors, "Got errors:" + str(errors)
+      
+Checking permissions
+---------------------            
+
+field.writeable() provides a short-cut whether the currently
+logged in user can change the field value.
+
+Example::
+
+        field = context.Schema()["phone_number"]
+        assert field.writeable(), "Cannot set phone number"
+
+There is also a verbose debugging version which will print the reason
+to log if the writeable condition is not effective::
+
+        field = context.Schema()["phone_number"]
+        assert field.writeable(debug=True), "Cannot set phone number"
+
 Modifying all fields in schema
 ------------------------------
 
