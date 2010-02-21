@@ -1,10 +1,20 @@
-====================
- Membrane subsystem
-====================
+======================
+ Members as content
+======================
+
+.. contents ::
+
+Introduction
+------------
 
 remember (small r) and membrane are framework add-on products for Plone which allows you to manipulate site members
 as they were normal content objects. The product also allows distributed user management and
 different user classes.
+
+* Products.membrane provides framework of integrating acl_users access right to content-like membres 
+  and perform tasks like login
+
+* Products.remember is a basic implementation of this with two different user workflows and normal user schema
 
 Basics
 ------
@@ -33,6 +43,17 @@ Example::
     # e.g. this will return None for Zope admin user
     sits_user = membrane.getUserAuthProvider(username)
     return sits_user
+    
+Getting member from MembraneUser or owner record
+-------------------------------------------------
+
+Below is an example how to resolve member content object from MembraneUser record "owner" who is user "local_user"::
+
+        (Pdb) mbtool = self.portal.membrane_tool
+        (Pdb) owner
+        <MembraneUser 'local_user'>
+        (Pdb) mbtool.getUserAuthProvider(owner.getId())
+        <SitsLocalUser at /plone/country/hospital/local_users/local_user
 
 Creating a member
 -----------------
