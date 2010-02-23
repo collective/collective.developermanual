@@ -2,6 +2,11 @@
  Adapters
 =================
 
+.. contents ::
+
+Introduction
+------------
+
 Adapters allow extending the class behavior outside the class itself. This allows more modular,
 nice looking code in complex systems where there are hundreds of applicable methods per class.
 
@@ -147,7 +152,7 @@ Emulate view registration (context, request):
            factory=".bango.BangoTracker" />
 
 Getting the adapter
----------------
+-------------------
 
 There are two functions
 
@@ -202,6 +207,20 @@ The following code checks if IHeaderBehavior adapter is registered correctly::
 
         registrations = [a for a in sm.registeredAdapters() if a.provided == IHeaderBehavior ]
         self.assertEqual(len(registrations), 1)
+
+Alternative listing adapters
+============================
+
+Getting all multi-adapters (context, request)
+
+Example::
+
+        from zope.component import getAdapters
+        adapters = getAdapters((context, request), provided=Interface)
+
+.. warning ::
+
+        This does not list locally registered adapters like Zope views.
 
 Local adapters
 --------------
