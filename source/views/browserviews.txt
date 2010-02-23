@@ -365,3 +365,29 @@ plone.app.users package, creating a custom form which subclasses the original.
     class CustomRegistrationForm(RegistrationForm):
         """ Subclass the standard registration form
         """
+
+Listing all views
+-----------------
+
+This is useful for debugging purposes::
+
+        from plone.app.customerize import registration
+        from zope.publisher.interfaces.browser import IBrowserRequest
+        
+        # views is generator of zope.component.registry.AdapterRegistration objects
+        views = registration.getViews(IBrowserRequest)
+        
+Listing all views of certain type
+=================================
+
+How to filter out views which provide certain interface.
+
+        from plone.app.customerize import registration
+        from zope.publisher.interfaces.browser import IBrowserRequest
+        
+        # views is generator of zope.component.registry.AdapterRegistration objects
+        views = registration.getViews(IBrowserRequest)
+        
+        # Filter out all classes which do not filter a certain interface
+        views = [ view.factory for view in views if IBlocksView.implementedBy(view.factory) ] 
+        
