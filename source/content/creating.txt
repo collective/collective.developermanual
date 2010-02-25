@@ -167,5 +167,38 @@ The effect is that you don't see your content type in Add drop down menu. Here a
 
 * Does it register itself with Archetypes? Check ZMI -> archetypes_tool. Make sure that you have ContentInit properly run in your __init__.py. Make sure that all modules having Archetypes content types defined and registerType() call are imported in __init__py.
 
+Link to creation page
+-------------------------
 
+* Add... menu contains links how ot create individual content types. Copy URLs there.
+
+* If you want to the user to have a choice which content type to create,
+  you can link to /folder_factories page (creation page when Javascript is disabled).
+
+Populating folder on creation
+-----------------------------
+
+Archetypes have a hook called initializeArchetype(). Your content type 
+subclass can override this.
+
+Example::
+
+        class LandingPage(folder.ATFolder):
+            """Landing page"""
+                
+            def initializeArchetype(self, **kwargs):    
+                """
+                Prepopulate folder during the creation.
+                
+                Create five subfolders of "BigBlock" type, with title and id preset.
+                """
+                folder.ATFolder.initializeArchetype(self, **kwargs)
+                
+                for i in range(0, 5):
+                    id = "container" + str(i)
+                    self.invokeFactory("BigBlock", id, title="Big block " + str(i+1))
+                    item = self[id]
+                    
+                    # Clear creation flag so that edit screen 
+                    item.markCreationFlag()
 

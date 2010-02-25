@@ -2,6 +2,11 @@
  Workflows
 ============
 
+.. contents ::
+
+Introduction
+-------------
+
 DCWorkflow product manages the default Plone workflow system.
 
 Workflow state is not directly stored on the object. Instead, separate
@@ -92,6 +97,29 @@ How to test which workflow the object has::
 
     # this must must be the workflow name
     self.failUnless(chain[0] == 'link_workflow', "Had workflow " + str(chain[0]))
+
+Disabling workflow for a content type
+---------------------------------------
+
+If content type doesn't have a workflow it uses its parent container security settings.
+By default, content types Image and File have no workflow.
+
+Workflow can be disabled by setting the workflow setting empty in portal_workflow in ZMI.
+
+Example how to do it with GenericSetup *workflows.xml*::
+
+.. code-block:: xml
+
+        <?xml version="1.0"?>
+        <object name="portal_workflow" meta_type="Plone Workflow Tool">
+         <property
+            name="title">Contains workflow definitions for your portal</property>
+         <bindings>
+          <!-- Bind nothing for there content types -->
+          <type type_id="Image"/>
+          <type type_id="File"/>
+         </bindings>
+        </object>
 
 
 
