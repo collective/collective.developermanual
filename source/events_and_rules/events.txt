@@ -33,6 +33,37 @@ Registering event handler
 Subscribing using five.grok API
 ===============================
 
+Example::
+
+        class ORAResearcher(folder.ATFolder):
+        
+            meta_type = "ORAResearcher"
+            schema = ORAResearcherSchema
+                        
+            def refreshData():
+                """
+                Performs collective.mountpoint synchronization for one object.
+                """
+                
+
+from five import grok
+
+        from Products.CMFCore.interfaces import IContentish
+        from Products.Archetypes.interfaces import IObjectEditedEvent
+        
+        @grok.subscribe(ORAResearcher, IObjectAddedEvent)
+        def object_edited(context, event):
+            """
+            Catch edit events.
+            
+            @param context: Object for which the event was fired
+            """
+            
+            # Call content type methods
+            context.refreshData()
+
+More information 
+
 * http://plone.org/products/dexterity/documentation/manual/five.grok/core-components/events
 
 Subscribing in ZCML
