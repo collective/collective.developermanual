@@ -155,6 +155,13 @@ Two different content event types are available and might work differently depen
 
 * Products.Archetypes.interfaces.IObjectEditedEvent - called for Archetypes object which are not
   anymore in the creation stage
+  
+.. note::
+
+        Products.Archetypes.interfaces.IObjectEditedEvent is fired after
+        reindexObject() is called. If you manipulate your content object
+        in a handler for this event, you need to manually reindex new values,
+        or the changes are not reflected back to portal_catalog. 
 
 * zope.lifecycleevent.IObjectModifiedEvent - called for creation stage events too
 
