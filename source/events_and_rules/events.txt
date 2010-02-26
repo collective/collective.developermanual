@@ -35,23 +35,22 @@ Subscribing using five.grok API
 
 Example::
 
+
+        from five import grok
+        from Products.Archetypes.interfaces import IObjectEditedEvent
+
         class ORAResearcher(folder.ATFolder):
         
             meta_type = "ORAResearcher"
             schema = ORAResearcherSchema
                         
-            def refreshData():
+            def doSomethingDependingOnTheData():
                 """
-                Performs collective.mountpoint synchronization for one object.
+                Do something with the object 
                 """
                 
-
-from five import grok
-
-        from Products.CMFCore.interfaces import IContentish
-        from Products.Archetypes.interfaces import IObjectEditedEvent
         
-        @grok.subscribe(ORAResearcher, IObjectAddedEvent)
+        @grok.subscribe(ORAResearcher, IObjectEditedEvent)
         def object_edited(context, event):
             """
             Catch edit events.
@@ -60,7 +59,7 @@ from five import grok
             """
             
             # Call content type methods
-            context.refreshData()
+            context.doSomethingDependingOnTheData()
 
 More information 
 
