@@ -8,12 +8,32 @@ Introduction
 -------------
 
 Interfaces define what methods object provides. 
+Plone extensively uses interfaces to define APIs between 
+different subsystems. They provide more consistent and declarative
+way to define bridges between two different things, when duck-typing 
+is not enough.
 
 Interface defines the shape of a hole where you can drop different pieces.
 The shape of the piece is defined by interface, but the implementation
 details like color, material, etc. can vary.
 
 See `zope.interface package README <http://pypi.python.org/pypi/zope.interface>`.
+
+Implementing one or multiple interfaces
+---------------------------------------
+
+Use zope.interface.implements() in your class body.
+Multiple interfaces can be separated as an argument list.
+
+Example::
+
+        from zope.interface import implements
+        from collective.mountpoint.interfaces import ILocalSyncedContent
+        from ora.objects.interfaces import IORAResearcher
+
+        class MyContent(folder.ATFolder):
+            """A Researcher synchronized from ORA"""
+            implements(IORAResearcher, ILocalSyncedContent)
 
 Getting interface string id
 ---------------------------
