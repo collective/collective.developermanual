@@ -2,6 +2,12 @@
  Actions
 ==============
 
+.. contents ::
+
+Introduction
+------------
+
+
 Plone has concept of actions which refer the end user functionality associated with site
 or content objects:
 
@@ -17,22 +23,27 @@ Actions are managed by
 
 * portal_actions for generic actions
 
-* portal_types for view, edit etc. actions and object default action
+* portal_types for view, edit etc. actions and object default action... all actions
+  which are tied to a particular content type and may vary by type 
 
 Action URLs
 -----------
 
 Actions are applied to objects by adding action name to url.
 
-E.g.
+E.g.::
 
     http://localhost:8080/site/page/view
 
-for view action and
+for view action and::
 
     http://localhost:8080/site/page/edit
 
 for edit action.
+
+Action can be also not related to document, like::
+
+    http://localhost:8080/site/sitemap 
 
 Default action
 --------------
@@ -162,4 +173,22 @@ Example::
 
         # See ActionInformation.py / ActionInformation for available edits
         actionInformation.edit(visible=False)
+        
+Visibility expressions
+----------------------
+
+In portal_actions expression is used to determine whether an action is visble
+on a particular page. 
+
+.. note::
+
+        This check is just a visibility check. Users can still
+        try to type the action by typing the URL manually. You need
+        to do the permission level security check on the view providing the action.
+        
+For more information see ::doc::`expressions </functionality/expressions>`.
+
+
+
+
 
