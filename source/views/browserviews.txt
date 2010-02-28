@@ -391,3 +391,20 @@ How to filter out views which provide certain interface.
         # Filter out all classes which do not filter a certain interface
         views = [ view.factory for view in views if IBlocksView.implementedBy(view.factory) ] 
         
+        
+Helper views
+------------
+
+Not all views need to return HTML output, or output at all. Views can be used as a helpers
+around in the code to provide APIs to objects. Since views can be overridden by layer,
+view is a natural plug-in point which an add-on product can customize in a conflict-free manner.
+
+View methods are exposed to page templates and such, so you can also call 
+view methods directly from Python code/TAL.
+
+See
+
+* ::doc::`Context helpers </misc/context>`
+
+* ::doc::`Expressions </functionality/expressions>`
+
