@@ -35,6 +35,37 @@ Example::
             """A Researcher synchronized from ORA"""
             implements(IORAResearcher, ILocalSyncedContent)
 
+Checking whether object provides an interface
+---------------------------------------------
+
+providedBy
+==========
+
+In Python you can use code::
+
+        from yourpackage.interfaces import IMyInterface
+        
+        if IMyInterface.providedBy(object):
+                # do stuff
+        else:
+                # was not kind of the object we wanted
+                
+plone_interface_info
+====================
+                
+In page templates you can use *plone_interface_info* helper view::
+
+        <div tal:define="iinfo context/@@plone_interface_info">
+                <span tal:condition="pytohn:iinfo.provides('your.dotted.interface.IName')">
+                        Do stuff for 
+                </span>
+        </div>
+        
+See also
+
+* http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interface.py                   
+            
+
 Getting interface string id
 ---------------------------
 
