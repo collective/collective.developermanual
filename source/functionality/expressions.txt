@@ -118,3 +118,13 @@ Your view code would look like::
                 return False
 
 Register view normally using configure.zcml as "my_view_name".
+
+You can use context interfaces like
+
+* Products.CMFCore.interfaces.IContentish
+
+*  zope.interface.Interface (or "*")
+
+to make sure that this view is available on all content objects, as TALES will be evaluated
+on every page, regarding on what kind of content the page wil present.
+
