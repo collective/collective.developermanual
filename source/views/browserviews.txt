@@ -396,13 +396,34 @@ Helper views
 ------------
 
 Not all views need to return HTML output, or output at all. Views can be used as a helpers
-around in the code to provide APIs to objects. Since views can be overridden by layer,
-view is a natural plug-in point which an add-on product can customize in a conflict-free manner.
+around in the code to provide APIs to objects. Since views can be overridden using layers,
+view is a natural plug-in point which an add-on product can customize or override
+in a conflict-free manner.
 
 View methods are exposed to page templates and such, so you can also call 
-view methods directly from Python code/TAL.
+view methods directly from a page template, besides Python code.
 
-See
+Historal perspective
+====================
+
+Often the point of helper views is that you can have reusable functionality which can be
+plugged-in as one-line code around the system. Helper views also go around the limitations
+
+* TAL security
+
+* Limiting Python expression to one line
+
+* Not able to import Python modules
+
+.. note ::
+
+        Using RestrictedPython scripts and Zope 2 Extension modules is discouraged.
+        The same functionality can be achieved with helper views, with 
+        less potential pitfalls.        
+
+
+More information
+================
 
 * ::doc::`Context helpers </misc/context>`
 
