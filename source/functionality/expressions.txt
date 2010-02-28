@@ -2,6 +2,11 @@
 Expressions
 =============
 
+.. contents ::
+
+Introduction
+------------
+
 Expressions are user or site-administration through-the-web-written conditions which can be evaluated.
 You might want to use expressions in your own add-on product to provide user written conditions
 for viewlet visibility, portlets, dynamic text, etc.
@@ -87,15 +92,17 @@ Example::
 		pass
 		
     
-Custom expression code
-----------------------
+Custom expression using a helper view
+-------------------------------------
 
 If you need to add complex Python code to your expression conditions it is best to put this code to BrowserView
-class and call the view method in the expression::
+and expose it as a method.
+
+Then you can call view from TALES expression::
     
     object/@@my_view_name/my_method
 
-And::
+Your view code would look like::
 
     class MyViewName(BrowserView):
         """ Exposes methods for expression conditions """ 
@@ -109,4 +116,5 @@ And::
                 return True
             else:
                 return False
-        
+
+Register view normally using configure.zcml as "my_view_name".
