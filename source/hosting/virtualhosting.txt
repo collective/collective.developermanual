@@ -2,12 +2,104 @@
  Virtual hosting
 =====================
 
+.. contents ::
+
 Introduction
 ------------
 
-Tips for 
+Tips for doing virtual hosting with Plone.
 
 Virtual hosting Apache configuration generator
 ----------------------------------------------
 
 * http://betabug.ch/zope/witch
+
+Complex Apache virtual host configuration
+------------------------------------------
+
+This config includes
+
+* HTTPS and SSL certificate set-up
+
+* Load balancing using ZEO front-ends and Apache load balancer module
+
+* Apache disk cache
+
+* Static resource caching w/HTTPS support
+
+* Server site https://production.yourorganization.org
+
+Example::
+        
+        <VirtualHost 123.123.123:443>
+        
+          ServerName  production.yourorganization.org
+          ServerAdmin rocks@mfabrik.com
+        
+          SSLEngine On
+          SSLCertificateFile /etc/apache2/ssl-keys/yourorganization.org.cer
+          SSLCertificateKeyFile /etc/apache2/ssl-keys/yourorganization.org.key
+          SSLCertificateChainFile /etc/apache2/ssl-keys/InstantValidationCertChain.crt
+        
+          LogFormat       combined
+          TransferLog     /var/log/apache2/production.yourorganization.org.log
+        
+          <IfModule mod_proxy.c>
+           ProxyVia On
+        
+           # prevent the webserver from being used as proxy
+           <LocationMatch "^[^/]">
+             Deny from all
+           </LocationMatch>
+          </IfModule>
+        
+          # Balance load between 4 ZEO front-ends
+          <Proxy balancer://lbyourorganization>
+            BalancerMember http://127.0.0.1:13001/
+            BalancerMember http://127.0.0.1:13002/
+            BalancerMember http://127.0.0.1:13003/
+            BalancerMember http://127.0.0.1:13004/
+          </Proxy>
+        
+          # Note: You might want to disable this URL of being public
+          # as it can be used to access Apache live settings
+          <Location /balancer-manager>
+            SetHandler balancer-manager
+            Order Deny,Allow
+            # Your trusted IP addresses
+            Allow from 123.123.123.123 
+          </Location>
+        
+          ProxyPass /balancer-manager !
+          ProxyPass             / balancer://lbyourorganization/http://localhost/VirtualHostBase/https/production.yourorganization.org:443/yourorganization_plone_site/VirtualHostRoot/
+          ProxyPassReverse      / balancer://lbyourorganization/http://localhost/VirtualHostBase/https/production.yourorganization.org:443/yourorganization_plone_site/VirtualHostRoot/
+        
+          # Disk cache configuration
+          CacheEnable disk /
+          CacheRoot "/var/cache/yourorganization-production"
+          CacheLastModifiedFactor 0.1
+          #CacheDefaultExpire 1
+          #CacheMaxExpire 7200
+          CacheDirLength 2
+          ExpiresActive On
+          ExpiresByType image/gif A3600
+          ExpiresByType image/png A3600
+          ExpiresByType image/jpeg A3600
+          ExpiresByType text/css A3600
+          ExpiresByType text/javascript A3600
+          ExpiresByType application/x-javascript A3600
+        
+          # Create cache headers for downstream caches and browsers
+          
+          # Set environment variable by guessing the content payload based on how URL ends  
+          SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" cache-it
+        
+          # Force caching of HTTPS resources on the browser end
+          # http://blog.pluron.com/2008/07/why-you-should.html
+          Header append Cache-Control public env=cache-it
+          Header append X-Cache-Tagged yes env=cache-it
+        
+          # Debug header flags all requests coming from this server
+          Header append X-YourOrganization-Production yes 
+        
+        </VirtualHost>
