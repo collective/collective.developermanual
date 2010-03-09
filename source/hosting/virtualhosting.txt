@@ -107,3 +107,40 @@ Example::
           Header append X-YourOrganization-Production yes 
         
         </VirtualHost>
+
+Testing cache headers
+---------------------
+
+Use UNIX *wget* command. -S flag will display request headers.
+
+Remember to do different request for HTML, CSS, JS and image payloads - the cache rules might not be the same.
+
+HTTP example::
+
+        cd /tmp
+
+        wget --cache=off -S http://production.yourorganizationinternational.org/yourorganizationlogotemplate.gif        
+        
+        HTTP request sent, awaiting response... 
+          HTTP/1.1 200 OK
+          Date: Tue, 09 Mar 2010 12:33:26 GMT
+          Server: Apache/2.2.8 (Ubuntu) DAV/2 SVN/1.4.6 mod_python/3.3.1 Python/2.5.2 PHP/5.2.4-2ubuntu5.4 with Suhosin-Patch mod_ssl/2.2.8 OpenSSL/0.9.8g
+          Last-Modified: Wed, 25 Nov 2009 06:51:41 GMT
+          Content-Length: 4837
+          Via: 1.0 production.yourorganizationinternational.org
+          Cache-Control: max-age=3600, public
+          Expires: Tue, 09 Mar 2010 13:02:29 GMT
+          Age: 1857
+          Keep-Alive: timeout=15, max=100
+          Connection: Keep-Alive
+          Content-Type: image/gif
+        Length: 4837 (4.7K) [image/gif]
+        Saving to: `yourorganizationlogotemplate.gif.14'
+
+        
+
+HTTPS example::
+
+         cd /tmp
+         wget --cache=off --no-check-certificate -S https://production.yourorganizationinternational.org/
+               
