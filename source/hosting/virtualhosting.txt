@@ -41,6 +41,7 @@ Example::
           SSLCertificateKeyFile /etc/apache2/ssl-keys/yourorganization.org.key
           SSLCertificateChainFile /etc/apache2/ssl-keys/InstantValidationCertChain.crt
         
+          # Our lovely access logs go to this file
           LogFormat       combined
           TransferLog     /var/log/apache2/production.yourorganization.org.log
         
@@ -48,6 +49,7 @@ Example::
            ProxyVia On
         
            # prevent the webserver from being used as proxy
+           # this is very important unless you want to become a spam relay
            <LocationMatch "^[^/]">
              Deny from all
            </LocationMatch>
@@ -81,6 +83,8 @@ Example::
           #CacheDefaultExpire 1
           #CacheMaxExpire 7200
           CacheDirLength 2
+          
+          # Apache will add Cache-control max-age header based on these values 
           ExpiresActive On
           ExpiresByType image/gif A3600
           ExpiresByType image/png A3600
