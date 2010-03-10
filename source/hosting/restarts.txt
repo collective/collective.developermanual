@@ -48,9 +48,12 @@ For Debian based Linuxes, put the following line to /etc/rc.local script::
 Nightly restart
 ---------------
 
-Plone 3 leaks memory. It is best practice to restart the instance nightly.
+Plone 3 leaks memory. It is best practice to restart the instance nightly,
+or eventually you will run out of swap space.
+Before running out of swap space, everything will come to grinding halt.
 
-If you need high-availability instance, consider using ZEO clustering and
+If nightly restart is not an option and you need high-availability instance, 
+consider using ZEO clustering and
 restart instances one-by-one with certain intervals.
 
 Cron restart script
