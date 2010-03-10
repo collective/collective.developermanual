@@ -17,9 +17,9 @@ to access miscencancellous information useful for the
 current page render. The views are cached properly,
 so they should access the information quite effective manner
 
-IPortalState is mapped as *plone_portal_state* view for traversing.
+* IPortalState is mapped as *@@plone_portal_state* view for traversing.
 
-IContextState is mapped as *plone_context_state* view for traversing.
+* IContextState is mapped as *@@plone_context_state* view for traversing.
 
 To see what's available through the interface,
 read documentation in
@@ -86,6 +86,15 @@ viewlet templates::
     <div tal:define="portal_state context/@@plone_portal_state" >
         The language is <span tal:content="portal_state/language" />
     </div>
+    
+Using in templates and expressions
+==================================
+
+You can use IContextState and IPortalState in TALES expressions, like portal_actions too.
+
+Example portal_actions condition expression::
+
+        python:object.restrictedTraverse('@@plone_portal_state').language() == 'fi'    
 
 
 Tools

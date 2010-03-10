@@ -14,7 +14,46 @@ for viewlet visibility, portlets, dynamic text, etc.
 Plone has built-in support for TALES expression. They are internally used at least in
 Javascript and CSS machinery to pick the files, actions to determine whether the action is visible or not.
 
-Expression variables are defined in CMFCore/Expressions.py::
+       
+Expression types
+----------------
+        
+There are three main categories of expressions.
+
+Expression can contain optional protocol: prefix to determine the expression type.
+
+Default TALES expression
+========================
+
+Do ::doc::`traversing </serving/traversing>` using slashes.
+
+Example::
+
+        context/getTitle        
+
+string: expression
+==================
+
+Do string replace operation.
+
+Example::
+
+        string:${context/portal_url}/@@my_view_name
+
+python: expression
+==================
+
+Evaluate as Python code.
+
+Example::
+
+    python:object.myFunction() == False             
+        
+
+Expression variables
+------------------------------
+
+Available expression variables are defined in CMFCore/Expressions.py::
 
     data = {
         'object_url':   object_url,
@@ -29,35 +68,7 @@ Expression variables are defined in CMFCore/Expressions.py::
         'member':       member,
         'here':         object,
         }
-        
-Examples
---------
-
-Some sample expressions::
-
-    python:if object.getSomething() == True
-
-    string:object/Title
-
-    object/Title
-
-    object/getSomething
     
-Getting the current language
-============================
-
-We traverse to plone_portal_status view
-(documented at plone.app.layout.globals.interfaces.IPortalStatus interface)
-and call its language() method to get the current language.
-
-The language is returned as two letter language code.
-
-Example::
-    
-    object/@plone_portal_status/language
-    
-See chapter View helpers to get more information how to 
-use utility views in expressions. 
     
 Using expression in your own code
 ---------------------------------
@@ -128,3 +139,14 @@ You can use context interfaces like
 to make sure that this view is available on all content objects, as TALES will be evaluated
 on every page, regarding on what kind of content the page wil present.
 
+Expression examples
+-------------------
+
+Get current language
+====================
+
+Use ::doc::`IPortalState context helper </misc/context>`. 
+
+Example::
+
+        python:object.restrictedTraverse('@@plone_portal_state').language() == 'fi'    
