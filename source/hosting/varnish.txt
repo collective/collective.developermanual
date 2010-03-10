@@ -9,6 +9,12 @@ Introduction
 
 This page contains info for using Varnish caching proxy with Plone.
 
+Please read first
+
+* http://pypi.python.org/pypi/plone.recipe.varnish
+
+* http://varnish-cache.org/ 
+
 Varnish buildout restart snippet
 --------------------------------
 
@@ -22,3 +28,30 @@ Example::
         sudo killall varnishncsa
         sudo nohup parts/varnish-build/bin/varnishncsa > var/log/varnish.log &
 
+Management console
+------------------
+
+Management console must be enabled in Varnish buildout settings.
+
+Example::
+
+        ssh yourhost
+        telnet localhost 8088
+        
+.. note ::
+
+        Port number depends on your Varnish settings.        
+
+Quit console
+=============
+
+Quit command::
+
+   quit
+
+Purging the cache
+===============
+
+This will remove all entries from Varnish cache::
+
+   url.purge .*
