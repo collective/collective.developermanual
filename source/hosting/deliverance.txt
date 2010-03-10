@@ -37,10 +37,12 @@ Example::
 Buildout restart snippet
 --------------------------------
 
+For *rundeliverance.sh* see above.
+
 Example::
 
         #!/bin/sh
         # Restart script
         sudo -H -u yourdeliveranceuser kill `cat path/to/deliverance/var/deliverance.pid`
-        sudo -H -u yourdeliveranceuser nohup bash src/mfabrik.app/rundeliverance.sh &
+        sudo -H -u yourdeliveranceuser nohup bash rundeliverance.sh &
         
