@@ -1,0 +1,59 @@
+====================================
+ Apache web server tricks and tips
+====================================
+
+.. contents ::
+
+Introduction
+------------
+
+Here are useful information and snippets when hosting Plone behind Apache.
+
+www-redirects
+-------------
+
+If you wish to force people to use your site with or without www prefix you can use 
+the rules below. Note that setting this kind of rule is very useful from the search
+engine optimizatin point of view also.
+
+Example in <VirtualHost> section::
+
+  <VirtualHost 127.0.0.1:80>
+
+           ServerName site.com   
+           ServerAlias www.site.com
+        
+        
+          <IfModule mod_rewrite.c>
+               RewriteEngine On
+               RewriteCond %{HTTP_HOST} ^www.\site\.com [NC]
+               RewriteRule (.*) http://site.com$1 [L,R=302]
+        
+           </IfModule>
+
+Proxying other site under Plone URI space
+-----------------------------------------
+
+The following rule can be used to put a static web site to sit in the
+same URI space with Plone. Put these rules **before** VirtualHost ProxyPass.
+
+Examples::
+
+   ProxyPass /othersite/ http://www.some.other.domain.com/othersite/
+   ProxyPassReverse /othersite/ http://www.some.other.domain.com/othersite/
+   
+Redirecting certain URIs to old site
+-------------------------------------
+
+This is useful if you migrate to a Plone from some legacy technology 
+and you still need to have some part of the URI space to 
+point to the old server.
+
+* Create alternative domain name for the existing old site (e.g. www2)
+
+* Modify Apache configuration so that URLs still being used
+  are redirected to the old server with alternative name, Put in this rewrite:: 
+
+  <location /media>
+          RedirectMatch /media/(.*)$ http://www2.site.fi/media/$1
+  </location>
