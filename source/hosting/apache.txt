@@ -52,8 +52,10 @@ point to the old server.
 * Create alternative domain name for the existing old site (e.g. www2)
 
 * Modify Apache configuration so that URLs still being used
-  are redirected to the old server with alternative name, Put in this rewrite:: 
+  are redirected to the old server with alternative name, Put in this rewrite
+  
+::
 
-  <location /media>
-          RedirectMatch /media/(.*)$ http://www2.site.fi/media/$1
-  </location>
+          <location /media>
+                  RedirectMatch /media/(.*)$ http://www2.site.fi/media/$1
+          </location>

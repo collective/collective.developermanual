@@ -2,6 +2,37 @@
 Images in page templates
 =========================
 
+.. contents ::
+
+Introduction
+------------
+
+How to deal with images and page templates.
+
+Static image
+------------
+
+How to refer to images in your add-on product.
+
+Zope 3 resource directory
+=========================
+
+Right way to put in a static image is for Zope 3 resource directory ::
+
+        <img alt="" tal:attributes="src string:${context/portal_url}/++resource++your.product.images/logo.gif" />
+
+This will pull image from src/your.product/your/product/browser/images/logo.gif.        
+        
+Grok static media folder
+========================      
+
+Right way to put in a static image if your product is using five.grok framework::
+
+        <img alt="" tal:attributes="src string:${context/portal_url}/++resource++yourproduct/logo.gif" />
+
+This will pull image from src/your.product/your/product/static/logo.gif.
+        
+
 tag() method
 -------------
 
@@ -43,7 +74,7 @@ Will give out::
 	empty string alt="". Otherwise screen readers will read
 	the src attribute of the <img> aloud.
 
-In order to simplify the accessing of these image scales, use `archetypes.fieldtraverser http://pypi.python.org/pypi/archetypes.fieldtraverser`_.
+In order to simplify the accessing of these image scales, use `archetypes.fieldtraverser <http://pypi.python.org/pypi/archetypes.fieldtraverser>`_.
 This package allows you to traverse to the stored image scales while still using AnnotationStorage and is a lot simpler to get going (in the author's humble opinion :).
 
 Default scale names and sizes are defined in ImageField declaration for custom ImageFields.
