@@ -12,8 +12,6 @@ Quering is action to retrieve data from search indexes.
 Preface
 -------
 
-**Warning**: Usually if you pass in None as the match value it will match all objects instead of zero objects.
-
 Plone queries are performed using portal_catalog tool. Calling this class instance is a shortcut
 to query method itself, but it is also possible to use other query functions::
 
@@ -24,7 +22,12 @@ to query method itself, but it is also possible to use other query functions::
     # but brains instead
     # The call takes list of indices and match values as arguments
     brains = portal_catalog(Title="Get all objects with Title "Foobar")
+    
+    
+.. warning ::
 
+        Usually if you pass in None as the match value it will match all objects instead of zero objects.
+        
 Brain objects
 -------------
 
@@ -95,12 +98,17 @@ Following is useful in unit test debugging::
     # Print all objects visible to the currently logged in user
     for i in portal_catalog(): print i.getURL()
 
-** Security warning**: Respects priviledges of the current user
+.. note:
 
+        Security: This portal_catalog() query respects the permissions of the currently logged in user
+        
+               
 Bypassing query security check
 ------------------------------
 
-** Security warning**: All portal_catalog queries are limited to the current user permissions by default.
+.. note ::
+
+        Security: All portal_catalog queries are limited to the current user permissions by default.
 
 If you want to bypass this restrictions, use method unrestrictedSearchResults().
 
@@ -108,7 +116,39 @@ Example::
 
     # Print absolute content of portal_catalog
     for i in portal_catalog.unrestrictedSearchResults(): print i.getURL()
+    
+Bypassing language check
+------------------------
 
+.. note::
+
+        All portal_catalog() queries are limited to the selected language of
+        current user. You specially need to bypass language check if you
+        want to do multilingual queries.
+        
+Example how to bypass language check::
+    
+    all = portal_catalog(language="ALL")
+    
+    
+Expired content check
+--------------------------------
+
+Plone and portal_catalog has a mechanism to list only 
+active (non-expired) content by default.
+
+Below is an example how the expired content check is made::
+
+        mtool = context.portal_membership
+        show_inactive = mtool.checkPermission('Access inactive portal content', context)
+        
+        contents = context.portal_catalog.queryCatalog(show_inactive=show_inactive)
+              
+See also::
+
+* ::doc::<Listing /content/listing>
+
+              
 Querying by path
 ----------------
 
@@ -226,8 +266,13 @@ Another example how to get news items for a particular year in the template code
 Query by language
 -----------------
 
-portal_catalog({"Language":"en"}) etc. style queries are not available until
-Products.LinguaPlone is installed.
+You can query by language::
+
+        portal_catalog({"Language":"en"}) 
+        
+.. note ::
+
+        Products.LinguaPlone must be installed.
 
 Combining queries using Boolean operators
 -----------------------------------------
