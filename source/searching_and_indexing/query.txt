@@ -47,13 +47,19 @@ To see available index names, visit in portal_catalog index tab in ZMI.
 Getting the real object
 =======================
 
-This will trigger the database fetch for the object::
+portal_catalog() query returns indexed brain objects.
+If you want to get the actual object, from which the search data was indexed,
+use the following:: 
 
     # Load the actual object from the database (SLOW!)
     # and modify it
     object = brain.getObject()
     object.setSomething("foobar")
-    
+
+.. note::
+
+        This has performance implications. Waking up each object needs a separate query
+        to the database.      
     
 URL of item
 ===========
