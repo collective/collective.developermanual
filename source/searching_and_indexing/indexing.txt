@@ -133,7 +133,8 @@ E.g. If your content type has a field/method::
                 def getMyCustomValue(self):
                         return 111
                         
-You can add a custom index 
+You can add a new index which will *index* the value of this field, so you can
+make queries based on it later. 
 
 * Type: FieldIndex 
 
@@ -153,6 +154,10 @@ You can add a custom index
 
 The type of index you need depends on what kind queries you need to do on the data. E.g. 
 direct value matching, ranged date queries, free text search, etc. need different kind of indexes.
+
+Object reindexing is run when the object is edited. If you add a new
+index you need to run ::doc::`Rebuild catalog </searching_and_indexing/catalog>` 
+to get the existing values from content objects to new index.  
 
 Adding an index through Zope management interface
 ==================================================
