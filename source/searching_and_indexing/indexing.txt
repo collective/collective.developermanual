@@ -144,7 +144,11 @@ You can add a custom index
 .. note ::
 
         You can use Archetypes accessors methods directly. You do not need to add a new method
-        just to get it indexes, unless you want to use different method name.                         
+        just to get something indexed, unless you want to use different method name for any 
+        particular reason. If you want to create an index for content type you do not 
+        control yourself or if you want to do some custom logic in your indexer,
+        please see Custom index method below. 
+        
 
 
 The type of index you need depends on what kind queries you need to do on the data. E.g. 
@@ -179,11 +183,15 @@ It is more cumbersome, however.
 * http://maurits.vanrees.org/weblog/archive/2009/12/catalog
 
 Custom index methods
---------------------
-
-** Version warning:** Available since Plone 3.3.
+====================
 
 plone.indexer provides method to create custom indexing functions.
+These methods can be retrofitted to content types you do not directly control
+e.g. you do not need to mess with class code.  
+
+.. note ::
+
+        This method is available since Plone 3.3.
 
 .. code-block:: python
 
