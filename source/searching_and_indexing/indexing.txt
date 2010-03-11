@@ -27,13 +27,12 @@ portal_catalog does subset of object field as a copy and makes them searchable.
 
 Metadata can exist without index and vice versa.
 
-See also 
 
-* http://maurits.vanrees.org/weblog/archive/2009/12/catalog
+Viewing indexes and indexed data
+--------------------------------
 
-
-Viewing indexed data
---------------------
+Indexed data
+============
 
 You can do this through portal_catalog tool in ZMI.
 
@@ -41,85 +40,18 @@ You can do this through portal_catalog tool in ZMI.
 
 * Click *Catalog* tab
 
-* Click any object  
+* Click any object
 
-Index types
------------
+Indexes and metadata columns
+============================
 
-Zope 2 product PluginIndexes defines various portal_catalog index types used by Plone.
+Available indexes are stored in the database, not in Python code.
+To see what indexes your site has
 
-* FieldIndex stores values as is
+* Click portal_catalog in the portal root
 
-* DateIndex and DateRangeIndex store dates (Zope 2 DateTime objects) in searhable format. The latter
-  provides ranged searches.
+* Click *Indexes* and *Metadata* tabs
 
-* KeywordIndex allows keyword-style look-ups (query term is matched against the all values of a stored list)
-
-* ZCTextIndex is used for full text indexing
-
-* ExtendedPathIndex_ is used for indexing content object locations.
-
-Default Plone indexes and metadata columns
-------------------------------------------
-
-Some interesting indexes
-
-* start and end: Calendar event timestamps, used to make up calendar portlet
-
-* sortable_title: Title provided for sorting
-
-* portal_type: Content type as it appears in portal_types
-
-* Type: Translated, human readable, type of the content
-
-* path: Where the object is (getPhysicalPath accessor method).
-
-* object_provides: What interfaces and marker interfaces object has. KeywordIndex of 
-  interface full names. 
-
-Some interesting columns
-
-* getRemoteURL: Where to go when the object is clicked
-
-* getIcon: Which content type icon is used for this object in the navigation
-
-* exclude_from_nav: If True the object won't appear in sitemap, navigation tree
-
-Indexing an object
-------------------
-
-.. warning::
-
-    **Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
-    If you modify the object yourself you are responsible to notify related catalogs about the new object data.
-
-Indexing an object is done by calling reindexObject() method. reindexObject() method is defined
-in `ICatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/interfaces/_content.py?rev=91414&view=auto>`_ interface.
-
-Plone calls reindexObject() if
-
-* The object is modified by the user using the standard edit forms
-
-You must call reindexObject() if you
-
-* Directly call object field mutators
-
-* Otherwise directly change object data
-
-reindexObject() method takes optional argument *idxs* which will list the changed indexes.
-If idxs is not given, all related indexes are updated even though they were not changed.
-
-Example::
-
-    object.setTitle("Foobar")
-
-    # Object.reindexObject() method is called to reflect the changed data in portal_catalog.
-    # In our example, we change the title. The new title is not updated in the navigation,
-    # since the navigation tree and folder listing pulls object title from the catalog.
-
-    object.reindexObject(idxs=["Title"])
-
-Also, if you modify security related parameters (permissions), you need to call reindexObjectSecurity().
 
 Creating an index
 -----------------
@@ -218,6 +150,86 @@ e.g. you do not need to mess with class code.
             else:
                 filter = getUtility(IConvergenceMediaFilter)
                 return filter.getContentMedia(object)
+  
+
+Index types
+-----------
+
+Zope 2 product PluginIndexes defines various portal_catalog index types used by Plone.
+
+* FieldIndex stores values as is
+
+* DateIndex and DateRangeIndex store dates (Zope 2 DateTime objects) in searhable format. The latter
+  provides ranged searches.
+
+* KeywordIndex allows keyword-style look-ups (query term is matched against the all values of a stored list)
+
+* ZCTextIndex is used for full text indexing
+
+* ExtendedPathIndex_ is used for indexing content object locations.
+
+Default Plone indexes and metadata columns
+------------------------------------------
+
+Some interesting indexes
+
+* start and end: Calendar event timestamps, used to make up calendar portlet
+
+* sortable_title: Title provided for sorting
+
+* portal_type: Content type as it appears in portal_types
+
+* Type: Translated, human readable, type of the content
+
+* path: Where the object is (getPhysicalPath accessor method).
+
+* object_provides: What interfaces and marker interfaces object has. KeywordIndex of 
+  interface full names. 
+
+Some interesting columns
+
+* getRemoteURL: Where to go when the object is clicked
+
+* getIcon: Which content type icon is used for this object in the navigation
+
+* exclude_from_nav: If True the object won't appear in sitemap, navigation tree
+
+Indexing an object
+------------------
+
+.. warning::
+
+    **Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
+    If you modify the object yourself you are responsible to notify related catalogs about the new object data.
+
+Indexing an object is done by calling reindexObject() method. reindexObject() method is defined
+in `ICatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/interfaces/_content.py?rev=91414&view=auto>`_ interface.
+
+Plone calls reindexObject() if
+
+* The object is modified by the user using the standard edit forms
+
+You must call reindexObject() if you
+
+* Directly call object field mutators
+
+* Otherwise directly change object data
+
+reindexObject() method takes optional argument *idxs* which will list the changed indexes.
+If idxs is not given, all related indexes are updated even though they were not changed.
+
+Example::
+
+    object.setTitle("Foobar")
+
+    # Object.reindexObject() method is called to reflect the changed data in portal_catalog.
+    # In our example, we change the title. The new title is not updated in the navigation,
+    # since the navigation tree and folder listing pulls object title from the catalog.
+
+    object.reindexObject(idxs=["Title"])
+
+Also, if you modify security related parameters (permissions), you need to call reindexObjectSecurity().
+
 
 TextIndexNG3
 ------------
