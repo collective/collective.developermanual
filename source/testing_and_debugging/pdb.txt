@@ -1,6 +1,6 @@
-=======================
- Python debugger (pdb)
-=======================
+=====================
+ Python debugging
+=====================
 
 .. contents ::
 
@@ -8,8 +8,16 @@ Introduction
 ------------
 
 Python debugger (pdb) is interactive command-line debugger.
+
 It is very limited in functionality, but it will work in every environment
-and console.
+and console. Plone also has through-the-web-browser PBD debugging
+add-on products.
+
+See also
+
+* http://plone.org/documentation/kb/using-pdb
+
+* http://plone.org/documentation/kb/best-practices/debugging-plone
 
 Using pdb
 ----------
@@ -123,8 +131,23 @@ Dumping incoming HTTP GET or HTTP POST::
     print "Got request:"
     for i in self.request.form.items():
         print i
+        
+Automatically start debugger when exceptions in raised (browser)
+------------------------------------------------------------------
 
-Automatically start debugger when exception is raised
------------------------------------------------------
+You can start interactive through-the-browser Python debugger when your site 
+throws an exception.
+
+* http://plone.org/products/pdbdebugmode
+
+* http://pypi.python.org/pypi/Products.PDBDebugMode
+        
+
+Automatically start debugger when exception is raised (command line)
+---------------------------------------------------------------------
+
+.. note ::
+
+        This cannot be directly applied to a web server, but works with command line scripts. 
 
 * http://code.activestate.com/recipes/65287-automatically-start-the-debugger-on-an-exception/
