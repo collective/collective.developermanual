@@ -59,3 +59,137 @@ point to the old server.
           <location /media>
                   RedirectMatch /media/(.*)$ http://www2.site.fi/media/$1
           </location>
+          
+Virtual hosting Apache configuration generator
+----------------------------------------------
+
+* http://betabug.ch/zope/witch
+                    
+
+Complex Apache virtual host configuration
+------------------------------------------
+
+This config includes
+
+* HTTPS and SSL certificate set-up
+
+* Load balancing using ZEO front-ends and Apache load balancer module
+
+* Apache disk cache
+
+* Static resource caching w/HTTPS support
+
+* Server site https://production.yourorganization.org
+
+Example
+
+        <VirtualHost 123.123.123:443>
+        
+          ServerName  production.yourorganization.org
+          ServerAdmin rocks@mfabrik.com
+        
+          SSLEngine On
+          SSLCertificateFile /etc/apache2/ssl-keys/yourorganization.org.cer
+          SSLCertificateKeyFile /etc/apache2/ssl-keys/yourorganization.org.key
+          SSLCertificateChainFile /etc/apache2/ssl-keys/InstantValidationCertChain.crt
+        
+          LogFormat       combined
+          TransferLog     /var/log/apache2/production.yourorganization.org.log
+        
+          <IfModule mod_proxy.c>
+           ProxyVia On
+        
+           # prevent the webserver from being used as proxy
+           <LocationMatch "^[^/]">
+             Deny from all
+           </LocationMatch>
+          </IfModule>
+        
+          # Balance load between 4 ZEO front-ends
+          <Proxy balancer://lbyourorganization>
+            BalancerMember http://127.0.0.1:13001/
+            BalancerMember http://127.0.0.1:13002/
+            BalancerMember http://127.0.0.1:13003/
+            BalancerMember http://127.0.0.1:13004/
+          </Proxy>
+        
+          # Note: You might want to disable this URL of being public
+          # as it can be used to access Apache live settings
+          <Location /balancer-manager>
+            SetHandler balancer-manager
+            Order Deny,Allow
+            # Your trusted IP addresses
+            Allow from 123.123.123.123 
+          </Location>
+        
+          ProxyPass /balancer-manager !
+          ProxyPass             / balancer://lbyourorganization/http://localhost/VirtualHostBase/https/production.yourorganization.org:443/yourorganization_plone_site/VirtualHostRoot/
+          ProxyPassReverse      / balancer://lbyourorganization/http://localhost/VirtualHostBase/https/production.yourorganization.org:443/yourorganization_plone_site/VirtualHostRoot/
+        
+          # Disk cache configuration
+          CacheEnable disk /
+          CacheRoot "/var/cache/yourorganization-production"
+          CacheLastModifiedFactor 0.1
+          #CacheDefaultExpire 1
+          #CacheMaxExpire 7200
+          CacheDirLength 2
+          ExpiresActive On
+          ExpiresByType image/gif A3600
+          ExpiresByType image/png A3600
+          ExpiresByType image/jpeg A3600
+          ExpiresByType text/css A3600
+          ExpiresByType text/javascript A3600
+          ExpiresByType application/x-javascript A3600
+        
+          # Create cache headers for downstream caches and browsers
+          
+          # Set environment variable by guessing the content payload based on how URL ends  
+          SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" cache-it
+        
+          # Force caching of HTTPS resources on the browser end
+          # http://blog.pluron.com/2008/07/why-you-should.html
+          Header append Cache-Control public env=cache-it
+          Header append X-Cache-Tagged yes env=cache-it
+        
+          # Debug header flags all requests coming from this server
+          Header append X-YourOrganization-Production yes 
+        
+        </VirtualHost>
+
+
+Testing cache headers
+---------------------
+
+Use UNIX *wget* command. -S flag will display request headers.
+
+Remember to do different request for HTML, CSS, JS and image payloads - the cache rules might not be the same.
+
+HTTP example::
+
+        cd /tmp
+
+        wget --cache=off -S http://production.yourorganizationinternational.org/yourorganizationlogotemplate.gif        
+        
+        HTTP request sent, awaiting response... 
+          HTTP/1.1 200 OK
+          Date: Tue, 09 Mar 2010 12:33:26 GMT
+          Server: Apache/2.2.8 (Ubuntu) DAV/2 SVN/1.4.6 mod_python/3.3.1 Python/2.5.2 PHP/5.2.4-2ubuntu5.4 with Suhosin-Patch mod_ssl/2.2.8 OpenSSL/0.9.8g
+          Last-Modified: Wed, 25 Nov 2009 06:51:41 GMT
+          Content-Length: 4837
+          Via: 1.0 production.yourorganizationinternational.org
+          Cache-Control: max-age=3600, public
+          Expires: Tue, 09 Mar 2010 13:02:29 GMT
+          Age: 1857
+          Keep-Alive: timeout=15, max=100
+          Connection: Keep-Alive
+          Content-Type: image/gif
+        Length: 4837 (4.7K) [image/gif]
+        Saving to: `yourorganizationlogotemplate.gif.14'
+
+        
+
+HTTPS example::
+
+         cd /tmp
+         wget --cache=off --no-check-certificate -S https://production.yourorganizationinternational.org/
+                         
