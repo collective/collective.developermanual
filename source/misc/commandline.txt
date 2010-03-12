@@ -1,6 +1,11 @@
-============================
- Command-line scripting
-============================
+===========================================
+ Command-line interaction and scripting
+===========================================
+
+.. contents ::
+
+Introduction
+------------
 
 Zope provides facilities to run command-line scripts.
 or maintenance work, like migration script.
@@ -23,6 +28,16 @@ See also
 * `lovely.remotetask package <http://pypi.python.org/pypi/lovely.remotetask>`_ 
   for more fine-graned control and Zope-based cron jobs
   
+Starting interactive interpreter
+--------------------------------
+
+se *bin/instance debug* command. 
+
+Example::
+
+        bin/instance debug 
+
+  
 Running scripts
 ---------------
 
@@ -32,18 +47,42 @@ Example::
 
 	bin/instance run src/namespace.mypackage/namespace/mypackage/bin/script.py 
 	
-Script context
---------------
+Scripting context
+-----------------
 
-The script gets following context
+The command line interpreter and scripts gets following global context variables
 
-* *app* global variable which holds the root of Zope application server
-
+* *app* global variable which holds the root of Zope application server.
+ 
 * sys.argv contains command-line parameters after python script name
 
 	* argv[0] = script name
 	
 	* arvg[1] = first command line argument
+
+
+To access your site object, you can traverse down from app::
+
+        app.yoursiteid # This is your Plone site object 
+
+        # Perform some stuff here...
+        for brain in app.yoursiteid.portal_catalog(portal_type="Document"): print brain["Title"] 
+        
+Committing transactions
+-----------------------
+
+You need to manually commit transactions if you change ZODB data from the command line.
+
+Example how to commit::
+
+        # Commit transaction
+        import transaction; transaction.commit()
+        # Perform ZEO client synchronization (if runnning in clustered mode)
+        app._p_jar.sync()
+
+More info
+
+* http://www.enfoldsystems.com/software/server/docs/4.0/enfolddebuggingtools.html 
 	
 zopepy
 ------
