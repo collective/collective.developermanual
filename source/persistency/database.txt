@@ -2,6 +2,11 @@
 ZODB Database
 =============
 
+.. contents ::
+
+Introduction
+------------
+
 This chapter is about working with ZODB database directly,
 like tuning database settings.
 
@@ -11,6 +16,15 @@ ZODB 3.8.x is not officially supported, but has been reported to work.
 * `ZODB overview <http://docs.zope.org/zodb/articles/ZODB-overview.html>`_
 
 * `ZODB programming guide <http://docs.zope.org/zodb/zodbguide/index.html>`_
+
+* http://www.ibm.com/developerworks/aix/library/au-zodb/
+
+ZODB tips and tricks
+--------------------
+
+Please see
+
+* http://plone.org/events/regional/nola05/collateral/Chris%20McDonough-ZODB%20Tips%20and%20Tricks.pdf
 
 Packing the database offline
 -----------------------------
@@ -26,3 +40,9 @@ Example how to pack a copy of Data.fs in offline using Python snippet::
     storage=ZODB.FileStorage.FileStorage('/tmp/Data.fs.copy')
     storage.pack(time.time(),ZODB.serialize.referencesf)
 
+Visualizing database object graphs
+------------------------------------
+
+* http://blog.hannosch.eu/2009/05/visualizing-persistent-structure-of.html
+
+* http://david.wglick.org/2009/visualizing-the-zodb-with-graphviz/
