@@ -1,4 +1,8 @@
 from setuptools import setup, find_packages
+#
+# Note: This file does not really serve any purpose
+# it just keeps some tools happy
+# 
 import os
 
 version = '0.2'
