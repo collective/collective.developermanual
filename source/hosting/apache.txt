@@ -86,6 +86,14 @@ On Debian this is::
 
 Then you can add to your virtual host configuration::
 
+  # Disk cache configuration
+  CacheEnable disk /
+  CacheRoot "/var/cache/yourorganization-production"
+  CacheLastModifiedFactor 0.1
+  #CacheDefaultExpire 1
+  #CacheMaxExpire 7200
+  CacheDirLength 2
+
   ExpiresActive On
   ExpiresByType image/gif A3600
   ExpiresByType image/png A3600
@@ -94,7 +102,9 @@ Then you can add to your virtual host configuration::
   ExpiresByType text/javascript A3600
   ExpiresByType application/x-javascript A3600
 
-  # Create cache headers for downstream caches and browsers
+  # Create cache headers for downstream caches and browsers,
+  # needed to enforce HTTPS cache - 
+  # Expires rules above are enough for plain HTTP
   
   # Set environment variable by guessing the content payload based on how URL ends  
   SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" cache-it
@@ -102,6 +112,8 @@ Then you can add to your virtual host configuration::
   # Force caching of HTTPS resources on the browser end
   # http://blog.pluron.com/2008/07/why-you-should.html
   Header append Cache-Control public env=cache-it
+  
+  # This header is only for the debugging
   Header append X-Cache-Tagged yes env=cache-it
 
 .. warning::
