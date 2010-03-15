@@ -101,4 +101,15 @@ This hook is defined in __bobo_traverse__ in ATImage class
 * http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py               
 
         
-               
+Indexing
+--------
+
+Do not index images, as putting in image data to porta_catalog brain
+would grealy increase its site and make brain look-up slow.
+
+Instead, index only image paths using ::doc::`getPhysicalPath() </serving/traversing>`_.
+When you need to display image using metadata columns, you can generate the image 
+URL manually. Then, image object will be waken up when the browser makes
+a HTTP request for the image.
+
+

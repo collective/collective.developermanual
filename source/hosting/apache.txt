@@ -192,4 +192,49 @@ HTTPS example::
 
          cd /tmp
          wget --cache=off --no-check-certificate -S https://production.yourorganizationinternational.org/
-                         
+         
+         
+Unsetting language cookie for media content
+-------------------------------------------
+
+Media like content can confuse and break language selector on multilingual sites.
+
+By default, Plone sets I18N_LANGUAGE cookie on
+
+* All page requests
+
+* All ATImage requests
+
+Even if images are often language neutral, they still set I18N_LANGUAGE cookie 
+on HTTP response. This is problematic if image gets cached and the user 
+switches the language using the language selector. This happens when 
+you enforce caching using Apache level rules (instead of using Products.CacheSetup 
+or similar product). The user browsers received cached HTTP response image
+for the image and it contains Set-Cookie: I18N_LANGUAGE header for the wrong language
+-> browser language choice by cookie is reset.
+
+A workaround is to force language cookie off from media like content::
+
+  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" language-neural
+  SetEnvIfNoCase Request_URI "image_preview(/)$" language-neural
+  SetEnvIfNoCase Request_URI "image_large(/)$" language-neural
+  SetEnvIfNoCase Request_URI "image_thumb(/)$" language-neural
+  SetEnvIfNoCase Request_URI "image_mini(/)$" language-neural
+   
+  Header unset Set-Cookie env=language-neutral
+
+Flushing cache
+--------------
+
+Manually cleaning Apache disk cache::
+
+	sudo -i 
+	cd /var/cache/yoursite
+	rm -rf *
+	
+	
+	
+
+
+
+              
