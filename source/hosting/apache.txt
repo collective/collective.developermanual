@@ -64,7 +64,125 @@ Virtual hosting Apache configuration generator
 ----------------------------------------------
 
 * http://betabug.ch/zope/witch
-                    
+                   
+        
+Caching images
+----------------
+
+You can force caching of content types
+on apache
+
+First you need to enable Apache modules::
+
+* mod_headers
+
+* mod_cache, mod_diskcache
+
+* mod_expires
+
+On Debian this is::
+
+	sudo a2enmod
+
+Then you can add to your virtual host configuration::
+
+  ExpiresActive On
+  ExpiresByType image/gif A3600
+  ExpiresByType image/png A3600
+  ExpiresByType image/jpeg A3600
+  ExpiresByType text/css A3600
+  ExpiresByType text/javascript A3600
+  ExpiresByType application/x-javascript A3600
+
+  # Create cache headers for downstream caches and browsers
+  
+  # Set environment variable by guessing the content payload based on how URL ends  
+  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" cache-it
+
+  # Force caching of HTTPS resources on the browser end
+  # http://blog.pluron.com/2008/07/why-you-should.html
+  Header append Cache-Control public env=cache-it
+  Header append X-Cache-Tagged yes env=cache-it
+
+.. warning::
+
+	Since Apache caches the whole HTTP response, including
+	headers, see cookie implications below.
+
+Unsetting language cookie for media content
+=============================================
+
+Media like content can confuse and break language selector on multilingual sites.
+
+By default, Plone sets I18N_LANGUAGE cookie on
+
+* All page requests
+
+* All ATImage requests
+
+Even if images are often language neutral, they still set I18N_LANGUAGE cookie 
+on HTTP response. This is problematic if image gets cached and the user 
+switches the language using the language selector. This happens when 
+you enforce caching using Apache level rules (instead of using Products.CacheSetup 
+or similar product). The user browsers received cached HTTP response image
+for the image and it contains Set-Cookie: I18N_LANGUAGE header for the wrong language
+-> browser language choice by cookie is reset.
+
+A workaround is to force language cookie off from media like content::
+
+  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" language-neural
+  SetEnvIfNoCase Request_URI "image_preview(/)$" language-neural
+  SetEnvIfNoCase Request_URI "image_large(/)$" language-neural
+  SetEnvIfNoCase Request_URI "image_thumb(/)$" language-neural
+  SetEnvIfNoCase Request_URI "image_mini(/)$" language-neural
+   
+  Header unset Set-Cookie env=language-neutral
+
+
+Testing cache headers
+---------------------
+
+Use UNIX *wget* command. -S flag will display request headers.
+
+Remember to do different request for HTML, CSS, JS and image payloads - the cache rules might not be the same.
+
+HTTP example::
+
+        cd /tmp
+
+        wget --cache=off -S http://production.yourorganizationinternational.org/yourorganizationlogotemplate.gif        
+        
+        HTTP request sent, awaiting response... 
+          HTTP/1.1 200 OK
+          Date: Tue, 09 Mar 2010 12:33:26 GMT
+          Server: Apache/2.2.8 (Ubuntu) DAV/2 SVN/1.4.6 mod_python/3.3.1 Python/2.5.2 PHP/5.2.4-2ubuntu5.4 with Suhosin-Patch mod_ssl/2.2.8 OpenSSL/0.9.8g
+          Last-Modified: Wed, 25 Nov 2009 06:51:41 GMT
+          Content-Length: 4837
+          Via: 1.0 production.yourorganizationinternational.org
+          Cache-Control: max-age=3600, public
+          Expires: Tue, 09 Mar 2010 13:02:29 GMT
+          Age: 1857
+          Keep-Alive: timeout=15, max=100
+          Connection: Keep-Alive
+          Content-Type: image/gif
+        Length: 4837 (4.7K) [image/gif]
+        Saving to: `yourorganizationlogotemplate.gif.14'
+
+HTTPS example::
+
+         cd /tmp
+         wget --cache=off --no-check-certificate -S https://production.yourorganizationinternational.org/
+
+
+Flushing cache
+--------------
+
+Manually cleaning Apache disk cache::
+
+	sudo -i 
+	cd /var/cache/yoursite
+	rm -rf *
+	
 
 Complex Apache virtual host configuration
 ------------------------------------------
@@ -155,84 +273,6 @@ Example::
           Header append X-YourOrganization-Production yes 
         
         </VirtualHost>
-
-
-Testing cache headers
----------------------
-
-Use UNIX *wget* command. -S flag will display request headers.
-
-Remember to do different request for HTML, CSS, JS and image payloads - the cache rules might not be the same.
-
-HTTP example::
-
-        cd /tmp
-
-        wget --cache=off -S http://production.yourorganizationinternational.org/yourorganizationlogotemplate.gif        
-        
-        HTTP request sent, awaiting response... 
-          HTTP/1.1 200 OK
-          Date: Tue, 09 Mar 2010 12:33:26 GMT
-          Server: Apache/2.2.8 (Ubuntu) DAV/2 SVN/1.4.6 mod_python/3.3.1 Python/2.5.2 PHP/5.2.4-2ubuntu5.4 with Suhosin-Patch mod_ssl/2.2.8 OpenSSL/0.9.8g
-          Last-Modified: Wed, 25 Nov 2009 06:51:41 GMT
-          Content-Length: 4837
-          Via: 1.0 production.yourorganizationinternational.org
-          Cache-Control: max-age=3600, public
-          Expires: Tue, 09 Mar 2010 13:02:29 GMT
-          Age: 1857
-          Keep-Alive: timeout=15, max=100
-          Connection: Keep-Alive
-          Content-Type: image/gif
-        Length: 4837 (4.7K) [image/gif]
-        Saving to: `yourorganizationlogotemplate.gif.14'
-
-        
-
-HTTPS example::
-
-         cd /tmp
-         wget --cache=off --no-check-certificate -S https://production.yourorganizationinternational.org/
-         
-         
-Unsetting language cookie for media content
--------------------------------------------
-
-Media like content can confuse and break language selector on multilingual sites.
-
-By default, Plone sets I18N_LANGUAGE cookie on
-
-* All page requests
-
-* All ATImage requests
-
-Even if images are often language neutral, they still set I18N_LANGUAGE cookie 
-on HTTP response. This is problematic if image gets cached and the user 
-switches the language using the language selector. This happens when 
-you enforce caching using Apache level rules (instead of using Products.CacheSetup 
-or similar product). The user browsers received cached HTTP response image
-for the image and it contains Set-Cookie: I18N_LANGUAGE header for the wrong language
--> browser language choice by cookie is reset.
-
-A workaround is to force language cookie off from media like content::
-
-  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" language-neural
-  SetEnvIfNoCase Request_URI "image_preview(/)$" language-neural
-  SetEnvIfNoCase Request_URI "image_large(/)$" language-neural
-  SetEnvIfNoCase Request_URI "image_thumb(/)$" language-neural
-  SetEnvIfNoCase Request_URI "image_mini(/)$" language-neural
-   
-  Header unset Set-Cookie env=language-neutral
-
-Flushing cache
---------------
-
-Manually cleaning Apache disk cache::
-
-	sudo -i 
-	cd /var/cache/yoursite
-	rm -rf *
-	
-	
 	
 
 
