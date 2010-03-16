@@ -201,6 +201,10 @@ Corresponding query code::
     # Throws exception if not found
     picker = getMultiAdapter((header, doc, self.portal.REQUEST), IHeaderAnimationPicker)
 
+.. note ::
+
+        You cannot get adapters on module body level code 
+        during import, as Zope Component Architecture is not yet initialized.
 
 Listing adapter registers
 -------------------------

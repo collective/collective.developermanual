@@ -2,6 +2,11 @@
 Utilities
 ================
 
+.. content ::
+
+Introduction
+------------
+
 Utility classes provide site-wide utility functions. They are registered by marker interfaces.
 Site customization logic or add-on products can override utility for enhanced functionality.
 
@@ -51,6 +56,11 @@ Example::
     # context and request are passed to the utility class constructor
     # they are optional and depend on the utility itself
     picker = getUtility(IHeaderAnimationPicker, context, request)
+
+.. note ::
+
+        You cannot use getUtility() on module body level code 
+        during import, as Zope Component Architecture is not yet initialized.
 
 Getting all named utilities of one interface
 --------------------------------------------
