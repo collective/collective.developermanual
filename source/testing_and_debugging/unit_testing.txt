@@ -35,12 +35,6 @@ For
     Test runner does not give an error if you supply invalid package and test case name.
     Instead it just simply doesn't execute tests.
 
-Creating tests
---------------
-
-* http://pypi.python.org/pypi/Products.PloneTestCase
-
-
 AttributeError: 'module' object has no attribute 'test_suite'
 =============================================================
 
@@ -53,6 +47,22 @@ If you get the above error message there are potential reasons
   Instead, all classes subclasses TestCase are automatically picked.
   However, this change is backwards incompatible.
   http://wiki.zope.org/zope2/HowToRunZopeUnitTests 
+
+Test coverage
+-------------
+
+Zope test running can show how much your code is covered by automatic tests.
+
+* http://plone.org/documentation/kb/testing/code-coverage
+
+Creating unit tests
+--------------------
+
+Pointers
+
+* http://plone.org/documentation/kb/testing
+
+* http://pypi.python.org/pypi/Products.PloneTestCase
 
 Unit tests and skin data
 ------------------------
@@ -80,6 +90,9 @@ Complex example::
 
     ptc.setupPloneSite(products=['harvinaiset.app', 'TickingMachine'], extension_profiles=["harvinaiset.app:tests","harvinaiset.app:default"])
 
+Tested package not found warning
+=================================
+
 Installers may fail without interrupting the test run. Monitor Zope start up messages. If you get error like::
 
     Installing gomobiletheme.basic ... NOT FOUND
@@ -87,6 +100,8 @@ Installers may fail without interrupting the test run. Monitor Zope start up mes
 You might be missing this from your configure.zcml::
 
   <five:registerPackage package="." initialize=".initialize" />
+  
+... or you have spelling error in your test setup code.
 
 Setting log level in unit tests
 -------------------------------
@@ -184,6 +199,8 @@ Example::
 Unit testing and Zope component architecture
 --------------------------------------------
 
+If you are dealing with low level Zope component architecture in your unit tests,
+there are some things to note.
 Global site manager doesn't behave properly in the unit tests.
 
 See discussion: http://n2.nabble.com/PTC-global-components-bug--tp3413057p3413057.html
