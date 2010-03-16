@@ -4,6 +4,27 @@
 
 .. contents ::
 
+Introduction
+-------------
+
+Transactions usually are problematic only when many 
+ZEO front-end clients are used.
+When the site gets more load, ConflictErrors
+start to occur. Zope tries to solve the situation
+by replaying HTTP requests for CoflictErrors and has a default threshold (3)
+how many times the request is replayed.
+
+Badly designed code will increase the opportunity window for ConflictErrors.
+
+How to debug which object causes ConflictErrors
+-------------------------------------------------
+
+OID is visible in the ConflictError traceback.
+ 
+You can turn OID back to Python object, as mentioned by A. Jung::
+        
+        app._p_jar[p64(oid)] 
+
 Every transaction is write transaction
 ---------------------------------------
 
