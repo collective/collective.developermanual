@@ -621,3 +621,25 @@ Traceback example::
 TODO: Not really sure why this happens.
 
 Try portal_catalog rebuild as a fix.        
+
+Exception: Type name not specified in createObject
+------------------------------------------------------
+
+Example traceback::
+
+        Module ZPublisher.Publish, line 119, in publish
+        Module ZPublisher.mapply, line 88, in mapply
+        Module ZPublisher.Publish, line 42, in call_object
+        Module Products.CMFFormController.FSControllerPythonScript, line 104, in __call__
+        Module Products.CMFFormController.Script, line 145, in __call__
+        Module Products.CMFCore.FSPythonScript, line 140, in __call__
+        Module Shared.DC.Scripts.Bindings, line 313, in __call__
+        Module Shared.DC.Scripts.Bindings, line 350, in _bindAndExec
+        Module Products.CMFCore.FSPythonScript, line 196, in _exec
+        Module None, line 11, in createObject
+        <FSControllerPythonScript at /xxx/createObject used for /xxx/sisalto/lomapalvelut>
+        Line 11
+        Exception: Type name not specified
+        
+This is TODO
+
