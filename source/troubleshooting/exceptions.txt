@@ -585,3 +585,39 @@ How to solve problem
 
 * Delete /parts and /eggs buildout folders, run bootstrap, run buildout.
 
+BadRequest: The id "xxx" is invalid - it is already in use.
+------------------------------------------------------------------
+
+Traceback example::
+
+        ...
+        Module Products.CMFFormController.Script, line 145, in __call__
+        Module Products.CMFCore.FSPythonScript, line 140, in __call__
+        Module Shared.DC.Scripts.Bindings, line 313, in __call__
+        Module Shared.DC.Scripts.Bindings, line 350, in _bindAndExec
+        Module Products.CMFCore.FSPythonScript, line 196, in _exec
+        Module None, line 1, in content_edit
+        <FSControllerPythonScript at /xxx/content_edit used for /xxx/sisalto/lomapalvelut/portal_factory/HolidayService/aktiviteetit>
+        Line 1
+        Module Products.CMFCore.FSPythonScript, line 140, in __call__
+        Module Shared.DC.Scripts.Bindings, line 313, in __call__
+        Module Shared.DC.Scripts.Bindings, line 350, in _bindAndExec
+        Module Products.CMFCore.FSPythonScript, line 196, in _exec
+        Module None, line 9, in content_edit_impl
+        <FSPythonScript at /xxx/content_edit_impl used for /xxx/sisalto/lomapalvelut/portal_factory/HolidayService/aktiviteetit>
+        Line 9
+        Module Products.CMFPlone.FactoryTool, line 264, in doCreate
+        Module Products.ATContentTypes.lib.constraintypes, line 281, in invokeFactory
+        Module Products.CMFCore.PortalFolder, line 315, in invokeFactory
+        Module Products.CMFCore.TypesTool, line 716, in constructContent
+        Module Products.CMFCore.TypesTool, line 276, in constructInstance
+        Module Products.CMFCore.TypesTool, line 450, in _constructInstance
+        Module xxx.app.content.holidayservice, line 7, in addHolidayService
+        Module OFS.ObjectManager, line 315, in _setObject
+        Module Products.CMFCore.PortalFolder, line 333, in _checkId
+        Module OFS.ObjectManager, line 102, in checkValidId
+        BadRequest: The id "holidayservice.2010-03-18.4474765045" is invalid - it is already in use.
+        
+TODO: Not really sure why this happens.
+
+Try portal_catalog rebuild as a fix.        
