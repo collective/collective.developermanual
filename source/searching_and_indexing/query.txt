@@ -228,6 +228,23 @@ The following view snippet allows you to get one random item on the site::
             return self.context            
     
    
+Querying FieldIndexes by Range
+----------------------------------
+The following examples demonstrate how to do range based queries.
+This is useful if you want to find the "minimum" or "maximum" values
+of something, the example assumes that there is an index called 'getPrice'.
+
+Get a value that is greater than or equal to 2::
+
+   items = portal_catalog({'getPrice':{'query':2,'range':'min'}})
+
+Get a value that is less than or equal to 40::
+
+   items = portal_catalog({'getPrice':{'query':40,'range':'max'}})
+
+Get a value that falls between 2 and 1000::
+
+   items = portal_catalog({'getPrice':{'query':[2,1000],'range':'min'}})
 
 Querying by date
 ----------------
