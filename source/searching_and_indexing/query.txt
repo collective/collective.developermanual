@@ -31,7 +31,17 @@ if you do not have Plone site object directly availble::
     context = aq_inner(self.context)
     tools = getMultiAdapter((context, self.request), name=u'plone_tools')
 
-    portal_url = tools.url()
+    portal_url = tools.catalog()
+    
+There is also a third way, using traversing. This is discouraged,
+as this includes extra processing overhead::
+
+    # Use magical Zope acquisition mechanism 
+    portal_catalog = context.portal_catalog
+    
+...and the same in TAL template::
+
+    <div tal:define="portal_catalog context/portal_catalog" />
  
 Querying portal_catalog
 =======================
