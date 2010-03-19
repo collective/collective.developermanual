@@ -12,37 +12,80 @@ Quering is action to retrieve data from search indexes.
 Preface
 -------
 
-Plone queries are performed using portal_catalog tool. Calling this class instance is a shortcut
-to query method itself, but it is also possible to use other query functions::
+Plone uses portal_catalog persistent instance to perform most of content related
+queries. Special catalogs, like reference_catalog, exists, for specialized queries.
+
+Accesing portal catalog
+========================
+
+Plone queries are performed using portal_catalog tool which is available at the site root.
+
+Example::
 
     # portal_catalog is defined in the site root
     portal_catalog = site.portal_catalog
+        
+You can also use ::doc::`ITools </misc/context>` tool to get access to portal_catalog
+if you do not have Plone site object directly availble::
+
+    context = aq_inner(self.context)
+    tools = getMultiAdapter((context, self.request), name=u'plone_tools')
+
+    portal_url = tools.url()
+ 
+Querying portal_catalog
+=======================
+
+Calling this persistent objectis a shortcut
+to query method itself, as it provides __call__() method.
+Each call argument is name of the index and argument value is what the index should contain:: 
 
     # The following call does not return the actual objects,
     # but brains instead
     # The call takes list of indices and match values as arguments
-    brains = portal_catalog(Title="Get all objects with Title "Foobar")
-    
-    
-.. warning ::
+    brains = portal_catalog(creator="Get all objects with Title "Foobar")
+    for brain in brains:
+        print "Name:" + brain["Title"] + " URL:" + brain.getURL()
 
-        Usually if you pass in None as the match value it will match all objects instead of zero objects.
-        
+Note that values can be special depending, on the queried index. 
+Here is a path query::
+
+    # return myfolder and first level of child content
+    brains = portal_catalog(path={ "query": "/myploneinstance/myfolder", depth : 2}) 
+
+If you call portal_catalog() without arguments it will return all indexed content objects::
+
+        # Print all content on the site
+        all_brains = portal_catalog()
+        for brain in all_brains:
+                print "Name:" + brain["Title"] + " URL:" + brain.getURL()
+
+Limiting query (batching)
+==========================
+
+You can use Python slice operator.
+
+Example: getting 10 latest modified content items on the site::
+
+    brains = portal_catalog(sort_on="modified", sort_order="reverse")[0:10]
+    for brain in brains:
+        print brain["Title"] + " " + brain["ModificationDate"]
+         
 Brain objects
 -------------
 
 portal_catalog queries return iterable of catalog brain objects.
 
 Brains contain subset of the actual content object information. Available subset is defined
-by metadata columns in portal_catalog.
+by metadata columns in portal_catalog. You can see available metadata
+columns on portal_catalog "Metadata" in ZMI. For more information, see ::doc::`indexing </searching_and_indexing/indexing>`.
 
 You can access the brain object information by index name using Python dictionary look-up::
 
-    # Return arbitary metadata field by metadata field name
+    # Get the indexed Title of an portal_catalog entry i.e. brain
     title = brain["Title"]
     
-    
-To see available index names, visit in portal_catalog index tab in ZMI.
+   
 
 Getting the real object
 =======================
@@ -58,8 +101,25 @@ use the following::
 
 .. note::
 
-        This has performance implications. Waking up each object needs a separate query
+        Calling getObject() has performance implications. Waking up each object needs a separate query
         to the database.      
+        
+getObject() and unrestrictedSearchResults()
+++++++++++++++++++++++++++++++++++++++++++++
+
+You cannot call getObject() for restricted result, even in trusted code.
+
+Instead you need to use::
+
+        unrestrictedTraverse(brain.getPath())
+
+.. note:
+
+        TODO: HOW to call unrestrictedTraverse
+
+For more information, see
+
+* http://www.mail-archive.com/zope-dev@zope.org/msg17514.html
     
 URL of item
 ===========
@@ -153,6 +213,18 @@ Below is an example how the expired content check is made::
 See also::
 
 * ::doc::<Listing /content/listing>
+
+
+None as query parameter
+------------------------
+
+.. warning ::
+
+        Usually if you pass in None as the query value, it will match all the objects instead of zero objects.
+        
+.. note ::
+        
+        TODO: How to query None values?
 
               
 Querying by path
