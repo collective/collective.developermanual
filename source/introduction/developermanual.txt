@@ -37,7 +37,8 @@ or::
                 
 Run buildout to install Sphinx and funnelweb::
 
-        python bootstrap.py
+        # Note: You must use Python 2.4 here
+        python2.4 bootstrap.py
         bin/buildout
         
 This will always result to error, but bin/ folder is populated with required scripts.
@@ -52,15 +53,23 @@ Run buildout again::
 Building static HTML with Sphinx
 ---------------------------------
 
-This creates *build* folder from *source* folder by compiling all collective.developermanual pages::
+This creates *docs/html* folder from *source* folder by compiling all collective.developermanual pages,
+using sphinx-build command from buildout::
 
-         bin/sphinx-build source build
+        cd docs
+        make html 
 
 Uploading documentation to a site
 ---------------------------------
 
 Funnelweb is a tool which read HTML, transforms it and uploads it to another site.
 
+Example how to upload to a local Plone instance::
+
+        bin/toplone http://localhost:5011/foobar/knowledge-base/test/
+        
+First Funnelweb fill crawl through generated *docs/html* Sphinx documentation
+(this takes up to 30 seconds).
 
         
 Setting up Plone for upload
