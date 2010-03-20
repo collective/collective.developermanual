@@ -2,24 +2,35 @@
  Securing your code
 =====================
 
-Old style vs. new style
------------------------
+.. contents ::
+
+Introduction
+---------------
+
+How to define which permissions are needed to execute your view, code, etc.
+
+New style vs. old style
+-------------------------
+
+This is for those who are familiar with Plone 2, but not yet with Plone 3.
+
+Use Zope 3 techniques:
+
+* Expose data through View and BrowserView instances
+
+* Put security declarations in grok Views http://grok.zope.org/doc/current/reference/directives.html#security-directives
+
+* Put Security declarations in ZCML file
 
 Try to avoid old style (Zope 2) techniques in new code:
 
-* ClassSecurityInfo_
+* ClassSecurityInfo
 
-* ModuleSecurityInfo_
+* ModuleSecurityInfo
 
 * security.declareProtected() / security.declarePublic() declarations
 
 * Script (Python) snippets
-
-Instead, use Zope 3 techniques:
-
-* Expose data through View and BrowserView instances
-
-* Put Security declarations in ZCML file
 
 
 Declaring view security
