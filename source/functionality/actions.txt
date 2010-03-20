@@ -7,7 +7,6 @@
 Introduction
 ------------
 
-
 Plone has concept of actions which refer the end user functionality associated with site
 or content objects:
 
@@ -25,6 +24,80 @@ Actions are managed by
 
 * portal_types for view, edit etc. actions and object default action... all actions
   which are tied to a particular content type and may vary by type 
+
+Creating actions through-the-web
+---------------------------------
+
+Visit portal_actions in ZMI.
+
+Exporting and importing all portal_actions
+=============================================
+
+You can transfer action configuration from a Plone site to another using GenericSetup export/import XML.
+You can also do this to generate XML from which you can cut out snippets for creating 
+actions.xml by hand.
+
+* Go to portal_setup
+
+* Choose Export
+
+* Choose actions
+
+* Choose "Export selected steps" button at the end of the page
+
+* ...and so on
+
+Creating actions.xml by hand
+--------------------------------------------------
+
+Usually all actions are rewritten by site policy product using portal_actions import/export.
+Actions are in GenericSetup profile file *default/profiles/actions.xml*.
+
+#. actions.xml is exported from the development instance using portal_setup
+
+#. actions.xml is made part of the site policy product
+
+Alternatively, if you are developing add-on product, you can add actions one-by-one by
+manually creating entries in actions.xml.
+
+Example:
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object name="portal_actions" meta_type="Plone Actions Tool"
+       xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+     <object name="document_actions" meta_type="CMF Action Category">
+      <property name="title"></property>
+      <object name="sendto" meta_type="CMF Action" i18n:domain="plone">
+       <property name="title" i18n:translate="">Send this</property>
+       <property name="description" i18n:translate=""></property>
+       <property name="url_expr">string:$object_url/sendto_form</property>
+       <property name="icon_expr"></property>
+       <property name="available_expr">object/@@shareable</property>
+       <property name="permissions">
+        <element value="Allow sendto"/>
+       </property>
+       <property name="visible">True</property>
+      </object>
+    </object>
+    
+Reordering actions in actions.xml
+==================================
+
+Try using these attributes
+
+* insert-after
+
+* insert-before
+
+They accept * and action name parameters.
+
+Example::
+
+  <object name="sendto" meta_type="CMF Action" i18n:domain="plone" insert-before="*">
+
+
 
 Action URLs
 -----------
@@ -57,11 +130,9 @@ Default action can be dynamic - meaning that
 site editor may set it from Display menu. For more information see
 Dynamic Views.
 
-Action export/import
---------------------
 
-Type actions
-============
+Content-type specific actions
+-------------------------------
 
 Content-type specific actions can be registered in portal_types.
 Actions are viewable and editable in Zope Management Interface under portal_types.
@@ -115,57 +186,6 @@ The corresponding BrowserView is registered as any other view in *browse/configu
       allowed_attributes="renderData"
       permission="zope2.View"
       />
-
-
-Creating actions.xml for add-on products by hand
-==================================================
-
-Usually all actions are rewritten by site policy product using portal_actions import/export.
-Actions are in GenericSetup profile file *default/profiles/actions.xml*.
-
-#. actions.xml is exported from the development instance using portal_setup
-
-#. actions.xml is made part of the site policy product
-
-Alternatively, if you are developing add-on product, you can add actions one-by-one by
-manually creating entries in actions.xml.
-
-Example:
-
-.. code-block:: xml
-
-    <?xml version="1.0"?>
-    <object name="portal_actions" meta_type="Plone Actions Tool"
-       xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-     <object name="document_actions" meta_type="CMF Action Category">
-      <property name="title"></property>
-      <object name="sendto" meta_type="CMF Action" i18n:domain="plone">
-       <property name="title" i18n:translate="">Send this</property>
-       <property name="description" i18n:translate=""></property>
-       <property name="url_expr">string:$object_url/sendto_form</property>
-       <property name="icon_expr"></property>
-       <property name="available_expr">object/@@shareable</property>
-       <property name="permissions">
-        <element value="Allow sendto"/>
-       </property>
-       <property name="visible">True</property>
-      </object>
-    </object>
-    
-Reordering actions in actions.xml
-==================================
-
-Try using these attributes
-
-* insert-after
-
-* insert-before
-
-They accept * and action name parameters.
-
-Example::
-
-  <object name="sendto" meta_type="CMF Action" i18n:domain="plone" insert-before="*">
 
 Toggling action visibility programmatically
 --------------------------------------------
