@@ -117,8 +117,8 @@ The corresponding BrowserView is registered as any other view in *browse/configu
       />
 
 
-Non-type actions
-=================
+Creating actions.xml for add-on products by hand
+==================================================
 
 Usually all actions are rewritten by site policy product using portal_actions import/export.
 Actions are in GenericSetup profile file *default/profiles/actions.xml*.
@@ -151,6 +151,21 @@ Example:
        <property name="visible">True</property>
       </object>
     </object>
+    
+Reordering actions in actions.xml
+==================================
+
+Try using these attributes
+
+* insert-after
+
+* insert-before
+
+They accept * and action name parameters.
+
+Example::
+
+  <object name="sendto" meta_type="CMF Action" i18n:domain="plone" insert-before="*">
 
 Toggling action visibility programmatically
 --------------------------------------------
