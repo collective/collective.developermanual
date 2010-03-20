@@ -1,6 +1,4 @@
-# Create folder "build"
+Please read source/introduction/developermanual.txt
 
-# Run document builder::
 
-    sphinx-build source build
 
