@@ -13,19 +13,70 @@ This concerns only those who
 
 * Wish to upload a revised version of this documentation to plone.org
 
-Install Sphinx
----------------
-
-It's documentation tool. Sphinx is a tool that makes it easy to create intelligent and beautiful documentation, written by Georg Brandl and licensed under the BSD license.
+The documentation is in Sphinx format.
+Sphinx is a tool that makes it easy to create intelligent and beautiful documentation, written by Georg Brandl and licensed under the BSD license.
 
 * http://sphinx.pocoo.org/
+
+Setting up software
+-------------------
+
+First you need to install Git for your operating system::
+
+        sudo apt-get install git-core
+        
+or::
+
+        sudo port install git-code
+
+.. note:::
+
+        You must not have Sphinx installed in your Python environment (easy_install).
+        Remove it, as it will clash with the version created by buildout.
+        Use virtualenv if you need to have Sphinx around for other projects.
+                
+Run buildout to install Sphinx and funnelweb::
+
+        python bootstrap.py
+        bin/buildout
+        
+This will always result to error, but bin/ folder is populated with required scripts.
+Now you need to checkout all the source code using Mr. Developer tool::
+
+        bin/develop co ""
+
+Run buildout again::
+
+        bin/buildout
 
 Building static HTML with Sphinx
 ---------------------------------
 
 This creates *build* folder from *source* folder by compiling all collective.developermanual pages::
 
-        sphinx-build source build
+         bin/sphinx-build source build
+
+Uploading documentation to a site
+---------------------------------
+
+Funnelweb is a tool which read HTML, transforms it and uploads it to another site.
+
+
+        
+Setting up Plone for upload
+----------------------------
+
+The documentation can be uploaded to
+
+* Plone site
+
+* `Plone Help Center add-on <http://plone.org/products/plonehelpcenter>`_ installed
+
+* Sphinx CSS installed
+
+
+ 
+        
 
 
          
