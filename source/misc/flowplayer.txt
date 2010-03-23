@@ -1,0 +1,92 @@
+========================
+ Flowplayer
+=========================
+
+.. contents ::
+
+Introduction
+------------
+
+Flowplayer is GPL'ed Flash based video player.
+
+Plone integration exists as an add-on product:
+
+* http://plone.org/products/collective-flowplayer
+
+Creating a custom Flowplayer
+------------------------------
+
+Create a HTML snippet in your view which gets the video URL from the context content item::
+
+                <tal:has-image condition="view/showVideo">
+
+                       <!-- href is reference to FLV file -->
+                       <a class="campaign-flow-player" tal:attributes="href campaign/getCampaignVideo" />                                                                                               
+
+                       <!-- Note: if you put splash screen for flowplayer it does not autostart -->
+                       <!-- <img class="splash-screen" tal:attributes="src string:${campaign/absolute_url}/campaignVideoThumbnail" alt="Campaign video" /> -->
+                       
+                       <!-- Helper which is used to determine location of various files -->                       
+                       <span class="flowplayer-site-url" style="display:none" tal:content="context/portal_url" />                      
+                </tal:has-image>
+                
+Create a onready Javascript::
+
+        /**
+         * Bootstrap flow player.
+         * 
+         * Call this when DOM is ready ( jq(document).ready() ).
+         */
+        function playCampaignVideo() {
+                
+            // Site base URL must be available in some hidden variable 
+            // so that we can build references to our media resources
+            var urlBase = jq(".flowplayer-site-url").text();
+            
+            // Iterate through all links which are tagged as video on the page 
+            // Use a special marker class for videos which we want to configure ourselves
+            jq('a.campaign-flow-player').each(function() {
+                
+                var self = jq(this);
+                
+                
+                // Config help
+                // http://flowplayer.org/documentation/configuration/index.html
+                // http://flowplayer.org/documentation/configuration/clips.html#properties
+                // Styling properties http://flowplayer.org/documentation/configuration/plugins.html
+                var config = {
+                                "clip": {
+                                        "scaling": "orignal",
+                                        "autoBuffering": true,
+                                        "autoPlay": false,
+                                },
+                                "plugins": {
+                                        // Note that + must be escaped as %2B
+                                        "audio": {
+                                                "url": urlBase + "/%2B%2Bresource%2B%2Bcollective.flowplayer/flowplayer.audio.swf"
+                                        },                              
+                                        // Disable control plug-in
+                                        // On mouse over Play button still appears
+                                        "controls" : null
+                                        
+                                }
+                        }
+                
+                config.clip.url = self.attr('href');
+        
+                // Create Flowplayer by calling its own JS API
+                var player = flowplayer(this, 
+                       {"src": urlBase + "/++resource++collective.flowplayer/flowplayer.swf"}, 
+                       config
+                       );
+            });
+        }
+
+
+                
+.. note ::
+
+        if your player is not displayed on the page load, but is displayed after you
+         click somewhere to the player container area, be sure there is no HTML code nor 
+         text inside the player container HTML tag. Such code/text is considered as 
+         player splash screen and player is waiting for click to the splash.
