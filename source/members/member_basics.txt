@@ -42,9 +42,17 @@ or in template::
 
 Getting any member
 ------------------
+*These examples could have used getToolByName(self.context, 'acl_users')*
 
+To get a member by username (you must have 'manager' role)::
+    
+    member = self.context.acl_users.getUserById(username)
+    
+To get all usernames::
+    
+    memberIds = self.context.acl_users.getUserIds()
+    
 
-* 
 
 Groups
 ------
