@@ -643,3 +643,45 @@ Example traceback::
         
 This is TODO
 
+Unauthorized: The object is marked as private 
+----------------------------------------------
+
+This error is raised when you try to access view functions or objects
+for a view, which you call manually from the code.
+
+Example traceback::
+
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/tales/expressions.py", line 124, in _eval
+            ob = self._traverser(ob, element, econtext)
+          File "/home/moo/twinapex/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 105, in trustedBoboAwareZopeTraverse
+            request=request)
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/traversing/adapters.py", line 164, in traversePathElement
+            return traversable.traverse(nm, further_path)
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/traversing/adapters.py", line 44, in traverse
+            attr = getattr(subject, name, _marker)
+          File "/home/moo/twinapex/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 184, in __getattr__
+            return guarded_getattr(self._wrapped, name, default)
+          File "/home/moo/twinapex/parts/zope2/lib/python/AccessControl/ImplPython.py", line 563, in validate
+            self._context)
+          File "/home/moo/twinapex/parts/zope2/lib/python/AccessControl/ImplPython.py", line 443, in validate
+            accessed, container, name, value, context)
+          File "/home/moo/twinapex/parts/zope2/lib/python/AccessControl/ImplPython.py", line 808, in raiseVerbose
+            raise Unauthorized(text)
+        Unauthorized: The object is marked as private.  Access to 'showVideo' of (Products.Five.metaclass.SimpleViewClass from /home/moo/twinapex/src/mfabrik.app/mfabrik/app/browser/campaigntopview.pt object at 0x11003a0c) denied.
+
+View acquisition chain is not properly set up and the security manager cannot traverse acquisition
+chain parents to properly determine permissions.
+
+You need to use __of__() method to set-up the acquisition chain for the view::
+
+    def getHeadingView(self):
+        """
+        Check if we have campaign view avaiable for this content and use it.
+        """
+        view = queryMultiAdapter((self.context, self.request), name="mfabrik_heading")
+        view = view.__of__(self.context) # <---------- here
+        return view
+
+
+        
+

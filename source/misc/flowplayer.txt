@@ -20,8 +20,8 @@ Create a HTML snippet in your view which gets the video URL from the context con
 
                 <tal:has-image condition="view/showVideo">
 
-                       <!-- href is reference to FLV file -->
-                       <a class="campaign-flow-player" tal:attributes="href campaign/getCampaignVideo" />                                                                                               
+                       <!-- href is reference to FLV file. It is not safe to use XHTML style self-closing tags here. -->
+                       <a class="campaign-flow-player" tal:attributes="href campaign/getCampaignVideo"></a>                                                                                               
 
                        <!-- Note: if you put splash screen for flowplayer it does not autostart -->
                        <!-- <img class="splash-screen" tal:attributes="src string:${campaign/absolute_url}/campaignVideoThumbnail" alt="Campaign video" /> -->
