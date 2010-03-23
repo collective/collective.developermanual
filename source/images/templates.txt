@@ -31,10 +31,39 @@ Right way to put in a static image if your product is using five.grok framework:
         <img alt="" tal:attributes="src string:${context/portal_url}/++resource++yourproduct/logo.gif" />
 
 This will pull image from src/your.product/your/product/static/logo.gif.
+
+Rendering Image content items
+--------------------------------------
+
+You can refer to ATImage object's content data download by adding /image to URL::
+
+        <img alt="" tal:attributes="src string:${context/getImage/absolute_url}/image" />
         
+The magic is done in __bobo_traverse__ of ATImage by providing traversable hooks to access image download:
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+
+Rendering ImageField 
+-----------------------
+
+Archetypes's ImageField maps its data to the content object at attribute which is the field's name.
+If you have field 'campaignVideoThumbnail' you can make image tag by following ::
+
+        <img class="thumbnail" tal:attributes="src string:${campaign/absolute_url}/campaignVideoThumbnail" alt="Campaign video" />
+
+If you need more complex <img> output, create a helper function in your BrowserView and use Python code 
+to perform the ImageField manipulation.
+
+See ImageField for more information
+
+* http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/Field.py         
 
 tag() method
 -------------
+
+.. note ::
+
+        Using of tag() is discouraged. Create your image tags manually.
 
 Some content provide handy tag() method to generate <img src="" /> tags
 with different image sizes.
