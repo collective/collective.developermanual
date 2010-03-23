@@ -138,6 +138,39 @@ Map physical path to virtual path using HTTP request object physicalPathToVirtua
     path = portal.document.getPhysicalPath()
 
     virtual_path = request.physicalPathToVirtualPath(path) # returns "document"
+    
+.. note ::
+
+        Virtual path is not necessarily path relative to the site root, 
+        depending on the virtual host configuration.
+        
+Getting item path relative to the site root
+=============================================
+
+There is no a direct, easy, way to accomplish this.
+
+Example::
+
+        def getSiteRootRelativePath(context, request):
+            """ Get site root relative path to an item
+            
+            @param context: Content item which path is resolved
+            
+            @param request: HTTP request object
+            
+            @return: Path to the context object, relative to site root, prefixed with a slash.
+            """
+            
+            portal_state = getMultiAdapter((context, request), name=u'plone_portal_state')
+            site = portal_state.portal()
+            
+            # Both of these are tuples 
+            site_path = site.getPhysicalPath();
+            context_path = context.getPhysicalPath()
+            
+            relative_path = context_path[len(site_path)+1:]
+            
+            return "/" + "/".join(relative_path)             
 
 Getting object URL
 ------------------
