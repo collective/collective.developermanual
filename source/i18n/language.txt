@@ -2,6 +2,11 @@
 Language functions
 ====================
 
+.. contents ::
+
+Introduction
+------------
+
 Each session has a language associated with.
 
 Active language is "negotiated" by plone.i18n.negotiator
@@ -200,16 +205,132 @@ Example
     </tal:language>
 
 
+Custom language negotiator
+--------------------------
+
+Below some example code.
+
+languages.py::
+
+        """
+        
+            Custom language negotiator based on hostname.
+        
+        """
+        
+        from Products.PloneLanguageTool import LanguageTool
+        
+        # These are default languages available when hostname cannot be solved
+        all_languages = [ "fi", "en" ]
+        
+        def get_host_name(request):
+            """ Extract host name in virtual host safe manner 
+            
+            @param request: HTTPRequest object, assumed contains environ dictionary
+            
+            @return: Host DNS name, as requested by client. Lowercased, no port part.
+            """
+            
+            if "HTTP_X_FORWARDED_HOST" in request.environ:
+                # Virtual host
+                host = request.environ["HTTP_X_FORWARDED_HOST"]
+            elif "HTTP_HOST" in request.environ:
+                # Direct client request
+                host = request.environ["HTTP_HOST"]
+            else:
+                host = None
+                return host
+                
+            # separate to domain name and port sections
+            host=host.split(":")[0].lower()
+                
+            return host 
+        
+        
+        def get_language(domain_name):
+            """    
+            @param domain_name: Full qualified domain name of HTTP request
+            """
+            
+            if domain_name.endswith(".mobi") or domain_name.endswith(".com"):
+                return "en"
+            elif domain_name.endswith(".fi"):
+                return "fi"
+            else:
+                return "en"         
+        
+        def getCcTLDLanguages(self):
+            """
+            Monkey-patched top level domain language negotiator.
+            
+            This will be installed by collective.monkeypatcher.
+            """        
+            
+            if not hasattr(self, 'REQUEST'):
+                return None
+            
+            request = self.REQUEST
+            
+            # Could not extract hostname
+            hostname = get_host_name(request)
+                
+            if not hostname:
+                return all_languages
+                             
+            # Limit available languages based on hostname
+            langs = [ get_language(hostname) ]
+            
+            return langs
+            
+        # Also we need to fix a bug present in Plone 3.3.5
+        # 
+        #    @memoize
+        #    def language(self):
+        #        # TODO Looking for lower-case language is wrong, the negotiator
+        #        # machinery uses uppercase LANGUAGE. We cannot change this as long
+        #        # as we don't ship with a newer PloneLanguageTool which respects
+        #        # the content language, though.
+        #        return self.request.get('language', None) or \
+        #                aq_inner(self.context).Language() or self.default_language()
+        
+        from plone.memoize.view import memoize, memoize_contextless
+        
+        def working_portal_state_language(self):
+                return self.request.get('LANGUAGE', None) or \
+                        self.request.get('language', None) or \
+                        aq_inner(self.context).Language() or \
+                        self.default_language()
+        
+        working_portal_state_language = memoize(working_portal_state_language)
+
+configure.zcml::
+
+  <!-- Use collective.monkeypatcher to introduce our custom language negotiation phase -->  
+  <monkey:patch
+        description="Add custom TLD language resolution"
+        class="Products.PloneLanguageTool.LanguageTool"
+        original="getCcTLDLanguages"
+        replacement=".languages.getCcTLDLanguages"
+        />
+  
+  <monkey:patch
+        description="Fix Plone 3.3.5 bug"
+        class="plone.app.layout.globals.portal.PortalState"
+        original="language"
+        replacement=".languages.working_portal_state_language"
+        />
+  
+
 Other
 -----
 
-http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
+* http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
 
-http://maurits.vanrees.org/weblog/archive/2007/09/i18n-locales-and-plone-3.0
+* http://maurits.vanrees.org/weblog/archive/2007/09/i18n-locales-and-plone-3.0
 
-http://blogs.ingeniweb.com/blogs/user/7/tag/i18ndude/
+* http://blogs.ingeniweb.com/blogs/user/7/tag/i18ndude/
 
-http://plone.org/products/archgenxml/documentation/how-to/handling-i18n-translation-files-with-archgenxml-and-i18ndude/view?searchterm=
+* http://plone.org/products/archgenxml/documentation/how-to/handling-i18n-translation-files-with-archgenxml-and-i18ndude/view?searchterm=
 
 
 
