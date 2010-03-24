@@ -19,3 +19,51 @@ Add to [instance] in buildout.cfg::
             <environment>
                 TZ Europe/Helsinki
             </environment>
+            
+Creating additional debug instances
+------------------------------------
+
+You might want to keep your production buildout.cfg and development configuration
+in sync automatically as possible. 
+
+A good idea is to use same buildout.cfg on every environment.
+If conditional things, like setting debug mode on, are needed, you can extend the buildout 
+sections, which in turn create "additional Zopes" under bin/ folder::
+
+        [instance]
+        recipe = plone.recipe.zope2instance
+        zope2-location = ${zope2:location}
+        user = admin:x
+        http-address = 8080
+        debug-mode = off
+        verbose-security = off
+        
+        ...
+           
+        environment=
+            PTS_LANGUAGES=en fi
+        
+        #
+        # Create a launcher script which will start one Zope instance in debug mode
+        #
+        [debug-instance]
+        # Extend the main production instance  
+        <= instance
+        
+        # Here override specific settings to make the instance run in debug mode
+        debug-mode = on
+        verbose-security = on
+        event-log-level = DEBUG
+                
+And now you can start your **development** Zope as::
+        
+        bin/debug-instance fg
+        
+And your main Zope instance stays in production mode::
+
+        bin/instance 
+        
+.. note ::
+
+        Using fg switch foces Zope always into debug mode, but does not concern log level.                         
+               
