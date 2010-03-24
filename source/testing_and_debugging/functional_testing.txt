@@ -206,6 +206,31 @@ Example::
             # uses urlllib2 and will raise this exception
             self.assertEqual(e.code, 401, "Got HTTP response code:" + str(e.code))
 
+Checking a HTTP response header
+--------------------------------
+
+Exaple:
+
+        self.assertEqual(self.browser.headers["Content-type"], 'application/octet-stream')  
+
+Checking HTTP exception
+-------------------------
+
+Example how to check for HTTP 500 Internal Server Error::
+
+    def test_no_language(self):
+        """ Check that language parameter is needed and nothing is executed unless it is given. """
+        
+        from urllib2 import HTTPError
+        try:
+            self.browser.handleErrors = True # Don't get HTTP 500 pages
+            url = self.portal.absolute_url() + "/@@mobile_sitemap?mode=mobile"
+            self.browser.open(url)
+            # should cause HTTPError: HTTP Error 500: Internal Server Error
+            raise AssertionError("Should be never reached")
+        except HTTPError, e:
+            pass      
+
 Setting test browser user agent
 -------------------------------
 
