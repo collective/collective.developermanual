@@ -231,8 +231,19 @@ Example how to check for HTTP 500 Internal Server Error::
         except HTTPError, e:
             pass      
 
-Setting test browser user agent
--------------------------------
+Setting test browser headers
+-----------------------------
+
+Headers must be passed to underlying PublisherMechanizeBrowser instance
+and test browser must be constructed based on this instance.
+
+.. note ::
+
+        When passing parameters to PublisherMechanizeBrowser.addheaders HTTP_ prefix will be automatically added
+        to header name.
+
+Setting user agent
+=====================
 
 Example::
 
