@@ -326,6 +326,18 @@ it might be generator or iterable for blob data.
 
 Body is avaialble is response.body attribute.
 
+Redirects
+================
+
+Use response.redirect() method::
+
+        # This will do 302 Temporary Redirect 
+        response.redirect(new_url)
+        
+        # This will do 301 Permantent Redirect 
+        response.redirect(new_url, status=301)
+        
+
 Middleware-like hooks
 ---------------------
 
