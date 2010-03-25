@@ -78,11 +78,6 @@ Example::
                 
                 return ""        
                 
-
-
-
-
-
 Translating content
 -------------------
 
@@ -103,3 +98,145 @@ Example::
 
 
 See http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/tests/translate_edit.txt
+
+Serving translated content from a correct domain name
+-------------------------------------------------------
+
+The following applies if
+
+* You use one Plone instance to host several language versions
+
+* Plone instance is mapped to different domain names 
+
+* Language is resolved based top level domain name or subdomain name
+
+For SEO and usability reasons, you might want to force certain content to come up from a certain domain.
+Plone does not prevent you to access context /news on Finnish domain or /uutiset on English domain.
+If these URLs leak to search engines, they cause confusion.
+
+Below is a complex post-publication hook which redirects users to correct domain where
+the language should be served::
+        
+        """
+        
+            Domain aware language redirects.
+            
+            Redirect the user to a correct domain where the language should be served,
+            if mixing and matching different domain names and language versions.
+            
+            http://mfabrik.com     
+        
+        """
+        
+        import urlparse
+        
+        from zope.interface import Interface
+        from zope.component import adapter, getUtility, getMultiAdapter
+        from plone.postpublicationhook.interfaces import IAfterPublicationEvent
+        
+        from gomobile.mobile.utilities import get_host_domain_name
+        from gomobile.mobile.interfaces import IMobileRequestDiscriminator, MobileRequestType
+        
+        from Products.CMFCore.interfaces import IContentish
+        
+        def get_contentish(object):
+            """
+            Traverse acquisition upwards until we get contentish object used for the HTTP response.
+            """
+        
+            contentish = object
+            while not IContentish.providedBy(contentish):
+                
+                if hasattr(contentish, "aq_parent"):        
+                    contentish = contentish.aq_parent
+                else:
+                    break
+                
+            return contentish
+                
+        
+        def redirect_domain(request, response, new_domain):
+            """ Redirect user to a new domain, but having URI in intact.
+            
+            This also keeps port part of netloc in intact.
+            
+            @param new_domain: New domain name to redirect, without port.
+            """
+            
+            # Get the 
+        
+            url = request["ACTUAL_URL"]
+            parts = urlparse.urlparse(url)
+            
+            # Replace domain name
+            parts = list(parts)
+            netloc = parts[1]
+            
+            # TODO: Handle @ and HTTP Basic auth here
+            if ":" in netloc:
+                domain, port = netloc.split(":")        
+                netloc = new_domain + ":" + port
+            else:
+                netloc = new_domain
+                
+            parts[1] = netloc
+            new_url = urlparse.urlunparse(parts)
+        
+            # Make 301 Permanent Redirect response
+            response.redirect(new_url, status=301)
+            response.body = ""
+            response.setHeader("Content-length", 0)
+        
+        def ensure_in_domain(request, response, language_now, wanted_language, wanted_domain):
+            """ Make sure that certain language gets served from a correct domain.
+            
+            If the user tries to access URI of page, and the page language
+            does not match the domain we expect, redirect the user to the correct domain.    
+            """
+            
+            domain_now = get_host_domain_name(request)
+            
+            if language_now == wanted_language:
+                if domain_now != wanted_domain:
+                    # print "Fixing language " + language_now + " to go to " + wanted_domain + " from " + domain_now
+                    redirect_domain(request, response, wanted_domain)
+                
+        @adapter(Interface, IAfterPublicationEvent)
+        def language_fixer(object, event):
+            """ Redirect mobile users to mobile site using gomobile.mobile.interfaces.IRedirector.
+        
+            Note: Plone does not provide a good hook doing this before traversing, so we must
+            do it in post-publication. This adds extra latency, but is doable.
+            """
+            
+            # print "language_fixer"
+        
+            request = event.request
+            response = request.response
+            context = get_contentish(object)
+        
+            if hasattr(context, "Language"):
+                # Check whether the context has a Language() accessor to get
+                # the language where it was written in 
+                language_now = context.Language()
+        
+                #print "Resolving mobility"
+                discriminator = getUtility(IMobileRequestDiscriminator)
+                flags = discriminator.discriminate(context, request)
+                
+                if MobileRequestType.MOBILE in flags:
+                    # Do mobile
+                    ensure_in_domain(request, response, language_now, "fi", "m.mfabrik.fi")
+                    ensure_in_domain(request, response, language_now, "en", "mfabrik.mobi")
+                else:
+                    # Do web    
+                    ensure_in_domain(request, response, language_now, "fi", "mfabrik.fi")
+                    ensure_in_domain(request, response, language_now, "en", "mfabrik.com")
+                
+            # print "Done"
+            
+                
+
+
+
+ 
