@@ -1,0 +1,100 @@
+===============================================
+ Changing Portal Transforms Settings via Python
+===============================================
+
+.. contents ::
+
+Introduction
+------------
+
+If you have to change the portal_transforms settings programmatic you can't use
+Generic Setup step for this (as of 2010-03-25, Products.PortalTransforms 2.0b4).
+But you can change it by python and here's how to do it.
+
+Let's say we have a plone package called MY.PACKAGE.
+
+.. warning:: Security: The configuration shown below allows users to add nasty HTML tags to Textfields which can be a security issue if not used carefully.
+
+
+Writing an Generic Setup Import Step Method
+-------------------------------------------
+
+This method setup method is definded in MY.PACKAGE/setuphandlers.py. It configures the safe_html portal_transform a bit less paranoid about nasty tags and so. In this case the content managers should be allowed to insert iframe, object, embed, param, script, style, etc tags into the TinyMCE editor::
+
+    import logging
+    from Products.CMFCore.utils import getToolByName
+    from Products.PortalTransforms.Transform import make_config_persistent
+
+    logger = logging.getLogger('MY.PACKAGE.setuphandlers')
+
+    def setup_portal_transforms(context):
+        logger.info('Updating portal_transform safe_html settings')
+
+        tid = 'safe_html'
+
+        pt = getToolByName(context, 'portal_transforms')
+        if not tid in pt.objectIds(): return
+
+        trans = ptconfig = pt[tid]
+
+        tconfig = trans._config
+        tconfig['class_blacklist'] = []
+        tconfig['nasty_tags'] = {'meta': '1'}
+        tconfig['remove_javascript'] = 0
+        tconfig['stripped_attributes'] = ['lang', 'valign', 'halign', 'border',
+                                         'frame', 'rules', 'cellspacing',
+                                         'cellpadding', 'bgcolor']
+        tconfig['stripped_combinations'] = {}
+        tconfig['style_whitelist'] = ['text-align', 'list-style-type', 'float']
+        tconfig['valid_tags'] = {
+            'code': '1', 'meter': '1', 'tbody': '1', 'style': '1', 'img': '0',
+            'title': '1', 'tt': '1', 'tr': '1', 'param': '1', 'li': '1',
+            'source': '1', 'tfoot': '1', 'th': '1', 'td': '1', 'dl': '1',
+            'blockquote': '1', 'big': '1', 'dd': '1', 'kbd': '1', 'dt': '1',
+            'p': '1', 'small': '1', 'output': '1', 'div': '1', 'em': '1',
+            'datalist': '1', 'hgroup': '1', 'video': '1', 'rt': '1', 'canvas': '1',
+            'rp': '1', 'sub': '1', 'bdo': '1', 'sup': '1', 'progress': '1',
+            'body': '1', 'acronym': '1', 'base': '0', 'br': '0', 'address': '1',
+            'article': '1', 'strong': '1', 'ol': '1', 'script': '1', 'caption': '1',
+            'dialog': '1', 'col': '1', 'h2': '1', 'h3': '1', 'h1': '1', 'h6': '1',
+            'h4': '1', 'h5': '1', 'header': '1', 'table': '1', 'span': '1',
+            'area': '0', 'mark': '1', 'dfn': '1', 'var': '1', 'cite': '1',
+            'thead': '1', 'head': '1', 'hr': '0', 'link': '1', 'ruby': '1',
+            'b': '1', 'colgroup': '1', 'keygen': '1', 'ul': '1', 'del': '1',
+            'iframe': '1', 'embed': '1', 'pre': '1', 'figure': '1', 'ins': '1',
+            'aside': '1', 'html': '1', 'nav': '1', 'details': '1', 'u': '1',
+            'samp': '1', 'map': '1', 'object': '1', 'a': '1', 'footer': '1',
+            'i': '1', 'q': '1', 'command': '1', 'time': '1', 'audio': '1',
+            'section': '1', 'abbr': '1','test':'0'}
+        make_config_persistent(tconfig)
+        trans._p_changed = True
+        trans.reload()
+
+
+Registering the Import Step Method with Generic Setup
+-----------------------------------------------------
+
+Add an import step in MY.PACKAGE/MYPROFILESDIR/PROFILENAME/import_steps.xml like
+so:::
+
+    <?xml version="1.0"?>
+    <import-steps>
+      <import-step
+        id="MY.PACKAGE-portal_transforms"
+        handler="MY.PACKAGE.setuphandlers.setup_portal_transforms"
+        title="MY.PACKAGE portal_transforms setup"
+        version="1.0">
+        <dependency step="plone-final"/>
+      </import-step>
+    </import-steps>
+
+
+Calling the Import Step Method in ZMI, portal_setup
+---------------------------------------------------
+
+Goto your site's portal_setup in ZMI, select your registered profile and import
+the import step "MY.PACKAGE portal_transforms setup". That's should be it.
+
+Author
+------
+Johannes Raggam <raggam-nl@adm.at>
