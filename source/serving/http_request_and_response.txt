@@ -384,6 +384,47 @@ This is practical for caching purposes: it is the ideal place to determine and i
 
 Read more on `plone.postpublicationhook package page <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
 
+Extracting useful information in the post-publication hook
+==============================================================
+
+Example::
+
+        from zope.component import adapter, getUtility, getMultiAdapter
+        from plone.postpublicationhook.interfaces import IAfterPublicationEvent        
+
+        from Products.CMFCore.interfaces import IContentish
+
+        def get_contentish(object):
+            """
+            Traverse acquisition upwards until we get contentish object used for the HTTP response.
+            """
+        
+            contentish = object
+            while not IContentish.providedBy(contentish):
+                
+                if hasattr(contentish, "aq_parent"):        
+                    contentish = contentish.aq_parent
+                else:
+                    break
+                
+            return contentish
+
+
+        # This must be refered in configure.zcml
+        @adapter(Interface, IAfterPublicationEvent)
+        def language_fixer(object, event):
+            """ Redirect mobile users to mobile site using gomobile.mobile.interfaces.IRedirector.
+        
+            Note: Plone does not provide a good hook doing this before traversing, so we must
+            do it in post-publication. This adds extra latency, but is doable.
+            """
+        
+            request = event.request
+            response = request.response
+            
+            # object can be a page template, view, whichever happens to be at the very end of traversed acquisition chain
+            context = get_contentish(object)
+
 .. _annotations: http://pypi.python.org/pypi/zope.annotation/3.4.1
 
 .. _Repoze: http://repoze.org/
