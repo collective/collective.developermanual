@@ -27,7 +27,12 @@ This method setup method is definded in MY.PACKAGE/setuphandlers.py. It configur
 
     logger = logging.getLogger('MY.PACKAGE.setuphandlers')
 
+    def isNotThisProfile(context, marker_file):
+        return context.readDataFile(marker_file) is None
+
     def setup_portal_transforms(context):
+        if isNotThisProfile(context, 'MY.PACKAGE-PROFILENAME.txt'): return
+
         logger.info('Updating portal_transform safe_html settings')
 
         tid = 'safe_html'
@@ -87,6 +92,8 @@ so:::
         <dependency step="plone-final"/>
       </import-step>
     </import-steps>
+
+And create the File MY.PACKAGE/MYPROFILESDIR/PROFILENAME/MY.PACKAGE-PROFILENAME.txt, so that this import step is not run for any profile but just for this one.
 
 
 Calling the Import Step Method in ZMI, portal_setup
