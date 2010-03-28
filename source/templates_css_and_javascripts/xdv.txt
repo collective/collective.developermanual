@@ -7,13 +7,19 @@
 Introduction
 -------------
 
-XDV is a theming engine, a.k.a. theming proxy, which allows you to theme 
-interal and external sites by using simple XML rules and XSL.
-It separates theme development from the site development, so that
-people with little HTML and CSS knowledge can create themes
-without need to know underlying Python, PHP or whatever.
+XDV is an external HTML theming engine, a.k.a. theming proxy, which allows 
+you to mix and match HTML and CSS from internal and external sites 
+by using simple XML rules. It separates the theme development from the site development, 
+so that people with little HTML and CSS knowledge can create themes
+without need to know underlying Python, PHP or whatever. It also enables
+integration of different services and sites to one, unified, user experience. 
+For example, XDV is used by `plone.org <http://plone.org>` to integrate
+Plone CMS and Trac issue tracker. 
 
-Because theming rules are compiled to XSL, various backends can perform the theming
+XDV compiles theming rules to XSL templates, which has been a standard
+XML based templates language since 1999. XSL has good support
+in every programming language and web server out there.
+Example backends to perform XSL transformation include 
 
 * Python and lxml library
 
@@ -33,10 +39,13 @@ let it be Wordpress, Joomla, Drupal or custom in-house PHP solution from year 20
 
 XDV is based on `Deliverance specification <http://deliverance.openplans.org/>`_ 
 The difference between XDV and Deliverance reference implementation 
-is that XDV internally compiles themes to XSL templates.
+is that XDV internally compiles themes to XSL templates, when Deliverance relies
+on processing HTML in Python. Currently XDV approach seems to be
+working better, as we had many problems trying to apply Deliverance 
+for Wordpress site (redirects didn't work, HTTP posts didn't work, etc.).
 
 Theming editing interface (backend)
-=========================== ==========
+=====================================
 
 Editing interface, backend, or admin site, however you wish to call it,
 can be themed with collective.xdv. However, it does not need to be
@@ -68,10 +77,23 @@ Tutorials
 
 * http://pypi.python.org/pypi/dv.xdvserver (with WSGI)
 
-Rules XML
+Setting up XDV development tools
+---------------------------------
+
+XDV tools are deployed as Python eggs.
+You can use tools like `buildout <http://www.buildout.org/>`
+configuration and assembly tool or easy_install
+to get XDV on your development computer and the server.
+
+If you are working with Plone you can integrate XDV to your
+site existing buildout. If you are not working with Plone,
+`XDV home page <http://pypi.python.org/pypi/xdv#installation>`_ has instructions how to deploy
+XDV command standalone.
+
+XDV Rules 
 -----------
 
-Rules XML will tell how to fit content from external source to
+Rules (rules.xml) will tell how to fit content from external source to
 your theme HTML.
 
 It provides straightforward XML based syntax to manipulate HTML easily
@@ -86,9 +108,15 @@ It provides straightforward XML based syntax to manipulate HTML easily
 
 * etc.
 
-XDV rules XML is subset of available Deliverance rules,
-as Deliverance will have things like server settings in its XML
-which do not apply for XDV.
+Rules XML syntax is documented at `XDV homepage <http://pypi.python.org/pypi/xdv>`_.
+
+Rules will be compiled to XSL template (theme.xsl) by *xdvcompiler* command.
+The actual theming is done by one of the XSL backends listed above,
+by taking HTML as input and applying XSL transformations on it.
+
+Note that currently rules without matching selectors are silently ignored
+and there is no bullet-proof way to debug what happens inside 
+XSL transformation, except by looking into compiled theme.xsl.
 
 Using XDV to theme and integrate a Wordpress site
 --------------------------------------------------
@@ -512,7 +540,7 @@ The following command will apply theme for an example external page::
         bin/xdvrun -o theme.html theme.xsl http://blog.twinapex.fi 
         firefox theme.xhtml
         
-... or we can use shortcut provided by our script ...
+... or we can use shortcut provided by our script ... ::
 
         python src/plonetheme.mfabrik/xdv.py --preview
 
@@ -579,6 +607,8 @@ Virtual host configuration
 Below is our virtualhost configuration which runs Wordpress and PHP.
 Transformation filter chain has been added in.
 
+/etc/apache/sites-enabled/blog.mfabrik.com::
+
         <VirtualHost *>
         
             ServerName blog.mfabrik.com
@@ -623,7 +653,7 @@ Transformation filter chain has been added in.
             </Location>
         
             # 2. Admin interface and feeds should not receive any kind of theming
-            <LocationMatch "(wp-login|wp-admin)">
+            <LocationMatch "(wp-login|wp-admin|wp-includes|xmlrpc)">
                 # The following resets the filter chain
                 # http://httpd.apache.org/docs/2.2/mod/mod_filter.html#filterchain
                 FilterChain !
@@ -631,9 +661,17 @@ Transformation filter chain has been added in.
         
         </VirtualHost>
 
+Running it
++++++++++++
 
-Automatically Updating the theme
-++++++++++++++++++++++++++++++++++
+After Apache has all modules enabled and your virtualhost configuration is ok,
+you should see Wordpress through your new theme by visiting at the site
+served through Apache:
+
+* http://blog.mfabrik.com
+
+Automatically reflecting CMS changes back to XDV theme
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The theme should be recompiled every time
 
@@ -670,13 +708,20 @@ and make Apache's transformation cache aware of changes::
         sudo -H -u twinapex /bin/sh -c cd /srv/plone/twinapex.fi ; python src/plonetheme.mfabrik/xdv.py  
         
         # Make Apache aware of theme changes
-        sudo apache2ctl graceful
+        sudo apache2ctl restart
 
 Then we call it periodically in cron job, every 15 minutes
 in /etc/cron.d/update-wordpress::
 
         # Make Wordpress XDV theme to reflect changes on CMS 
         0,15,30,45 * * * * /srv/plone/twinapex.fi/update-wordpress-theme.sh 
+
+
+.. warning ::
+
+        Looks like Varnish has issues with Apache 2 apache2ctl graceful 
+        restart. Do only hard restarts when using Apache in conjuction
+        with Varnish.
 
 Updating Wordpress settings
 ============================
@@ -739,7 +784,7 @@ Roll-out checklist
 ====================
 
 Below is a checklist you need to go to through to confirm 
-that the theme integration works
+that the theme integration works on your production site
 
 * Wordpress public pages are loaded with the new theme
 
@@ -754,6 +799,8 @@ that the theme integration works
 * HTTP 302 redirect is handled correctly (i.e. missing / at the end of blog post URL)
 
 * Changes on CMS site are reflected to Wordpress theme within the update delay
+
+* Old blog site is redirected to new site using HTTP 301 (if applies)
 
 
 
