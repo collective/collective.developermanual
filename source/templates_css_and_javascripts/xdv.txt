@@ -93,15 +93,19 @@ which do not apply for XDV.
 Using XDV to theme and integrate a Wordpress site
 --------------------------------------------------
 
-Below are instructions how to integrate a Wordpress site and to your CMS.
+Below are instructions how to integrate a Wordpress site to your CMS.
 In this example CMS is Plone, but it could be any other system.
 
 We will create XDV theme which will theme Wordpress site
-to match our CMS site in the fly. Wordpress theme is build in
- XDV useing a live Plone web site page
-as its theme skeleton. This way Wordpress theme inherits "live data" 
-from Plone site, like top tabs (portal sections), footer and 
-other stuff which could change in-the-fly.
+to match our CMS site in the fly. 
+
+Wordpress theme using built with XDV and using a live Plone web page
+as a theme template.
+
+This way Wordpress theme inherits "live data" 
+from Plone site, like top tabs (portal sections), footer, CSS and 
+other stuff which can be changed in-the-fly and reflecting
+changes to two separaet theming products would be cumbersome.
 
 Benefits using Wordpress for blogging instead of main CMS
 
@@ -128,12 +132,13 @@ Benefits using Wordpress for blogging instead of main CMS
 
 Benefits of using XDV theming instead of creating native Wordpress theme are
 
-* Wordpress does not need to be touched
-
 * You need to maintain only one theming add-on product
-  e.g. one for your main CMS
+  e.g. one for your main CMS and Wordpress 
+  receives updates to this site and theme automatically
+
+* Wordpress does not need to be touched
   
-* You can host your Wordpress site on a different server,
+* You can host your Wordpress on a different server,
   even wordpress.com, and still integrate it to your main CMS
   
 * The theme can be recycled not only for Wordpress, but also
@@ -146,20 +151,339 @@ Benefits of using XDV theming instead of creating native Wordpress theme are
   spit on my face if I ask them to go a develop a Wordpress
   theme for us 
 
-Theming elements
+Theme elements
 ==================
 
 The theme will consist of following pieces
 
-* rules XML file which defines how to combine Plone and Wordpress HTML
-
+* Deliverance rules XML file which defines how to combine Plone and Wordpress HTML
+  (rules.xml)
+  
 * Additional CSS definitions active only for Wordpress (wordpress.css).
   Dependency to this CSS in injected to the <head> by rules XML
 
 * Special Plone page template which will provide slots where Wordpress can drop in the content
+  (wordpress_listing.pt)
 
 * A helper script which makes it easy for repeatable perform 
   theming actions, like recompiling the theme
+  (xdv.py)
+  
+CMS page template
+++++++++++++++++++++++++++
+
+This explains how to create a Plone page template where Wordpress
+content will be dropped in. This step is not necessary,
+as we could do this without touching the Plone. However, it 
+makes things more straightforward and explicit when we known
+that Wordpress theme uses a certain template and we explicitly define slots 
+for Wordpress content there.
+
+Example::
+
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+              xmlns:tal="http://xml.zope.org/namespaces/tal"
+              xmlns:metal="http://xml.zope.org/namespaces/metal"
+              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+              lang="en"
+              metal:use-macro="here/main_template/macros/master"
+              i18n:domain="plone">
+                
+        
+        <body>
+        
+            <div metal:fill-slot="content">
+                        
+                <div id="wordpress-content">
+                        <!-- Your Wordpress "left column" will go there -->                        
+                </div>
+        
+            </div>
+        
+        </body>
+        </html>
+
+Theming rules
+++++++++++++++++++++++
+
+Following are XDV rules (rules.xml) how we will fit Wordpress site to Plone frame.
+
+It will integrate 
+
+* Content from Wordpress
+
+* Metadata from Wordpress
+
+* CSS from Plone
+
+* Page basic structrure from Plone
+
+rules.xml::
+        
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rules xmlns="http://namespaces.plone.org/xdv"
+               xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:css="http://namespaces.plone.org/xdv+css">
+        
+            <!-- Remove Wordpress CSS by filtering out <style> tags-->
+            <drop css:content="style" />
+            
+            <!-- Make sure that Wordpress metadata is present in <head> section -->
+            <append css:content="head link" css:theme="head" />
+            
+            <!-- note: replace does not seem to handle multiple meta tags very well -->
+            <drop css:theme="meta" />
+            <append css:content="head meta" css:theme="head" />
+        
+            <!-- Use blog title instead of Plone page title -->
+            <replace css:content="title" css:theme="title" />
+            
+            <!-- Put Wordpress sidebar to Plone's portlets section -->
+            <append css:content="#r_sidebar" css:theme="#portal-column-one .visualPadding" />
+            
+            <!-- Place wordpress content into our theme content area -->
+            <copy css:content="#contentleft" css:theme="#wordpress-content" />
+        
+            <!-- This mixes in Wordpress specific CSS sheet which is applied for pages
+                 served from Wordpress only and does not concern Plone CMS.
+                 This stylesheet will theme Wordpress specific tags,
+                 like blog posts and comment fields. 
+                 We keep this file in Plone, but this could be served from elsewhere. -->
+            <append css:theme="head">
+                <style type="text/css">
+                   @import url(http://mfabrik.com/++resource++plonetheme.mfabrik/wordpress.css);
+                </style>
+            </append>
+        
+            <!-- This stylesheet is used by special spam protection plug-in NoSpamNX -->
+            <append css:theme="head">
+                <link rel="stylesheet" href="http://blog.mfabrik.com/wp-content/plugins/nospamnx/nospamnx.css" type="text/css" />           
+            </append>
+            
+            <!-- Remove Google Analytics script used for CMS site -->
+            <drop css:theme="#page-bottom script" />
+        
+            <!-- Rebuild our Google Analytics code, using a different tracker id this time 
+                 which is a specific to our blog.
+              -->
+            <append css:theme="#page-bottom">
+                
+                <script type="text/javascript">
+                        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));  
+                </script>
+                        
+                <script type="text/javascript">          
+                        try {   
+                               var pageTracker = _gat._getTracker("UA-8819100-2"); 
+                               pageTracker._trackPageview();
+                        } catch(err) { 
+                        } 
+                </script>
+            </append>
+            
+        </rules>
+
+Wordpress specific CSS
+++++++++++++++++++++++
+
+This CSS has styles which are applied only to Wordpress pages.
+They are mainly corner case fixes where Wordpress and CMS styles
+must match.
+
+The CSS file is loaded when rules.xml injects it to <head> section.
+
+wordpress.css::
+
+        /* Font and block style fixes */
+
+        #wordpress-content h1 {
+                border: 0;
+        }
+        
+        #wordpress-content .post-end {
+                margin-bottom: 60px;
+        }
+        
+        #wordpress-content pre {
+                width: 600px;
+                overflow: auto;
+                background: white;
+                border: 1px solid #888;
+        }
+        
+        #wordpress-content ul {
+                margin-left: 20px;
+        }
+        
+        
+        #wordpress-content .post-info-date,
+        #wordpress-content .post-info-categories,
+        #wordpress-content .post-info-tags {
+                font-size: 80%;
+                color: #888;
+        }
+        
+        /* Make sure that posts and comments look sane in our theme */
+        
+        #wordpress-content .post {
+                margin-top: 15px;
+        }
+        
+        #wordpress-content .commentlist li {
+                margin: 20px;
+                background: white;
+                padding: 10px;
+        }
+        
+        #wordpress-content .commentlist li img {
+                float: left;
+                margin-right: 20px;
+                margin-bottom: 20px;    
+        }
+        
+        #wordpress-content #commentform {
+                margin: 20px;
+        }
+        
+        #wordpress-content {
+                margin-left: 20px;
+                margin-right: 20px;
+        }
+        
+        /* Make Wordpress "sidebaar" look like Plone "portlets */
+        
+        .template-wordpress_listing #portal-column-one ul {
+                list-style: none;
+                margin-bottom: 40px;
+        }
+        
+        .template-wordpress_listing #portal-column-one ul#Recent li {
+                margin-bottom: 8px;     
+        }
+        
+        .template-wordpress_listing #portal-column-one ul#Categories a {
+                line-height: 120%;
+        }
+        
+        
+        .template-wordpress_listing #portal-column-one h2 {
+                background: transparent;
+                border: 0;
+                font-weight:normal;
+                line-height:1.6em;
+                padding:0;
+                text-transform:none;
+                font-size: 16px;
+                color: #9b9b9b;
+                border-bottom:4px solid #CDCDCD;
+        }
+
+Helper script
+++++++++++++++
+
+The following Python script (xdv.py) makes it easy for us 
+
+* Recompile the theme
+
+* Test the theme applied on the site
+
+* Preview the theme in our browser
+
+It is basically wrapped with default file locations around
+ *bin/xdvcompiler* and *bin/xdvrun* commands with some
+ webbrowser opening magic.
+
+xdv.py::
+
+        """
+        
+         This command line Python script compiles your rules.xml to XDV XSL
+         
+         Modify it for your own needs.
+        
+         It assumes your buildout.cfg has xdv section and generated XDV 
+         commands under bin/
+        
+         To compile, execute in the buildout folder::
+        
+             python src/plonetheme.mfabrik/xdv.py
+        
+         To build test HTML::    
+        
+             python src/plonetheme.mfabrik/xdv.py --test
+        
+        
+         To build test HTML and preview it in browser, execute in buildout folder::
+        
+             python src/plonetheme.mfabrik/xdv.py --preview
+        
+        """
+        
+        import getopt, sys
+        import os
+        import webbrowser
+        
+        # rules XML for theming
+        RULES_XML = "src/plonetheme.mfabrik/deliverance/etc/rules.xml" 
+        
+        # Which XSL file to generate for compiled XDV
+        OUTPUT_FILE = "theme.xsl"
+        
+        # Which file to generate applied theme test runs 
+        TEST_HTML_FILE = "test.html"
+        
+        # Our "theme.html" is a remote template served for each request.
+        # Because we are doing live integrattion, this is a HTTP resource, 
+        # not a local file.
+        THEME="http://mfabrik.com/news/wordpress_listing/"
+        
+        #
+        # External site you are theming.
+        # Note: must have ending slash (lxm cannot handle redirects)
+        #
+        SITE="http://blog.twinapex.fi/"
+        
+        try:
+            opts, args = getopt.getopt(sys.argv[1:], "pt", ["preview", "test"])
+        except getopt.GetoptError, err:
+            # print help information and exit:
+            print str(err) # will print something like "option -a not recognized"
+        
+        # Convert options to simple list 
+        opts = [ opt for opt, value in opts ]
+        
+        print "Compiling transformation"
+        value = os.system("bin/xdvcompiler -o " + OUTPUT_FILE + " " + RULES_XML +" " + THEME)
+        if value != 0:
+            print "Compilation failed"
+            sys.exit(1)
+            
+        
+        if "-p" in opts or "--preview" in opts or "-t" in opts or "--test" in opts:
+              print "Generating test HTML page"
+              value = os.system("bin/xdvrun -o " + TEST_HTML_FILE + " " + OUTPUT_FILE + " " + SITE)
+              if value != 0:
+                  print "Page transformation failed"
+                  sys.exit(1)
+        
+        if "-p" in opts or "--preview" in opts:
+            # Preview the result in a browser
+            # NOTE: OSX needs Python >= 2.5 to make this work
+        
+            # Make sure test run succeeded
+            url = "file://" + os.path.abspath(TEST_HTML_FILE)
+            print "Opening:" + url
+            
+            # We prefer Firefox for preview for its superious
+            # Firebug HTML debugger and XPath rule generator 
+            try:
+                browser = webbrowser.get("firefox")
+            except webbrowser.Error:
+                # No FF on the system, or OSX which can't find its browsers
+                browser = webbrowser.get()
+            
+            browser.open_new_tab(url) 
 
 Compiling the theme
 ======================
@@ -191,16 +515,6 @@ The following command will apply theme for an example external page::
 ... or we can use shortcut provided by our script ...
 
         python src/plonetheme.mfabrik/xdv.py --preview
-
-Crafting a page template
-==========================
-
-This explains how to create a Plone page template where Wordpress
-content will be dropped in. This step is not necessary,
-as we could do this without touching the Plone. However, it 
-makes things more straightforward and explicit when we known
-that Wordpress theme uses a certain template and we explicitly define slots 
-for Wordpress content there.
 
 
 Applying the theme in Apache production environment
@@ -265,6 +579,57 @@ Virtual host configuration
 Below is our virtualhost configuration which runs Wordpress and PHP.
 Transformation filter chain has been added in.
 
+        <VirtualHost *>
+        
+            ServerName blog.mfabrik.com
+            ServerAdmin info@mfabrik.com
+        
+            LogFormat       combined
+            TransferLog     /var/log/apache2/blog.mfabrik.com.log
+        
+            # Basic Wordpress setup
+        
+            Options +Indexes FollowSymLinks +ExecCGI
+        
+            DocumentRoot /srv/www/wordpress
+        
+            <Directory /srv/www/wordpress>
+                Options FollowSymlinks
+                AllowOverride All
+            </Directory>
+        
+            AddType application/x-httpd-php .php .php3 .php4 .php5
+            AddType application/x-httpd-php-source .phps
+        
+            # Theming set-up
+        
+            # This chain is used for public web pages
+            FilterDeclare THEME
+            FilterProvider THEME XSLT resp=Content-Type $text/html
+        
+            TransformOptions +ApacheFS +HTML
+            # This is the location of compiled XSL theme transform
+            TransformSet /theme.xsl
+        
+            # This will make Apache not to reload transformation every time
+            # it is performed. Instead, a compiled version is hold in the
+            # virtual URL declared above.
+            TransformCache /theme.xsl /srv/plone/twinapex.fi/theme.xsl
+        
+            # We want to apply theme only for
+            # 1. public pages (otherwise Wordpress administrative interface stops working)
+            <Location "/">
+                FilterChain THEME
+            </Location>
+        
+            # 2. Admin interface and feeds should not receive any kind of theming
+            <LocationMatch "(wp-login|wp-admin)">
+                # The following resets the filter chain
+                # http://httpd.apache.org/docs/2.2/mod/mod_filter.html#filterchain
+                FilterChain !
+            </LocationMatch>
+        
+        </VirtualHost>
 
 
 Automatically Updating the theme
@@ -291,6 +656,27 @@ which will recompile the theme now and then.
 
 Alternatively, mod_transforms could be run in non-cached mode with
 some performance implications.
+
+Here is a shell script, update-wordpress-theme.sh,
+which will perform the recompilation
+and make Apache's transformation cache aware of changes::
+        
+        #!/bin/sh
+        #
+        # Periodically update Wordpress theme to reflect changes on CMS site
+        #
+        
+        # Recompile theme
+        sudo -H -u twinapex /bin/sh -c cd /srv/plone/twinapex.fi ; python src/plonetheme.mfabrik/xdv.py  
+        
+        # Make Apache aware of theme changes
+        sudo apache2ctl graceful
+
+Then we call it periodically in cron job, every 15 minutes
+in /etc/cron.d/update-wordpress::
+
+        # Make Wordpress XDV theme to reflect changes on CMS 
+        0,15,30,45 * * * * /srv/plone/twinapex.fi/update-wordpress-theme.sh 
 
 Updating Wordpress settings
 ============================
@@ -321,11 +707,35 @@ HTTP 404 Not Found special case
 ================================
 
 Http 404 Not Found responses are not themed by Apache filter chain. This
-is due to order of pipeline in Apache. As a workaround you can 
-redirect 404 responses to your custom 404 page on one HTTP below
-Apache if you are using a caching proxy like Varnish.
+is not possible due to order of pipeline in Apache. 
 
-Production checklist
+As a workaround you can set up a custom HTTP 404 page in
+Wordpress which does not expose the old theme.
+
+* Go to Wordpress admin interface, Theme editor
+
+* Edit 404.php and modify it so that it does not pull in the Wordpress theme::
+
+        <html>
+        <head>
+        <title>Not found</title>
+        </head>
+        <body>
+        
+                <h1>Not Found, Error 404</h1>
+                <p>Aaaaw, snap! The page you are looking for no longer exists. It must be our hamster who ate it.</p>
+        
+                <a href="<?php bloginfo('url'); ?>">Go to blog homepage</a>
+        
+                <a href="http://mfabrik.com">mFabrik business site</a>
+        </body>
+        </html>
+
+For more information see
+
+* http://codex.wordpress.org/Creating_an_Error_404_Page
+
+Roll-out checklist
 ====================
 
 Below is a checklist you need to go to through to confirm 
@@ -341,7 +751,10 @@ that the theme integration works
 
 * HTTP 404 not found is handled correctly
 
-* HTTP 302 redirect is handled correctly (i.e. missing / at the end of URL)
+* HTTP 302 redirect is handled correctly (i.e. missing / at the end of blog post URL)
+
+* Changes on CMS site are reflected to Wordpress theme within the update delay
+
 
 
 
