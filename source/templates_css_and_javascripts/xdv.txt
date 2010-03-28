@@ -1,0 +1,348 @@
+===================
+ XDV theming
+===================
+
+.. contents ::
+
+Introduction
+-------------
+
+XDV is a theming engine, a.k.a. theming proxy, which allows you to theme 
+interal and external sites by using simple XML rules and XSL.
+It separates theme development from the site development, so that
+people with little HTML and CSS knowledge can create themes
+without need to know underlying Python, PHP or whatever.
+
+Because theming rules are compiled to XSL, various backends can perform the theming
+
+* Python and lxml library
+
+* Apache's mod_transform
+
+* nginx web server
+
+* All XSL capable Java and .NET software out there
+
+XDV theming can be used together with Plone where enhanced support is provided
+by `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_ package.
+Technically, collective.xdv adds Plone settings panel and does XSL transformation in Zope's
+post-publication hook using lxml library.
+
+XDV can be used standalone with `XDV package <http://pypi.python.org/pypi/xdv/0.3a2>`_ to theme any web site, 
+let it be Wordpress, Joomla, Drupal or custom in-house PHP solution from year 2000.
+
+XDV is based on `Deliverance specification <http://deliverance.openplans.org/>`_ 
+The difference between XDV and Deliverance reference implementation 
+is that XDV internally compiles themes to XSL templates.
+
+Theming editing interface (backend)
+=========================== ==========
+
+Editing interface, backend, or admin site, however you wish to call it,
+can be themed with collective.xdv. However, it does not need to be
+and edit interface can fallback to the default Plone theme.
+
+There are several reasons for this
+
+* Plone editing interface is powerful and has very high
+  usability, which means that it is internally quite complex
+  (makes complex things to pose itself as a simple to the end user)
+  
+* The public theme you are building would not fit to the 
+  editing interface very well. E.g. no space for portlets.
+  This is especially problematic if an external
+  artist has created the visuals without properly
+  fitting them for Plone. 
+  
+With XDV you can easily have separate admin.yoursite.com
+where Plone editing interface is ontouched.  
+
+Tutorials
+-----------
+
+* http://plone.org/products/collective.xdv/documentation/reference-manual/theming
+
+* http://pypi.python.org/pypi/collective.xdv
+ 
+* http://pypi.python.org/pypi/xdv
+
+* http://pypi.python.org/pypi/dv.xdvserver (with WSGI)
+
+Rules XML
+-----------
+
+Rules XML will tell how to fit content from external source to
+your theme HTML.
+
+It provides straightforward XML based syntax to manipulate HTML easily
+
+* Append, replace and drop HTML pieces
+
+* Insert HTML snippets
+
+* CSS or XPath selectors can be used to identify HTML parts
+  
+* It is possible to mix and match content from more than two sites
+
+* etc.
+
+XDV rules XML is subset of available Deliverance rules,
+as Deliverance will have things like server settings in its XML
+which do not apply for XDV.
+
+Using XDV to theme and integrate a Wordpress site
+--------------------------------------------------
+
+Below are instructions how to integrate a Wordpress site and to your CMS.
+In this example CMS is Plone, but it could be any other system.
+
+We will create XDV theme which will theme Wordpress site
+to match our CMS site in the fly. Wordpress theme is build in
+ XDV useing a live Plone web site page
+as its theme skeleton. This way Wordpress theme inherits "live data" 
+from Plone site, like top tabs (portal sections), footer and 
+other stuff which could change in-the-fly.
+
+Benefits using Wordpress for blogging instead of main CMS
+
+* Wordpress post and comment management is easy
+
+* Wordpress does not need to be touched:
+  the old public Wordpress instance can keep 
+  happily running wherever it is during the whole process
+
+* You do not need to migrate legacy Wordpress installations
+  to your CMS's internal blogging tool
+
+* Wordpress comes with extensive blog spam filtering tools.
+  We get 11000 spam comments a month.
+
+* Wordpress is designed for blogging and the user interface is
+  good for that
+
+* Wordpress integrates well with blog pingback support services 
+
+* Wordpress supports Gravatars and other blogging plug-ins
+
+* ..and so on...
+
+Benefits of using XDV theming instead of creating native Wordpress theme are
+
+* Wordpress does not need to be touched
+
+* You need to maintain only one theming add-on product
+  e.g. one for your main CMS
+  
+* You can host your Wordpress site on a different server,
+  even wordpress.com, and still integrate it to your main CMS
+  
+* The theme can be recycled not only for Wordpress, but also
+  other external services: Bugzilla, Trac, Webmail, phpBB,
+  you-name-it  
+  
+* Even though Wordpress has slick UI, it is a well known fact that
+  it is a can of worms internally.
+  My developers do not like the idea of PHP development and would
+  spit on my face if I ask them to go a develop a Wordpress
+  theme for us 
+
+Theming elements
+==================
+
+The theme will consist of following pieces
+
+* rules XML file which defines how to combine Plone and Wordpress HTML
+
+* Additional CSS definitions active only for Wordpress (wordpress.css).
+  Dependency to this CSS in injected to the <head> by rules XML
+
+* Special Plone page template which will provide slots where Wordpress can drop in the content
+
+* A helper script which makes it easy for repeatable perform 
+  theming actions, like recompiling the theme
+
+Compiling the theme
+======================
+
+This will generate XSL templates to do theming transform.
+It will compile rules XML with some boilerplate XSL.
+
+Running our compile script::
+
+        python src/plonetheme.mfabrik/xdv.py
+  
+Since Plone usually does not use any relative paths or relative resources in HTML,
+we do not give the parameter "Absolute prefix" to the compilation stage. 
+In Plone, everything is mapped through a virtual hosting aware resource 
+locator: portal_url and VirtualHostMonster.
+
+For more information see
+
+* http://pypi.python.org/pypi/xdv/0.3a2#compilation
+
+Testing the theme
+===================
+
+The following command will apply theme for an example external page::
+
+        bin/xdvrun -o theme.html theme.xsl http://blog.twinapex.fi 
+        firefox theme.xhtml
+        
+... or we can use shortcut provided by our script ...
+
+        python src/plonetheme.mfabrik/xdv.py --preview
+
+Crafting a page template
+==========================
+
+This explains how to create a Plone page template where Wordpress
+content will be dropped in. This step is not necessary,
+as we could do this without touching the Plone. However, it 
+makes things more straightforward and explicit when we known
+that Wordpress theme uses a certain template and we explicitly define slots 
+for Wordpress content there.
+
+
+Applying the theme in Apache production environment
+=====================================================
+
+These steps tell how to apply the integration
+theme for Wordpress when Wordpress is running under
+Apache virtualhost.
+
+Installing dependencies
++++++++++++++++++++++++
+
+We use Apache and mod_transform.
+`Instructions how to set up modules for Apache <http://pypi.python.org/pypi/xdv#apache>`_
+are available on XDV homepage. Some hand-build modules must be used,
+but instructions to set them up for Ubuntu / Debian are available.
+
+Apache 2 supports `filter chains <http://httpd.apache.org/docs/2.2/mod/mod_filter.html>`_ which allow you to
+perform magic on HTTP response before sending it out.
+This corresponds Python's WSGI middleware.
+
+We'll use special built of mod_transform and mod_depends 
+which are known to working. These modules were forked from their
+orignal creations to make them XDV compatible, as the orignal
+has not been updated since 2004 (here you can nicely see
+how open source guarantees "won't run out of support" freedom).
+
+* `XDV mod_transform and mod_depends homepage <http://code.google.com/p/html-xslt/>`_ 
+
+* `Orignal mod_transform and mod_depends homepage <http://www.outoforder.cc/projects/apache/mod_transform/>`_
+
+Example::
+
+        sudo -i
+        apt-get install libxslt1-dev libapache2-mod-apreq2 libapreq2-dev apache2-threaded-dev
+        wget http://html-xslt.googlecode.com/files/mod-transform-html-xslt.tgz
+        wget http://html-xslt.googlecode.com/files/mod-depends-html-xslt.tgz
+        tar -xzf mod-transform-html-xslt.tgz
+        tar -xzf mod-depends-html-xslt.tgz
+        cd mod-depends-html-xslt ; ./configure ; make ; make install ; cd ..
+        cd mod-transform-html-xslt ; ./configure ; make ; make install ; cd ..
+
+Enable built-in Apache modules::        
+
+        a2enmod filter
+        a2enmod ext_filter
+        
+For modules *depends* and *transform* you need to manually add
+them to the end of Apache configuration, as they do not
+provide a2enmod stubs for Debian. Edit /etc/apache2/apache.conf::
+
+        LoadModule depends_module /usr/lib/apache2/modules/mod_depends.so
+        LoadModule transform_module /usr/lib/apache2/modules/mod_transform.so
+        
+You need to hard reset Apache to make the new modules effective::
+
+        /etc/init.d/apache2 force-reload
+        
+Virtual host configuration
++++++++++++++++++++++++++++++++++++++++
+
+Below is our virtualhost configuration which runs Wordpress and PHP.
+Transformation filter chain has been added in.
+
+
+
+Automatically Updating the theme
+++++++++++++++++++++++++++++++++++
+
+The theme should be recompiled every time
+
+* Plone is restarted: CSS references change in <head> as CSS cache is rebuilt
+
+* CSS is modified: CSS references change in <head> as CSS cache is rebuilt
+
+* Plone content is changed and changes reflect back to Wordpress theme
+  (e.g. a new top level site section is being added)
+
+This is because the compilation will hard-link resources and template
+snippets to resulting the theme.xsl file. If hard-linked resources change
+on the Plone site, the transformation XSL file does not automatically
+reflect back the changes.
+
+It could be possible to use Plone events automatically to rerun theme
+compilation when concerned resources change. However, 
+the would be quite complex.  For now, we are satisfied with a scheduled task 
+which will recompile the theme now and then.
+
+Alternatively, mod_transforms could be run in non-cached mode with
+some performance implications.
+
+Updating Wordpress settings
+============================
+
+No changes on Wordpress needed if the domain name is not changed in the theme
+transformation process.
+
+Site URL
+++++++++
+
+Unlike Plone, Wordpress does not have decent virtual hosting machinery.
+It knowns only one URL which is uses to refer to the site in the external context
+(e.g. RSS feeds). 
+
+This setting can be overridden in
+
+* Wordpress administrative interface
+
+* wp-config.php
+
+Here is an example how we override this in our wp-config.php::
+
+        // http://codex.wordpress.org/Editing_wp-config.php#WordPress_address_.28URL.29
+        define('WP_HOME','http://blog.mfabrik.com');
+        define('WP_SITEURL','http://blog.mfabrik.com');
+
+HTTP 404 Not Found special case
+================================
+
+Http 404 Not Found responses are not themed by Apache filter chain. This
+is due to order of pipeline in Apache. As a workaround you can 
+redirect 404 responses to your custom 404 page on one HTTP below
+Apache if you are using a caching proxy like Varnish.
+
+Production checklist
+====================
+
+Below is a checklist you need to go to through to confirm 
+that the theme integration works
+
+* Wordpress public pages are loaded with the new theme
+
+* Wordpress login works
+
+* Wordpress administrative interface works
+
+* RSS feed from Wordpress works and contain correct URLs
+
+* HTTP 404 not found is handled correctly
+
+* HTTP 302 redirect is handled correctly (i.e. missing / at the end of URL)
+
+
+
+ 
