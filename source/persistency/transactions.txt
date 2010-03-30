@@ -17,7 +17,9 @@ Plone and the underlying Zope handles transactions transparently.
 
 .. note::
 
-	 Every transaction is read transaction until something is being written
+	 Every transaction is read transaction until some of the 
+	 objects participating in the transaction is being mutated
+	 (object attribute set), turning the transaction to a write transaction
 	 
 Please read `this Zope transaction tutorial <http://www.zope.org/Members/mcdonc/HowTos/transaction>`_
 to get started how to use transaction with your code.	 
