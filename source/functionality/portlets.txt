@@ -40,34 +40,77 @@ Walking through every porlet on the site
 
 The following code iterates through all portlets assigned
 directly to content items. This excludes dashboard, group and content type based portlets.
-This can be used if you need to e.g. mass-edit portlets::
+Then it prints some info about them and renders them.
 
+Example code::
+        
+        from Products.Five.browser import BrowserView
+        
         from zope.component import getUtility, getMultiAdapter
         from zope.app.component.hooks import setHooks, setSite, getSite
-
+        
         from plone.portlets.interfaces import IPortletType
         from plone.portlets.interfaces import IPortletManager
         from plone.portlets.interfaces import IPortletAssignment
         from plone.portlets.interfaces import IPortletDataProvider
         from plone.portlets.interfaces import IPortletRenderer
+        from plone.portlets.interfaces import IPortletAssignmentMapping      
+        from plone.portlets.interfaces import ILocalPortletAssignable  
         
-
-        # Walk through all content item portlets
-        portal = getSite() 
-        all_content = portal.portal_catalog(show_inactive=True, language="ALL")
-        all_content.append(portal) # portal itself does not show up in the query above
-        for content in all_content:
-                for manager in [ "plone.leftcolumn", "plone.rightcolumn" ]:
-                        manager = getUtility(IPortletManager, name='plone.rightcolumn', context=self.portal)
-                        
-                                # 
-                                mapping = getMultiAdapter((self.folder, self.manager,), IPortletAssignmentMapping)
-                                
-                                # id is portlet assignment id
-                                # and automatically generated
-                                for id, portlet in mapping.items():
-                                        print "Found portlet:" + id + " " + str(portlet)                                        
-
+        from Products.CMFCore.interfaces import IContentish
+        
+        class FixPortlets(BrowserView):
+                """ Magical portlet debugging view """
+                
+                def __call__(self):
+                    """
+                    """
+                    
+                    request = self.request
+                    
+                    portal = getSite()
+                    
+                    # Not sure why this is needed...
+                    view = portal.restrictedTraverse('@@plone')
+                    
+                    # Query all content items on the site which can get portlets assigned
+                    # Note that this should excule special, hidden, items like tools which otherwise
+                    # might appearn in portal_catalog queries                       
+                    all_content = portal.portal_catalog(show_inactive=True, language="ALL", object_provides=ILocalPortletAssignable.__identifier__)
+                                            
+                    # Load the real object instead of index stub            
+                    all_content = [ content.getObject() for content in all_content ]
+                    
+                    # portal itself does not show up in the query above,
+                    # though it might contain portlet assignments            
+                    all_content = list(all_content) + [portal] 
+                    
+                    for content in all_content:
+                                        
+                            for manager_name in [ "plone.leftcolumn", "plone.rightcolumn" ]:
+                            
+                                    manager = getUtility(IPortletManager, name=manager_name, context=content)
+                            
+                                    mapping = getMultiAdapter((content, manager), IPortletAssignmentMapping)
+                                                                                            
+                                    # id is portlet assignment id
+                                    # and automatically generated
+                                    for id, assignment in mapping.items():
+                                            print "Found portlet assignment:" + id + " " + str(assignment)
+                                            
+                                            renderer = getMultiAdapter((content, request, view, manager, assignment), IPortletRenderer)
+                                            
+                                            # Renderer acquisition chain must be set-up so that templates
+                                            # et. al. can resolve permission inheritance
+                                            renderer = renderer.__of__(content)
+                                            
+                                            # Seee http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto
+                                            renderer.update()                                    
+                                            html = renderer.render()
+                                            print "Got HTML output:" + html
+                                             
+                                            
+                    return "OK"
 For more information about portlet assignments and managers, see
 
 * http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_mapping.py
