@@ -30,12 +30,10 @@ Overriding a portlet renderer
 
 * http://plone.org/documentation/manual/theme-reference/elements/portlet/override-the-portlets-in-plone-3.0
 
-Other resources and examples
------------------------------
+update() and render()
+-----------------------
 
-* `Static text portlet <https://svn.plone.org/svn/plone/plone.portlet.static/trunk/plone/portlet/static/>`_.
-
-* `Templated portlet <https://svn.plone.org/svn/collective/collective.easytemplate/trunk/collective/easytemplate/browser/portlets/templated.py>`_
+These methods should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
 
 Walking through every porlet on the site
 -----------------------------------------
@@ -75,4 +73,24 @@ For more information about portlet assignments and managers, see
 * http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_mapping.py
 
 * http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_traversal.py
+
+* http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/configure.zcml
+
+* http://svn.plone.org/svn/plone/plone.portlets/trunk/plone/portlets/interfaces.py
+
+* http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto (for portlet renderers)
+
+Writing your own portlet manager
+----------------------------------
+
+If you need additional portlet slots at the site.
+
+* https://weblion.psu.edu/svn/weblion/weblion/Products.ContentWellPortlets/trunk/Products/ContentWellPortlets/tests/test_setup.py
+                                     
+Other resources and examples
+-----------------------------
+
+* `Static text portlet <https://svn.plone.org/svn/plone/plone.portlet.static/trunk/plone/portlet/static/>`_.
+
+* `Templated portlet <https://svn.plone.org/svn/collective/collective.easytemplate/trunk/collective/easytemplate/browser/portlets/templated.py>`_
                                      
