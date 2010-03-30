@@ -112,27 +112,50 @@ Example::
 Registering a view
 ==================
 
+Zope 3 views are registered in ZCML, XML-based configuration language.
+Usually the configuration file, where the registration done is 
+*yourapp.package/yourapp/package/browser/configure.zcml*.
+
 The following example registers a new view
 
-* for="*" means for all content. This equals for registering views
+* *for* tells which content receive this view.
+  for="*" means that this view can be used for any content. This equals for registering views
   to zope.interface.Interface base class.
 
-* name is view name (can be used in traversing or multi-adapter look up, explained below)
+* *name* is view's name which exposes it to traversing and getMultiAdapter() 
+  look-ups. If your view's name is "test" then you can render it in browser
+  by calling http://yourhost/site/page/@@test
 
-* Permission is permission needed to render the view, see security chapter
+* *permission* is permission needed to access the view. 
+  When HTTP request comes in, the currently logged in user's access rights
+  in the current context are checked against this permission.
+  See :doc:<Security chapter /security/permission_lists.txt>
+  for available Plone out-of-the-box permissions. Usually 
+  you want have *zope2.View*, *cmf.ModifyPortalContent* or *zope2.Public* here.
 
-* class is Python dotted name for BrowserView based class which is
+* *class* is Python dotted name for BrowserView based class which is
   responsible for managing the view. Class __call__() method
   is the entry point for view processing and rendering.
+ 
+ 
+* Note that you need to declare *browser* namespace in your configure.zcml
+  to use *browser* configuration directives 
 
 .. code-block:: xml
 
-  <browser:page
-        for="*"
-        name="test"
-        permission="zope2.Public"
-        class=".views.MyView"
-        />
+  <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        >          
+        
+          <browser:page
+                for="*"
+                name="test"
+                permission="zope2.Public"
+                class=".views.MyView"
+                />
+                
+  </configure>
 
 Relationship between views and templates
 ----------------------------------------
