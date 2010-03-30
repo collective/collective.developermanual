@@ -21,9 +21,15 @@ Plone and the underlying Zope handles transactions transparently.
 	 objects participating in the transaction is being mutated
 	 (object attribute set), turning the transaction to a write transaction
 	 
+.. note ::
+
+        Old examples might refer to get_transaction() function. This has been
+        replaced by transaction.get() in the later Zope versions.
+        	 
 Please read `this Zope transaction tutorial <http://www.zope.org/Members/mcdonc/HowTos/transaction>`_
 to get started how to use transaction with your code.	 
 
+* https://bugs.launchpad.net/zope2/+bug/143584
 Using transactions
 ------------------
 
@@ -41,6 +47,38 @@ Example code
 
 * https://bugs.launchpad.net/zope3/+bug/98382
 
+
+Subtransactions
+================
+
+Normally, a Zope transaction keeps a list of objects modified within the transaction in a structure in RAM. 
+This list of objects can grow quite large when there is a lot of work done across a lot of objects in the context of a transaction. Subtransactions write portions of this object list out to disk, freeing the RAM required by the transaction list. Using subtransactions can allow you to build transactions 
+involving objects whose combined size is larger than available RAM.
+
+Example::
+
+
+        import transaction
+        
+        ... 
+
+        done = 0
+        
+        for brain in all_images:
+            
+            done += 1
+                
+            ...            
+            
+            # Since this is HUGE operation (think resizing 2 GB images)
+            # it is not nice idea to buffer the transaction in the memory
+            # (Zope default behavior).
+            # Using subtransactions we hint Zope when it would be a good time to flush the 
+            # changes to the disk
+            if done % 10 == 0:
+                # Commit subtransaction for every 10th processed item
+                transaction.get().commit(True) 
+        
 Transaction boundary events
 ----------------------------
 
