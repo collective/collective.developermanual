@@ -86,6 +86,13 @@ Example::
     class MyView(BrowserView):
 
         def __init__(self, context, request):
+            """
+            This will initialize context and request object as they are given as view multiadaption parameters.
+            
+            Note that BrowserView constructor does this for you and this step here is just to show
+            how view receives its context and request parameter. You do not need to write 
+            __init__() for your views. 
+            """
             self.context = context
             self.request = request
 
