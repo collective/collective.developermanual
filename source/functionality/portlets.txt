@@ -37,3 +37,42 @@ Other resources and examples
 
 * `Templated portlet <https://svn.plone.org/svn/collective/collective.easytemplate/trunk/collective/easytemplate/browser/portlets/templated.py>`_
 
+Walking through every porlet on the site
+-----------------------------------------
+
+The following code iterates through all portlets assigned
+directly to content items. This excludes dashboard, group and content type based portlets.
+This can be used if you need to e.g. mass-edit portlets::
+
+        from zope.component import getUtility, getMultiAdapter
+        from zope.app.component.hooks import setHooks, setSite, getSite
+
+        from plone.portlets.interfaces import IPortletType
+        from plone.portlets.interfaces import IPortletManager
+        from plone.portlets.interfaces import IPortletAssignment
+        from plone.portlets.interfaces import IPortletDataProvider
+        from plone.portlets.interfaces import IPortletRenderer
+        
+
+        # Walk through all content item portlets
+        portal = getSite() 
+        all_content = portal.portal_catalog(show_inactive=True, language="ALL")
+        all_content.append(portal) # portal itself does not show up in the query above
+        for content in all_content:
+                for manager in [ "plone.leftcolumn", "plone.rightcolumn" ]:
+                        manager = getUtility(IPortletManager, name='plone.rightcolumn', context=self.portal)
+                        
+                                # 
+                                mapping = getMultiAdapter((self.folder, self.manager,), IPortletAssignmentMapping)
+                                
+                                # id is portlet assignment id
+                                # and automatically generated
+                                for id, portlet in mapping.items():
+                                        print "Found portlet:" + id + " " + str(portlet)                                        
+
+For more information about portlet assignments and managers, see
+
+* http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_mapping.py
+
+* http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_traversal.py
+                                     
