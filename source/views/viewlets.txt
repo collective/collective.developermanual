@@ -2,17 +2,24 @@
  Viewlets
 ==============
 
+.. contents ::
+
+Introduction
+--------------
+
 Viewlets are view snippets which will render a part of the HTML page.
 Viewlets provide conflict-free way to contribute new user-interface actions and
-snippets to Plone pages.
+HTML snippets to Plone pages.
 
 * Viewlets are managed using /@@manage-viewlets page
 
-* Viewlets can shown and hidden
+* Viewlets can shown and hidden through-the-web
 
-* Viewlets can be reordered (limited to one viewlet container in Plone 3.x)
+* Viewlets can be reordered (limited to reordering within container in Plone 3.x)
 
 * Viewlets can be registered and overridden in theme specific manner :doc:`using layers </serving/layers>`
+
+* Viewlets have update() and render() methods
 
 Other resources
 ---------------
@@ -61,7 +68,13 @@ Viewlets have two important methods
 
 #. render() - generate the resulting HTML code by evaluating the template with context variables set up in update()
 
-See http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
+These methods should honour `zope.contentprovider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
+
+See 
+
+* http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto
+
+* http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
 
 Rendering viewlet by name
 -------------------------
