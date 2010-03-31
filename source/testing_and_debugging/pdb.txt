@@ -16,7 +16,9 @@ add-on products.
 
 .. note::
 
-        PDB is different from interactive shell.
+        PDB is different from Python interactive shell. PDB let's you to step 
+        through the code, whilst Python shell allows you just to inspect
+        and manipulate objects.
         
 If you wish to play around with Zope in interactive Python shell or run scripts instead of debugging (exceptions),
 please read :doc:`Command line </misc/commandline>` documentation.        
@@ -158,4 +160,10 @@ Automatically start debugger when exception is raised (command line)
 
         This cannot be directly applied to a web server, but works with command line scripts. 
 
-* http://code.activestate.com/recipes/65287-automatically-start-the-debugger-on-an-exception/
+Example::
+        
+        python -m pdb myscript.py
+        
+For more information see
+
+* http://docs.python.org/library/pdb.html
