@@ -2,10 +2,45 @@
 Translated content
 ====================
 
-Content translations are handled by well-es    lished `LinguaPlone add-on product <http://plone.org/products/linguaplone>`_.
+.. contents ::
 
-See example: http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/examples/LinguaItem.py
+Introduction
+-------------
 
+Content translations are handled by well-established `LinguaPlone add-on product <http://plone.org/products/linguaplone>`_.
+
+See example: 
+
+* http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/examples/LinguaItem.py
+
+Translation-aware content types (Archetypes)
+---------------------------------------------
+
+LinguaPlone makes it possible to mark fields language independent or language dependent.
+
+.. note ::
+
+        To have language aware behavior you need to use Products.LinguaPlone.public.*
+        API functions instead of Products.Archetypes.atapi.*
+        
+Example::
+
+  try: 
+      from Products.LinguaPlone import public as atapi 
+  except ImportError: 
+      # No multilingual support 
+      from Products.Archetypes import atapi 
+
+
+  class MyContent(atapi.ATContent):
+        pass
+        
+  atapi.registerType(MyContent, ...)
+       
+
+For more information, see
+
+* http://n2.nabble.com/languageIndependent-fields-not-updated-td2430489.html            
 
 Getting content item in another language
 ----------------------------------------
