@@ -88,11 +88,6 @@ Main heading: This will be visible in table of contents::
         ====================================
         Writing and updating this document
         ====================================
-
-contents directive: Sphinx will generate shortcut links at the start of the page.
-Note that using *local* directive makes the page itself and ToC title not to appear in the listing::
-
-        .. contents :: :local:
         
 Description of the page, which will appear in Plone's *Description* Dublin Core metadata field,
 is created using reST *admonition* directive. Only one paragraph of text and 1-3 sentences are recommended,
@@ -102,6 +97,11 @@ so that the same text fits to the search engine results (Google)::
         
                 This text will go to Plone's pages description field. It will
                 appear in the search engine listings for the page.
+                
+*contents* directive will make Sphinx generate shortcut links at the start of the page.
+Giving option *local* excludes the page itself and ToC title from the listing::
+
+        .. contents :: :local:                
 
 Introduction paragraph: Telling what's this page is all about::
 
