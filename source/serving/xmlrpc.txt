@@ -1,0 +1,39 @@
+==================
+ XML-RPC
+==================
+
+.. contents :: :local: 
+
+.. admonition:: Description
+
+        Using XML-RPC remote call protocol to manipulate Plone site.
+        
+Introduction
+------------
+
+Zope provides transparent XML-RPC support for any traversable object.
+
+Example::
+
+       # URL to the object 
+       target = 'http://localhost:8080/plone'
+       
+       # Call remote method
+       path = xmlrpclib.ServerProxy(target).getPhysicalPath()
+
+For more information see
+
+* transmogrifier.ploneremote
+
+Authentication
+---------------
+
+The simplest way to authenticate the user for XML-RPC calls
+is to embed HTTP Basic Auth data to URL::
+
+       # URL to the object 
+       target = 'http://admin:admin@localhost:8080/plone'
+       
+       # Call remote method
+       path = xmlrpclib.ServerProxy(target).getPhysicalPath()
+
