@@ -4,6 +4,10 @@
 
 .. contents :: :local: 
 
+.. admonition:: Description
+
+        How to write and submit text to Plone Developer Manual.
+
 Introduction
 ------------
 
@@ -88,7 +92,16 @@ Main heading: This will be visible in table of contents::
 contents directive: Sphinx will generate shortcut links at the start of the page.
 Note that using *local* directive makes the page itself and ToC title not to appear in the listing::
 
-        .. contents :: :local: :local:
+        .. contents :: :local:
+        
+Description of the page, which will appear in Plone's *Description* Dublin Core metadata field,
+is created using reST *admonition* directive. Only one paragraph of text and 1-3 sentences are recommended,
+so that the same text fits to the search engine results (Google)::
+
+        .. admonition:: Description
+        
+                This text will go to Plone's pages description field. It will
+                appear in the search engine listings for the page.
 
 Introduction paragraph: Telling what's this page is all about::
 
