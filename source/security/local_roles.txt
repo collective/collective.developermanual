@@ -2,28 +2,28 @@
  Local roles
 =============
 
+.. admonition:: Description
+
+        Creating and setting roles of the Plone members programmatically
+
+.. contents :: :local:
+
+Introduction
+-------------
+
 Local roles allows user accounts to have special priviledges for a folder and its children.
 
-Local role caching
-------------------
+Creating a role
+---------------
 
-Resolving effective local roles is a cumbersome operation, so the result is cached. 
+Please read below how to create a new role and make it appear on
+Sharing tab.
 
-**Unit test warning**: Local roles are cached per request basis. You need to clear this cache after
-modifying object's local roles or switching user if you want to get proper readings.
+* http://plone.org/documentation/manual/developer-manual/generic-setup/reference/roles-and-permissions
 
-Unit test example method::
+* http://pypi.python.org/pypi/collective.sharingroles
 
-    def clearLocalRolesCache(self):
-        """ Clear borg.localroles cache.
-        
-        borg.localroles check role implementation caches user/request combinations.
-        If we edit the roles for a user we need to clear this cache,
-        """
-        from zope.annotation.interfaces import IAnnotations
-        ann = IAnnotations(self.app.REQUEST) 
-        for key in ann.keys(): # Little destructive here, deletes *all* annotations
-            del ann[key]
+* http://encolpe.wordpress.com/2010/02/08/add-a-new-role-in-the-sharing-tab-for-plone-3/
 
 Setting local role
 -------------------
@@ -86,6 +86,27 @@ The following example will reset local roles based on external input (membrane s
             if not username in usernames:
                 print "Clearing:" + username
                 self.manage_delLocalRoles([username])
+
+Local role caching
+------------------
+
+Resolving effective local roles is a cumbersome operation, so the result is cached. 
+
+**Unit test warning**: Local roles are cached per request basis. You need to clear this cache after
+modifying object's local roles or switching user if you want to get proper readings.
+
+Unit test example method::
+
+    def clearLocalRolesCache(self):
+        """ Clear borg.localroles cache.
+        
+        borg.localroles check role implementation caches user/request combinations.
+        If we edit the roles for a user we need to clear this cache,
+        """
+        from zope.annotation.interfaces import IAnnotations
+        ann = IAnnotations(self.app.REQUEST) 
+        for key in ann.keys(): # Little destructive here, deletes *all* annotations
+            del ann[key]
                 
 Debugging
 ---------

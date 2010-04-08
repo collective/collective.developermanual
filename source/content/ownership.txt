@@ -4,6 +4,10 @@
 
 .. contents :: :local:
 
+.. admonition:: Description
+
+        Programmatically manipulate Plone content item's ownership
+
 Introduction
 ------------
 
@@ -18,6 +22,38 @@ Getting the owner of the item
 
 Example::
 
+        # Returns PropertiedUser for Zope admin
+        # Returns PloneUser for normal users object
         context.getOwner()
         
-         
+Changing ownership of content
+-------------------------------
+
+You can use AccessControl.Owner.changeOwnership::
+
+        changeOwnership(self, user, recursive=0)
+
+User is PropertiedUser object.
+
+Example::
+
+    # Get the user handle from member data object
+    user = member.getUser()
+    
+    # Make the member owner of his home folder
+    home_folder.changeOwnership(user, recursive=False)
+    home_folder.reindexObjectSecurity()
+
+.. warning ::
+
+        Could not get this to work. Use local roles instead.
+        
+Example how to add ownership for additional user using local roles::
+
+    home_folder.manage_setLocalRoles(username, ["Owner",])
+    home_folder.reindexObjectSecurity()
+       
+.. note ::
+
+        This does not update Dublin Core metadata fields like
+        creator.

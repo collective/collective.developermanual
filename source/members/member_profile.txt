@@ -2,6 +2,24 @@
  Member profiles
 =================
 
+.. contents :: :local:
+
+.. admonition:: Description
+
+        How to manage Plone member propeties programmatically
+
+Introduction
+-------------
+
+Member profile fields are the fields which the logged in member
+can edit oneself on his user account page.
+
+For more info, see
+
+* MemberDataTool: http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
+
+* MemberData class: http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
+
 Getting member profile properties
 ---------------------------------
 
@@ -18,6 +36,10 @@ how to retrieve these properties.
 Getting member fullname
 =======================
 
+In Python code you can ask info from MemberData object::
+
+        fullname = member_data.getProperty("fullname")
+
 In template you can do something along the lines::
 
     <tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/fullname">
@@ -26,3 +48,50 @@ In template you can do something along the lines::
 
 Note that this code won't work for anonymous users.
 
+Setting member profile properties
+---------------------------------
+
+Use *setMemberProperties(mapping={})* to batch update properties.
+Old properties are not removed.
+
+Example::
+
+        member.setMemberProperties(mapping={"email":"aaa@aaa.com"})
+        
+New properties must be explicitly declared in portal_memberdata,
+before creation of the member,
+or setMemberProperties() will silently fail.
+
+.. note ::
+
+        TODO: How to retrofit existing members with new properties?
+
+Example::
+
+        def prepareMemberProperties(site):
+            """ Adjust site for custom member properties """
+            
+            # Need to use ancient Z2 property sheet API here...
+            portal_memberdata = getToolByName(site, "portal_memberdata")
+        
+            # When new member is created, it's MemberData
+            # is populated with the values from portal_memberdata property sheet,
+            # so value="" will be the default value for users' home_folder_uid
+            # member property
+            if not portal_memberdata.hasProperty("home_folder_uid"):
+                portal_memberdata.manage_addProperty(id="home_folder_uid", value="", type="string")
+
+         ....
+         
+        def createMatchingHomeFolder(member):
+            """ """
+            
+            email = member.getProperty("email")
+            home_folder.setEmail(email)
+            
+            # Store UID of the created folder in memberdata so we can
+            # look it up later to e.g. generate the link to the member folder
+            member.setMemberProperties(mapping={"home_folder_uid": home_folder.UID()})
+            
+            
+            return home_folder

@@ -53,15 +53,33 @@ To get all usernames::
     memberIds = self.context.acl_users.getUserIds()
     
 
-
 Groups
 ------
 
 Groups are stored as PloneGroup objects, which is subclass of PloneUser.
+Groups are managed by portal_groups tool.
 
 * https://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/plugins/ufactory.py
 
 * https://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/plugins/group.py
+
+Creating a group
+================
+
+Example::
+
+    gr = site.portal_groups
+    
+    group_id = "companies"
+    if not group_id in gr.getGroupIds():
+        gr.addGroup(group_id)
+
+More info
+
+* http://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/tests/test_groupstool.py
+
+* http://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/plugins/group.py
+
 
 Getting available groups
 ========================
@@ -83,6 +101,14 @@ Example to get full group information::
         # group is PloneGroup object
         yield (group.getName(), group.title)
 
+Adding user to a group
+======================
+
+Example::
+
+    # Add user to group "companies"
+    portal_groups = site.portal_groups
+    portal_groups.addPrincipalToGroup(member.getUserName(), "companies")
 
 Getting groups for a certain user
 =================================
@@ -97,10 +123,85 @@ Below is an example how to get groups for the logged in user::
 
         Deprecation: This method won't work in Plone 4.        
 
-Automatic member creation
--------------------------
+Creating users
+---------------
+
+Use *portal_registration* tool. Example::
+
+        def createCompany(request, site, username, title, email, passwd=None):
+            """
+            Utility function which performs the actual creation, role and permission magic.
+        
+            @param username: Unicode string
+            
+            @param title: Fullname of user, unicode string
+        
+            @return: Created company content item or None if the creation fails
+            """
+            
+            # If we use custom member properties
+            # they must be intiialized before regtool is called
+            prepareMemberProperties(site)
+        
+            # portal_registrations manages new user creation
+            regtool = getToolByName(site, 'portal_registration')
+            
+            # Default password to the username
+            # ... don't do this on the production server!
+            if passwd == None:
+                passwd = username
+            
+            # Only lowercase allowed    
+            username = username.lower()
+            
+            # Username must be ASCII string
+            # or Plone will choke when the user tries to log in
+            username = str(username)
+            
+            def is_ascii(s):
+                for c in s:
+                    if not ord(c) < 128:
+                        return False
+                    
+                return True
+            
+            if not is_ascii(username):
+                """ """
+                IStatusMessage(request).addStatusMessage(_(u"Username must contain only characters a-z"), "error")
+                return None
+            
+            # This is minimum required information set
+            # to create a working member
+            properties = {
+                          
+                'username' : username,
+                
+                # Full name must be always as utf-8 encoded
+                'fullname' : title.encode("utf-8"),
+                'email' : email,
+            }
+                
+            try:
+                # addMember() returns MemberData object
+                member = regtool.addMember(username, passwd, properties=properties)
+            except ValueError, e:
+                # Give user visual feedback what went wrong
+                IStatusMessage(request).addStatusMessage(_(u"Could not create the user:") + unicode(e), "error")
+                return None
+
+Batch member creation
+=======================
 
 * http://plone.org/documentation/kb/batch-adding-users
+
+Custom member creation form example
+=====================================
+
+Below is an example of Grok form which the administrator
+can use to create new users. New users will receive
+special properties and a folder for which they have ownership access.
+Password is set to be the same as the username.
+The user is added a group "companies".
 
 Email login
 -----------
