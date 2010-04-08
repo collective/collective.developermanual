@@ -194,15 +194,6 @@ Batch member creation
 
 * http://plone.org/documentation/kb/batch-adding-users
 
-Custom member creation form example
-=====================================
-
-Below is an example of Grok form which the administrator
-can use to create new users. New users will receive
-special properties and a folder for which they have ownership access.
-Password is set to be the same as the username.
-The user is added a group "companies".
-
 Email login
 -----------
 
@@ -211,3 +202,272 @@ Email login
 * Plone 4 default feature
 
 * For Plone 3 see http://plone.org/products/betahaus.emaillogin
+
+
+Custom member creation form complex example
+--------------------------------------------
+
+Below is an example of Grok form which the administrator
+can use to create new users. New users will receive
+special properties and a folder for which they have ownership access.
+Password is set to be the same as the username.
+The user is added a group "companies".
+
+Example company.py::
+
+        # -*- coding: utf-8 -*-
+        
+        """
+        
+            Add companies.
+            
+            Create user account + associated "home folder" content type
+            for a company user.
+            User accounts have a special role.
+            
+            Note: As writing of this 2010-04, needs
+            plone.app.directives trunk version which
+            contains unreleased validation decorator
+        
+        """
+        
+        # Core Zope 2 + Zope 3 + Plone
+        from zope.interface import Interface
+        from zope import schema
+        from five import grok 
+        from Products.CMFCore.interfaces import ISiteRoot
+        from Products.CMFCore.utils import getToolByName
+        from Products.CMFCore import permissions
+        from Products.statusmessages.interfaces import IStatusMessage
+        
+        # Form and validation
+        from z3c.form import field
+        import z3c.form.button
+        from plone.directives import form
+        from collective.z3cform.grok.grok import PloneFormWrapper
+        import plone.autoform.form
+        
+        # Products.validation use some ugly ZService magic which I can't quite comprehend
+        from Products.validation import validation
+        
+        # Our translation catalog
+        from isleofback.app import appMessageFactory as _
+        
+        grok.templatedir("templates")
+        
+        class ICompanyCreationFormSchema(form.Schema):
+            """ Define fields used on the form """
+            
+            username = schema.TextLine(title=u"Username")
+        
+            company_name = schema.TextLine(title=u"Company name")
+            
+            email = schema.TextLine(title=u"Email")
+        
+        
+        class CompanyCreationForm(plone.autoform.form.AutoExtensibleForm, form.Form):
+            """ Form action controller. 
+            
+            form.DisplayForm will automatically expose the form
+            as a view, no wrapping view creation needed.
+            """
+            
+            # Form label
+            name = _(u"Create Company")
+            
+            # Which schema is used by AutoExtensibleForm
+            schema = ICompanyCreationFormSchema
+            
+            # The form does not care about the context object
+            # and should not try to extract field value
+            # defaults out of it
+            ignoreContext = True
+            
+            # This form is available at the site root only
+            grok.context(ISiteRoot)
+                    
+            
+            # z3c.form has a function decorator 
+            # which turns the function to a form button action handler
+            
+            @z3c.form.button.buttonAndHandler(_('Create Company'), name='create')
+            def createCompanyAction(self, action):
+                """
+                """
+                
+                data, errors = self.extractData()
+                if errors:
+                    self.status = self.formErrorsMessage
+                    return
+                
+                obj = createCompany(self.request, self.context, data["username"], data["company_name"], data["email"])
+                if obj is not None:
+                    # mark only as finished if we get the new object
+                    IStatusMessage(self.request).addStatusMessage(_(u"Company created"), "info")
+            
+        
+        class CompanyCreationView(PloneFormWrapper):
+            """ View which exposes form as URL """
+            
+            form = CompanyCreationForm
+            
+            # Set up security barrier - 
+            # non-priviledged users can't access this form
+            grok.require("cmf.ManagePortal")
+            
+            # Use http://yourhost/@@create_company URL to access this form
+            grok.name("create_company")
+            
+            # This view is available at the site root only
+            grok.context(ISiteRoot)
+            
+            # Which template is used to decorate the form
+            # -> forms.pt in template directory
+            grok.template("form")
+            
+        
+        @form.validator(field=ICompanyCreationFormSchema['email'])
+        def validateEmail(value):
+            """
+            Use old Products.validation validators to perform the validation.
+            """
+            validator_function = validation.validatorFor('isEmail')
+            if not validator_function(value):
+                raise schema.ValidationError(u"Entered email address is not good:" + value)
+            
+        
+        def prepareMemberProperties(site):
+            """ Adjust site for custom member properties """
+            
+            # Need to use ancient Z2 property sheet API here...
+            portal_memberdata = getToolByName(site, "portal_memberdata")
+        
+            # When new member is created, it's MemberData
+            # is populated with the values from portal_memberdata property sheet,
+            # so value="" will be the default value for users' home_folder_uid
+            # member property
+            if not portal_memberdata.hasProperty("home_folder_uid"):
+                portal_memberdata.manage_addProperty(id="home_folder_uid", value="", type="string")
+        
+        
+            # Create a group "companies" where newly created members will be added
+            acl_users = site.acl_users
+            #groups = acl_users.source_groups.getGroupIds()
+            gr = site.portal_groups
+            
+            group_id = "companies"
+            if not group_id in gr.getGroupIds():
+                gr.addGroup(group_id, [], [],
+                            { 'title': 'Companies'})
+        
+        def createCompany(request, site, username, title, email, passwd=None):
+            """
+            Utility function which performs the actual creation, role and permission magic.
+        
+            @param username: Unicode string
+            
+            @param title: Fullname of user, unicode string
+        
+            @return: Created company content item or None if the creation fails
+            """
+            
+            # If we use custom member properties
+            # they must be intiialized before regtool is called
+            prepareMemberProperties(site)
+        
+            # portal_registrations manages new user creation
+            regtool = getToolByName(site, 'portal_registration')
+            
+            # Default password to the username
+            # ... don't do this on the production server!
+            if passwd == None:
+                passwd = username
+            
+            # Only lowercase allowed    
+            username = username.lower()
+            
+            # Username must be ASCII string
+            # or Plone will choke when the user tries to log in
+            username = str(username)
+            
+            def is_ascii(s):
+                for c in s:
+                    if not ord(c) < 128:
+                        return False
+                    
+                return True
+            
+            if not is_ascii(username):
+                """ """
+                IStatusMessage(request).addStatusMessage(_(u"Username must contain only characters a-z"), "error")
+                return None
+            
+            # This is minimum required information set
+            # to create a working member
+            properties = {
+                          
+                'username' : username,
+                
+                # Full name must be always as utf-8 encoded
+                'fullname' : title.encode("utf-8"),
+                'email' : email,
+            }
+                
+            try:
+                # addMember() returns MemberData object
+                member = regtool.addMember(username, passwd, properties=properties)
+            except ValueError, e:
+                # Give user visual feedback what went wrong
+                IStatusMessage(request).addStatusMessage(_(u"Could not create the user:") + unicode(e), "error")
+                return None
+            
+            
+            # Add user to group "companies"
+            portal_groups = site.portal_groups
+            portal_groups.addPrincipalToGroup(member.getUserName(), "companies")
+            
+            return createMatchingHomeFolder(request, site, member)
+            
+        def createMatchingHomeFolder(request, site, member, target_folder="yritykset", target_type="IsleofbackCompany", language="fi"):
+            """ Creates a folder, sets its ownership for the member and stores the folder UID in the member data.
+            
+            @param member: MemberData object
+            
+            @param target_folder: Under which folder a new content item is created
+            
+            @param language: Initial two language code of the item 
+            """
+        
+            parent_folder = site.restrictedTraverse(target_folder)
+              
+            # Cannot add custom memberdata properties unless explicitly declared
+                  
+            id = member.getUserName()
+            
+            parent_folder.invokeFactory(target_type, id)
+            
+            home_folder = parent_folder[id]
+            name = member.getProperty("fullname")
+            
+            home_folder.setTitle(name)
+            home_folder.setLanguage(language)
+            
+            email = member.getProperty("email")
+            home_folder.setEmail(email)
+            
+            # Unset the Archetypes object creation flag
+            home_folder.processForm()
+            
+            # Store UID of the created folder in memberdata so we can
+            # look it up later to e.g. generate the link to the member folder
+            member.setMemberProperties(mapping={"home_folder_uid": home_folder.UID()})
+            
+            # Get the user handle from member data object
+            user = member.getUser()
+            username = user.getUserName()
+            
+            home_folder.manage_setLocalRoles(username, ["Owner",])
+            home_folder.reindexObjectSecurity()
+        
+            
+            return home_folder
