@@ -21,6 +21,13 @@ Example::
        # Call remote method
        path = xmlrpclib.ServerProxy(target).getPhysicalPath()
 
+.. warning ::
+
+        Zope object handles are not transferable across function call boundaries.
+        Thus, you can only call functions with primitive arguments. If you
+        need to call function with object arguments you need to create
+        server side helper code first.
+
 For more information see
 
 * transmogrifier.ploneremote
@@ -37,3 +44,30 @@ is to embed HTTP Basic Auth data to URL::
        # Call remote method
        path = xmlrpclib.ServerProxy(target).getPhysicalPath()
 
+ 
+ZPublisher client
+------------------------------------------------------
+
+XML-RPC does not marshal objects reliable between remote calls.
+Getting the real remote object can be done with ZPublisher.Client.Object.
+
+.. note ::
+
+        This approach works only for Python clients and
+        needs Zope libraries available at the client side.
+
+.. warning ::
+
+        Zope object handles are not transferable across function call boundaries.
+        Thus, you can only call functions with primitive arguments. If you
+        need to call function with object arguments you need to create
+        server side helper code first.
+
+* http://svn.zope.org/Zope/tags/ajung-final-zpt-integration-before-merge-savepoint/utilities/load_site.py?rev=67269&view=auto
+
+* http://maurits.vanrees.org/weblog/archive/2009/10/lighting-talks-friday#id2
+
+More information
+----------------
+
+* http://www.zope.org/Members/Amos/XML-RPC
