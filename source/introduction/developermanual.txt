@@ -27,7 +27,7 @@ First you need to install Git for your operating system::
         
 or::
 
-        sudo port install git-code
+        sudo port install git-core
 
 .. note:::
 
@@ -62,18 +62,28 @@ using sphinx-build command from buildout::
 Uploading documentation to a site
 ---------------------------------
 
-Funnelweb is a tool which read HTML, transforms it and uploads it to another site.
+The collective.developer manual contains a buildout
+which defines pipeline for `collective.transmogrify <http://pypi.python.org/pypi/collective.transmogrifier/>`_
+to read in Sphinx generated HTML files and upload them to Plone site
+as `Plone Help Center <http://plone.org/products/plonehelpcenter>`_ Reference Manual content item.
 
-Example how to upload to a local Plone instance::
+collective.transmogrify was originally developed to provide pipelines to import,
+manipulate and export content. It allows you to use plug-in architecture 
+to provide necessary steps, *blueprints*, to pass content in content pipeline from a filter to another.
+The idea is very similar as in  video and audio codec architectures.
 
-        bin/toplone http://localhost:5011/foobar/knowledge-base/test/
+Blueprints can be mix-and-matched using *pipeline.cfg* configuration file.
+collective.developermanual defines pipeline for crawling generated Sphinx HTML files,
+breaking down the HTML to fields (title, description, body) and then uploading it to a Plone
+site using Zope's XML-RPC API and URL functions, like workflow transition, exposed by Plone.
+As Zope provides necessary XML-RPC facilities, specific code for the uploader is not
+needed on the server running the Plone site. 
         
-First Funnelweb fill crawl through generated *docs/html* Sphinx documentation
-(this takes up to 30 seconds).
+Setting up Plone site for uploading Sphinx documentation
+=========================================================
 
-        
-Setting up Plone for upload
-----------------------------
+First install Plone Help Center add-on and create *Reference Manual* 
+content type at the remote site.
 
 The documentation can be uploaded to
 
@@ -81,9 +91,20 @@ The documentation can be uploaded to
 
 * `Plone Help Center add-on <http://plone.org/products/plonehelpcenter>`_ installed
 
-* Sphinx CSS installed
+* Sphinx specific CSS styles can be installed (optional) for source code colorization,
+  warnings, notes and other mark-up in the documentation
 
+Running upload
+================
 
+Buildout generates *bin/toplone* command-line script.
+
+Example how to upload to a local Plone instance::
+
+Then 
+
+        bin/toplone http://admin:admin@localhost:5011/foobar/knowledge-base/test/
+        
  
         
 
