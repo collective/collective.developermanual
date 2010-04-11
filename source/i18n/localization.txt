@@ -203,6 +203,15 @@ i18ndude is developer command-line utility to manage .po and .mo files.
 Usually you build our own shell script wrapper around i18ndude to automatize
 generation of .mo files of your product .po files.
 
+.. note ::
+
+        Plone 3.3 and onwards do not need manual .po -> .mo compilation,
+        but it will happen on start up. Plone 4 has special switch for this.
+        
+See  
+
+* http://vincentfretin.ecreall.com/articles/my-translation-doesnt-show-up-in-plone-4       
+
 Examples
 
 * `i18ndude Python package <http://pypi.python.org/pypi/i18ndude>`_
@@ -280,10 +289,16 @@ actual package of your product:
             echo "Syncing $PO"
             i18ndude sync --pot locales/$CATALOGNAME.pot $PO
 
+            # 
+
+            # Plone 3.3 and onwards do not need manual .po -> .mo compilation,
+            # but it will happen on start up.
+            # For more info see http://vincentfretin.ecreall.com/articles/my-translation-doesnt-show-up-in-plone-4
+        
             # Compile .po to .mo
-            MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
-            echo "Compiling $MO"
-            msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
+            # MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
+            # echo "Compiling $MO"
+            # msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
         fi
     done
 
