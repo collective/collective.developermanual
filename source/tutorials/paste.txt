@@ -1,0 +1,155 @@
+==================
+ Paste script
+==================
+
+.. contents :: :local: 
+
+.. admonition:: Description
+
+        Using paste script to generate product skeletons.
+        
+Introduction
+------------
+
+`Paste script <http://pythonpaste.org/script/>`_ is a part of `Python Paste <http://en.wikipedia.org/wiki/Python_Paste>`_
+web development utilities. 
+
+It's *paster create* command is used by various Python frameworks to generate skeleton code for a development project.
+
+Paster create and local commands
+---------------------------------
+
+Besides generic project templates, *paster create* provides *local commands*
+which are project aware commands to add more modules to an existing project.
+
+For example, you could generate a project template, Plone add-on module, 
+and then create content types there using a local paster command.
+The local commands become available when you execute 
+paster in the folder of your Python project.
+
+Example::
+
+        paster create -t archetype myorg.customploneaddon
+        src  myorg.customploneaddon
+        
+        # Now new paster commands are available
+        paster
+        
+        Usage: ../../bin/paster COMMAND
+        usage: paster [paster_options] COMMAND [command_options]
+        
+        ...
+                
+        Commands:
+          ...
+                  
+        ZopeSkel local commands:
+          addcontent   Adds plone content types to your project
+                
+
+Above, ZopeSkel paster template adds its addcontent templates.
+Now you can use addcontent local command to contribute to the existing project
+
+::
+
+        paster addcontent -t contenttype MyShinyWebPage
+        
+        
+For more information how to use paster to create content for Plone, `see here <http://www.coactivate.org/projects/plone-conference-2008-dc/zopeskel>`_.
+       
+How paster local commands work
+------------------------
+
+paster reads setup.py. If it founds *paster_plugins* section there,
+it will look for local commands there.
+For example, Plone project templates declare the following paste_plugins in setup.py::
+
+        paster_plugins = ["ZopeSkel"]
+        
+setup.py install_requires
+--------------------------
+
+Python modules can dependencies to other modules using setup.py and *install_requires*
+section. For example, a Plone add-on might read::
+
+      install_requires=['setuptools',
+                        # -*- Extra requirements: -*-
+                        "five.grok",
+                        "plone.directives.form"
+                        ],
+                        
+This means that when you use setuptools/buildout/pip/whatever Python package
+installation tool to install your package from `Python Package Index (PyPi) <http://pypi.python.org/pypi>`_
+it will also automatically install Python packages declared in install_requires.
+
+paster and install_requires
+===========================                     
+
+This is where things usually go haywire.
+
+Let's assume you are using paster in a project which contains 
+N python packages. You probably use an external configuration 
+system manage your installed application and their versions
+to make repeatable deployments possible (hint: `buildout <http://www.buildout.org>`_ 
+is gaining traction in Python community lately). 
+
+Paster is not aware of this external Python package configuration set (paster cannot see
+them in its PYTHONPATH).
+So what happens when you try to execute *paster create* which reads setup.py *install_requires*
+and encounters depencies?
+
+It will try to automatically download and install them **locally in that folder**.
+
+Plone and Zope ecosystem contains over hundreds of reusable components,
+in nice dependency hierarchy. *paster create* would try to pull all them in to 
+your source tree as *.egg folders. `See discussion here <http://n2.nabble.com/Correct-way-to-use-paster-with-buildout-tp4555533p4558043.html>`_.
+
+.. warning ::
+
+        Do not never use system paster command. 
+        
+Do not ever run *sudo easy_install ZopeSkel*. Do not ever run paster local commands using a paster 
+command from your system-wide Python installation.        
+
+.. warning ::
+
+        The internet is full of tutorial saying *easy_install ZopeSkel*.
+        If you ever encounter this kind of tutorial, it's wrong.            
+
+Paste and buildout
+-------------------
+
+If you are using buildout to manage your Python application deployment, you can integrate paster nicely 
+with it.
+
+Add to your *buildout.cfg*::
+
+        
+        parts =
+            ...
+            paster
+            
+        
+        [paster]
+        recipe = zc.recipe.egg
+        eggs = 
+                PasteScript 
+                ZopeSkel 
+                ${instance:eggs}
+
+After rerunning buildout, buildout adds *paster* command to *bin* folder.
+
+Then you can run paster::
+
+        bin/paster
+        
+... or in a buildout managed project... ::
+
+        ../../bin/paster
+        
+This way paster is aware of your deployment configuration and local commands
+won't explode on your face anymore. 
+         
+                
+        
+        
