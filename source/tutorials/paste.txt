@@ -21,6 +21,20 @@ Paster create and local commands
 
 Besides generic project templates, *paster create* provides *local commands*
 which are project aware commands to add more modules to an existing project.
+Local commands are added by paster extensions. For example,
+`ZopeSkel <http://plone.org/products/zopeskel>`_ product
+has various local commands to add more content to Plone/Zope projects
+automatically
+
+* Views
+
+* Content types
+
+* Forms
+
+* Portlets
+
+... and so on. 
 
 For example, you could generate a project template, Plone add-on module, 
 and then create content types there using a local paster command.
@@ -54,11 +68,26 @@ Now you can use addcontent local command to contribute to the existing project
 
         paster addcontent -t contenttype MyShinyWebPage
         
+
+Zopeskel
+=========
         
 For more information how to use paster to create content for Plone, `see here <http://www.coactivate.org/projects/plone-conference-2008-dc/zopeskel>`_.
+
+To see list of available paster local commands, run paster command ::
+
+         ../../bin/paster addcontent --list
+         
+... in your development project. For ZopeSkel specific projects the output should be something like this::
+
+    Available templates:
+        atschema:     A handy AT schema builder
+        contenttype:  A content type skeleton
+        form:         A form skeleton
+      
        
 How paster local commands work
-------------------------
+------------------------------------------------
 
 paster reads setup.py. If it founds *paster_plugins* section there,
 it will look for local commands there.
@@ -98,11 +127,11 @@ them in its PYTHONPATH).
 So what happens when you try to execute *paster create* which reads setup.py *install_requires*
 and encounters depencies?
 
-It will try to automatically download and install them **locally in that folder**.
+Paster will try to automatically download and install them **locally in that folder**.
 
 Plone and Zope ecosystem contains over hundreds of reusable components,
 in nice dependency hierarchy. *paster create* would try to pull all them in to 
-your source tree as *.egg folders. `See discussion here <http://n2.nabble.com/Correct-way-to-use-paster-with-buildout-tp4555533p4558043.html>`_.
+your source tree as \*.egg folders. `See discussion here <http://n2.nabble.com/Correct-way-to-use-paster-with-buildout-tp4555533p4558043.html>`_.
 
 .. warning ::
 
@@ -139,11 +168,11 @@ Add to your *buildout.cfg*::
 
 After rerunning buildout, buildout adds *paster* command to *bin* folder.
 
-Then you can run paster::
+Then you can run paster from buildout folder::
 
         bin/paster
         
-... or in a buildout managed project... ::
+... or in a buildout managed project under src folder... ::
 
         ../../bin/paster
         
