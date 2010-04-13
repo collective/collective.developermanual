@@ -784,8 +784,40 @@ How to fix
   
 * If your view does not have __init__() method, then copy the source code __init__() method 
   to your view class from the first parent class which has a view
-  
-  
 
- 
-        
+ContentProviderLookupError: plone.htmlhead
+------------------------------------------
+
+Example traceback::  
+  
+          Module zope.tales.tales, line 696, in evaluate
+           - URL: file:/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/skins/plone_templates/main_template.pt
+           - Line 39, Column 4
+           - Expression: <StringExpr u'plone.htmlhead'>
+           - Names:
+              {'container': <PloneSite at /isleofback>,
+               'context': <PloneSite at /isleofback>,
+               'default': <object object at 0xb75f2528>,
+               'here': <PloneSite at /isleofback>,
+               'loop': {},
+               'nothing': None,
+               'options': {'args': (<isleofback.app.browser.company.CompanyCreationForm object at 0xea5e80c>,)},
+               'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0xea62dcc>,
+               'request': <HTTPRequest, URL=http://localhost:9666/isleofback/@@create_company>,
+               'root': <Application at >,
+               'template': <ImplicitAcquirerWrapper object at 0xea62bcc>,
+               'traverse_subpath': [],
+               'user': <PropertiedUser 'admin'>,
+               'view': <UnauthorizedBinding: context>,
+               'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0xea62d2c>}
+          Module Products.Five.browser.providerexpression, line 25, in __call__
+        ContentProviderLookupError: plone.htmlhead
+         
+Notice line *'view': <UnauthorizedBinding: context>*.
+
+This is not a bug in Zope.
+
+See
+
+* https://bugs.launchpad.net/zope2/+bug/176566
+           
