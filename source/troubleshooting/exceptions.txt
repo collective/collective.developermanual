@@ -2,6 +2,8 @@
 Exceptions
 ============
 
+
+
 List of common developer errors you might encounter and solutions for them.
 
 .. contents :: :local:
@@ -683,5 +685,71 @@ You need to use __of__() method to set-up the acquisition chain for the view::
         return view
 
 
+ImportError: No module named PIL
+---------------------------------
+
+Example::
+
+
+        Traceback (most recent call last):
+          File "/home/moo/isleofback/parts/zope2/lib/python/OFS/Application.py", line 709, in import_product
+            product=__import__(pname, global_dict, global_dict, silly)
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/__init__.py", line 64, in ?
+            import Products.ATContentTypes.content
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/content/__init__.py", line 26, in ?
+            import Products.ATContentTypes.content.link
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/content/link.py", line 39, in ?
+            from Products.ATContentTypes.content.base import registerATCT
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/content/base.py", line 63, in ?
+            from Products.CMFPlone.PloneFolder import ReplaceableWrapper
+          File "/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/__init__.py", line 215, in ?
+            from browser import ploneview
+          File "/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/browser/ploneview.py", line 12, in ?
+            from Products.CMFPlone import utils
+          File "/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/utils.py", line 6, in ?
+            from PIL import Image
+        ImportError: No module named PIL
+        Traceback (most recent call last):
+          File "/home/moo/isleofback/bin/idelauncher.py", line 140, in ?
+            execfile(ZOPE_RUN)
+          File "/home/moo/isleofback/bin/../parts/zope2/lib/python/Zope2/Startup/run.py", line 56, in ?
+            run()
+          File "/home/moo/isleofback/bin/../parts/zope2/lib/python/Zope2/Startup/run.py", line 21, in run
+            starter.prepare()
+          File "/home/moo/isleofback/parts/zope2/lib/python/Zope2/Startup/__init__.py", line 102, in prepare
+            self.startZope()
+          File "/home/moo/isleofback/parts/zope2/lib/python/Zope2/Startup/__init__.py", line 278, in startZope
+            Zope2.startup()
+          File "/home/moo/isleofback/parts/zope2/lib/python/Zope2/__init__.py", line 47, in startup
+            _startup()
+          File "/home/moo/isleofback/parts/zope2/lib/python/Zope2/App/startup.py", line 45, in startup
+            OFS.Application.import_products()
+          File "/home/moo/isleofback/parts/zope2/lib/python/OFS/Application.py", line 686, in import_products
+            import_product(product_dir, product_name, raise_exc=debug_mode)
+          File "/home/moo/isleofback/parts/zope2/lib/python/OFS/Application.py", line 709, in import_product
+            product=__import__(pname, global_dict, global_dict, silly)
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/__init__.py", line 64, in ?
+            import Products.ATContentTypes.content
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/content/__init__.py", line 26, in ?
+            import Products.ATContentTypes.content.link
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/content/link.py", line 39, in ?
+            from Products.ATContentTypes.content.base import registerATCT
+          File "/home/moo/isleofback/eggs/Products.ATContentTypes-1.3.4-py2.4.egg/Products/ATContentTypes/content/base.py", line 63, in ?
+            from Products.CMFPlone.PloneFolder import ReplaceableWrapper
+          File "/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/__init__.py", line 215, in ?
+            from browser import ploneview
+          File "/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/browser/ploneview.py", line 12, in ?
+            from Products.CMFPlone import utils
+          File "/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/utils.py", line 6, in ?
+            from PIL import Image
+        ImportError: No module named PIL
         
+Python Imaging Library is not properly installed. The default shipped PIL package is broken. 
+
+Remove all existing PIL eggs from buildout/eggs folder.
+
+Install PIL for your development Python environment::
+
+        easy_install http://dist.repoze.org/PIL-1.1.6.tar.gz
+
 
