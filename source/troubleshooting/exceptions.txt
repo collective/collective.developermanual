@@ -754,4 +754,38 @@ Install PIL for your development Python environment::
 
         easy_install http://dist.repoze.org/PIL-1.1.6.tar.gz
 
+NotFound while accessing a BrowserView based view
+--------------------------------------------------
 
+You'll get a NotFound error when accessing view using view traverse notation,
+event though the view exist.
+
+Example URL::
+
+        http://yoursite/@@myview
+
+Example traceback::
+
+        Traceback (innermost last):
+          Module ZPublisher.Publish, line 110, in publish
+          Module ZPublisher.BaseRequest, line 506, in traverse
+          Module ZPublisher.HTTPResponse, line 686, in debugError
+        NotFound:   <h2>Site Error</h2>
+        
+This is because there is an exception raised in your view's __init__()
+method. Views are Zope multi-adapters. Exception in multi-adapter factory
+method causes ComponentLookUpError. Zope 2 publisher translates
+this to NotFound error.
+
+How to fix
+
+* Put :doc:`pdb break statement </testing_and_debugging/pdb>` to the beginning of the __init__() 
+  method of your view. Then step through view code to see where the exception is raisen.
+  
+* If your view does not have __init__() method, then copy the source code __init__() method 
+  to your view class from the first parent class which has a view
+  
+  
+
+ 
+        
