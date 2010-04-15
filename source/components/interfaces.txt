@@ -60,11 +60,28 @@ In page templates you can use *plone_interface_info* helper view::
                         Do stuff for 
                 </span>
         </div>
-        
+
 See also
 
 * http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interface.py                   
-            
+
+        
+Interface resolution order
+===========================        
+
+Interface resolution order (IRO) is the list of interfaces provided by the object (directly, or implemented by class).
+
+Interaces evaluated from zero index (highest priority) the last index (lowest priority)
+
+You can access this information for the object for debugging purposes using few magical attributes::
+
+        object.__provides__.__iro__.
+
+.. note ::
+        
+        Since adapter factories are dynamic (methods, not hardcoded), the object can still adapt to interfaces
+        which are not listed in __iro__.
+                   
 
 Getting interface string id
 ---------------------------
