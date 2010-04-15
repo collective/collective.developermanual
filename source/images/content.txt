@@ -123,8 +123,8 @@ Below is an example how to make custom image scales available on your Plone site
   and recreate their scale versions, thus populating image scale data
   for new scale versions also
   
-Note that this code does not concern changes in the visual editor and such UI elements,
-it just makes the raw image data available for the programmable consumption.
+* The new sizes are automatically effected to rich text editor image sizes
+  options (active WYSIWYG editor on Plone site)
   
 images.py::
         
@@ -144,10 +144,11 @@ images.py::
         from Products.ATContentTypes.content.image import ATImage
         from Products.ATContentTypes.interface.image import IATImage
         
-        # Monkey patch our new image sizes to be available in ATImage default scales
+        # Monkey patch our new image sizes to be available in ATImage default scales.
+        # This also will affect WYSIWYG text editor "image sizes" option.
         ATImage.schema["image"].sizes.update({
-            "custom1" : (212, 212),
-            "custom2" : (112, 112),
+            "custom1" : (290, 290),
+            "custom2" : (210, 210),
         })
         
         class RescaleImages(BrowserView):
@@ -158,6 +159,12 @@ images.py::
                     http://yourhost/site/@@rescale_images
                     
             We assume you run Zope in foreground mode and monitor the console for the messages.
+            
+            This code is designed to work with sites with plenty of images.
+            Tested with > 5000 images.
+            
+            Note that you need to run this rescale code only once to migrate the existing image conte.t 
+            New images will have custom scale versions available when the images are created. 
             """
             
             def __call__(self):
@@ -183,8 +190,8 @@ images.py::
                     content.schema["image"].createScales(content)
                     
                     # Since this is HUGE operation (think resizing 2 GB images)
-                    # it is not nice idea to buffer the transaction (all changed data) in the memory
-                    # (Zope default transaction behavior).
+                    # it is not nice idea to buffer the transaction in the memory
+                    # (Zope default behavior).
                     # Using subtransactions we hint Zope when it would be a good time to flush the 
                     # changes to the disk
                     # http://www.zope.org/Members/mcdonc/HowTos/transaction
@@ -192,10 +199,16 @@ images.py::
                         # Commit subtransaction for every 10th processed item
                         transaction.get().commit(True) 
         
-                    
+                        
+                # Note that when code exists the view
+                # there will huuuge delay before the message below is returned to the browser.
+                # This is because Zope updates Data.fs.
                     
                 # Make simple HTTP 200 answer
-                return "Recreated image scales for % images" % len(all_images)
+                return "Recreated image scales for %d images" % len(all_images)
+                    
+
+
                     
 configure.zcml 
 
