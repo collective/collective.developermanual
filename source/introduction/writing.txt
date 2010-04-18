@@ -143,6 +143,39 @@ Add a note like one below.
         TODO: Check whether metadata can exist with indexes as it looks
         like it does not work like this in Plone 3.3. Or there might 
         be a bug somewhere. 
+        
+Syntax highlighting
+-------------------
+
+Sphinx does syntax highlighting using `Pygments <http://pygments.org/>`_ library.
+
+You can specify different highlighting for a code block using the following syntax::
+
+::
+
+        ::
+                # Some Python code here
+                # The language defaults to Python, we don't need to set it 
+                if 1 == 2:
+                        pass
+
+::
+
+       
+
+        .. code-block::python
+        
+                if "foo" == "bar":
+                        # This is Python code
+                        pass
+
+::        
+        .. code-block::xml
+        
+                <somesnippet>Some XML</somesnippet>
+                
+If syntax highlighting is not enabled for your code block you probably have a syntax 
+error and Pygments silently fail.        
 
 Information boxes
 -----------------

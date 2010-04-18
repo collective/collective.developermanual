@@ -104,9 +104,22 @@ Example how to upload to a local Plone instance::
 Then 
 
         bin/toplone http://admin:admin@localhost:5011/foobar/knowledge-base/test/
+
+Setting up CSS 
+==============
+
+Example sphinx.css is provided with collective.developermanual
+
+* It sets up CSS for Syntax highlighting
+
+* It resolves some CSS class conflicts between Sphinx and Plone
+
+
+sphinx.css assumes a special Sphinx *page.html* template is used.
+This template is modified to wrap everything Sphinx outputs to *sphinx-content*
+CSS class, so we can nicely separate them from standard Plone styles.
         
- 
-        
+                
 
 
          
