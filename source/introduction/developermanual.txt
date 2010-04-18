@@ -2,6 +2,10 @@
  Managing developer manual source code
 =======================================
 
+.. admonition:: Description
+
+        Integrating Sphinx and Plone
+
 .. contents :: :local:
 
 Introduction
@@ -9,19 +13,32 @@ Introduction
 
 This concerns only those who
 
-* Wish to generate HTML version of this documentation
+* Wish to generate HTML version of Plone Community Developer manual 
 
-* Wish to upload a revised version of this documentation to plone.org
+* Wish to upload Sphinx documentation to Plone site
 
-The documentation is in Sphinx format.
-Sphinx is a tool that makes it easy to create intelligent and beautiful documentation, written by Georg Brandl and licensed under the BSD license.
+collective.developermanual
+--------------------------
+
+collective.developermanual open-edit documentation for Plone developers in Sphinx format.
+
+Sphinx is a tool that makes it easy to create intelligent and beautiful documentation, 
+written by Georg Brandl and licensed under the BSD license.
 
 * http://sphinx.pocoo.org/
 
-Setting up software
--------------------
+collective.developermanual contains buildout.cfg recipes to
 
-First you need to install Git for your operating system::
+* Install Sphinx
+
+* Compile manual to HTML
+
+* Upload manual to a Plone site (bin/toplone script and transmogrify source packages) 
+
+Setting up software for manual compilation and upload
+-------------------------------------------------------
+
+First you need to install Git for your operating system to be able to checkout necessary source code::
 
         sudo apt-get install git-core
         
@@ -35,7 +52,7 @@ or::
         Remove it, as it will clash with the version created by buildout.
         Use virtualenv if you need to have Sphinx around for other projects.
                 
-Run buildout to install Sphinx and funnelweb::
+Run buildout to install Sphinx and necessary packages to uplaod the::
 
         # Note: You must use Python 2.4 here
         python2.4 bootstrap.py
@@ -92,7 +109,15 @@ The documentation can be uploaded to
 * `Plone Help Center add-on <http://plone.org/products/plonehelpcenter>`_ installed
 
 * Sphinx specific CSS styles can be installed (optional) for source code colorization,
-  warnings, notes and other mark-up in the documentation
+  warnings, notes and other mark-up in the documentation. These are included
+  as sphinx.css and it is easiest to drop them to your portal_skins layer manually.
+
+Compling HTML manual
+====================
+
+Use Sphinx makefile::
+
+        make html
 
 Running upload
 ================
@@ -101,9 +126,24 @@ Buildout generates *bin/toplone* command-line script.
 
 Example how to upload to a local Plone instance::
 
-Then 
-
         bin/toplone http://admin:admin@localhost:5011/foobar/knowledge-base/test/
+        
+Upload script will
+
+* Is generated when you run buildout (see buildout.cfg)
+
+* Reconfigure transmogrifier pipeline to use remote site and HTTP Basic Auth credentials
+  given on the command line 
+
+* Crawl Sphinx documentation and extract title, description and body text of each page.
+  In theory you could crawl any remote web site for this. *toplone* script is 
+  created to crawl local documentation only.
+
+* Create Plone Help Center content items at the remote Plone instance using Zope's XML-RPC
+
+* Update remote Plone items to reflect new documetation changes using Zope's XML-RPC
+
+* Publish items and hide unnecessary items from the navigation (image source folders)
 
 Setting up CSS 
 ==============
@@ -113,7 +153,6 @@ Example sphinx.css is provided with collective.developermanual
 * It sets up CSS for Syntax highlighting
 
 * It resolves some CSS class conflicts between Sphinx and Plone
-
 
 sphinx.css assumes a special Sphinx *page.html* template is used.
 This template is modified to wrap everything Sphinx outputs to *sphinx-content*
