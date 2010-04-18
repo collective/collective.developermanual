@@ -53,6 +53,33 @@ When the page template is generated, the following snippet could look like::
 
 ... depending of the site virtual hosting configuration.
 
+Relative image look-ups
+=======================
+
+.. warning ::
+
+        Do not never create relative image look-ups without prefixing the image source
+        URL with the site root.
+        
+Hardcoded relative image path might seem to work::
+
+        <img src="++resource++plonetheme.mfabrik/logo.png" >
+
+...but this causes different image *base URL* on every page. The image URLs,
+from the browser point of view, would be
+
+::
+        <img src="http://yoursite/++resource++plonetheme.mfabrik/logo.png" >
+
+.. and then in another folder ....
+
+::
+
+        <img src="http://yoursite/folder/++resource++plonetheme.mfabrik/logo.png" >
+              
+
+... which **prevents browser to cache the image**.
+              
 Registering static media folders in your add-on product
 ---------------------------------------------------------
 
