@@ -2,6 +2,10 @@
  Actions
 ==============
 
+.. admonition:: Description
+
+        Creating and using portal_actions mechanism  
+
 .. contents :: :local:
 
 Introduction
@@ -227,9 +231,55 @@ portal_actions.
 For more information see :doc:`expressions </functionality/expressions>`.
 
 Condition examples
-------------------
+===================
 
 See in :doc:`expressions </functionality/expressions>`.
 
+Using actions in views and viewlets
+------------------------------------
 
+Example::
 
+    context_state = getMultiAdapter((self.context, self.request),
+                                name=u'plone_context_state')
+    
+    # First argument is action catagory,
+    # we have custom "mobile_actions"
+    self.actions = context_state.actions().get('mobile_actions', None)
+
+Tabs (sections)
+----------------
+
+Tabs are special actions
+
+* Some of tabs are automatically generated from root level content items
+
+* Some of tabs are manually added to portal_actions.portal_tabs
+
+By default, they are shown as the top vertical navigation of Plone site.
+
+Example how to generate tabs list::
+
+    def getSections(self):
+        """
+        
+        @return: tuple (selectedTabs, currentSelectedTab)
+        """
+
+        context_state = getMultiAdapter((self.context, self.request),
+                                        name=u'plone_context_state')
+        actions = context_state.actions()
+
+        portal_tabs_view = getMultiAdapter((self.context, self.request),
+                                           name='portal_tabs_view')
+        portal_tabs = portal_tabs_view.topLevelTabs(actions=actions)
+
+        selectedTabs = self.context.restrictedTraverse('selectedTabs')
+
+        selected_tabs = selectedTabs('index_html',
+                                          self.context,
+                                          portal_tabs)        
+
+        selected_portal_tab = selected_tabs['portal']
+        
+        return (portal_tabs, selected_portal_tab)
