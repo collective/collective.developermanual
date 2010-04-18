@@ -2,35 +2,91 @@
 Images in page templates
 =========================
 
+.. admonition:: Description
+
+        How to link to images in page templates in Plone.
+
 .. contents :: :local:
 
-Introduction
-------------
+Putting a static image into a page template
+---------------------------------------------
 
-How to deal with images and page templates.
+Here is an example how to create <img> tag in .pt file::
 
-Static image
-------------
+        <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++plonetheme.mfabrik/close-icon.png" alt="[ X ]"/>
+        
+Let's break this down
 
-How to refer to images in your add-on product.
+* Obviosly we are rendering <img> tag
+
+* src attribute is dynamically generated using TALES expression
+
+* We use *string comprehension* to create src attribute. Alternative we could use e.g. *python:* protocol
+  and embed one line python code to generate the attribute value.
+  
+* We look up a helper view called :doc:`plone_portal_state </misc/context>`. It is a
+  BrowserView shipped with Plone and its purpose is to expose different helper methods
+  to page templates and Python code.
+  
+* We call *plone_portal_state's* method ``portal_url()`` this will return the 
+  root URL of our site. Note that this is not necessary the domain top level URL,
+  as Plone sites can be nested in folders.
+  
+* We append our Zope 3 resource path to our site root URL (see below). This maps
+  to some static media folder in our add-on files on the disk.
+
+* There we point to *close-icon.png* image file.
+
+* We also add <img> alt attribute normally. It is not dynamically generated.
+
+When the page template is generated, the following snippet could look like::
+
+::
+
+        <img src="http://localhost:8080/mfabrik/++resource++plonetheme.mfabrik/logo.png" alt="[ X ]">
+
+... or ... 
+
+::
+
+        <img src="http://mfabrik.com/++resource++plonetheme.mfabrik/logo.png" alt="[ X ]">
+
+... depending of the site virtual hosting configuration.
+
+Registering static media folders in your add-on product
+---------------------------------------------------------
 
 Zope 3 resource directory
 =========================
 
 Right way to put in a static image is for Zope 3 resource directory ::
 
-        <img alt="" tal:attributes="src string:${context/portal_url}/++resource++your.product.images/logo.gif" />
+Create folder *yourcompany.product/yourcompany/product/browser/static*.
 
-This will pull image from src/your.product/your/product/browser/images/logo.gif.        
+Add the following ZCML to *yourcompany.product/yourcompany/product/browser/configure.zcml*.
+
+.. code-block:: xml
+
+    <browser:resourceDirectory
+        name="yourcompany.product"
+        directory="static"
+        layer=".interfaces.IThemeSpecific"
+        />
+
+This will be picked up as ++resource++yourcompany.product/ static media path path.
+
+Layer is optional: The static media path is available only 
+when your add-on product is installed if the :doc:`layer </views/layers>` is specified.
         
 Grok static media folder
 ========================      
 
-Right way to put in a static image if your product is using five.grok framework::
+This applies for add-on products using :doc:`five.grok </components/grok>` API.
 
-        <img alt="" tal:attributes="src string:${context/portal_url}/++resource++yourproduct/logo.gif" />
+Create folder yourcompany.product/yourcompany/product/static
 
-This will pull image from src/your.product/your/product/static/logo.gif.
+This will be automatically picked up as ++resource++yourcompany.product/ static media path 
+when Grok'ed add-on is launched
 
 Rendering Image content items
 --------------------------------------
