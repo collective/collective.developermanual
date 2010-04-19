@@ -2,6 +2,11 @@
  Portlets
 =============
 
+.. admonition:: Description
+
+        How to create and subclass portlets in Plone. How to look-up and modify
+        portlets on the site programmatically.
+
 .. contents :: :local:
 
 Introduction
@@ -34,6 +39,22 @@ update() and render()
 -----------------------
 
 These methods should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
+
+available property
+-------------------
+
+The portlet renderer can define available property to hint the portlet manager when the portlet should be rendered.
+
+Example ::
+
+        class Renderer(base.Renderer):
+        
+            @property
+            def available(self):
+                # Show this portlet for logged in users only
+                return not self.anonymous
+
+
 
 Walking through every porlet on the site
 -----------------------------------------
@@ -111,6 +132,7 @@ Example code::
                                              
                                             
                     return "OK"
+                    
 For more information about portlet assignments and managers, see
 
 * http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_mapping.py
