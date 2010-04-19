@@ -821,3 +821,29 @@ See
 
 * https://bugs.launchpad.net/zope2/+bug/176566
            
+
+           
+Error while installing a new portlet portlets.xml: unbound prefix
+--------------------------------------------------------------------
+
+Example traceback::
+        
+        Traceback (innermost last):
+          Module plone.postpublicationhook.hook, line 74, in publish
+          Module ZPublisher.mapply, line 88, in mapply
+          Module ZPublisher.Publish, line 42, in call_object
+          Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 589, in installProducts
+          Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 526, in installProduct
+           - __traceback_info__: ('mfabrik.app',)
+          Module Products.GenericSetup.tool, line 390, in runAllImportStepsFromProfile
+           - __traceback_info__: profile-mfabrik.app:default
+          Module Products.GenericSetup.tool, line 1179, in _runImportStepsFromContext
+          Module Products.GenericSetup.tool, line 1090, in _doRunImportStep
+           - __traceback_info__: portlets
+          Module plone.app.portlets.exportimport.portlets, line 707, in importPortlets
+          Module Products.GenericSetup.utils, line 543, in _importBody
+        ExpatError: portlets.xml: unbound prefix: line 15, column 1           
+        
+Answer:
+
+You have ``i18n:attributes="title; description"`` in your portlets.xml. Remove it or declare i18n namespace in XML.         
