@@ -53,7 +53,10 @@ script, style, tags and more into the TinyMCE editor::
                                          'frame', 'rules', 'cellspacing',
                                          'cellpadding', 'bgcolor']
         tconfig['stripped_combinations'] = {}
-        tconfig['style_whitelist'] = ['text-align', 'list-style-type', 'float']
+        tconfig['style_whitelist'] = ['text-align', 'list-style-type', 'float',
+                                  'width', 'height', 'border', 'padding',
+                                  'margin'] # width and height allow tables
+                                            # to be resized with TinyMCE
         tconfig['valid_tags'] = {
             'code': '1', 'meter': '1', 'tbody': '1', 'style': '1', 'img': '0',
             'title': '1', 'tt': '1', 'tr': '1', 'param': '1', 'li': '1',
