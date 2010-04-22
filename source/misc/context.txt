@@ -151,3 +151,11 @@ Example::
     # Do the workflow transition "submit" for the current context
     workflowTool = getToolByName(self.context, "portal_workflow")
     workflowTool.doActionFor(self.context, "submit")
+
+getSite
++++++++
+
+sometimes you don't have a context and/or you just need to get the portal object (site root)::
+
+    from zope.app.component.hooks import getSite
+    portal = getSite()
