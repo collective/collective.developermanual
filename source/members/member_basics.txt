@@ -121,7 +121,21 @@ Below is an example how to get groups for the logged in user::
         
 .. warning ::
 
-        Deprecation: This method won't work in Plone 4.        
+        Deprecation: This method won't work in Plone 4.
+        
+Checking if user exists
+------------------------
+
+Example::
+
+        membership = getToolByName(self, 'portal_membership')
+        if membership.getMemberById(id) is not None:
+            return False
+        return True
+
+See also 
+
+* http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/RegistrationTool.py?rev=110418&view=auto                
 
 Creating users
 ---------------
