@@ -16,7 +16,7 @@ If you wish to force people to use your site with or without www prefix you can 
 the rules below. Note that setting this kind of rule is very useful from the search
 engine optimizatin point of view also.
 
-Example in <VirtualHost> section::
+Example in <VirtualHost> section to redicte www.site.com -> site.com::
 
   <VirtualHost 127.0.0.1:80>
 
@@ -26,10 +26,25 @@ Example in <VirtualHost> section::
         
           <IfModule mod_rewrite.c>
                RewriteEngine On
-               RewriteCond %{HTTP_HOST} ^www.\site\.com [NC]
+               RewriteCond %{HTTP_HOST} ^www\.site\.com [NC]
                RewriteRule (.*) http://site.com$1 [L,R=302]
         
            </IfModule>
+
+Example in <VirtualHost> section to redicte site.com -> www.site.com::
+
+  <VirtualHost 127.0.0.1:80>
+
+           ServerName site.com   
+           ServerAlias www.site.com
+        
+        
+          <IfModule mod_rewrite.c>
+               RewriteEngine On
+               RewriteCond %{HTTP_HOST} ^site\.com [NC]
+               RewriteRule (.*) http://www.site.com$1 [L,R=302]
+           </IfModule>
+
 
 Proxying other site under Plone URI space
 -----------------------------------------
