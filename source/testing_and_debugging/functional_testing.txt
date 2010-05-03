@@ -22,7 +22,7 @@ Test browser
 
 Plone uses Products.Five.testbrowser as an browser emulator used in functional tests.
 It is based on zope.testbrowser package.
-For available API see `zope.testbrowser home page <http://pypi.python.org/pypi/zope.testbrowser>`_.
+You can find more information in the `zope.testbrowser docs home page <http://pypi.python.org/pypi/zope.testbrowser>`_. The API is described in `zope.testbrowser.interfaces (3.4 used by Plone 3) <http://svn.zope.org/zope.testbrowser/tags/3.4.2/src/zope/testbrowser/interfaces.py?rev=81337&view=markup>`_.
 
 .. warning::
 
@@ -142,20 +142,38 @@ Example::
         browser.getControl(name='__ac_password').value = default_password
         browser.getControl(name='submit').click()
 
-Showing the contents of current 
--------------------------------
+Showing the contents from the last request
+------------------------------------------
 
 After test browser has opened an URL its
-content can be read from broser.contents variable.
+content can be read from browser.contents variable.
 
 Example::
 
-    print browser.contents # browser is z3c.testbrowser.Browser instance
+    print browser.contents # browser is zope.testbrowser.Browser instance
 
 Listing available form controls
 -------------------------------
 
-Cannot be done. Check available controls from the form source code.
+You can't get a list of controls from zope.testbrowser. You can check
+check available controls from
+
+* the form source code
+* the contents the testbrowser returns (browser.contents)
+* the mechanize browser instance that is used through
+  zope.testbrowser. zope.testbrowser internally uses a testbrowser
+  provided by the mechanize package. The mechanize objects are saved in
+  browser.mech_browser and as attributes on different other instances
+  returned by zope.testbrowser. mechanize has a different, less convenient
+  api, but also provides more options. To see a list of all controls
+  in a for you can do e.g.::
+
+    # get the login form from the zope.testbrowser
+    login_form = self.browser.getForm('login_form')
+    # get and print all controls 
+    controls = login_form.mech_form.controls
+    for control in controls:
+       print "%s: %s" % (control.attrs['name'], control.attrs['type'])
 
 Selecting a checkbox
 --------------------
@@ -172,7 +190,13 @@ Example::
 
     button = form.getControl(name="mybuttonname")
     button.click()
-    
+
+If you have a form instance, you can use the submit action. To click
+on the Button labled "Log in" in the login form, you do::
+
+    login_form = self.browser.getForm('login_form')
+    login_form.submit('Log in')
+        
 Checking Unauthorized response
 ------------------------------
 
