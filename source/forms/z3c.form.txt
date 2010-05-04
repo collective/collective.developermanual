@@ -487,8 +487,89 @@ Examples
 
 * Complex: `Singing & dancing channel manager example <https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/browser/channel.py>`_
 
+Displaying the status message in a non-standard location
+-----------------------------------------------------------
 
+By default, the status message is rendered inside plone.app.z3cform ``macros.pt`` above the form::
 
+            <metal:define define-macro="titlelessform">
+            
+                <tal:status define="status view/status" condition="status">
+                    <dl class="portalMessage error" tal:condition="view/widgets/errors">
+                        <dt i18n:domain="plone" i18n:translate="">
+                            Error
+                        </dt>
+                        <dd tal:content="status" />
+                    </dl>
+                    <dl class="portalMessage info" tal:condition="not: view/widgets/errors">
+                        <dt i18n:domain="plone" i18n:translate="">
+                            Info
+                        </dt>
+                        <dd tal:content="status" />
+                    </dl>
+                </tal:status>
+                
+We can decouple the status message from the form, without overriding all the templates,
+by copying status message variable to another variable and then playing around with it in our 
+wrapper view template.
 
+Form class::
 
+        class HolidayServiceSearchForm(form.Form):
+            """
+            
+            """
+            
+            
+            @button.buttonAndHandler(_(u"Search"))
+            def searchHandler(self, action):
+                """ Search form submit handler for product card search.
+                """
+
+                data, errors = self.extractData()
+                if len(self.search_results) == 0:
+                    self.status = _(u"No holiday services found.")
+                else:
+                    msgid = _("found_results", default=u"Found ${results} holiday services.", mapping={u"results" : len(self.search_results)})
+                    self.status = self.context.translate(msgid)
+                            
+                ...
+                                    
+                # Use non-standard location to display the status
+                # for success messages
+                if len(self.widgets.errors) == 0:
+                    self.result_message = self.status
+                    self.status = None
+        
+        class HolidayServiceSearchView(FormWrapper):
+            """
+            HolidayService browser view
+            """
+        
+            form = HolidayServiceSearchForm
+            
+        
+            def result_message(self):
+                """ Display result message in non-standard location """
+        
+                if len(self.form_instance.widgets.errors) == 0:
+                    # Do not display form highlight errors here 
+                    return self.form_instance.result_message
+                                            
+... and then we can use a special result_message view accessor in our view template code
+
+.. code-block::xml
+
+        <tal:comment replace="nothing">Form submit anchor</tal:comment> 
+        <a name="searched" />
+
+        <tal:status define="status view/result_message" condition="python:status != None">
+            <dl class="portalMessage info">
+                <dt i18n:domain="plone" i18n:translate="">
+                    Info
+                </dt>
+                <dd tal:content="status" />
+            </dl>
+        </tal:status>
+ 
 
