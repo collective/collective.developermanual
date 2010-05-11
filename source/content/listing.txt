@@ -44,9 +44,11 @@ See source code for details, e.g. filtering and other forms of listing::
 Getting folder objects filtered
 -------------------------------
 
-listFolderContents() method retrieves the full objects in the folder).
-It takes *contentFilter* argument which can be used to filter the results. 
-contentFilter uses the same syntax as portal_catalog queries.
+listFolderContents() method retrieves the full objects in the folder.
+It takes *contentFilter* as an argument which can be used to filter the
+results.  contentFilter uses the same syntax as portal_catalog queries
+but does not support all the same parameters e.g. "object_provides" is
+not supported. See the `ContentFilter class <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/PortalFolder.py?view=markup>`_ for details.
 
 Example::
 
