@@ -2,117 +2,28 @@
  Login and logout
 ===================
 
+.. admonition:: Description
+
+	Login and logout related programming activities in Plone
+	
+.. contents:: local
+
+Introduction
+-------------	 
+
 This chapter contains login and logout related code snippets.
 
-.. contents :: :local:
+Login entry points
+--------------------
 
-Post-login actions and redirect
--------------------------------
+There are two login points in Plone
 
-login_next
-==========
+``/login`` view (appended to any content URL) directs you to the page where you came from after the login.
 
-Login next provides an easy Restricted Python script hook to customize where to send the visitor after the login.
+``/login_form`` view does login without the redirect back to the original page.
 
-* http://n2.nabble.com/Modifying-login-form-tp4456885p4459948.html
-
-logged_in
-=========
-
-Post-login actions are executed after a successful login. Post-login actions which you could want to change are
-
-* Where to redirect the user after login
-
-* Setting the status message after login
-
-Post-login code is defined in *CMFPlone/skins/plone_scripts/logged_in.cpy*. To modify this RestrictedPython script,
-your add-on product must have its own :doc:`plone_skins layer </templates_css_and_javascripts/skin_layers.txt>`. 
-
-You need make a copy of both 
-
-* logged_in.cpy 
-
-* logged_in.cpy.metadata 
-
-to your add-on product skins structure to override these.
-
-You need to add custom login logic after *membership_tool.loginUser(REQUEST)* and before *return state*.
-
-Example of modified logged_in.cpy::
-    
-    ## Controller Python Script "logged_in"
-    ##bind container=container
-    ##bind context=context
-    ##bind namespace=
-    ##bind script=script
-    ##bind state=state
-    ##bind subpath=traverse_subpath
-    ##parameters=
-    ##title=Initial post-login actions
-    ##
-    
-    from Products.CMFCore.utils import getToolByName
-    from Products.CMFPlone import PloneMessageFactory as _
-    REQUEST=context.REQUEST
-    
-    membership_tool=getToolByName(context, 'portal_membership')
-    if membership_tool.isAnonymousUser():
-        REQUEST.RESPONSE.expireCookie('__ac', path='/')
-        context.plone_utils.addPortalMessage(_(u'Login failed. Both login name and password are case sensitive, check that caps lock is not enabled.'), 'error')
-        return state.set(status='failure')
-    
-    member = membership_tool.getAuthenticatedMember()
-    login_time = member.getProperty('login_time', '2000/01/01')
-    initial_login = int(str(login_time) == '2000/01/01')
-    state.set(initial_login=initial_login)
-    
-    must_change_password = member.getProperty('must_change_password', 0)
-    state.set(must_change_password=must_change_password)
-    
-    if initial_login:
-        state.set(status='initial_login')
-    elif must_change_password:
-        state.set(status='change_password')
-    
-    membership_tool.loginUser(REQUEST)
-    
-    #
-    # Special login code specific login code
-    #
-    
-    # Debug log output about the user we are dealing with 
-    context.plone_log("Got member:" + str(member))
-               
-    # Redirect users to a specific folder
-    REQUEST.RESPONSE.redirect(context.portal_url() + "/some_folder")
-    
-    return state
-    
-
-Authenticating the user manually
----------------------------------
-
-Authenticating the user will check that username and password are correct.
-
-Pluggable Authentication Service (acl_users under site root)
-will go through all authentication plug-ins and return the first succesful
-authenticated users.
-
-Read more in 
-`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_.
-
-Unit test example::
-
-    def authenticate_using_credentials(self, login, password):
-    
-        request = self.portal.REQUEST
-        
-        # Will return valid user object
-        user = self.portal.acl_users.authenticate(login, password, request)                        
-        self.assertNotEqual(user, None)
-
-Extracting login credentials
-----------------------------
+Extracting credentials
+----------------------
 
 Extracting credentials try to extract log-in (username, password) from HTTP request.
 
@@ -164,22 +75,103 @@ Unit test example::
         # or anonymous if there were no credential fields in HTTP request
         return users[0]
         
-Redirect on Unauthorized
+
+Authenticating the user
 ------------------------
 
-When HTTP processing encounters Unauthorized exception, Plone redirects to login page,
-even if you are logged in and logged in as Zope admin.
-This behavior is part of PluggableAuthService.
+Authenticating the user will check that username and password are correct.
 
-* http://svn.zope.org/Products.PluggableAuthService/trunk/Products/PluggableAuthService/?rev=109031
+Pluggable Authentication Service (acl_users under site root)
+will go through all authentication plug-ins and return the first succesful
+authenticated users.
 
-and its CookieAuthHelper
+Read more in 
+`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_.
 
-* http://svn.zope.org/Products.PluggableAuthService/trunk/Products/PluggableAuthService/plugins/CookieAuthHelper.py?rev=80080&view=auto
+Unit test example::
 
-It can be disabled by the following::
+    def authenticate_using_credentials(self, login, password):
+    
+        request = self.portal.REQUEST
+        
+        # Will return valid user object
+        user = self.portal.acl_users.authenticate(login, password, request)                        
+        self.assertNotEqual(user, None)
 
-        portal.acl_users.credentials_cookie_auth.login_path = ""
+
+Post-login actions
+-------------------
+
+Post-login actions are executed after a successful login. Post-login actions which you could want to change are
+
+* Where to redirect the user after login
+
+* Setting the status message after login
+
+#ANTTI:./eggs/Plone-3.2.3-py2.4.egg/Products/CMFPlone/skins/plone_login/logged_in.cpy.metadata
+#ANTTI:./eggs/Plone-3.2.3-py2.4.egg/Products/CMFPlone/skins/plone_login/logged_in.cpy
+
+Post-login code is defined in CMFPlone/skins/plone_scripts/logged_in.cpy.
+
+You need make a copy of both logged_in.cpy and logged_in.cpy.metadata to your add-on product skins structure to override these.
+
+Example logged_in.cpy::
+    
+    ## Controller Python Script "logged_in"
+    ##bind container=container
+    ##bind context=context
+    ##bind namespace=
+    ##bind script=script
+    ##bind state=state
+    ##bind subpath=traverse_subpath
+    ##parameters=
+    ##title=Initial post-login actions
+    ##
+    
+    from Products.CMFCore.utils import getToolByName
+    from Products.CMFPlone import PloneMessageFactory as _
+    REQUEST=context.REQUEST
+    
+    membership_tool=getToolByName(context, 'portal_membership')
+    if membership_tool.isAnonymousUser():
+        REQUEST.RESPONSE.expireCookie('__ac', path='/')
+        context.plone_utils.addPortalMessage(_(u'Login failed. Both login name and password are case sensitive, check that caps lock is not enabled.'), 'error')
+        return state.set(status='failure')
+    
+    member = membership_tool.getAuthenticatedMember()
+    login_time = member.getProperty('login_time', '2000/01/01')
+    initial_login = int(str(login_time) == '2000/01/01')
+    state.set(initial_login=initial_login)
+    
+    must_change_password = member.getProperty('must_change_password', 0)
+    state.set(must_change_password=must_change_password)
+    
+    if initial_login:
+        state.set(status='initial_login')
+    elif must_change_password:
+        state.set(status='change_password')
+    
+    membership_tool.loginUser(REQUEST)
+    
+    #
+    # Special login code specific login code
+    #
+    
+    # Debug log output about the user we are dealing with 
+    context.plone_log("Got member:" + str(member))
+    
+    # Check that if the user has a custom method which marks our special members
+    # needing special actions 
+    if hasattr(member, "getLoginRedirect"):
+    
+        # Show a custom login message
+        context.plone_utils.addPortalMessage(_(u'You are now logged in. Welcome to supa-dupa-system.'), 'info') # This message is in Plone i18n domain
+        
+        # Go to a custom page after login
+        REQUEST.RESPONSE.redirect(context.portal_url() + "/some_folder")
+    
+    return state
+    
     
 
 
