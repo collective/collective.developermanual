@@ -2,6 +2,10 @@
 CSS
 =======
 
+.. admonition:: Description
+
+        Creating and registering CSS files for Plone
+
 .. contents::
 
 Introduction
@@ -9,6 +13,9 @@ Introduction
 
 This page has Plone specific CSS instructions.
 
+In Plone, most of CSS files are managed by portal_css tool in Zope Management Interface.
+Page templates can still import CSS files directly, but portal_css does CSS file compression
+and merging automatically if used.
  
 Registering a new CSS file
 --------------------------
@@ -60,6 +67,19 @@ Plone compresses and merges CSS files to bundles.
 
 For Plone 3.x optimal place to put CSS file available to all users
 is after *ploneKss.css* as in the example above.
+
+CSS files for logged in members only
+======================================
+
+Add the following expression to your CSS file::
+
+        not: portal/portal_membership/isAnonymousUser
+        
+If you want to load the CSS in the bundle with Plone's default member.css,
+use insert-after="member.css". In this case, however, the file
+will be one of the first CSS files to be loaded and cannot override 
+values from other files unless CSS directive !import is used.
+               
 
 Generating CSS classes programmatically in templates
 ----------------------------------------------------
