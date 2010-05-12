@@ -28,7 +28,18 @@ For one test case::
 
     bin/instance test -s package.subpackage -t TestCaseClassName
 
-For 
+To drop in pdb debugger for each failure::
+
+    bin/instance test -s package.subpackage -D
+ 
+To exclude tests::
+
+    bin/instance test -s package.subpackage -t !test_name
+
+To list tests that will be run::
+
+    bin/instance test -s package.subpackage --list-tests
+
 
 .. warning::
 
