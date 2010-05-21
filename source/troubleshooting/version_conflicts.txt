@@ -67,3 +67,53 @@ Here is the latest pindown example (02/2010)::
         five.intid=0.4.2
         plone.reload = 0.11
         Products.GenericSetup = 1.5.0
+
+Getting distribution for 'distribute'.
+---------------------------------------
+
+You try to run buildout, but it is stuck in a loop::
+
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	Getting distribution for 'distribute'.
+	
+Your system-wide Distribute version is older than the latest release. Buildout tries to update it, but 
+since system wide site-packages version overrides anything buildout can do, it is stuck in a loop.
+
+Fix: update Distribute in system-wide Python::
+
+	easy_install -U Distribute
+	Searching for Distribute
+	Reading http://pypi.python.org/simple/Distribute/
+	Reading http://packages.python.org/distribute
+	Best match: distribute 0.6.12
+	Downloading http://pypi.python.org/packages/source/d/distribute/distribute-0.6.12.tar.gz#md5=5a52e961f8d8799d243fe8220f9d760e
+	Processing distribute-0.6.12.tar.gz
+	Running distribute-0.6.12/setup.py -q bdist_egg --dist-dir /tmp/easy_install-jlL3e7/distribute-0.6.12/egg-dist-tmp-IV9SiQ
+	Before install bootstrap.
+	Scanning installed packages
+	Setuptools installation detected at /home/moo/py24/lib/python2.4/site-packages
+	Non-egg installation
+	Removing elements out of the way...
+	Already patched.
+	/home/moo/py24/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg-info already patched.
+	After install bootstrap.
+	/home/moo/py24/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg-info already exists
+	Removing distribute 0.6.10 from easy-install.pth file
+	Adding distribute 0.6.12 to easy-install.pth file
+	Installing easy_install script to /home/moo/py24/bin
+	Installing easy_install-2.4 script to /home/moo/py24/bin
