@@ -8,6 +8,8 @@
 
 .. contents :: :local:
 
+.. highlight:: console
+
 Introduction
 --------------
 
@@ -73,7 +75,6 @@ Building static HTML with Sphinx
 This creates *docs/html* folder from *source* folder by compiling all collective.developermanual pages,
 using sphinx-build command from buildout::
 
-        cd docs
         make html 
 
 Uploading documentation to a site
@@ -144,6 +145,13 @@ Upload script will
 * Update remote Plone items to reflect new documetation changes using Zope's XML-RPC
 
 * Publish items and hide unnecessary items from the navigation (image source folders)
+
+.. note ::
+
+        Upload script does not currently purge the existing uploaded documentation.
+        If pages have been renamed or moved, you need to delete the documentation
+        on the target site before performing the upload. Just go to 
+        Reference Manual Contents tab, select all and hit delete.
 
 Setting up CSS 
 ==============
