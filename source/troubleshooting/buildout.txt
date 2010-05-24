@@ -52,7 +52,26 @@ Example::
 
 * Manually pindown version in [versions]
 
-* Use `good-py <http://plone.org/products/dexterity/documentation/manual/developer-manual/pre-requisites/buildout-configuration>`_ with `Dexterity configurations <http://good-py.appspot.com/release/dexterity>`_
+Good-py service
+==================
+
+Good-py contains some good known versions sets. These are most convenient to use if you are
+using complex configuration of add-ons and you don't know what you are doing. 
+
+Some good-py configurations take Plone version as a paremeter.
+
+Example::
+
+        [buildout]
+        extends =
+            base.cfg
+            http://dist.plone.org/release/3.3.5/versions.cfg
+            http://good-py.appspot.com/release/dexterity/1.0-next?plone=3.3.5
+
+For more information, see
+
+* http://plone.org/products/dexterity/documentation/manual/developer-manual/pre-requisites/buildout-configuration
+
 
 Plone 3.1
 ---------
