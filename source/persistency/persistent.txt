@@ -108,6 +108,42 @@ Example::
         object.context = context
 
         return object
+        
+Correct use of volatile variables in fuctions
+================================================
+
+**WRONG**::
+
+    if hasattr(self, '_v_image'):
+        return self._v_image
+        
+**RIGHT**::
+
+    marker = []
+    value = getattr(self, "_v_image", marker)
+    if value is not marker:
+        return value        
+
+**RIGHT**::
+
+    try:
+        return self._v_image
+    except AttributeError:
+    
+**WRONG::
+
+    self._v_image=expensive_calculation()
+    return self._v_image
+
+**RIGHT**::
+    
+    image=expensive_calculation()
+    self._v_image=image
+    return image
+
+For more information, see
+
+* https://mail.zope.org/pipermail/zodb-dev/2010-May/013437.html        
 
 Measuring persistent object sizes
 ---------------------------------
