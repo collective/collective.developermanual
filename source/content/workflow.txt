@@ -57,6 +57,9 @@ it through legal state transitions.
 **Security warning**: Workflows may have security assertations which are bypassed by admin user.
 Always test your workflow methods using a normal.
 
+In Python code
+================
+
 Example::
 
         from Products.CMFCore.WorkflowCore import WorkflowException
@@ -72,6 +75,15 @@ Example::
             # does not have "submit" transition)
             pass
 
+By HTTP
+=======
+
+Plone provides ``workflow_action`` script which is able to trigger the status
+modify from HTTP request (browser address bar).
+
+Example::
+
+	http://localhost:9020/site/page/content_status_modify?workflow_action=publish
 
 Gets the list of ids of all installed workflows
 ------------------------------------------------
