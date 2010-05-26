@@ -44,8 +44,52 @@ Example::
         schema = context.Schema()
         print schema.fields()
 
-Iterating content schema fields
+Schema introspection
 -------------------------------
+
+How to know what fields are available on content items.
+
+Out of box schema source code
+=================================
+
+The default Plone schemas are defined 
+
+Id and title fields::
+
+* http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/BaseObject.py
+
+Category and owners schemata:: Dublin core metadata
+
+* http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/ExtensibleMetadata.py
+
+Settings schemata:: Exclude from navigation, related items and next/previous navigation
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/schemata.py
+
+Document content
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/document.py
+
+Image content
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+
+News content
+
+* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/newsitem.py
+
+Run-time introspection
+=======================
+
+You can get hold of content item schema and its fields as in the example below.
+
+You can do this either in 
+
+* :doc:`Your own BrowserView Python code </views/browserviews>`
+
+* :doc:`pdb breakpoint </testing_and_debugging/pdb>` 
+
+* :doc:`Command line Zope debug console </misc/commandline>`
 
 Example::
         
