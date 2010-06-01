@@ -169,6 +169,68 @@ Example::
 
             # Render the edit form
             return FormWrapper.__call__(self)
+            
+Problem with IDefaultBrowserLayer
+==================================
+
+``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is a problematic layer is it takes precedence in 
+HTTP request multi-adapter look up (due to magic involving Plone themes)::
+
+Below is ``self.request.__provides__.__iro__`` dump for adding an extra form layer::
+
+        (<InterfaceClass Products.CMFDefault.interfaces.ICMFDefaultSkin>, 
+         <InterfaceClass plone.z3cform.z2.IFixedUpRequest>, 
+         <InterfaceClass getpaid.expercash.browser.views.IExperCashFormLayer>,          
+         <InterfaceClass plone.app.z3cform.interfaces.IPloneFormLayer>, 
+         <InterfaceClass z3c.form.interfaces.IFormLayer>, 
+         <InterfaceClass zope.publisher.interfaces.browser.IBrowserRequest>, 
+         ...
+         
+One would assume a custom form layer (IExperCashFormLayer) is used and it would
+take priority over more generic IPloneFormLayer. However, due to involment
+of IDefaultBrowserLayer when registering items using ``<browser:page for="*">``
+syntax.
+
+The fix is to make your custom layer to subclass IDefaultBrowserLayer like::
+
+        class IExperCashFormLayer(IDefaultBrowserLayer, IPloneFormLayer):
+            """ Define a custom layer for which against our form macros are registered.
+            
+            This way we override the default plone.app.z3cform templates.
+            
+            Inheriting from IDefaultBrowserLayer makes sure this layer will get 1st priority.
+            """ 
+
+We register a custom macros like
+
+.. code-block:: xml
+
+          <!-- Override plone.app.z3cform default form template -->
+          <browser:page
+              name="ploneform-macros"
+              for="*"
+              layer=".views.IExperCashFormLayer"
+              class=".views.Macros"
+              template="templates/expercash-form-macros.pt"
+              allowed_interface="zope.interface.common.mapping.IItemMapping"
+              permission="zope.Public"
+              />
+             
+            
+And then the manual assignment works ok::
+
+          def update(self):
+                """ z3c.form.form.Form.Update() method
+                """
+                                
+                # This will fix @@ploneform-macros to use our special version
+                zope.interface.alsoProvides(self.request, IExperCashFormLayer)        
+                
+                # This should return macros we have registered
+                macros = self.context.unrestrictedTraverse("@@ploneform-macros")            
+
+
+(If this didn't make sense for you, don't worry. It doesn't make sense for me either.)            
 
 Checking active layers
 ----------------------
