@@ -277,6 +277,9 @@ This script will provide one-time operation to automatically
 generate content item descriptions based on their body text
 by taking the first three sentences.
 
+The script will provide logging output to standard Plone log
+(var/log and stdout if Plone is run in the debug mode).
+
 Example code::
 
         def create_automatic_description(content, text_field_name="text"):
@@ -294,9 +297,12 @@ Example code::
             # The line below should trigger conversion from text/html -> text/plain automatically using portal_transforms
             field = content.Schema()[text_field_name]
         
-            # returns a Python method
+            # Returns a Python method which you can call to get field's
+            # for a certain content type. This is also security aware
+            # and does not breach field-level security provded by Archetypes
             accessor = field.getAccessor(content)
         
+            # body is UTF-8 
             body = accessor(mimetype="text/plain")
         
             # Now let's take three first sentences or the whole content of body
@@ -322,13 +328,14 @@ Example code::
              context.plone_log("Fixing:" + id)
              
              # Check that the description has never been saved (None)
-             # or it is empty
+             # or it is empty, so we do not override a description someone has
+             # set before automatically or manually
              desc = context.Description() # All Archetypes accessor method, returns UTF-8 encoded string
         
              if desc is None or desc.strip() == "":
                   create_automatic_description(item, "text")
         
-        
+        # This will be printed in the browser when the script completes succesfully
         return "OK"
 
 
