@@ -1,0 +1,162 @@
+==================
+ Nginx
+==================
+
+.. admonition:: Description
+
+        Using Nginx web server to host Plone sites
+        
+.. contents:: local
+
+Introduction
+------------
+
+Nginx is an modern alternative server to Apache
+
+* Acts as a proxy server and load balancer at the front of Zope
+
+* Handle rewrite rules
+
+* Handle HTTPS
+
+Buildout and recipe
+--------------------
+
+Use the recipe and buildout example below to get started
+
+* http://www.martinaspeli.net/articles/an-uber-buildout-for-a-production-plone-server
+
+* http://pypi.python.org/pypi/gocept.nginx
+
+A buildout will download, install and configure Nginx from a scratch.
+Buildout file contains included Nginx configuration which can use 
+template variables from buildout.cfg itself.
+
+When you change the configuration if Nginx in buildout you probably don't
+want to rerun the whole buildout, but only Nginx part of it::
+
+        bin/buildout -c production.cfg install balancer
+
+Config test
+------------
+
+Assuming you have a buildout nginx section called ``balancer``::
+
+        bin/balancer configtest
+        
+        Testing nginx configuration 
+        the configuration file /srv/plone/isleofback/parts/balancer/balancer.conf syntax is ok
+        configuration file /srv/plone/isleofback/parts/balancer/balancer.conf test is successful
+
+Deployment configuration
+-------------------------
+
+*gocept.nginx* supports special deployment configuration where you 
+manually configure all directories. The most important thing, why one
+wish to do this, is take pid file out of parts/ so that you can
+reliably start and stop Nginx even if you re-run buildout: 
+buildout nukes parts/, pid file gets lost and you need
+to manually kill Nginx.
+
+Example deployment configure in production.cfg::
+
+        # Define folder and file locations for Nginx called "balancer"
+        # If deployment= is set on gocept.nginx recipe it uses
+        # data provider here
+        [nginx]  
+        run-directory = ${buildout:directory}/var/nginx
+        etc-directory = ${buildout:directory}/var/nginx
+        log-directory = ${buildout:directory}/var/logs
+        rc-directory = ${buildout:directory}/bin
+        logrotate-directory =
+        user =
+        
+        [balancer]
+        recipe = gocept.nginx
+        nginx = nginx-build
+        deployment = nginx
+        configuration =
+                #user ${users:balancer};
+                error_log ${buildout:directory}/var/log/balancer-error.log;
+                worker_processes 1;
+
+Install this part::
+
+        bin/buildout -c production.cfg install balancer
+        
+Then you can use the following cycle to update the configuration::
+
+        bin/balancer-nginx-balancer start
+        # This is non-destructive, because now our PID file is in var/nginx
+        bin/buildout -c production.cfg install balancer
+        bin/balancer-nginx-balancer reload
+
+        
+Killing loose Nginx
+-------------------
+
+You have lost PID file or the actual Nginx PID does not match the real PID any longer.
+Use buildout's starter script as a search key::
+
+        (hardy_i386)isleofback@isleofback:~$ bin/balancer reload
+        Reloading nginx 
+        cat: /srv/plone/isleofback/parts/balancer/balancer.pid: No such file or directory
+        
+        (hardy_i386)isleofback@isleofback:~$ ps -Af|grep -i balancer
+        1001     14012     1  0 15:26 ?        00:00:00 nginx: master process /srv/plone/isleofback/parts/nginx-build/sbin/nginx -c /srv/plone/isleofback/parts/balancer/balancer.conf
+        1001     16488 16458  0 16:34 pts/2    00:00:00 grep -i balancer
+        (hardy_i386)isleofback@isleofback:~$ kill 14012
+
+        # balancer is no longer running
+        (hardy_i386)isleofback@isleofback:~$ ps -Af|grep -i balancer
+        1001     16496 16458  0 16:34 pts/2    00:00:00 grep -i balancer
+
+        (hardy_i386)isleofback@isleofback:~$ bin/balancer start
+        Starting nginx 
+
+        # Now it is running again
+        (hardy_i386)isleofback@isleofback:~$ ps -Af|grep -i balancer
+        1001     16501     1  0 16:34 ?        00:00:00 nginx: master process /srv/plone/isleofback/parts/nginx-build/sbin/nginx -c /srv/plone/isleofback/parts/balancer/balancer.conf
+        1001     16504 16458  0 16:34 pts/2    00:00:00 grep -i balancer
+
+www-redirect
+------------
+
+Below is an example how to do a basic yourdomain.com -> www.yourdomain.com redirect.
+
+Put the following to your *gocept.nginx* configuration::
+
+        http {
+                ....
+                server {
+                        listen ${hosts:balancer}:${ports:balancer};
+                        server_name ${hosts:main-alias};
+                        access_log off;
+                        rewrite ^(.*)$  $scheme://${hosts:main}$1 redirect;
+                }
+
+Hosts are configured in a separate buildout section::
+
+        [hosts]
+        # Hostnames for servers
+        main = www.yoursite.com
+        main-alias = yoursite.com
+        
+More info
+
+* http://aleksandarsavic.com/nginx-redirect-wwwexamplecom-requests-to-examplecom-or-vice-versa/
+        
+Permanent redirect
+-------------------
+
+Below is an example redirect rule.
+
+Nginx location matching rules
+
+* http://wiki.nginx.org/NginxHttpCoreModule#location
+
+More info of Nginx redirects 
+
+* http://scott.yang.id.au/2007/04/do-you-need-permalink-redirect/
+
+* http://aleksandarsavic.com/nginx-and-wordpress-setup-clean-seo-friendly-urls/
