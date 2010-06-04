@@ -24,6 +24,45 @@ Bit too hardcore for anyone except those creating their own build commands.
 
 * http://www.buildout.org/docs/index.html
 
+Recipes
+--------
+
+Buildout consists of recipes. A recipe consists of 
+
+* Python package distributed in pypi.python.org
+
+* Declaration in [buildout] parts=partname
+
+* [partname] section with recipe= telling the pypi.python.org name
+
+Recipes are automatically downloaded from pypi as Python eggs.
+
+Buildout folder structure
+--------------------------
+
+Plone buildout's have folderes which have predefined purposes
+
+* ``bin/`` - add Python scripts and shell scripts installed by various eggs. Also ``buildout`` command itself.
+
+* ``parts/`` - constructed the source tree. This is wiped between buildout runs. You should not store 
+  any persistent information here (note: some broken recipes store things like pid files here). Generated
+  configuration files are stored here and usually it is no help to change them,
+  
+* ``src/`` source code you are developing yourself
+
+* ``eggs/`` extracted Python eggs
+
+* ``downloads/`` Python egg download cache (may be elsewhere depending on the system config)
+
+* ``var/`` database like data. Zope's Data.fs, 
+
+* ``bootstrap.py`` - installs buildout command
+
+* ``buildout.cfg`` - basic buildout file. May extend other .cfg files. Sometimes there are many files
+  and you need to pick one for buildout command. E.g. ::
+  
+        bin/buildout -c production.cfg
+
 Troubleshooting
 ----------------
 
