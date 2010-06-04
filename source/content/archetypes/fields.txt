@@ -273,6 +273,11 @@ Automatically generating description based on body text
 Below is a sample through-the-web Python Script which
 you can drop to any Plone through Zope Management Interface.
 
+Use case: People are lazy to write descriptions 
+(as in Dublin Core metadata). You can generate some kind
+of description by taking the few first sentences of the text.
+This is not perfect, but this is way better than empty description.
+
 This script will provide one-time operation to automatically
 generate content item descriptions based on their body text
 by taking the first three sentences.
@@ -333,12 +338,12 @@ Example code::
              desc = context.Description() # All Archetypes accessor method, returns UTF-8 encoded string
         
              if desc is None or desc.strip() == "":
+                  # We use the HTML of field called "text" to generate the description 
                   create_automatic_description(item, "text")
         
         # This will be printed in the browser when the script completes succesfully
         return "OK"
 
+See also
 
-
-
-
+* http://blog.mfabrik.com/2010/06/04/automatically-generating-description-based-on-body-text/
