@@ -87,9 +87,12 @@ Install this part::
 Then you can use the following cycle to update the configuration::
 
         bin/balancer-nginx-balancer start
-        # This is non-destructive, because now our PID file is in var/nginx
+        # Update config in buildout
+        nano production.cfg
+        # This is non-destructive, because now our PID file is in var/nginx        
         bin/buildout -c production.cfg install balancer
-        bin/balancer-nginx-balancer reload
+        # Looks like reload is not enough
+        bin/nginx-balancer stop ; bin/nginx-balancer start
 
         
 Killing loose Nginx
@@ -119,6 +122,13 @@ Use buildout's starter script as a search key::
         1001     16501     1  0 16:34 ?        00:00:00 nginx: master process /srv/plone/isleofback/parts/nginx-build/sbin/nginx -c /srv/plone/isleofback/parts/balancer/balancer.conf
         1001     16504 16458  0 16:34 pts/2    00:00:00 grep -i balancer
 
+Debugging Nginx 
+---------------
+
+Set Nginx logging to debug mode::
+
+    error_log ${buildout:directory}/var/log/balancer-error.log debug;
+        
 www-redirect
 ------------
 
@@ -149,11 +159,56 @@ More info
 Permanent redirect
 -------------------
 
-Below is an example redirect rule.
+Below is an example redirect rule::
+
+        # Redirect old Google front page links.
+        # Redirect event to new Plone based systems.
+
+        location /tapahtumat.php {
+                rewrite ^ http://${hosts:main}/tapahtumat permanent;
+        }
+
+.. note ::
+
+        Nginx location match evaluation rules are not always top-down.
+        You can add more specific matches after location /.
+
+Cleaning up query string
+==========================
+
+By default, Nginx includes all trailing HTTP GET query parameters in the redirect.
+You can disable this behavior by adding a trailing ?::
+
+        location /tapahtumat.php {
+                rewrite ^ http://${hosts:main}/no_ugly_query_string? permanent;
+        }
+
+Matching incoming query string
+==============================
+
+Location directive does not support query strings.
+Use *if* directive from HTTP rewrite module.
+
+Example::
+
+        location /index.php {
+                # index.php?id=5
+                if ($args ~ id=5) {
+                        rewrite ^ http://${hosts:main}/sisalto/lomapalvelut/ruokailu? permanent;
+                }
+        }
+
+
+More info
+==========
 
 Nginx location matching rules
 
 * http://wiki.nginx.org/NginxHttpCoreModule#location
+
+Nginx redirect module docs
+
+* http://wiki.nginx.org/NginxHttpRewriteModule
 
 More info of Nginx redirects 
 
