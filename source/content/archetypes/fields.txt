@@ -267,6 +267,69 @@ Example how to render widget for field 'maintext'::
             </tal:if_visible>
           </tal:fields>
 
+Automatically generating description based on body text
+--------------------------------------------------------
+
+Below is a sample through-the-web Python Script which
+you can drop to any Plone through Zope Management Interface.
+
+This script will provide one-time operation to automatically
+generate content item descriptions based on their body text
+by taking the first three sentences.
+
+Example code::
+
+        def create_automatic_description(content, text_field_name="text"):
+            """ Creates an automatic description from HTML body by taking three first sentences. 
+        
+            Takes the body text
+        
+            @param content: Any Plone contentish item (they all have description)
+        
+            @param text_field_name: Which schema field is used to supply the body text (may very depending on the content type)
+            """
+        
+            # Body is Archetype "text" field in schema by default.
+            # Accessor can take the desired format as a mimetype parameter.
+            # The line below should trigger conversion from text/html -> text/plain automatically using portal_transforms
+            field = content.Schema()[text_field_name]
+        
+            # returns a Python method
+            accessor = field.getAccessor(content)
+        
+            body = accessor(mimetype="text/plain")
+        
+            # Now let's take three first sentences or the whole content of body
+            sentences = body.split(".")
+            
+            if len(sentences) > 3:
+               intro = ".".join(sentences[0:3]) 
+               intro += "." # Don't forget closing the last sentence
+            else:
+               # Body text is shorter than 3 sentences
+               intro = body
+        
+            content.setDescription(intro)
+        
+        
+        # context is the reference of the folder where this script is run
+        for id, item in context.contentItems():
+             # Iterate through all content items (this ignores Zope objects like this script itself)
+        
+             # Use RestrictedPython safe logging.
+             # plone_log() method is permission aware and available on any contentish object
+             # so we can safely use it from through-the-web scripts
+             context.plone_log("Fixing:" + id)
+             
+             # Check that the description has never been saved (None)
+             # or it is empty
+             desc = context.Description() # All Archetypes accessor method, returns UTF-8 encoded string
+        
+             if desc is None or desc.strip() == "":
+                  create_automatic_description(item, "text")
+        
+        
+        return "OK"
 
 
 
