@@ -180,16 +180,23 @@ in your settings::
         """
         @return: True if the current content type supports Like-button
         """
+    
         registry = getUtility(IRegistry)
-        content_types = registry['mfabrik.like.content_types']
-                
+    
+        try:
+            settings = registry.forInterface(ISettings)
+        except KeyError:
+            # Registry schema and actual values do not match
+            # Quick installer has not been run or need to rerun 
+            # to update registry.xml values to database
+            # http://svn.plone.org/svn/plone/plone.registry/trunk/plone/registry/registry.py
+            return False
+        
+        content_types = settings.content_types
+            
         # Don't assume that all content items would have portal_type attribute
         # available (might be changed in the future / very specialized content)
         current_content_type =  portal_type = getattr(Acquisition.aq_base(self.context), 'portal_type', None)
-    
-        # Note that plone.registry keeps values as unicode strings
-        # make sure that we have one also
-        current_content_type = unicode(current_content_type)
-    
+        
         return current_content_type in content_types
     
