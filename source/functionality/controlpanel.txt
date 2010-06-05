@@ -172,3 +172,24 @@ profiles/default/controlpanel.xml::
             </configlet>
         
         </object>
+
+Then you can simply check whether a particular portal type is enabled
+in your settings::
+
+    def isEnabledOnContent(self):
+        """
+        @return: True if the current content type supports Like-button
+        """
+        registry = getUtility(IRegistry)
+        content_types = registry['mfabrik.like.content_types']
+                
+        # Don't assume that all content items would have portal_type attribute
+        # available (might be changed in the future / very specialized content)
+        current_content_type =  portal_type = getattr(Acquisition.aq_base(self.context), 'portal_type', None)
+    
+        # Note that plone.registry keeps values as unicode strings
+        # make sure that we have one also
+        current_content_type = unicode(current_content_type)
+    
+        return current_content_type in content_types
+    
