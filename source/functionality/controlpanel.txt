@@ -2,6 +2,11 @@
  Site setup 
 ===========================
 
+.. admonition:: Description
+
+        How to create settings for your add-on product and how to programmatically
+        add new Plone control panel entries.
+
 .. contents :: :local:
 
 Introduction
@@ -34,13 +39,136 @@ Example products
 
 * http://pypi.python.org/pypi/collective.xdv
 
+plone.app.registry imports - backwards compatibilty
+===================================================
+
+You need this if you have started using plone.app.registry before 2010-04.
+
+There is a change considering the 1.0b1 codebase::
+
+        
+        try:
+            # plone.app.registry 1.0b1
+            from plone.app.registry.browser.form import RegistryEditForm
+            from plone.app.registry.browser.form import ControlPanelFormWrapper
+        except ImportError:
+            # plone.app.registry 1.0b2+
+            from plone.app.registry.browser.controlpanel import RegistryEditForm
+            from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+            
+
 Configlets without plone.registry
 ------------------------------------
 
 .. note ::
 
-        This information is old and deprecated
+        Deprecation warning: This is an old best practice and discouraged in new development 
 
 * http://plone.org/documentation/kb/adding-configuration-settings-using-zope-3-schemas-and-formlib
 
 * http://plone.org/documentation/kb/configure-configlets
+
+
+Content type choice setting
+-------------------------------------
+
+Often you need to have a setting whether a certain functionality is enabled on particular content types.
+
+Here are the ingredients
+
+* Custom schema defined interface for settings (registry.xml schemas don't support multiple choice widgets in plone.app.registry 1.0b2)
+
+* :doc:`Vocabulary factory to pull type information out of portal_types </content/types>`
+
+* Configlet
+
+interfaces.py::
+
+        from zope import schema
+        
+        from plone.directives import form
+        from z3c.form.browser.checkbox import CheckBoxFieldWidget
+        
+        class ISettings(form.Schema):
+            """ Define schema for settings of the add-on product """
+        
+        
+            form.widget(enabled_overrides=CheckBoxFieldWidget)
+            content_types = schema.List(title=u"Enabled content types",
+                                       description=u"On which content types Facebook Like-button should appear",
+                                       required=False, default=["Document"],
+                                       value_type=schema.Choice(source="mfabrik.like.content_types"),
+                                       )
+
+configure.zcml::
+
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component=".vocabularies.content_types_vocabulary"
+      name="mfabrik.like.content_types"
+      />
+      
+  <browser:page
+    name="like-controlpanel"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
+    class=".views.ControlPanelView"
+    />
+    
+views.py::
+
+        
+        try:
+            # plone.app.registry 1.0b1
+            from plone.app.registry.browser.form import RegistryEditForm
+            from plone.app.registry.browser.form import ControlPanelFormWrapper
+        except ImportError:
+            # plone.app.registry 1.0b2+
+            from plone.app.registry.browser.controlpanel import RegistryEditForm
+            from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+            
+            
+        from mfabrik.like.interfaces import ISettings
+        from plone.z3cform import layout
+        
+        class ControlPanelForm(RegistryEditForm):
+            schema = ISettings
+        
+        ControlPanelView = layout.wrap_form(ControlPanelForm, ControlPanelFormWrapper)
+
+profiles/default/registry.xml::
+
+        <registry>
+        
+            <records prefix="mfabrik.like" interface="mfabrik.like.interfaces.ISettings">
+                
+                <!-- Enable on normal pages by default --> 
+                <value key="content_types" purge="false">
+                       <element>Document</element>
+                </value>
+            </records>
+        
+        </registry>
+
+profiles/default/controlpanel.xml::
+
+        <?xml version="1.0"?>
+        <object
+            name="portal_controlpanel"
+            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+            i18n:domain="mfabrik.like">
+        
+            <configlet
+                title="Facbook Like-button settings"
+                action_id="mfbarik.like.settings"
+                appId="mfabrik.like"
+                category="Products"
+                condition_expr=""
+                url_expr="string:${portal_url}/@@like-controlpanel"
+                icon_expr="string:"
+                visible="True"
+                i18n:attributes="title">
+                    <permission>Manage portal</permission>
+            </configlet>
+        
+        </object>
