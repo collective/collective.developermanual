@@ -184,8 +184,6 @@ To access raw HTTP GET query string::
     query_string = request["QUERY_STRING"]
     
     
-  
-
 Web environment
 ===============
 
@@ -249,6 +247,35 @@ this behavior is discouraged. If you need to create cache variables for
 request lifecycle use annotations_. '''TODO: Add link to internal
 annotations examples when written'''
 
+Accessing HTTP request outside context
+---------------------------------------
+
+There are often cases where you would like to get hold of HTTP request object,
+but the underlying framework does not pass it to you.
+In these cases you have two ways to access the request object
+
+* Use acquisition to get the request object from the site root. When Plone site traversing
+  starts, the HTTP request is put to magical site.REQUEST variable.
+
+* http://pypi.python.org/pypi/five.globalrequest  
+
+Example of getting HTTP request using acquisition::
+
+        # context is any traversed Plone content item 
+        request = getattr(context, "REQUEST", None)
+        if request is not None:
+                # Do the normal flow
+                pass
+        else:
+                # This code path was not initiated by an incoming web server request
+                # Handle cases like
+                # - command line scripts
+                # - add-on installer
+                # - code called during Zope start up
+                # -etc.
+                pass
+        
+        
 HTTP response
 -------------
 
