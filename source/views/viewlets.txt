@@ -2,6 +2,11 @@
  Viewlets
 ==============
 
+.. admonition:: Description
+
+        Viewlets are parts of the page in Plone page rendering process.
+        You can create, hide and shuffle them freely.
+
 .. contents :: :local:
 
 Introduction
@@ -20,6 +25,9 @@ HTML snippets to Plone pages.
 * Viewlets can be registered and overridden in theme specific manner :doc:`using layers </serving/layers>`
 
 * Viewlets have update() and render() methods
+
+* Viewlets should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
+
 
 Other resources
 ---------------
@@ -161,6 +169,67 @@ See
 * http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto
 
 * http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
+
+Conditionally rendering viewlets
+----------------------------------
+
+There are two primary methods to render viewlets only on some pages
+
+* Register viewlet against some marker interface or content type class -
+  the viewlet is rendered on this content type only. You can
+  use :doc:`dynamic marker interfaces </components/interfaces>`
+  to toggle interface on some individual pages through ZMI
+  
+* Hard-code a condition to your viewlet in Python code.
+
+Below is an example of overriding a render() method to conditionally render your viewlet::
+
+
+        import Acquisition
+        from zope.component import getUtility
+        
+        from plone.app.layout.viewlets import common as base
+        from plone.registry.interfaces import IRegistry
+        
+        
+        class LikeViewlet(base.ViewletBase):
+            """ Add a Like button
+            
+            http://developers.facebook.com/docs/reference/plugins/like
+            """
+        
+            def isEnabledOnContent(self):
+                """
+                @return: True if the current content type supports Like-button
+                """
+                registry = getUtility(IRegistry)
+                content_types = registry['mfabrik.like.content_types']
+                        
+                # Don't assume that all content items would have portal_type attribute
+                # available (might be changed in the future / very specialized content)
+                current_content_type =  portal_type = getattr(Acquisition.aq_base(self.context), 'portal_type', None)
+            
+                # Note that plone.registry keeps values as unicode strings
+                # make sure that we have one also
+                current_content_type = unicode(current_content_type)
+            
+                return current_content_type in content_types
+   
+        
+            def render(self):
+                """ Render viewlet only if it is enabled.
+                
+                """
+        
+                # Perform some condition check
+                if self.isEnabledOnContent():
+                    # Call parent method which performs the actual rendering
+                    return super(LikeViewlet, self).render()
+                else:
+                    # No output when the viewlet is disabled
+                    return ""
+            
+
 
 Rendering viewlet by name
 -------------------------
