@@ -7,14 +7,14 @@ Interfaces
 Introduction
 -------------
 
-Interfaces define what methods object provides. 
+Interfaces define what methods an object provides. 
 Plone extensively uses interfaces to define APIs between 
-different subsystems. They provide more consistent and declarative
+different subsystems. They provide a more consistent and declarative
 way to define bridges between two different things, when duck-typing 
 is not enough.
 
-Interface defines the shape of a hole where you can drop different pieces.
-The shape of the piece is defined by interface, but the implementation
+An Interface defines the shape of a hole where you can drop different pieces in.
+The shape of the piece is defined by the interface, but the implementation
 details like color, material, etc. can vary.
 
 See `zope.interface package README <http://pypi.python.org/pypi/zope.interface>`.
@@ -48,7 +48,7 @@ In Python you can use code::
         if IMyInterface.providedBy(object):
                 # do stuff
         else:
-                # was not kind of the object we wanted
+                # was not the kind of object we wanted
                 
 plone_interface_info
 ====================
@@ -56,7 +56,7 @@ plone_interface_info
 In page templates you can use *plone_interface_info* helper view::
 
         <div tal:define="iinfo context/@@plone_interface_info">
-                <span tal:condition="pytohn:iinfo.provides('your.dotted.interface.IName')">
+                <span tal:condition="python:iinfo.provides('your.dotted.interface.IName')">
                         Do stuff for 
                 </span>
         </div>
@@ -69,11 +69,11 @@ See also
 Interface resolution order
 ===========================        
 
-Interface resolution order (IRO) is the list of interfaces provided by the object (directly, or implemented by class).
+Interface resolution order (IRO) is the list of interfaces provided by the object (directly, or implemented by a class).
 
-Interaces evaluated from zero index (highest priority) the last index (lowest priority)
+Interaces are evaluated from zero index (highest priority) to the last index (lowest priority)
 
-You can access this information for the object for debugging purposes using few magical attributes::
+You can access this information for the object for debugging purposes using a few magical attributes::
 
         object.__provides__.__iro__.
 
