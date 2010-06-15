@@ -11,23 +11,23 @@ In Plone, all content is mapped to a single tree: content objects, user objects,
 Even almost all object methods are directly mapped to HTTP visible URIs.
 
 Each object has a path depending on its location.
-Traversing is a method of getting handle of persistent object in ZODB object graph by its path.
+Traversing is a method of getting a handle of a persistent object in ZODB object graph by its path.
 
 Traversing can happen in two places
 
-* When HTTP request hits the server the object method, which will generate the HTTP response,
-  is looked up using travering
+* When a HTTP request hits the server the object method, which will generate the HTTP response,
+  is looked up using traversing
 
-* You can manually traverse ZODB tree in your code to locate objects by their path
+* You can manually traverse the ZODB tree in your code to locate objects by their path
 
 Object ids
 ----------
 
 Each content object has an id string which identifies the object in the parent container.
-Tee id string is visible in the browser address bar when you view the object.
-Ids are also visible in Zope Management interface.
+The id string is visible in the browser address bar when you view the object.
+Ids are also visible in the Zope Management interface.
 
-Besides id strings, the content objects have Unique Identified, or UID_, which
+Besides id strings, the content objects have Unique Identifiers, or UID_, which
 does not change even if the object is moved or renamed.
 
 Id should not contain spaces or slashes.
@@ -35,8 +35,8 @@ Id should not contain spaces or slashes.
 Path
 ----
 
-Zope paths is the location of the object in object graph.
-It is a a sequence of id components from the parent to the child separated by slashes.
+The Zope path is the location of the object in the object graph.
+It is a sequence of id components from the parent node(s) to the child separated by slashes.
 
 Example::
 
@@ -45,15 +45,15 @@ Example::
 Exploring Zope application server
 ---------------------------------
 
-You can use Zope Management interface to explore the content of your Zope application server:
+You can use the Zope Management interface to explore the content of your Zope application server:
 
 * Sites
 
 * Folders within the sites
 
-* ...so on
+* ...and so on
 
-ZMI does not expose individual attributes. It only exposes traversable content objects.
+The ZMI does not expose individual attributes. It only exposes traversable content objects.
 
 Attribute traversing
 --------------------
@@ -77,7 +77,7 @@ Zope exposes child objects as container accessor.
 Example::
 
     # you have obtained the plone.org portal root object somehow and it's
-    # stored in local variable "portal"
+    # stored in a local variable "portal"
 
     documentation = portal["documentation"]
     howTos = documentation["how-to"]
@@ -87,11 +87,11 @@ Example::
 Traversing by full path
 -----------------------
 
-Any content object provides methods *restrictedTraverse()* and *unrestrictedTraverse()*.
+Any content object provides the methods *restrictedTraverse()* and *unrestrictedTraverse()*.
 See Traversable_.
 
-**Security warning**: restrictedTraverse() uses priviledges of currently logged in user.
-Unauthorized_ exception is raised if the code tries to access object for which
+**Security warning**: restrictedTraverse() uses privileges of the currently logged in user.
+An Unauthorized_ exception is raised if the code tries to access an object for which the
 user lacks Access contents information and View permissions.
 
 Example::
@@ -110,11 +110,11 @@ Example::
 Getting object path
 -------------------
 
-Object has two paths:
+An object has two paths:
 
-- Physical path is the absolute location in the current ZODB object graph. This includes site instance name as the part of it.
+- Physical path is the absolute location in the current ZODB object graph. This includes the site instance name as part of it.
 
-- Virtual path is the object location related to Plone site root
+- Virtual path is the object location related to the Plone site root
 
 **Path mangling warning**: Always store paths as virtual paths or persistently stored paths will corrupt
 if you rename your site instance.

@@ -16,8 +16,8 @@ This chapter explains the basics of Zope HTTP requests and responses
 Lifecycle
 ---------
 
-Unlike in some other web frameworks, in Plone you do not explictly create or return HTTP response object.
-A HTTP request object has always a HTTP response object associated with it and response object is created
+Unlike in some other web frameworks, in Plone you do not explictly create or return HTTP response objects.
+A HTTP request object always has a HTTP response object associated with it and the response object is created
 when the request hits the web server.
 
 The response is available for the whole lifetime of request processing.
@@ -27,7 +27,7 @@ Web servers
 -----------
 
 Usually Plone runs on Zope's ZServer_ (also known as Medusa). Other
-alternative is WSGI_ compatible web servers like Repoze_.
+alternatives are WSGI_ compatible web servers like Repoze_.
 
 The web server may affect how your HTTP objects are constructed.
 
@@ -36,9 +36,9 @@ HTTP Request
 
 All incoming HTTP requests are wrapped to (Zope) ZPublisher_ HTTPRequest_ objects.
 
-Usually your view function or instance will receive HTTP request object, along with traversed context, as its construction parameter.
+Usually your view function or instance will receive an HTTP request object, along with a traversed context, as its construction parameter.
 
-You can access request in your view::
+You can access the request in your view::
 
     from Products.Five.browser import BrowserView
 
@@ -68,7 +68,7 @@ Request URL
 To get the asked URL:
 
     >>> request["ACTUAL_URL"]
-    'http://localhost:8080/site')
+    'http://localhost:8080/site'
 
 To get the URL of the served object use the following. This might be
 different from the asked URL, since Plone does all kinds of default page and default view magic.
@@ -79,8 +79,8 @@ different from the asked URL, since Plone does all kinds of default page and def
 Request path
 ============
 
-Request URI path can be read from request.path. request.path is a a list of path components.
-request.path is virtual path and has site id component removed from it.
+The request URI path can be read from request.path. request.path is a list of path components.
+request.path is a virtual path and has the site id component removed from it.
 
 Example::
 
@@ -95,7 +95,7 @@ Other possible headers::
 REQUEST_URI
 ===========    
 
-To get the variable which corresponds REQUEST_URI in PHP the following helps::
+To get the variable which corresponds to REQUEST_URI in PHP the following helps::
 
     # Concatenate the user visible URL and query parameters    
     full_url = request.ACTUAL_URL + "?" + request.QUERY_STRING
@@ -153,7 +153,7 @@ Example::
 POST variables
 ==============
 
-HTTP POST varibles are available in stored in request.form dictionary::
+HTTP POST varibles are available in stored request.form dictionary::
 
     print request.form.items() # Everything POST brought to us
 
@@ -187,7 +187,7 @@ To access raw HTTP GET query string::
 Web environment
 ===============
 
-Web server exposes its own environment variables in request.other (ZServer_) or request.environ (Repoze_ and other WSGI_ based web servers)::
+The web server exposes its own environment variables in request.other (ZServer_) or request.environ (Repoze_ and other WSGI_ based web servers)::
 
     print request.other.items()
 
@@ -198,7 +198,7 @@ Web server exposes its own environment variables in request.other (ZServer_) or 
 Host name
 =========
 
-Below is an example to get HTTP server name in virtual host safe manner.
+Below is an example to get the HTTP server name in a safe manner regarding virtual hosts.
 
 .. code-block:: python
 
@@ -371,7 +371,7 @@ Use response.redirect() method::
 Middleware-like hooks
 ---------------------
 
-Plone does not have middleware concept, as everything happens through traversing.
+Plone does not have a middleware concept, as everything happens through traversing.
 Middleware behavior can be emulated with *before traverse* hook.
 Before traverse hook can be installed on any persistent object in the
 traversing graph. The hook is persistent, so it is a database change
