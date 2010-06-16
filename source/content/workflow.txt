@@ -11,11 +11,11 @@
 Introduction
 -------------
 
-DCWorkflow product manages the default Plone workflow system.
+The DCWorkflow product manages the default Plone workflow system.
 
-Workflow state is not directly stored on the object. Instead, separate
-portal_workflow tool must be used to access workflow state. Workflow look-ups
-involve extra database fetch.
+A workflow state is not directly stored on the object. Instead, a separate
+portal_workflow tool must be used to access a workflow state. Workflow look-ups
+involve an extra database fetch.
 
 For more information, see 
 
@@ -24,10 +24,10 @@ For more information, see
 Creating workflows
 ------------------
 
-The recommended method is use portal_workflow user interface in Zope Management Interface
+The recommended method is to use the portal_workflow user interface in the Zope Management Interface
 to construct the workflow through-the-web and then you can export it using GenericSetup's portal_setup tool.
 
-Include necessarty parts from exported workflows.xml and workflows folder in your add-on product
+Include necessary parts from exported workflows.xml and workflows folder in your add-on product
 GenericSetup profile (add-on folder profiles/default).
 
 Assigning the workflow to a particular content type
@@ -55,7 +55,7 @@ You cannot directly set the workflow to any state, but you must push
 it through legal state transitions.
 
 **Security warning**: Workflows may have security assertations which are bypassed by admin user.
-Always test your workflow methods using a normal.
+Always test your workflow methods using a normal user.
 
 In Python code
 ================
@@ -70,16 +70,16 @@ Example::
         try:
             workflowTool.doActionFor(portal.sampleProperty, "submit")
         except WorkflowException:
-            # Workflow exception is risen if the state transition is not available
+            # a workflow exception is risen if the state transition is not available
             # (the sampleProperty content is in a workflow state which
-            # does not have "submit" transition)
+            # does not have a "submit" transition)
             pass
 
-By HTTP
-=======
+Via HTTP
+========
 
-Plone provides ``workflow_action`` script which is able to trigger the status
-modify from HTTP request (browser address bar).
+Plone provides a ``workflow_action`` script which is able to trigger the status
+modification through an HTTP request (browser address bar).
 
 Example::
 
@@ -121,10 +121,10 @@ How to test which workflow the object has::
 Disabling workflow for a content type
 ---------------------------------------
 
-If content type doesn't have a workflow it uses its parent container security settings.
+If a content type doesn't have a workflow it uses its parent container security settings.
 By default, content types Image and File have no workflow.
 
-Workflow can be disabled by setting the workflow setting empty in portal_workflow in ZMI.
+Workflows can be disabled by setting the workflow setting empty in portal_workflow in ZMI.
 
 Example how to do it with GenericSetup *workflows.xml*
 
@@ -135,7 +135,7 @@ Example how to do it with GenericSetup *workflows.xml*
          <property
             name="title">Contains workflow definitions for your portal</property>
          <bindings>
-          <!-- Bind nothing for there content types -->
+          <!-- Bind nothing for these content types -->
           <type type_id="Image"/>
           <type type_id="File"/>
          </bindings>
