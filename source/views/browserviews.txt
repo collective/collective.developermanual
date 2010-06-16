@@ -268,7 +268,7 @@ Example
     from zope.component import getMultiAdapter
 
     def getView(context, request, name):
-        # Remove acquisition wrapper which made cause false context assumptions
+        # Remove acquisition wrapper which may cause false context assumptions
         context = aq_inner(context)
         # Will raise ComponentLookUpError
         view = getMultiAdapter((context, request), name=name)
@@ -311,6 +311,34 @@ You can also do direct view looks up and method calls in template by using @@ n
     <div tal:attributes="lang context/@@plone_portal_state/current_language">
         We look up lang attribute by using BrowserView which name is "plone_portal_state"
     </div>
+
+
+Use a skin based template in a Five view
+========================================
+
+Use aq_acquire(object, template_name)
+
+Example: Get an object by its path and render it using its default template in the current context.
+
+.. code-block:: python
+
+    from Acquisition import aq_base, aq_acquire
+    from Products.Five.browser import BrowserView
+
+    class TelescopeView(BrowserView):
+        """
+        Renders an object in a different location of the site when passed the
+        path to it in the querystring.
+        """
+        def __call__(self):
+            path = self.request["path"]
+            target_obj = self.context.restrictedTraverse(path)
+            # Strip the target_obj of context with aq_base.
+            # Put the target in the context of self.context.
+            # getDefaultLayout returns the name of the default
+            # view method from the factory type information
+            return aq_acquire(aq_base(target_obj).__of__(self.context),
+                              target_obj.getDefaultLayout())()
 
 
 Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
