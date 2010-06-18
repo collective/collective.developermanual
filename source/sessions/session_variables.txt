@@ -2,6 +2,16 @@
  Sessions
 ============
 
+.. admonition:: Description
+
+	How Plone handles anonymous and logged in user sessions.
+	How to store and retrieve session data variables programmatically.
+
+.. contents:: local
+	
+Introduction
+------------
+
 Sessions are visitor sessions at the site.
 
 Sessions have features life
@@ -33,6 +43,59 @@ Example::
    session = sdm.getSessionData(create=True)
    session.set("my_option", any_python_object_supporting_pickling)
 
+Getting a session parameter
+-----------------------------
+
+Example::
+
+   sdm = self.context.session_data_manager
+   session = sdm.getSessionData(create=True)
+   session.set("my_option", any_python_object_supporting_pickling)
+
+Initial construction of session data
+--------------------------------------
+
+Create a session data variable when it is accessed
+for the first time. For the subsequent instances,
+the same object is returned. The object changes are automatically
+persistent if it inherits peristent.Persistent object.
+
+Example::
+
+	from data import CheckoutData
+	
+	# Identifier of session data key where we store checkout values as CheckoutData object
+	SESSION_KEY="checkout"
+	
+	
+	def createSessionData(sdm):
+	    """ Create persistent new checkotu session.
+	    
+	    https://svn.plone.org/svn/collective/collective.developermanual/trunk/source/sessions/session_variables.txt
+	    """
+	    session_data_container = sdm.getSessionData(create=True)
+	
+	    # Create initial data if missing
+	    data = CheckoutData()
+	    
+	    session_data_container.set(SESSION_KEY, data)
+	    return data
+	
+	def getOrCreateCheckoutSession(context, request):
+	    """ 
+	    @return: CheckoutData object associated for this user 
+	    """
+	
+	    sdm = context.session_data_manager
+	
+	    session_data_container = sdm.getSessionData(create=True)
+	    
+	    data = session_data_container.get(SESSION_KEY, None)  
+	    if data is None:
+	        data = createSessionData(sdm)
+	        
+	    return data
+	    
 Session data and unit testing
 -----------------------------
 

@@ -68,13 +68,13 @@ Schema introspection
 
 zope.schema._schema module provides some introspection functions::
 
-* getFieldNames(schema)
+* getFieldNames(schema_class)
 
-* getFields
+* getFields(schema_class)
 
-* getFieldsInOrder(schema)
+* getFieldsInOrder(schema) - retain the orignal field declaration
 
-* getFieldNamesInOrder(schema)
+* getFieldNamesInOrder(schema)- retain the orignal field declaration
 
 Example::
 
@@ -85,7 +85,7 @@ Example::
 
 		text = zope.schema.TextLine()
 
-
+	# Get list of schema fields from IMyInterface
 	fields = zope.schema.getFields(IMyInterface)
 
 Field order
@@ -122,6 +122,40 @@ Example::
 	something = SomeStorage()
 	assert something.some_value == True
 
+Validation
+==========
+
+Schema objects using field property provides automatic validation
+facilities preventing setting badly formatted attributes.
+
+Example::
+
+	class ICheckoutData(zope.interface.Interface):
+	    """ This interface defines all the checkout data we have.
+	    
+	    It will also contains billing_addess
+	    
+	    """
+	    email = schema.TextLine(title=_(u"Email"), default=u"")
+
+	class CheckoutData(Persistent):
+	    zope.interface.implements(ICheckoutData)
+	    
+	    email = FieldProperty(ICheckoutData["email"])
+
+        
+    def test_store_bad_email(self):
+        """ Check that we can't put data to checkout """
+        
+        data = getpaid.expercash.data.CheckoutData()
+        
+        from zope.schema.interfaces import WrongContainedType, WrongType, NotUnique
+
+        try:
+            data.email = 123 # Can't fit integer to email field
+            raise AssertionError("do not reach")
+        except WrongType:
+            pass 
 
 Persistent objects and schema
 =============================
