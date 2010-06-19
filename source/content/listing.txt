@@ -25,7 +25,9 @@ methods tend to return (id, object) tuples instead of plain objects.
 Getting all content objects inside a folder
 -------------------------------------------
 
-Method contentItems is defined in CMFCore/PortalFolder.py.
+The method contentItems is defined in CMFCore/PortalFolder.py. From
+Plone 4 onwards, you can also use folder.items() instead (this applies
+to the whole section below).
 See source code for details, e.g. filtering and other forms of listing::
 
 
@@ -75,15 +77,17 @@ Plone applies some default rules for listFolderContents()
 Getting object ids
 -------------------
 
-If you need to get ids only, use objectIds() method. This is a fast method::
+If you need to get ids only, use objectIds() method, or keys() in
+Plone 4. This is a fast method::
 
     # Return a list of object ids in the folder
-    ids = folder.objectIds()
+    ids = folder.objectIds()  # Plone 3 or older
+    ids = folder.keys()       # Plone 4 or newer
     
     
 .. warning::
 
-        objectIds() returns ids for Zope 2 objects too, not just content.
+        objectIds() and keys() will return ids for Zope 2 objects too, not just content.
 
 Getting non-contentish Zope objects
 -------------------------------------
@@ -115,7 +119,8 @@ The following is optimal code, but you can simplify it if you don't need to chec
     if base_hasattr(context, 'has_key'):
         # BTreeFolder's has_key returns numeric values
         return context.has_key(myid) and True or False
-    elif myid in context.objectIds():
+    elif myid in context.objectIds(): 
+    # "elif myid in context:" in Plone 4 or newer
         return True
     else:
         return False
@@ -203,7 +208,8 @@ The least expensive call for this for tens of items is to call len() for getFold
 Counting items using contentItems
 ======================================
 
-Alternative, if you know there are not many objects in in the folder, you can call contentItems() as this
+Alternative, if you know there are not many objects in in the folder,
+you can call contentItems() (or simply items() in Plone 4 or newer) as this
 will potentially wake less items than complex catalog query. 
 
 .. warning:: 
@@ -214,6 +220,7 @@ Example (AT content class method)::
 
     def getMainImage(self):
         items = self.contentItems() # id, object tuples
+        # "items = self.items()" in Plone 4 or newer
         if len(items) > 0:
             return items[1]
         

@@ -34,7 +34,8 @@ Little tricky. An example:
 
 .. code-block:: python
 
-	ids = folder.objectIds()
+	ids = folder.objectIds() # Plone 3 or older
+        ids = folder.keys()      # Plone 4 or newer
 	
     if len(ids) > 0:
         # manage_delObject will mutate the list
