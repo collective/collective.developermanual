@@ -606,18 +606,29 @@ Example::
 	
 	class CheckoutSubform(subform.EditSubForm):
 	    """ Add support for continue action. """
-	    
-	    
-	    @button.handler(CheckoutForm.buttons['continue'])
-	    def handleContinue(self, action):
-	        """
-	        Make sure that the form is refreshed when parent
-	        form Continue is pressed.
-	        """
-	        
-	        # Call the default subform action handler
-	        subform.EditSubForm.handleApply(self, action)  
-
+	   
+    
+            def execute(self):
+                """
+                Make sure that the form is refreshed when parent
+                form Continue is pressed.
+                """
+        
+                data, errors = self.extractData()
+                if errors:
+                    self.errors = errors
+                    self.status = self.formErrorsMessage
+                    return errors
+                
+                content = self.getContent()
+                z3c.form.form.applyChanges(self, content, data)
+             
+                return None
+                
+            @button.handler(CheckoutForm.buttons['continue'])
+            def handleContinue(self, action):
+                """ What happens when the parent form button is pressed """
+                self.execute()
 CRUD form
 ---------
 
