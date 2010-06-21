@@ -200,7 +200,17 @@ so that Zope finds them::
         Interface dotted name must be directly to the interface class and not an import
         from other module, like __init__.py.
         
-         
+Setting dynamic marker interfaces programmatically
+==================================================
+
+Use `mark()` function form Product.Five.
+
+Example::
+
+	from Products.Five.utilities.marker import mark
+	
+	mark(portal.doc, interfaces.IBuyableMarker)
+
 
 
 

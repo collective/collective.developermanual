@@ -12,23 +12,149 @@ Introduction
 ============
 
 Zope 3 schema is database-neutral and form library-neutral way to describe Python data models.
-Various Plone form engines use `zope.schema <http://pypi.python.org/pypi/zope.schema>`_ package to describe data structures.
 
-The schema is model describing how data is stored. Usually form fields can be generated based on this model.
+Plone uses Zope 3 schemas 
 
-Schema is not used only forms, but it is also used
+* To describe persistent data models
 
-* To describe validation and defaults of persistent data
+* To describe HTML form data
 
-* To describe fields in ZCML
+* To describe ZCML configuration data
 
+Since Zope 3 schemas are not bound to e.g. SQL database engine, it gives
+you very reusable way to define data models.
+
+Schemas are basically normal Python classes with special attribute declarations.
+Schemas are always subclasses of `zope.interface.Interface`. Schema itself
+cannot be a concrete object instance - you need to either have a persistent.Persistent
+object for database data or z3c.form.form.Form object for HTML forms.
+
+Zope 3 schemas will do tasks like
+
+* Defining allowed input data formar (string, int, object, list, etc.) for an Python class instance attributes
+
+* Defining required attributes on an object
+
+* Allow custom validators on input data
+
+The basic unit of data model declaration is *field* which tells what kind of 
+data each Python attribute can hold.
+
+Example of schema
+-----------------
+
+Define an address data model::
+
+	import zope.interface
+	from zope import schema
+
+	class ICheckoutAddress(zope.interface.Interface):
+	    """ Provide meaningful address information.
+	    
+	    This is not 1:1 with getpaid.core interfaces, but
+	    more like a better guess. 
+	    
+	    """
+	    first_name = schema.TextLine(title=_(u"First name"), default=u"")
+	    last_name = schema.TextLine(title=_(u"Last name"), default=u"")
+	
+	    organization = schema.TextLine(title=_(u"Organization"), default=u"")
+	    
+	    phone = schema.TextLine(title=_(u"Phone number"), default=u"")
+	    
+	    country = schema.Choice( title = _(u"Country"),
+	                                    vocabulary = "getpaid.countries", required=False, default=None)
+	    
+	    state = schema.Choice( title = _(u"State"),
+	                                  vocabulary="getpaid.states", required=False, default=None)
+	    
+	    
+	    city = schema.TextLine(title=_(u"City"), default=u"")
+	
+	    postal_code = schema.TextLine(title=_(u"Postal code"), default=u"")
+	    
+	    street_address = schema.TextLine(title=_(u"Address"), default=u"")
+
+Then we define a concrete persistent class using this data model.
+We can use this class to store data to ZODB database based on our 
+model definition.
+
+We use `zope.schema.fieldproperty.FieldProperty` to wire 
+persistent class attributes to the data definition.
+
+Example::
+
+	from persistent import Persistent # Automagical ZODB persistent object
+	from zope.schema.fieldproperty import FieldProperty # 
+	
+	class CheckoutAddress(Persistent):
+	    """ Store checkout address """
+	
+            # Delacre that all instances of this class fill the requirements
+            # to conform ICheckoutAddress data model
+	    zope.interface.implements(ICheckoutAddress)
+	    
+	    first_name = FieldProperty(ICheckoutAddress["first_name"])
+	    last_name = FieldProperty(ICheckoutAddress["last_name"])
+	    organization = FieldProperty(ICheckoutAddress["organization"])
+	    phone = FieldProperty(ICheckoutAddress["phone"])
+	    
+	    country =  FieldProperty(ICheckoutAddress["country"])
+	    state = FieldProperty(ICheckoutAddress["state"])
+	
+	    city = FieldProperty(ICheckoutAddress["phone"])
+	    postal_code = FieldProperty(ICheckoutAddress["postal_code"])
+	    street_address = FieldProperty(ICheckoutAddress["street_address"])
+
+For persistent objects, see more information
+on :doc:`persistent object documentation </persistency/persistent>`_.
+
+Using schemas as data models
+============================
+
+	   
+Based on the example data model above, we can use it e.g. in content type
+:doc`view class </views/browserviews>` 
+to store arbitary data as the content type attributes..
+
+Example::
+
+	class MyView(BrowserView):
+		""" Connect this view to your content type using ZCML declaration """
+	
+		def __call__(self):
+			# The current content item this view
+			# was invoked
+			context = self.context.aq.inner 
+
+			# Store a new address in it as
+			# test_address attribute
+			context.test_address = CheckoutAddress()
+			context.test_address.first_name = u"Mikko"
+			context.test_address.last_name = u"Ohtamaa"
+			
+			# Note that you can still add arbitary
+			# attributes to any persistent object.
+			# They are simply not validated
+			# as they don't go through zope.schema
+			# FieldProperty declarations.
+			# Do not do this.
+			context.test_address.arbitary_attribute = u"Don't do this"
+			
+			
+			
 Further reading
 ===============
 
+* `zope.schema <http://pypi.python.org/pypi/zope.schema>`_ package to describe data structures.
+
 * http://zope3.xmu.me/schema.html
 
-Schema data definitions
-=======================
+zope.schema out of the box fields
+=================================
+
+zope.schema provides very comprehensive list of fields out of the box. Finding good documentation for them, howeverm
+might provide to be challenging.
 
 * `Stock Zope schema field list <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_ and
   `more <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_.
@@ -305,9 +431,58 @@ Example::
                                    value_type=zope.schema.Choice(source=get_field_list),
                                    )
 
-Dictionaries
-============
+Dynamic schemas
+===============
 
-Read about problem of zope.schema and PersistentDict persistent dictionaries.
+Schemas are singletons, as there only exist one class instance 
+per Python run-time. For example, if you need to feed schemas generated dynamically
+to form engine, you need to 
 
+* If the form engine (e.g. z3c.form refers to schema fields, then
+  replace these references with dynamically generated copes)
 
+* Generate a Python class dynamically. Output Python source code, 
+  then `eval()` it. Using `eval()` is almost always considered 
+  as a bad practice.
+  
+.. warning ::
+
+	Though it is possible, you should not modify zope.schema classes
+	in-place
+	as the same copy is shared between different threads and 
+	if there are two concurrent HTTP requests problems occur.
+
+Replacing schema fields with dynamically modified copies
+---------------------------------------------------------
+
+The below is an example for z3c.form. It uses Python `copy`
+module to copy f.field reference, which points to zope.schema 
+field. For this field copy, we modify *required* attribute based
+on input. 
+ 
+Example::
+
+ 	    @property
+	    def fields(self):
+	        """ Get the field definition for this form.
+	        
+	        Form class's fields attribute does not have to
+	        be fixed, it can be property also.
+	        """
+	        
+	        # Construct the Fields instance as we would
+	        # normally do in more static way 
+	        fields = z3c.form.field.Fields(ICheckoutAddress)
+
+	        # We need to override the actual required from the
+	        # schema field which is litte tricky.
+	        # Schema fields are shared between instances
+	        # by default, so we need to create a copy of it 
+	        if self.optional:
+	            for f in fields.values():
+	                # Create copy of a schema field
+	                # and force it unrequired
+	                schema_field = copy.copy(f.field) # shallow copy of an instance
+	                schema_field.required = False
+	                f.field = schema_field
+	        

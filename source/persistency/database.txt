@@ -2,16 +2,114 @@
 ZODB Database
 =============
 
-.. contents :: :local:
+.. admonition:: Description
+
+	Plone uses ZODB database to store its data.
+	ZODB can act independently in-process,
+	clustered over network or over another database
+	engine, like SQL.
+	
+.. contents:: local
 
 Introduction
 ------------
 
-This chapter is about working with ZODB database directly,
+Plone uses ZODB database. ZODB happily eats any Python
+object with any attributes - there is no need to write
+"database schemas" as it is with SQL based systems.
+
+Classes inherit for persistent.Persistent will
+have all their attributes written to database.
+Lists and dictionaries will be automatically converted
+to persistent versions.
+
+This chapter is about basics of ZODB, working with ZODB database directly,
 like tuning database settings.
 
+Object-oriented database constraints
+-------------------------------------
+
+ZODB is object-oriented database. 
+It makes very easy to store different kind of contentish
+data in a nested tree, supporting subclassing (something
+which SQL often does poorly).
+
+Since the database is object oriented and objects
+are defined in Python code, you always need 
+accomppaning Python source code to read what's inside ZODB.
+This might feel akward at first, but you need running MySQL
+to read what's inside MySQL files stored on your disk and so on...
+
+.. warning::
+
+	ZODB database is not usable without the Python source code
+	used to create the data. The data is not readable using 
+	any of standard tools and there exist little tools
+	to deal with the raw data. The way to access Plone
+	data is running the Plone itself and performing 
+	queries through it.
+	
+.. warning::
+
+	Since correct source code is needed to read ZODB data,
+	this poses a problem for versioning. Even if you
+	use the correct add-on product with proper source code,
+	if the source code version if wrong, it might not work.
+	Data model attributes might be added, modified or deleted between
+	source code revisions, making data operations on the existing
+	database fail by raising Python Exceptions (AttributeError,
+	KeyError).
+		
+To workaround the ZODB interoperatibility problems, products
+like *ore.contentmirror* exist to duplicate Plone content
+data to read-only SQL database.
+
+Query and searching
+====================
+
+ZODB does not provide query services as is
+i.e. there is no SELECT statement.
+
+Plone provides :doc:`cataloging </searcing_and_indexing/catalog>`
+service for this purpose.
+
+This gives some benefits
+
+* You define yourself how data is indexed
+
+* The backend to perform queries is flexible - you
+  can plug-in custom indexes
+
+* portal_catalog default catalog is used to all content items
+  to provide basic CMS functionality easily
+
+* You can have optimized catalogs for specialized data (e.g. reference look-ups
+  using reference_catalog)  
+  
+Data model
+----------
+
+There is no hardwired way for desceribe
+data in ZODB database. 
+
+There are currently three primary ways to define data models in Plone
+
+* Using Archetypes content type subsystem (all Plone 3 content)
+
+* Using zope.schema package (modern way)
+
+* Not defining the model, but relying 
+
+Read about :doc:`zope.schema </models/schema>`
+how to define a model for the adta to be stored 
+in ZODB database.
+
+ZODB versions
+--------------
+
 Plone uses ZODB database. The default ZODB version with Plone 3.x is ZODB 3.7.x. 
-ZODB 3.8.x is not officially supported, but has been reported to work.
+ZODB 3.8.x is not officially supported, but has been reported to work to work
+with Plone 3. ZODB 3.9.x is to be used with Plone 4.
 
 * `ZODB overview <http://docs.zope.org/zodb/articles/ZODB-overview.html>`_
 

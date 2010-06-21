@@ -54,7 +54,35 @@ Example ::
                 # Show this portlet for logged in users only
                 return not self.anonymous
 
+Iterate portlets assigned to the portal root
+---------------------------------------------
 
+Below is an simple example how to print all portlets
+which have been assigned to the portal root::
+
+    def check_root_portlets(self):
+        """ Print all portlet assignments in the portal root """
+        
+        from zope.component import getUtility, getMultiAdapter
+        from plone.portlets.interfaces import IPortletManager
+        from plone.portlets.interfaces import IPortletAssignment
+        from plone.portlets.interfaces import IPortletAssignmentMapping      
+        
+        content = self.portal
+                                        
+        for manager_name in [ "plone.leftcolumn", "plone.rightcolumn" ]:
+            
+            print "Checking portlet column:" + manager_name 
+            
+            manager = getUtility(IPortletManager, name=manager_name, context=content)
+    
+            mapping = getMultiAdapter((content, manager), IPortletAssignmentMapping)
+                                                                    
+            # id is portlet assignment id
+            # and automatically generated
+            for id, assignment in mapping.items():
+                print "Found portlet assignment:" + id + " " + str(assignment)
+                    
 
 Walking through every porlet on the site
 -----------------------------------------

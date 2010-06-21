@@ -50,15 +50,16 @@ Form call chain goes like
 * Form.update() is called
 
 	* Calls Form.updateWidgets() - you can customize widgets in this
-	  point if you override this method
-	  
+	  point if you override this method. self.widgets instance
+	  is created based on self.fields property.
+	 
 	* Calls Form.updateActions()
 	
 		* Calls the action handler (button handler which was pressed)
 		
 		* If it's edit form, action handler calls applyChanges()
 		  to store new values on the object and return True
-		  if any value was changed
+		  if any value was changed.
 	
 * Form.render() is called
 
