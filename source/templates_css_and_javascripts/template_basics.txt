@@ -2,6 +2,14 @@
  TAL template language
 =======================
 
+.. admoninition:: Description
+
+	Plone uses TAL template language for its templates.
+	This document contains references to this template
+	language and generally available templates, macros
+	and views you can use to build your Plone add-on
+	product.
+
 .. contents :: :local:
 
 Introduction
@@ -98,9 +106,37 @@ Overriding templates for exising Plone views
 View page template
 ==================
 
-http://lionfacelemonface.wordpress.com/2009/03/02/i-used-macros-in-my-browser-views-and-saved-a-bunch-of-money-on-my-car-insurance/
+* http://lionfacelemonface.wordpress.com/2009/03/02/i-used-macros-in-my-browser-views-and-saved-a-bunch-of-money-on-my-car-insurance/
 
 Old style page template
 =======================
 
-TODO
+* Create a new layer in portal_skins
+
+* Templates are resolved by their name and portal_skins properties
+  sets the priority which add-on product is looked for the first
+
+* Reorder layers for the active theme so that your layer thakes
+  priority (see *Properties* tab on portal_skins)
+  
+
+Edit frame
+---------------
+
+By default, Plone draws green edit frame around the content if you can 
+edit it. You might want to disable this behavior for particular views.
+
+Hiding the edit frame
+===========================
+If you'd like to hide the (green) editing frame place the following code to your Zope 2 like page template::
+
+ <metal:block fill-slot="top_slot"
+                tal:define="dummy python:request.set('disable_border',1)" />
+
+Examples of this usage
+
+* Contact info page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/contact-info.cpt
+
+* Recently modified page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/recently_modified.pt
+
+
