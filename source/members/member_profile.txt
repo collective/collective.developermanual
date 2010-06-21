@@ -13,7 +13,7 @@ Introduction
 
 Member profile fields are the fields which the logged in member
 can edit oneself on his user account page.
-
+ 
 For more info, see
 
 * MemberDataTool: http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
@@ -23,15 +23,26 @@ For more info, see
 Getting member profile properties
 ---------------------------------
 
-*Note*: Following concerns vanilla Plone only. If you have customized membership behavior
-it doesn't necessarily work.
+.. note::
+
+        Following concerns vanilla Plone only. If you have customized membership behavior
+        it doesn't necessarily work.
 
 Member profile properties (title, address, biography, etc.) are stored in portal_membership tool.
 
 Available fields can be found in ZMI -> portal_membership -> Properties     .
 
-`ToolbarViewlet has some sample code <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py>`_
-how to retrieve these properties.
+Accessing member data
+=====================
+
+Get member data by username::
+
+Furher reading
+==============
+
+* `ToolbarViewlet has some sample code <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py>`_ 
+   how to retrieve these properties.
+
 
 Getting member fullname
 =======================
@@ -107,3 +118,40 @@ Example how to set the user password::
     # passwd is password as plain text
     member.setSecurityProfile(password=passwd)
             
+Setting visual editor
+======================
+
+If you want to certain member to use TinyMCE instead of Kupu.
+Plone provides no means to do change other member properties through-the-web,
+but you can do it using the command-line scripting snippet below::
+
+        # Traverse to your Plone site from Zope application root
+        context = app.mfabrik # site id is mfabrik
+        
+        users = context.acl_users.getUserNames()
+        
+        portal_membership = context.portal_membership
+        
+        for user in users:
+           member = portal_membership.getMemberById(user)
+           value = member.wysiwyg_editor
+         
+           # Show the existing editor choice before upgrading
+           print str(user) + ": " + str(value)
+           
+         
+           # Set WYSIWYG editor to all 
+         
+           member.wysiwyg_editor = "TinyMCE"
+           
+           # The following does not work from command-line (assumes HTTP request?)
+           #member.setMemberProperties({'wysiwyg_editor': 'TinyMCE'})
+
+
+
+.. note::
+
+        The script does not work through ZMI as member properties
+        do not have proper security declarations to set them as admin.
+        
+        

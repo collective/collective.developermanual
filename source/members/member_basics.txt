@@ -52,6 +52,24 @@ To get all usernames::
     
     memberIds = self.context.acl_users.getUserIds()
     
+Iterating all site users
+----------------------------
+
+Example::
+
+        buffer = ""
+
+        # Returns list of site usernames        
+        users = context.acl_users.getUserNames()
+        # alternative: get user objects
+        #users = context.acl_users.getUsers()
+        
+        for user in users:
+           print "Got username:" + user
+           
+.. note::
+
+        Zope users, like *admin*, is not included in this list.           
 
 Groups
 ------
