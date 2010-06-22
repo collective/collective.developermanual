@@ -72,6 +72,10 @@ for the first time. For the subsequent instances,
 the same object is returned. The object changes are automatically
 persistent if it inherits peristent.Persistent object.
 
+.. note::
+
+        Session data stored this way does not survive Plone restart.
+
 Example::
 
         def getOrCreateCheckoutSession(context, create=False, browser_id=None):
