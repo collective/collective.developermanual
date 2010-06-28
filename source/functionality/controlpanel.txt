@@ -176,6 +176,12 @@ profiles/default/controlpanel.xml::
 Then you can simply check whether a particular portal type is enabled
 in your settings::
 
+    
+    from zope.component import getUtility
+    from plone.registry.interfaces import IRegistry
+    from mfabrik.like.interfaces import ISettings
+    
+
     def isEnabledOnContent(self):
         """
         @return: True if the current content type supports Like-button
