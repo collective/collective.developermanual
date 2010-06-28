@@ -856,3 +856,26 @@ Answer:
 
 You have ``i18n:attributes="title; description"`` in your portlets.xml. Remove it or declare i18n namespace in XML.         
 
+ImportError: Couldn't import ZPublisherEventsBackport
+-----------------------------------------------------
+
+The following traceback on instance start-up::
+
+          File "/Users/moo/twinapex/parts/zope2/lib/python/zope/configuration/config.py", line 1383, in toargs
+            args[str(name)] = field.fromUnicode(s)
+          File "/Users/moo/twinapex/parts/zope2/lib/python/zope/configuration/fields.py", line 141, in fromUnicode
+            raise schema.ValidationError(v)
+        zope.configuration.xmlconfig.ZopeXMLConfigurationError: File "/Users/moo/twinapex/parts/instance/etc/site.zcml", line 14.2-14.55
+            ZopeXMLConfigurationError: File "/Users/moo/twinapex/parts/instance/etc/package-includes/009-gomobile.mobile-configure.zcml", line 1.0-1.59
+            ZopeXMLConfigurationError: File "/Users/moo/twinapex/src/gomobile.mobile/gomobile/mobile/configure.zcml", line 15.4-15.51
+            ZopeXMLConfigurationError: File "/Users/moo/twinapex/eggs/plone.postpublicationhook-1.1-py2.4.egg/plone/postpublicationhook/configure.zcml", line 5.4-8.10
+            ConfigurationError: ('Invalid value for', 'package', "ImportError: Couldn't import ZPublisherEventsBackport, No module named ZPublisherEventsBackport")
+
+plone.postpublicationhook 1.1 depends on new package, ZPublisherEventsBackport, for Plone 3.3. You eed to include
+them both in your buildout. You need to include both eggs::
+
+        eggs =
+                ZPublisherEventsBackport
+                plone.postpublicationhook
+        
+                 
