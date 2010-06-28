@@ -49,6 +49,14 @@ Form call chain goes like
 
 * Form.update() is called
 
+        * [plone.autoform based forms only]
+          Calls Form.updateFields() - this will set widget factory
+          methods for fields. If you want to customize the type
+          of the widget associated with the field do it here. If
+          your form is not plone.autoform based you need to 
+          edit form.schema widget factories on the module level code 
+          after the class has been constructed.
+
 	* Calls Form.updateWidgets() - you can customize widgets in this
 	  point if you override this method. self.widgets instance
 	  is created based on self.fields property.
