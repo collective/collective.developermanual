@@ -69,6 +69,55 @@ Plone buildout's have folderes which have predefined purposes
   
         bin/buildout -c production.cfg
 
+Running buildout behind proxy
+------------------------------
+
+Buildout uses setuptools which uses urllib which allows you to set
+proxy using http_proxy (lowecase!) environment variable.
+
+Example for UNIX shell (bash)
+
+::
+
+        # Set proxy address as environment varoable.
+        # In this case we use Polipo server running on the same compuer.
+        http_proxy=http://localhost:8123/
+        
+        # This is Bash shell specific command to export environment variable
+        # to processes started from the shell
+        export http_proxy
+        
+        # Run buildout normally
+        bin/buildout
+        
+You can also SSH tunnel the proxy from a remote server::
+
+        # Make Polipo proxy yourserver.com:8123 
+        # made to be available at local port 8123 
+        # through SSH tunnel
+        ssh -L 8123:localhost:8123 yourserver.com
+
+Buildout cache folder
+----------------------
+
+If you are running several buildouts on the same user you should
+consider setting the cache folder. All downloaded eggs are cached here.
+
+There are two ways to set the cache folder
+
+* PYTHON_EGG_CACHE environment variable
+
+* download-cache variable in [buildout] - only recommended if the buildout.cfg
+  file is not shared between different configurations
+
+Example::
+
+        # Create a cache directory
+        mkdir ~/python-egg-cache
+
+        # Set buildout cache directory for this shell session
+        export PYTHON_EGG_CACHE=~/python-egg-cache
+
 Troubleshooting
 ----------------
 
