@@ -133,7 +133,12 @@ interfaces.py::
                                        value_type=schema.Choice(source="mfabrik.like.content_types"),
                                        )
 
-configure.zcml::
+configure.zcml
+
+.. code-block:: xml
+
+  <!-- make sure that plone.app.registry is loaded -->
+  <includeDependencies package="." />
 
   <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
