@@ -753,4 +753,279 @@ Form class::
             </dl>
         </tal:status>
  
+Embedding z3c.form forms in portlets, viewlets and views
+---------------------------------------------------------
+
+Below is an example how to put z3c.form based form into a portlet.
+
+.. note::
+
+        plone.app.z3cform version 0.5.1 or later is needed,
+        as older versions do not support overriding form.action
+        property.
+
+Portlet code::
+
+        from plone.z3cform.layout import FormWrapper
+        class PortletFormView(FormWrapper):
+             """ Form view which renders z3c.forms embedded in a portlet.
+             
+             Subclass FormWrapper so that we can use custom frame template. """
+             
+             index = ViewPageTemplateFile("portletform.pt")   
+             
+        class Renderer(base.Renderer):
+            """ z3c.form portlet renderer.
+        
+            Instiate form and wrap it to a special layout template 
+            which will give the form suitable frame to be used in the portlet.
+            
+            We also set a form action attribute, so that 
+            the browser goes to another page after the form has been submitted
+            (we really don't know what kind of page the portlet is displayed
+            and is it safe to submit forms there, so we do this to make sure).
+            The action page points to a browser:page view where the same
+            form is displayed as full-page form, giving the user to better
+            user experience to fix validation errors.
+            """
+        
+            render = ViewPageTemplateFile('zohocrmcontact.pt')
+        
+            def __init__(self, context, request, view, manager, data):
+                base.Renderer.__init__(self, context, request, view, manager, data)
+                self.form_wrapper = self.getForm()
+                
+            def getForm(self):
+                """ Create a form instance. 
+                
+                @return: z3c.form wrapped for Plone 3 view
+                """
+                
+                context = self.context.aq_inner
+                
+                returnURL = self.context.absolute_url()
+                
+                # Create a compact version of the contact form 
+                # (not all fields visible)
+                form = ZohoContactForm(context, self.request, returnURLHint=returnURL, full=False)
+                
+                # Wrap a form in Plone view
+                view = PortletFormView(context, self.request)
+                view = view.__of__(context) # Make sure acquisition chain is respected
+                view.form_instance = form
+                
+                return view
+            
+            def getContactFormURL(self):
+                """ For rendering the form link at the bottom of the portlet.
+                
+                @return: URL leading to the full contact form
+                """
+                return self.form_wrapper.form_instance.action
+
+portletform.pt is just a dummy form view template which wraps the form.
+This differs from standard form wrapper by *not* rendering Plone
+main layout around the form.
+
+.. code-block:: html
+
+        <div class="portlet-form">
+           <div tal:replace="structure view/contents" />
+        </div>
+        
+Then the portlet template itself which renders the form inside the portlet::
+
+        <dl class="portlet portletZohoCRMContact"
+            i18n:domain="mfabrik.plonezohointegration">
+        
+            <dt class="portletHeader">
+                <span class="portletTopLeft"></span>
+                <span i18n:translate="portlet_title">
+                   Contact Us
+                </span>
+                <span class="portletTopRight"></span>
+            </dt>
+        
+            <dd class="portletItem odd">
+                <form tal:replace="structure view/form_wrapper" />
+            </dd>
+        
+            <dd class="portletFooter">
+                <span class="portletBottomLeft"></span>
+                <a href=""
+                   tal:attributes="href view/getContactFormURL"
+                   i18n:translate="box_more_news_link">
+                  Longer contact form&hellip;
+                </a>
+                <span class="portletBottomRight"></span>
+            </dd>
+            
+        </dl>
+
+Then the necessary parts of form itself::
+
+        class IZohoContactForm(zope.interface.Interface):
+            """ Form field definitions for Zoho contact forms """
+            
+            first_name = schema.TextLine(title=_(u"First name"))
+            
+            last_name = schema.TextLine(title=_(u"Last name"))
+            
+            company = schema.TextLine(title=_(u"Company / organization"), description=_(u"The organization which you represent"))
+        
+            email = schema.TextLine(title=_(u"Email address"), description=_(u"Email address we will use to contact you"))
+            
+            phone_number = schema.TextLine(title=_(u"Phone number"), 
+                                           description=_(u"Your phone number in international format. E.g. +44 12 123 1234"),
+                                           required=False,
+                                           default=u"")
+        
+            
+            returnURL = schema.TextLine(title=_(u"Return URL"), 
+                                        description=_(u"Where the user is taken after the form is succesfully submitted"),
+                                        required=False,
+                                        default=u"")
+        
+        class ZohoContactForm(Form):
+            """ z3c.form used to handle the new lead submission.
+            
+            This form can be rendered  
+            
+            * standalone (@@zoho-contact-form view)
+           
+            * embedded into the portlet
+            
+            ..note:: 
+                
+                It is recommended to use a CSS rule
+                to hide form descriptions when rendered in the portlet to save
+                some screen estate. 
+            
+            Example CSS::
+            
+                .portletZohoCRMContact .formHelp {
+                   display: none;
+                } 
+            """
+            
+            fields = Fields(IZohoContactForm) 
+            
+            label = _(u"Contact Us")
+            
+            description = _(u"If you are interested our services leave your contact information below and our sales representatives will contact you.")
+            
+            ignoreContext = True
+            
+            def __init__(self, context, request, returnURLHint=None, full=True):
+                """
+                
+                @param returnURLHint: Should we enforce return URL for this form
+                
+                @param full: Show all available fields or just required ones.
+                """
+                Form.__init__(self, context, request)
+                self.all_fields = full
+                
+                self.returnURLHint = returnURLHint
+                
+            @property
+            def action(self):
+                """ Rewrite HTTP POST action.
+                
+                If the form is rendered embedded on the others pages we 
+                make sure the form is posted through the same view always,
+                instead of making HTTP POST to the page where the form was rendered.
+                """
+                return self.context.portal_url() + "/@@zoho-contact-form"
+              
+            def updateWidgets(self):
+                """ Make sure that return URL is not visible to the user.
+                """
+                Form.updateWidgets(self)
+                
+                # Use the return URL suggested by the creator of this form
+                # (if not acting standalone)
+                self.widgets["returnURL"].mode = z3c.form.interfaces.HIDDEN_MODE
+                if self.returnURLHint:
+                    self.widgets["returnURL"].value = self.returnURLHint
+        
+                # Prepare compact version of this formw
+                if not self.all_fields:
+                    # Hide fields which we don't want to bother user with
+                    self.widgets["phone_number"].mode = z3c.form.interfaces.HIDDEN_MODE
+
+
+            @button.buttonAndHandler(_('Send contact request'), name='ok')
+            def send(self, action):
+                """ Form button hander. """
+                
+                data, errors = self.extractData()
+                
+                if not errors:
+                
+                    settings = self.getZohoSettings()
+                    if settings is None:
+                        self.status = _(u"Zoho is not configured in Site Setup. Please contact the site administration.")
+                        return 
+                        
+                    crm = CRM(settings.username, settings.password, settings.apikey)
+                
+                    # Fill in data going to Zoho CRM
+                    lead = {
+                        "First Name" : data["first_name"],
+                        "Last Name" : data["last_name"],
+                        "Company" : data["company"],
+                        "Email" : data["email"],   
+                    }
+                    
+                    phone = data.get("phone_number", "")
+                    if phone != "":
+                        # Only pass phone number to Zoho if it's set
+                        lead["Phone"] = phone
+                    
+                    # Pass in all prefilled lead fields configured in the site setup
+                    lead.update(self.parseExtraFields(settings.crm_lead_extra_data))
+                    
+                    # Open Zoho API connection
+                    try:
+                        # This will raise ZohoException and nuke the request
+                        # if Zoho credentials are wrong
+                        crm.open()
+                        
+                        # Make sure that wfTrigger is true
+                        # and Zoho does workflow actions for the new leads
+                        # (like informing sales about the availability of the lead)
+                        crm.insert_records([lead], {"wfTrigger" : "true"})
+                    except IOError:
+                        # Network down?
+                        self.status = _(u"Cannot connect to Zoho servers. Please contact web site administration")
+                        return
+                        
+                    ok_message = _(u"Thank you for contacting us. Our sales representatives will come back to you in few days")
+                
+        
+                    # Check whether this form was submitted from another page
+                    returnURL = data.get("returnURL", "")
+        
+                    if returnURL != "" and returnURL is not None:
+                        
+                        # Go to page where we were sent and
+                        # pass the confirmation message as status message (in session)
+                        # as we are not in the control of the destination page
+                        from Products.statusmessages.interfaces import IStatusMessage
+                        messages = IStatusMessage(self.request)
+                        messages.addStatusMessage(ok_message, type="info")
+                        self.request.response.redirect(returnURL)
+                    else:
+                        # Act standalone
+                        self.status = ok_message
+                else:
+                    # errors on the form
+                    self.status = _(u"Please fill in all the fields")
+
+Further reading
+================
+
+This example code was taken from *mfabrik.plonezohointegration*
+product which is in Plone collective SVN.
 
