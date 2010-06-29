@@ -71,6 +71,19 @@ Example::
 
         Zope users, like *admin*, is not included in this list.           
 
+Getting All Members for a given Role
+----------------------------------------
+In this example we use the portal_membership tool
+We assume that a role called 'Agent' exists and we already
+have the context::
+
+    from Products.CMFCore.utils import getToolByName
+
+    mtool = getToolByName(context,'portal_membership')
+    Agents = [member for member in mtool.listMembers() \
+              if member.has_role('Agent')]
+
+
 Groups
 ------
 
