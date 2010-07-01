@@ -170,8 +170,80 @@ GenericSetup profile can contain dependencies to other product profiles (and ins
 
 * `More information about GenericSetup dependencies <http://plone.org/products/plone/roadmap/195/>`_.
 
+Upgrade steps
+-------------
 
+You can define upgrade steps to run code only when someone upgrades your
+product from version *x* to *y*.
 
+As an example, let's say that the new version 1.2 of YOUR.PRODUCT defines a
+*price* field on a content type *MyType* to be a string, but previously
+(version 1.1.  and earlier) it was a float. Code that uses this field and
+assumes it to be a float will break after the upgrade, so you'd like to
+automatically convert existing values for the field to string. 
 
+(Obviously, you could do this very quickly in a simple script, but having a
+GenericSetup upgrade step means non-technical people can do it as well. As it
+turns out, once you have the script, it's easy to put its code in an upgrade
+step.)
 
+We add the upgrade step to the profile::
 
+  <genericsetup:upgradeStep
+      title="Convert Price to strings"
+      description="Price was previously a float field, it should be converted to string"
+      source="*"
+      destination="1.2"
+      handler="YOUR.PRODUCT.setuphandlers.convert_price_to_string"
+      sortkey="1"
+      profile="YOUR.PRODUCT:default" 
+      />
+
+* You can use a wildcard character for *source* to indicate an upgrade for any
+  previous version. To run the upgrade step only when upgrading from a specific
+  version, use that version's number.
+
+* The *sortkey* can be used to indicate the order in which upgrade steps are
+  run.
+
+The code for the upgrade method itself is best placed in *setuphandlers.py*::
+
+    def convert_price_to_string(context, logger=None):
+        """Method to convert float Price fields to string.
+
+        When called from the import_various method, 'context' is
+        the plone site and 'logger' is the portal_setup logger. 
+
+        But this method will be used as upgrade step, in which case 'context' 
+        will be portal_setup and 'logger' will be None.
+        
+        """
+        if logger is None:
+            # Called as upgrade step: define our own logger.
+            logger = logging.getLogger('YOUR.PRODUCT')
+
+        # Run the catalog.xml step as that may have defined new metadata
+        # columns.  We could instead add <depends name="catalog"/> to
+        # the registration of our import step in zcml, but doing it in
+        # code makes this method usable as upgrade step as well.
+        # Remove these lines when you have no catalog.xml file.
+        setup = getToolByName(context, 'portal_setup')
+        setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
+
+        catalog = getToolByName(context, 'portal_catalog')
+        brains = catalog(portal_type='MyType')
+        count = 0
+        for brain in brains:
+            current_price = brain.getPrice
+            if type(current_price) != type('a string'):
+                voorstelling = brain.getObject()
+                voorstelling.setPrice(str(current_price))
+                voorstelling.reindexObject()
+                count = count + 1
+            
+        setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
+        logger.info("%s fields converted." % count)
+
+After restarting Zope, your upgrade step should be visible in the ZMI: The
+*portal_setup* tool has a tab *Upgrades*. Select your product profile to see
+which upgrade steps Zope knows about for your product.
