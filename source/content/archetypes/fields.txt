@@ -4,14 +4,15 @@ Fields and widgets
 
 .. admonition:: Description
 
-        How to read, add, remove and hide fields and widgets available for Archetypes content types. 
+        How to read, add, remove and create fields and widgets available for Archetypes content types. 
 
 .. contents :: :local:
 
 Introduction
 ------------
 
-This document contains instructions how to manipulate Archetypes schema.
+This document contains instructions how to manipulate Archetypes schema
+(data model for content items) and fields and widgets it consists of.
 
 *Schema* is list of fields associated with a content type. 
 Each field can belong to one *schemata* which corresponds to one Edit tab
@@ -266,6 +267,57 @@ Example how to render widget for field 'maintext'::
               <metal:use_field use-macro="field_macro" />
             </tal:if_visible>
           </tal:fields>
+          
+Creating your own Field
+------------------------
+
+Here is an example how to create a custom field based on TextField.
+
+Example (mfabrik/rstpage/archetypes/fields.py)::
+
+        from Products.Archetypes import public as atapi
+        from Products.Archetypes.Field import TextField, ObjectField, encode, decode, registerField
+        
+        from mfabrik.rstpage.transform import transform_rst_to_html
+        
+        class RSTField(atapi.TextField):
+            """ """
+            
+            def _getCooked(self, instance, text):
+                """ Perform reST to HTML transformation for the field cotent.
+                
+                """
+                html, errors = transform_rst_to_html(text)
+                return html
+                
+            def get(self, instance, **kwargs):        
+                """ Field accessor.
+                
+                Define view mode accessor for the widget.
+                
+                @param instance: Archetypes content item instance
+                
+                @param kwargs: Arbitary parameters passed to the field getter 
+                """                
+                    
+                # Read the stored field value from the instance
+                text = ObjectField.get(self, instance, **kwargs)
+                   
+                # raw = edit mode, get reST source in that case 
+                raw = kwargs.get("raw", False)
+                
+                if raw:
+                    # Return reST source
+                    return text
+                else:
+                    # Return HTML for viewing
+                    return self._getCooked(instance, text)
+            
+        
+        registerField(RSTField,
+                      title='Restructured Text field',
+                      description=('Edit HTML as reST source'))
+
 
 Automatically generating description based on body text
 --------------------------------------------------------

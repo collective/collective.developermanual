@@ -2,34 +2,62 @@
  Javascripting
 ==================
 
-Useful default Javascripts
---------------------------
+.. admonition:: Description
 
-`Please read this blog post <http://www.sixfeetup.com/blog/2009/7/31/utilize-available-javascript-in-plone-without-knowing-javascript>`_.
+        How to add your own Javascript files to Plone and Plone add-on products
+
+.. contents:: local
+
+Introduction
+------------
+
+Plone Javascripts are managed by resource registry *portal_javascripts*.
+You can find this in Zope Management interface, under your portal root folder.
+
+portal_javascript will automatically
+
+* compress JS files
+
+* merge JS load requests
+
+* determine which files are included on which HTML page
+
+* support IE conditional comments
 
 Creating Javascripts for Plone
 ------------------------------
 
-1. Put ZMI -> portal_javascripts to debug mode
+The following ste
 
-2. Put in new Javascript via ZMI upload (you can use Page Template type)
-   or add-on product resourceDirectory_ directive
+* Put ZMI -> portal_javascripts to debug mode
 
-3. Register Javascript in portal_javascripts
+* Include new JS files 
 
+        * Use ZCML configuration directive :doc:`resourceFolder /templates_css_and_javascripts/resourcefolders> to
+          include static media files in your add-on product
+
+        * Put in new Javascript via ZMI upload (you can use Page Template type) to portal_skins/custom folder
+
+* Register Javascript in portal_javascripts
+
+        * Do it through-the-web using portal_javascripts ZMI user interface ...or...
+        
+        * Add *profiles/default/jsregistry.xml* file to describe Javascript files included with your add-on product 
+       
 Executing Javascript code on page load
 --------------------------------------
 
-1. Create following snippet::
+Plone includes JQuery library which has ``ready()``
+event handler to run Javascript code when DOM tree
+loading is done (HTML is loaded, images and media files
+are not necesssarily loaded).
+
+Create following snippet::
 
 
     jq(document).ready(function() {
         // TODO: Execute your page manipulating Javascript code here
     });
-
-2. Add your file to portal_javascripts.
-
-.. _resourceDirectory: http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/resourceDirectory/index.html
 
 Registering javascripts to portal_javascripts
 ---------------------------------------------
@@ -47,7 +75,8 @@ The following options are available
 * *id* (required): URI from where the Javascript is loaded
 
 * *expression* empty string or TAL condition which determintes whether the file is served to the user.
-  The files with the same condition are grouped to the same compression bundle.
+  The files with the same condition are grouped to the same compression bundle. For more information,
+  see :doc:`expressions documentation </functionality/expressions>`.
 
 * *cookable* is merging of Javascript files allowed during the compression
 
@@ -61,6 +90,18 @@ The following options are available
   in relation to other served Javascript files
 
 `Full description in the source code <https://svn.plone.org/svn/plone/ResourceRegistries/trunk/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
+
+Example ``profiles/default/jsregistry.xml`` in your add-on product
+
+..code-block:: xml
+
+        <?xml version="1.0"?>
+        <object name="portal_javascripts">
+            <javascript
+                id="++resource++plonetheme.yourproduct/cufon-yui.js"
+                cacheable="True" compression="safe" cookable="True"
+                enabled="True" expression=""  inline="False" insert-after="toc.js"/>
+        </object>
 
 Bundles
 =======
@@ -114,3 +155,7 @@ which is the first script for logged in users.
         cacheable="True" compression="none" cookable="False"
         enabled="True" expression=""  inline="False" insert-before="dropdown.js"/>
 
+Useful out of the box Javascripts
+----------------------------------
+
+`Please read this blog post <http://www.sixfeetup.com/blog/2009/7/31/utilize-available-javascript-in-plone-without-knowing-javascript>`_.
