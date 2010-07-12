@@ -2,6 +2,11 @@
  Command-line interaction and scripting
 ===========================================
 
+.. admonition:: Description
+
+        How to run command-line Python scripts 
+        to do batch jobs against Plone sites and Zope application server.
+
 .. contents :: :local:
 
 Introduction
@@ -173,4 +178,32 @@ You can set HTTP request parameters in command-line script.
 	export SERVER_PORT
 	bin/client2 run src/collective.mountpoint/collective/mountpoint/bin/update.py mysite
 
+screen
+------
 
+screen is an UNIX command to start a virtual terminal. Screen lets processes
+run even if your physical terminal becomes disconnected. This effectively
+allows you to run long-running command line processes over a crappy Internet
+connection.
+
+Start new screen
+=================
+
+Type command::
+        
+        screen
+
+If you have sudo'ed to another user you first need to run::
+
+        script /dev/null
+        
+* http://dbadump.blogspot.com/2009/04/start-screen-after-sudo-su-to-another.html
+        
+Attach to an existing screen
+=============================
+
+Type command::
+
+        screen -x
+        
+  
