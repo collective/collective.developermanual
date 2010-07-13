@@ -21,11 +21,18 @@ or maintenance work, like migration script.
 
 * You can integrate scripts with standard UNIX tools, like cron
 
+.. note::
+
+        If the site runs in a single process Zope mode (no ZEO),
+        the actual site instance must be stopped to run a command line
+        script as the one process locks the database (Data.fs).
+
 Command line scripts are also useful for long-running transaction processing
 
-* Normal site runs on one ZEO client
-
-* Asynchronous long-running transactions are running from other ZEO client,
+* A web site runs in multi-client ZEO mode. One client is always offline,
+  reserved for running command-line scripts.
+  
+* Asynchronous long-running transactions are run from this ZEO client,
   without disturbing the normal site functionality
   
 See also
