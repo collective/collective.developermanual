@@ -877,5 +877,40 @@ them both in your buildout. You need to include both eggs::
         eggs =
                 ZPublisherEventsBackport
                 plone.postpublicationhook
-        
+
+ERROR ZODB.Connection Couldn't load state for 0x00
+----------------------------------------------------
+
+The following traceback pops up when you try to start Zope::
+
+	2010-07-14 05:02:33 ERROR ZODB.Connection Couldn't load state for 0x00
+	Traceback (most recent call last):
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 811, in setstate
+	    self._setstate(obj)
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 870, in _setstate
+	    self._reader.setGhostState(obj, p)
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 604, in setGhostState
+	    state = self.getState(pickle)
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 597, in getState
+	    return unpickler.load()
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 471, in _persistent_load
+	    return self.load_oid(reference)
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 537, in load_oid
+	    return self._conn.get(oid)
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 244, in get
+	    p, serial = self._storage.load(oid, self._version)
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/FileStorage/FileStorage.py", line 470, in load
+	    pos = self._lookup_pos(oid)
+	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/FileStorage/FileStorage.py", line 462, in _lookup_pos
+	    raise POSKeyError(oid)
+	POSKeyError: 0x01
+
+Data.fs might have been damaged. You might be using blobs with Plone 3 and they don't work perfectly.
+. . . or a bunch other issues which generally mean that your day is screwed.  
+	
+See also
+
+* http://plonechix.blogspot.com/2009/12/definitive-guide-to-poskeyerror.html
+
+
                  
