@@ -95,6 +95,17 @@ You can access the brain object information by index name using Python dictionar
     # Get the indexed Title of an portal_catalog entry i.e. brain
     title = brain["Title"]
     
+Brain result id
+===============
+
+Result ID (RID) is given with the brain object and you can use this ID to query 
+further info about the object from the catalog.
+
+Example::
+
+        (Pdb) brain.getRID()
+        872272330
+
 Brain object schema
 ===================
 
@@ -186,6 +197,52 @@ To get unicode value for e.g. title you need to do the following::
     if title[0] == u"å":
         # Unicode text matching etc. functions work correctly now
         pass
+
+Accessing indexed data
+======================
+
+Normally you don't get copy of indexed data with brains, only metadata.
+You can still access the raw indexed data if you know what you are doing 
+by using RID of the brain object.
+
+Example::
+
+        (Pdb) data = self.context.portal_catalog.getIndexDataForRID(872272330)
+        (Pdb) for i in data.items(): print i
+        ('Title', ['ulkomuseon', 'tarinaopastukset'])
+        ('effectiveRange', (21305115, 278752140))
+        ('object_provides', ['Products.CMFCore.interfaces._content.IDublinCore', 'Products.ATContentTypes.interface.interfaces.IHistoryAware', 'AccessControl.interfaces.IOwned', 'OFS.interfaces.ITraversable', 'plone.portlets.interfaces.ILocalPortletAssignable', 'Products.Archetypes.interfaces._base.IBaseObject', 'zope.annotation.interfaces.IAttributeAnnotatable', 'vs.event.interfaces.IVSEvent', 'Products.CMFCore.interfaces._content.IMutableMinimalDublinCore', 'OFS.interfaces.IPropertyManager', 'OFS.interfaces.IZopeObject', 'AccessControl.interfaces.IRoleManager', 'zope.annotation.interfaces.IAnnotatable', 'Acquisition.interfaces.IAcquirer', 'Products.ATContentTypes.interface.event.IATEvent', 'OFS.interfaces.ICopySource', 'Products.LinguaPlone.interfaces.ITranslatable', 'Products.ATContentTypes.interface.interfaces.ICalendarSupport', 'Products.ATContentTypes.interface.interfaces.IATContentType', 'plone.app.iterate.interfaces.IIterateAware', 'Products.Archetypes.interfaces._base.IBaseContent', 'Products.CMFCore.interfaces._content.ICatalogableDublinCore', 'Products.CMFDynamicViewFTI.interface._base.IBrowserDefault', 'Products.Archetypes.interfaces._referenceable.IReferenceable', 'plone.locking.interfaces.ITTWLockable', 'plone.app.imaging.interfaces.IBaseObject', 'persistent.interfaces.IPersistent', 'webdav.interfaces.IDAVResource', 'AccessControl.interfaces.IPermissionMappingSupport', 'OFS.interfaces.ISimpleItem', 'plone.app.kss.interfaces.IPortalObject', 'plone.app.kss.interfaces.IContentish', 'archetypes.schemaextender.interfaces.IExtensible', 'App.interfaces.IUndoSupport', 'OFS.interfaces.IManageable', 'App.interfaces.IPersistentExtra', 'Products.CMFCore.interfaces._content.IMutableDublinCore', 'Products.Archetypes.interfaces._athistoryaware.IATHistoryAware', 'dateable.kalends.IRecurringEvent', 'OFS.interfaces.IItem', 'zope.interface.Interface', 'OFS.interfaces.IFTPAccess', 'Products.CMFDynamicViewFTI.interface._base.ISelectableBrowserDefault', 'webdav.interfaces.IWriteLock', 'Products.CMFCore.interfaces._content.IMinimalDublinCore', 'Products.CMFCore.interfaces._content.IDynamicType', 'Products.CMFCore.interfaces._content.IContentish'])
+        ('Type', u'VSEvent')
+        ('id', 'ulkomuseon-tarinaopastukset')
+        ('cmf_uid', 2)
+        ('recurrence_days', [733960, 733981, 733974, 733967])
+        ('end', 1077028380)
+        ('Description', ['saamelaismuseon', 'ulkomuseossa', 'j\xc3\xa4rjestet\xc3\xa4\xc3\xa4n', 'tarinaopastuksia', 'kes\xc3\xa4torstaisin', '17', '6', '29', '7', '2010', 'klo', '12', '13', '15', 'teemaopastuksessa', 'opas', 'johdattaa', 'k\xc3\xa4vij\xc3\xa4t', '1850', 'luvun', 'inariin'])
+        ('is_folderish', False)
+        ('getId', 'ulkomuseon-tarinaopastukset')
+        ('start', 1077028380)
+        ('is_default_page', False)
+        ('Date', 1077036795)
+        ('review_state', 'published')
+        ('Language', <LanguageIndex.IndexEntry id 872272330 language fi, cid 8b9a08c216b8e086f3446775ad71a748>)
+        ('portal_type', 'VSEvent')
+        ('expires', 1339244460)
+        ('allowedRolesAndUsers', ['Anonymous'])
+        ('getObjPositionInParent', 10)
+        ('path', '/siida/sisalto/8-vuodenaikaa/ulkomuseon-tarinaopastukset')
+        ('in_reply_to', '')
+        ('UID', '8b9a08c216b8e086f3446775ad71a748')
+        ('Creator', 'admin')
+        ('effective', 1077036795)
+        ('getRawRelatedItems', [])
+        ('getEventType', [])
+        ('created', 1077036792)
+        ('modified', 1077048720)
+        ('SearchableText', ['ulkomuseon', 'tarinaopastukset', 'ulkomuseon', 'tarinaopastukset', 'saamelaismuseon', 'ulkomuseossa', 'j\xc3\xa4rjestet\xc3\xa4\xc3\xa4n', 'tarinaopastuksia', 'kes\xc3\xa4torstaisin', '17', '6', '29', '7', '2010', 'klo', '12', '13', '15', 'teemaopastuksessa', 'opas', 'johdattaa', 'k\xc3\xa4vij\xc3\xa4t', '1850', 'luvun', 'inariin', 'el\xc3\xa4myksellinen', 'suomenkielinen', 'tarinaopastus', 'kest\xc3\xa4\xc3\xa4', '1h', '15', 'min', 'opastus', 'sis\xc3\xa4ltyy', 'siidan', 'p\xc3\xa4\xc3\xa4sylipun', 'hintaan', 'ja', 'se', 'on', 'tarkoitettu', 'yksitt\xc3\xa4isille', 'n\xc3\xa4yttelyk\xc3\xa4vij\xc3\xb6ille', 'opastustuote', 'on', 'erikseen', 'varattavissa', 'my\xc3\xb6s', 'ryhmille', 'puh', '0400', '898', '212', 'tai', 'siida', 'samimuseum', 'fi', 'saamelaismuseo', 'siida', 'siida', 'samimuseum', 'fi', '0400', '898', '212'])
+        ('sortable_title', 'ulkomuseon tarinaopastukset')
+        ('meta_type', 'VSEvent')
+        ('Subject', [])
+
 
 
 Dumping portal catalog content
