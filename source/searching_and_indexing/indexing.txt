@@ -2,6 +2,11 @@
 Indexes and metadata
 ======================
 
+.. admonition:: Description
+
+        How to program your custom fields and data queriable 
+        through portal_catalog.
+
 .. contents :: :local:
 
 Introduction
@@ -120,7 +125,7 @@ It is more cumbersome, however.
 Custom index methods
 ====================
 
-plone.indexer provides method to create custom indexing functions.
+`plone.indexer <http://pypi.python.org/pypi/plone.indexer>`_ package provides method to create custom indexing functions.
 These methods can be retrofitted to content types you do not directly control
 e.g. you do not need to mess with class code.  
 
@@ -128,29 +133,113 @@ e.g. you do not need to mess with class code.
 
         This method is available since Plone 3.3.
 
+Indexing is defined as :doc:`adapter </components/adapters>` 
+for the content type marker interface(s)
+you wish it to index. You declare the adapter in your ZCML 
+(alternative ways exist).
+
+Example ZCML snippet:
+
+.. code-block:: xml
+
+    <!-- Adapter name must match indexer name -->
+    <adapter 
+        name="recurrence_days"
+        factory=".indexing.recurrence_days"/>
+
+
+The easiest way to create an method which extracts the indexed
+value from the content item is using a function decorator
+from ``plone.indexer`` package.
+
 .. code-block:: python
 
-    import Missing
-
-    from plone.indexer.decorator import indexer
-
-    # indexer decorator matches all objects against a marker interface before being run
-    @indexer(IConvergenceSupport)
-    def getContentMedias(object, portal, **kw):
-        """ Provide indexing hooksk for portal_catalog """
-
-        if IConvergenceSupport.providedBy(object):
-
-            schema = object.Schema()
-
-            if not "contentMedias" in schema:
-                # Missing.Value must be returned if the indexing
-                # cannot be complete for the object
+        """
+        
+            Create recurrence_days index for vs.event content types
+        
+        """
+        
+        # Python imports
+        import logging 
+        
+        # Zope imports
+        import Missing
+        import zope.interface
+        from zope.component import ComponentLookupError
+        
+        # Plone imports
+        from Products.CMFPlone.CatalogTool import registerIndexableAttribute
+        from plone.indexer.decorator import indexer
+        
+        # Custom imports
+        from dateable import kalends
+        from vs.event.interfaces import IVSEvent
+        
+        # Do some logging from the indexer
+        logger = logging.getLogger("vs.event")
+        
+        # Define which content items are indexed by a marker interface
+        # use zope.interface.Interface here if you want to match any Plone content item
+        @indexer(zope.interface.Interface) 
+        def recurrence_days(object):
+            """ Index the dates of recurrences as ordinals.
+            
+            Matches all VS.event content types and their subclasses
+            which implement IVSEvent interface.
+            
+            This is called when
+            
+            * vs.event AT content type is saved and reindexObject() is called
+            
+            * portal_catalog rebuild is performed
+        
+            @param object: Indexed content item
+            
+            @return: Value to be stored on the index (format depends on the index type)
+            
+            ..note::
+                
+                Indexer swallows all raised exceptions silently.
+            """
+        
+            # Some debug output to know whether our indexer was
+            # called on save or not
+            # Note: The default Plone log level is INFO, not DEBUG
+            logger.debug("Indexing recurrence_days")
+        
+            try:
+                # Get an adapter to extract recurrency information
+                # from the content item
+                # via Zope adapter look-up.
+                # (apply IRecurrenct interface for IVSEvent object and
+                # this results of adapter factory call)
+                recurrence = kalends.IRecurrence(object)
+                
+                # Index all days when this event happens 
+                # for upcoming 5 years.
+                
+                # This will return a list of dates converted to int objects
+                # to many hundres per content item...
+                return recurrence.getOccurrenceDays()
+            except (ComponentLookupError, TypeError, ValueError), e:
+        
+                # For some reason, our content type didn't support
+                # recurrency. Probably it is a vs.event subclass
+                # which disables this behavior.
+                
+                # Indexer exceptions will be failed silently...
+                # try do something about it
+                logger.error("Indexing vs.event failed")
+                logger.exception(e)
+                
+                # The catalog expects AttributeErrors when a value can't be found
+                # Use special Zope object to notify that the value is missing
+                # (this differs for None - we can index None as a value)
                 return Missing.Value
-            else:
-                filter = getUtility(IConvergenceMediaFilter)
-                return filter.getContentMedia(object)
-  
+
+
+
 
 Index types
 -----------
