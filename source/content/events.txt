@@ -70,6 +70,273 @@ It combines vs.event, plone.app.portlets and Products.CMFCalendar
 bits to pull the necessary stuff together (a task which was not 
 trivial).
 
+Making recurrent event appear in the calendar portlet
+======================================================
+
+Below is a calendar portlet ``Renderer`` code
+which can be used to make recurrent events appear in the
+standard Plone calendar portlet::
+
+        """
+        
+            Override default Plone 3 calendar portlet to support rendering
+            of recurring events.
+        
+        """
+        
+        import datetime
+        
+        from Acquisition import aq_inner
+        from DateTime import DateTime
+        
+        from zope.i18nmessageid import MessageFactory
+        from zope.interface import implements
+        from zope.component import getMultiAdapter
+        
+        from plone.app.portlets.portlets import calendar as base
+        
+        # Package with various calendar support code
+        # - not very wlel documented
+        import dateable.kalends
+        
+        def convert_to_indexed_format(year, month, daynumber):
+            """ Convert datetime to vs.event recurrence_days index format.
+            
+            recurrence_days holds the date as compressed int format
+            for efficiency reasons.
+            
+            See vs.event.context.recurrence for more information.
+            
+            
+            @return: Indexed recurrenct_day format of given date or None if not supported
+            """
+        
+            # This is an empty cell in the calendar and does not represent any meaningful day
+            if daynumber == 0:
+                return None
+            
+            cur_date = datetime.date(year, month, daynumber)
+        
+            return cur_date.toordinal() 
+        
+        def get_recurrent_events_for_day(events, year, month, daynumber):
+            """ Get recurrent events on a particular date.
+            
+            @param events: LazyMap catalog output
+            
+            @return: Generator of list of brains
+            """
+            dt = convert_to_indexed_format(year, month, daynumber)
+            for event in events:
+                if dt in event["recurrence_days"]:
+                    yield event
+                
+        def create_event_structure(portal_calendar, results, year, month):
+            """ Create calendar dict/list struct for event presentation.
+            
+            This code is mostly ripped from Products.CMFCalendar.calendar.CalendarTool catalog_getevents()
+            
+            @param results: Iterable of eventish brain objects
+            
+            @return: Dict day number -> event data
+            """
+         
+            last_day = portal_calendar._getCalendar().monthrange(year, month)[1]
+            first_date = portal_calendar.getBeginAndEndTimes(1, month, year)[0]
+            last_date = portal_calendar.getBeginAndEndTimes(last_day, month, year)[1]
+        
+            # compile a list of the days that have events
+            eventDays={}
+            for daynumber in range(1, 32): # 1 to 31
+                eventDays[daynumber] = {'eventslist': [],
+                                        'event': 0,
+                                        'day': daynumber}
+            includedevents = []
+            for result in results:
+                if result.getRID() in includedevents:
+                    break
+                else:
+                    includedevents.append(result.getRID())
+                event={}
+                # we need to deal with events that end next month
+                if  result.end.month() != month:
+                    # doesn't work for events that last ~12 months
+                    # fix it if it's a problem, otherwise ignore
+                    eventEndDay = last_day
+                    event['end'] = None
+                else:
+                    eventEndDay = result.end.day()
+                    event['end'] = result.end.Time()
+                # and events that started last month
+                if result.start.month() != month:  # same as above (12 month thing)
+                    eventStartDay = 1
+                    event['start'] = None
+                else:
+                    eventStartDay = result.start.day()
+                    event['start'] = result.start.Time()
+        
+                event['title'] = result.Title or result.getId
+        
+                if eventStartDay != eventEndDay:
+                    allEventDays = range(eventStartDay, eventEndDay+1)
+                    eventDays[eventStartDay]['eventslist'].append(
+                            {'end': None,
+                             'start': result.start.Time(),
+                             'title': event['title']} )
+                    eventDays[eventStartDay]['event'] = 1
+        
+                    for eventday in allEventDays[1:-1]:
+                        eventDays[eventday]['eventslist'].append(
+                            {'end': None,
+                             'start': None,
+                             'title': event['title']} )
+                        eventDays[eventday]['event'] = 1
+        
+                    if result.end == result.end.earliestTime():
+                        last_day_data = eventDays[allEventDays[-2]]
+                        last_days_event = last_day_data['eventslist'][-1]
+                        last_days_event['end'] = (result.end-1).latestTime().Time()
+                    else:
+                        eventDays[eventEndDay]['eventslist'].append( 
+                            { 'end': result.end.Time()
+                            , 'start': None, 'title': event['title']} )
+                        eventDays[eventEndDay]['event'] = 1
+                else:
+                    eventDays[eventStartDay]['eventslist'].append(event)
+                    eventDays[eventStartDay]['event'] = 1
+                # This list is not uniqued and isn't sorted
+                # uniquing and sorting only wastes time
+                # and in this example we don't need to because
+                # later we are going to do an 'if 2 in eventDays'
+                # so the order is not important.
+                # example:  [23, 28, 29, 30, 31, 23]
+            return eventDays
+        
+            
+        class RecurrentEventCalendarPortletRenderer(base.Renderer):
+            """ Support recurring events """
+            
+            def retroFitRecurrentEvents(self, year, month, weeks):
+                """
+                List recurrencing events in the calendar
+                
+                1. Get a list of supported event types
+                
+                2. Build a list of queried recurrence_days
+                
+                3. Query all recurrent events occuring in the given month
+                
+                4. Retrofit calendar data with these recurrent events.
+                
+                @param weeks: Array of displayable calendar weeks.
+                """
+                
+                context = aq_inner(self.context)
+                request = self.request
+                
+                portal_calendar = self.context.portal_calendar
+                
+                # Get tuple of portal_type names for eventish content types
+                supported_event_types = portal_calendar.getCalendarTypes()
+         
+                # Build a list of queried dates in recurrence_days format
+                recurrence_days_in_this_month = []
+                for week in weeks:
+                    for day in week:
+                        
+                        # This is an empty cell in the calendar 
+                        # and does not present a meaningful date
+                        daynumber = day['day']
+                        date = convert_to_indexed_format(year, month, daynumber)
+                        if date:
+                            recurrence_days_in_this_month.append(date)
+         
+                # print "recurrence_days:" + str(recurrence_days_in_this_month)
+        
+                # Query all events on the site
+                # Note that there is no separate list for recurrent events
+                # so if you want to speed up you can hardcode
+                # recurrent event type list here.
+                matched_recurrence_events = self.context.portal_catalog(
+                                portal_type=supported_event_types, 
+                                recurrence_days={
+                                    "query":recurrence_days_in_this_month, 
+                                    "operator" : "or"
+                                })
+          
+                # print "Matched events:" + str(len(list(matched_recurrence_events)))
+                
+                portal_catalog = self.context.portal_catalog
+                
+                for week in weeks:
+                    for day in week:
+                        daynumber = day['day']
+                       
+                        # This day is a filler slot and not a real date in a calendar
+                        if daynumber == 0:
+                            continue
+                        
+                        cur_date = convert_to_indexed_format(year, month, daynumber)
+                        
+                        for event in matched_recurrence_events:
+                            # The event hit this date
+                            # Get event brain result id 
+                            rid = event.getRID()
+                            # Get list of recurrence_days indexed value.
+                            # ZCatalog holds internal Catalog object which we can directly poke in evil way    
+                            # This call goes to Products.PluginIndexes.UnIndex.Unindex class and we 
+                            # read the persistent value from there what it has stored in our index 
+                            # recurrence_days
+                            indexed_days = portal_catalog._catalog.getIndex("recurrence_days").getEntryForObject(rid, default=[])
+        
+                            if cur_date in indexed_days:
+                                # Construct event info
+                                # See CalendarTool.catalog_getevents()
+                                
+                                day["event"] = True # This day has events
+                                
+                                data = {}
+                                # Shortcut the event to be one day event (though this might not be a case)
+                                data["start"] = None
+                                data["end"] = None
+                                data["title"] = event["Title"]
+                                
+                                day["eventslist"].append(data) 
+                                
+                            
+            def getEventsForCalendar(self):
+                """
+                This has been overridden to call recurrent event fetcher.
+                
+                The code is basically copy-paste from the base class.
+                """
+                context = aq_inner(self.context)
+                year = self.year
+                month = self.month
+                portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+                navigation_root_path = portal_state.navigation_root_path()
+                weeks = self.calendar.getEventsForCalendar(month, year, path=navigation_root_path)
+                
+                # Patched recurrent events go in here
+                self.retroFitRecurrentEvents(year, month, weeks)
+                
+                for week in weeks:
+                    for day in week:
+                        daynumber = day['day']
+                       
+                        if daynumber == 0:
+                            continue
+                        
+                        day['is_today'] = self.isToday(daynumber)
+                        if day['event']:
+                            cur_date = DateTime(year, month, daynumber)
+                            localized_date = [self._ts.ulocalized_time(cur_date, context=context, request=self.request)]
+                            day['eventstring'] = '\n'.join(localized_date+[' %s' % self.getEventString(e) for e in day['eventslist']])
+                            day['date_string'] = '%s-%s-%s' % (year, month, daynumber)
+        
+        
+                return weeks 
+
 Beta code notice
 ================
 
