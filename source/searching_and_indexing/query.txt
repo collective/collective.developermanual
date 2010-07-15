@@ -249,6 +249,41 @@ Example::
 
     portal_catalog(path={ "query": "/myploneinstance/myfolder" }) # return myfolder and all child content
 
+Query multiple values
+---------------------
+
+``KeywordIndex`` index type indexes list of values. 
+It is used e.g. by Plone's categories (subject) feature
+and `object_provides`` provided interfaces index.
+
+You can either query 
+
+* a single value in the list
+
+* many values in the list (all must present)
+
+* any value in the list
+
+The index of the catalog to query is either the name of the
+keyword argument, a key in a mapping, or an attribute of a record
+object.
+
+Attributes of record objects
+
+*  ``query`` -- either a sequence of objects or a single value to be
+  passed as query to the index (mandatory)
+
+* ``operator`` -- specifies the combination of search results when
+  query is a sequence of values. (optional, default: 'or'). Allowed values:
+  'and', 'or'  
+     
+Below is an example of matching any of multiple values gives as a Python list in KeywordIndex.
+It queries all event types and recurrence_days KeywordIndex must match
+any of given dates::
+
+
+
+
 Querying by interface
 ---------------------
 
