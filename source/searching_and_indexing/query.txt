@@ -243,6 +243,17 @@ Example::
         ('meta_type', 'VSEvent')
         ('Subject', [])
 
+You can also directly access a single index::
+
+    # Get event brain result id 
+    rid = event.getRID()
+    # Get list of recurrence_days indexed value.
+    # ZCatalog holds internal Catalog object which we can directly poke in evil way    
+    # This call goes to Products.PluginIndexes.UnIndex.Unindex class and we 
+    # read the persistent value from there what it has stored in our index 
+    # recurrence_days
+    indexed_days = portal_catalog._catalog.getIndex("recurrence_days").getEntryForObject(rid, default=[])
+
 
 
 Dumping portal catalog content
