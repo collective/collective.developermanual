@@ -33,9 +33,68 @@ Further reading
 * http://www.inigo-tech.com/blog/customizing-p4a.calendar-and-the-power-of-collections-and-views
 
 * http://regebro.wordpress.com/2009/01/28/ui-help-needed-recurring-events-form-usability/
-  
+
+portal_calendar
+---------------
+
+portal_calendar service is provided by Products.CMFCalendar.
+
+portal_calendar
+
+* Provides facilities to query event calendar in easy way
+
+The most useful portal_calendar call is ``portal_calendar.getEventsForCalendar(month, year, path=navigation_root_path)``
+to get event listing of a certain month.
+
+Getting eventish content types
+==============================
+
+portal_calendar maintains the list of eventish content types
+appearing in Plone calendar services.
+
+Example::
+
+        # Get tuple of portal_typ names for eventish content types
+        supported_event_types = portal_calendar.getCalendarTypes()
+
 Recurrence calendar support in Plone 3
 --------------------------------------
 
+vs.event has an index ``recurrence_days``
+which stores the dates when the recurrent event
+appears five years ahead of the time when the event is saved.
+
+Below is the glue code which is needed to support
+the recurrent eveng in Plone 3 calendar portlet.
+It combines vs.event, plone.app.portlets and Products.CMFCalendar 
+bits to pull the necessary stuff together (a task which was not 
+trivial).
+
+Beta code notice
+================
+
+Make sure that vs.event recurrence_days index is working -
+if it's not check :doc:`Custom indexing example 
+</searching_and_indexing/indexing.txt> how to create your own
+recurrency indexer`. After you save vs.event content item
+you should see data in recurrence_days index through portal_catalog
+browsing interface.
+
+Further reading
+===============
+
+* http://plone.293351.n2.nabble.com/what-s-dateable-chronos-how-to-render-recurrence-events-in-a-calendar-portlet-tp5282788p5287261.html
+
+* vs.event has KeywordIndex recurrence_days which contains a value 
+  created by ``vs.event.content.recurrence.VSRecurrenceSupport.getOccurrenceDays()`.
+  This value is a list of dates 5 years ahead when the event occurs.
+
 * Plone 3 provides a view called "calendar_view" (Products.CMFPlone/deprecated.zcml)
-  where  
+  but this view is not used - do not it let to fool you 
+
+Needed ZCML for the indexing::
+
+    <adapter factory=".indexing.recurrence_days"/>
+  
+  
+  
