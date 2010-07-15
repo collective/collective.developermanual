@@ -118,18 +118,7 @@ standard Plone calendar portlet::
             cur_date = datetime.date(year, month, daynumber)
         
             return cur_date.toordinal() 
-        
-        def get_recurrent_events_for_day(events, year, month, daynumber):
-            """ Get recurrent events on a particular date.
-            
-            @param events: LazyMap catalog output
-            
-            @return: Generator of list of brains
-            """
-            dt = convert_to_indexed_format(year, month, daynumber)
-            for event in events:
-                if dt in event["recurrence_days"]:
-                    yield event
+       
                 
         def create_event_structure(portal_calendar, results, year, month):
             """ Create calendar dict/list struct for event presentation.
