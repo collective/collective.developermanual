@@ -95,7 +95,29 @@ You can access the brain object information by index name using Python dictionar
     # Get the indexed Title of an portal_catalog entry i.e. brain
     title = brain["Title"]
     
-   
+Brain object schema
+===================
+
+To see what metadata columns a brain object contain, you can access this information
+from ``__record_schema__`` attribute which is a dict.   
+
+Example::
+
+        for i in event.__record_schema__.items(): print i
+        
+        ('startDate', 32)
+        ('endDate', 33)
+        ('Title', 8)
+        ('color', 31)
+        ('data_record_score_', 35)
+        ('exclude_from_nav', 13)
+        ('Type', 9)
+        ('id', 19)
+        ('cmf_uid', 29)
+
+.. note::
+
+        TODO: What those numbers represent?
 
 Getting the real object
 =======================
