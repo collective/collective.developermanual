@@ -244,6 +244,191 @@ If you need to produce other output than (X)HTML here are some resources
 
 * http://n2.nabble.com/Setting-a-mime-type-on-a-Zope-3-browser-view-tp4442770p4442770.html           
 
+Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
+-------------------------------------------------------
+
+.. *warning*: There are two ViewPageTemplateFile classes with the same name.
+
+* Zope  `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
+
+* `Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_. Products.Five is a way
+  to stick some of Zope 3 technologies to Zope 2 codebase used by Plone.
+
+Difference in code::
+
+    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+    vs.
+
+    from zope.app.pagetemplate import ViewPageTemplateFile
+
+
+Difference is that Five version supports
+
+* Acquisition
+
+* provider: TAL expression
+
+* Other Plone specific TAL expression functions like test()
+
+* Usually Plone code needs Five version of ViewPageTemplateFile
+
+* Some subsystems, notably z3c.form package, expect Zope 3 version of ViewPageTemplateFile instances
+
+
+Overriding a view class in a product
+------------------------------------
+
+Most of the code in this section is copied from a `tutorial by Martin Aspeli 
+(on slideshare.net)
+<http://www.slideshare.net/wooda/martin-aspeli-extending-and-customising-plone-3>`_.
+The main change is that, at least for Plone 4, the interface should subclass 
+plone.theme.interfaces.IDefaultPloneLayer instead of zope.interface.Interface.
+
+In this example we override the "@@register" form from the 
+plone.app.users package, creating a custom form which subclasses the original.
+
+* Create an interface in interfaces.py:
+
+.. code-block:: python
+
+    from plone.theme.interfaces import IDefaultPloneLayer
+
+    class IExamplePolicy(IDefaultPloneLayer):
+        """ A marker interface for the theme layer 
+        """
+
+* Then create profiles/default/browserlayer.xml:
+
+.. code-block:: xml
+
+    <layers>
+      <layer 
+        name="example.policy.layer"
+        interface="example.policy.interfaces.IExamplePolicy" 
+      />
+    </layers>
+
+* Create browser/configure.zcml:
+
+.. code-block:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        i18n_domain="example.policy">
+      <browser:page
+          name="register"
+          class=".customregistration.CustomRegistrationForm"
+          permission="zope2.View"
+          layer="..interfaces.IExamplePolicy"
+          />
+    </configure>
+
+* Create browser/customregistration.py:
+
+.. code-block:: python
+
+    from plone.app.users.browser.register import RegistrationForm
+
+    class CustomRegistrationForm(RegistrationForm):
+        """ Subclass the standard registration form
+        """        
+        
+Helper views
+------------
+
+Not all views need to return HTML output, or output at all. Views can be used as a helpers
+around in the code to provide APIs to objects. Since views can be overridden using layers,
+view is a natural plug-in point which an add-on product can customize or override
+in a conflict-free manner.
+
+View methods are exposed to page templates and such, so you can also call 
+view methods directly from a page template, besides Python code.
+
+Historical perspective
+====================
+
+Often the point of using helper views is that you can have reusable functionality which can be plugged-in as one-line code around the system. Helper views also get around the following limitations:
+
+* TAL security
+
+* Limiting Python expression to one line
+
+* Not being able to import Python modules
+
+.. note ::
+
+        Using RestrictedPython scripts (creating Python through
+        Zope Management Interface) and Zope 2 Extension modules is discouraged.
+        The same functionality can be achieved with helper views, with 
+        less potential pitfalls.        
+
+Reusing view template snippets or embedding another view
+-------------------------------------------------------------
+
+To use the same template code several times you can either
+
+* Create a own BrowserView for it call this view (see *Getting a view* below)
+
+* Share a ViewPageTemplate instance between views and using it several times 
+
+.. note::
+
+        Plone 2.x way, TAL template language macros, are discouraged to provide reusable
+        functionality in your add-on product. This is because macros are hardwired
+        to TAL template language and referring them outside templates is difficult.
+        Also, if you ever need to mix or change the template language, you can
+        do it easily when templates are a feature of a pure Python based view and not vice versa.
+
+Here is an example how to have a view snippet which can be used subclasses of a base view class.
+Subclasses can refer to this template in any point of the view rendering, making it possible
+for subclasses to have fine tuned control over how the template snippet is represented.
+
+Related Python code::
+
+        class ProductCardView(BrowserView):
+            """
+            End user visible product card presentation.
+            """
+            implements(IProductCardView)
+        
+            # Nested template which renders address box + buy button
+            summary_template = ViewPageTemplate("summarybox.pt")
+
+
+            def renderSummary(self):
+                """ Render summary box """
+                return self.summary_template()
+                
+Then you can render summary template in the main template associated with ProductCardView,
+by calling ``renderSummary()`` method.
+
+.. code-block:: html
+
+            <h1 tal:content="context/Title" />
+
+            <div tal:replace="structure view/renderSummary" />
+
+            <div class="description">
+                <div tal:condition="python:context.Description().decode('utf-8') != u'None'" tal:replace="structure context/Description" />
+            </div>
+
+And the summarybox.pt itself is just HTML code without Plone decoration frame (main_template/master etc. macros)::
+
+.. code-block:: html
+
+        <div class="summary-box">
+                ...
+        </div>                                
+
+More information
+================
+
+* :doc:`Context helpers </misc/context>`
+
+* :doc:`Expressions </functionality/expressions>`
+
 Getting a view
 --------------------
 
@@ -340,100 +525,8 @@ Example: Get an object by its path and render it using its default template in t
             return aq_acquire(aq_base(target_obj).__of__(self.context),
                               target_obj.getDefaultLayout())()
 
-
-Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
--------------------------------------------------------
-
-.. *warning*: There are two ViewPageTemplateFile classes with the same name.
-
-* Zope  `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
-
-* `Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_. Products.Five is a way
-  to stick some of Zope 3 technologies to Zope 2 codebase used by Plone.
-
-Difference in code::
-
-    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-    vs.
-
-    from zope.app.pagetemplate import ViewPageTemplateFile
-
-
-Difference is that Five version supports
-
-* Acquisition
-
-* provider: TAL expression
-
-* Other Plone specific TAL expression functions like test()
-
-* Usually Plone code needs Five version of ViewPageTemplateFile
-
-* Some subsystems, notably z3c.form package, expect Zope 3 version of ViewPageTemplateFile instances
-
-
-Overriding a view class in a product
-------------------------------------
-
-Most of the code in this section is copied from a `tutorial by Martin Aspeli 
-(on slideshare.net)
-<http://www.slideshare.net/wooda/martin-aspeli-extending-and-customising-plone-3>`_.
-The main change is that, at least for Plone 4, the interface should subclass 
-plone.theme.interfaces.IDefaultPloneLayer instead of zope.interface.Interface.
-
-In this example we override the "@@register" form from the 
-plone.app.users package, creating a custom form which subclasses the original.
-
-* Create an interface in interfaces.py:
-
-.. code-block:: python
-
-    from plone.theme.interfaces import IDefaultPloneLayer
-
-    class IExamplePolicy(IDefaultPloneLayer):
-        """ A marker interface for the theme layer 
-        """
-
-* Then create profiles/default/browserlayer.xml:
-
-.. code-block:: xml
-
-    <layers>
-      <layer 
-        name="example.policy.layer"
-        interface="example.policy.interfaces.IExamplePolicy" 
-      />
-    </layers>
-
-* Create browser/configure.zcml:
-
-.. code-block:: xml
-
-    <configure
-        xmlns="http://namespaces.zope.org/zope"
-        xmlns:browser="http://namespaces.zope.org/browser"
-        i18n_domain="example.policy">
-      <browser:page
-          name="register"
-          class=".customregistration.CustomRegistrationForm"
-          permission="zope2.View"
-          layer="..interfaces.IExamplePolicy"
-          />
-    </configure>
-
-* Create browser/customregistration.py:
-
-.. code-block:: python
-
-    from plone.app.users.browser.register import RegistrationForm
-
-    class CustomRegistrationForm(RegistrationForm):
-        """ Subclass the standard registration form
-        """
-
-Listing all views
------------------
+Listing available views
+------------------------
 
 This is useful for debugging purposes::
 
@@ -456,42 +549,3 @@ How to filter out views which provide certain interface.
         
         # Filter out all classes which do not filter a certain interface
         views = [ view.factory for view in views if IBlocksView.implementedBy(view.factory) ] 
-        
-        
-Helper views
-------------
-
-Not all views need to return HTML output, or output at all. Views can be used as a helpers
-around in the code to provide APIs to objects. Since views can be overridden using layers,
-view is a natural plug-in point which an add-on product can customize or override
-in a conflict-free manner.
-
-View methods are exposed to page templates and such, so you can also call 
-view methods directly from a page template, besides Python code.
-
-Historical perspective
-====================
-
-Often the point of using helper views is that you can have reusable functionality which can be plugged-in as one-line code around the system. Helper views also get around the following limitations:
-
-* TAL security
-
-* Limiting Python expression to one line
-
-* Not being able to import Python modules
-
-.. note ::
-
-        Using RestrictedPython scripts (creating Python through
-        Zope Management Interface) and Zope 2 Extension modules is discouraged.
-        The same functionality can be achieved with helper views, with 
-        less potential pitfalls.        
-
-
-More information
-================
-
-* :doc:`Context helpers </misc/context>`
-
-* :doc:`Expressions </functionality/expressions>`
-
