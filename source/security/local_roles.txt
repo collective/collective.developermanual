@@ -32,17 +32,17 @@ manage_setLocalRoles is defined by `AccessControl.Role.RoleManager <http://svn.z
 
 Example::
 
-    context.manage_setLocalRoles(username, ["Local roles as a list"])
+    context.manage_setLocalRoles(userid, ["Local roles as a list"])
     
 Getting local roles
 -------------------
 
 get_local_roles() return currently set local roles. This does not return effective roles (acquired from parent hiercarchy).
-get_local_roles_for_userid() returns roles for a particular user.
+get_local_roles_for_userid() returns roles for a particular user as a tuple.
 
 Example::
 
-    # get_local_roles() return sequence like ( ("username", ("rolename1", "rolename2")), ("username2", ("rolename1") )
+    # get_local_roles() return sequence like ( ("userid1", ("rolename1", "rolename2")), ("userid2", ("rolename1") )
     roles = context.get_local_roles()  
 
 Deleting local roles
