@@ -404,7 +404,7 @@ Related Python code::
             implements(IProductCardView)
         
             # Nested template which renders address box + buy button
-            summary_template = ViewPageTemplate("summarybox.pt")
+            summary_template = ViewPageTemplateFile("summarybox.pt")
 
 
             def renderSummary(self):
@@ -415,7 +415,7 @@ Related Python code::
                 return self.summary_template()
                 
 Then you can render summary template in the main template associated with ProductCardView,
-by calling ``renderSummary()`` method.
+by calling ``renderSummary()`` method and TAL non-escaping HTML embedding.
 
 .. code-block:: html
 
@@ -427,11 +427,12 @@ by calling ``renderSummary()`` method.
                 <div tal:condition="python:context.Description().decode('utf-8') != u'None'" tal:replace="structure context/Description" />
             </div>
 
-And the summarybox.pt itself is just HTML code without Plone decoration frame (main_template/master etc. macros)::
+And the summarybox.pt itself is just HTML code without Plone decoration frame (main_template/master etc. macros).
+Make sure that you declare i18n:domain again or the strings in this template are not translated.
 
 .. code-block:: html
 
-        <div class="summary-box">
+        <div class="summary-box" i18n:domain="your.package">
                 ...
         </div>                                
 
