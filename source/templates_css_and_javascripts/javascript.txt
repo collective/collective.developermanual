@@ -33,9 +33,9 @@ The following ste
 
 * Include new JS files 
 
-        * Use ZCML configuration directive :doc:`resourceFolder /templates_css_and_javascripts/resourcefolders> to
+        * Use ZCML configuration directive :doc:`resourceFolder </templates_css_and_javascripts/resourcefolders>` to
           include static media files in your add-on product
-
+        
         * Put in new Javascript via ZMI upload (you can use Page Template type) to portal_skins/custom folder
 
 * Register Javascript in portal_javascripts
@@ -93,15 +93,16 @@ The following options are available
 
 Example ``profiles/default/jsregistry.xml`` in your add-on product
 
-..code-block:: xml
-
+.. code-block:: xml
+        
         <?xml version="1.0"?>
         <object name="portal_javascripts">
-            <javascript
-                id="++resource++plonetheme.yourproduct/cufon-yui.js"
-                cacheable="True" compression="safe" cookable="True"
-                enabled="True" expression=""  inline="False" insert-after="toc.js"/>
+                <javascript
+                        id="++resource++plonetheme.yourproduct/cufon-yui.js"
+                        cacheable="True" compression="safe" cookable="True"
+                        enabled="True" expression=""  inline="False" insert-after="toc.js"/>
         </object>
+
 
 Bundles
 =======

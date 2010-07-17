@@ -2,12 +2,21 @@
 Sandboxing
 ----------
 
+.. admonition:: Description
+
+        How to Plone guarantees that a site user does not escape his/her given privileges 
+
+.. contents :: local
+
+Introduction
+-------------
+
 Plone has two modes of traversing and code execution
 
 * Unrestricted: Python code is executed normally and the code can access the full Zope application server environment. This includes other site instances too.
 
 * Restricted: Traversing and function calls go through AccessControl_ / RestrictedPython_ / zope.security checks.  and
-  Every function call and attribute access is evaluated against ClassSecurityInfo_ and ModuleSecurityInfo_.
+  Every function call and attribute access is evaluated against ClassSecurityInfo and ModuleSecurityInfo.
 
 Restricted execution is enabled:
 

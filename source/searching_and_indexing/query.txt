@@ -2,6 +2,10 @@
 Querying
 ========
 
+.. admonition:: Description
+
+        How to programmatically search and query content from a Plone site.
+
 .. contents :: :local:
 
 Introduction
@@ -12,8 +16,8 @@ Quering is action to retrieve data from search indexes.
 Preface
 -------
 
-Plone uses portal_catalog persistent instance to perform most of content related
-queries. Special catalogs, like reference_catalog, exists, for specialized queries.
+Plone uses :doc:`portal_catalog </searching_and_indexing/catalog>` tool to perform most of content related
+queries. Special catalogs, like ``reference_catalog``, exists, for specialized and optimized queries.
 
 Accesing portal catalog
 ========================
@@ -360,7 +364,7 @@ object.
 
 Attributes of record objects
 
-*  ``query`` -- either a sequence of objects or a single value to be
+* ``query`` -- either a sequence of objects or a single value to be
   passed as query to the index (mandatory)
 
 * ``operator`` -- specifies the combination of search results when
@@ -371,8 +375,17 @@ Below is an example of matching any of multiple values gives as a Python list in
 It queries all event types and recurrence_days KeywordIndex must match
 any of given dates::
 
-
-
+        # Query all events on the site
+        # Note that there is no separate list for recurrent events
+        # so if you want to speed up you can hardcode
+        # recurrent event type list here.
+        matched_recurrence_events = self.context.portal_catalog(
+                        portal_type=supported_event_types, 
+                        recurrence_days={
+                            "query":recurrence_days_in_this_month, 
+                            "operator" : "or"
+                        })
+                                        
 
 Querying by interface
 ---------------------

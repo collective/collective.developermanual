@@ -174,9 +174,11 @@ Problem with IDefaultBrowserLayer
 ==================================
 
 ``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is a problematic layer is it takes precedence in 
-HTTP request multi-adapter look up (due to magic involving Plone themes)::
+HTTP request multi-adapter look up (due to magic involving Plone themes).
 
-Below is ``self.request.__provides__.__iro__`` dump for adding an extra form layer::
+Below is ``self.request.__provides__.__iro__`` dump for adding an extra form layer
+
+.. code-block:: python
 
         (<InterfaceClass Products.CMFDefault.interfaces.ICMFDefaultSkin>, 
          <InterfaceClass plone.z3cform.z2.IFixedUpRequest>, 

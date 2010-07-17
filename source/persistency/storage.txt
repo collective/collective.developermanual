@@ -2,6 +2,11 @@
 Storage
 =======
 
+.. admonition:: Description
+
+        What kind of different storages (storing backends) ZODB has and
+        how to use them.
+
 .. contents :: :local:
 
 Introduction
@@ -36,15 +41,15 @@ Pickle format is series of bytes. Here is example what it does look like::
 It is not very human readable format.
 
 Even if you use SQL based `RelStorage <http://pypi.python.org/pypi/RelStorage/>`_ ZODB backends, the objects
-are still pickled to the database; SQL does not support varying     le schema per row and Python objects
+are still pickled to the database; SQL does not support varying table schema per row and Python objects
 do not have fixed schema format.
 
 Binary trees
 ------------
 
-Data is usually organized to binary trees or `BTrees <http://wiki.zope.org/ZODB/guide/node6.html>`_.
+Data is usually organized to binary trees or `BTrees <http://wiki.zope.org/ZODB/guide/node6.html>`_ .
 More specifically, data is usually stored as Object Oriented Binary Tree
-(OOBtree `http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBTree/index.html>`_
+`OOBtree <http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBTree/index.html>`_
 which provides Python object as key and Python object value mappings. Key is the object id in the parent container as a string and value
 is any pickleable Python object or primitive you store in your database.
 
