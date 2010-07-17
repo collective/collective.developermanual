@@ -912,5 +912,27 @@ See also
 
 * http://plonechix.blogspot.com/2009/12/definitive-guide-to-poskeyerror.html
 
+Zope suddenly dies on OSX without a reason
+-------------------------------------------
 
+Symptoms: you do a HTTP request to a Plone site running OSX. Zope quits without a reason.
+
+Reason: Infinite recursion is not properly handled by Python on OSX. This is because
+OSX C stack size is smaller than Python defaukt stack size. The underlying Python interpreter
+dies before being able to raise stack size limit exception.
+
+**Workaround**
+
+Edit python-2.4/lib/python2.4/site.py
+
+Put in to the first code line::
+
+         sys.setrecursionlimit(300)
+                  
+This will force smaller Python stack not exceeding native OSX C stack.
+You might want to test other values and report back the findings.
+
+More Information
+
+* http://blog.crowproductions.de/2008/12/14/a-buildout-to-tame-the-snake-pit/ (comments)
                  
