@@ -132,30 +132,7 @@ Each section (folder) must contain
 
         * Sphinx toctree directive, maxdepth 2. Each txt file in the folder should be linked to this toctree.                   
 
-Useful Sphinx and restructured text snippets
-=============================================
 
-Making an external link (note ending undescore)::
-
-        `This is an external link to <http://mfabrik.com>`_
-    
-Making an internal link::
-
-        :doc:`This is a link to </introduction/writing.txt>`
-        
-
-Unfinished documentation
--------------------------
-
-If you are writing something and you can't finish it, please still commit the work.
-Add a note like one below.
-
-.. note::
-
-        TODO: Check whether metadata can exist with indexes as it looks
-        like it does not work like this in Plone 3.3. Or there might 
-        be a bug somewhere. 
-        
 Syntax highlighting
 -------------------
 
@@ -197,6 +174,30 @@ Setting the highlighting mode for the whole document::
                          
 If syntax highlighting is not enabled for your code block you probably have a syntax 
 error and Pygments silently fail.        
+
+Other Sphinx and restructured text source snippets
+----------------------------------------------------
+
+Italics::
+
+        This *word* is italics.
+        
+Strong::
+
+        This **word** is in bold text.        
+
+Inline code highlighting::
+
+        This is ``aFunction()``
+
+Making an external link (note ending undescore)::
+
+        `This is an external link to <http://mfabrik.com>`_
+    
+Making an internal link::
+
+        :doc:`This is a link to </introduction/writing.txt>`
+        
 
 Information boxes
 -----------------
@@ -251,3 +252,16 @@ Example:
 
         Deprecation: plone_skins based CSS and image are discouraged and Zope 3 resourceDirectives
         should replace them.
+
+Unfinished documentation
+-------------------------
+
+If you are writing something and you can't finish it, please still commit the work.
+Add a note like one below.
+
+.. note::
+
+        TODO: Check whether metadata can exist with indexes as it looks
+        like it does not work like this in Plone 3.3. Or there might 
+        be a bug somewhere. 
+                
