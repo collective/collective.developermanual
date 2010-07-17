@@ -64,10 +64,7 @@ You also need to have the following ZCML entry:
         <i18n:registerTranslations directory="locales" />
 
     </configure>
-
-Marking translatable strings
-============================
-
+    
 After the set-up above you can use message factory to mark strings with translation domains.
 i18ndude translation utilities use underscore _ to mark translatable strings (gettext message ids).
 Message ids must be unicode strings.
@@ -90,7 +87,10 @@ But in reality it is zope.i18nmessageid.message.Message object.
 
     >>> my_translatable_text.domain
     'your.app.package'
+    
+For more information see
 
+* http://grok.zope.org/documentation/how-to/how-to-internationalize-your-application
 
 Automatically translated message ids
 =====================================
@@ -225,6 +225,21 @@ Examples
 
 * `i18ndude example for Plone 2.5 <http://blogs.ingeniweb.com/blogs/user/7/tag/i18ndude/>`_
 
+Installing i18ndude
+===================
+
+.. warning::
+
+        Do not easy_install i18ndude. i18ndude depends on various Zope packages and
+        pulling them to your system-wide Python configuration could be dangerous,
+        due to potential conflicts with corresponding, but different versions, 
+        of the same packages used with Plone.
+
+More information
+
+* http://markmail.org/message/gru5oaxdl452ekh6#query:+page:1+mid:m22a2ap4xwtwogs5+state:results
+
+
 Setting up folder structure for Finnish and English
 ===================================================
 
@@ -269,7 +284,7 @@ actual package of your product:
     CATALOGNAME="yourproduct.app"
 
     # List of languages
-    LANGUAGES="en fi"
+    LANGUAGES="en fi de"
 
     # Create locales folder structure for languages
     install -d locales
@@ -308,9 +323,14 @@ actual package of your product:
     done
 
 
+More information
+
+* http://encolpe.wordpress.com/2008/04/28/manage-your-internationalization-with-i18ndude/
 
 Other
 -----
+
+* http://grok.zope.org/documentation/how-to/how-to-internationalize-your-application
 
 * http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
 
