@@ -27,6 +27,13 @@
 	padding-bottom: 0;
 }
 
+/* plone.org has border-bottom for all links, but if heading acts as a link this looks stupid */
+#content .sphinx-content h1 a:link, 
+#content .sphinx-content h2 a:link,
+#content .sphinx-content h3 a:link,
+#content .sphinx-content h4 a:link {
+	border-bottom: 0;
+}
 
 /* Make sure that nested table of contents list don't have bad looking top and bottom item margins */
 .contents ul,
@@ -53,6 +60,45 @@ h6:hover > a.headerlink,
 dt:hover > a.headerlink {
         visibility:visible;
 }
+
+/* Sphinx info boxes formatting */
+
+div.admonition {
+	padding: 1em;
+	margin: 1em;
+}
+
+div.admonition p.admonition-title + p {
+    display: inline;
+}
+
+div.note {
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+div.seealso {
+    background-color: #ffc;
+    border: 1px solid #ff6;
+}
+
+div.topic {
+    background-color: #eee;
+}
+
+div.warning {
+    background-color: #ffe4e4;
+    border: 1px solid #f66;
+}
+
+p.admonition-title {
+    display: inline;
+}
+
+p.admonition-title:after {
+    content: ":";
+}
+
 
 /* Following are taken from build/static/pygments.css after Sphinx has been run.
  * Pygments styles are generated during the each build, so these
