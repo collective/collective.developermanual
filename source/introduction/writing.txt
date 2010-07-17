@@ -132,6 +132,18 @@ Each section (folder) must contain
 
         * Sphinx toctree directive, maxdepth 2. Each txt file in the folder should be linked to this toctree.                   
 
+Useful Sphinx and restructured text snippets
+=============================================
+
+Making an external link (note ending undescore)::
+
+        `This is an external link to <http://mfabrik.com>`_
+    
+Making an internal link::
+
+        :doc:`This is a link to </introduction/writing.txt>`
+        
+
 Unfinished documentation
 -------------------------
 
@@ -148,6 +160,7 @@ Syntax highlighting
 -------------------
 
 Sphinx does syntax highlighting using `Pygments <http://pygments.org/>`_ library.
+
 
 You can specify different highlighting for a code block using the following syntax::
 
@@ -173,7 +186,15 @@ You can specify different highlighting for a code block using the following synt
         .. code-block::xml
         
                 <somesnippet>Some XML</somesnippet>
-                
+        
+Setting the highlighting mode for the whole document::
+
+        ..highlight:: console
+        
+         All code blocks in this doc use console highlighting by default::
+         
+                some shell commands
+                         
 If syntax highlighting is not enabled for your code block you probably have a syntax 
 error and Pygments silently fail.        
 
