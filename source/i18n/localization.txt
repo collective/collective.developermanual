@@ -228,6 +228,33 @@ Examples
 Installing i18ndude
 ===================
 
+The recommended method is to have i18ndude installed via your :doc:`buildout </tutorials/buildout>`.
+
+Add the following to your buildout.cfg::
+
+        parts =
+                ...
+                i18ndude
+
+        [i18ndude]
+        unzip = true
+        recipe = zc.recipe.egg
+        eggs = i18ndude
+        
+After this ``i18ndude`` is available in your *buildout/bin* folder
+
+.. code-block:: console 
+
+        bin/i18ndude -h
+        Usage: i18ndude command [options] [path | file1 file2 ...]]
+
+You can also call it relative to your current package source folder
+
+.. code-block:: console
+
+        huiske-imac:twinapex moo$  cd src/mfabrik.plonezohointegration/
+        huiske-imac:mfabrik.plonezohointegration moo$ ../../bin/i18ndude 
+        
 .. warning::
 
         Do not easy_install i18ndude. i18ndude depends on various Zope packages and
