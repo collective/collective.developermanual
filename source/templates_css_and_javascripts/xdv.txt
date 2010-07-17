@@ -421,10 +421,12 @@ The following Python script (xdv.py) makes it easy for us
 It is basically wrapped with default file locations around
  *bin/xdvcompiler* and *bin/xdvrun* commands with some
  webbrowser opening magic.
+ 
+Drop the file to your Plone theme package and modify it for your needs.
 
 xdv.py::
 
-        """
+         """
         
          This command line Python script compiles your rules.xml to XDV XSL
          
@@ -446,6 +448,10 @@ xdv.py::
         
              python src/plonetheme.mfabrik/xdv.py --preview
         
+         If you want to use alternative development theme source::
+        
+             python src/plonetheme.mfabrik/xdv.py --preview --development
+        
         """
         
         import getopt, sys
@@ -466,14 +472,20 @@ xdv.py::
         # not a local file.
         THEME="http://mfabrik.com/news/wordpress_listing/"
         
+        # Alternative theme location - used for development
+        DEVELOPMENT_THEME="http://localhost:8080/mfabrik/news/wordpress_listing/"
+        
         #
         # External site you are theming.
         # Note: must have ending slash (lxm cannot handle redirects)
         #
         SITE="http://blog.twinapex.fi/"
         
+        # We need to explicitly 
+        INTEGRATED_SITE_URL="http://blog.mfabrik.com"
+        
         try:
-            opts, args = getopt.getopt(sys.argv[1:], "pt", ["preview", "test"])
+            opts, args = getopt.getopt(sys.argv[1:], "ptd", ["preview", "test", "development"])
         except getopt.GetoptError, err:
             # print help information and exit:
             print str(err) # will print something like "option -a not recognized"
@@ -481,6 +493,12 @@ xdv.py::
         # Convert options to simple list 
         opts = [ opt for opt, value in opts ]
         
+        if "-d" in opts or "--development" in opts:
+            THEME = DEVELOPMENT_THEME
+            print "Using development theme source:" + THEME
+        else:
+            print "Using production theme source:" + THEME
+            
         print "Compiling transformation"
         value = os.system("bin/xdvcompiler -o " + OUTPUT_FILE + " " + RULES_XML +" " + THEME)
         if value != 0:
@@ -511,8 +529,8 @@ xdv.py::
                 # No FF on the system, or OSX which can't find its browsers
                 browser = webbrowser.get()
             
-            browser.open_new_tab(url) 
-
+            browser.open_new_tab(url)
+            
 Compiling the theme
 ======================
 
@@ -543,8 +561,11 @@ The following command will apply theme for an example external page::
 ... or we can use shortcut provided by our script ... ::
 
         python src/plonetheme.mfabrik/xdv.py --preview
+        
+... alternative we can specify development server (localhost) from where the theme source is fetched::        
 
-
+        python src/plonetheme.mfabrik/xdv.py --preview --development
+        
 Applying the theme in Apache production environment
 =====================================================
 
