@@ -249,13 +249,19 @@ Example::
 	something = SomeStorage()
 	assert something.some_value == True
 
-Validation
-==========
+Validation and type constrains
+===============================
 
 Schema objects using field property provides automatic validation
 facilities preventing setting badly formatted attributes.
 
-Example::
+There are two aspects of validation
+
+* Checking the type constrains (done automatically)
+
+* Checking whether the value fills certain constrains (validation)
+
+Example how type constrains work::
 
 	class ICheckoutData(zope.interface.Interface):
 	    """ This interface defines all the checkout data we have.
@@ -283,6 +289,22 @@ Example::
             raise AssertionError("do not reach")
         except WrongType:
             pass 
+            
+Example of validation (email field)::
+
+        from zope import schema
+        
+        
+        class InvalidEmailError(schema.ValidationError):
+            __doc__ = u'Please enter a valid e-mail address.'
+        
+        def isEmail(value):
+            if re.match('^'+EMAIL_RE, value):
+                return True
+            raise InvalidEmailError
+        
+        class IContact(Interface):
+            email = schema.TextLine(title=u'Email', constraint=isEmail)        
 
 Persistent objects and schema
 =============================
