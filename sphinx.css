@@ -35,7 +35,6 @@
 	background: transparent;
 }
 
-
 /* plone.org has border-bottom for all links, but if heading acts as a link this looks stupid */
 #content .sphinx-content h1 a:link, 
 #content .sphinx-content h2 a:link,
@@ -113,6 +112,16 @@ p.admonition-title:after {
  * Pygments styles are generated during the each build, so these
  * might mismatch. 
  */
+
+/* We need a light background for these highlights */
+.sphinx-content pre {
+	color: black;
+	background: #eee;
+	border-bottom: 1px solid #aaa;
+	border-top: 1px solid #aaa;
+	border-left: 0;
+	border-right: 0;
+}
 
 .hll { background-color: #ffffcc }
 .c { color: #408090; font-style: italic } /* Comment */
