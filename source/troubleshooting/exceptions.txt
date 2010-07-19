@@ -935,4 +935,44 @@ You might want to test other values and report back the findings.
 More Information
 
 * http://blog.crowproductions.de/2008/12/14/a-buildout-to-tame-the-snake-pit/ (comments)
+
+IOError: [Errno url error] unknown url type: 'https'
+-----------------------------------------------------
+
+Example traceback::                 
                  
+          File "/home/moo/code/python/parts/opt/lib/python2.4/urllib.py", line 89, in urlretrieve
+            return _urlopener.retrieve(url, filename, reporthook, data)
+          File "/home/moo/code/python/parts/opt/lib/python2.4/urllib.py", line 222, in retrieve
+            fp = self.open(url, data)
+          File "/home/moo/code/python/parts/opt/lib/python2.4/urllib.py", line 187, in open
+            return self.open_unknown(fullurl, data)
+          File "/home/moo/code/python/parts/opt/lib/python2.4/urllib.py", line 199, in open_unknown
+            raise IOError, ('url error', 'unknown url type', type)
+        IOError: [Errno url error] unknown url type: 'https'
+
+Reason: Python and Python socket modules have not been compiled with SSL support.
+
+Make sure that you have SSL development libraries installed (Ubuntu/Debian example)
+
+.. code-block:: console
+
+        sudo apt-get install libssl-dev
+
+Make sure that Python is built with SSL support
+
+.. code-block:: console
+
+        ./configure --with-package=_ssl
+        
+You can test Python after compilation::
+
+        moo@murskaamo:~/code/python$ source python-2.4/bin/activate
+        (python-2.4)moo@murskaamo:~/code/python$ python
+        Python 2.4.6 (#1, Jul 16 2010, 10:31:46) 
+        [GCC 4.4.3] on linux2
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> import _ssl
+        >>> 
+
+                         
