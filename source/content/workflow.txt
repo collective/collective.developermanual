@@ -118,6 +118,24 @@ How to test which workflow the object has::
     # this must must be the workflow name
     self.failUnless(chain[0] == 'link_workflow', "Had workflow " + str(chain[0]))
 
+
+Binding a workflow to a content type
+--------------------------------------
+
+Example with GenericSetup *workflows.xml*
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object name="portal_workflow" meta_type="Plone Workflow Tool">
+     <bindings>
+       <type type_id="Image">
+         <bound-workflow workflow_id="plone_workflow" />
+       </type>
+     </bindings>
+    </object>
+
+
 Disabling workflow for a content type
 ---------------------------------------
 
@@ -140,3 +158,4 @@ Example how to do it with GenericSetup *workflows.xml*
           <type type_id="File"/>
          </bindings>
         </object>
+
