@@ -118,7 +118,27 @@ Old style page template
 
 * Reorder layers for the active theme so that your layer thakes
   priority (see *Properties* tab on portal_skins)
-  
+
+Portlet slots
+-------------
+
+By default, Plone main_template has slots for left and right portlets.
+If you have a view where you don't explicitly want to render portlets you can do
+
+.. code-block:: html
+
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+                xmlns:tal="http://xml.zope.org/namespaces/tal"
+                xmlns:metal="http://xml.zope.org/namespaces/metal"
+                xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+                lang="en"
+                metal:use-macro="here/main_template/macros/master"
+                i18n:domain="plone">
+        
+                <head>
+                        <metal:block fill-slot="column_one_slot" />
+                        <metal:block fill-slot="column_two_slot" />
+                </head>
 
 Edit frame
 ---------------
