@@ -131,6 +131,37 @@ of each component are used. This is often needed to resolve version conflict iss
 
 * http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-use-buildout-to-pin-product-versions
 
+Migrating buildout to different Python interpreter
+---------------------------------------------------
+
+You are either
+
+* Copying the whole buildout folder to a new computer (not recommended)
+
+* Changing Python interpreter on the same computer
+
+First you need to clear existing eggs as they might contain binary compilations
+for wrong Python version or CPU architecture::
+
+.. code-block:: console
+
+        rm -rf eggs/*
+
+Clear also src/ folder if you are developing any binary eggs.
+
+Buildout can be made aware of new Python interpreter by rerunning bootstrap.py.
+
+.. code-block:: console
+
+        source ~/code/python/python-2.4/bin/activate
+        python bootstrap.py
+        
+Then run buildout again and it will fetch all Python eggs for the new Python interpreter
+
+.. code-block:: console
+        
+        bin/buildout
+                
 Troubleshooting
 ----------------
 
