@@ -48,6 +48,36 @@ This can be achieved by
 
 * Rerunning buildout after this
 
+For further debugging the problem you can start the particular Python interpreter and try to import _imaging yourself.
+
+Run Python in verbose mode to print all imports (the example below has been shortened)::
+
+        (python-2.4)moo@murskaamo:~/isleofback$ python -v
+        Python 2.4.6 (#1, Jul 16 2010, 10:31:46) 
+        [GCC 4.4.3] on linux2
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> import _imaging
+        Traceback (most recent call last):
+          File "<stdin>", line 1, in ?
+        ImportError: libjpeg.so.8: cannot open shared object file: No such file or directory
+        >>> exit
+        
+In this case we have a custom Python build based on `collective.buildout.python <http://blog.mfabrik.com/2010/07/16/easily-install-all-python-versions-under-linux-and-osx-using-collective-buildout-python/>`_ recipe.
+It will compile us a custom libjpeg version and should not use OS libjpeg::
+
+        (python-2.4)moo@murskaamo:~/code/python$ find . -iname libjpeg*
+        ./python-2.4/lib/libjpeg.la
+        ./python-2.4/lib/libjpeg.so.8
+        ./python-2.4/lib/libjpeg.so
+        ./python-2.4/lib/libjpeg.so.8.0.2
+        ./python-2.4/lib/libjpeg.a
+
+However, looks like this libjpeg does not end up in the OS LD_LIBRARY_PATH import list automatically.
+
+For more information see
+
+* http://permalink.gmane.org/gmane.comp.web.zope.plone.product-developers/4946         
+        
 How to test if PIL works
 ========================
 
@@ -56,12 +86,12 @@ Example how to do it with system-wide Python::
     wget http://upload.wikimedia.org/wikipedia/commons/b/bb/JohnCarrollGilbertStuart.jpg
 
     python2.4
-
-    >>> import PIL
-    >>> from PIL import Image
-    >>> im = Image.open("JohnCarrollGilbertStuart.jpg")
-    >>> im.thumbnail((64, 64), Image.ANTIALIAS)
-    >>> im.save("test.jpg")
+    
+    import PIL
+    from PIL import Image
+    im = Image.open("JohnCarrollGilbertStuart.jpg")
+    im.thumbnail((64, 64), Image.ANTIALIAS)
+    im.save("test.jpg")
 
 No exceptions should be risen.
 
