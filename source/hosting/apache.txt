@@ -1,6 +1,10 @@
 ====================================
- Apache web server tricks and tips
+ Apache 
 ====================================
+
+.. admonition:: Description
+        
+        Tips and guides for hosting Plone with Apache web server.
 
 .. contents :: :local:
 
@@ -8,6 +12,31 @@ Introduction
 ------------
 
 Here are useful information and snippets when hosting Plone behind Apache.
+
+Apache + Plone guide
+----------------------
+
+Basic tutorials are available 
+
+* http://plone.org/documentation/kb/plone-apache
+
+Procedure to restart Apache in production enviroment
+---------------------------------------------------------------
+
+You might share the same Apache web server across
+several production sites. You don't want to hinder
+the performance of the other sites when doing Apache configuration changes to one site.
+
+The correct procedure to restart Apache is (on Ubuntu/Debian Linux)
+
+.. code-block:: console
+
+        # Check that config files are working after editing them
+        apache2ctl configtest
+        
+        # Let Apache finish serving all the on-going requests before 
+        # restarting worker processes
+        apache2ctl graceful
 
 www-redirects
 -------------
@@ -57,10 +86,15 @@ Examples::
    ProxyPass /othersite/ http://www.some.other.domain.com/othersite/
    ProxyPassReverse /othersite/ http://www.some.other.domain.com/othersite/
 
-Reserving Proxy host
+Reverse proxy host
 =====================
 
+By default, host name is correctly delivered from Apache to Plone.
 Otherwise you might see all your HTTP requests coming from localhost, Apache.
+
+You need::
+
+        ProxyPreserveHost On
 
 For more information, see
 
