@@ -565,3 +565,67 @@ a page specific CSS files.
 * `How to get a different look for some pages of a plone-site <http://www.starzel.de/blog/how-to-get-a-different-look-for-some-pages-of-a-plone-site>`_
 
 
+<head> viewlets
+---------------
+
+You can register custom Javascript or CSS files to HTML <head> section using viewlets.
+
+Below is an head.pt which will be injected in <head>. This examples shows how to dynamically generate
+``<script>`` elements. Example is taken from `mfabrik.like add-on <https://svn.plone.org/svn/collective/mfabrik.like/trunk>`_.
+
+.. code-block:: html
+
+        <script type="text/javascript" tal:attributes="src view/getConnectScriptSource"></script>
+        <script tal:replace="structure view/getInitScriptTag" />
+
+Then you register it against viewlewt manager ``plone.app.layout.viewlets.interfaces.IHtmlHead``  in ``configure.zcml``
+
+.. code-block:: xml
+
+   <browser:viewlet
+      name="mfabrik.like.facebook-connect-head"
+      class=".viewlets.FacebookConnectJavascriptViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      template="facebook-connect-head.pt"
+      layer="mfabrik.like.interfaces.IAddOnInstalled"
+      permission="zope2.View"
+      />      
+ 
+viewlet.py code::
+
+        class FacebookConnectJavascriptViewlet(LikeButtonOnConnectFacebookBaseViewlet):
+            """ This will render Facebook Javascript load in <head>.
+            
+            <head> section is retrofitted only if the viewlet is enabled.
+            
+            """
+            
+            def getConnectScriptSource(self):
+                base = "http://static.ak.connect.facebook.com/connect.php/"        
+                return base + self.getLocale()
+            
+            def getInitScriptTag(self):
+                """ Get <script> which boostraps Facebook stuff.
+                """
+                return '<script type="text/javascript">FB.init("%s");</script>' % self.settings.api_key
+
+            def isEnabled(self):
+                """
+                @return: Should this viewlet be rendered on this page.
+                """
+                # Some logic based self.context here whether Javascript should be included on this page or not
+                return True
+                   
+        
+            def render(self):
+                """ Render viewlet only if it is enabled.
+                
+                """
+                
+                # Perform some condition check
+                if self.isEnabled():
+                    # Call parent method which performs the actual rendering
+                    return super(LikeButtonOnConnectFacebookBaseViewlet, self).render()
+                else:
+                    # No output when the viewlet is disabled
+                    return ""
