@@ -764,6 +764,19 @@ Below is an example how to put z3c.form based form into a portlet.
         plone.app.z3cform version 0.5.1 or later is needed,
         as older versions do not support overriding form.action
         property.
+        
+You need following
+
+* z3c.form class
+
+* viewlet/portlet class
+
+* A form wrapper template which renders the frame around the form. The default version renders the whole Plone page frame -
+  you don't want this when the form is embedded, otherwise you get infinite recursion (plone page having a form having a plone page...)
+  
+* Portlet/viewlet template which refers to the form      
+
+* ZCML to register all components
 
 Portlet code::
 
@@ -834,7 +847,11 @@ main layout around the form.
            <div tal:replace="structure view/contents" />
         </div>
         
-Then the portlet template itself which renders the form inside the portlet::
+Then the portlet template itself (zohoportlet.pt) 
+renders the portlet. Form is referred by 
+syntax ``<form tal:replace="structure view/form_wrapper" />``.
+
+.. code-block:: html
 
         <dl class="portlet portletZohoCRMContact"
             i18n:domain="mfabrik.plonezohointegration">
