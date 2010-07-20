@@ -786,7 +786,7 @@ Portlet code::
              
              Subclass FormWrapper so that we can use custom frame template. """
              
-             index = ViewPageTemplateFile("portletform.pt")   
+             index = ViewPageTemplateFile("formwrapper.pt")   
              
         class Renderer(base.Renderer):
             """ z3c.form portlet renderer.
@@ -807,9 +807,9 @@ Portlet code::
         
             def __init__(self, context, request, view, manager, data):
                 base.Renderer.__init__(self, context, request, view, manager, data)
-                self.form_wrapper = self.getForm()
+                self.form_wrapper = self.createForm()
                 
-            def getForm(self):
+            def createForm(self):
                 """ Create a form instance. 
                 
                 @return: z3c.form wrapped for Plone 3 view
@@ -837,7 +837,7 @@ Portlet code::
                 """
                 return self.form_wrapper.form_instance.action
 
-portletform.pt is just a dummy form view template which wraps the form.
+``formwrapper.pt`` is just a dummy form view template which wraps the form.
 This differs from standard form wrapper by *not* rendering Plone
 main layout around the form.
 
@@ -879,6 +879,22 @@ syntax ``<form tal:replace="structure view/form_wrapper" />``.
             </dd>
             
         </dl>
+        
+.. note ::
+
+        Viewlet behave little different, since they do automatically some acquisition 
+        chain mangling when you assign variables to self. Thus you should
+        never have self.view = view or self.form = form in viewlet.
+        
+Template example for viewlet (don't do sel.form_wrapper)
+
+.. code-block:: html
+
+
+        <div id="my-viewlet">
+          <form tal:replace="structure python:view.createForm()()" />
+        </div>
+                
 
 Then the necessary parts of form itself::
 
