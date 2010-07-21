@@ -173,6 +173,43 @@ For more information about portlet assignments and managers, see
 
 * http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto (for portlet renderers)
 
+Checking if a certain context portlet is active on a page
+----------------------------------------------------------
+
+* Iterate through portlet managers by name
+
+* Get portlet retriever for the manager
+
+* Get portlets
+
+* Check if the portlet assignment provides your particular portlet marker interface
+
+Example::
+
+
+        import Acquisition
+        from zope.component import getUtility, getMultiAdapter
+        
+        
+        from plone.portlets.interfaces import IPortletRetriever, IPortletManager
+
+        for column in ["plone.leftcolumn", "plone.rightcolumn"]:
+            
+            manager = getUtility(IPortletManager, name=column)
+            
+            retriever = getMultiAdapter((self.context, manager), IPortletRetriever)
+
+            portlets = retriever.getPortlets()
+
+            for portlet in portlets:
+                
+                # portlet is {'category': 'context', 'assignment': <FacebookLikeBoxAssignment at facebook-like-box>, 'name': u'facebook-like-box', 'key': '/isleofback/sisalto/huvit-ja-harrasteet
+                # Identify portlet by interface provided by assignment 
+                if IFacebookLikeBoxData.providedBy(portlet["assignment"]):
+                    return True
+                
+        return False                
+
 Writing your own portlet manager
 ----------------------------------
 
