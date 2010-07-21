@@ -232,9 +232,14 @@ in your settings::
         @return: True if the current content type supports Like-button
         """
     
-        registry = getUtility(IRegistry)
+
     
         try:
+
+            # Will raise an exception if plone.app.registry is not quick installed
+            registry = getUtility(IRegistry)
+            
+            # Will raise exception if your product add-on installer has not been run
             settings = registry.forInterface(ISettings)
         except KeyError:
             # Registry schema and actual values do not match
