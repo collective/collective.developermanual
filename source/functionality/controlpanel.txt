@@ -223,6 +223,8 @@ in your settings::
 
     
     from zope.component import getUtility
+    from zope.component.interfaces import ComponentLookupError 
+    
     from plone.registry.interfaces import IRegistry
     from mfabrik.like.interfaces import ISettings
     
@@ -241,7 +243,7 @@ in your settings::
             
             # Will raise exception if your product add-on installer has not been run
             settings = registry.forInterface(ISettings)
-        except KeyError:
+        except (KeyError, ComponentLookupError), e:
             # Registry schema and actual values do not match
             # Quick installer has not been run or need to rerun 
             # to update registry.xml values to database
