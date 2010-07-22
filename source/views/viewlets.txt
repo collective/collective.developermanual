@@ -629,3 +629,86 @@ viewlet.py code::
                 else:
                     # No output when the viewlet is disabled
                     return ""
+
+Finding viewlets programmatically
+---------------------------------
+
+Occasionaly, you may need to get hold of your viewlets in python code, perhaps in tests.  Since the availability of a viewlet is ultimately controlled by the viewlet manager to which it has been registered, using that manager is a good way to go
+
+.. code-block:: python
+
+    from zope.component import queryMultiAdapter
+    from zope.viewlet.interfaces import IViewletManager
+
+    from Products.Five.browser import BrowserView as View
+
+    from my.package.tests.base import MyPackageTestCase
+
+    class TestMyViewlet(MyPackageTestCase):
+        """ test demonstrates that registration variables worked
+        """
+
+        def test_viewlet_is_present(self):
+            """ looking up and updating the manager should list our viewlet
+            """
+            # we need a context and request
+            request = self.app.REQUEST
+            context = self.portal
+
+            # viewlet managers also require a view object for adaptation
+            view = View(context, request)
+            
+            # finally, you need the name of the manager you want to find
+            manager_name = 'plone.portalfooter'
+
+            # viewlet managers are found by Multi-Adapter lookup
+            manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
+            self.failUnless(manager)
+
+            # calling update() on a manager causes it to set up its viewlets
+            manager.update()
+
+            # now our viewlet should be in the list of viewlets for the manager
+            # we can verify this by looking for a viewlet with the name we used
+            # to register the viewlet in zcml
+            my_viewlet = [v for v in manager.viewlets if v.__name__ == 'mypackage.myviewlet']
+
+            self.failUnlessEqual(len(my_viewlet), 1)
+
+Since it is possible to register a viewlet for a specific content type and for
+a browser layer, you may also need to use these elements in looking up your 
+viewlet
+
+.. code-block:: python
+
+    from zope.component import queryMultiAdapter
+    from zope.viewlet.interfaces import IViewletManager
+    from Products.Five.browser import BrowserView as View
+    from my.package.tests.base import MyPackageTestCase
+
+    # this time, we need to add an interface to the request
+    from zope.interface import alsoProvides
+
+    # we also need our content type and browser layer
+    from my.package.content.mytype import MyType
+    from my.package.interfaces import IMyBrowserLayer
+
+    class TestMyViewlet(MyPackageTestCase):
+        """ test demonstrates that zcml registration variables worked properly
+        """
+
+        def test_viewlet_is_present(self):
+            """ looking up and updating the manager should list our viewlet
+            """
+            # our viewlet is registered for a browser layer.  Browser layers
+            # are applied to the request during traversal in the publisher.  We 
+            # need to do the same thing manually here
+            request = self.app.REQUEST
+            alsoProvides(request, IMyBrowserLayer)
+
+            # we also have to make our context an instance of our content type
+            content_id = self.folder.invokeFactory('MyType', 'my-id')
+            context = self.folder[content_id]
+
+            # and that's it.  Everything else from here out is identical to the
+            # example above.  
