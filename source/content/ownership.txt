@@ -57,3 +57,37 @@ Example how to add ownership for additional user using local roles::
 
         This does not update Dublin Core metadata fields like
         creator.
+        
+Contributors
+------------
+
+Contributors is an automatically managed list where persons, who have been editing in the past,
+real names are listed.
+
+.. note ::
+
+        Contributors does not store user references, because one might want to maintain
+        contributor data even after the user has been deleted.               
+        
+Some sample code::
+
+        def format_contributors(contribs):
+                """ 
+                @return: String of comma separated list of all contributors
+                """
+                
+                if len(contribs) == 0:
+                    return None
+                
+                return ", ".join(contribs)
+         
+         data = {
+                "contributors" : format_contributors(obj.Contributors()),
+         }
+         
+.. code-block:: html
+
+    <span tal:condition="o/contributors">                       
+        <span tal:replace="o/contributors">Jim Smith, Jane Doe</span>
+    </span>         
+                                
