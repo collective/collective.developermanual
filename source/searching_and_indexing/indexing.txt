@@ -63,38 +63,41 @@ Creating an index
 
 To perform queries on custom data, you need to add corresponding index to portal_catalog first.
 
-E.g. If your content type has a field/method::
+E.g. If your :doc:`Archetypes </content/types>` content type has a field::
+
+		schema = [
+		   
+		   DateField("revisitDate",
+		        widget = atapi.DateWidget(
+		            label="Revisit date"),
+		            description="When you are alarmed this content should be revisited (one month beforehand this date)",
+		            schemata="revisit"
+		            ),		
+		]
 
         class MyContent(...):
                 
-                def getMyCustomValue(self):
-                        return 111
+                # This is automatically run-time generated function accessor method,
+                # but could be any hand-written method as well
+                # def getMyCustomValue(self):
+                #        pass
                         
 You can add a new index which will *index* the value of this field, so you can
-make queries based on it later. 
+make queries based on it later.
 
-* Type: FieldIndex 
+See more information about :doc:`accessor methods </content/archetypes/fields>`.
 
-* Id: getMyCustomValue
+.. note ::
 
-* Indexed attributes: getMyCustomValue
-                                                        
-You can use Archetypes accessors methods directly as an indexed attribute. 
-You do not need to add a new method
-just to get something indexed, unless you want to use different method name for any 
-particular reason. If you want to create an index for content type you do not 
-control yourself or if you want to do some custom logic in your indexer,
-please see *Custom index method* below. 
-        
-The type of index you need depends on what kind queries you need to do on the data. E.g. 
-direct value matching, ranged date queries, free text search, etc. need different kind of indexes.
+	If you want to create an index for content type you do not 
+	control yourself or if you want to do some custom logic in your indexer,
+	please see *Custom index method* below. 
 
-Object reindexing is run when the object is edited. If you add a new
-index you need to run :doc:`Rebuild catalog </searching_and_indexing/catalog>` 
-to get the existing values from content objects to new index.  
+Creating an index through the web
+=================================
 
-Adding an index through Zope management interface
-==================================================
+This method is suitable during development time - you can create an index
+to your Plone database locally.
 
 * Go ZMI
 
@@ -104,7 +107,17 @@ Adding an index through Zope management interface
 
 * On top right corner, you have a drop down menu to add new indexes. Choose the index type you need to add. 
 
-* Add a method to your content class code with the same name as indexed attribute (e.g. getMyCustomValue) 
+	* Type: FieldIndex 
+	
+	* Id: getMyCustomValue
+	
+	* Indexed attributes: getMyCustomValue
+                                                        
+You can use Archetypes accessors methods directly as an indexed attribute.
+In example we use ``getMyCustomValue`` for AT field ``customValue``.
+         
+The type of index you need depends on what kind queries you need to do on the data. E.g. 
+direct value matching, ranged date queries, free text search, etc. need different kind of indexes.
 
 * After this you can query portal_catalog::
 
@@ -116,8 +129,50 @@ Adding an index through Zope management interface
 Adding index using add-on product installer
 ===========================================
 
+You need to have your own add-on product which
+registers new indexes when the add-on installer is run.
+This is the recommended method for repeated installations.
+
+You can create an index
+
+* Using catalog.xml where XML is written by hand
+
+* Create the index through the web and export catalog data from a development site 
+  using *portal_setup* tool *Export* functionality. The index is created 
+  through-the-web as above, XML is generated for you and you can fine tune the resulting XML
+  before dropping it in to your add-on product.
+  
+* Create indexes in Python code of add-on custom import step.
+
+* As a prerequisitement, your add-on product must have 
+  :doc:`GenericSetup profile support </components/genericsetup>`.   
+
 This way is repeatable: index gets created every time an add-on product is installed.
 It is more cumbersome, however.
+
+.. warning ::
+
+	There is a known issue of indexed data getting pruned
+	when an add-on product is reinstalled. If you want to avoid
+	this then you need to create new indexes in add-on
+	installer custom setup step (Python code).
+	
+	
+The example below is not safe for data prune on reinstall.
+This file is ``profiles/default/catalog.xml``
+It installs a new index called ``revisit_date``
+of DateIndex type.
+
+.. code-block:: xml
+
+	<?xml version="1.0"?>
+	<object name="portal_catalog" meta_type="Plone Catalog Tool">
+		 <index name="revisit_date" meta_type="DateIndex">
+  			<property name="index_naive_time_as_local">True</property>
+ 		</index>
+ 	</object>
+
+For more information see
 
 * http://maurits.vanrees.org/weblog/archive/2009/12/catalog
 
@@ -237,8 +292,22 @@ from ``plone.indexer`` package.
                 # (this differs for None - we can index None as a value)
                 return Missing.Value
 
+When indexing happens
+----------------------------
 
+Content item reindexing is run when 
 
+* The content item is edited (saved) 
+
+* portal_catalog rebuild is run (from *Advanced* tab)
+
+* If you add a new
+  index you need to run :doc:`Rebuild catalog </searching_and_indexing/catalog>` 
+  to get the existing values from content objects to new index.
+
+* You might also want to call :doc:`reindexObject() </searching_and_indexing/catalog>` method
+  manually in some cases 
+   
 
 Index types
 -----------
