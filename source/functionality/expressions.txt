@@ -2,6 +2,12 @@
 Expressions
 =============
 
+.. admonition:: Description
+
+        Expressions are one line long string templates or Python expressions
+        which are used in various places on Plone for templates, action conditions
+        and URL generation. 
+
 .. contents :: :local:
 
 Introduction
@@ -9,11 +15,17 @@ Introduction
 
 Expressions are user or site-administration through-the-web-written conditions which can be evaluated.
 You might want to use expressions in your own add-on product to provide user written conditions
-for viewlet visibility, portlets, dynamic text, etc.
+for viewlet visibility, portlets, dynamic text, etc. Expressions are also used on TAL template language.
 
-Plone has built-in support for TALES expression. They are internally used at least in
-Javascript and CSS machinery to pick the files, actions to determine whether the action is visible or not.
+Expressions are used in
 
+* ``tal:condition``, ``tal:content``, ``tal:replace``, ``tal:attribute``, ``tal:define`` TAL 
+  template language directive content
+  
+* portal_css, portal_javascript and other resource manages to express when the resource should 
+ be included or not
+ 
+* portal_actions to define when content, site and user actions are visible  
        
 Expression types
 ----------------
