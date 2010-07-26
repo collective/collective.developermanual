@@ -146,8 +146,14 @@ Expression examples
 Get current language
 ====================
 
-Use :doc:`IPortalState context helper </misc/context>`. 
+Use :doc:`IPortalState context helper </misc/context>` view.
 
-Example::
+Example how to generate multilingual aware RSS feed link::
 
-        python:object.restrictedTraverse('@@plone_portal_state').language() == 'fi'    
+        string:${object/@@plone_portal_state/portal_url}/site-feed/RSS?set_language=${object/@@plone_portal_state/language} 
+
+...or you can use Python expression for comparison::
+
+        python:object.restrictedTraverse('@@plone_portal_state').language() == 'fi'
+        
+            
