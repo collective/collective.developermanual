@@ -4,7 +4,8 @@ Buildout troubleshooting
 
 .. admonition:: Description
 
-        How to solve problems related to running buildout 
+        How to solve problems related to running buildout and some common
+        exceptions you might encounter when running buildout for Plone.
 
 .. contents :: :local:
 
@@ -159,3 +160,31 @@ Fix: update Distribute in system-wide Python::
 	Adding distribute 0.6.12 to easy-install.pth file
 	Installing easy_install script to /home/moo/py24/bin
 	Installing easy_install-2.4 script to /home/moo/py24/bin
+
+
+UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
+-------------------------------------------------------------
+
+You get the following traceback when running buildout::
+
+          File "/home/moo/rtv/eggs/plone.recipe.zope2instance-2.7-py2.4.egg/plone/recipe/zope2instance/__init__.py", line 93, in update
+            requirements, ws = self.egg.working_set()
+          File "/home/moo/rtv/eggs/zc.recipe.egg-1.1.0-py2.4.egg/zc/recipe/egg/egg.py", line 93, in working_set
+            allow_hosts=self.allow_hosts,
+          File "/tmp/tmpGFbvPP/zc.buildout-1.5.0b2-py2.4.egg/zc/buildout/easy_install.py", line 800, in install
+          File "/tmp/tmpGFbvPP/zc.buildout-1.5.0b2-py2.4.egg/zc/buildout/easy_install.py", line 660, in install
+          File "/home/moo/py24/lib/python2.4/site-packages/distribute-0.6.10-py2.4.egg/pkg_resources.py", line 551, in resolve
+            requirements.extend(dist.requires(req.extras)[::-1])
+          File "/home/moo/py24/lib/python2.4/site-packages/distribute-0.6.10-py2.4.egg/pkg_resources.py", line 2164, in requires
+            raise UnknownExtra(
+        UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
+        
+
+You might be using Plone 4 add-on for Plone 3. Check if setup.py contains
+*Zope2* as a dependency. If it does then it is the end of the story 
+and you need to use earlier add-on version for your Plone 3 site.        
+        
+More info
+
+* http://groups.google.com/group/singing-dancing/browse_thread/thread/331cdfe78cf371ed        
+        
