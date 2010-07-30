@@ -77,6 +77,23 @@ How to trigger rebuild::
     portal_catalog = self.portal.portal_catalog
     portal_catalog.clearFindAndRebuild()
 
+Retrieving unique values from a catalog
+------------------------------------------
+Catalogs have a uniqueValues method associated with each index.
+There are times when you will need to get a list of all the values
+currently stored on a particular index. For example if you wanted
+the highest and lowest price you might first need to retrieve the
+values currently indexed for price. This example demonstrates how
+you can list all the unique values on an index named 'price'.
+::
+
+    portal_catalog = self.portal.portal_catalog
+    portal_catalog.Indexes['price'].uniqueValues()
+
+the result would be a listing of all the prices stored in the 'price' index::
+
+    (0, 100000, 120000, 200000, 220000, 13500000, 16000000, 25000000)
+
 archetype_tool catalog map
 ==========================
 
@@ -85,6 +102,5 @@ When object is modified through Archetypes mechanisms, Archetypes post change no
 to all catalogs enlisted.
 
 See *Catalogs* tab on archetype_tool in Zope Management Interface.
-
 
 
