@@ -349,10 +349,10 @@ actual package of your product:
                 echo "Syncing $PO"
                 $I18NDUDE sync --pot locales/$CATALOGNAME.pot $PO
         
-                # 
         
                 # Plone 3.3 and onwards do not need manual .po -> .mo compilation,
-                # but it will happen on start up.
+                # but it will happen on start up if you have
+                # registered the locales directory in ZCML
                 # For more info see http://vincentfretin.ecreall.com/articles/my-translation-doesnt-show-up-in-plone-4
             
                 # Compile .po to .mo
@@ -362,6 +362,10 @@ actual package of your product:
             fi
         done
 
+.. note ::
+
+        Remember to register locales directory in configure.zcml
+        for automatic .mo compilation as instructed above.
 
 More information
 
