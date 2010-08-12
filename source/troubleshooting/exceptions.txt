@@ -986,7 +986,42 @@ Also you might want try
 .. code-block:: console
 
         easy_install pyopenssl                         
+
+TypeError: len() of unsized object in smtplib
+----------------------------------------------
         
+Traceback::
 
+        Traceback (innermost last):
+          Module ZPublisher.Publish, line 119, in publish
+          Module ZPublisher.mapply, line 88, in mapply
+          Module ZPublisher.Publish, line 42, in call_object
+          Module Products.CMFFormController.FSControllerPageTemplate, line 90, in __call__
+          Module Products.CMFFormController.BaseControllerPageTemplate, line 28, in _call
+          Module Products.CMFFormController.ControllerBase, line 231, in getNext
+          Module Products.CMFFormController.Actions.TraverseTo, line 38, in __call__
+          Module ZPublisher.mapply, line 88, in mapply
+          Module ZPublisher.Publish, line 42, in call_object
+          Module Products.CMFFormController.FSControllerPythonScript, line 104, in __call__
+          Module Products.CMFFormController.Script, line 145, in __call__
+          Module Products.CMFCore.FSPythonScript, line 140, in __call__
+          Module Shared.DC.Scripts.Bindings, line 313, in __call__
+          Module Shared.DC.Scripts.Bindings, line 350, in _bindAndExec
+          Module Products.CMFCore.FSPythonScript, line 196, in _exec
+          Module None, line 102, in order_email
+           - <FSControllerPythonScript at /MySite/order_email>
+           - Line 102
+          Module Products.SecureMailHost.SecureMailHost, line 246, in secureSend
+          Module Products.SecureMailHost.SecureMailHost, line 276, in _send
+          Module Products.SecureMailHost.mail, line 126, in send
+          Module smtplib, line 576, in login
+          Module smtplib, line 536, in encode_cram_md5
+          Module hmac, line 50, in __init__
+        TypeError: len() of unsized object
 
+Cause: Your SMTP password has been set empty. Please reset your SMTP password in *Mail* control panel.
+
+More information
+
+* http://plone.293351.n2.nabble.com/Plone-3-3-5-sending-emails-len-of-unsized-object-error-NO-ESMTP-PASSWORD-tp5415484p5415484.html 
         
