@@ -578,18 +578,18 @@ Installing dependencies
 
 We use Apache and mod_transform.
 `Instructions how to set up modules for Apache <http://pypi.python.org/pypi/xdv#apache>`_
-are available on XDV homepage. Some hand-build modules must be used,
-but instructions to set them up for Ubuntu / Debian are available.
+are available on the XDV homepage. Some hand-built modules must be used,
+instructions to set them up for Ubuntu / Debian are available.
 
 Apache 2 supports `filter chains <http://httpd.apache.org/docs/2.2/mod/mod_filter.html>`_ which allow you to
 perform magic on HTTP response before sending it out.
-This corresponds Python's WSGI middleware.
+This corresponds to Python's WSGI middleware.
 
-We'll use special built of mod_transform and mod_depends 
-which are known to working. These modules were forked from their
+We will use special builds of mod_transform and mod_depends 
+which are known to work. These modules were forked from their
 orignal creations to make them XDV compatible, as the orignal
-has not been updated since 2004 (here you can nicely see
-how open source guarantees "won't run out of support" freedom).
+has not been updated since 2004 (this is a good example of how
+the freedom of open source guarantees that you "won't run out of support")
 
 * `XDV mod_transform and mod_depends homepage <http://code.google.com/p/html-xslt/>`_ 
 
@@ -625,6 +625,41 @@ You need to hard reset Apache to make the new modules effective::
 Virtual host configuration
 +++++++++++++++++++++++++++++++++++++++
 
+Standard Configuration 
+-------------------------
+The example below shows a typical xdv setup 
+::
+
+        <VirtualHost *:80>
+        ServerName www.yourserver.com
+
+        FilterDeclare THEME
+        FilterProvider THEME XSLT resp=Content-Type $text/html
+
+        TransformOptions ApacheFS HTML HideParseErrors
+        TransformSet /theme.xsl
+        TransformCache /theme.xsl /home/plone/path/to/your/theme.xsl
+
+
+        <LocationMatch "/">
+            FilterChain THEME
+        </LocationMatch>
+
+
+        <Proxy *>
+                    Order deny,allow
+                    Allow from all
+        </Proxy>
+
+        ProxyVia on
+        RewriteEngine On
+        RewriteRule ^/static(.*) /path/to/your/theme/static/$1 [L]
+        RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/%{HTTP_HOST}:80/Plone/VirtualHostRoot/$1 [L,P]
+
+</VirtualHost>
+
+Integrating with Wordpress
+-----------------------------
 Below is our virtualhost configuration which runs Wordpress and PHP.
 Transformation filter chain has been added in.
 
