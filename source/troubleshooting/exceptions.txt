@@ -1025,3 +1025,20 @@ More information
 
 * http://plone.293351.n2.nabble.com/Plone-3-3-5-sending-emails-len-of-unsized-object-error-NO-ESMTP-PASSWORD-tp5415484p5415484.html 
         
+
+NameError: name 'test' is not defined
+-------------------------------------
+
+This exception occurs when you try to customize TAL page template code using test() function.
+test() function has been dropped in Zope 3 page templates. You should no longer
+use test() function anywhere.
+
+Solution: replace test() with common Python expression in your customized template.
+
+For example the orignal::
+
+        tal:attributes="class python:test(here.Format() in ('text/structured', 'text/x-rst', ), 'stx' + kss_class, 'plain', + kss_class)"
+        
+would need to be written as:
+
+        tal:attributes="class python:here.Format() in ('text/structured', 'text/x-rst', ) 'stx' + kss_class and 'plain' or kss_class"
