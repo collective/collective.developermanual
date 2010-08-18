@@ -180,6 +180,22 @@ GenericSetup profile can contain dependencies to other product profiles (and ins
 
 * `More information about GenericSetup dependencies <http://plone.org/products/plone/roadmap/195/>`_.
 
+For example, if you want to declare dependency to *collective.basket* add-on product, so that it
+is automatically installed when your add-on installed you can use the declaration below.
+This way, you can be sure that all layers, portlets, etc. features which require database changes
+are usable from *collective.basket* add-on products when your add-on product is run.
+
+.. code-block::
+
+        <?xml version="1.0"?>
+        <metadata>
+          <!-- We do not declare <version> here because Plone 3.3+ picks the version from setup.py file -->
+          <dependencies>
+            <dependency>profile-collective.basket:default</dependency>
+          </dependencies>
+        </metadata>
+ 
+
 Upgrade steps
 -------------
 
