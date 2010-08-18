@@ -194,7 +194,24 @@ are usable from *collective.basket* add-on products when your add-on product is 
             <dependency>profile-collective.basket:default</dependency>
           </dependencies>
         </metadata>
+
+*collective.basket* declares the profile in its configure.zcml:
+
+.. code-block:: xml
+
+    <genericsetup:registerProfile
+              name="default"
+              title="collective.basket"
+              directory="profiles/default"
+              description='Collector portlet framework'
+              provides="Products.GenericSetup.interfaces.EXTENSION"
+              />
  
+
+.. note ::
+
+        You might need to restart Plone if you edit metadata.xml - some information might be cached
+        preventing immediate effect of changes.
 
 Upgrade steps
 -------------
