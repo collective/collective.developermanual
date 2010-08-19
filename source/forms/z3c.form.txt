@@ -770,15 +770,11 @@ Easiest way is in-form class button declarations::
             def handle_add(self, action):
                 data, errors = self.extractData()
                 if errors:
-                    self.status = form.AddForm.formErrorsMessage
+                    self.status = "Please correct errors"
                     return
-                try:
-                    item = self.context.add(data)
-                except zope.schema.ValidationError, e:
-                    self.status = e
-                else:
-                    zope.event.notify(zope.lifecycleevent.ObjectCreatedEvent(item))
-                    self.status = _(u"Item added successfully.")
+                    
+                self.applyChanges(data)
+                 self.status = _(u"Item added successfully.")
          
 Dynamic buttons
 ===============
