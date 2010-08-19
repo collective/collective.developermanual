@@ -806,7 +806,148 @@ Exampe code::
             # since handler manually forces in the form  parameter
             handler = button.Handler(but, self.form.__class__.handleSave)
             self.form.handlers.addHandler(but, handler)
- 
+
+Read-only fields
+----------------
+
+There is ``field.readonly``flag.
+
+Example code::
+
+        class AREditForm(crud.EditForm):
+            """ Form whose fields are dynamically constructed """
+             
+            def ar_editable(self):
+                """ Arbitary condition deciding whether fields on this form are 
+                patient=self.__parent__.__parent__
+                if patient.getConfirmedAR()  in (None,'','EDITABLE_AR'):
+                    return True
+                return False
+        
+       
+            @property
+            def fields(self):
+                """ 
+                Dynamically create field data based on run-time constructed schema.
+                
+                Instead using static ``fields`` attribute, we use Python property
+                which allows us to generate z3c.form.fields.Fields instance for the 
+                for run-time. 
+                """
+                
+        
+                constructor = ARFormConstructor(self.context, self.context.context, self.request)
+        
+                # Create z3c.form.field.Fields object instance        
+                fields = constructor.getFields()
+              
+                if not self.ar_editable():
+                    # Disable all fields in edit mode if this form is locked out
+                    for f in fields.values():
+                        f.mode = z3c.form.interfaces.DISPLAY_MODE
+                            
+                return fields
+
+You might also want to disable edit button if none if the fields are editable:
+
+        # Make edit button conditional            
+        AREditSubForm.buttons["apply"].condition = lambda form: form.has_edit_button()
+
+.. note ::
+
+        You can also set = z3c.form.interfaces.DISPLAY_MODE in updateWidgets() if you
+        are not dynamically poking form fields themselves.
+
+.. warning ::
+
+        Do not modify fields on singleton instances (form or fields objects are shared between all forms).
+        This causes problems on concurrent access. 
+
+.. note ::
+
+        zope.schema.Field has readonly propertly. z3c.form.field.Field does not have this property,
+        but has mode property. Do not confuse these two.
+
+
+Storage format and data managers
+---------------------------------
+
+By default, z3c.form reads incoming context values as the object attributes.
+This behavior can be customized using data managers.
+
+You can, for example, use Python dictionaries to read and store form data.
+
+* http://packages.python.org/z3c.form/datamanager.html  
+
+Custom content objects
+======================
+
+The following hack can be used if you have an object which does not conform your form
+interface and you want to explose only certain object attribute to the form to be edited. 
+
+Example::
+
+
+        class ISettings(zope.interface.Interface):
+            
+            # This maps to Archetypes field confirmedAR on SitsPatient
+            confirmedAR = zope.schema.Choice(title=_(u"Confirm adherse reactions"), 
+                                               description=_(u"Confirm that all adherse reactions regarding the patient life cycle have been entered here and there will be no longer adherse reaction data"), 
+                                               vocabulary=make_zope_schema_vocabulary(ADVERSE_STATUS_VOCABULARY))
+        
+        
+        class ARSettingsForm(form.Form):
+            """ General settings for all adherse reactions """
+            
+            fields = Fields(ISettings)
+            
+            def getContent(self):
+                """ """
+        
+                # Create a temporary object holding the settings values out of the patient
+                
+                class TemporarySettingsContext(object):
+                    zope.interface.implements(ISettings)
+        
+                obj = TemporarySettingsContext()
+                
+                # Copy values we want to expose to the form from Plone context item to the temporary object
+                obj.confirmedAR = self.context.confirmedAR
+                
+                return obj 
+
+
+.. note ::
+
+        Since getContent() is also used in applyChanges() you need to override applyChanges()
+        too to save values correctly back to non-temporary object.
+        
+Custom change applying
+======================
+
+The default behavior of z3c.form edit form is to write incoming 
+data as the attributes of the object returned by ``getContent()``.
+
+You can override this behavior by overriding ``applyChanges()`` method.
+
+Example::
+
+    def applyChanges(self, data):
+        """
+        Reflect confirmed status to Archetypes schema.
+        
+        @param data: Dictionary of cleaned form data, keyed by field
+        """
+        
+        
+        # This is the context given to the form when the form object was constructed
+        patient = self.context
+        
+        assert ISitsPatient.providedBy(patient) # safety check
+        
+        # Call archetypes field mutator to store the value on the patient object
+        patient.setConfirmedAR(data["confirmedAR"])
+
 Embedding z3c.form forms in portlets, viewlets and views
 ---------------------------------------------------------
 
