@@ -758,7 +758,28 @@ Button handlers
 ---------------
 
 * http://packages.python.org/z3c.form/button.html
- 
+
+Easiest way is in-form class button declarations::
+
+        from z3c.form import button
+
+
+        class Form(...):
+
+            button.buttonAndHandler(_('Add'), name='add')
+            def handle_add(self, action):
+                data, errors = self.extractData()
+                if errors:
+                    self.status = form.AddForm.formErrorsMessage
+                    return
+                try:
+                    item = self.context.add(data)
+                except zope.schema.ValidationError, e:
+                    self.status = e
+                else:
+                    zope.event.notify(zope.lifecycleevent.ObjectCreatedEvent(item))
+                    self.status = _(u"Item added successfully.")
+         
 Dynamic buttons
 ===============
 
