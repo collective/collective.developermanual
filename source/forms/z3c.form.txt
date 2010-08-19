@@ -754,6 +754,37 @@ Form class::
             </dl>
         </tal:status>
  
+Dynamic buttons
+---------------
+
+You can dynamically modify buttons and handlers properties of the form instance.
+
+.. note::
+
+        If you are doing dynamic modifications make sure that you 
+        work with a deep copied form instance (import copy ; copy.deepcopy).
+        If the form instance is singleton, all changes are cumulative
+        and produce funny results when the form is modified next time.
+
+Exampe code::
+
+    def setActions(self):
+        """ Add button to the form based on dynamic conditions. """
+
+
+        if self.isSaveEnabled():
+
+            but = button.Button("save", title=u"Save") 
+            self.form.buttons += button.Buttons(but)
+
+            self.form.buttons._data_keys.reverse() # Fix Save button to left
+
+
+            # Note that here we use unbound method (no self) TimepointFullForm.confirm
+            # since handler manually forces in the form  parameter
+            handler = button.Handler(but, self.form.__class__.handleSave)
+            self.form.handlers.addHandler(but, handler)
+ 
 Embedding z3c.form forms in portlets, viewlets and views
 ---------------------------------------------------------
 
