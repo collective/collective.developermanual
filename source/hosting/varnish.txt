@@ -18,6 +18,17 @@ Please read first
 Varnish buildout restart snippet
 --------------------------------
 
+The following snippet will restart a varnishd instance which has
+been started from *plone.recipe.varnish* buildout directly
+invoking ``bin/varnish-instance`` command.
+
+It will also create Apache compatible log file which you 
+can examinen using text editing tools by running
+``varnishncsa`` command which will read log data
+from Varnish memory mapped file and write it to 
+a text file in Apache format.
+
+
 Example::
 
         #!/bin/sh
@@ -25,8 +36,9 @@ Example::
         sudo killall varnishd
         sudo bin/varnish-instance
         # Create Apache compatible log file
-        sudo killall varnishncsa
-        sudo nohup parts/varnish-build/bin/varnishncsa > var/log/varnish.log &
+        sudo kill `cat var/varnishncsa.pid`
+        sudo parts/varnish-build/bin/varnishncsa -D -d -a -w var/log/varnish.log -P var/varnishncsa.pid
+
 
 Management console
 ------------------
