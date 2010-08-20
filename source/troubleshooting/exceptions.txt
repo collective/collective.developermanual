@@ -58,6 +58,9 @@ vs.
 Iteration over non-sequence in _normalizeargs
 ----------------------------------------------
 
+Case 1
+======
+
 The following log trace will appear when you try to render
 the site, but you can access ZMI normally::
 
@@ -106,6 +109,54 @@ system, but you do not have identical add-on product configuration
 installed.
 
 `For more info see this error reference on plone.org <http://plone.org/documentation/error/typeerror-iteration-over-non-sequence>`_.
+
+Case 2
+======
+
+Example traceback::
+
+        Traceback (most recent call last):
+          File "/home/moo/twinapex/bin/idelauncher.py", line 158, in ?
+            execfile(ZOPE_RUN)
+          File "/home/moo/twinapex/bin/../parts/zope2/lib/python/Zope2/Startup/run.py", line 56, in ?
+            run()
+          File "/home/moo/twinapex/bin/../parts/zope2/lib/python/Zope2/Startup/run.py", line 21, in run
+            starter.prepare()
+          File "/home/moo/twinapex/parts/zope2/lib/python/Zope2/Startup/__init__.py", line 102, in prepare
+            self.startZope()
+          File "/home/moo/twinapex/parts/zope2/lib/python/Zope2/Startup/__init__.py", line 278, in startZope
+            Zope2.startup()
+          File "/home/moo/twinapex/parts/zope2/lib/python/Zope2/__init__.py", line 47, in startup
+            _startup()
+          File "/home/moo/twinapex/parts/zope2/lib/python/Zope2/App/startup.py", line 45, in startup
+            OFS.Application.import_products()
+          File "/home/moo/twinapex/parts/zope2/lib/python/OFS/Application.py", line 686, in import_products
+            import_product(product_dir, product_name, raise_exc=debug_mode)
+          File "/home/moo/twinapex/parts/zope2/lib/python/OFS/Application.py", line 709, in import_product
+            product=__import__(pname, global_dict, global_dict, silly)
+          File "/home/moo/twinapex/eggs/Products.PloneHelpCenter-4.0a1-py2.4.egg/Products/PloneHelpCenter/__init__.py", line 9, in ?
+            from Products.PloneHelpCenter import content
+          File "/home/moo/twinapex/eggs/Products.PloneHelpCenter-4.0a1-py2.4.egg/Products/PloneHelpCenter/content/__init__.py", line 10, in ?
+            import HowToFolder, HowTo
+          File "/home/moo/twinapex/eggs/Products.PloneHelpCenter-4.0a1-py2.4.egg/Products/PloneHelpCenter/content/HowTo.py", line 40, in ?
+            class HelpCenterHowTo(PHCContentMixin, ATCTOrderedFolder):
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/interface/advice.py", line 132, in advise
+            return callback(newClass)
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/interface/declarations.py", line 485, in _implements_advice
+            classImplements(cls, *interfaces)
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/interface/declarations.py", line 462, in classImplements
+            spec.declared += tuple(_normalizeargs(interfaces))
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/interface/declarations.py", line 1372, in _normalizeargs
+            _normalizeargs(v, output)
+          File "/home/moo/twinapex/parts/zope2/lib/python/zope/interface/declarations.py", line 1371, in _normalizeargs
+            for v in sequence:
+        TypeError: iteration over non-sequence
+        
+Reason: You are trying to use Plone 4 (Zope 2.12) add-on on Plone 3 (Zope 2.10). Zope interface declarations have been changed.
+
+Solution 1: Pick the older version for the add-on which is known to work with Plone 3
+
+Solution 2: Upgrade your site to Ploen 4        
 
 TraversalError with lots of tuples and lists (METAL problem)
 ------------------------------------------------------------
