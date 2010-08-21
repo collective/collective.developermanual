@@ -55,7 +55,8 @@ Form call chain goes like
           of the widget associated with the field do it here. If
           your form is not plone.autoform based you need to 
           edit form.schema widget factories on the module level code 
-          after the class has been constructed.
+          after the class has been constructed. The logic
+          mapping widget hints to widgets is in ``plone.autoform.utils``.
 
 	* Calls Form.updateWidgets() - you can customize widgets in this
 	  point if you override this method. self.widgets instance
@@ -947,6 +948,30 @@ Example::
         
         # Call archetypes field mutator to store the value on the patient object
         patient.setConfirmedAR(data["confirmedAR"])
+        
+WYSIWYG widgets
+----------------
+
+By using `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_ 
+and `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ packages you can do::
+
+        from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+        
+        from mfabrik.plonezohointegration import _
+        
+        class ISettings(form.Schema):
+            """ Define schema for settings of the add-on product """
+
+            form.widget(contact_form_prefix=WysiwygFieldWidget)
+            contact_form_prefix = schema.Text(title=_(u"Contact form top text"), 
+                                              description=_(u"Custom text for the long contact form upper part"),
+                                              required=False,
+                                              default=u"")
+                                              
+                                             
+More information
+
+* http://pypi.python.org/pypi/plone.directives.form
 
 Embedding z3c.form forms in portlets, viewlets and views
 ---------------------------------------------------------
