@@ -162,11 +162,19 @@ Automatically start debugger when exception is raised (command line)
 
 .. note ::
 
-        This cannot be directly applied to a web server, but works with command line scripts. 
+        This cannot be directly applied to a web server, but works with command line scripts
+
+.. note::
+        
+        This does not work with Zope web server launch as it forks a process.
 
 Example::
         
         python -m pdb myscript.py
+
+Hit *c* and *enter* to start the application. It keeps running, until uncaught exception
+is risen when it falls back to pdb debug prompt.
+
         
 For more information see
 
