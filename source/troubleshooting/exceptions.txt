@@ -1094,3 +1094,67 @@ For example the orignal::
 would need to be written as:
 
         tal:attributes="class python:here.Format() in ('text/structured', 'text/x-rst', ) 'stx' + kss_class and 'plain' or kss_class"
+
+TraversalError(subject, name) in expressions
+--------------------------------------------
+
+You have traceback like::
+
+	  File "/home/moo/sits/parts/zope2/lib/python/ZPublisher/Publish.py", line 119, in publish
+	    request, bind=1)
+	  File "/home/moo/sits/parts/zope2/lib/python/ZPublisher/mapply.py", line 88, in mapply
+	    if debug is not None: return debug(object,args,context)
+	  File "/home/moo/sits/parts/zope2/lib/python/ZPublisher/Publish.py", line 42, in call_object
+	    result=apply(object,args) # Type s<cr> to step into published object.
+	  File "/home/moo/sits/parts/zope2/lib/python/Products/Five/browser/metaconfigure.py", line 417, in __call__
+	    return self.index(self, *args, **kw)
+	  File "/home/moo/sits/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 313, in __call__
+	    return self._bindAndExec(args, kw, None)
+	  File "/home/moo/sits/parts/zope2/lib/python/Shared/DC/Scripts/Bindings.py", line 350, in _bindAndExec
+	    return self._exec(bound_data, args, kw)
+	  File "/home/moo/sits/parts/zope2/lib/python/Products/PageTemplates/PageTemplateFile.py", line 129, in _exec
+	    return self.pt_render(extra_context=bound_names)
+	  File "/home/moo/sits/parts/zope2/lib/python/Products/PageTemplates/PageTemplate.py", line 98, in pt_render
+	    showtal=showtal)
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/pagetemplate/pagetemplate.py", line 117, in pt_render
+	    strictinsert=0, sourceAnnotations=sourceAnnotations)()
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/tal/talinterpreter.py", line 271, in __call__
+	    self.interpret(self.program)
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/tal/talinterpreter.py", line 346, in interpret
+	    handlers[opcode](self, args)
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/tal/talinterpreter.py", line 891, in do_useMacro
+	    self.interpret(macro)
+	    handlers[opcode](self, args)
+	   
+	  ...
+	    
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/tal/talinterpreter.py", line 586, in do_setLocal_tal
+	    self.engine.setLocal(name, self.engine.evaluateValue(expr))
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/tales/tales.py", line 696, in evaluate
+	    return expression(self)
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/tales/expressions.py", line 218, in __call__
+	    return self._eval(econtext)
+	  File "/home/moo/sits/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 153, in _eval
+	    ob = self._subexprs[-1](econtext)
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/tales/expressions.py", line 124, in _eval
+	    ob = self._traverser(ob, element, econtext)
+	  File "/home/moo/sits/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 103, in trustedBoboAwareZopeTraverse
+	    request=request)
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/traversing/adapters.py", line 164, in traversePathElement
+	    return traversable.traverse(nm, further_path)
+	  File "/home/moo/sits/parts/zope2/lib/python/zope/traversing/adapters.py", line 52, in traverse
+	    raise TraversalError(subject, name)
+	        
+From line ``Products/PageTemplates/Expressions.py`` you can see the error comes from TAL templates.
+TAL templates are trying to execute path based expressions.
+
+If you can view this error through error_log the error_log traceback will contain information
+what expression causes the exception. However if this only happens with unit tests you can have something like::
+
+    def __call__(self, econtext):
+        if self._name == 'exists':
+            return self._exists(econtext)
+        print "Evaluating expression:" + self._s 
+        return self._eval(econtext)
+
+manually injected to ``zope.tales.expression`` module.        
