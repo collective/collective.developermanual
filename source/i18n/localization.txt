@@ -322,12 +322,46 @@ Creating .pot base file
 Example::
 
     i18ndude rebuild-pot --pot locales/mydomain.pot --create your.app.package .
+    
+    
+Manual po entries
+==================
+
+i18ndude scans source .py and .pt files for translatable text strings.
+On some occassions this is not enough - for example if you dynamically generate 
+message ids in your code. Entries which cannot be detected by automatic
+code scan are called *manual po entries*. They are
+managed in ``locales/manual.pot`` which is merged to generated
+``locales/yournamespace.app.pot`` file.
+
+Here is a sample manual.pot file::
+
+        msgstr ""
+        "Project-Id-Version: PACKAGE VERSION\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=utf-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+        "Plural-Forms: nplurals=1; plural=0\n"
+        "Preferred-Encodings: utf-8 latin1\n"
+        "Domain: mfabrik.app\n"
+        
+        
+        #. Default: "Watch video"
+        msgid "watch_video"
+        msgstr ""
+    
 
 Managing .po files
 ===================
 
 Example shell script to manage i18n files. Change CATALOGNAME to reflect the
 actual package of your product:
+
+The script will
+
+* Pick up all changes to i18n strings in code and reflect them back to the translation catalog of each language
+
+* Pick up changes in manual.pot file and reflect them back to the translation catalog of each language
 
 .. code-block:: sh
 
@@ -369,8 +403,20 @@ actual package of your product:
                 exit
         fi
         
+        #
+        # Do we need to merge manual PO entries from a file called manual.pot.
+        # this option is later passed to i18ndude
+        # 
+        if test -e locales/manual.pot; then
+                echo "Manual PO entries detected"
+                MERGE="--merge locales/manual.pot"
+        else
+                echo "No manual PO entries detected"
+                MERGE=""
+        fi
+        
         # Rebuild .pot
-        $I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot --create $CATALOGNAME .
+        $I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot $MERGE --create $CATALOGNAME .
         
         
         # Compile po files
@@ -406,6 +452,8 @@ actual package of your product:
         for automatic .mo compilation as instructed above.
 
 More information
+
+* http://plataforma.cenditel.gob.ve/browser/proyectosInstitucionales/eGov/ppm/trunk/rebuild_i18n
 
 * http://encolpe.wordpress.com/2008/04/28/manage-your-internationalization-with-i18ndude/
 
