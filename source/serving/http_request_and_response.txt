@@ -2,6 +2,10 @@
 HTTP request and response
 =========================
 
+.. admonition:: Description
+
+        Accessing and manipulating Zope's HTTP request and response objects programmatically. 
+
 .. contents :: :local:
 
 Introduction
@@ -11,7 +15,9 @@ This chapter explains the basics of Zope HTTP requests and responses
 
 * Request and response objects lifecycle
 
-* Data which can be extracted and edited
+* Data which can be extracted from the request
+
+* Data which can be placed on the response
 
 Lifecycle
 ---------
@@ -76,6 +82,10 @@ different from the asked URL, since Plone does all kinds of default page and def
     >>> request["URL"]
     'http://m.localhost:8080/site/matkailijallefolder/@@frontpage'
 
+.. note ::
+
+        URLs, as accessed above, do not contain query string. 
+        
 Request path
 ============
 
