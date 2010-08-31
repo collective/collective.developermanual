@@ -30,17 +30,25 @@ Language is negotiated at the beginning of the page view.
 Getting the current language
 ----------------------------
 
-Example
+Example view/viewlet method of getting the current language.
 
 .. code-block:: python
 
     from Acquisition import aq_inner
     from zope.component import getMultiAdapter
+    
+    class MyView(BrowserView):
 
-    context = aq_inner(self.context)
-    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+        ...
 
-    current_language = portal_state.language()
+            def language(self):
+                """
+                @return: Two letter string, the active language code
+                """
+                context = aq_inner(self.context)
+                portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+                current_language = portal_state.language()
+                return current_language
 
 
 Getting language of content item
