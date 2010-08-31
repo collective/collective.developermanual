@@ -85,6 +85,20 @@ different from the asked URL, since Plone does all kinds of default page and def
 .. note ::
 
         URLs, as accessed above, do not contain query string. 
+
+Query string
+============
+
+Unparsed query string can be accessed.
+
+E.g. if you go to http://localhost:8080/site?something=foobar::
+
+    >>> self.request["QUERY_STRING"]
+   'something=foobar'        
+   
+.. note ::
+
+        You can use request.form dictionary to access parsed query string content.   
         
 Request path
 ============
