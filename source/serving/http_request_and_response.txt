@@ -254,6 +254,22 @@ Below is an example to get the HTTP server name in a safe manner regarding virtu
 
         return host
 
+Request port
+============
+
+It is possible to extract Zope instance port from the request.
+This is useful e.g. for debugging purposes if you have multiple
+ZEO front ends running and you want to identify them easily.
+
+        port = request.get("SERVER_PORT", None)
+
+.. note ::
+
+        SERVER_PORT variable returns port as a string, not integer.
+
+.. note ::
+
+        This port number is not the one visible to the external traffic (port 80, HTTP) 
 
 Flat access
 ===========
