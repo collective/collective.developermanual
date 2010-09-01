@@ -886,6 +886,9 @@ Some possible causes
 
 * You might be using wrong ViewPageTemplate import (Five vs. zope.pagetemplate - explained elsewhere in this documentation)
 
+* Make sure that you call __of__() method for views and other objects you construct by hand
+  which expects themselves to be in the acquisition chain (normally discovered by traversing)
+
 See
 
 * https://bugs.launchpad.net/zope2/+bug/176566
