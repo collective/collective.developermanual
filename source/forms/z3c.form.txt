@@ -93,14 +93,6 @@ To set the form status message::
 
     form.status = u"My message"
 
-Rendering form manually
-=======================
-
-Usually a a wrapper is used to render the form which takes care of setting up rendering requirements.
-If you want to render your from inside viewlet or part of the other view, you
-can do the following.
-
-TODO
 
 Emulating form HTTP POST in unit tests
 ========================================
@@ -973,8 +965,60 @@ More information
 
 * http://pypi.python.org/pypi/plone.directives.form
 
+Wrapped and non-wrapped forms
+-----------------------------
+
+``z3c.form.form.Form`` object is "wrapped" when it is 
+rendered inside Plone page frame and having 
+acquisition chain in intact. 
+
+Since ``plone.app.z3cform`` 0.5.0 the behavior goes like this
+
+* Plone 3 forms are automatically wrapped
+
+* Plone 4 forms are unwrapped
+
+Wrapper is a ``plone.z3cform.interfaces.IWrappedForm`` :doc:`marker interface </components/interfaces>` 
+on the form object, applied it after the form instance has been constructed. 
+If this marker interface is not applied, ``plone.z3cform.ZopeTwoFormTemplateFactory``
+tries to embed form into Plone page frame. If the form is indended not be rendered
+as full page form, this usually leads to the following exception::
+
+        *** ContentProviderLookupError: plone.htmlhead
+        
+The form tries to render the full Plone page. Rendering this page needs an acquisition
+chain set-up for the view and the template. Embedded forms do not have this,
+or it would lead to recursion error.                     
+
+If you are constructing form instances manually and want to render them
+without Plone page decoration, you must make sure that automatic form wrapping does not take place:: 
+
+        import zope.interface
+        from plone.z3cform.interfaces import IWrappedForm
+        
+        class SomeView(BrowserView):
+        
+            def init(self):
+                """ Constructor embedded sub forms """
+        
+        
+                # Construct few embedded forms
+                self.mobile_form_instance = MobileForm(self.context, self.request)
+                zope.interface.alsoProvides(self.mobile_form_instance, IWrappedForm)
+                
+                self.publishing_form_instance = PublishingForm(self.context, self.request)        
+                zope.interface.alsoProvides(self.publishing_form_instance, IWrappedForm)
+                
+                self.override_form_instance = getMultiAdapter((self.context, self.request), IOverrideForm)
+                zope.interface.alsoProvides(self.override_form_instance, IWrappedForm)
+                
 Embedding z3c.form forms in portlets, viewlets and views
 ---------------------------------------------------------
+
+By default, when ``plone.app.z3cform`` is installed through
+the add-on installer, all forms have full Plone page frame.
+If you are rendering forms inside non-full-page objects,
+you need to change the default template.
 
 Below is an example how to put z3c.form based form into a portlet.
 
@@ -999,7 +1043,9 @@ You need following
 
 Portlet code::
 
+        
         from plone.z3cform.layout import FormWrapper
+        
         class PortletFormView(FormWrapper):
              """ Form view which renders z3c.forms embedded in a portlet.
              
