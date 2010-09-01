@@ -2,6 +2,10 @@
  Listing objects
 ===================
 
+.. admonition:: Description
+
+        How to programmatically generate folder listings in Plone.
+
 .. contents :: :local:
 
 Introduction
@@ -465,4 +469,184 @@ You need to add
 
 * New properties to Folder.xml or Topic.xml so that view becomes available
 
- 
+Complex folder listings and filtering
+--------------------------------------
+
+The following example is for a very complex folder listing view.
+You can call view methods to returns the listed items themselves and render 
+the HTML in another view - this allows you to recycle this listing code easily.
+
+The view does the various sanity checks what normal Plone item listings have
+
+* No meta items
+
+* No large folders
+
+* No default views
+
+* Filter by active language
+
+* Do not list items where you do not have View permission
+
+Example code
+
+.. code-block:: python
+
+        class FolderListingView(BrowserView):
+            """ Mobile folder listing helper view
+        
+            Use getItems() to get list of mobile folder listable items for automatically generated
+            mobile folder listings (touch button list).
+            """
+        
+            def getListingContainer(self):
+                """ Get the item for which we perform the listing
+                """
+                context = self.context.aq_inner
+                if IFolderish.providedBy(context):
+                    return context
+                else:
+                    return context.aq_parent
+        
+            def getActiveTemplate(self):
+                state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
+                return state.view_template_id()
+        
+            def getTemplateIdsNoListing(self):
+                """
+                @return: List of mobile-specific ids found from portal_properties where not to show folder listing
+                """
+        
+                try:
+                    from gomobile.mobile.utilities import getCachedMobileProperties
+                    context = aq_inner(self.context)
+                    mobile_properties = getCachedMobileProperties(context, self.request)
+                except:
+                    mobile_properties = None
+        
+                return getattr(mobile_properties, "no_folder_listing_view_ids", [])
+        
+        
+            def filterItems(self, container, items):
+                """ Apply mobile specific filtering rules
+        
+                @param items: List of context brains
+                """
+        
+                # Filter out default content
+                default_page_helper = getMultiAdapter((container, self.request), name='default_page')
+        
+                portal_state = getMultiAdapter((container, self.request), name='plone_portal_state')
+        
+                # Active language
+                language = portal_state.language()
+        
+                # Return  the default page id or None if not set
+                default_page = default_page_helper.getDefaultPage(container)
+                
+                security_manager = getSecurityManager()
+                
+                meta_types_not_to_list = container.portal_properties.navtree_properties.metaTypesNotToList
+                
+        
+                def show(item):
+                    """ Filter whether the user can view a mobile item.
+                    
+                    @param item: Real content object (not brain)
+        
+                    @return: True if item should be visible in the listing
+                    """
+                
+        
+                    # Check from mobile behavior should we do the listing
+                    try:
+                        behavior = IMobileBehavior(item)
+                        appearInFolderListing = behavior.appearInFolderListing
+                    except TypeError:
+                        # Site root or some weird object, give up
+                        appearInFolderListing = True
+        
+                    if not appearInFolderListing:
+                        # Default to appearing
+                        return False
+        
+                    # Default page should not appear in the quick listing
+                    if item.getId() == default_page:
+                        return False
+                    
+                    if item.meta_type in meta_types_not_to_list:
+                        return False
+                    
+                    # Two letter language code
+                    item_lang = item.Language()
+                    
+                    # Empty string makes language netral content
+                    if item_lang not in ["", None]:
+                        if item_lang != language:
+                            return False
+        
+                    # Note: getExcludeFromNav not necessarily exist on all content types 
+                    if hasattr(item, "getExcludeFromNav"):                
+                        if item.getExcludeFromNav():
+                            return False
+                        
+                    # Does the user have a permission to view this object
+                    if not security_manager.checkPermission(permissions.View, item):
+                        return False
+        
+                    return True
+        
+                return [ i for i in items if show(i) == True ]
+        
+        
+            def constructListing(self):
+        
+                # Iterable of content items for the item listing
+                items = []
+        
+                # Check from mobile behavior should we do the listing
+                try:
+                    behavior = IMobileBehavior(self.context)
+                    do_listing = behavior.mobileFolderListing
+                except TypeError:
+                    # Site root or some weird object, give up
+                    do_listing = False
+        
+                # Do listing by default, must be explictly disabledc
+                if not do_listing:
+                    # No mobile behavior -> no mobile listing
+                    return None
+        
+                container = self.getListingContainer()
+        
+                # Do not list if already doing folder listing
+                template = self.getActiveTemplate()
+                print "Active template id:" + template
+                if template in self.getTemplateIdsNoListing():
+                    # Listing forbidden by mobile rules
+                    return None
+        
+        
+                portal_properties = getToolByName(container, "portal_properties")
+                navtree_properties = portal_properties.navtree_properties
+                if container.meta_type in navtree_properties.parentMetaTypesNotToQuery:
+                    # Big folder... listing forbidden
+                    return None
+                
+                state = container.restrictedTraverse('@@plone_portal_state')
+                        
+                items = container.listFolderContents()
+        
+                items = self.filterItems(container, items)
+        
+                return items
+        
+            def getItems(self):
+                """
+                @return: Iterable of content objects. Never return None.
+                """
+                items = self.constructListing()
+                if items == None:
+                    return []
+                return items
+
