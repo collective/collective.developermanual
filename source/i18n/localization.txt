@@ -249,7 +249,14 @@ generation of .mo files of your product .po files.
 .. note ::
 
         Plone 3.3 and onwards do not need manual .po -> .mo compilation,
-        but it will happen on start up. Plone 4 has special switch for this.
+        but it will happen on start up. Plone 4 has a special switch for
+        this: in your buildout.cfg in the part using
+        plone.recipe.zope2instance you can set an environment variable
+        for this::
+
+          environment-vars =
+              zope_i18n_compile_mo_files true
+
         
 See  
 
