@@ -2,6 +2,12 @@
 Vocabularies
 ------------
 
+.. admonition:: Description
+
+        Vocabularies are lists of value -> human readable title pairs used
+        by e.g. selection drop downs. zope.schema provides
+        tools to programmatically construct there vocabularies. 
+
 .. contents :: :local:
 
 Introduction
@@ -53,6 +59,12 @@ Some info::
         """A tokenized term that includes a title."""
 
         title = TextLine(title=_(u"Title"))
+
+.. note ::
+
+        If you need international texts please note that 
+        only title is, and should be, translated. Value and token
+        should always carry the same value.
 
 Creating a vocabulary
 =====================
