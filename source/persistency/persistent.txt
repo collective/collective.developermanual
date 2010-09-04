@@ -2,6 +2,18 @@
  Persistent objects
 ====================
 
+.. admonition:: Description
+
+        Persistent objects are automatically read and written from ZODB database in Plone
+        and they appear as normal Python objects in your code. This document clarifies
+        some of special properties, like with containers, when you deal with persistent
+        objects programmatically.
+        
+.. contents:: :local:
+
+Introduction
+------------         
+        
 Persistent objects will have their data transparently serialized to a
 persistent storage when the transaction completes.
 
@@ -53,6 +65,28 @@ still will trigger the object rewrite.
 More info
 
 * https://mail.zope.org/pipermail/zodb-dev/2009-December/013047.html
+
+Up-to-date reads
+----------------
+
+Normally, ZODB only assures that objects read are consistent, but not necessarily up to date. 
+Checking whether an object is up to date is important when information read from one object 
+is used to update another.
+
+The following will force the object to use the most up-to-date version in the transaction::
+
+        self._p_jar.readCurrent(ob)
+
+A conflict error will be raised if the version of ob read by the transaction isn't 
+current when the transaction is committed.
+
+.. note ::
+
+        ZODB versions older than 3.10.0b5 do not support this feature.
+        
+More information
+
+* http://pypi.python.org/pypi/ZODB3/3.10.0b5#b5-2010-09-02        
 
 Volatile references
 --------------------
@@ -144,6 +178,7 @@ Correct use of volatile variables in fuctions
 For more information, see
 
 * https://mail.zope.org/pipermail/zodb-dev/2010-May/013437.html        
+
 
 Measuring persistent object sizes
 ---------------------------------
