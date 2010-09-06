@@ -75,6 +75,13 @@ in users when creating the content item, do as following::
 
 	The function above only bypasses the content item contruction permission check.
 	It does not bypass checks for setting field values for initially created content. 	 
+	
+Here is also alternative way::
+
+    # Note that by default Add portal member permissions
+    # is only for the owner, so we need to by bass it here
+    from Products.CMFPlone.utils import _createObjectByType    
+    _createObjectByType("YourContentType", folder, id)	
     
 Restricting creating on content types
 --------------------------------------
