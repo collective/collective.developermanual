@@ -2,12 +2,20 @@
  Creating objects
 ==================
 
+.. admonition:: Description
+
+	Creating and controlling creation of Plone content items programmatically.
+
 .. contents :: :local:
 
 Creating content objects
 ------------------------
 
-Use invokeFactory(portal_type, id). invokeFactory() is available on all folderish content objects.
+Permission aware way
+====================
+
+Use ``invokeFactory(portal_type, constructred_object_id)``. ``invokeFactory()`` is available on all folderish content objects.
+``invokeFactory()`` calls ``portal_factory`` persistent utility to create content item. 
 
 Example (from unit tests)::
 
@@ -15,6 +23,58 @@ Example (from unit tests)::
     self.portal.invokeFactory("Folder", "folder")
     self.portal.folder.invokeFactory("Folder", "subfolder")
     self.portal.folder.subfolder.invokeFactory("Document", "doc")
+
+
+``invokeFactory()`` will raise an ``Unauthorized`` exception if the logged in user does not have permission to create
+content in the folder (lacks type specific creation permission and ``Add portal content`` permissions).
+This exception is defined as::
+
+	from Products.Archetypes.exceptions import AccessControl_Unauthorized
+    
+.. note ::
+
+	If the content class has  _at_rename_after_creation = True (Archetypes based content)
+	the next call to obj.update() (edit form post) will automatically generate a friendly id
+	for the object based on the title of the object.
+
+Bypassing permissions when creating content item
+================================================
+
+If you need to have special workflows where you bypass the workflow and logged 
+in users when creating the content item, do as following::
+
+	def construct_without_permission_check(folder, type_name, id, *args, **kwargs):
+	    """ Construct a new content item bypassing creation and content add permissios checks.
+	    
+	    
+	    @param folder: Folderish content item where to place the new content item
+	    
+	    @param type_name: Content type id in portal_types
+	    
+	    @param id: Traversing id for the new content 
+	    
+	    @param args: Optional arguments for the construction (will be passed to the creation method if the type has one)
+	    
+	    @param kwargs: Optional arguments for the construction (will be passed to the creation method if the type has one)
+	    
+	    @return: Reference to newly created content item    
+	    """
+	          
+	    portal_types = getToolByName(folder, "portal_types")
+	    
+	    # Get this content type definition from content types registry
+	    type_info = portal_types.getTypeInfo(type_name)
+	    
+	    # _constructInstance takes optional *args, **kw parameters too
+	    new_content_item = type_info._constructInstance(folder, id)
+	    
+	    # Return reference to justly created content
+	    return new_content_item    
+
+.. note :: 
+
+	The function above only bypasses the content item contruction permission check.
+	It does not bypass checks for setting field values for initially created content. 	 
     
 Restricting creating on content types
 --------------------------------------
@@ -81,10 +141,14 @@ More examples in
 
 .. _OFS: `IObjectManager definition <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_.
 
-Archetypes object construction
--------------------------------
+Oject construction life cycle
+------------------------------------------
 
-The following applies to Archetypes based objects only.
+
+.. note ::
+	
+	The following applies to Archetypes based objects only. The process might be different
+	for Dexterity based content.
 
 Archetypes content contruction has two phases
 
