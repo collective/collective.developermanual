@@ -9,6 +9,8 @@
 
 .. contents :: :local:
 
+.. highlight:: console
+
 Introduction
 -------------
 
@@ -175,7 +177,80 @@ Then run buildout again and it will fetch all Python eggs for the new Python int
 .. code-block:: console
         
         bin/buildout
+        
+Setting up Plone site from buildout.cfg and Data.fs
+---------------------------------------------------
+
+This is often needed when you are copying or moving Plone site.
+If repeatable deployment strategy is done right, everything 
+needed to establish a Plone site is 
+
+* buildout.cfg which described Plone site and its add-on products and how they are downloaded or checked out from version control
+
+* Data.fs which contains the site database
+
+Below is an example process.
+
+Activate Python 2.6 for Plone (see :doc:`how to use virtualenv controlled non-system wide Python </tutorials/python>`::
+
+        source ~/code/python/python-2.6/bin/activate
+        
+Install ZopeSkel templates which contains a buildout and folder structure template for Plone site (plone3_buildout 
+works also for Plone 4 as long as you type in the correct version when paster template engine asks for it)::
+
+         easy_install ZopeSkel # creates paster command under virtual bin/ folder and downloads Plone/Zope templates              
+         paster create -t plone3_buildout 
+
+
+        paster create -t plone3_buildout newprojectfoldername
+        ...
+        Selected and implied templates:
+          ZopeSkel#plone3_buildout  A buildout for Plone 3 installation
+        ...
+        
+        Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']: 
+        Plone Version (Plone version # to install) ['3.3.4']: 4.0
+        Zope2 Install Path (Path to Zope2 installation; leave blank to fetch one!) ['']: 
+        Plone Products Directory (Path to Plone products; leave blank to fetch [Plone 3.0/3.1 only]) ['']: 
+        Initial Zope Username (Username for Zope root admin user) ['admin']: admin
+        Initial User Password (Password for Zope root admin user) ['']: admin
+        HTTP Port (Port that Zope will use for serving HTTP) ['8080']: 
+        Debug Mode (Should debug mode be "on" or "off"?) ['off']: on
+        Verbose Security? (Should verbose security be "on" or "off"?) ['off']: on
+
+Then you can add copy buildout.cfg from the existing site to your new project ::
+        
+        copy buildout.cfg newproject # Copy the existing site configuration file to new project
+        cd newproject
+        python bootstrap.py # Creates bin/buildout command for buildout
+        bin/buildout # Run buildout - will download and install necessary add-ons to run Plone site
+        
+Assuming buildout completes succesfully, test that the site starts (without database)::
+
+        bin/instance fg # Start Zope in foreground debug mode
                 
+Press CTRL+C to stop the instance.
+
+Now copy the existing database Data.fs to buildout::
+
+        cp Data.fs var/filestorage/Data.fs # There should be existing Data.fs file here, created by site test launch         
+
+If you do not know the admin user account for the database, you can create additional admin user::
+
+        bin/instance adduser admin2 admin # create user admin2 with password admin        
+        
+Check Zope start up message in which port the instance is running (default port is 8080)::
+
+
+        2010-09-06 12:55:17 INFO ZServer HTTP server started at Mon Sep  6 12:55:17 2010
+        Hostname: 0.0.0.0
+        Port: 20001
+
+Then log in to Zope Management Interface by going with your browser::
+
+        http://localhost:8080
+                
+       
 Troubleshooting
 ----------------
 
