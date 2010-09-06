@@ -300,7 +300,35 @@ object to make form layer adaptions work.
 
 How to fix:
 
-* Wrap views with plone.z3cform.layout.wrap_form
+* Wrap your forms with plone.z3cform.layout.wrap_form() call as instructed in plone.z3cform README
+
+The same error occurs if plone.app.z3cform, plone.z3cform and z3c.form are not properly included through ZCML.
+In order to be sure that those modules are properly included, you can add the following lines into your configure.zcml
+
+.. code-block:: xml
+
+        <include package="plone.app.z3cform" />
+        <include package="plone.z3cform" />
+        <include package="z3c.form" />
+        
+...or you can use autoinclude feature for Plone 3.3+
+
+in configure.zcml
+
+.. code-block:: xml
+
+        <includeDependencies package="." />
+        
+and then your add-on product setup.py file::
+
+
+        install_requires=[
+          'setuptools',
+          'plone.app.z3cform',
+          # -*- Extra requirements: -*-
+      ],        
+      
+Also remember to run Plone add-on installer for plone.app.z3cform (though it is unrelated to this error).      
 
 NotFound error (Page not found) when accessing @@manage-portlets
 --------------------------------------------------------------------
