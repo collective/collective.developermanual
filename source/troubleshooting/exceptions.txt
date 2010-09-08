@@ -1192,3 +1192,40 @@ what expression causes the exception. However if this only happens with unit tes
         return self._eval(econtext)
 
 manually injected to ``zope.tales.expression`` module.        
+
+Content status history won't render - traceback is content path reversed
+--------------------------------------------------------------------------
+
+Traceback::
+
+	  Module zope.tales.tales, line 696, in evaluate
+	   - URL: file:/home/antti/workspace/plone/hotellilevitunturi/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/skins/plone_forms/content_status_history.cpt
+	   - Line 201, Column 14
+	   - Expression: <PythonExpr wtool.getTransitionsFor(target, here)>
+	   - Names:
+	      {'container': <PloneSite at /hotellilevitunturi>,
+	       'context': <MainFolder at /hotellilevitunturi/fi/ravintolamaailma>,
+	       'default': <object object at 0xb75d2540>,
+	       'here': <MainFolder at /hotellilevitunturi/fi/ravintolamaailma>,
+	       'loop': {},
+	       'nothing': None,
+	       'options': {'args': (),
+	                   'state': <Products.CMFFormController.ControllerState.ControllerState object at 0x1055614c>},
+	       'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x10556f6c>,
+	       'request': <HTTPRequest, URL=http://localhost:9888/hotellilevitunturi/fi/ravintolamaailma/content_status_history>,
+	       'root': <Application at >,
+	       'template': <FSControllerPageTemplate at /hotellilevitunturi/content_status_history used for /hotellilevitunturi/fi/ravintolamaailma>,
+	       'traverse_subpath': [],
+	       'user': <PropertiedUser 'admin'>}
+	  Module Products.PageTemplates.ZRPythonExpr, line 49, in __call__
+	   - __traceback_info__: wtool.getTransitionsFor(target, here)
+	  Module PythonExpr, line 1, in <expression>
+	  Module Products.CMFPlone.WorkflowTool, line 88, in getTransitionsFor
+	  Module Products.CMFPlone.WorkflowTool, line 37, in flattenTransitions
+	  Module Products.CMFPlone.WorkflowTool, line 69, in flattenTransitionsForPaths
+	  Module OFS.Traversable, line 301, in restrictedTraverse
+	  Module OFS.Traversable, line 284, in unrestrictedTraverse
+	   - __traceback_info__: ([u's', u'a', u'n', u'u', u'o', u'l', u'/', u'a', u'm', u'l', u'i', u'a', u'a', u'm', u'a', u'l', u'o', u't', u'n', u'i', u'v', u'a', u'r', u'/', u'i', u'f', u'/', u'i', u'r', u'u', u't', u'n', u'u', u't', u'i', u'v', u'e', u'l', u'i', u'l', u'l', u'e', u't', u'o', u'h'], u'/')
+	KeyError: u'/'
+	
+TODO: No solution	
