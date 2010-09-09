@@ -1239,5 +1239,29 @@ Try installing your Python, for example, using minitage.
 
 See :doc:`Python basics </tutorials/python>`.
 
-  
+ 
+LinguaPlone: ImportError: cannot import name permissions
+----------------------------------------------------------
 
+Traceback::
+
+	  File "/home/moo/code/finnmall/finnmall/src/abita.theme/abita/theme/browser/viewlets/selector.py", line 12, in <module>
+	    from Products.LinguaPlone.interfaces import ITranslatable
+	  File "/home/moo/code/finnmall/finnmall/eggs/Products.LinguaPlone-3.1-py2.6.egg/Products/LinguaPlone/__init__.py", line 3, in <module>
+	    from Products.LinguaPlone import permissions
+	ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/parts/instance/etc/site.zcml", line 15.2-15.55
+	    ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/parts/instance/etc/package-includes/001-abita.policy-configure.zcml", line 1.0-1.56
+	    ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/src/abita.policy/abita/policy/configure.zcml", line 8.4-8.37
+	    ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/src/abita.theme/abita/theme/configure.zcml", line 9.2-9.32
+	    ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/src/abita.theme/abita/theme/browser/configure.zcml", line 10.2-10.33
+	    ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/src/abita.theme/abita/theme/browser/viewlets/configure.zcml", line 6.2-11.6
+	    ImportError: cannot import name permissions
+	    
+This seems to be Plone 4 issue of some sort.
+Import Products.ATContentTypes before importing LinguagePlone.
+
+* http://plone.org/products/linguaplone/issues/253	    
+	    
+Related 
+
+* http://plone.org/products/linguaplone/issues/253	    
