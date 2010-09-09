@@ -1265,3 +1265,38 @@ Import Products.ATContentTypes before importing LinguagePlone.
 Related 
 
 * http://plone.org/products/linguaplone/issues/253	    
+
+TypeError: 'NoneType' object is not callable
+---------------------------------------------
+
+Traceback during add-on install run::
+
+        Traceback (innermost last):
+          Module ZPublisherEventsBackport.patch, line 77, in publish
+          Module ZPublisher.mapply, line 88, in mapply
+          Module ZPublisher.Publish, line 42, in call_object
+          Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 589, in installProducts
+          Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 526, in installProduct
+           - __traceback_info__: ('mfabrik.plonezohointegration',)
+          Module Products.GenericSetup.tool, line 390, in runAllImportStepsFromProfile
+           - __traceback_info__: profile-mfabrik.plonezohointegration:default
+          Module Products.GenericSetup.tool, line 1179, in _runImportStepsFromContext
+          Module Products.GenericSetup.tool, line 1090, in _doRunImportStep
+           - __traceback_info__: toolset
+          Module Products.GenericSetup.tool, line 128, in importToolset
+        TypeError: 'NoneType' object is not callable
+        
+More pointers::
+
+        (Pdb) tool_id
+        'portal_newsletters'        
+
+This happens when you have used Singing and Dancing news letter product. This add-on
+is problematic and does not uninstall cleanly.         
+
+* Reinstall Singing & Dancing
+
+* Uninstall Singing & Dancing
+
+* Hope your site works again
+
