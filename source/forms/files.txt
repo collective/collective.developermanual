@@ -32,6 +32,158 @@ BLOBs pose a problem for unit-tests, because default ZODB DemoStorage doesn't su
 Please read `how z3c.blobfile <http://svn.zope.org/z3c.blobfile/trunk/src/z3c/blobfile/testing.py?rev=98849&view=auto>`
 tests this.
 
+Simple upload form example
+---------------------------
+
+The example below uses :doc:`five.grok </components/grok>` 
+to declare the form schema and form.
+
+We use `plone.namedfile <http://pypi.python.org/pypi/plone.namedfile>`_
+for the upload field, which is CSV file. We accept the upload
+and then process the file.  
+
+You need to declare ``extends`` directive to pin down
+required dependency versions in ``buildout.cfg``.
+For more information, see :doc:`buildout troubleshooting </troubleshooting/buildout>`.
+
+You also need to declare packages ``five.grok``, ``plone.autoform``,
+``plone.directives.form`` packages as dependencies in your ``setup,py``
+``install_dependencies`` directive. After this, rerunning ``buildout``
+will pull these packages for you and you can import them succesfully.
+For more information, see `plone.directives.form README <http://pypi.python.org/pypi/plone.directives.form>`_.
+
+
+Code::
+
+        # Core Zope 2 + Zope 3 + Plone
+        from zope.interface import Interface
+        from zope import schema
+        from zope.app.component.hooks import getSite 
+        from five import grok 
+        from Products.CMFCore.interfaces import ISiteRoot
+        from Products.CMFCore.utils import getToolByName
+        from Products.CMFCore import permissions
+        from Products.statusmessages.interfaces import IStatusMessage
+                
+        # Form and validation
+        from z3c.form import field
+        import z3c.form.button
+        from plone.directives import form
+        from collective.z3cform.grok.grok import PloneFormWrapper
+        import plone.autoform.form
+
+        import StringIO
+        import csv
+        
+        
+        from plone.namedfile.field import NamedFile        
+        from plone.i18n.normalizer import idnormalizer
+        
+        
+        class IImportUsersFormSchema(form.Schema):
+            """ Define fields used on the form """
+            
+            csv_file = NamedFile(title=_(u"CSV file"))
+        
+        class ImportUsersForm(form.SchemaForm):
+            """ A sample form how to mass import users using uploaded CSV file. 
+            
+            """
+            
+            # Form label
+            name = _(u"Import Companies")
+            
+            # Which plone.directives.form.Schema subclass is used to define 
+            # fields for this form 
+            schema = IImportUsersFormSchema
+            
+            # Permission required to 
+            grok.require("cmf.ManagePortal")
+            
+            ignoreContext = True
+            
+            # This form is available at the site root only
+            grok.context(ISiteRoot)
+        
+            # appear as @@import_companies view
+            grok.name("import_companies")
+            
+            
+            def processCSV(self, data):
+                """
+                """                
+                io =  StringIO.StringIO(data)
+                
+                reader = csv.reader(io, delimiter=',', dialect="excel", quotechar='"')
+                            
+                header = reader.next()
+                print header
+                                
+                def get_cell(row, name):
+                    """ Read one cell on a 
+                    
+                    @param row: CSV row as list
+                    
+                    @param name: Column name: 1st row cell content value, header
+                    """
+                    
+                    assert type(name) == unicode, "Column names must be unicode"
+                    
+                    index = None
+                    for i in range(0, len(header)):
+                        if header[i].decode("utf-8") == name:
+                            index = i
+                            
+                    if index is None:
+                        raise RuntimeError("CSV data does not have column:" + name)
+                    
+                    return row[index].decode("utf-8")
+                
+                
+                # Map CSV import fields to a corresponding content item AT fields
+                mappings = {
+                            u"Puhnro" : "phonenumber",
+                            u"Fax" : "faxnumber",
+                            u"Postinumero" : "postalCode",
+                            u"Postitoimipaikka" : "postOffice",
+                            u"Www-osoite" : "homepageLink",
+                            u"Lähiosoite" : "streetAddress",                                                            
+                            }
+                
+                updated = 0
+                
+                for row in reader:
+                               
+                    # do stuff ...
+                    updated += 1 
+                                            
+                    
+                return updated 
+                     
+                                                
+            @z3c.form.button.buttonAndHandler(_('Import'), name='import')
+            def importCompanies(self, action):
+                """ Create and handle form button "Create company"
+                """
+                
+                # Extract form field values and errors from HTTP request
+                data, errors = self.extractData()
+                if errors:
+                    self.status = self.formErrorsMessage
+                    return
+                
+                # Do magic
+                file = data["csv_file"].data
+                
+                number = self.processCSV(file)
+                
+                # If everything was ok post success note
+                # Note you can also use self.status here unless you do redirects
+                if number is not None:
+                    # mark only as finished if we get the new object
+                    IStatusMessage(self.request).addStatusMessage(_(u"Created/updated companies:") + unicode(number), "info")
+
+
 File-system access in load balanced configurations
 --------------------------------------------------
 
@@ -44,13 +196,16 @@ Form encoding
 
 .. warning::
 
-    Make sure that all forms containing file content are posted as enctype="multipart/form-data".
+    Make sure that all forms containing file content are posted as enctype="multipart/form-data".    
     Otherwise Zope decodes request POST values as string input and you get either empty strings
-    or filenames as your file content data.
+    or filenames as your file content data. The older plone.app.z3cform templates
+    do not necessarily declare enctype, meaning that you need to use custom page template
+    file for forms doing uploads.
 
 Example correct form header::
 
   <form action="." enctype="multipart/form-data" method="post" tal:attributes="action request/getURL">
+
 
 File field contents
 ---------------------------
