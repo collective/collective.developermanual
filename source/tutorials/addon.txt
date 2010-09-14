@@ -1,0 +1,136 @@
+=====================
+ Programming Plone
+=====================
+
+Introduction
+------------
+
+This tutorial shows you how to modify and extend Plone CMS
+using Python programming language. The tutorial has been
+written Plone 4 in mind, but techniques represented here
+will also work for Plone 3. The goal of this tutorial
+is to make your first bits of code ("hello world")
+run through Plone and explain all the steps on the way.
+
+Especially, this tutorial supercedes all old tutorials,
+which have been written for Zope 2 and Plone 2 long time ago.
+Because these tutorials have very high Google rankings,
+we have found a problem that novice developers start to 
+follow these development practices which might 
+have been a good idea by the time, but those practices
+should be no longer be used.
+
+How to add code to Plone
+-------------------------
+
+Eggs
+====
+
+First we need to know how the state-of-the-art Python software
+is being distributed.
+
+Plone 4 consists of :doc:`Python eggs </tutorials/python>`.
+Egg is a Python package format which is zip or tar.gz
+archive with some metadata information. An egg usually
+provides several Python modules and optionally launch scripts
+(shell scripts for Linux). Python native extensions (C modules)
+are also packageable as egg in which case you need to 
+have C compiler to install these eggs from source code form.
+For example, ZODB database is not purely Python for performance 
+reason and contains C bits.
+
+Open source Python eggs are published at `Pypi <http://pypi.python.org>`_
+from where package installers will automatically look up the egg and
+install it for you. For example if you type::
+ 
+     easy_install pywrite
+
+``easy_install`` command will load PyPi index page, look
+for ``pywrite`` egg and install it on your system.
+
+``easy_install`` command is nowadays coming from ``Distribute`` package,
+which supersedes old and less maintained ``setuptools`` package. 
+``easy_install`` is not the only way to install eggs. Alternatives are
+
+* buildout (contains recipes to install and configure many eggs, used by Plone)
+
+* pip
+
+The egg source code format consists 
+
+* ``setup.py`` file. This file imports code from Distribute/setuptools package
+  and acts as an entry point for the installation and distributable package
+  creation for your egg. 
+
+* Nothing else is needed - but usually you have at least .py source code file
+  which you distribute
+
+When you run command::
+
+	python setup.py sdist
+
+It will create a source code distribution (.tar.gz package) for 
+your egg and generate ``EGG-INFO`` folder with plain-text metafiles
+based on ``setup.py`` content. You should never commit any files
+and folders of ``egg`` and ``egg-info`` types as they are
+being automatically generated everytime ``setup.py`` is run.
+
+Laying your first egg
+---------------------
+
+Building an add-on (or any Python package) skeleton by hand 
+is cumbersome. Even though setup.py gives you a lot of 
+freedom how minimalistic things could be, the open source community
+has set up some best practices what Python eggs should contain.
+
+This includes 
+
+* README.txt in *Restructured text format*
+
+* HISTORY.txt for human readable changelog. This is not a big deal
+  now when you are starting your first project, but you will
+  pad your own shoulder later if you manage this file.
+
+* 
+
+.. note ::
+
+	The current stance of Plone Foundation is that all Plone
+	add-ons fall under GPL 2 license if they import code
+	from Plone core. Thus if you are building Plone add-on
+	it will be automatically under GPL 2 license.
+
+
+MANIFEST problem
+-----------------
+
+Paste and buildout
+-------------------
+
+If you are using buildout to manage your Python application deployment, you can integrate paster nicely 
+with it.
+
+Add to your *buildout.cfg*::
+
+        
+        parts =
+            ...
+            paster
+            
+        
+        [paster]
+        recipe = zc.recipe.egg
+        eggs = 
+                PasteScript 
+                ZopeSkel 
+                ${instance:eggs}
+
+After rerunning buildout, buildout adds *paster* command to *bin* folder.
+
+Then you can run paster from buildout folder::
+
+        bin/paster
+        
+... or in a buildout managed project under src folder... ::
+
+        ../../bin/paster
