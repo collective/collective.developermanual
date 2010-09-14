@@ -149,6 +149,75 @@ If you have a view where you don't explicitly want to render portlets you can do
                         <metal:block fill-slot="column_two_slot" />
                 </head>
 
+Head slots
+----------------
+
+You can easily include per-template CSS and Javscripts in <head> using 
+extra slots defined in Plone's ``main_template.pt``.
+
+Note that these media files do not participate in :doc:`portal_css </templates_css_and_javascripts/css>` or
+:doc:`portal_javascript </templates_css_and_javascripts/javascript>` resource compression. 
+
+Extra slots are
+
+.. code-block:: xml
+
+    <tal:comment replace="nothing"> A slot where you can insert elements in the header from a template </tal:comment>
+    <metal:headslot define-slot="head_slot" />
+
+    <tal:comment replace="nothing"> A slot where you can insert CSS in the header from a template </tal:comment>
+    <metal:styleslot define-slot="style_slot" />
+
+    <tal:comment replace="nothing"> This is deprecated, please use style_slot instead. </tal:comment>
+    <metal:cssslot define-slot="css_slot" />
+
+    <tal:comment replace="nothing"> A slot where you can insert javascript in the header from a template </tal:comment>
+    <metal:javascriptslot define-slot="javascript_head_slot" />
+
+Example use
+
+.. code-block:: html
+
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+              lang="en"
+              metal:use-macro="here/main_template/macros/master"
+              i18n:domain="sits">
+        
+              <metal:slot fill-slot="css_slot">
+                      <style media="all" type="text/css">
+                        
+                        .schema-browser {
+                                border-collapse: collapse;
+                        }
+                        
+                        .schema-browser td,
+                        .schema-browser th {
+                                vertical-align: top;
+                                border: 1px solid #aaa;
+                                padidng: 0.5em;
+                                text-align: left;
+                        }
+                        
+                        .default {
+                                color: green;
+                        }
+                        
+                        .mandatory {
+                                color: red;
+                        }
+                      </style>
+              </metal:slot>
+        
+        <body>
+                <metal:main fill-slot="main">
+                        
+                        <p>
+                                Protocols marked with question marks can be required or not 
+                                depending of the current state of the patient.
+                                For example, priodisability field depends on other set fields of the patient.
+                        </p>
+
+
 Edit frame
 ---------------
 
