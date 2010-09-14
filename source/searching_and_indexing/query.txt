@@ -9,7 +9,7 @@ Querying
 .. contents :: :local:
 
 Introduction
-------------
+------------------------
 
 Quering is action to retrieve data from search indexes.
 On Plone's case this usually means querying content items using ``portal_catalog`` tool. 
@@ -17,16 +17,15 @@ Plone uses :doc:`portal_catalog </searching_and_indexing/catalog>` tool to perfo
 queries. Special catalogs, like ``reference_catalog``, exists, for specialized and optimized queries.
 
 Performance
-------------
+------------------------
 
 The following community mailing list blog posts is very insightful about the performance characteristics
 of Plone search and indexing:
 
 * http://plone.293351.n2.nabble.com/Advice-for-site-with-very-large-number-of-objects-millions-tp5513207p5529103.html
 
-
 Accesing portal catalog
-========================
+------------------------------
 
 Plone queries are performed using portal_catalog tool which is available at the site root.
 
@@ -54,7 +53,7 @@ as this includes extra processing overhead::
     <div tal:define="portal_catalog context/portal_catalog" />
  
 Querying portal_catalog
-=======================
+------------------------------------------------
 
 Calling this persistent objectis a shortcut
 to query method itself, as it provides __call__() method.
@@ -81,7 +80,7 @@ If you call portal_catalog() without arguments it will return all indexed conten
                 print "Name:" + brain["Title"] + " URL:" + brain.getURL()
 
 Limiting query (batching)
-==========================
+------------------------------------------------
 
 You can use Python slice operator.
 
@@ -106,7 +105,7 @@ You can access the brain object information by index name using Python dictionar
     title = brain["Title"]
     
 Brain result id
-===============
+------------------------
 
 Result ID (RID) is given with the brain object and you can use this ID to query 
 further info about the object from the catalog.
@@ -117,7 +116,7 @@ Example::
         872272330
 
 Brain object schema
-===================
+------------------------
 
 To see what metadata columns a brain object contain, you can access this information
 from ``__record_schema__`` attribute which is a dict.   
@@ -141,7 +140,7 @@ Example::
         TODO: What those numbers represent?
 
 Getting the real object
-=======================
+------------------------
 
 portal_catalog() query returns indexed brain objects.
 If you want to get the actual object, from which the search data was indexed,
@@ -175,7 +174,7 @@ For more information, see
 * http://www.mail-archive.com/zope-dev@zope.org/msg17514.html
     
 URL of item
-===========
+------------------------
 
 Example::
 
@@ -183,7 +182,7 @@ Example::
     url = brain.getURL()
     
 Path of item
-============
+------------------------
 
 Example::
 
@@ -193,7 +192,7 @@ Example::
 
 
 Text format
-===========
+------------------------
 
 Since most indexes use Archetypes accessors to index the field value,
 the returned text is UTF-8 encoded. This is limitations
@@ -209,7 +208,7 @@ To get unicode value for e.g. title you need to do the following::
         pass
 
 Accessing indexed data
-======================
+------------------------
 
 Normally you don't get copy of indexed data with brains, only metadata.
 You can still access the raw indexed data if you know what you are doing 
