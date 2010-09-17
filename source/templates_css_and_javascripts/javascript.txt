@@ -160,3 +160,16 @@ Useful out of the box Javascripts
 ----------------------------------
 
 `Please read this blog post <http://www.sixfeetup.com/blog/2009/7/31/utilize-available-javascript-in-plone-without-knowing-javascript>`_.
+
+Generating Javascript dynamically
+----------------------------------
+
+TAL template language is not suitable for non-XML generation.
+Use Python string templates. 
+
+Don't put dynamically generated javascripts to ``portal_javascripts`` registry unless you want to cache them
+and they do not differ by the user.
+
+For example, see ``FacebookConnectJavascriptViewlet``
+
+* http://svn.plone.org/svn/collective/mfabrik.like/trunk/mfabrik/like/viewlets.py
