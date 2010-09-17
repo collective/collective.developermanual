@@ -2,6 +2,13 @@
 Traversing
 ===============
 
+.. admonition:: Description
+
+        Plone content is organized to a tree. Traversing means looking up 
+        content from this tree by path. When HTTP request hits a Plone
+        server, Plone will traverse the corresponding content item
+        and its view function by URI. 
+
 .. contents :: :local:
 
 Introduction
@@ -287,12 +294,65 @@ in the persistent object graph. See acquisition_.
 Custom traversing
 -----------------
 
-You can create your own traversing hooks.
+There exist many ways to make your objects traversable
 
-* TODO
+* ``__getitem__()`` which makes your objects act like Python dictionary. This is the simplest method and recommended.
+
+* ``__bobo_traverse__()`` which is archaid way from early 00s
+
+* ``ITraversable`` interface. You can create your own traversing hooks. ``zope.traversing.interfaces.ITraversable``
+  provides an interface traversable objects must provider. You need to register ITraversable as adapter for your content types.
+  This is only for publishing methods for HTTP requests. 
+
+.. warning::
+
+        Zope traversing is a mine field. There are different traversers.
+        One is ZPublisher traverser which does HTTP request looks.
+        One is OFS.Traversable.unrestrictedTraverse() which happens
+        when you call traverse from Python code. Then another
+        case is zope.tales.expression.PathExpr which uses
+        really simple traverser.
 
 .. warning:: If AttributeError is risen inside traverse() function bad things happen,
    as Zope publisher specially handles this and raises NotFound exception.
+
+
+Example using ``__getitem__()``::
+
+        class Viewlets(BrowserView):
+            """ Expose arbitary viewlets to traversing by name.
+        
+            Exposes viewlets to templates by names.
+        
+            Example how to render plone.logo viewlet in arbitary template code point::
+        
+                <div tal:content="context/@@viewlets/plone.logo" />
+        
+            """
+        
+            ...
+            
+            def __getitem__(self, name):
+                """
+                Allow travering intoviewlets by viewlet name.
+        
+                @return: Viewlet HTML output
+        
+                @raise: ViewletNotFoundException if viewlet is not found
+                """
+                viewlet = self.setupViewletByName(name)
+                if viewlet is None:
+                    active_layers = [ str(x) for x in self.request.__provides__.__iro__ ]
+                    active_layers = tuple(active_layers)
+                    raise ViewletNotFoundException("Viewlet does not exist by name %s for the active theme layer set %s. Probably theme interface not registered in plone.browserlayers. Try reinstalling the theme."  % (name, str(active_layers)))
+        
+                viewlet.update()
+                return viewlet.render()
+
+More information
+
+* http://play.pixelblaster.ro/blog/archive/2006/10/21/custom-traversing-with-five-and-itraversable
+
 
 Other resources
 ---------------
