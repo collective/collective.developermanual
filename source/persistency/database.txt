@@ -138,6 +138,13 @@ Example how to pack a copy of Data.fs in offline using Python snippet::
     storage=ZODB.FileStorage.FileStorage('/tmp/Data.fs.copy')
     storage.pack(time.time(),ZODB.serialize.referencesf)
 
+As this depends on ZODB egg, the easiest way to run the snippet is to ``zopepy``
+script from your ``buildout/bin`` folder::
+
+    bin/zopepy pack.py 
+    
+For more information, see :doc:`command-line scripts </misc/commandline>`.
+        
 Visualizing database object graphs
 ------------------------------------
 
