@@ -213,6 +213,90 @@ are usable from *collective.basket* add-on products when your add-on product is 
         You might need to restart Plone if you edit metadata.xml - some information might be cached
         preventing immediate effect of changes.
 
+Custom setup code (setuphandlers.py)
+---------------------------------------
+
+Besides out-of-the-box XML steps which easily provide both install and uninstall,
+GenericSetup provides a way to run a custom Python code when your
+add-on product is installed and uninstalled. 
+This is not very straightforward process, though.
+
+The best practice is to create a ``setuphandlers.py`` file
+which contains function ``setupVarious()`` which runs required
+Python code to make changes to Plone site object.
+This function is registerd as a custom ``genericsetup:importStep``
+in XML.
+
+.. note ::
+
+        When you do custom importSteps remember to write uninstallation
+        code as well.
+
+However, the trick is that all GenericSetup import steps, including
+your custom step, are run for *every* add-on product
+when they are installed. Thus, if your need to run 
+code which is specific **during your add-on install only**
+you need to use a marker text file which is checked by GenericSetup
+context. 
+
+Also you need to register this custom import step in ``configure.zcml``
+
+.. code-block:: xml
+
+  <configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+          <!-- Register the import step -->
+          <genericsetup:importStep
+              name="your.package"
+              title="your.package special import handlers"
+              description=""
+              handler="your.package.setuphandlers.import_various" />
+              />
+
+  </configure>
+
+``setuphandlers.py`` example::
+
+
+__docformat__ = "epytext"
+
+        def runCustomCode(site):
+            """ Run custom add-on product installation code to modify Plone site object and others
+            
+            @param site: Plone site  
+            """
+        
+        def setupVarious(context):
+            """
+            @param context: Products.GenericSetup.context.DirectoryImportContext instance
+            """
+        
+            # We check from our GenericSetup context whether we are running
+            # add-on installation for your product or any other proudct
+            if context.readDataFile('your.package.marker.txt') is None:
+                # Not your add-on
+                return
+        
+            portal = context.getSite()
+        
+            runCustomCode(portal)
+
+And add a dummy text file ``your.package/your/package/profiles/default/your.package.marker.txt``.
+It can contain any content. You can, for example, curse there how complex this all needs to be.
+
+More information
+
+* http://keeshink.blogspot.com/2009/02/creating-portal-content-in.html
+
+* http://maurits.vanrees.org/weblog/archive/2009/12/catalog (unrelated, but contains pointers)
+
+Controlling the import step execution order
+===========================================
+
+* http://plone.293351.n2.nabble.com/indexing-of-content-created-by-Generic-Setup-td4454703.html
+
 Upgrade steps
 -------------
 
