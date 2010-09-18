@@ -2,6 +2,12 @@
 Functional testing
 ===================
 
+.. admonition ::
+
+        Functional testing tool allows you to use scripted
+        browser to load pages from your site and fill in 
+        forms automatically.
+
 .. contents :: :local:
 
 Introduction
@@ -159,7 +165,9 @@ You can't get a list of controls from zope.testbrowser. You can check
 check available controls from
 
 * the form source code
+
 * the contents the testbrowser returns (browser.contents)
+
 * the mechanize browser instance that is used through
   zope.testbrowser. zope.testbrowser internally uses a testbrowser
   provided by the mechanize package. The mechanize objects are saved in
@@ -174,6 +182,30 @@ check available controls from
     controls = login_form.mech_form.controls
     for control in controls:
        print "%s: %s" % (control.attrs['name'], control.attrs['type'])
+
+Filling in a text field on  a page
+-----------------------------------
+
+You can manipulate ``value`` of various form input controls.
+
+Example how to submit Plone search page::
+
+        
+        self.browser.open(self.portal.absolute_url() + "/search")
+        
+        # Input some values to the search that we see we get
+        # zero hits and at least one hit        
+        for search_terms in [u"Plone", u"youcantfindthis"]:
+            form = self.browser.getForm("searchform")
+            
+            # Fill in the search field
+            input = form.getControl(name="SearchableText")
+            input.value = search_terms 
+            
+            # Submit the search form
+            form.submit(u"Search")
+            
+
 
 Selecting a checkbox
 --------------------
