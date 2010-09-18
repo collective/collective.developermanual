@@ -1300,3 +1300,25 @@ is problematic and does not uninstall cleanly.
 
 * Hope your site works again
 
+
+ImportError: No module named pkgutil
+------------------------------------
+
+Example::
+        
+        Traceback (most recent call last):
+          File "/Users/moo/plonecommunity/bin/idelauncher.py", line 101, in <module>
+            exec(data, globals())
+          File "<string>", line 543, in <module>
+          File "/Users/moo/plonecommunity/eggs/plone.app.z3cform-0.5.0-py2.6.egg/plone/__init__.py", line 5, in <module>
+            from pkgutil import extend_path
+        ImportError: No module named pkgutil
+
+If you are using Eclipse, ``idelauncher.py`` has been updated for Plone 4.
+
+* Remove ``bin/idelauncher.py`` from file system
+
+* Redownload it from `here <http://plone.org/documentation/kb/developing-plone-with-eclipse/ide-compatible-launcher-script>`_
+
+* ...or of you are using `collective.eclipsescripts <>`_ rerun command *Scripts -> Plone -> Import src folder as workspace*
+
