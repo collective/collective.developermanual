@@ -34,6 +34,21 @@ Plone 4 onwards, you can also use folder.items() instead (this applies
 to the whole section below).
 See source code for details, e.g. filtering and other forms of listing::
 
+Querying folder through catalog
+-------------------------------
+
+These methods apply for real folders, and not for collections.
+
+Getting indexed objects
+========================
+
+This is a faster method. You must have portal_catalog up-to-date for the folder.
+This will return :doc:`brain objects </searching_and_indexing/query>`_.
+
+    brains = folder.getFolderContents()
+
+Getting full objects
+=====================
 
     items = folder.contentItems() # return Python list of children object tuples (id, object)
 
