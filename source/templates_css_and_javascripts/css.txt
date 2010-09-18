@@ -138,11 +138,47 @@ Defining CSS styles reaction to the presence of the class::
     #region-content { padding: 0 0 0 0px !important;}
     .member-logged-in #region-content { padding: 0 0 0 4px !important;}
 
- CSS reset
- -----------
+
+Doing stripes
+-------------
+
+In your template you can define classes for 1) the item itself 2) extra odd and even class
+
+.. code-block:: html
+
+     <div tal:attributes="class python:'feed-folder-item feed-folder-item-' + (repeat['child'].even() and 'even' or 'odd')">
+
+And you can colorize this with CSS
+
+.. code-block:: css
+                
+        .feed-folder-item {
+                padding: 0.5em;
+        }
+        
+        /* Make sure that all items have same amount of padding at the bottom,
+           whether they have last paragraph with margin or not */
+        #content .feed-folder-item p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .feed-folder-item-odd {
+            background: #ddd;
+        }
+        
+        .feed-folder-item-even {
+            background: white;  
+        }
+         
+         
+
+CSS reset
+-----------
  
  If you are building a custom theme and you want to do cross-browser CSS reset,
- the following snippet is recommended::
+ the following snippet is recommended
+
+.. code-block:: css
  
          /* @group CSS Reset */
         
