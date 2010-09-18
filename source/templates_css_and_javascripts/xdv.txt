@@ -118,6 +118,22 @@ Note that currently rules without matching selectors are silently ignored
 and there is no bullet-proof way to debug what happens inside 
 XSL transformation, except by looking into compiled theme.xsl.
 
+Dropping specific CSS files with XDV
+-------------------------------------
+
+For example if you wish to get rid of the base-cachekey????.css file that comes from
+a Plone site, but still want to keep the authoring CSS and any special CSS
+files that come from add-ons
+
+Example:
+
+        <drop content="/html/head[style *=
+        'portal_css/Plone%20Default/base-cachekey']/style" />
+
+More info
+
+* http://www.coactivate.org/projects/deliverance/lists/deliverance-discussion/archive/2010/09/1284795659190
+
 Using XDV to theme and integrate a Wordpress site
 --------------------------------------------------
 
