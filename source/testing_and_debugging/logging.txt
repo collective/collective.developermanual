@@ -2,13 +2,36 @@
  Logging
 ==============
 
+.. admonition:: Description
+
+        How to write log output from your Plone add-on program code
+
+.. contents:: :local:
+
+Introduction
+-------------
+
 `Python logging package <http://docs.python.org/library/logging.html>`_ is used to log from Plone.
 
-By default, logs go to *var/log/instance.log*. If Zope instance is started in the foreground mode
+Log file location
+==================
+
+By default, logs go to ``var/log/instance.log``. If Zope instance is started in the foreground mode
 logs will be printed in the console (stdout) too.
 
-Default log level is *INFO*. To enable more verbose logging, edit buildout.cfg,
-change log level by editing `[instance] section event-log-level <http://pypi.python.org/pypi/plone.recipe.zope2instance>`_.
+Log level 
+=========
+
+Default log level is ``INFO``. To enable more verbose logging, edit ``buildout.cfg``,
+
+Change log level by editing ``[instance]`` section ``event-log-level``::
+
+        [instance]
+        event-log-level = debug
+
+More information 
+
+* http://pypi.python.org/pypi/plone.recipe.zope2instance>
 
 Logging from Python code
 ------------------------
@@ -28,8 +51,10 @@ Example::
 Logging from page templates and RestrictedPython scripts
 --------------------------------------------------------
 
-Python logging module doesn't provide Zope 2 security assertations.
-Python script plone_log exposes logging for sandboxed environments.
+Python ``logging`` module doesn't provide Zope 2 security assertations
+and does not work in :doc:`RestrictedPython Python scripts </security/sandboxing>`_.
+
+However, you can use ``context.plone_log()`` method logging in the sandboxed execution mode.
 
 Example::
 
