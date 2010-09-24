@@ -249,7 +249,24 @@ Check Zope start up message in which port the instance is running (default port 
 Then log in to Zope Management Interface by going with your browser::
 
         http://localhost:8080
-                
+
+Setting LD_LIBRARY_PATH
+-------------------------
+
+``LD_LIBRARY_PATH`` is UNIX environment variable tell from which folders load native dynamic linked libraries (.so files).
+You might want to override your system-wide libraries, because operating systems may ship with old, incompatible, versions.                
+
+You can use ``environment-vars`` of `zope2instance <http://pypi.python.org/pypi/plone.recipe.zope2instance>´_ recipe.       
+       
+Example in buildout.cfg::
+
+        [instance]
+
+        # Use statically compiled libxml2
+        environment-vars =
+                LD_LIBRARY_PATH ${buildout:directory}/parts/lxml/libxml2/lib:${buildout:directory}/parts/lxml/libxslt/lib
+    
+        
        
 Troubleshooting
 ----------------
