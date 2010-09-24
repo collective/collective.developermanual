@@ -2,6 +2,11 @@
 Layers
 =========
 
+.. admonition:: Description
+        
+        Layers allow you to easily enable and disable views and other site functionality 
+        based on installed add-ons and themes. 
+
 .. contents :: :local:
 
 Introduction
@@ -118,12 +123,64 @@ Theme layers can be created with the following steps
     </layer>
    </layers>
 
-Product layer
+Add-on layer
 =============
 
-Product layer is enabled when an add-on product is installed. It works like the theme layer.
+Add-on product layer is enabled when an add-on product is installed. 
+Since one Zope application server may contain several Plone sites, 
+you need separate different enanbled code paths by add-on layers -
+otherwise all views and viewlets apply to all sites in one Zope application server. 
 
-See example in `LinguaPlone <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/profiles/default/browserlayer.xml>`_.
+* You can enable views and viewlets specific to functional add-on
+
+* Unlike theme layer, add-on layer depends on the activated add-on products, not on the selected theme
+
+Add-on layer is a marker interface which is applied on :doc:`HTTP request object </serving/http_request_and_response>`
+by Plone core logic.  
+
+First create an an :doc:`interface </components/interfaces>`_ for your layer in ``your.product.interfaces.py`::
+
+        """
+            
+            Define interfaces for your add-on.
+        
+        """
+        
+        import zope.interface
+        
+        class IAddOnInstalled(zope.interface.Interface):
+            """A layer specific for this add-on product.
+        
+            This interface is referred in browserlayers.xml.
+        
+            All views and viewlets register against this layer will appear on your Plone site 
+            only when the add-on installer has been run.
+            """
+
+You need to then refer to this in your add-on installer :doc:`setup profile </components/genericsetup>`.
+
+``profile/default/browserlayer.xml`` file
+
+.. code-block:: xml
+
+        <layers>
+         <layer
+             name="your.product"
+             interface="your.product.interfaces.IAddOnInstalled"
+             />
+        </layers>
+                
+
+.. note ::
+
+        Add-on layer registry is persistent and stored in the database. The changes to add-on
+        layers apply only when add-ons are installed or uninstalled.
+
+More information
+
+* http://pypi.python.org/pypi/plone.browserlayer
+
+* See example in `LinguaPlone <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/profiles/default/browserlayer.xml>`_.
 
 Manual layers
 =============
