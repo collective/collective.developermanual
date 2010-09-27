@@ -4,6 +4,7 @@
 
 .. admonition:: Description
 
+        This document tells how to save objects to Plone/Zope database.
         Persistent objects are automatically read and written from ZODB database in Plone
         and they appear as normal Python objects in your code. This document clarifies
         some of special properties, like with containers, when you deal with persistent
@@ -13,19 +14,34 @@
 
 Introduction
 ------------         
-        
-Persistent objects will have their data transparently serialized to a
-persistent storage when the transaction completes.
 
-If your class inherits from higher level Plone base classes
-persistency is handled transparently for you. Plone also handles
+**Q: How do I save() object in Plone**
+
+**A: You don't**
+
+Plone does this automatically for you. You just assign the file data
+as an attribute of some persistent object. When the HTTP request
+completes, Zope transaction manager will automatically update all
+changed persistent objects to the database. There is no "save" as such in Zope world - 
+it all is transparent to the developer. If the
+transaction fails in any point, no data is being written and you do
+not need to worry about the partial data being written to the
+database.
+
+* Changed objects will be automatically saved (if they are attached to the 
+  traversing graph)
+  
+* Save will not occur if an exception is raised
+        
+If your data class inherits from higher level Plone base classes
+(all go up to persistent.Persitent class). persistency is handled transparently for you. 
+Plone also handles
 transaction automatically for each HTTP request. Unless you wish
 to do manual transactions there is no need to call transaction.commit().
 
 If you want to do your own persistent classes please read the following
 
 * `Writing a persistent class <http://docs.zope.org/zodb/zodbguide/prog-zodb.html#writing-a-persistent-class>`_
-
 
 * `About persistent objects <http://www.zope.org/Documentation/Books/ZDG/current/Persistence.stx>`_
 
