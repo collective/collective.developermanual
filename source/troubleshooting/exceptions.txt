@@ -1328,3 +1328,37 @@ If you are using Eclipse, ``idelauncher.py`` has been updated for Plone 4.
 
 * ...or of you are using `collective.eclipsescripts <>`_ rerun command *Scripts -> Plone -> Import src folder as workspace*
 
+"PicklingError: Can't pickle <class 'collective.singing.async.IQueue'>: import of module collective.singing.async" 
+--------------------------------------------------------------------------------------------------------------------
+
+Singing & Dancing add-on does not uninstall cleanly. Try this command-line script to get it fixed (not tested).
+Some parts may work, some not, depending on how messed up your site is.
+
+Note that you need to have S & D present in the buildout when running this and 
+then you can remove it afterwards::
+ 
+ 
+        import transaction
+        from collective.singing.interfaces import ISalt
+        from collective.singing.async import IQueue
+        
+        # Your site here        
+        portal = app.mfabrik
+        sm = portal.getSiteManager()
+        
+        util_obj = sm.getUtility(ISalt)
+        sm.unregisterUtility(provided=ISalt)
+        del util_obj
+        
+        sm.utilities.unsubscribe((), ISalt)
+        del sm.utilities.__dict__['_provided'][ISalt]
+        del sm.utilities._subscribers[0][ISalt]
+        
+        util = sm.queryUtility(IQueue, name='collective.dancing.jobs')
+        sm.unregisterUtility(util, IQueue, name='collective.dancing.jobs')
+        del util
+        del sm.utilities._subscribers[0][IQueue]
+        
+        transaction.commit()
+
+
