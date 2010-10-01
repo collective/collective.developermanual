@@ -10,7 +10,7 @@
 Introduction
 ------------
 
-Plone extensively uses :doc:`paster code templating system </tutorials/paste>`
+Plone CMS and Python extensively use :doc:`paster code templating system </tutorials/paste>`
 to aid add-on product development.
 
 Paster allows you to create code from code skeleton templates,
@@ -26,8 +26,50 @@ More information
 
 * http://wiki.pylonshq.com/display/pylonscookbook/Creating+Templates+For+The+paster+create+Command
 
-* http://plone.org/products/zopeskel 
+* http://plone.org/products/zopeskel
+
+* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/setup.py 
 
 Extending ZopeSkel	 
 ------------------
 
+First you need to create a Python egg where your templates will be contained.
+We use ZopeSkel's *plone* template, but generic Python template should do as well.
+
+	paster create -t plone gomobile.templates
+	
+Then we edit ``setup.py`` and add paster template entry points::
+
+	  install_requires=[
+          'setuptools',
+          'PasteScript',
+          'ZopeSkel',
+          # -*- Extra requirements: -*-
+      ],
+		 
+	  entry_points="""
+      # -*- Entry points: -*-
+      [paste.paster_create_template]
+      dexterity = gomobile.templates.theme:Theme
+      """,
+      
+You could also have "subtemplates" with local paster commands which add more code 
+into existing code skeletons::
+
+      [zopeskel.zopeskel_sub_template]
+      dexterity_content = collective.dexteritypaste.localcommands.dexterity:DexterityContent
+      dexterity_behavior = collective.dexteritypaste.localcommands.dexterity:DexterityBehavior
+      dexterity_view = collective.dexteritypaste.localcommands.dexterity:DexterityView
+      
+Entry points
+==============
+
+Entrypoints allow different plug-in systems through using the standard Python eggs and ``setup.py`` file.
+Plone 3.3+ picks Plone add-ons through this way and ``paster`` command pick available templates
+from all available eggs this way. 
+
+More information
+
+* http://wiki.pylonshq.com/display/pylonscookbook/Using+Entry+Points+to+Write+Plugins                
+      
+      
