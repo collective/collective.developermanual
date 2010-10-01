@@ -57,6 +57,8 @@ Then we edit ``setup.py`` and add paster template entry points::
       ],
 		 
 	  entry_points="""
+
+      # These will declare what templates paster create command can find
       # -*- Entry points: -*-
       [paste.paster_create_template]
       dexterity = gomobile.templates.theme:Theme
@@ -81,7 +83,6 @@ More information
 
 * http://wiki.pylonshq.com/display/pylonscookbook/Using+Entry+Points+to+Write+Plugins
                 
-      
 Template class
 ==============      
 
@@ -121,8 +122,7 @@ Filenames and folder names can contain variable substitues as::
 	
 will be mapped to::
 
-	yourcompany.package/yourcompany/ 	
-	
+	yourcompany.package/yourcompany/ 		
 	
 Template files
 ==============
@@ -163,3 +163,54 @@ Examples
 * http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/docs/plone3_buildout.txt 
 
 * http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/docs/localcommands.txt
+
+Testing the generated product
+=============================
+
+This checks that your template generates viable code.
+
+Steps 
+
+* Generate a product skeleton using ``paster`` in non-interactive mode
+
+* Run buildout
+
+* Run :doc:`testrunner </testing_and_debugging/unit_testing>` for the created add-on
+
+Developing template egg with paster and buildout.cfg
+----------------------------------------------------
+
+The preferred method to run paster with Plone is to have it 
+automatically pulled in and configured for you by :doc:`buildout </tutorials/buildout>`.
+
+develop-eggs
+============
+
+You need to specially mention to buildout which Python eggs are
+in source code form.
+
+* You can use ``develop-eggs`` directive 
+
+* You can use buildout extensions designed for source code and version
+  control management, like `mr.developer <http://pypi.python.org/pypi/mr.developer>`_.
+  
+Then you need to declare ``[paster]`` part and section in ``buildout.cfg``::
+
+        parts =
+            ...
+            paster
+            
+        develop-eggs = 
+                src/yourcompany.templates
+        
+        [paster]
+        recipe = zc.recipe.egg
+        # Include your own template egg here.
+        # Note that ${instance} section name should be the section name
+        # for plone.recipe.zope2instance from your buildout.cfg
+        eggs = 
+                PasteScript 
+                ZopeSkel 
+                yourcompany.templates
+                ${instance:eggs}
+                

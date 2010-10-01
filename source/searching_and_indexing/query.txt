@@ -83,6 +83,9 @@ Limiting query (batching)
 ------------------------------------------------
 
 You can use Python slice operator.
+``portal_catalog()`` call returns a lazy list of 
+result place holders, so all calls to portal_catalog() with same parameters should 
+have the same cost.
 
 Example: getting 10 latest modified content items on the site::
 

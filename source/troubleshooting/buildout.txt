@@ -60,9 +60,8 @@ Example::
 
 	* try running buildout in verbose mode  bin/buildout vvv
 	
-	* Use helper recipe `dumppickedversions <http://pypi.python.org/pypi/buildout.dumppickedversions>`_
+	* Use dumppickedversions (below) 
         
-
 * Manually pindown version in [versions]
 
 Further reading
@@ -70,6 +69,22 @@ Further reading
 * http://maurits.vanrees.org/weblog/archive/2010/08/fake-version-pinning
 
 * http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-use-buildout-to-pin-product-versions
+
+Dump picked versions
+====================
+
+This buildout extension will dump automatically picked Python egg
+versions to a file.
+
+Add to your buildout.cfg::
+
+        extensions = buildout.dumppickedversions
+        dump-picked-versions-file = versions.cfg        
+
+More information
+++++++++++++++++
+
+* `dumppickedversions <http://pypi.python.org/pypi/buildout.dumppickedversions>`_
 
 Good-py service
 ==================
