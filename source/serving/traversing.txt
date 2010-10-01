@@ -273,6 +273,34 @@ Example::
     from zope.app.component.hooks import getSite
 
     site = getSite() # returns portal root from thread local storage
+    
+Checking for the site root
+===========================
+
+You can check if the current context object is Plone site root::
+
+        from Products.CMFCore.interfaces import ISiteRoot
+        
+        if ISiteRoot.providedBy(context):
+                # Special case
+        else:
+                # Subfolder or or a page
+                
+Navigation root
+================
+
+In Plone, the Plone site root is not necessarily the navigation root (one site can contain 
+many navigation trees for example for the nested subsites).
+
+The navigation root check has the same mechanism as the site root check.
+
+        from plone.app.layout.navigation.interfaces import INavigationRoot
+        
+        if INavigationRoot.providedBy(context):
+                # Top level, no up navigation
+        else:
+                # Up navigation and breadcrumbs
+                                            
 
 Getting Zope application server handle
 --------------------------------------
