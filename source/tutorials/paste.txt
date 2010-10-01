@@ -14,8 +14,83 @@ Introduction
 `Paste script <http://pythonpaste.org/script/>`_ is a part of `Python Paste <http://en.wikipedia.org/wiki/Python_Paste>`_
 web development utilities. 
 
-It's *paster create* command is used by various Python frameworks to generate skeleton code for a development project.
+It's ``paster create`` command is used by various Python frameworks to generate skeleton code for a development project.
 
+``paste`` is used also by Plone to create add-on products and new code in add-on products easily.
+
+Paste and buildout
+-------------------
+
+If you are using buildout to manage your Python application deployment, you can integrate paster nicely 
+with it.
+
+Add to your *buildout.cfg*::
+
+        
+        parts =
+            ...
+            paster
+            
+        
+        [paster]
+        recipe = zc.recipe.egg
+        eggs = 
+                PasteScript 
+                ZopeSkel 
+                ${instance:eggs}
+
+After rerunning buildout, buildout adds *paster* command to *bin* folder.
+
+Then you can run paster from buildout folder::
+
+        bin/paster
+        
+... or in a buildout managed project under ``src/`` folder using relative references... ::
+
+        ../../bin/paster
+
+.. warning ::
+
+	It is strongly advised to use or install paster in system-wide Python.
+	Always run paster command run the buildout itself. This way paster is aware of your deployment configuration and local commands
+    won't explode on your face.
+
+Creating an add-on product skeleton
+-----------------------------------
+
+After you have followed the steps above to add *paster* to your buildout, 
+you can create your first add-on.
+
+.. highlight:: console
+
+	cd src # Create src folder if it does not exist yet
+	../bin/paster create -t plone yourcompany.productname # will create src/yourcompany.productname folder
+
+Some questions are asked to fill in version information, etc.
+When ``plone`` template asks for *GenericSetup profile* answer ***yes**.
+
+After this you need to include the newly created egg in your buildout.cfg::
+
+
+	eggs =
+		yourcompany.productname
+
+	develop-eggs = 
+		src/yourcompany.productname
+			
+Rerun buildout.
+
+Restart Plone in foreground mode. If your template input contained errors it usually fails in this point.
+
+Now you should see your add-on in Plone add-on installer.
+
+Create a portlet
+================
+
+Creating a portlet is the first easy thing to do with your add-on product skeleton.
+
+Follow local commands instructions below to start with one.			      
+        
 Paster create and local commands
 ---------------------------------
 
@@ -41,13 +116,15 @@ and then create content types there using a local paster command.
 The local commands become available when you execute 
 paster in the folder of your Python project.
 
-Example::
+Example or creating a content type::
 
-        paster create -t archetype myorg.customploneaddon
-        src  myorg.customploneaddon
-        
-        # Now new paster commands are available
-        paster
+		# First create an add-on skeleton if one does not exist
+        cd src
+        ../bin/paster create -t archetype myorg.customploneaddon
+                
+        # Now new paster commands are available and listed when paster is run in this folder
+        cd myorg.customploneaddon
+        ../../bin/paster
         
         Usage: ../../bin/paster COMMAND
         usage: paster [paster_options] COMMAND [command_options]
@@ -62,13 +139,23 @@ Example::
                 
 
 Above, ZopeSkel paster template adds its addcontent templates.
-Now you can use addcontent local command to contribute to the existing project
+Now you can use ``addcontent`` local command to contribute to the existing project
 
 ::
 
-        paster addcontent -t contenttype MyShinyWebPage
-        
+        ../../bin/paster addcontent -t contenttype MyShinyWebPage
 
+Example or creating a portlet::
+
+        ../../bin/paster addcontent -t portlet
+
+.. note ::
+
+	When changing the add-on code the changes usually touch GenericSetup XML files (ones
+	in profiles/default folder). This changes are not reflected to Plone/Zope application
+	server when it is restarted, because they are site specific changes and apply to one
+	site only. You need to rerun add-on product installer when these files have changed. 	       
+        
 Zopeskel
 =========
         
@@ -85,6 +172,17 @@ To see list of available paster local commands, run paster command ::
         contenttype:  A content type skeleton
         form:         A form skeleton
       
+
+Entrypoints
+===========
+
+Entrypoints allow different plug-in systems through using the standard Python eggs and ``setup.py`` file.
+
+More information
+
+* http://wiki.pylonshq.com/display/pylonscookbook/Using+Entry+Points+to+Write+Plugins                
+        
+
        
 How paster local commands work
 ------------------------------------------------
@@ -144,48 +242,4 @@ command from your system-wide Python installation.
 
         The internet is full of tutorial saying *easy_install ZopeSkel*.
         If you ever encounter this kind of tutorial, it's wrong.            
-
-Paste and buildout
--------------------
-
-If you are using buildout to manage your Python application deployment, you can integrate paster nicely 
-with it.
-
-Add to your *buildout.cfg*::
-
-        
-        parts =
-            ...
-            paster
-            
-        
-        [paster]
-        recipe = zc.recipe.egg
-        eggs = 
-                PasteScript 
-                ZopeSkel 
-                ${instance:eggs}
-
-After rerunning buildout, buildout adds *paster* command to *bin* folder.
-
-Then you can run paster from buildout folder::
-
-        bin/paster
-        
-... or in a buildout managed project under src folder... ::
-
-        ../../bin/paster
-        
-This way paster is aware of your deployment configuration and local commands
-won't explode on your face anymore. 
-         
-Entrypoints
-------------
-
-Entrypoints allow different plug-in systems through using the standard Python eggs and ``setup.py`` file.
-
-More information
-
-* http://wiki.pylonshq.com/display/pylonscookbook/Using+Entry+Points+to+Write+Plugins                
-        
         
