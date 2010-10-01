@@ -28,7 +28,9 @@ More information
 
 * http://plone.org/products/zopeskel
 
-* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/setup.py 
+* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk 
+
+* http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/
 
 Extending ZopeSkel	 
 ------------------
@@ -37,6 +39,13 @@ First you need to create a Python egg where your templates will be contained.
 We use ZopeSkel's *plone* template, but generic Python template should do as well.
 
 	paster create -t plone gomobile.templates
+
+.. note ::
+
+	You do not need tests.py or configure.zcml files in the template package itself.
+	
+setup.py entries
+================	
 	
 Then we edit ``setup.py`` and add paster template entry points::
 
@@ -62,7 +71,7 @@ into existing code skeletons::
       dexterity_view = collective.dexteritypaste.localcommands.dexterity:DexterityView
       
 Entry points
-==============
++++++++++++++
 
 Entrypoints allow different plug-in systems through using the standard Python eggs and ``setup.py`` file.
 Plone 3.3+ picks Plone add-ons through this way and ``paster`` command pick available templates
@@ -70,6 +79,87 @@ from all available eggs this way.
 
 More information
 
-* http://wiki.pylonshq.com/display/pylonscookbook/Using+Entry+Points+to+Write+Plugins                
+* http://wiki.pylonshq.com/display/pylonscookbook/Using+Entry+Points+to+Write+Plugins
+                
       
-      
+Template class
+==============      
+
+Paster template is defined with a class referred from the entry point. 
+Here is an example how we extend the existing Plone template class::
+
+Asking template input
+=====================
+
+*ZopeSkel* contains facilities how to ask template input from the user who is running Paster.
+It provides some sane way to give defaults and validate the input.
+
+Examples
+
+* http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/abstract_buildout.py
+
+.. note ::
+
+	ZopeSkel input definitions should work both on command line and on the web based generator.
+	
+Pre- and postcondition triggers
+===============================
+
+If you want to run special code before the templates are run and after they have succesfully 
+complete, ZopeSkel provides some logic for this.
+
+Examples
+
+* http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/hosting.py 
+
+Template folder structure
+=========================
+
+Filenames and folder names can contain variable substitues as::
+
+	templates/yourtemplatename/+namespace_package+/
+	
+will be mapped to::
+
+	yourcompany.package/yourcompany/ 	
+	
+	
+Template files
+==============
+
+Files having special ``_tmpl`` extension will have string substitution performed on then.
+
+Example:
+
+* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/templates/dexterity/setup.py_tmpl	
+
+Local commands
+==============
+
+Local commands define insert snippets which will be injected to the existing files.
+
+The marker for snippet injects is::
+
+	  -*- extra stuff goes here -*- 
+	  
+You need to put it to the comment format of the file type. Example for XML would be::
+
+  	  <!-- -*- extra stuff goes here -*- --> 	  
+
+Some examples
+
+* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/templates/dexterity/+namespace_package+/+package+/configure.zcml_tmpl
+
+* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/localcommands/templates/dexterity/behavior/behavior/configure.zcml_insert
+
+Testing the templates
+=====================
+
+ZopeSkel provides some doctest based testing facilities to hook your templates
+to automatic testing facilities, mainly for the regression testing.
+
+Examples
+
+* http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/docs/plone3_buildout.txt 
+
+* http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/docs/localcommands.txt
