@@ -2,26 +2,34 @@
  Python, Plone and Zope
 ============================
 
+.. admonition::
+
+	Python programming language basics and performing Python interpreter installations.
+
 .. contents :: :local:
+
+.. highlight:: console
 
 Introduction
 -------------
 
 Python is the programming language used by Plone and Zope.
+Tutorial and language learning
+-------------------------------
 
 Official Python tutorial
---------------------------
+===========================
 
 * http://docs.python.org/tutorial/
 
 Google Python classes
-----------------------
+===========================
 
 * http://code.google.com/edu/languages/google-python-class/
 
-Other resources
-----------------
-                
+Plone and Zope resources
+--------------------------
+
 Plone resources
 ================
 
@@ -42,4 +50,17 @@ Zope resources
 
 `Zope package guide <http://wiki.zope.org/zope3/Zope3PackageGuide>`_.
 
+Installing Python
+-----------------
 
+It is not recommended to use system-wide Python installation with Plone, as if Plone requires new package versions these might conflict with ones
+installed for your operating system. Installing packages to system-wide Python installation always requires root priviledges and you can 
+easily hose your box when doing Python development work.
+
+Plone unified installers comes with its own, preconfigured, Python interpreter.
+
+If you are a developer you might wish to use a custom build Python interpreter which allows you to fine tune package.
+
+.. note::
+
+	TODO: Finish - point to mFabrik log with collective.python.buildout info
