@@ -274,6 +274,16 @@ Example::
 
     site = getSite() # returns portal root from thread local storage
     
+.. note :: 
+
+        Due to Plone's Display -> Default content item behavior the page 
+        you are viewing in the browser from the site root URL is not necessary
+        the root item itself. For example, in the default Plone installation
+        this URL internally maps to Page whose id is "front-page" and
+        you still can query the actual parent object which is the site root.    
+        If you need to traverse using user visible breadcrumbs, see 
+        how breadcrumbs viewlet code does it.
+    
 Checking for the site root
 ===========================
 
