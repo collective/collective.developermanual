@@ -116,6 +116,8 @@ Examples
 Template folder structure
 =========================
 
+All templates should go to ``templates`` folder in your ZopeSkel extension namespace.
+
 Filenames and folder names can contain variable substitues as::
 
 	templates/yourtemplatename/+namespace_package+/
@@ -133,6 +135,15 @@ Example:
 
 * http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/templates/dexterity/setup.py_tmpl	
 
+The best way to get the initial template files and folders for your add-on template is to
+checkout some existing ZopeSkel package, like *collective.dexteritypaste* and export its 
+*templates* folder to your own add-on template.
+
+.. note ::
+
+        As writing of this I am not aware of any meta-template to create paster templates.
+        But should thing would be greatly beneficial.
+        
 Local commands
 ==============
 
@@ -214,3 +225,19 @@ Then you need to declare ``[paster]`` part and section in ``buildout.cfg``::
                 yourcompany.templates
                 ${instance:eggs}
                 
+Rerun buildout.
+
+Now when you run paster command it should show your custom template::
+
+        bin/paster create --list-templates
+        ...
+        Available templates:
+          archetype:          A Plone project that uses Archetypes content types
+          basic_namespace:    A basic Python project with a namespace package
+          basic_package:      A basic setuptools-enabled package
+          basic_zope:         A Zope project
+          gomobile_theme:     A theme for Go Mobile for Plone <---- you should see yours somewhere here 
+          kss_plugin:         A project for a KSS plugin
+        
+        
+                        
