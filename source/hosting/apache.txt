@@ -74,6 +74,11 @@ Example in <VirtualHost> section to redicte site.com -> www.site.com::
                RewriteRule (.*) http://www.site.com$1 [L,R=302]
            </IfModule>
 
+Redirecting all the pages to the root of a new site:
+
+       RewriteEngine On
+       RewriteRule (.*) http://www.newsite.com [L,R=302]
+
 
 Proxying other site under Plone URI space
 -----------------------------------------
