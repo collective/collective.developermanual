@@ -207,6 +207,19 @@ More information
         
 * http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/localcommands/plone.py
 
+Escaping strings
+++++++++++++++++
+
+If you have any page template (*.pt) files you need to templatetize you will
+encounter problem that both Cheetah and Zope Page Templates use the similiar
+string expansion syntax causing a conflict.
+
+You can use \ (backslash) before dollar sign to escape it.
+
+Example::
+
+         <script tal:attributes="src string:\${viewlet/portal_url}/++resource++${namespace_package}.${package}/theme.js" type="text/javascript"></script> 
+
 Conditions and branching
 =========================
 
