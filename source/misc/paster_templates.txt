@@ -49,20 +49,19 @@ setup.py entries
 	
 Then we edit ``setup.py`` and add paster template entry points::
 
-	  install_requires=[
+      install_requires=[
           'setuptools',
           'PasteScript',
           'ZopeSkel',
           # -*- Extra requirements: -*-
       ],
 		 
-	  entry_points="""
-
-      # These will declare what templates paster create command can find
-      # -*- Entry points: -*-
-      [paste.paster_create_template]
-      dexterity = gomobile.templates.theme:Theme
-      """,
+      entry_points="""
+              # These will declare what templates paster create command can find
+              # -*- Entry points: -*-
+              [paste.paster_create_template]
+              dexterity = gomobile.templates.theme:Theme
+              """,
       
 You could also have "subtemplates" with local paster commands which add more code 
 into existing code skeletons::
@@ -339,9 +338,15 @@ Generate a product skeleton using ``paster`` in non-interactive mode
 
 .. highlight:: console
 
-        rm -rf src/gomobiletheme.yourcompany ; cd src ; ../bin/paster create -t gomobile_theme gomobiletheme.yourcompany --no-interactive ; cd ..
+        rm -rf src/gomobiletheme.yourcompany ; bin/paster create --no-interactive -v -f -o src -t gomobile_theme gomobiletheme.yourcompany 
 
-Have develop eggs and eggs::
+.. note :: 
+
+        Use -f switch or you might encounter problems with template inheritance.
+        
+`See paster bug regarding template inheritance and -f switch <http://trac.pythonpaste.org/pythonpaste/ticket/445>`_.        
+
+Put the newly created add-on skeleton to ``buildout.cfg`` in develop eggs and eggs::
 
         eggs =
                 gomobiletheme.yourcompany       
@@ -361,4 +366,7 @@ Run :doc:`testrunner </testing_and_debugging/unit_testing>` for the created add-
 
         bin/test -s gomobiletheme.yourcompany
         
+See ``bin/paste create --help`` for other useful debug switches.
+
+
                         
