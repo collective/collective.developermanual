@@ -16,39 +16,71 @@ are designed to catch broken functionality over the code evolution.
 Running unit tests
 -------------------
 
-For Plone and all registered add-ons - useful to check whether you have a good component set::
+Since Plone 3, ``zc.testrunner`` is recommended to use to run the test suites.
+You need to add it to your ``buildout.cfg`` to generate ``test`` command::
 
-    bin/instance test
+        parts = 
+           ...
+           test
+        
+        [test]
+        recipe = zc.recipe.testrunner
+        defaults = ['--auto-color', '--auto-progress']
+        eggs = 
+            ${instance:eggs}
 
-For one package::
 
-    bin/instance test -s package.subpackage
+Running tests for one package
 
-For one test case::
+.. highlight:: console
+
+    bin/test -s package.subpackage
+
+Running tests for one test case
+
+.. highlight:: console
 
     bin/instance test -s package.subpackage -t TestCaseClassName
     
-For two test cases::
+Running tests for two test cases
+
+.. highlight:: console
 
 	 bin/instance test -s package.subpackage -t TestClass1|TestClass2    
 
-To drop in pdb debugger for each failure::
+To drop in pdb debugger after each test failure
 
-    bin/instance test -s package.subpackage -D
+.. highlight:: console
+
+    bin/test -s package.subpackage -D
  
-To exclude tests::
+To exclude tests
 
-    bin/instance test -s package.subpackage -t !test_name
+.. highlight:: console
 
-To list tests that will be run::
+    bin/test -s package.subpackage -t !test_name
 
-    bin/instance test -s package.subpackage --list-tests
+To list tests that will be run
 
+.. highlight:: console
 
+    bin/test -s package.subpackage --list-tests
+   
+The following will run tests for *all* Plone and -ons - 
+useful to check whether you have a good component set
+
+.. highlight:: console
+
+    bin/test
+    
 .. warning::
 
     Test runner does not give an error if you supply invalid package and test case name.
     Instead it just simply doesn't execute tests.
+
+More information
+
+* http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/no-longer-bin-instance-test-use-zc.recipe.testrunner
 
 AttributeError: 'module' object has no attribute 'test_suite'
 =============================================================
