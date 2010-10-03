@@ -385,3 +385,16 @@ portal_quickinstaller to have two entries.
 More information
 
 * http://plone.293351.n2.nabble.com/Product-twice-in-quickinstaller-td5345492.html#a5345492
+
+Preventing uninstall
+--------------------
+
+You might want to prevent your add-on product uninstall for some reason.
+
+Example::
+
+        from zExceptions import BadRequest
+
+        def uninstall(self, reinstall):
+            if reinstall==False:
+                raise BadRequest("This product cannot be uninstalled!")
