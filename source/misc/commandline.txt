@@ -4,8 +4,8 @@
 
 .. admonition:: Description
 
-        How to run command-line Python scripts 
-        to do batch jobs against Plone sites and Zope application server.
+        How to run command-line Python scripts, timed jobs (cron)
+        and batch jobs against Plone sites and Zope application server.
 
 .. contents :: :local:
 
@@ -58,6 +58,29 @@ Use *bin/instance run* command.
 Example::
 
 	bin/instance run src/namespace.mypackage/namespace/mypackage/bin/script.py 
+	
+Cron and timed jobs
+---------------------
+
+Cron is UNIX clock daemon for timed tasks.
+
+If you have a ZEO cluster you can have one ZEO client reserved for command line
+processing. Cron job will run scripts through this ZEO client.
+
+Alternatively, you can use 
+
+* cron to call localhost URL using curl or wget UNIX commands
+
+* Use Zope clock daemon
+
+.. note ::
+
+        For long running batch processes it is must that you run your
+        site in ZEO mode. Otherwise the batch job will block the site 
+        access for the duration of the batch job transaction. 
+        If the batch job takes long to process the site might
+        be unavaible for the visitors for a long period.
+
 	
 Scripting context
 -----------------
