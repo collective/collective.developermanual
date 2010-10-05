@@ -60,6 +60,23 @@ Example::
 
     context.plone_log("This is so fun")
 
+Forcing log level and output
+----------------------------
+
+The following snippet forces the log level of Python logging for the duration of the process
+by modifying the root logger object::
+
+        # Force application logging level to DEBUG and log output to stdout for all loggers
+        import sys, logging
+        
+        root_logger = logging.getLogger()
+        root_logger.setLevel(logging.DEBUG)
+        
+        handler = logging.StreamHandler(sys.stdout)
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        handler.setFormatter(formatter)
+        root_logger.addHandler(handler)
+
 
 
 
