@@ -19,32 +19,7 @@ Please read first
 
 * http://pypi.python.org/pypi/plone.recipe.varnish
 
-* http://varnish-cache.org/ 
-
-Varnish buildout restart snippet
---------------------------------
-
-The following snippet will restart a varnishd instance which has
-been started from *plone.recipe.varnish* buildout directly
-invoking ``bin/varnish-instance`` command.
-
-It will also create Apache compatible log file which you 
-can examinen using text editing tools by running
-``varnishncsa`` command which will read log data
-from Varnish memory mapped file and write it to 
-a text file in Apache format.
-
-
-Example::
-
-        #!/bin/sh
-        # Varnish restart script
-        sudo killall varnishd
-        sudo bin/varnish-instance
-        # Create Apache compatible log file
-        sudo kill `cat var/varnishncsa.pid`
-        sudo parts/varnish-build/bin/varnishncsa -D -d -a -w var/log/varnish.log -P var/varnishncsa.pid
-
+* http://varnish-cache.org/
 
 Management console
 ------------------
@@ -73,6 +48,83 @@ Purging the cache
 This will remove all entries from Varnish cache::
 
    url.purge .*
+
+
+Loading new VCL to live varnish daemon
+----------------------------------------
+
+More often than not it is beneficial to load new configuration without bringing the cache down for maintenance. 
+Using this method also checks the new VCL for syntax errors before activating it. 
+Logging in to Varnish CLI requires varnishadm tool, address of management interface and authentication secret file. 
+See varnishadm man-page for details.
+
+Opening new CLI connection::
+
+    varnishadm -T localhost:6082 -S /etc/varnish/secret
+
+The secret file’s location depends on your installation. Command for loading new VCL is::
+
+	vcl.load <name> <file>
+
+For example::
+
+	vcl.load newconf_1 /etc/varnish/newconf.vcl
+
+This will load and compile the new configuration. Compilation will fail and report on syntax errors. 
+Now that the new configuration has been loaded it can be activated with::
+
+	vcl.use newconf_1 
+
+Varnish buildout restart snippet
+--------------------------------
+
+The following snippet will restart a varnishd instance which has
+been started from *plone.recipe.varnish* buildout directly
+invoking ``bin/varnish-instance`` command.
+
+It will also create Apache compatible log file which you 
+can examinen using text editing tools by running
+``varnishncsa`` command which will read log data
+from Varnish memory mapped file and write it to 
+a text file in Apache format.
+
+
+Example::
+
+        #!/bin/sh
+        # Varnish restart script
+        sudo killall varnishd
+        sudo bin/varnish-instance
+        # Create Apache compatible log file
+        sudo kill `cat var/varnishncsa.pid`
+        sudo parts/varnish-build/bin/varnishncsa -D -d -a -w var/log/varnish.log -P var/varnishncsa.pid
+
+Virtual hosting 
+------------------
+
+If you want to map Varnish backend directly to Plone-as-a-virtualhost (Zope VirtualHostMonster
+is used to map site name to Plone site instance id) use req.url mutating.
+
+The following maps Plone site id *plonecommunity* to *plonecommunity.mobi* domain.
+Plone is a single Zope instance, running in port 9999.
+
+Example:: 
+
+	backend plonecommunity {
+	        .host = "127.0.0.1";
+	        .port = "9999";
+	}
+	
+	sub vcl_recv {
+	        if (req.http.host ~ "^(www.)?plonecommunity.mobi(:[0-9]+)?$"
+	            || req.http.host ~ "^plonecommunity.mfabrik.com(:[0-9]+)?$") {
+	
+	                set req.backend = plonecommunity 
+	                set req.url = "/VirtualHostBase/http/plonecommunity.mobi:80/plonecommunity/VirtualHostRoot" req.url;
+	                set req.backend = plonecommunity;
+	        }
+	}
+	
 
 Varnish and I18N
 -----------------
