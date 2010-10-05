@@ -160,35 +160,68 @@ Spoofing HTTP request
 When running from command-line, HTTP request object is not available.
 Some Zope code might expect this and you need to spoof the request.
 
-Example how to create a dummy request (collective.mountpoint package)::
-
-    def spoofRequest(self, site):
+Below is an example command line script which set-ups faux HTTP request
+and portal_skins skin layers::
+        
         """
-        Some broken code may the existence of HTTPRequest object via acquisition.
+            
+            Command-line script to be run from a ZEO client:
+            
+            
+            bin/command-line-client src/yourcode/mirror.py
         
-        Note that you can use environment variables given on the command-line to control
-        the possible request parameters.
-        
-        @param site: Plone site object
         """
-        from ZPublisher.HTTPRequest import HTTPRequest
         
-        # Fake HTTP request input
-        stdin = StringIO("")
-                
-        request = HTTPRequest(stdin=stdin, environ=os.environ, response=FauxResponse())                
+        import os
+        from os import environ
+        from StringIO import StringIO
+        import logging
         
-        site.REQUEST = request 
+        from AccessControl.SecurityManagement import newSecurityManager 
+        from AccessControl.SecurityManager import setSecurityPolicy 
+        from Testing.makerequest import makerequest 
+        from Products.CMFCore.tests.base.security import PermissiveSecurityPolicy, OmnipotentUser 
         
-You can set HTTP request parameters in command-line script.
+        # Force application logging level to DEBUG and log output to stdout for all loggers
+        import sys, logging
+        
+        root_logger = logging.getLogger()
+        root_logger.setLevel(logging.DEBUG)
+        
+        handler = logging.StreamHandler(sys.stdout)
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        handler.setFormatter(formatter)
+        root_logger.addHandler(handler)
+        
+        def spoofRequest(app):    
+            """
+            Make REQUEST variable to be available on the Zope application server.
+            
+            This allows acquisition to work properly
+            """
+            _policy=PermissiveSecurityPolicy() 
+            _oldpolicy=setSecurityPolicy(_policy) 
+            newSecurityManager(None, OmnipotentUser().__of__(app.acl_users)) 
+            return makerequest(app)
+        
+        # Enable Faux HTTP request object
+        app= spoofRequest(app)
+        
+        # Get Pllone site object from Zope application server root 
+        site = app.unrestrictedTraverse("yoursiteid")
+        site.setupCurrentSkin(app.REQUEST)
+        
+        # Call External Method defined in the skins layers
+        # Note that native python __getattr__ traversing does not work... you must access things using unrestrictedTraverse()
+        # You could also use @@viewname for browserviews
+        script = site.unrestrictedTraverse("someScriptName")
+        script()
 
-.. code-block:: sh
 
-	SERVER_NAME=www.mysite.fi
-	SERVER_PORT=9445
-	export SERVER_NAME
-	export SERVER_PORT
-	bin/client2 run src/collective.mountpoint/collective/mountpoint/bin/update.py mysite
+	
+More info
+
+* http://wiki.zope.org/zope2/HowToFakeREQUESTInDebugger
 
 screen
 ------
