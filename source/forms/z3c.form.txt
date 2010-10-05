@@ -141,9 +141,33 @@ Fields are created by adapting one or more zope.schema fields for z3c.form using
 
 Example of creating one field::
 
-        schema_field = zope.schema.TextLine()
-        form_fields = z3c.form.field.Fields(schema_field)
-        one_form_field = zfields.values()[0]
+    import zope.schema
+    import z3c.form.field
+
+
+     schema_field = zope.schema.TextLine()
+     form_fields = z3c.form.field.Fields(schema_field)
+
+     # This is a reference to newly created z3c.form.field.Field object
+     one_form_field = zfields.values()[0]
+        
+Another example::
+
+    import zope.schema
+    import z3c.form.field
+    
+    ...
+    
+    field = zope.schema.Bool(__name__ = "death_autofill", 
+                             title=_(u"Fill missing timepoints"), 
+                             description=_(u"Automatically fill information in missing timepoints if they occur after the death time"),
+                             required=False,
+                             default=True)
+    # Construct z3c.form field
+    fields_objects = z3c.form.field.Fields(field)
+    
+    # We can perform autofill only if we know the treatment time
+    form.fields += fields_objects        
 
 Adding a field to a form
 ========================
