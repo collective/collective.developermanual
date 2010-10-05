@@ -525,10 +525,15 @@ You can query by language::
 
         Products.LinguaPlone must be installed.
 
-Combining queries using Boolean operators
+Boolean queries (AdvancedQuery)
 -----------------------------------------
 
-See AdvancedQuery_.
+AdvancedQuery is an add-on product for Zope's ZCatalog providing queries
+using boolean logic. AdvancedQuery is developer level product,
+providing Python interface for constructing boolean queries.
+
+AdvancedQuery monkey-patches ``portal_catalog`` to provide
+new method ``portal_catalog.evalAdvancedQuery()``. 
 
 Example::
 
@@ -562,6 +567,23 @@ Example::
     query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 
     return self.context.portal_catalog.evalAdvancedQuery(query)
+    
+.. note ::
+
+	Plone 3 ships with AdvancedQuery but it is not part of Plone. Always declare
+	AdvancedQuery dependency in your egg's setup.py install_requires.
+	
+.. warning ::
+
+	AdvancedQuery does not necessarily apply the same automatic limitations which normal
+	portal_catalog() queries do, like language and expiration date.
+	Always check your query code against these limitations.	 
+
+More information
+
+* See AdvancedQuery_.
+
+* http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/removed-advanced-query
 
 Sorting results
 ---------------
