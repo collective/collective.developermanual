@@ -106,7 +106,9 @@ Plone 4. This is a fast method::
     
 .. warning::
 
-        objectIds() and keys() will return ids for Zope 2 objects too, not just content.
+        objectIds() and keys() will return ids for raw Zope 2 objects too, not just Plone content.
+        If you run objectIds() in portal root, you will get objects like acl_users,
+        portal_workflow and so on...
 
 Getting non-contentish Zope objects
 -------------------------------------

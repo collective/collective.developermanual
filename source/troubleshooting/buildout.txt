@@ -247,4 +247,34 @@ Solution::
         
         rm -rf fake-eggs/*
         bin/buildout install zope2
-        bin/buildout               
+        bin/buildout            
+        
+ImportError: No module named lxml
+---------------------------------
+
+lxml as a PyPi package dependency fails even though it is clearly installed.
+
+Example traceback when running buildout::
+
+        ...
+        Processing openxmllib-1.0.6.tar.gz 
+        <snip Unpacking... > 
+        Running openxmllib-1.0.6/setup.py bdist_egg --dist-dir /tmp/easy_install-Urh6x4/openxmllib-1.0.6/egg-dist-tmp-ju0TuT 
+        Traceback (most recent call last): 
+        <snip Traceback... > 
+          File "setup.py", line 5, in <module> 
+          File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/__init__.py", line 17, in <module> 
+          File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/wordprocessing.py", line 5, in <module> 
+          File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/document.py", line 14, in <module>
+        ImportError: No module named lxml 
+        An error occured when trying to install openxmllib 1.0.6. Look above this message for any errors that were output by easy_install. 
+        While: 
+          Installing plone-core-addons. 
+          Getting distribution for 'openxmllib>=1.0.6'. 
+        Error: Couldn't install: openxmllib 1.0.6 
+
+Solution: not known currently        
+
+More information
+
+* http://plone.293351.n2.nabble.com/lxml-installs-but-Products-OpenXml-openxmllib-can-t-see-it-tp5565184p5565184.html           
