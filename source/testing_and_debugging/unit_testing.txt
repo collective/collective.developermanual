@@ -16,7 +16,7 @@ are designed to catch broken functionality over the code evolution.
 Running unit tests
 -------------------
 
-Since Plone 3, ``zc.testrunner`` is recommended to use to run the test suites.
+Since Plone 4, ``zc.testrunner`` is recommended to use to run the test suites.
 You need to add it to your ``buildout.cfg`` to generate ``test`` command::
 
         parts = 
@@ -28,6 +28,11 @@ You need to add it to your ``buildout.cfg`` to generate ``test`` command::
         defaults = ['--auto-color', '--auto-progress']
         eggs = 
             ${instance:eggs}
+            
+.. note ::
+
+        On Plone 3 you can run tests with "bin/instance test"
+        command, which corresponds "bin/test".             
 
 
 Running tests for one package
@@ -40,13 +45,13 @@ Running tests for one test case
 
 .. highlight:: console
 
-    bin/instance test -s package.subpackage -t TestCaseClassName
+    bin/test -s package.subpackage -t TestCaseClassName
     
 Running tests for two test cases
 
 .. highlight:: console
 
-	 bin/instance test -s package.subpackage -t TestClass1|TestClass2    
+    bin/test -s package.subpackage -t TestClass1|TestClass2    
 
 To drop in pdb debugger after each test failure
 
