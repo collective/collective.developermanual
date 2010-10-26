@@ -277,4 +277,36 @@ Solution: not known currently
 
 More information
 
-* http://plone.293351.n2.nabble.com/lxml-installs-but-Products-OpenXml-openxmllib-can-t-see-it-tp5565184p5565184.html           
+* http://plone.293351.n2.nabble.com/lxml-installs-but-Products-OpenXml-openxmllib-can-t-see-it-tp5565184p5565184.html
+
+UnknownExtra: zope.i18n 3.4.0 has no such extra feature 'zcml'
+--------------------------------------------------------------
+
+Traceback::
+
+        An internal error occured due to a bug in either zc.buildout or in a
+        recipe being used:
+        Traceback (most recent call last):
+          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1660, in main
+            getattr(buildout, command)(args)
+          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 416, in install
+            [self[part]['recipe'] for part in install_parts]
+          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 964, in __getitem__
+            options._initialize()
+          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1048, in _initialize
+            recipe_class = _install_and_load(reqs, 'zc.buildout', entry, buildout)
+          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1004, in _install_and_load
+            allow_hosts=buildout._allow_hosts
+          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/easy_install.py", line 800, in install
+            return installer.install(specs, working_set)
+          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/easy_install.py", line 660, in install
+            ws.resolve(requirements)
+          File "/Users/moo/code/gomobile/eggs/distribute-0.6.14-py2.6.egg/pkg_resources.py", line 557, in resolve
+            requirements.extend(dist.requires(req.extras)[::-1])
+          File "/Users/moo/code/gomobile/eggs/distribute-0.6.14-py2.6.egg/pkg_resources.py", line 2180, in requires
+            "%s has no such extra feature %r" % (self, ext)
+        UnknownExtra: zope.i18n 3.4.0 has no such extra feature 'zcml'
+                                   
+Solution: Check that you have correct Dexteriry pindowns / Known Good Set of versions
+
+                  
