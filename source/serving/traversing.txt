@@ -179,6 +179,27 @@ Example::
             
             return "/" + "/".join(relative_path)             
 
+Getting canonical object (breadcrumbs, visual path)
+====================================================
+
+Visual path is presented in the breadcrumbs. It is how 
+the site visitor sees the object path.
+
+It may differ from the physical path
+
+* Default content item is not shown in the visual path
+
+* Default view is not shown in the visual path
+
+Canonical object is the context object which the user sees from 
+the request URL:
+
+Example::
+
+        context_helper = getMultiAdapter((context, self.request), name="plone_context_state")
+        canonical = context_helper.canonical_object()
+
+
 Getting object URL
 ------------------
 
