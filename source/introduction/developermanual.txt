@@ -38,7 +38,7 @@ collective.developermanual contains :doc:`buildout.cfg recipes </tutorials/build
 
 * Compile manual to HTML
 
-* Upload manual to a Plone site (bin/upload-sphinx-docs script and transmogrify source packages) 
+* Upload manual to a Plone site (bin/toplone script and transmogrify source packages) 
 
 Upload does not need any special support from Plone site to accept Sphinx documentation
 (besides installing Plone Help Center, but pipeline can be configured to use Folders and Pages
@@ -133,12 +133,12 @@ Use Sphinx makefile::
 Running upload
 ================
 
-Buildout generates *bin/upload-sphinx-docs* command-line script.
+Buildout generates *bin/toplone* command-line script.
 
 Example how to upload to a local Plone instance::
 
         make clean html
-        bin/upload-sphinx-docs http://admin:admin@localhost:5011/foobar/knowledge-base/test/
+        bin/toplone http://admin:admin@localhost:5011/foobar/knowledge-base/test/
         
 Upload script will
 
@@ -148,7 +148,7 @@ Upload script will
   given on the command line 
 
 * Crawl Sphinx documentation and extract title, description and body text of each page.
-  In theory you could crawl any remote web site for this. ``upload-sphinx-docs`` script is 
+  In theory you could crawl any remote web site for this. ``toplone`` script is 
   created to crawl local documentation only.
 
 * Create Plone Help Center content items at the remote Plone instance using Zope's XML-RPC
