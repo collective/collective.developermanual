@@ -11,21 +11,14 @@ Querying
 Introduction
 ------------------------
 
-Quering is action to retrieve data from search indexes.
+Quering is the action to retrieve data from search indexes.
 On Plone's case this usually means querying content items using ``portal_catalog`` tool. 
 Plone uses :doc:`portal_catalog </searching_and_indexing/catalog>` tool to perform most of content related
 queries. Special catalogs, like ``reference_catalog``, exists, for specialized and optimized queries.
 
-Performance
-------------------------
 
-The following community mailing list blog posts is very insightful about the performance characteristics
-of Plone search and indexing:
-
-* http://plone.293351.n2.nabble.com/Advice-for-site-with-very-large-number-of-objects-millions-tp5513207p5529103.html
-
-Accesing portal catalog
-------------------------------
+Accesing the portal catalog tool
+---------------------------------
 
 Plone queries are performed using portal_catalog tool which is available at the site root.
 
@@ -35,7 +28,7 @@ Example::
     portal_catalog = site.portal_catalog
         
 You can also use :doc:`ITools </misc/context>` tool to get access to portal_catalog
-if you do not have Plone site object directly availble::
+if you do not have Plone site object directly available::
 
     context = aq_inner(self.context)
     tools = getMultiAdapter((context, self.request), name=u'plone_tools')
@@ -52,61 +45,128 @@ as this includes extra processing overhead::
 
     <div tal:define="portal_catalog context/portal_catalog" />
  
+
+A safer method is to use the getToolByName helper function::
+
+    from Products.CMFCore.utils import getToolByName
+    catalog = getToolByName(context, 'portal_catalog')
+
 Querying portal_catalog
 ------------------------------------------------
 
-Calling this persistent objectis a shortcut
-to query method itself, as it provides __call__() method.
-Each call argument is name of the index and argument value is what the index should contain:: 
 
-    # The following call does not return the actual objects,
-    # but brains instead
-    # The call takes list of indices and match values as arguments
-    brains = portal_catalog(creator="Get all objects with Title "Foobar")
-    for brain in brains:
-        print "Name:" + brain["Title"] + " URL:" + brain.getURL()
+To search for something and get the resulting brains, write:
 
-Note that values can be special depending, on the queried index. 
-Here is a path query::
+::
 
-    # return myfolder and first level of child content
-    brains = portal_catalog(path={ "query": "/myploneinstance/myfolder", depth : 2}) 
+    results = catalog.searchResults(**kwargs)
+
+
+Where ``kwargs`` is a dictionary of index names and their
+associated query values. Only the indexes that you care about need
+to be included. This is really useful if you have variable
+searching criteria, for example, coming from a form where the users
+can select different fields to search for. For example:
+
+::
+
+    results = catalog.searchResults({'portal_type': 'Event', 'review_state': 'pending'})
+
+It is worth pointing out at this point that the indexes that you
+include are treated as a logical AND, rather than OR. In other
+words, the query above will find all the items that are both an
+Event, AND in the review state of pending.
+
+Additionally, you can call the catalog tool directly, which is
+equivalent to calling ``catalog.searchResults()``:
+
+::
+
+    results = catalog(portal_type='Event')
+
 
 If you call portal_catalog() without arguments it will return all indexed content objects::
 
         # Print all content on the site
-        all_brains = portal_catalog()
+        all_brains = catalog()
         for brain in all_brains:
                 print "Name:" + brain["Title"] + " URL:" + brain.getURL()
 
-Limiting query (batching)
-------------------------------------------------
 
-You can use Python slice operator.
-``portal_catalog()`` call returns a lazy list of 
-result place holders, so all calls to portal_catalog() with same parameters should 
-have the same cost.
+The catalog tool queries return an iterable of catalog brain objects.
 
-Example: getting 10 latest modified content items on the site::
+As mentioned previously, brains contain a subset of the actual content
+object information. The available subset is defined by the metadata
+columns in portal_catalog. You can see available metadata columns on
+the portal_catalog "Metadata" tab in ZMI. For more information, see :doc:`indexing </searching_and_indexing/indexing>`.
 
-    brains = portal_catalog(sort_on="modified", sort_order="reverse")[0:10]
-    for brain in brains:
-        print brain["Title"] + " " + brain["ModificationDate"]
-         
-Brain objects
--------------
 
-portal_catalog queries return iterable of catalog brain objects.
+Available indexes
+~~~~~~~~~~~~~~~~~
 
-Brains contain subset of the actual content object information. Available subset is defined
-by metadata columns in portal_catalog. You can see available metadata
-columns on portal_catalog "Metadata" in ZMI. For more information, see :doc:`indexing </searching_and_indexing/indexing>`.
+To see the full list of available indexes in your catalog, open the
+ZMI (what usually means navigating to *http://yoursiteURL/manage*)
+look for the *portal\_catalog* object tool into the root of your
+Plone site and check the *Indexes* tab. Note that there are
+different types of indexes, and each one admits different types of
+search parameters, and behave differently. For example,
+*FieldIndex* and *KeywordIndex* support sorting, but *ZCTextIndex*
+doesn't. To learn more about indexes, see
+`The Zope Book, Searching and Categorizing Content <http://docs.zope.org/zope2/zope2book/SearchingZCatalog.html>`_.
 
-You can access the brain object information by index name using Python dictionary look-up::
+Some of the most commonly used ones are:
 
-    # Get the indexed Title of an portal_catalog entry i.e. brain
-    title = brain["Title"]
-    
+Title
+    The title of the content object.
+Description 
+    The description field of the content.
+Subject 
+    The keywords used to categorize the content. Example:
+    ::
+
+        catalog.searchResults(Subject=('cats', 'dogs'))
+
+portal\_type 
+    As its name suggest, search for content whose portal type is
+    indicated. For example:
+    ::
+
+        catalog.searchResults(portal_type='News Item')
+
+    You can also specify several types using a list or tuple format:
+
+    ::
+
+        catalog.searchResults(portal_type=('News Item', 'Event'))
+
+review\_state 
+    The current workflow review state of the content. For example:
+    ::
+
+        catalog.searchResults(review_state='pending')
+
+object\_provides
+    From Plone 3, you can search by the interface provided by the
+    content. Example:
+    ::
+
+        from Products.MyProduct.path.to import IIsCauseForCelebration
+        catalog(object_provides=IIsCauseForCelebration.__identifier__)
+
+    Searching for interfaces can have some benefits. Suppose you have
+    several types, for example, event types like *Birthday*, *Wedding*
+    and *Graduation*, in your portal which implement the same interface
+    (for example, ``IIsCauseForCelebration``). Suppose you want to get
+    items of these types from the catalog by their interface. This is
+    more exact than naming the types explicitly (like
+    portal\_type=['Birthday','Wedding','Graduation' ]), because you
+    don't really care what the types' names really are: all you really
+    care for is the interface.
+    This has the additional advantage that if products added or
+    modified later add types which implement the interface, these new
+    types will also show up in your query.
+
+
 Brain result id
 ------------------------
 
@@ -121,8 +181,8 @@ Example::
 Brain object schema
 ------------------------
 
-To see what metadata columns a brain object contain, you can access this information
-from ``__record_schema__`` attribute which is a dict.   
+To see what metadata columns a brain object contain, you can access
+this information from ``__record_schema__`` attribute which is a dict.
 
 Example::
 
@@ -140,31 +200,97 @@ Example::
 
 .. note::
 
-        TODO: What those numbers represent?
+        TODO: What do those numbers represent?
 
-Getting the real object
-------------------------
 
-portal_catalog() query returns indexed brain objects.
-If you want to get the actual object, from which the search data was indexed,
-use the following:: 
+Getting the underlying object, its path, and its URL from a brain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    # Load the actual object from the database (SLOW!)
-    # and modify it
-    object = brain.getObject()
-    object.setSomething("foobar")
+As it was said earlier, searching inside the catalog returns
+catalog brains, not the object themselves. If you want to get the
+object associated with a brain, do:
+
+::
+
+    brain.getObject()
+
+To get the path of the object without fetching it:
+
+::
+
+    brain.getPath()
+
+which is equivalent to ``obj.getPhysicalPath()``.
+
+And finally, to get the URL of the underlying object, usually to
+provide a link to it:
+
+::
+
+    brain.getURL()
+
+which is equivalent to ``obj.absolute_url()``.
 
 .. note::
 
-        Calling getObject() has performance implications. Waking up each object needs a separate query
-        to the database.      
-        
+        Calling getObject() has performance implications. Waking up
+        each object needs a separate query to the database.
+
+Sorting and limiting the number of results
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To sort the results, use the sort\_on and sort\_order arguments.
+The sort\_on argument accepts any available index, even if you're
+not searching by it. The sort\_order can be either 'ascending' or
+'descending', where 'ascending' means from A to Z for a text field.
+'reverse' is an alias equivalent to 'descending'. For example:
+
+::
+
+    results = catalog_searchResults(Description='Plone documentation', 
+                                    sort_on='sortable_title', sort_order='ascending')
+
+The catalog.searchResults() returns a list-like object, so to limit
+the number of results you can just use Python's slicing. For
+example, to get only the first 3 items:
+
+::
+
+    results = catalog.searchResults(Description='Plone documentation')[:3]
+
+In addition, ZCatalogs allow a sort\_limit argument. The
+sort\_limit is only a hint for the search algorhitms and can
+potentially return a few more items, so it's preferable to use both
+``sort_limit`` and slicing simultaneously:
+
+::
+
+    limit = 50
+    results = catalog.searchResults(Description='Plone documentation', 
+                                    sort_limit=limit)[:limit]
+
+
+portal_catalog query takes *sort_on* argument which tells the index used for sorting.
+*sort_order* defines sort direction. It can be string "reverse".
+
+Sorting is supported only on FieldIndexes.
+Due to nature of searchable text indexes (they index split text, not strings) they
+cannot be used for sorting. For example, to do sorting by title, an index
+called *sortable_tite* should be used.
+
+Example how to sort by id::
+
+    results = context.portal_catalog.searchResults(sort_on="id",
+                                                   portal_type="Document",
+                                                   sort_order="reverse")
+
+
 getObject() and unrestrictedSearchResults()
 ++++++++++++++++++++++++++++++++++++++++++++
 
-You cannot call getObject() for restricted result, even in trusted code.
+You cannot call getObject() for a restricted result, even in trusted code.
 
-Instead you need to use::
+Instead, you need to use::
 
         unrestrictedTraverse(brain.getPath())
 
@@ -175,31 +301,14 @@ Instead you need to use::
 For more information, see
 
 * http://www.mail-archive.com/zope-dev@zope.org/msg17514.html
-    
-URL of item
-------------------------
-
-Example::
-
-    # Return object absolute_url()
-    url = brain.getURL()
-    
-Path of item
-------------------------
-
-Example::
-
-    # Return object physical path (in the database) -
-    # this will include Plone site id inside Zope application server
-    path = brain.getPath()
 
 
 Text format
 ------------------------
 
 Since most indexes use Archetypes accessors to index the field value,
-the returned text is UTF-8 encoded. This is limitations
-inherid from the early ages of Plone.
+the returned text is UTF-8 encoded. This is a limitation
+inherited from the early ages of Plone.
 
 To get unicode value for e.g. title you need to do the following::
 
@@ -288,7 +397,8 @@ Bypassing query security check
 
         Security: All portal_catalog queries are limited to the current user permissions by default.
 
-If you want to bypass this restrictions, use method unrestrictedSearchResults().
+If you want to bypass this restrictions, use the
+unrestrictedSearchResults() method.
 
 Example::
 
@@ -301,25 +411,25 @@ Bypassing language check
 .. note::
 
         All portal_catalog() queries are limited to the selected language of
-        current user. You specially need to bypass language check if you
+        current user. You need to explicitly bypass the language check if you
         want to do multilingual queries.
         
-Example how to bypass language check::
-    
+Example of how to bypass language check::
+
     all = portal_catalog(language="all")
     
     
 Expired content check
 --------------------------------
 
-Plone and portal_catalog has a mechanism to list only 
+Plone and portal_catalog have a mechanism to list only 
 active (non-expired) content by default.
 
-Below is an example how the expired content check is made::
+Below is an example of how the expired content check is made::
 
         mtool = context.portal_membership
         show_inactive = mtool.checkPermission('Access inactive portal content', context)
-        
+
         contents = context.portal_catalog.queryCatalog(show_inactive=show_inactive)
               
 See also::
@@ -338,18 +448,49 @@ None as query parameter
         
         Querying for None values is possible with AdvancedQuery_ (see below). 
 
-              
+
 Querying by path
 ----------------
 
 ExtendedPathIndex_ is the index used for content object paths.
-Path index stores the physical path of the objects.
+The *path* index stores the physical path of the objects.
 
-** Warning: ** If you ever rename your Plone site instance, path index needs to be rebuild.
+** Warning: ** If you ever rename your Plone site instance, the path
+   index needs to be completely rebuilt.
 
 Example::
 
     portal_catalog(path={ "query": "/myploneinstance/myfolder" }) # return myfolder and all child content
+
+Searching for content within a folder
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the 'path' argument to specify the physical path to the folder
+you want to search into.
+
+By default, this will match objects into the specified folder and
+all existing sub-folders. To change this behaviour, pass a
+dictionary with the keys 'query' and 'depth' to the 'path'
+argument, where
+
+
+-  'query' is the physical path, and 
+-  'depth' can be either 0, which will return only the brain for
+   the path queried against, or some number greater, which will query
+   all items down to that depth (eg, 1 means searching just inside the
+   specified folder, or 2, which means searching inside the folder,
+   and inside all child folders, etc).
+
+The most common use case is listing the contents of an existing
+folder, which we'll assume to be the ``context`` object in this
+example:
+
+::
+
+    folder_path = '/'.join(context.getPhysicalPath())
+    results = catalog(path={'query': folder_path, 'depth': 1})
+
+
 
 Query multiple values
 ---------------------
@@ -585,22 +726,7 @@ More information
 
 * http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/removed-advanced-query
 
-Sorting results
----------------
 
-portal_catalog query takes *sort_on* argument which tells the index used for sorting.
-*sort_order* defines sort direction. It can be string "reverse".
-
-Sorting is supported only on FieldIndexes.
-Due to nature of searchable text indexes (they index split text, not strings) they
-cannot be used for sorting. For example, to do sorting by title, an index
-called *sortable_tite* should be used.
-
-Example how to sort by id::
-
-    results = context.portal_catalog.searchResults(sort_on="id",
-                                                   portal_type="Document",
-                                                   sort_order="reverse")
 
 Unique values
 -------------
@@ -617,6 +743,16 @@ Example::
     # The following line gives all area values
     # inputted on the site.
     areas = portal_catalog.uniqueValuesFor("getArea")
+
+
+Performance
+------------------------
+
+The following community mailing list blog posts is very insightful about the performance characteristics
+of Plone search and indexing:
+
+* http://plone.293351.n2.nabble.com/Advice-for-site-with-very-large-number-of-objects-millions-tp5513207p5529103.html
+
 
 
 * `Indexing tutorial <http://plone.org/documentation/tutorial/using-portal_catalog/tutorial-all-pages>`_ on plone.org

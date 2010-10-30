@@ -9,28 +9,62 @@ Indexes and metadata
 
 .. contents :: :local:
 
-Introduction
-------------
+What does indexing mean?
+-------------------------
 
-Indexing is action to make object data searchable.
+Indexing is the action to make object data searchable.
 Plone stores available indexes in the database.
 You can create them through-the-web and inspect existing indexes
 in portal_catalog on Index tab.
 
-Indexes and metadata
---------------------
+The Catalog Tool can be configured through the ZMI or
+programatically in Python but current best practice in the CMF
+world is to use GenericSetup to configure it using the declarative
+*catalog.xml* file. The GenericSetup profile for Plone, for
+example, uses the *CMFPlone/profiles/default/catalog.xml* XML data
+file to configure the Catalog Tool when a Plone site is created. It
+is fairly readable so taking a quick look through it can be very
+informative.
 
-portal_catalog does subset of object field as a copy and makes them searchable.
+When using a GenericSetup extension profile to customize the
+Catalog Tool** in your portal, you only need to include XML for the
+pieces of the catalog you are changing. To add an index for the
+Archetypes location field, as in the example above, a policy
+package could include the following
+*profiles/default/catalog.xml*:
 
-* Indexes make content searchable: Indexes are are stored values which are used to match queries. Indexed might be preprocessed
-  to make the matching possible. For example, full text search indices run incoming text output
-  through splitters and such filters to generate fast searchable data out of it.  
+::
 
-* Metadata make content summariable: 
-  Metadata, also known as columns, are stored values which can be displayed to the user with the search hit. 
-  They usually copy the field value as is. 
+        <?xml version="1.0"?>
+        <object name="portal_catalog" meta_type="Plone Catalog Tool">
+         <index name="location" meta_type="FieldIndex">
+          <indexed_attr value="location"/>
+         </index>
+        </object>
 
-Metadata can exist without index and vice versa.
+The GenericSetup import handler for the Catalog Tool also supports
+removing indexes from the catalog if present using the "remove"
+attribute of the *<index>* element. To remove the "start" and "end"
+indexes used for events, for example, a policy package could
+include the following *profiles/default/catalog.xml*:
+
+::
+
+        <?xml version="1.0"?>
+        <object name="portal_catalog" meta_type="Plone Catalog Tool">
+         <index name="start" remove="True" />
+         <index name="end" remove="True" />
+        </object>
+
+.. admonition:: Warning
+
+      Care must be taken when setting up indexes with GenericSetup - if
+      the import step for a *catalog.xml* is run a second time (for example
+      when you reinstall the product), the indexes specified will be
+      destroyed, losing all currently indexed entries, and then re-created
+      fresh (and empty!). If you want to workaround this behaviour, you can
+      either update the catalog afterwards or add the indexes yourself in
+      Python code using a custom import handler.
 
 
 Viewing indexes and indexed data
@@ -179,125 +213,69 @@ For more information see
 Custom index methods
 ====================
 
-`plone.indexer <http://pypi.python.org/pypi/plone.indexer>`_ package provides method to create custom indexing functions.
-These methods can be retrofitted to content types you do not directly control
-e.g. you do not need to mess with class code.  
+The `plone.indexer <http://pypi.python.org/pypi/plone.indexer>`_ package provides method to create custom indexing functions.
 
-.. note ::
+Sometimes you want to index "virtual" attributes of an object
+computed from existing ones, or just want to customize the way
+certain attributes are indexed, for example, saving only the 10
+first characters of a field instead of its whole content.
 
-        This method is available since Plone 3.3.
+To do so in an elegant and flexible way, Plone>=3.3 includes a new
+package, `plone.indexer <http://pypi.python.org/pypi/plone.indexer>`_,
+which provides a series of primitives to delegate indexing operations
+to adapters.
 
-Indexing is defined as :doc:`adapter </components/adapters>` 
-for the content type marker interface(s)
-you wish it to index. You declare the adapter in your ZCML 
-(alternative ways exist).
+Let's say you have a content-type providing the interface
+``IMyType``. To define an indexer for your type which takes the
+first 10 characters from the body text, just type (assuming the
+attribute's name is 'text'):
 
-Example ZCML snippet:
+::
 
-.. code-block:: xml
+    from plone.indexer.decorator import indexer
 
-    <!-- Adapter name must match indexer name -->
-    <adapter 
-        name="recurrence_days"
-        factory=".indexing.recurrence_days"/>
+    @indexer(IMyType)
+    def mytype_description(object, **kw):
+         return object.text[:10]
+
+Finally, register this factory function as a named adapter using
+ZCML. Assuming you've put the code above into a file named
+``indexers.py``:
+
+::
+
+       <adapter name="description" factory=".indexers.mytype_description" />
+
+And that's all! Easy, wasn't it?
+
+Note you can omit the ``for`` attribute because you passed this to
+the ``@indexer`` decorator, and you can omit the ``provides``
+attribute because the thing returned by the decorator is actually a
+class providing the required ``IIndexer`` interface.
+
+To learn more about the *plone.indexer* package, read
+`its doctest`_.
+
+For more info about how to create content-types, refer to the
+`Archetypes Developer Manual`_.
+
+**Important note:** If you want to adapt a out-of-the-box
+Archetypes content-type like Event or News Item, take into account
+you will have to feed the ``indexer`` decorator with the Zope 3
+interfaces defined in ``Products.ATContentTypes.interface.*``
+files, not with the deprecated Zope 2 ones into the
+``Products.ATContentTypes.interfaces`` file.
 
 
-The easiest way to create an method which extracts the indexed
-value from the content item is using a function decorator
-from ``plone.indexer`` package.
 
-.. code-block:: python
-
-        """
-        
-            Create recurrence_days index for vs.event content types
-        
-        """
-        
-        # Python imports
-        import logging 
-        
-        # Zope imports
-        import Missing
-        import zope.interface
-        from zope.component import ComponentLookupError
-        
-        # Plone imports
-        from Products.CMFPlone.CatalogTool import registerIndexableAttribute
-        from plone.indexer.decorator import indexer
-        
-        # Custom imports
-        from dateable import kalends
-        from vs.event.interfaces import IVSEvent
-        
-        # Do some logging from the indexer
-        logger = logging.getLogger("vs.event")
-        
-        # Define which content items are indexed by a marker interface
-        # use zope.interface.Interface here if you want to match any Plone content item
-        @indexer(zope.interface.Interface) 
-        def recurrence_days(object):
-            """ Index the dates of recurrences as ordinals.
-            
-            Matches all VS.event content types and their subclasses
-            which implement IVSEvent interface.
-            
-            This is called when
-            
-            * vs.event AT content type is saved and reindexObject() is called
-            
-            * portal_catalog rebuild is performed
-        
-            @param object: Indexed content item
-            
-            @return: Value to be stored on the index (format depends on the index type)
-            
-            ..note::
-                
-                Indexer swallows all raised exceptions silently.
-            """
-        
-            # Some debug output to know whether our indexer was
-            # called on save or not
-            # Note: The default Plone log level is INFO, not DEBUG
-            logger.debug("Indexing recurrence_days")
-        
-            try:
-                # Get an adapter to extract recurrency information
-                # from the content item
-                # via Zope adapter look-up.
-                # (apply IRecurrenct interface for IVSEvent object and
-                # this results of adapter factory call)
-                recurrence = kalends.IRecurrence(object)
-                
-                # Index all days when this event happens 
-                # for upcoming 5 years.
-                
-                # This will return a list of dates converted to int objects
-                # to many hundres per content item...
-                return recurrence.getOccurrenceDays()
-            except (ComponentLookupError, TypeError, ValueError), e:
-        
-                # For some reason, our content type didn't support
-                # recurrency. Probably it is a vs.event subclass
-                # which disables this behavior.
-                
-                # Indexer exceptions will be failed silently...
-                # try do something about it
-                logger.error("Indexing vs.event failed")
-                logger.exception(e)
-                
-                # The catalog expects AttributeErrors when a value can't be found
-                # Use special Zope object to notify that the value is missing
-                # (this differs for None - we can index None as a value)
-                return Missing.Value
-
-When indexing happens
-----------------------------
+When indexing happens and how to reindex manually
+---------------------------------------------------
 
 Content item reindexing is run when 
 
-* The content item is edited (saved) 
+Plone calls reindexObject() if
+
+* The object is modified by the user using the standard edit forms
 
 * portal_catalog rebuild is run (from *Advanced* tab)
 
@@ -305,9 +283,39 @@ Content item reindexing is run when
   index you need to run :doc:`Rebuild catalog </searching_and_indexing/catalog>` 
   to get the existing values from content objects to new index.
 
-* You might also want to call :doc:`reindexObject() </searching_and_indexing/catalog>` method
-  manually in some cases 
-   
+* You might also want to call :doc:`reindexObject()
+  </searching_and_indexing/catalog>` method  manually in some
+  cases. This method is defined in the `ICatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/interfaces/_content.py?rev=91414&view=auto>`_ interface.
+
+
+
+You must call reindexObject() if you
+
+* Directly call object field mutators
+
+* Otherwise directly change object data
+
+.. warning::
+
+    **Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
+    If you modify the object yourself you are responsible to notify related catalogs about the new object data.
+
+
+reindexObject() method takes the optional argument *idxs* which will list the changed indexes.
+If idxs is not given, all related indexes are updated even though they were not changed.
+
+Example::
+
+    object.setTitle("Foobar")
+
+    # Object.reindexObject() method is called to reflect the changed data in portal_catalog.
+    # In our example, we change the title. The new title is not updated in the navigation,
+    # since the navigation tree and folder listing pulls object title from the catalog.
+
+    object.reindexObject(idxs=["Title"])
+
+Also, if you modify security related parameters (permissions), you need to call reindexObjectSecurity().
+
 
 Index types
 -----------
@@ -324,6 +332,7 @@ Zope 2 product PluginIndexes defines various portal_catalog index types used by 
 * ZCTextIndex is used for full text indexing
 
 * ExtendedPathIndex_ is used for indexing content object locations.
+
 
 Default Plone indexes and metadata columns
 ------------------------------------------
@@ -353,42 +362,6 @@ Some interesting columns
 * getIcon: Which content type icon is used for this object in the navigation
 
 * exclude_from_nav: If True the object won't appear in sitemap, navigation tree
-
-Indexing an object
-------------------
-
-.. warning::
-
-    **Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction).
-    If you modify the object yourself you are responsible to notify related catalogs about the new object data.
-
-Indexing an object is done by calling reindexObject() method. reindexObject() method is defined
-in `ICatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/interfaces/_content.py?rev=91414&view=auto>`_ interface.
-
-Plone calls reindexObject() if
-
-* The object is modified by the user using the standard edit forms
-
-You must call reindexObject() if you
-
-* Directly call object field mutators
-
-* Otherwise directly change object data
-
-reindexObject() method takes optional argument *idxs* which will list the changed indexes.
-If idxs is not given, all related indexes are updated even though they were not changed.
-
-Example::
-
-    object.setTitle("Foobar")
-
-    # Object.reindexObject() method is called to reflect the changed data in portal_catalog.
-    # In our example, we change the title. The new title is not updated in the navigation,
-    # since the navigation tree and folder listing pulls object title from the catalog.
-
-    object.reindexObject(idxs=["Title"])
-
-Also, if you modify security related parameters (permissions), you need to call reindexObjectSecurity().
 
 
 TextIndexNG3
@@ -506,6 +479,12 @@ Other
 
 * http://toutpt.wordpress.com/2008/12/14/archetype_tool-queuecatalog-becareful-with-indexing-with-plones-portal_catalog/
 
+
+
 .. _ExtendedPathIndex: https://svn.plone.org/svn/plone/Products.ExtendedPathIndex/trunk/README.txt
 
 .. _PluginxIndexes: http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/
+
+.. _its doctest: http://dev.plone.org/plone/browser/plone.indexer/trunk/plone/indexer/README.txt
+
+.. _Archetypes Developer Manual: http://plone.org/documentation/manual/developer-manual/archetypes
