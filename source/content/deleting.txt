@@ -43,4 +43,22 @@ Little tricky. An example:
         ids = list(ids)
         folder.manage_delObjects(ids)
 
+Bypassing link integrity check
+-------------------------------
+
+If link integrity check is on in the site setup, you cannot
+delete objects which themselves are link targets or their children 
+are link targets.
+
+Instead, a LinkIntegrityException is raised. The LinkIntegrityException
+constains information about objects referring to the content
+which is not allowed to delete.
+
+``plone.app.linkintegrity.browser.remote`` module contains
+code which allows you to delete the object in any case. 
+It catches the exception, modifies the HTTP request
+to contain a marker interface allowing delete to happen
+and then replays the transaction.
+
+
     
