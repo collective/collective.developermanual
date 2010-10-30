@@ -1,0 +1,11 @@
+===================
+PAS eats exceptions
+===================
+
+.. contents :: :local:
+
+A broken user folder is one of the worst things that can happen in Zope: it can make it impossible to access any objects underneath the user folders level.
+
+In order to secure itself against errors in plugins PAS ignores all exceptions of the common exception types: NameError, AttributeError, KeyError, TypeError and ValueError.
+
+This can make debugging plugins hard: an error in a plugin can be silently ignored if its exception is swallowed by PAS.
