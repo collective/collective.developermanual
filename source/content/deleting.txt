@@ -65,5 +65,12 @@ It catches the exception, modifies the HTTP request
 to contain a marker interface allowing delete to happen
 and then replays the transaction.
 
+In the case the link integrity check fails for manage_delObjects(),
+you will be shown a confirmation dialog. The orignal request payload
+gots pickled and is stored in HTML form as an encoded.
 
+When the user presses confirm, the orignal request gets unpickled
+from HTTP POST payload. Then the view modifies Zope publisher 
+so that it will play the orignal unpickled HTTP POST with the marker interface
+"Do not care about link integrity breaches" turned on.
     
