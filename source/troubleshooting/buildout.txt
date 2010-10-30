@@ -309,4 +309,29 @@ Traceback::
                                    
 Solution: Check that you have correct Dexteriry pindowns / Known Good Set of versions
 
-                  
+Can't run bootstrap.py - VersionConflict for zc.buildout
+------------------------------------------------------------
+
+Traceback when running ``python bootstrap.py``::
+
+        Traceback (most recent call last):
+          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/pdb.py", line 1283, in main
+            pdb._runscript(mainpyfile)
+          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/pdb.py", line 1202, in _runscript
+            self.run(statement)
+          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/bdb.py", line 368, in run
+            exec cmd in globals, locals
+          File "<string>", line 1, in <module>
+          File "bootstrap.py", line 256, in <module>
+            ws.require(requirement)
+          File "/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/distribute-0.6.8-py2.6.egg/pkg_resources.py", line 633, in require
+            needed = self.resolve(parse_requirements(requirements))
+          File "/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/distribute-0.6.8-py2.6.egg/pkg_resources.py", line 535, in resolve
+            raise VersionConflict(dist,req) # XXX put more info here
+        VersionConflict: (zc.buildout 1.5.0b2 (/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/zc.buildout-1.5.0b2-py2.6.egg), Requirement.parse('zc.buildout==1.5.2'))
+
+Solution: Update zc.buildout installed in your system Python::
+
+        easy_install -U zc.buildout
+        
+                          
