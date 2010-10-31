@@ -17,12 +17,13 @@ Test portal title::
 
 Test if view is protected::
 
-     def test_view_is_protected(self):
+    def test_view_is_protected(self):
         from AccessControl import Unauthorized
-	   self.logout()
-	   self.assertRaises(Unauthorized,
-		             self.portal.restrictedTraverse,
-                             '@@view-name')
+        self.logout()
+        self.assertRaises(
+            Unauthorized,
+            self.portal.restrictedTraverse,
+            '@@view-name')
 
 
 Test if object exists in folder::
@@ -33,18 +34,18 @@ Test if object exists in folder::
 
 Javascript registered::
 
-   def test_js_available(self):
-       jsreg = getattr(self.portal, 'portal_javascripts')
-       script_ids = jsreg.getResourceIds()
-       self.failUnless('my-js-file.js' in script_ids)
+    def test_js_available(self):
+        jsreg = getattr(self.portal, 'portal_javascripts')
+        script_ids = jsreg.getResourceIds()
+        self.failUnless('my-js-file.js' in script_ids)
 
 
 CSS registered::
 
-   def test_css_available(self):
-       cssreg = getattr(self.portal, 'portal_css')
-       stylesheets_ids = cssreg.getResourceIds()
-       self.failUnless('MyCSS.css' in stylesheets_ids)
+    def test_css_available(self):
+        cssreg = getattr(self.portal, 'portal_css')
+        stylesheets_ids = cssreg.getResourceIds()
+        self.failUnless('MyCSS.css' in stylesheets_ids)
 
 
 Test that a certain skin layer is present in portal_skins::

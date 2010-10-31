@@ -9,8 +9,7 @@ Additional resources
 Plone and buildout
 -------------------
 
-* http://maurits.vanrees.org/weblog/archive/2008/01/easily-creating-repeatable-buildouts 
-
+* http://maurits.vanrees.org/weblog/archive/2008/01/easily-creating-repeatable-buildouts
 
 Official Tutorial
 ------------------
@@ -22,7 +21,7 @@ Bit too hardcore for anyone except those creating their own build commands.
 Recipes
 --------
 
-Buildout consists of recipes. A recipe consists of 
+Buildout consists of recipes. A recipe consists of
 
 * Python package distributed in pypi.python.org
 
@@ -50,13 +49,13 @@ Plone buildout's have folderes which have predefined purposes
 
 * ``downloads/`` Python egg download cache (may be elsewhere depending on the system config)
 
-* ``var/`` database like data. Zope's Data.fs, 
+* ``var/`` database like data. Zope's Data.fs,
 
 * ``bootstrap.py`` - installs buildout command
 
 * ``buildout.cfg`` - basic buildout file. May extend other .cfg files. Sometimes there are many files
-  and you need to pick one for buildout command. E.g. ::
-  
+  and you need to pick one for buildout command. E.g.::
+
         bin/buildout -c production.cfg
 
 Running buildout behind proxy
@@ -104,17 +103,17 @@ Example::
 
         # Create a cache directory
         mkdir ~/python-egg-cache
-
+        
         # Set buildout cache directory for this shell session
         export PYTHON_EGG_CACHE=~/python-egg-cache
-        
+
 Buildout defaults
 =================
 
 You can set user wide buildout settings in the following file:: 
 
-	$HOME/.buildout/default.cfg        
-	
+        $HOME/.buildout/default.cfg
+
 This is especially useful if you are running many Plone development buildouts on your computer
 and you want them to share the same buildout egg cache settings.
 
@@ -137,7 +136,7 @@ You are either
 * Changing Python interpreter on the same computer
 
 First you need to clear existing eggs as they might contain binary compilations
-for wrong Python version or CPU architecture::
+for wrong Python version or CPU architecture
 
 .. code-block:: console
 
@@ -151,13 +150,13 @@ Buildout can be made aware of new Python interpreter by rerunning bootstrap.py.
 
         source ~/code/python/python-2.4/bin/activate
         python bootstrap.py
-        
+
 Then run buildout again and it will fetch all Python eggs for the new Python interpreter
 
 .. code-block:: console
         
         bin/buildout
-        
+
 Setting up Plone site from buildout.cfg and Data.fs
 ---------------------------------------------------
 
@@ -174,14 +173,14 @@ Below is an example process.
 Activate Python 2.6 for Plone (see :doc:`how to use virtualenv controlled non-system wide Python </tutorials/python>`::
 
         source ~/code/python/python-2.6/bin/activate
-        
+
 Install ZopeSkel templates which contains a buildout and folder structure template for Plone site (plone3_buildout 
 works also for Plone 4 as long as you type in the correct version when paster template engine asks for it)::
 
-         easy_install ZopeSkel # creates paster command under virtual bin/ folder and downloads Plone/Zope templates              
-         paster create -t plone3_buildout 
-
-
+        easy_install ZopeSkel # creates paster command under virtual bin/ folder and downloads Plone/Zope templates
+        paster create -t plone3_buildout 
+        
+        
         paster create -t plone3_buildout newprojectfoldername
         ...
         Selected and implied templates:
@@ -236,17 +235,16 @@ Setting LD_LIBRARY_PATH
 ``LD_LIBRARY_PATH`` is UNIX environment variable tell from which folders load native dynamic linked libraries (.so files).
 You might want to override your system-wide libraries, because operating systems may ship with old, incompatible, versions.                
 
-You can use ``environment-vars`` of `zope2instance <http://pypi.python.org/pypi/plone.recipe.zope2instance>´_ recipe.       
-       
-Example in buildout.cfg::
+You can use ``environment-vars`` of `zope2instance <http://pypi.python.org/pypi/plone.recipe.zope2instance>`_ recipe.
+
+Example in buildout.cfg
+
+.. code-block:: cfg
 
         [instance]
-
         # Use statically compiled libxml2
         environment-vars =
                 LD_LIBRARY_PATH ${buildout:directory}/parts/lxml/libxml2/lib:${buildout:directory}/parts/lxml/libxslt/lib
-    
-        
 
 Paste factory
 --------------
@@ -254,7 +252,7 @@ Paste factory
 Web based user interface to create different buildouts
 
 * http://pypi.python.org/pypi/collective.generic.webbuilder
-       
+
 Troubleshooting
 ----------------
 
