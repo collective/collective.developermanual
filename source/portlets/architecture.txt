@@ -8,8 +8,6 @@ Basic plone.portlets architecture
 
 .. contents :: :local:
 
-.. highlight:: console
-
 The use case
 ~~~~~~~~~~~~
 
@@ -223,7 +221,7 @@ the portlet in the Zope Component Architecture. In the package's
 *configure.zcml* file (or any other ZCML file included from it),
 write:
 
-::
+.. code-block:: xml
 
     <configure
         xmlns:five="http://namespaces.zope.org/five"
@@ -270,7 +268,7 @@ particular Plone site, use GenericSetup.
 First, register a new GenericSetup extension profile using a
 registerProfile ZCML directive:
 
-::
+.. code-block:: xml
 
     <configure
         xmlns:five="http://namespaces.zope.org/five"
@@ -304,7 +302,7 @@ registerProfile ZCML directive:
 Next, create the folder profiles/default and place a
 ``portlets.xml`` file inside with the following content:
 
-::
+.. code-block:: xml
 
     <?xml version="1.0"?>
     <portlets

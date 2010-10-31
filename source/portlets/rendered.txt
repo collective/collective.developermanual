@@ -10,15 +10,13 @@ How are portlets rendered?
 
 .. contents :: :local:
 
-.. highlight:: console
-
 Portlets are always rendered inside a portlet manager. From a
 template, we can ask a portlet manager to render itself and all its
 portlets. This is achieved using a *zope.contentprovider*
 'provider:' expression. In Plone's *main\_template*, for example,
 you will find:
 
-::
+.. code-block:: xml
 
     <tal:block replace="structure provider:plone.leftcolumn" />
 
