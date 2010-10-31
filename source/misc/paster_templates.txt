@@ -86,7 +86,7 @@ Template class
 ==============      
 
 Paster template is defined with a class referred from the entry point. 
-Here is an example how we extend the existing Plone template class::
+Here is an example how we extend the existing Plone template class
 
 Variables and asking for the user input
 =======================================
@@ -100,8 +100,8 @@ Examples
 
 .. note ::
 
-	ZopeSkel input definitions should work both on command line and on the web based generator.
-	
+    ZopeSkel input definitions should work both on command line and on the web based generator.
+
 Pre- and postcondition triggers
 ===============================
 
@@ -121,23 +121,23 @@ All templates should go to ``templates`` folder in your ZopeSkel extension names
 
 Filenames and folder names can contain variable substitues as::
 
-	templates/yourtemplatename/+namespace_package+/
-	
+    templates/yourtemplatename/+namespace_package+/
+
 will be mapped to::
 
-	yourcompany.package/yourcompany/ 		
-	
+    yourcompany.package/yourcompany/
+
 Template files
 ==============
 
 Files having special ``_tmpl`` extension will have string substitution performed on then.
 Paster supports `Cheetah templates <http://packages.python.org/Cheetah/users_guide/index.html>`_
- (default) and  
+(default) and
 `Python string templates <http://docs.python.org/release/2.5.2/lib/node40.html>`_
 
 Example:
 
-* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/templates/dexterity/setup.py_tmpl	
+* http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/templates/dexterity/setup.py_tmpl
 
 The best way to get the initial template files and folders for your add-on template is to
 checkout some existing ZopeSkel package, like *collective.dexteritypaste* and export its 
@@ -210,7 +210,7 @@ More information
 Escaping strings
 ++++++++++++++++
 
-If you have any page template (*.pt) files you need to templatetize you will
+If you have any page template (``*.pt``) files you need to templatetize you will
 encounter problem that both Cheetah and Zope Page Templates use the similiar
 string expansion syntax causing a conflict.
 
@@ -330,13 +330,13 @@ Testing the generated product
 =============================
 
 This checks that your template generates viable code.
-We use package called ``gomobiletheme.yourcompany``in this examples.
+We use package called ``gomobiletheme.yourcompany`` in this examples.
 
 Steps 
 
 Generate a product skeleton using ``paster`` in non-interactive mode
 
-.. highlight:: console
+.. code-block:: console
 
         rm -rf src/gomobiletheme.yourcompany ; bin/paster create --no-interactive -v -f -o src -t gomobile_theme gomobiletheme.yourcompany 
 
@@ -356,13 +356,13 @@ Put the newly created add-on skeleton to ``buildout.cfg`` in develop eggs and eg
 
 Run buildout
 
-.. highlight:: console
+.. code-block:: console
 
         bin/buildout
 
 Run :doc:`testrunner </testing_and_debugging/unit_testing>` for the created add-on
 
-.. highlight:: console
+.. code-block:: console
 
         bin/test -s gomobiletheme.yourcompany
         

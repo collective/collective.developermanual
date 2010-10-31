@@ -7,14 +7,14 @@ Understanding buildout.cfg
   How to manage the main buildout configuration file
 
 
-**Important note:****This document applies to Plone 3.2 onwards. In
+**Important note:** This document applies to Plone 3.2 onwards. In
 Plone versions prior to 3.2 the vanilla buildout.cfg file was
 significatively different because Plone wasn't fully eggified.
 
 *buildout.cfg* is the most important file in your new buildout
 environment. Here is how it looks:
 
-::
+.. code-block:: cfg
 
     [buildout]
     parts =
@@ -104,7 +104,7 @@ takes a few configuration options.
 
 Our global settings are as follows:
 
-::
+.. code-block:: cfg
 
     [buildout]
     parts =
@@ -135,7 +135,7 @@ Next, we can list any eggs that buildout should download and
 install for us. This may include version specifications. For
 example, if you want sqlalchemy 0.3,  but not 0.4, you could list;
 
-::
+.. code-block:: cfg
 
     eggs = 
         sqlalchemy>=0.3,<0.4dev
@@ -147,21 +147,20 @@ otherwise you can install a slightly modified (to workaround some
 common problems) version from the "thirdparty" Plone repository in
 your buildout adding its name to the eggs list:
 
-::
+.. code-block:: cfg
 
-    eggs =
-        PILwoTk
+    eggs = PILwoTk
 
 And the full path to the package in the find-links, e.g.:
 
-::
+.. code-block:: cfg
 
     find-links = http://dist.plone.org/thirdparty/PILwoTk-1.1.6.4.tar.gz
 
 Finally, we can list development eggs, by specifying a directory
 where the egg is extracted in source format. For example:
 
-::
+.. code-block:: cfg
 
     eggs =
         my.package
@@ -183,7 +182,7 @@ file where the version of each needed package is specified. Check
 that remote file to see yourself how these dependencies are
 specified.
 
-::
+.. code-block:: cfg
 
     # Change the number here, and in find-links below, to change the version of
     # Plone being used
@@ -194,7 +193,7 @@ If you want to use a local file instead of a remote one to be able
 to work offline, download it to your buildout directory and
 reference it like this:
 
-::
+.. code-block:: cfg
 
     extends = versions.cfg
 
@@ -206,7 +205,7 @@ This part builds Zope 2, using
 If you specified an existing Zope installation, you will not have
 this part. Otherwise, it looks like this:
 
-::
+.. code-block:: cfg
 
     [zope2]
     recipe = plone.recipe.zope2install
@@ -224,12 +223,12 @@ The [productdistros] section
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This uses the
-`plone.recipe.distros <http://cheeseshop.python.org/pypi/plone.recipe.distros>`_recipe,
+`plone.recipe.distros <http://cheeseshop.python.org/pypi/plone.recipe.distros>`_ recipe,
 which is able to download distributions (archives) of Zope 2 style
 products and make them available to Zope. It is empty to begin
 with:
 
-::
+.. code-block:: cfg
 
     [productdistros]
     recipe = plone.recipe.distros
@@ -280,7 +279,7 @@ Consider the following distributions:
 Here is what the part would look like if we try to install the
 three distributions above:
 
-::
+.. code-block:: cfg
 
     [productdistros]
     recipe = plone.recipe.distros
@@ -300,10 +299,10 @@ The [instance] section
 
 The instance section pulls it all together: It configures a Zope
 instance using the
-`plone.recipe.zope2instance <http://cheeseshop.python.org/pypi/plone.recipe.zope2instance>`_script.
+`plone.recipe.zope2instance <http://cheeseshop.python.org/pypi/plone.recipe.zope2instance>`_ script.
 Here is how it looks:
 
-::
+.. code-block:: cfg
 
     [instance]
     recipe = plone.recipe.zope2instance
@@ -346,9 +345,9 @@ Zope 3 *configure.zcml* files are not automatically loaded for eggs
 or packages that lack *z3c.autoinclude* support and are not in the
 *Products* namespace. To load ZCML files for a regular package, we
 can make buildout create a ZCML slug by listing the package under
-the *zcml*option:
+the *zcml* option:
 
-::
+.. code-block:: cfg
 
     zcml =
         my.package
@@ -377,7 +376,7 @@ This final section creates a Python interpreter that has all the
 eggs and packages (but not Zope 2 style products) that Zope would
 have during startup. This can be useful for testing purposes.
 
-::
+.. code-block:: cfg
 
     [zopepy]
     recipe = zc.recipe.egg
@@ -391,5 +390,3 @@ in the pythonpath the Zope instance home.
 
 When the recipe is run, the script will be created in
 *./bin/zopepy*.
-
-

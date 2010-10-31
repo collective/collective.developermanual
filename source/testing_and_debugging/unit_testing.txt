@@ -17,18 +17,20 @@ Running unit tests
 -------------------
 
 Since Plone 4, ``zc.testrunner`` is recommended to use to run the test suites.
-You need to add it to your ``buildout.cfg`` to generate ``test`` command::
+You need to add it to your ``buildout.cfg`` to generate ``test`` command.
 
-        parts = 
-           ...
-           test
-        
-        [test]
-        recipe = zc.recipe.testrunner
-        defaults = ['--auto-color', '--auto-progress']
-        eggs = 
-            ${instance:eggs}
-            
+.. code-block:: cfg
+
+    parts = 
+       ...
+       test
+    
+    [test]
+    recipe = zc.recipe.testrunner
+    defaults = ['--auto-color', '--auto-progress']
+    eggs = 
+        ${instance:eggs}
+
 .. note ::
 
         On Plone 3 you can run tests with "bin/instance test"
@@ -37,47 +39,47 @@ You need to add it to your ``buildout.cfg`` to generate ``test`` command::
 
 Running tests for one package
 
-.. highlight:: console
+.. code-block:: console
 
     bin/test -s package.subpackage
 
 Running tests for one test case
 
-.. highlight:: console
+.. code-block:: console
 
     bin/test -s package.subpackage -t TestCaseClassName
-    
+
 Running tests for two test cases
 
-.. highlight:: console
+.. code-block:: console
 
     bin/test -s package.subpackage -t TestClass1|TestClass2    
 
 To drop in pdb debugger after each test failure
 
-.. highlight:: console
+.. code-block:: console
 
     bin/test -s package.subpackage -D
- 
+
 To exclude tests
 
-.. highlight:: console
+.. code-block:: console
 
     bin/test -s package.subpackage -t !test_name
 
 To list tests that will be run
 
-.. highlight:: console
+.. code-block:: console
 
     bin/test -s package.subpackage --list-tests
-   
+
 The following will run tests for *all* Plone and -ons - 
 useful to check whether you have a good component set
 
-.. highlight:: console
+.. code-block:: console
 
     bin/test
-    
+
 .. warning::
 
     Test runner does not give an error if you supply invalid package and test case name.
@@ -123,8 +125,7 @@ If your test code modifies skin registries you need to force skin data reload.
 
 Example (self = unit test)::
 
-	self._refreshSkinData()
-
+    self._refreshSkinData()
 
 Running add-on installers and extensions profiles for unit tests
 -----------------------------------------------------------------
@@ -149,10 +150,12 @@ Installers may fail without interrupting the test run. Monitor Zope start up mes
 
     Installing gomobiletheme.basic ... NOT FOUND
 
-You might be missing this from your configure.zcml::
+You might be missing this from your configure.zcml
 
-  <five:registerPackage package="." initialize=".initialize" />
-  
+.. code-block:: xml
+
+    <five:registerPackage package="." initialize=".initialize" />
+
 ... or you have spelling error in your test setup code.
 
 Setting log level in unit tests
@@ -177,8 +180,8 @@ Zope unit tests have faux HTTPRequest object set up.
 
 You can access it::
 
-	self.portal.REQUEST # Faux HTTPRequest object
-	
+    self.portal.REQUEST # Faux HTTPRequest object
+
 Grabbing emails
 ---------------
 
@@ -190,63 +193,60 @@ To debug outgoing email traffic you can create a dummy mailhost.
         
 Example::
 
-        from zope.component import getUtility, getMultiAdapter, getSiteManager
-        from zope.component import getUtility, getMultiAdapter, getSiteManager
+    from zope.component import getUtility, getMultiAdapter, getSiteManager
+    from Products.MailHost.interfaces import IMailHost
+    from Products.SecureMailHost.SecureMailHost import SecureMailHost
+    from Products.CMFCore.utils import getToolByName
 
-        from Products.MailHost.interfaces import IMailHost
-        from Products.SecureMailHost.SecureMailHost import SecureMailHost
-        from Products.CMFCore.utils import getToolByName
-
-        class DummySecureMailHost(SecureMailHost):
-            """ Grab outgoing emails """
-            
-            meta_type = 'Dummy secure Mail Host'
-            def __init__(self, id):
-                self.id = id
-                
-                # Use these two instance attributes to check what email has been sent
-                self.sent = []        
-                self.mto = None
+    
+    class DummySecureMailHost(SecureMailHost):
+        """Grab outgoing emails"""
         
-            def _send(self, mfrom, mto, messageText, debug=False):        
-                self.sent.append(messageText)
-                self.mto = mto
-                
-
-          
-         ...
-         
-         def afterSetUp(self):
-         
-                self.loginAsPortalOwner()
-                sm = getSiteManager(self.portal)
-                sm.unregisterUtility(provided=IMailHost)
-                self.dummyMailHost = DummySecureMailHost('dMailhost')
-                sm.manage_changeProperties({'email_from_address': 'moo@isthemasteofuniverse.com'})
-                sm.registerUtility(self.dummyMailHost, IMailHost)
-                
-                # Set mail host for tools which use getToolByName() look up
-                self.MailHost = self.dummyMailHost
-         
-                # Make sure that registration tool uses mail host mock
-                rtool = getToolByName(self.portal, 'portal_registration')
-                rtool.MailHost = self.dummyMailHost
-                
-         ....
-         
-         def test_xxx(self):
-         
-                # Reset outgoing emails
-                self.dummyMailHost.sent = []
-
-                # Do a workflow state change which should trigger content rule
-                # sending out email                        
-                self.workflow.doActionFor(member, "approve_by_sits")        
-                review_state = self.workflow.getInfoFor(member, 'review_state')
-                self.assertEqual(review_state, "approved_by_sits")
-                                        
-                # Check that email has been sent
-                self.assertEqual(len(self.dummyMailHost.sent), 1)                      
+        meta_type = 'Dummy secure Mail Host'
+    
+        def __init__(self, id):
+            self.id = id
+            
+            # Use these two instance attributes to check what email has been sent
+            self.sent = []        
+            self.mto = None
+    
+        def _send(self, mfrom, mto, messageText, debug=False):
+            self.sent.append(messageText)
+            self.mto = mto
+    
+    
+    ...
+    
+    def afterSetUp(self):
+        self.loginAsPortalOwner()
+        sm = getSiteManager(self.portal)
+        sm.unregisterUtility(provided=IMailHost)
+        self.dummyMailHost = DummySecureMailHost('dMailhost')
+        sm.manage_changeProperties({'email_from_address': 'moo@isthemasteofuniverse.com'})
+        sm.registerUtility(self.dummyMailHost, IMailHost)
+    
+        # Set mail host for tools which use getToolByName() look up
+        self.MailHost = self.dummyMailHost
+    
+        # Make sure that registration tool uses mail host mock
+        rtool = getToolByName(self.portal, 'portal_registration')
+        rtool.MailHost = self.dummyMailHost
+    
+    ....
+    
+    def test_xxx(self):
+        # Reset outgoing emails
+        self.dummyMailHost.sent = []
+    
+        # Do a workflow state change which should trigger content rule
+        # sending out email                        
+        self.workflow.doActionFor(member, "approve_by_sits")        
+        review_state = self.workflow.getInfoFor(member, 'review_state')
+        self.assertEqual(review_state, "approved_by_sits")
+                                
+        # Check that email has been sent
+        self.assertEqual(len(self.dummyMailHost.sent), 1)                      
 
 Unit testing and Zope component architecture
 --------------------------------------------
@@ -264,71 +264,67 @@ Below are examples how to run special ZCML snippets for your unit tests.
 
 .. code-block:: python
 
-	import unittest
-
+    import unittest
     from base import PaymentProcessorTestCase
-
-
     from Products.Five import zcml
     from zope.configuration.exceptions import ConfigurationError
-
-
     from getpaid.paymentprocessors.registry import paymentProcessorRegistry
+    
     configure_zcml = '''
     <configure
         xmlns="http://namespaces.zope.org/zope"
         xmlns:five="http://namespaces.zope.org/five"
         xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
         i18n_domain="foo">
-
-
+    
+    
         <paymentprocessors:registerProcessor
            name="dummy"
            processor="getpaid.paymentprocessors.tests.dummies.DummyProcessor"
            selection_view="getpaid.paymentprocessors.tests.dummies.DummyButton"
            thank_you_view="getpaid.paymentprocessors.tests.dummies.DummyThankYou"
            />
-
+    
     </configure>'''
-
-
+    
+    
     bad_processor_zcml = '''
     <configure
         xmlns="http://namespaces.zope.org/zope"
         xmlns:five="http://namespaces.zope.org/five"
         xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
         i18n_domain="foo">
-
-
+    
+    
         <paymentprocessors:registerProcessor
            name="dummy"
            selection_view="getpaid.paymentprocessors.tests.dummies.DummyButton"
            thank_you_view="getpaid.paymentprocessors.tests.dummies.DummyThankYou"
            />
-
-
+    
+    
     </configure>'''
-
-
-
-
+    
+    
+    
+    
     class TestZCML(PaymentProcessorTestCase):
         """ Test ZCML directives """
-
-
+    
+    
         def test_register(self):
             """ Check that ZCML entry gets added to our processor registry """
             zcml.load_string(configure_zcml)
-
-
+    
+    
             # See that our processor got registered
             self.assertEqual(len(papaymentProcessorRegistryistry.items()), 1)
-
-
+    
+    
         def test_bad_processor(self):
             """ Check that ZCML entry which has bad processor declaration is caught """
-
-
+    
+    
             try:
                 zcml.load_string(bad_processor_zcml)
                 raise AssertionError("Should not be never reached")
