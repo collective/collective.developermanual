@@ -469,6 +469,39 @@ More information
 
 * http://encolpe.wordpress.com/2008/04/28/manage-your-internationalization-with-i18ndude/
 
+Dynamic content
+---------------
+
+If your HTML template contains dynamic content like
+
+.. code-block:: html
+
+        <h1 i18n:translate="search_form_heading">Search from <span tal:content="context/@@plone_portal_state/portal_title" /></h1>
+
+It will produce .po entry::
+
+        msgstr "Hae sivustolta <span>${DYNAMIC_CONTENT}</span>"
+
+You need to give the name to the dynamic part
+
+.. code-block:: html
+
+         <h1 i18n:translate="search_form_heading">Search from <span i18n:name="site_title" tal:content="context/@@plone_portal_state/portal_title" /></h1>
+
+... and then you can refer the dynamic part by a name::
+
+        #. Default: "Search from <span>${DYNAMIC_CONTENT}</span>"
+        #: ./skins/gomobiletheme_basic/search.pt:46
+        #: ./skins/gomobiletheme_plone3/search.pt:46
+        msgid "search_form_heading"
+        msgstr "Hae sivustolta ${site_title}
+
+More info
+
+* http://dev.plone.org/plone/changeset/35219
+
+* http://permalink.gmane.org/gmane.comp.web.zope.plone.collective.cvs/111531
+
 Other
 -----
 
