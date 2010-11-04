@@ -1361,4 +1361,37 @@ then you can remove it afterwards::
         
         transaction.commit()
 
+self.po is invalid
+------------------
 
+Traceback when starting Plone::
+
+          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.4/xml/sax/expatreader.py", line 348, in end_element_ns
+            self._cont_handler.endElementNS(pair, None)
+          File "/Users/moo/saariselka/parts/zope2/lib/python/zope/configuration/xmlconfig.py", line 349, in endElementNS
+            self.context.end()
+          File "/Users/moo/saariselka/parts/zope2/lib/python/zope/configuration/config.py", line 544, in end
+            self.stack.pop().finish()
+          File "/Users/moo/saariselka/parts/zope2/lib/python/zope/configuration/config.py", line 692, in finish
+            actions = self.handler(context, **args)
+          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/patches.py", line 52, in patched_registerTranslations
+            _compile_locales_dir(directory)  
+          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/load.py", line 101, in _compile_locales_dir
+            result = _updateMoFile(name, msgpath, lang, domain, mofile)
+          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/load.py", line 60, in _updateMoFile
+            mo = Msgfmt(pofile, domain).getAsFile()
+          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/msgfmt.py", line 176, in getAsFile
+            return StringIO(self.get())
+          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/msgfmt.py", line 122, in get
+            lines = self.readPoData()
+          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/msgfmt.py", line 65, in readPoData
+            raise ValueError, "self.po is invalid! %s" % type(self.po)
+        zope.configuration.xmlconfig.ZopeXMLConfigurationError: File "/Users/moo/saariselka/parts/instance/etc/site.zcml", line 14.2-14.55
+            ZopeXMLConfigurationError: File "/Users/moo/saariselka/parts/instance/etc/package-includes/013-saariselka.mobi-configure.zcml", line 1.0-1.59
+            ZopeXMLConfigurationError: File "/Users/moo/saariselka/src/saariselka.mobi/saariselka/mobi/configure.zcml", line 13.2-13.43
+            ZopeXMLConfigurationError: File "/Users/moo/saariselka/src/gomobiletheme.basic/gomobiletheme/basic/configure.zcml", line 20.2-20.51
+            ValueError: self.po is invalid! <type 'str'>
+            
+You have a bad .po file in ``LC_MESSAGES`` folder of your add-on.
+The name might be just ``.po`` and it is not visible in the folder listing.
+            
