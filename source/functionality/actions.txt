@@ -270,8 +270,12 @@ Example how to generate tabs list::
                                         name=u'plone_context_state')
         actions = context_state.actions()
 
+
+        # Get CatalogNavigationTabs instance       
         portal_tabs_view = getMultiAdapter((self.context, self.request),
                                            name='portal_tabs_view')
+                                           
+        # Action parameter is "portal_tabs" by default, but can be other                                           
         portal_tabs = portal_tabs_view.topLevelTabs(actions=actions)
 
         selectedTabs = self.context.restrictedTraverse('selectedTabs')
@@ -283,3 +287,26 @@ Example how to generate tabs list::
         selected_portal_tab = selected_tabs['portal']
         
         return (portal_tabs, selected_portal_tab)
+
+ Custom action listings
+ ----------------------
+ 
+ Example::
+
+        import Acquisition        
+        from zope.component import getMultiAdapter
+        
+        class Sections(base.Sections):
+            """
+            """
+        
+            def update(self):
+                base.Sections.update(self)
+                
+                context = Acquisition.aq_inner(self.context)
+                # IContextState view provides shortcut to get different action listings
+                context_state = getMultiAdapter((context, self.request), name=u'plone_context_state')
+                all_actions = context_state.keyed_actions() # id -> action mappings
+                mobile_site_actions = all_actions["mobile_site_actions"].values()
+                self.portal_tabs = mobile_site_actions
+         
