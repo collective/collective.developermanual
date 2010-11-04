@@ -160,6 +160,7 @@ Then you can add to your virtual host configuration::
   ExpiresActive On
   ExpiresByType image/gif A3600
   ExpiresByType image/png A3600
+  ExpiresByType image/image/vnd.microsoft.icon A3600
   ExpiresByType image/jpeg A3600
   ExpiresByType text/css A3600
   ExpiresByType text/javascript A3600
@@ -170,7 +171,7 @@ Then you can add to your virtual host configuration::
   # Expires rules above are enough for plain HTTP
   
   # Set environment variable by guessing the content payload based on how URL ends  
-  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" cache-it
+  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js|ico)$" cache-it
 
   # Force caching of HTTPS resources on the browser end
   # http://blog.pluron.com/2008/07/why-you-should.html
@@ -205,7 +206,7 @@ for the image and it contains Set-Cookie: I18N_LANGUAGE header for the wrong lan
 
 A workaround is to force language cookie off from media like content::
 
-  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" language-neural
+  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js|ico)$" language-neural
   SetEnvIfNoCase Request_URI "image_preview(/)$" language-neural
   SetEnvIfNoCase Request_URI "image_large(/)$" language-neural
   SetEnvIfNoCase Request_URI "image_thumb(/)$" language-neural
