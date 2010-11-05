@@ -164,18 +164,18 @@ TraversalError with lots of tuples and lists (METAL problem)
 
 Exception::
 
-      File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 217, in __call__
+      File "/home/moo/yourinstance/parts/zope2/lib/python/zope/tales/expressions.py", line 217, in __call__
         return self._eval(econtext)
-      File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 155, in _eval
+      File "/home/moo/yourinstance/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 155, in _eval
         ob = self._subexprs[-1](econtext)
-      File "/home/moo/saariselka/parts/zope2/lib/python/zope/tales/expressions.py", line 124, in _eval
+      File "/home/moo/yourinstance/parts/zope2/lib/python/zope/tales/expressions.py", line 124, in _eval
         ob = self._traverser(ob, element, econtext)
-      File "/home/moo/saariselka/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 85, in boboAwareZopeTraverse
+      File "/home/moo/yourinstance/parts/zope2/lib/python/Products/PageTemplates/Expressions.py", line 85, in boboAwareZopeTraverse
         request=request)
-      File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 164, in traversePathElement
+      File "/home/moo/yourinstance/parts/zope2/lib/python/zope/traversing/adapters.py", line 164, in traversePathElement
         return traversable.traverse(nm, further_path)
        - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master')
-      File "/home/moo/saariselka/parts/zope2/lib/python/zope/traversing/adapters.py", line 52, in traverse
+      File "/home/moo/yourinstance/parts/zope2/lib/python/zope/traversing/adapters.py", line 52, in traverse
         raise TraversalError(subject, name)
        - __traceback_info__: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master', [])
     TraversalError: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master') (Also, the following error occurred while attempting to render the standard error message, please see the event log for full details: ({u'main': [('version', '1.6'), ('mode', 'html'), ('setPosition', (7, 0)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('beginScope', {u'define-macro': u'main'}), ('optTag', (u'metal:main-macro', None, 'metal', 0, [('startTag', (u'metal:main-macro', [(u'define-macro', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1)), ('setPosition', (8, 1)), ('defineSlot', (u'main', [('beginScope', {u'define-slot': u'main'}), ('optTag', (u'metal:main-slot', None, 'metal', 0, [('startTag', (u'metal:main-slot', [(u'define-slot', u'main', 'metal')]))], [('rawtextColumn', (u'\n\t', 1))])), ('endScope', ())])), ('setPosition', (9, 1)), ('setSourceFile', 'file:/home/moo/workspace2/collective.skinny/collective/skinny/skins/skinny_faux_layer/main_template.pt'), ('rawtextColumn', (u'\n', 0))])), ('endScope', ())]}, 'master'))
@@ -340,30 +340,30 @@ After that reload @@manage-portlets.
 
 When you try to access @@manage-portlets an exception a NotFound exception is raised::
 
-    2009-11-09 12:56:13 ERROR Zope.SiteErrorLog 1257764173.180.738005333766 http://localhost:8080/saariselka/@@manage-portlets
+    2009-11-09 12:56:13 ERROR Zope.SiteErrorLog 1257764173.180.738005333766 http://localhost:8080/yourinstance/@@manage-portlets
     Traceback (innermost last):
       Module ZPublisher.Publish, line 119, in publish
         Module Products.PageTemplates.Expressions, line 223, in evaluateStructure
         ...
       Module zope.tales.tales, line 696, in evaluate
-       - URL: file:/Users/moo/workspace/plonetheme.saariselka/plonetheme/saariselka/skins/plonetheme_saariselka_custom_templates/main_template.pt
+       - URL: file:/Users/moo/workspace/plonetheme.yourinstance/plonetheme/yourinstance/skins/plonetheme_yourinstance_custom_templates/main_template.pt
        - Line 92, Column 18
        - Expression: <StringExpr u'plone.leftcolumn'>
        - Names:
-          {'container': <PloneSite at /saariselka>,
-           'context': <PloneSite at /saariselka>,
+          {'container': <PloneSite at /yourinstance>,
+           'context': <PloneSite at /yourinstance>,
            'default': <object object at 0x194520>,
-           'here': <PloneSite at /saariselka>,
+           'here': <PloneSite at /yourinstance>,
            'loop': {},
            'nothing': None,
-           'options': {'args': (<Products.Five.metaclass.SimpleViewClass from /Users/moo/saariselka/eggs/plone.app.portlets-1.2-py2.4.egg/plone/app/portlets/browser/templates/manage-contextual.pt object at 0x67e43b0>,)},
+           'options': {'args': (<Products.Five.metaclass.SimpleViewClass from /Users/moo/yourinstance/eggs/plone.app.portlets-1.2-py2.4.egg/plone/app/portlets/browser/templates/manage-contextual.pt object at 0x67e43b0>,)},
            'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x73b59b8>,
-           'request': <HTTPRequest, URL=http://localhost:8080/saariselka/@@manage-portlets>,
+           'request': <HTTPRequest, URL=http://localhost:8080/yourinstance/@@manage-portlets>,
            'root': <Application at >,
            'template': <ImplicitAcquirerWrapper object at 0x73b29f0>,
            'traverse_subpath': [],
            'user': <PropertiedUser 'admin'>,
-           'view': <Products.Five.metaclass.SimpleViewClass from /Users/moo/saariselka/eggs/plone.app.portlets-1.2-py2.4.egg/plone/app/portlets/browser/templates/manage-contextual.pt object at 0x67e43b0>,
+           'view': <Products.Five.metaclass.SimpleViewClass from /Users/moo/yourinstance/eggs/plone.app.portlets-1.2-py2.4.egg/plone/app/portlets/browser/templates/manage-contextual.pt object at 0x67e43b0>,
            'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0x73b23d0>}
       Module Products.Five.browser.providerexpression, line 37, in __call__
       ...
@@ -372,15 +372,15 @@ When you try to access @@manage-portlets an exception a NotFound exception is ra
        - Line 18, Column 12
        - Expression: <PathExpr standard:'view/addable_portlets'>
        - Names:
-          {'container': <PloneSite at /saariselka>,
-           'context': <PloneSite at /saariselka>,
+          {'container': <PloneSite at /yourinstance>,
+           'context': <PloneSite at /yourinstance>,
            'default': <object object at 0x194520>,
-           'here': <PloneSite at /saariselka>,
+           'here': <PloneSite at /yourinstance>,
            'loop': {},
            'nothing': None,
            'options': {'args': ()},
            'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x7941be8>,
-           'request': <HTTPRequest, URL=http://localhost:8080/saariselka/@@manage-portlets>,
+           'request': <HTTPRequest, URL=http://localhost:8080/yourinstance/@@manage-portlets>,
            'root': <Application at >,
            'template': <ImplicitAcquirerWrapper object at 0x78be050>,
            'traverse_subpath': [],
@@ -425,15 +425,15 @@ AttributeError: getPhysicalPath()
 	   - Line 25, Column 14
 	   - Expression: <PythonExpr (view.getHeaderDefiner().absolute_url())>
 	   - Names:
-	      {'container': <Frontpage at /saariselka/matkailijalle/saariselka-1>,
-	       'context': <Frontpage at /saariselka/matkailijalle/saariselka-1>,
+	      {'container': <Frontpage at /yourinstance/matkailijalle/yourinstance-1>,
+	       'context': <Frontpage at /yourinstance/matkailijalle/yourinstance-1>,
 	       'default': <object object at 0x7fabf9cec1f0>,
-	       'here': <Frontpage at /saariselka/matkailijalle/saariselka-1>,
+	       'here': <Frontpage at /yourinstance/matkailijalle/yourinstance-1>,
 	       'loop': {},
 	       'nothing': None,
 	       'options': {'args': ()},
 	       'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0xe617d88>,
-	       'request': <HTTPRequest, URL=http://localhost:9444/saariselka/matkailijalle/saariselka-1/@@edit_header>,
+	       'request': <HTTPRequest, URL=http://localhost:9444/yourinstance/matkailijalle/yourinstance-1/@@edit_header>,
 	       'root': <Application at >,
 	       'template': <ImplicitAcquirerWrapper object at 0xe6105d0>,
 	       'traverse_subpath': [],
@@ -911,8 +911,6 @@ Some possible causes
 
 * You are trying to embed main_template inside form/view which is already rendered in main_template frame.
   Please see how to :doc:`embed forms and wrap forms manually </forms/z3c.form>`.
-  This is especially issue if ``plone.app.z3cform`` package has been upgraded -
-  see *Wrapped and non-wrapped forms*.
 
 * You might be using wrong ViewPageTemplate import (Five vs. zope.pagetemplate - explained elsewhere in this documentation)
 
@@ -979,23 +977,23 @@ The following traceback pops up when you try to start Zope::
 
 	2010-07-14 05:02:33 ERROR ZODB.Connection Couldn't load state for 0x00
 	Traceback (most recent call last):
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 811, in setstate
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 811, in setstate
 	    self._setstate(obj)
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 870, in _setstate
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 870, in _setstate
 	    self._reader.setGhostState(obj, p)
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 604, in setGhostState
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 604, in setGhostState
 	    state = self.getState(pickle)
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 597, in getState
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 597, in getState
 	    return unpickler.load()
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 471, in _persistent_load
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 471, in _persistent_load
 	    return self.load_oid(reference)
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 537, in load_oid
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/serialize.py", line 537, in load_oid
 	    return self._conn.get(oid)
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 244, in get
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/Connection.py", line 244, in get
 	    p, serial = self._storage.load(oid, self._version)
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/FileStorage/FileStorage.py", line 470, in load
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/FileStorage/FileStorage.py", line 470, in load
 	    pos = self._lookup_pos(oid)
-	  File "/Users/moo/saariselka/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/FileStorage/FileStorage.py", line 462, in _lookup_pos
+	  File "/Users/moo/yourinstance/eggs/ZODB3-3.8.4-py2.4-macosx-10.6-i386.egg/ZODB/FileStorage/FileStorage.py", line 462, in _lookup_pos
 	    raise POSKeyError(oid)
 	POSKeyError: 0x01
 
@@ -1363,37 +1361,65 @@ then you can remove it afterwards::
         
         transaction.commit()
 
-self.po is invalid
-------------------
+System lxml too old
+--------------------
 
-Traceback when starting Plone::
+Traceback when starting an instance::
 
-          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.4/xml/sax/expatreader.py", line 348, in end_element_ns
-            self._cont_handler.endElementNS(pair, None)
-          File "/Users/moo/saariselka/parts/zope2/lib/python/zope/configuration/xmlconfig.py", line 349, in endElementNS
-            self.context.end()
-          File "/Users/moo/saariselka/parts/zope2/lib/python/zope/configuration/config.py", line 544, in end
-            self.stack.pop().finish()
-          File "/Users/moo/saariselka/parts/zope2/lib/python/zope/configuration/config.py", line 692, in finish
-            actions = self.handler(context, **args)
-          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/patches.py", line 52, in patched_registerTranslations
-            _compile_locales_dir(directory)  
-          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/load.py", line 101, in _compile_locales_dir
-            result = _updateMoFile(name, msgpath, lang, domain, mofile)
-          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/load.py", line 60, in _updateMoFile
-            mo = Msgfmt(pofile, domain).getAsFile()
-          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/msgfmt.py", line 176, in getAsFile
-            return StringIO(self.get())
-          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/msgfmt.py", line 122, in get
-            lines = self.readPoData()
-          File "/Users/moo/saariselka/eggs/Products.PlacelessTranslationService-1.5.4-py2.4.egg/Products/PlacelessTranslationService/msgfmt.py", line 65, in readPoData
-            raise ValueError, "self.po is invalid! %s" % type(self.po)
-        zope.configuration.xmlconfig.ZopeXMLConfigurationError: File "/Users/moo/saariselka/parts/instance/etc/site.zcml", line 14.2-14.55
-            ZopeXMLConfigurationError: File "/Users/moo/saariselka/parts/instance/etc/package-includes/013-saariselka.mobi-configure.zcml", line 1.0-1.59
-            ZopeXMLConfigurationError: File "/Users/moo/saariselka/src/saariselka.mobi/saariselka/mobi/configure.zcml", line 13.2-13.43
-            ZopeXMLConfigurationError: File "/Users/moo/saariselka/src/gomobiletheme.basic/gomobiletheme/basic/configure.zcml", line 20.2-20.51
-            ValueError: self.po is invalid! <type 'str'>
-            
-You have a bad .po file in ``LC_MESSAGES`` folder of your add-on.
-The name might be just ``.po`` and it is not visible in the folder listing.
-            
+    from lxml.html import defs
+zope.configuration.xmlconfig.ZopeXMLConfigurationError: File "/srv/plone/yourinstance/parts/client1/etc/site.zcml", line 14.2-14.55
+    ZopeXMLConfigurationError: File "/srv/plone/yourinstance/parts/client1/etc/package-includes/012-yourinstance.mobi-configure.zcml", line 1.0-1.59
+    ZopeXMLConfigurationError: File "/srv/plone/yourinstance/src/yourinstance.mobi/yourinstance/mobi/configure.zcml", line 13.2-13.43
+    ZopeXMLConfigurationError: File "/srv/plone/yourinstance/src/gomobiletheme.basic/gomobiletheme/basic/configure.zcml", line 16.2-16.39
+    ZopeXMLConfigurationError: File "/srv/plone/yourinstance/src/gomobile.mobile/gomobile/mobile/configure.zcml", line 19.4-19.34
+    ZopeXMLConfigurationError: File "/srv/plone/yourinstance/src/gomobile.mobile/gomobile/mobile/browser/configure.zcml", line 24.4-29.10
+    ImportError: No module named html
+
+Let's see if we are getting too old system wide lxml installation::
+
+        plone@mansikki:/srv/plone/yourinstance$ python2.4
+        Python 2.4.5 (#2, Jan 21 2010, 20:05:55) 
+        [GCC 4.2.4 (Ubuntu 4.2.4-1ubuntu3)] on linux2
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> import lxml
+        >>> lxml.__file__
+        '/usr/lib/python2.4/site-packages/lxml/__init__.pyc'
+        >>> dir(lxml)
+        ['__builtins__', '__doc__', '__file__', '__name__', '__path__']
+        >>> from lxml import html
+        Traceback (most recent call last):
+          File "<stdin>", line 1, in ?
+        ImportError: cannot import name html
+
+If we cannot fix the system lxml (your system software depends on it) the only workaround is to
+create virtualenv. We cannot force Python 2.6, 2.5 or 2.4 not to use system libraries.
+
+Example::
+
+        root@mansikki:/srv/plone# virtualenv -p /usr/bin/python2.4 --no-site-packages py24
+
+Include standalone lxml + libxml compilation in your ``buildout.cfg``::
+
+        parts = 
+                ...
+                lxml
+
+        [lxml]
+        recipe = z3c.recipe.staticlxml
+        egg = lxml==2.2.6
+        force = false
+
+        
+Then as the non-root re-bootstrap the buildout using non-system wide Python::
+
+        plone@mansikki:/srv/plone/yourinstance-2010/yourinstance$ source /srv/plone/py24/bin/activate
+        (py24)plone@mansikki:/srv/plone/yourinstance-2010/yourinstance$ python bootstrap.py
+        ...
+        (py24)plone@mansikki:/srv/plone/yourinstance-2010/yourinstance$ bin/buildout
+        ...
+
+... and after this it should no longer pull the bad system lxml.         
+                
+         
+                
+                        
