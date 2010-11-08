@@ -411,6 +411,43 @@ In this case you can see that portlet type "collective.easytemplate.TemplatedPor
 
 * Make sure you use <include package=".portlets" /> in your code
 
+Manually removing the portlet
+=============================
+
+If you have a traceback like this::
+
+	URL: index
+	Line 18, Column 12
+	Expression: <PathExpr standard:'view/addable_portlets'>
+	Names:
+	{'container': <ATFolder at /webandmobile/support>,
+	 'context': <ATFolder at /webandmobile/support>,
+	 'default': <object object at 0x7f7e3af1a200>,
+	 'here': <ATFolder at /webandmobile/support>,
+	 'loop': {},
+	 'nothing': None,
+	 'options': {'args': ()},
+	 'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x11dee1b8>,
+	 'request': <HTTPRequest, URL=http://webandmobile.mfabrik.com/support/@@manage-portlets>,
+	 'root': <Application at >,
+	 'template': <ImplicitAcquirerWrapper object at 0x7f7e2a9199d0>,
+	 'traverse_subpath': [],
+	 'user': <PropertiedUser 'admin'>,
+	 'view': <plone.app.portlets.browser.editmanager.ContextualEditPortletManagerRenderer object at 0xf0526d0>,
+	 'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0x7f7e2a919810>}
+	Module zope.tales.expressions, line 217, in __call__
+	Module Products.PageTemplates.Expressions, line 163, in _eval
+	Module Products.PageTemplates.Expressions, line 125, in render
+	Module plone.app.portlets.browser.editmanager, line 154, in addable_portlets
+	Module plone.app.portlets.browser.editmanager, line 149, in check_permission
+	Module OFS.Traversable, line 301, in restrictedTraverse
+	Module OFS.Traversable, line 284, in unrestrictedTraverse
+	__traceback_info__: ([], 'gomobile.convergence.ContentMedia')
+	NotFound: gomobile.convergence.ContentMedia
+
+It usually means that there is a portlet in your content which product code has been removed.
+
+Reinstall the add-on providing the portlet, remove the portlet and then uninstall the add-on again.
 
 AttributeError: getPhysicalPath()
 ---------------------------------- 
