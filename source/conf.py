@@ -193,3 +193,7 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+# Do not try do funny things on our characters
+# http://sphinx.pocoo.org/config.html#confval-html_use_smartypants
+html_use_smartypants = False
