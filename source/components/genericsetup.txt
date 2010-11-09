@@ -371,6 +371,21 @@ The code for the upgrade method itself is best placed in *setuphandlers.py*::
         setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
         logger.info("%s fields converted." % count)
 
+Other examples of using generic setup to run import steps are below
+
+If you want to call types.xml use typeinfo::
+
+        setup.runImportStepFromProfile(PROFILE_ID, 'typeinfo')
+
+If you want to call workflow.xml use workflow::
+
+        setup.runImportStepFromProfile(PROFILE_ID, 'workflow')
+
+The ids of the various default import steps are defined in the import_steps.xml of CMFDefault.
+visit it at http://svn.zope.org/CMF/branches/2.1/CMFDefault/profiles/default/import_steps.xml?logsort=date&rev=78624&view=markup
+
+XXX Fix the link above
+
 After restarting Zope, your upgrade step should be visible in the ZMI: The
 *portal_setup* tool has a tab *Upgrades*. Select your product profile to see
 which upgrade steps Zope knows about for your product.
