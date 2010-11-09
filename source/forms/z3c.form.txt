@@ -1364,11 +1364,11 @@ Validators are best to be added in the schema itself.
 
 * If you are using plain ``z3c.form``, you can check the :doc:`validators documentation <http://packages.python.org/z3c.form/validator.html>`_.
 
-
 * `plone.form.directives <http://pypi.python.org/pypi/plone.directives.form#validators>`_ package provides 
-  nice way to add validators
+  convenient decorators for form validators. If you use ``plone.form.directives`` validators make sure your package
+  is :doc:`grokked </components/grok>` (otherwise validators are not registered).
 
-Example::
+How to use widget specific validators with z3c.form example::
 
     from z3c.form import validator
     import zope.component
