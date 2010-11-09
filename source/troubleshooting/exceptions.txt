@@ -1457,6 +1457,59 @@ Then as the non-root re-bootstrap the buildout using non-system wide Python::
 
 ... and after this it should no longer pull the bad system lxml.         
                 
+TraversalError: @@standard_macros
+-----------------------------------
+
+Traceback::
+
+           - Warning: Macro expansion failed
+           - Warning: zope.traversing.interfaces.TraversalError: (<plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>, '++view++standard_macros')
+          Module zope.tal.talinterpreter, line 271, in __call__
+          Module zope.tal.talinterpreter, line 346, in interpret
+          Module zope.tal.talinterpreter, line 870, in do_useMacro
+          Module zope.tales.tales, line 696, in evaluate
+           - URL: form
+           - Line 1, Column 0
+           - Expression: <PathExpr standard:'context/@@standard_macros/page'>
+           - Names:
+              {'container': <plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>,
+               'context': <plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>,
+               'default': <object object at 0x100311200>,
+               'here': <plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>,
+               'loop': {},
+               'nothing': None,
+               'options': {'args': (<plone.app.headeranimation.browser.forms.AddHeaderAnimationForm object at 0x1102dc490>,)},
+               'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x110845758>,
+               'request': None,
+               'root': None,
+               'template': <ImplicitAcquirerWrapper object at 0x11084ff10>,
+               'traverse_subpath': [],
+               'user': <PropertiedUser 'admin'>,
+               'view': <UnauthorizedBinding: context>,
+               'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0x110844310>}
+          Module zope.tales.expressions, line 217, in __call__
+          Module Products.PageTemplates.Expressions, line 155, in _eval
+          Module zope.tales.expressions, line 124, in _eval
+          Module Products.PageTemplates.Expressions, line 105, in trustedBoboAwareZopeTraverse
+          Module zope.traversing.adapters, line 154, in traversePathElement
+           - __traceback_info__: (<plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>, '@@standard_macros')
+          Module zope.traversing.namespace, line 107, in namespaceLookup
+        TraversalError: (<plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>, '++view++standard_macros')
          
-                
+:doc`Wrapping is missing from your form object </forms/z3c.form.txt>`. 
+In this case the following helped::
+
+    def update(self):
+        super(HeaderCRUDForm, self).update()
+
+        addform = self.addform_factory(self, self.request)
+        editform = self.editform_factory(self, self.request)
+
+        import zope.interface
+        from plone.z3cform.interfaces import IWrappedForm
+
+        zope.interface.alsoProvides(addform, IWrappedForm)        
+        addform.update()
+        editform.update()
+        self.subforms = [editform, addform]
                         
