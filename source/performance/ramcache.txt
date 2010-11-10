@@ -129,6 +129,11 @@ ZCacheable is ancient Zope design pattern for cache.
 It allows persistent objects inherited from OFS.Cacheable
 to have cache backend set externally.
 
+Used cache type (cache id) is stored :doc:`persistently </persistency/persistent>` 
+per cache user object,
+but cache can be created run-time (RAM cache) or externally (memcache) depending
+on the situation.
+
 .. note ::
 
         Do not use ZCacheable in new code.
@@ -142,6 +147,32 @@ It takes optional backends which must be explicitly set::
             getLDAPPlugin().ZCacheable_setManagerId(manager_id="RAMCache")
 
 The RAMCAche above is per thread. You cannot clear this cache for all ZEO clients easily.
+
+Some hints
+
+Is enabled per persistent object::
+
+        >>> app.test2.acl_users.ZCacheable_isCachingEnabled()
+        <Products.StandardCacheManagers.RAMCacheManager.RAMCache instance at 0x10a064cf8>
+
+        >>> app.test2.acl_users.ZCacheable_enabled()
+        1
+        
+Get known cache backends::
+
+        >>> app.test2.acl_users.ZCacheable_getManagerIds()
+        ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
+        
+Disabling it (persistent change)::
+
+        >>> app.test2.acl_users.ZCacheable_setManagerId(None)
+        >>> app.test2.acl_users.ZCacheable_enabled()
+        1
+        >>> app.test2.acl_users.ZCacheable_getManagerIds()
+        ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
+        >>> app.test2.acl_users.ZCacheable_isCachingEnabled()
+        >>> app.test2.acl_users.ZCacheable_setEnabled(False)
+        
 
 More info
 
