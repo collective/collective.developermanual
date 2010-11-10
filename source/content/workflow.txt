@@ -135,6 +135,18 @@ Example with GenericSetup *workflows.xml*
      </bindings>
     </object>
 
+Updating security settings after binding workflow
+--------------------------------------------------
+Through the web this would be done by going to 
+ZMI > portal_workflow > update security settings
+
+To update security settings programmatically use the method updateRoleMappings.
+The snippet below demonstrates this::
+
+    from Products.CMFCore.utils import getToolByName
+    # Do this after installing all workflows   
+    wf_tool = getToolByName(self, 'portal_workflow')
+    wf_tool.updateRoleMappings()
 
 Disabling workflow for a content type
 ---------------------------------------
