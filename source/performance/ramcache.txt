@@ -122,6 +122,35 @@ Example::
     FeedFeederItem.Description = _Description
     FeedFeederItem.setDescription = _setDescription
 
+ZCacheable
+----------
+
+ZCacheable is ancient Zope design pattern for cache. 
+It allows persistent objects inherited from OFS.Cacheable
+to have cache backend set externally.
+
+.. note ::
+
+        Do not use ZCacheable in new code.
+
+It takes optional backends which must be explicitly set::
+
+        def enableCaching():
+            pas=getPAS()
+            if pas.ZCacheable_getManager() is None:
+                pas.ZCacheable_setManagerId(manager_id="RAMCache")
+            getLDAPPlugin().ZCacheable_setManagerId(manager_id="RAMCache")
+
+The RAMCAche above is per thread. You cannot clear this cache for all ZEO clients easily.
+
+More info
+
+* http://svn.zope.org/Zope/trunk/src/OFS/Cache.py?rev=115280&view=auto
+
+* http://wiki.zope.org/CacheManager/Architecture
+
+* http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py
+
 Other resources
 ---------------
 

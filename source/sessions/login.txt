@@ -172,6 +172,30 @@ Example logged_in.cpy::
     
     return state
     
-    
+Entry points to logged in member handling
+-----------------------------------------
+
+See ``Products.PluggableAuthService.PluggableAuthService._extractUserIds()``.
+It will try to extract credentials from incoming HTTP request, using
+different "extract" plug-ins of PAS framework.
+
+``PluggableAuthService`` is also known as ``acl_users`` persistent
+object in the site root.
+
+For each set of extracted credentials, try to authenticate
+a user;  accumulate a list of the IDs of such users over all
+our authentication and extraction plugins.
+
+``PluggableAuthService`` may use :doc:`ZCacheable </performance/ramcache>`
+pattern to see if the user data exists already in the cache, based on 
+any extractd credentials, instead of actually checking whether
+the credentials are valid or not. PluggableAuthService must
+be set to have cache end. By default it is not set,
+but installing LDAP sets it to RAM cache.
+
+More info
+
+* http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py
+
 
 
