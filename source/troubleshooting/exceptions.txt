@@ -1528,3 +1528,17 @@ Traceback when starting Plone::
         AttributeError: 'wrapper_descriptor' object has no attribute 'im_func'
 
 Cause: Trying to use Python 2.6 with Plone 3 - you need to use Python 2.4.                        
+
+getUtility() fails: ComponentLookupError
+----------------------------------------
+
+Example exception::
+
+        -> filter = getUtility(IConvergenceMediaFilter)
+        (Pdb) n
+        ComponentLookupError: <zope.component.interfaces.ComponentLookupError instance at 0x1038166c>
+        
+Make sure that your class object implements in the utility interface in the question::
+
+        class ConvergedMediaFilter(object):
+            zope.interface.implements(IConvergenceMediaFilter)        
