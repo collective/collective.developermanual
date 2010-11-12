@@ -2,13 +2,25 @@
 Utilities
 ================
 
+.. admonition:: Description
+
+        Utility design pattern in Zope 3 allows easily overridable singleton class instances
+        for your code.
+
 .. contents :: :local:
 
 Introduction
 ------------
 
-Utility classes provide site-wide utility functions. They are registered by marker interfaces.
-Site customization logic or add-on products can override utility for enhanced functionality.
+* Utility classes provide site-wide utility functions. 
+
+* They are registered by marker interfaces.
+
+* Site customization logic or add-on products can override utility for enhanced or modified functionality
+  
+* Utilities can be looked up by name or interface
+
+* Compared to "plain Python functions" utiltiies provide the advantage of being plug-in points without need of :doc:`monkey-patching </misc/monkeypatch>`
 
 Read more in 
 
@@ -28,8 +40,9 @@ ZCML example::
 
    <!-- Register header animation picking logic - override this for your custom logic -->
    <utility
-     provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
-     factory=".picker.RandomHeaderAnimationPicker" />
+     provides="gomobile.convergence.interfaces.IConvergenceMediaFilter"
+     factory=".filter.ConvergedMediaFilter" />
+         
 
 Python example (named utility)::
 
@@ -40,6 +53,33 @@ Python example (named utility)::
 	    processor = processor_class()
 	    gsm = component.getGlobalSiteManager()
 	    gsm.registerUtility(processor, interfaces.IOnsitePaymentProcessor, processor.name)
+	    
+The utility class "factory" is in its simplest form a class which implements the interface::
+
+        class ConvergedMediaFilter(object):
+            """ Helper class to deal with media state of content objects. 
+            
+            """
+            
+            zope.interface.implements(IConvergenceMediaFilter)
+            
+            def foobar(x):
+                """ An example method """
+                return x+2	    
+
+
+To use this class::
+    
+        from gomobile.convergence.interfaces import IConvergenceMediaFilter
+        
+        def something():
+           filter = getUtility(IConvergenceMediaFilter)
+           x = filter.foobar(3)                    
+
+Overriding utility
+------------------
+
+If you want to override any existing utility you can re-register the utility  in ``overrides.zcml`` file in your product.
 
 Getting utility
 ---------------
@@ -63,8 +103,10 @@ Example::
 
 .. note ::
 
-        You cannot use getUtility() on module body level code 
+        You cannot use getUtility() on Python module body level code 
         during import, as Zope Component Architecture is not yet initialized.
+        Always call getUtility() from HTTP request end point or after Zope 
+        has been started.
 
 Getting all named utilities of one interface
 --------------------------------------------
