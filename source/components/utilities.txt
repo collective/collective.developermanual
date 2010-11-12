@@ -28,6 +28,23 @@ Read more in
 
 * `zope.component documentation <http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_.
 
+Local and global utilities
+==========================
+
+Utilities can be local or global.
+
+Local utilities are registered to persistent object.
+The context of local utilities is stored in a thread local variable which is set
+during the traversing. Thus, when you ask for local utilities, they usually
+come from persistent registry set up in the Plone site root object.
+
+Global utilities are registered in ZCML and affect all Zope application server and Plone site instances.
+
+Some hints::
+        
+        <Moo^_^> what's difference between gsm.queryUtility() (global site manager) and zope.component.queryUtility()
+        <agroszer> Moo^_^, I think gsm... takes the global registrations, z.c.queryUtility respects the current context
+        
 Register utility
 -----------------
 
@@ -67,6 +84,7 @@ The utility class "factory" is in its simplest form a class which implements the
                 """ An example method """
                 return x+2	    
 
+Class is constructed / factory is run during the ZCML initialization.
 
 To use this class::
     
@@ -75,6 +93,8 @@ To use this class::
         def something():
            filter = getUtility(IConvergenceMediaFilter)
            x = filter.foobar(3)                    
+
+
 
 Overriding utility
 ------------------
@@ -107,6 +127,18 @@ Example::
         during import, as Zope Component Architecture is not yet initialized.
         Always call getUtility() from HTTP request end point or after Zope 
         has been started.
+
+Query local + global utilities::
+
+``zope.component.queryUtility()`` for local utilities, with global fallback.
+
+Query only global utilities::
+
+    from zope.app import zapi
+    gsm = zapi.getGlobalSiteManager()
+    return gsm.getUtility(IConvergenceMediaFilter)  
+
+
 
 Getting all named utilities of one interface
 --------------------------------------------
