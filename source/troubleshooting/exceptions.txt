@@ -1513,3 +1513,18 @@ In this case the following helped::
         editform.update()
         self.subforms = [editform, addform]
                         
+                        
+AttributeError: 'wrapper_descriptor' object has no attribute 'im_func'
+------------------------------------------------------------------------
+
+Traceback when starting Plone::
+
+          File "/home/moo/code/gomobile/parts/zope2/lib/python/DocumentTemplate/DT_Util.py", line 19, in <module>
+            from html_quote import html_quote, ustr # for import by other modules, dont remove!
+          File "/home/moo/code/gomobile/parts/zope2/lib/python/DocumentTemplate/html_quote.py", line 4, in <module>
+            from ustr import ustr
+          File "/home/moo/code/gomobile/parts/zope2/lib/python/DocumentTemplate/ustr.py", line 18, in <module>
+            nasty_exception_str = Exception.__str__.im_func
+        AttributeError: 'wrapper_descriptor' object has no attribute 'im_func'
+
+Cause: Trying to use Python 2.6 with Plone 3 - you need to use Python 2.4.                        
