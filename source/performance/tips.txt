@@ -70,3 +70,21 @@ Do not use ``LanguageIndex`` and update your LinguaPlone to version 3.1.
 * http://plone.293351.n2.nabble.com/Products-LinguaPlone-LanguageIndex-vs-FieldIndex-tp5554729p5554729.html
 
 * http://plone-regional-forums.221720.n2.nabble.com/New-LinguaPlone-releases-with-large-performance-improvements-td5578581.html
+
+Sessions and performance
+------------------------
+
+Write transactions are great deal worse performance wise than read transactions.
+
+By default, every login is a write transaction. Also, Plone needs to update
+logged user in session timestamp once in a while to keep the session active.
+
+With high amount of users you may run to many ConflictErrors (read conflicts)
+with ZODB.
+
+There are some tricks you can do here
+
+* http://plone.293351.n2.nabble.com/the-mysterious-case-of-the-zope-sessions-that-shouldn-t-tp5731395p5731395.html
+
+* http://pypi.python.org/pypi/collective.beaker/
+
