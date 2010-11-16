@@ -155,5 +155,21 @@ Visualizing database object graphs
 Cache size
 -----------
 
-* `Understanding ZODB cache size option <https://mail.zope.org/pipermail/zodb-dev/2010-March/013199.html>`_ 
+* `Understanding ZODB cache size option <https://mail.zope.org/pipermail/zodb-dev/2010-March/013199.html>`_
+
+Integrity checks
+-----------------
+
+Especially when you back-up a Data.fs file, it is useful to run integrity checks for the transferred files.
+
+ZODB provides scripts ``fstest`` and ``fsrefs`` to check if Data.fs data is intact
+and there are no problems due to low level disk corruption or bit flip.
+
+* http://wiki.zope.org/ZODB/FileStorageBackup
+
+.. note ::
+
+        It is recommended best practice to run integrity against your Data.fs regularly.
+        This is the only way to detect corruption which would otherwise go unnoticed
+        for a long time. 
 
