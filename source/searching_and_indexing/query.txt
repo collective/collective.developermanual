@@ -20,7 +20,8 @@ queries. Special catalogs, like ``reference_catalog``, exists, for specialized a
 Accesing the portal catalog tool
 ---------------------------------
 
-Plone queries are performed using portal_catalog tool which is available at the site root.
+Plone queries are performed using ``portal_catalog`` persistent tool which is available as
+an persistent object at the site root.
 
 Example::
 
@@ -416,8 +417,16 @@ Bypassing language check
         
 Example of how to bypass language check::
 
-    all = portal_catalog(language="all")
+    all_content_brains = portal_catalog(Language="")
     
+Some older LinguaPlone versions, which are still using ``LanguageIndex`` to 
+keep language information in portal_catalog() may require::    
+    
+    all_content_brains = portal_catalog(Language="all")
+    
+More information
+
+* http://plone.293351.n2.nabble.com/Products-LinguaPlone-LanguageIndex-vs-FieldIndex-td5554729.html#a5747819
     
 Expired content check
 --------------------------------
