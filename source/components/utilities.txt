@@ -31,7 +31,11 @@ Read more in
 Local and global utilities
 ==========================
 
-Utilities can be local or global.
+Utilities can be 
+
+* global - registered during Zope start-up
+
+* local - registered during add-on installer for a certain site/content item
 
 Local utilities are registered to persistent object.
 The context of local utilities is stored in a thread local variable which is set
@@ -45,13 +49,17 @@ Some hints::
         <Moo^_^> what's difference between gsm.queryUtility() (global site manager) and zope.component.queryUtility()
         <agroszer> Moo^_^, I think gsm... takes the global registrations, z.c.queryUtility respects the current context
         
-Register utility
------------------
+Registering an utility
+----------------------
 
 Utility is constructed when Plone is started and ZCML is read.
 Utilities take no constructor parameters. If you need to use parameters
 like context or request, consider using views or adapters instead.
 Utilities may or may not have a name.
+
+* Utility can be provided by a function: function is being called and it returns utility object
+
+* Utility can be provided by a class: class __call__() method itself acts as an factory and returns new class instance
 
 ZCML example::
 
@@ -110,7 +118,6 @@ There are two functions
 
     * zope.component.queryUtility will return None if utility is not found
 
-
 Utility query parameters are passed to the utility class constructor.
 
 Example::
@@ -138,7 +145,11 @@ Query only global utilities::
     gsm = zapi.getGlobalSiteManager()
     return gsm.getUtility(IConvergenceMediaFilter)  
 
+.. warning ::
 
+        Due to Zope component architecture initialization order, you cannot call getUtility()
+        in module level Python code. Module level Python code is run when the module is being
+        imported, and Zope components are not yet necessary set up in this point. 
 
 Getting all named utilities of one interface
 --------------------------------------------
