@@ -1446,6 +1446,9 @@ Include standalone lxml + libxml compilation in your ``buildout.cfg``::
         egg = lxml==2.2.6
         force = false
 
+If there are exiting lxml builds in buildout be sure they are removed::
+
+        rm -rf eggs/lxml*
         
 Then as the non-root re-bootstrap the buildout using non-system wide Python::
 
