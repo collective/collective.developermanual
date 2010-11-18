@@ -104,6 +104,21 @@ More information
 
 * http://pypi.python.org/pypi/ZODB3/3.10.0b5#b5-2010-09-02        
 
+Accessing broken objects
+------------------------
+
+ZODB is object database. 
+By default, it cannot load object from the database if the code (Python class)
+is not present.
+
+You can still access data in the objects by creating Python code "stubs" which
+fake the non-existing classes in the run-time environment.
+
+More info
+
+* http://mockit.blogspot.com/2010/11/getting-broken-objects-out-of-zodb.html 
+
+
 Volatile references
 --------------------
 
