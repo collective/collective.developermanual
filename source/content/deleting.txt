@@ -74,3 +74,14 @@ from HTTP POST payload. Then the view modifies Zope publisher
 so that it will play the orignal unpickled HTTP POST with the marker interface
 "Do not care about link integrity breaches" turned on.
     
+Fail safe deleting
+-------------------
+
+Sometimes object delete might not be possible, because deletion dispatches
+events which might raise exception due to bad broken objects or badly behaving code.
+
+`OFS.ObjectManager <http://svn.zope.org/Zope/trunk/src/OFS/ObjectManager.py?rev=115507&view=auto>`_ which is base class for Zope folders, provides internal method to delete 
+objects from folder without firing any events::
+
+        site._delObject("broken-folder", suppress_events=True)
+        
