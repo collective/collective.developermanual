@@ -83,5 +83,6 @@ events which might raise exception due to bad broken objects or badly behaving c
 `OFS.ObjectManager <http://svn.zope.org/Zope/trunk/src/OFS/ObjectManager.py?rev=115507&view=auto>`_ which is base class for Zope folders, provides internal method to delete 
 objects from folder without firing any events::
 
+        # Delete object with id "broken-folder" without firing any delete events
         site._delObject("broken-folder", suppress_events=True)
         
