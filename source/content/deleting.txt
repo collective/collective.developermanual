@@ -86,3 +86,6 @@ objects from folder without firing any events::
         # Delete object with id "broken-folder" without firing any delete events
         site._delObject("broken-folder", suppress_events=True)
         
+The best way to clean up bad objects on your site is via :doc:`command line script </misc/commandline>` in which case remember to commit the transaction
+after removing the broken objects.
+
