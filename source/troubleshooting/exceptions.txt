@@ -1545,3 +1545,34 @@ Make sure that your class object implements in the utility interface in the ques
 
         class ConvergedMediaFilter(object):
             zope.interface.implements(IConvergenceMediaFilter)        
+            
+            
+AttributeError: REQUEST in getObject
+------------------------------------
+
+Traceback::            
+            
+          import ZPublisher, Zope
+        Traceback (most recent call last):
+          File "<string>", line 1, in ?
+          File "src/collective.mountpoint/collective/mountpoint/bin/update.py", line 31, in ?
+            sys.exit(main(app))
+          File "/srv/plone/saariselka/src/collective.mountpoint/collective/mountpoint/updateclient.py", line 243, in main
+            exit_code = updater.updateAll()
+          File "/srv/plone/saariselka/src/collective.mountpoint/collective/mountpoint/updateclient.py", line 151, in updateAll
+            mountpoints = list(self.getMountPoints())
+          File "/srv/plone/saariselka/src/collective.mountpoint/collective/mountpoint/updateclient.py", line 49, in getMountPoints
+            return [ brain.getObject() for brain in brains ]
+          File "/srv/plone/saariselka/parts/zope2/lib/python/Products/ZCatalog/CatalogBrains.py", line 86, in getObject
+            target = parent.restrictedTraverse(path[-1])
+          File "/srv/plone/saariselka/parts/zope2/lib/python/OFS/Traversable.py", line 301, in restrictedTraverse
+            return self.unrestrictedTraverse(path, default, restricted=True)
+          File "/srv/plone/saariselka/parts/zope2/lib/python/OFS/Traversable.py", line 259, in unrestrictedTraverse
+            next = queryMultiAdapter((obj, self.REQUEST),
+        AttributeError: REQUEST
+        
+Reason: You are using command line script. getObject() fails for a catalog brain, because the actual object 
+is gone. However, unrestrictedTraverse() does not handle this case gracefully.
+
+        
+            
