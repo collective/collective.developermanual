@@ -1,5 +1,5 @@
 =======================
- TAL template language
+ Page template
 =======================
 
 .. admonition:: Description
@@ -15,18 +15,42 @@
 Introduction
 -------------
 
-Plone uses TAL template language which has METAL extensions for macros. TALES expressiong
+Plone uses TAL template language which has METAL extensions for macros. TALES expressing
 
-Plone 3 has two kind of template
+Templates can be associated with BrowserView code class (new style) or standalone (old style)
 
-* View page templates. They have associated *view* template variable. These templates live under browser/
-  folder structure in your add-on product. You can override them by <browser:page> ZCML directive.
+* View page templates (BrowserView, new style)
 
-* Old style page templates. They live under plone_skins structure in ZMI and. You can
-  override them by register a new plone_skins layer. The most infamous of them is main_template
-  which provides skeleton for all Plone themes.
+        *  These templates live under browser/folder in add-on product. 
+  
+        * You can override them by <browser:page> ZCML directive.
+        
+        * You can customize them through-the-web using ``portal_view_customization`` tool in ZMI
+
+* Standalone page templates (old style) 
+
+        * They live under plone_skins structure 
+        
+        * You can override them by :doc:`register a new plone_skins layer </templates_css_and_javascripts/skin_layers>`. 
+        
+        * You can customize them through-the-web using ``portal_skins`` / ``custom`` folder in ZMI. Just copy
+          the orignal template through-the-web to ``custom`` folder and edit it.
+
+.. note ::
+
+        Rationale moving away from standalone page templates is that the page template code becomes
+        easily cluttered with inline Python code. This makes templates hard to customize or override.
+        New style templates provide better separation with view logic (Python code) and 
+        HTML generation (page template)
 
 See `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_
+
+Main template
+-------------
+
+The master page template in Plone is called ``main_template.pt`` and it is provided by `Products.CMFPlone package <>`_.
+
+This template provides visual frame for Plone themes.
 
 Plone template element map
 --------------------------
@@ -236,5 +260,9 @@ Examples of this usage
 * Contact info page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/contact-info.cpt
 
 * Recently modified page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/recently_modified.pt
+
+
+
+
 
 
