@@ -185,5 +185,19 @@ To assign a permission to a role, use profiles/default/rolemap.xml:
     </rolemap> 
 
 
+Manually fix permission problems
+--------------------------------
 
+In the case you fiddle with permission and manage lock out even admin user for the content (both Plone
+page and raw Zope page) you can still fix the problem from :doc:`debug prompt </misc/commandline>`.
 
+Example debug session how to set ``Access Contents Information`` back to all users::
+
+        >>> j=app.yoursiteid.yourfolderid.problematiccontent 
+        >>> import AccessControl
+        >>> import Products.CMFCore.permissions
+        >>> sm=AccessControl.getSecurityManager()
+        >>> import transaction
+        >>> anon=sm.getUser()
+        >>> j.manage_permission(Products.CMFCore.permissions.AccessContentsInformation,roles=anon.getRoles())
+        >>> transaction.commit()
