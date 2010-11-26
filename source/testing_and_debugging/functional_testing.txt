@@ -158,15 +158,21 @@ Example::
 
     print browser.contents # browser is zope.testbrowser.Browser instance
 
+Getting a form handler
+----------------------
+
+You can use testbrowser ``getForm()`` to access different forms on a page.
+
+Form look-up is availabe by ``name`` or ``index``.
+
+Example::
+
+        form = browser.getForm(index=2) # Skip login and search form on Plone 4
+
 Listing available form controls
 -------------------------------
 
-You can't get a list of controls from zope.testbrowser. You can check
-check available controls from
-
-* the form source code
-
-* the contents the testbrowser returns (browser.contents)
+You can do the following to know what content your form has eaten
 
 * the mechanize browser instance that is used through
   zope.testbrowser. zope.testbrowser internally uses a testbrowser
@@ -182,6 +188,15 @@ check available controls from
     controls = login_form.mech_form.controls
     for control in controls:
        print "%s: %s" % (control.attrs['name'], control.attrs['type'])
+
+... or one-liner ...::
+
+        for c in form.mech_form.controls: print c
+
+* the HTML page source code::
+
+        print browser.contents
+
 
 Filling in a text field on  a page
 -----------------------------------
