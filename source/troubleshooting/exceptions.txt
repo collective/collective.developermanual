@@ -1058,11 +1058,12 @@ dies before being able to raise stack size limit exception.
 
 **Workaround**
 
-Edit python-2.4/lib/python2.4/site.py
+Edit ``python-2.4/lib/python2.4/site.py`` or corresponding Python interpreter ``site.py``
+file (Python site installation customization file). 
 
 Put in to the first code line::
 
-         sys.setrecursionlimit(300)
+         sys.setrecursionlimit(800)
                   
 This will force smaller Python stack not exceeding native OSX C stack.
 You might want to test other values and report back the findings.
