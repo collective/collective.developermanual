@@ -216,9 +216,25 @@ Rendering of the view is done by following::
 
         def __call__(self):
             return self.render()
+
+Overriding a view template in run-time
+======================================
+
+Below is an sample code snipped which allows override of already
+constructed ``ViewPageTemplateFile`` with a chosen file in run-time::
+
+        import plone.z3cform
+        from zope.app.pagetemplate import ViewPageTemplateFile as Zope3PageTemplateFile
+        from zope.app.pagetemplate.viewpagetemplatefile import BoundPageTemplate
+        # Construct template from a file which lies in a certain package
+        template = Zope3PageTemplateFile('subform.pt', os.path.join(os.path.dirname(plone.z3cform.__file__), "templates"))        
+        # Bind template to context
+        # This will make template callable with template() syntax and context
+        form_instance.template = BoundPageTemplate(template, form_instance)
+ 
             
 Layers
-======
+------
 
 Views can be registered against a specific layer interface. This means that
 views are only looked up if the specific layer is effective.
@@ -235,10 +251,10 @@ You should generally always register your views against a certain layer in your 
 
 For more information, see 
 
-* :doc:`browser layers </views/layers>`.     
+* :doc:`browser layers </views/layers>`
             
-Template start tag, content type and mimetype
-=============================================
+Content type, mimetype and Template start tag
+---------------------------------------------
 
 If you need to produce other output than (X)HTML here are some resources
 
@@ -436,8 +452,8 @@ Make sure that you declare i18n:domain again or the strings in this template are
                 ...
         </div>                                
 
-Getting a view
---------------------
+Accessing a view instance in code
+-----------------------------------
 
 You need to get access to view in your code if you are 
 
