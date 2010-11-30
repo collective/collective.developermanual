@@ -766,7 +766,7 @@ Example::
                     del self.mobile_form_instance.buttons[button_id]
         
 
-Adding buttons
+Adding buttons dynamically
 +++++++++++++++++++++++++++        
 
 In the example below Buttons array is already constructed dynamically
@@ -857,6 +857,49 @@ Example::
             def handleContinue(self, action):
                 """ What happens when the parent form button is pressed """
                 self.execute()
+                
+Creating subforms run-time
+--------------------------
+
+Below is an example how to convert existing form instance to 
+be used as an subform in another form::
+
+
+    def convertToSubForm(self, form_instance):
+        """
+        Make existing form object behave like subform object.
+        
+        * Do not render <form> frame
+            
+        * Do not render actions
+    
+        @param form_instance: Constructed z3c.form.form.Form object
+        """
+
+        # Create mutable copy which you can manipulate
+        form_instance.buttons = copy.deepcopy(form_instance.buttons)
+        
+        # Remove subform action buttons using dictionary style delete
+        for button_id in form_instance.buttons.keys():
+            del form_instance.buttons[button_id]
+
+        if HAS_WRAPPER_FORM:
+            # Plone 4 / Plone 3 compatibility
+            zope.interface.alsoProvides(form_instance, IWrappedForm)        
+
+        # Use subform template - this prevents getting embedded <form>
+        # elements inside the master <form>
+        import plone.z3cform
+        #from zope.pagetemplatefile import ViewPageTemplateFile as Zope3PageTemplateFile 
+        from zope.app.pagetemplate import ViewPageTemplateFile as Zope3PageTemplateFile
+        from zope.app.pagetemplate.viewpagetemplatefile import BoundPageTemplate
+        template = Zope3PageTemplateFile('subform.pt', os.path.join(os.path.dirname(plone.z3cform.__file__), "templates"))        
+        form_instance.template = BoundPageTemplate(template, form_instance)
+        
+.. note ::
+
+        If it's possible try to base class your form class hiearchy so that
+        you can use the same class mix-in for normal forms and subforms.                        
                 
 CRUD form
 -----------
