@@ -307,6 +307,68 @@ zope.schema Field is stored as a *field* attribute of a field. Example::
 	all subsequent form updates and other forms which use the
 	same schema.
 
+Read-only fields
+================
+
+There is ``field.readonly`` flag.
+
+Example code::
+
+        class AREditForm(crud.EditForm):
+            """ Form whose fields are dynamically constructed """
+             
+            def ar_editable(self):
+                """ Arbitary condition deciding whether fields on this form are 
+                patient=self.__parent__.__parent__
+                if patient.getConfirmedAR()  in (None,'','EDITABLE_AR'):
+                    return True
+                return False
+        
+       
+            @property
+            def fields(self):
+                """ 
+                Dynamically create field data based on run-time constructed schema.
+                
+                Instead using static ``fields`` attribute, we use Python property
+                which allows us to generate z3c.form.fields.Fields instance for the 
+                for run-time. 
+                """
+                
+        
+                constructor = ARFormConstructor(self.context, self.context.context, self.request)
+        
+                # Create z3c.form.field.Fields object instance        
+                fields = constructor.getFields()
+              
+                if not self.ar_editable():
+                    # Disable all fields in edit mode if this form is locked out
+                    for f in fields.values():
+                        f.mode = z3c.form.interfaces.DISPLAY_MODE
+                            
+                return fields
+
+You might also want to disable edit button if none if the fields are editable:
+
+        # Make edit button conditional            
+        AREditSubForm.buttons["apply"].condition = lambda form: form.has_edit_button()
+
+.. note ::
+
+        You can also set = z3c.form.interfaces.DISPLAY_MODE in updateWidgets() if you
+        are not dynamically poking form fields themselves.
+
+.. warning ::
+
+        Do not modify fields on singleton instances (form or fields objects are shared between all forms).
+        This causes problems on concurrent access. 
+
+.. note ::
+
+        zope.schema.Field has readonly propertly. z3c.form.field.Field does not have this property,
+        but has mode property. Do not confuse these two.
+
+
 Widgets
 -------
 
@@ -728,9 +790,15 @@ and we can manipulate it::
 Subforms
 ---------
 
-Subforms are independed z3c.form.Form objects for which 
-you need to call update() manually. But they do not have own 
-buttons or status line.
+Subforms are embedded z3c forms inside a master form. 
+
+Subforms may have their own 
+buttons or use the controls from the maste form. 
+You need to call update() manually for subforms.
+
+More info
+
+* http://packages.python.org/z3c.form/subform.html
 
 Adding an action to parent and subform
 ======================================
@@ -905,68 +973,6 @@ Form class::
                 <dd tal:content="status" />
             </dl>
         </tal:status>
-
-
-Read-only fields
-----------------
-
-There is ``field.readonly`` flag.
-
-Example code::
-
-        class AREditForm(crud.EditForm):
-            """ Form whose fields are dynamically constructed """
-             
-            def ar_editable(self):
-                """ Arbitary condition deciding whether fields on this form are 
-                patient=self.__parent__.__parent__
-                if patient.getConfirmedAR()  in (None,'','EDITABLE_AR'):
-                    return True
-                return False
-        
-       
-            @property
-            def fields(self):
-                """ 
-                Dynamically create field data based on run-time constructed schema.
-                
-                Instead using static ``fields`` attribute, we use Python property
-                which allows us to generate z3c.form.fields.Fields instance for the 
-                for run-time. 
-                """
-                
-        
-                constructor = ARFormConstructor(self.context, self.context.context, self.request)
-        
-                # Create z3c.form.field.Fields object instance        
-                fields = constructor.getFields()
-              
-                if not self.ar_editable():
-                    # Disable all fields in edit mode if this form is locked out
-                    for f in fields.values():
-                        f.mode = z3c.form.interfaces.DISPLAY_MODE
-                            
-                return fields
-
-You might also want to disable edit button if none if the fields are editable:
-
-        # Make edit button conditional            
-        AREditSubForm.buttons["apply"].condition = lambda form: form.has_edit_button()
-
-.. note ::
-
-        You can also set = z3c.form.interfaces.DISPLAY_MODE in updateWidgets() if you
-        are not dynamically poking form fields themselves.
-
-.. warning ::
-
-        Do not modify fields on singleton instances (form or fields objects are shared between all forms).
-        This causes problems on concurrent access. 
-
-.. note ::
-
-        zope.schema.Field has readonly propertly. z3c.form.field.Field does not have this property,
-        but has mode property. Do not confuse these two.
 
 
 Storage format and data managers
