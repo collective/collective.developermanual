@@ -616,6 +616,114 @@ Widget template example::
         </span>
     </span>
 
+Buttons
+-------
+
+Buttons enable actions in forms. ``AddForm`` and ``EditForm``
+base classes come with default buttons (Save).
+
+More information in z3c.form documentation
+
+* http://packages.python.org/z3c.form/button.html
+
+Adding a button to form 
+========================
+
+The easiest way to add buttons their handlers is to use 
+a function decorator ``z3c.form.button.buttonAndHandler()``.
+
+The first parameter is user visible label and
+the second one is `<input>` name.
+
+Example::
+
+        from z3c.form import button
+
+
+        class Form(...):
+
+            button.buttonAndHandler(_('Add'), name='add')
+            def handle_add(self, action):
+                data, errors = self.extractData()
+                if errors:
+                    self.status = "Please correct errors"
+                    return
+                    
+                self.applyChanges(data)
+                self.status = _(u"Item added successfully.")
+
+
+The default ``z3c.form.form.AddForm`` and ``z3c.form.form.EditForm``
+*Add* and *Save* button handler calls are good code examples.
+
+* http://svn.zope.org/z3c.form/trunk/src/z3c/form/form.py?rev=114824&view=auto
+
+Manipulating form buttons programmatically
+===========================================
+
+You want to manipulate buttons if you want to hide buttons dynamically,
+manipulate labels, etc.
+
+Buttons are stored in ``buttons`` class attribute.
+
+.. warning::
+
+        Button storage is shared between all form instances, 
+        so do not mutate its content. Instead create a copy
+        of it if you wish to have form specific changes.
+
+Reading buttons
++++++++++++++++
+
+Example::
+
+        self.mobile_form_instance = MobileForm(self.context, self.request)
+
+        for i in self.mobile_form_instance.buttons.items(): print i
+        ('apply', <Button 'apply' u'Apply'>)
+
+
+Removing or hiding buttons
+++++++++++++++++++++++++++
+
+Here is an example how to hide all buttons from a certain form instance.
+
+Example::
+        
+        import copy
+        
+        
+        def update(self):
+                # Hide form buttons
+                
+                # Create immutable copy which you can manipulate
+                self.mobile_form_instance.buttons = copy.deepcopy(self.mobile_form_instance.buttons)
+                
+                # Remove button using dictionary style delete
+                for button_id in self.mobile_form_instance.buttons.keys():
+                    del self.mobile_form_instance.buttons[button_id]
+        
+
+Adding buttons
++++++++++++++++++++++++++++        
+
+In the example below Buttons array is already constructed dynamically
+and we can manipulate it::
+        
+    def setActions(self):
+        """ Add button to the form based on dynamic conditions. """
+
+
+        if self.isSaveEnabled():
+
+            but = button.Button("save", title=u"Save") 
+            self.form.buttons += button.Buttons(but)
+
+            self.form.buttons._data_keys.reverse() # Fix Save button to left
+
+            handler = button.Handler(but, self.form.__class__.handleSave)
+            self.form.handlers.addHandler(but, handler)
+
 
 Subforms
 ---------
@@ -798,58 +906,6 @@ Form class::
             </dl>
         </tal:status>
 
-Button handlers
----------------
-
-* http://packages.python.org/z3c.form/button.html
-
-Easiest way is in-form class button declarations::
-
-        from z3c.form import button
-
-
-        class Form(...):
-
-            button.buttonAndHandler(_('Add'), name='add')
-            def handle_add(self, action):
-                data, errors = self.extractData()
-                if errors:
-                    self.status = "Please correct errors"
-                    return
-                    
-                self.applyChanges(data)
-                self.status = _(u"Item added successfully.")
-         
-Dynamic buttons
-===============
-
-You can dynamically modify buttons and handlers properties of the form instance.
-
-.. note::
-
-        If you are doing dynamic modifications make sure that you 
-        work with a deep copied form instance (import copy ; copy.deepcopy).
-        If the form instance is singleton, all changes are cumulative
-        and produce funny results when the form is modified next time.
-
-Exampe code::
-
-    def setActions(self):
-        """ Add button to the form based on dynamic conditions. """
-
-
-        if self.isSaveEnabled():
-
-            but = button.Button("save", title=u"Save") 
-            self.form.buttons += button.Buttons(but)
-
-            self.form.buttons._data_keys.reverse() # Fix Save button to left
-
-
-            # Note that here we use unbound method (no self) TimepointFullForm.confirm
-            # since handler manually forces in the form  parameter
-            handler = button.Handler(but, self.form.__class__.handleSave)
-            self.form.handlers.addHandler(but, handler)
 
 Read-only fields
 ----------------
