@@ -131,8 +131,6 @@ Before doing so, you should:
 
 -  Commit your latest changes and tag the release in Subversion, if
    applicable.
--  Remove (temporarily) the *setup.cfg* file: this makes your
-   package a development release.
 -  Make sure the version number in *setup.py* is correct. This
    should use common conventions such as "1.0b2" for the second beta
    of version 1.0, or "2.1.3rc1" for the first release candidate of
@@ -154,3 +152,30 @@ have one already. You can run this command as often as you'd like
 to release a new version (probably with a new version number).
 
 
+Creating development releases
+------------------------------
+When working on a project, you might want to generate development
+releases of a project to push to a staging server. Instead of
+increasing the version number in the ``setup.py`` file each time, you
+can use the ``egg_info`` command to name the release appropiately.
+
+For a complete list of the available options, run::
+
+    $ python setup.py --help egg_info
+
+If you're using subversion for version control, you can use the
+revision numbers. For example, this will generate a targz package in
+the ``dist`` folder named ``your.package-rXXXX``, where ``XXXX`` is a
+revision number::
+
+   $ python setup.py sdist egg_info -r
+
+If you do nigthly releases, tagging with the date is a good option::
+
+   $ python setup.py sdist egg_info -d
+
+If you don't want to enter the full command everytime you make a
+release, you can use the setup.cfg file to set the defaults. For example::
+
+   [egg_info]
+   tag_date = true
