@@ -6,6 +6,7 @@ The following method moves portlet assigned from one item to another and copies
 over it blocking settings as well for good measure.
 
 .. code-block:: python
+    from logging import getLogger
 
     from plone.portlets.interfaces import ILocalPortletAssignable
     from plone.portlets.interfaces import ILocalPortletAssignmentManager
@@ -20,8 +21,9 @@ over it blocking settings as well for good measure.
     from zope.component import queryUtility
     from zope.component import provideUtility
     
+    logger = getLogger('collective.developermanual')
+    
     def copy_portlet_assignments_and_settings(src, target):
-        """Return a dictionary of portlet manager name to assignments dictionary"""
         if not ILocalPortletAssignable.providedBy(src):
             alsoProvides(src, ILocalPortletAssignable)
             
