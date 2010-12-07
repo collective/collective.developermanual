@@ -23,7 +23,7 @@ over it blocking settings as well for good measure.
     
     logger = getLogger('collective.developermanual')
     
-    def copy_portlet_assignments_and_settings(src, target):
+    def move_portlet_assignments_and_settings(src, target):
         if not ILocalPortletAssignable.providedBy(src):
             alsoProvides(src, ILocalPortletAssignable)
             
