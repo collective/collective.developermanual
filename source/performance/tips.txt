@@ -8,6 +8,15 @@
 
     Tips for Plone performance tuning and making your add-on product and customizations faster.
 
+Optimizing ZEO and threads
+---------------------------
+
+For multicore systems, which basically all production systems nowadays are, you might want
+to optimize Python threading vs. processes. You may also tune how many  
+Python interpreter instructions are run before doing green thread switches in the interpreter.
+
+* https://mail.zope.org/pipermail/zodb-dev/2010-December/013897.html
+
 Debugging slow threads in production
 ------------------------------------
 
