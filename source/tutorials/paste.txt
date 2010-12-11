@@ -1,28 +1,30 @@
-==================
- Paste script
-==================
+====================
+ Zopeskel templates
+====================
 
 .. contents :: :local: 
 
 .. admonition:: Description
 
-        Using paste script to generate add-on product skeleton for Plone to
-        start programming Plone.
+        ZopeSkel template package provides product skeletons for Plone to
+        start programming Plone more easily.
         
 Introduction
 ------------
 
-`Paste script <http://pythonpaste.org/script/>`_ is a part of `Python Paste <http://en.wikipedia.org/wiki/Python_Paste>`_
-web development utilities. 
+More about ZopeSkel
 
-It's ``paster create`` command is used by various Python frameworks to generate skeleton code for a development project.
+* http://plone.org/products/zopeskel
 
-``paste`` is used also by Plone to create add-on products and new code in add-on products easily.
+ZopeSkel is based on `paster command <http://pythonpaste.org/script/>`_.
 
-Paste and buildout
--------------------
+ZopeSkel package provides bunch of templates and friendly ``zopekskel`` script
+which wraps the more error prone ``paster`` script.
 
-If you are using buildout to manage your Python application deployment, you can integrate paster nicely 
+Zopeskel and buildout
+----------------------
+
+If you are using buildout to manage your Python application deployment, you can integrate paster  
 with it.
 
 Add to your *buildout.cfg*::
@@ -30,26 +32,21 @@ Add to your *buildout.cfg*::
         
         parts =
             ...
-            paster
+            zopeskel
             
         
-        [paster]
+        [zopeskel]
         recipe = zc.recipe.egg
         eggs = 
-                PasteScript 
                 ZopeSkel 
                 ${instance:eggs}
 
-After rerunning buildout, buildout adds *paster* command to *bin* folder.
+After rerunning buildout, buildout adds *zopeskel* command to *bin* folder.
 
-Then you can run paster from buildout folder::
+Then you can run zopeskel from buildout folder::
 
-        bin/paster
+        bin/zopeskel
         
-... or in a buildout managed project under ``src/`` folder using relative references... ::
-
-        ../../bin/paster
-
 .. warning ::
 
     It is strongly advised to use or install paster in system-wide Python.
@@ -59,19 +56,25 @@ Then you can run paster from buildout folder::
 Creating an add-on product skeleton
 -----------------------------------
 
-After you have followed the steps above to add *paster* to your buildout, 
+After you have followed the steps above to add ZopeSkel to your buildout, 
 you can create your first add-on.
 
-.. code-block:: console
+Create theme (applies for Plone 4 also)::
+	
+	bin/zopeskel plone3_theme plonetheme.mythemeid
+	
+Create Archetypes based content types package::
 
-    cd src # Create src folder if it does not exist yet
-    ../bin/paster create -t plone yourcompany.productname # will create src/yourcompany.productname folder
+	bin/zopeskel archetype mycompanyid.content
+
+Create other Plone customizations::
+
+	bin/zopeskel plone mycompanyid.mypackageid
 
 Some questions are asked to fill in version information, etc.
 When ``plone`` template asks for *GenericSetup profile* answer ***yes**.
 
 After this you need to include the newly created egg in your buildout.cfg::
-
 
 	eggs =
 		yourcompany.productname
@@ -84,23 +87,19 @@ Rerun buildout.
 Restart Plone in foreground mode. If your template input contained errors it usually fails in this point.
 
 Now you should see your add-on in Plone add-on installer.
-
-Create a portlet
-================
-
-Creating a portlet is the first easy thing to do with your add-on product skeleton.
-
-Follow local commands instructions below to start with one.			      
         
-Paster create and local commands
+Local commands
 ---------------------------------
 
-Besides generic project templates, *paster create* provides *local commands*
-which are project aware commands to add more modules to an existing project.
-Local commands are added by paster extensions. For example,
-`ZopeSkel <http://plone.org/products/zopeskel>`_ product
-has various local commands to add more content to Plone/Zope projects
-automatically
+Besides generic project templates, ZopeSkel package provides local commands.
+Local commands are context aware commands to add more functionality to an existing ZopeSkel generated
+project.
+
+.. note ::
+
+	To use local commands you need to use paster command directly - zopeskel does not support them yet.
+
+Example what kind of Plone functionality you can add with local commands
 
 * Views
 
@@ -110,21 +109,21 @@ automatically
 
 * Portlets
 
-... and so on. 
+Example
+=======
 
-For example, you could generate a project template, Plone add-on module, 
-and then create content types there using a local paster command.
-The local commands become available when you execute 
-paster in the folder of your Python project.
+In this example we create Archetypes based content types add-on product.
+We will first create the project skeleton, then enter the project
+and add more content types there using local commands.
 
 Example or creating a content type::
 
 		# First create an add-on skeleton if one does not exist
         cd src
-        ../bin/paster create -t archetype myorg.customploneaddon
+        ../bin/zopeskel archetype mycompanyid.mycustomcontenttypes
                 
         # Now new paster commands are available and listed when paster is run in this folder
-        cd myorg.customploneaddon
+        cd mycompanyid.mycustomcontenttypes
         ../../bin/paster
         
         Usage: ../../bin/paster COMMAND
@@ -173,9 +172,12 @@ To see list of available paster local commands, run paster command ::
         contenttype:  A content type skeleton
         form:         A form skeleton
       
+
+In-depth background information
+---------------------------------
                
 How paster local commands work
-------------------------------------------------
+================================
 
 paster reads setup.py. If it founds *paster_plugins* section there,
 it will look for local commands there.
@@ -184,7 +186,7 @@ For example, Plone project templates declare the following paste_plugins in setu
         paster_plugins = ["ZopeSkel"]
         
 setup.py install_requires
---------------------------
+================================
 
 Python modules can dependencies to other modules using setup.py and *install_requires*
 section. For example, a Plone add-on might read::
