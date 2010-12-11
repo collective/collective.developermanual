@@ -141,13 +141,13 @@ Example or creating a content type::
 Above, ZopeSkel paster template adds its addcontent templates.
 Now you can use ``addcontent`` local command to contribute to the existing project
 
-::
+Example how to create special contenet type for managing lecture ::
 
-        ../../bin/paster addcontent -t contenttype MyShinyWebPage
+        ../../bin/paster addcontent -t contenttype LectureInfo # 
 
-Example or creating a portlet::
+Then you can add new fields to that content type::
 
-        ../../bin/paster addcontent -t portlet
+        ../../bin/paster addcontent -t atschema
 
 .. note ::
 
@@ -156,22 +156,6 @@ Example or creating a portlet::
 	server when it is restarted, because they are site specific changes and apply to one
 	site only. You need to rerun add-on product installer when these files have changed. 	       
         
-Creating content types
-=======================
-        
-For more information how to use paster to create content for Plone, `see here <http://www.coactivate.org/projects/plone-conference-2008-dc/zopeskel>`_.
-
-To see list of available paster local commands, run paster command ::
-
-         ../../bin/paster addcontent --list
-         
-... in your development project. For ZopeSkel specific projects the output should be something like this::
-
-    Available templates:
-        atschema:     A handy AT schema builder
-        contenttype:  A content type skeleton
-        form:         A form skeleton
-      
 
 In-depth background information
 ---------------------------------
@@ -204,34 +188,18 @@ it will also automatically install Python packages declared in install_requires.
 paster and install_requires
 ===========================                     
 
+.. warning ::
+
+        Do not never use system-wide paster installation with local commands. 
+
 This is where things usually go haywire.
 
-Let's assume you are using paster in a project which contains 
-N python packages. You probably use an external configuration 
-system manage your installed application and their versions
-to make repeatable deployments possible (hint: `buildout <http://www.buildout.org>`_ 
-is gaining traction in Python community lately). 
-
 Paster is not aware of this external Python package configuration set (paster cannot see
-them in its PYTHONPATH).
-So what happens when you try to execute *paster create* which reads setup.py *install_requires*
-and encounters depencies?
+them in its PYTHONPATH). 
 
-Paster will try to automatically download and install them **locally in that folder**.
+Do not try to execute system-wide ``zopeskel`` or ``paster`` in a Python source code folder 
+containing ``setup.py``. Otherwise paster downloads all the depenpencies mentioned in 
+``setup.py`` into that folder even though they would be available in the ``eggs` folder (which paster is not aware of).
 
-Plone and Zope ecosystem contains over hundreds of reusable components,
-in nice dependency hierarchy. *paster create* would try to pull all them in to 
-your source tree as \*.egg folders. `See discussion here <http://n2.nabble.com/Correct-way-to-use-paster-with-buildout-tp4555533p4558043.html>`_.
 
-.. warning ::
-
-        Do not never use system paster command. 
-        
-Do not ever run *sudo easy_install ZopeSkel*. Do not ever run paster local commands using a paster 
-command from your system-wide Python installation.        
-
-.. warning ::
-
-        The internet is full of tutorial saying *easy_install ZopeSkel*.
-        If you ever encounter this kind of tutorial, it's wrong.            
         
