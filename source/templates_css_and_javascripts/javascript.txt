@@ -173,3 +173,50 @@ and they do not differ by the user.
 For example, see ``FacebookConnectJavascriptViewlet``
 
 * http://svn.plone.org/svn/collective/mfabrik.like/trunk/mfabrik/like/viewlets.py
+
+AJAX-y view loading
+-------------------
+
+Let's imagine we have this piece of synchronous page template code.
+The code is a :doc:`view page template </views/browserviews>` code which includes another view inside it.
+
+.. code-block:: html
+
+       <tal:finnish condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'fi'">
+               <div tal:replace="structure here/productappreciation_view" />
+       </tal:finnish>
+       
+To make it load the view asynchronous, to be loaded with AJAX call when the page loading has been completed, you can do::
+
+       
+         <tal:finnish condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'fi'">
+                
+                                
+                <div id="comment-placefolder">
+                        
+                        <!-- Display spinning AJAX indicator gif until our AJAX call completes -->
+                        
+                        <p class="loading-indicator">
+                                <!-- Image is in Products.CMFPlone/skins/plone_images -->
+                                <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/spinner.gif" /> Loading comments 
+                        </p>
+                        
+                        <!-- Hidden link to a view URL which will render the view containing the snippet for comments -->                       
+                        <a rel="nofollow" style="display:none" tal:attributes="href string:${context/absolute_url}/productappreciation_view" />
+                        
+                        <script>
+                                
+                                // Generate URL to ta view 
+                                                        
+                                jq(document).ready(function() {
+                                        
+                                        // Extract URL from HTML page
+                                        var commentURL = jq("#comment-placefolder a").attr("href");
+                                        
+                                        if (commentURL) {
+                                                // Trigger AJAX call
+                                                jq("#comment-placefolder").load(commentURL);
+                                        }
+                                });                             
+                        </script>
+                </div>
