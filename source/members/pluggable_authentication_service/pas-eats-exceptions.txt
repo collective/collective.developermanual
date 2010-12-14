@@ -27,7 +27,8 @@ From ``Products/PluggableAuthService/PluggableAuthService.py`` line 86::
         if doreraise:
             raise
 
-Which means in your plugin class you should do something like this::
+Which means to take advantage of this feature, you should do something like
+this in your plugin class::
 
     class LoginOnlyOncePlugin(BasePlugin):
         """
@@ -41,3 +42,8 @@ Which means in your plugin class you should do something like this::
         def __init__(self, id, title=None):
             self._setId(id)
             self.title = title
+
+        ...
+
+
+
