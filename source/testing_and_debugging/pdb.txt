@@ -74,8 +74,7 @@ Pretty printing objects
 
 Example::
 
-        >>> from pprint import PrettyPrinter
-        >>> PrettyPrinter().pprint(folder.__dict__)
+        >>> pp folder.__dict__
         {
           '_Access_contents_information_Permission': ['Anonymous',
                                                       'Manager',
@@ -105,15 +104,12 @@ Example::
             'review_state': 'visible', 'comments': '', 'actor': 'gregweb', 
             'time': DateTime('2005/02/14 20:03:37.187 GMT+1')},)}
         }
-
-Fore more information:
-
-* http://svn.zope.de/plone.org/collective/Products.CMFEditions/trunk/doc/DevelDoc.html                    
+                
             
 Useful pdb commands
 -------------------
 
-Just type the letter and hit enter
+Just type the command and hit enter
 
 * s = step into, go into the function in the cursor
 
@@ -121,9 +117,17 @@ Just type the letter and hit enter
 
 * c = continue, resume program
 
+* w = where am I? displays current location in stack trace
+
+* b = set breakpoint
+
+* cl = clear breakpoint
+
 * bt = print stack trace
 
 * up = go to the scope of the caller function           
+
+* pp = pretty print object
 
 Useful pdb snippets
 ---------------------
