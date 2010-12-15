@@ -38,13 +38,19 @@ More info
 
 * http://plone.org/documentation/kb/customization-for-developers/viewlets
 
-
-Other resources
----------------
-
 * `Customizing main template and viewlets <http://plone.org/documentation/tutorial/customizing-main-template-viewlets/introduction>`_
 
 * `ZCML viewlet definition <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/viewlet/index.html>`_.
+
+Finding viewlets
+----------------
+
+There are two through-the-web tools to start looking what viewlets are available on your installation. The
+available viewlets may depend on installed Plone version and installed add-ons.  
+
+* The ``portal_view_customizations`` tool in ZMI will show you viewlet registrations (and the viewlet managers they are registered for). As with views, you can hover over the viewlet name to see where it is registered in a tool tip. 
+
+* To discover the name of a particular viewlet, you can use the @@manage-viewlets view, e.g. as http://localhost:8080/plone/@@manage-viewlets.
 
 Creating a viewlet
 ------------------
