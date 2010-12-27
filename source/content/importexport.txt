@@ -30,7 +30,39 @@ Exporting single folder only
 
 You can limit export step to with arbitary :doc:`portal_catalog </searching_and_indexing/query>` conditions.
 
+Install ``quintagroup.transmogrifier`` via buildout and Plone add-on control panel.
+
+Go to *Site setup* > *Content migration*.
+
+Edit export settings. Remove sitewalked. Add new section::
+    
+    pipeline =
+        ...
+        catalogsource
+        
+    [catalogsource]
+    blueprint = quintagroup.transmogrifier.catalogsource
+    path = query= /isleofback/ohjeet
+        
+Go to Zope Management Interface and in portal_setup -> Export tab. Check Content (transmogrifier) step.
+Press *Export Selected Steps* at the bottom of the page. Now a .tar.gz file will be downloaded.    
+
+During the export process ``instance.log`` file is updated with status info. You might want to follow
+it in real-time from UNIX command line
+
+.. code-block:: console
+
+        tail -f var/log/instance.log 
+
+                   
+
+More information
+
+* :doc:`How to perform portal_catalog queries </searching_and_indexing/query.txt>`
+
 * http://webteam.medsci.ox.ac.uk/integrators-developers/transmogrifier-i-want-to-...
+
+* https://svn.plone.org/svn/collective/quintagroup.transmogrifier/trunk/quintagroup/transmogrifier/catalogsource.py
 
 Fast content import
 -------------------
