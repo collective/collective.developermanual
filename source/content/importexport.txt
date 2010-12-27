@@ -30,21 +30,50 @@ Exporting single folder only
 
 You can limit export step to with arbitary :doc:`portal_catalog </searching_and_indexing/query>` conditions.
 
+The recipe described here assumes the exported and imported site have the same path for the folder.
+Manually rename or move the folder on source or target to change its location.
+
+.. note ::
+
+        This recipe requires quintagroup.transmogrify 0.4 or later.
+
+Source site
++++++++++++
+
 Install ``quintagroup.transmogrifier`` via buildout and Plone add-on control panel.
 
 Go to *Site setup* > *Content migration*.
 
-Edit export settings. Remove sitewalked. Add new section::
+Edit export settings. Remove unnecessary pipeline entries by looking the example below. Add a new ``catalogsource`` blueprint::
     
-    pipeline =
-        ...
-        catalogsource
+        [transmogrifier]
+        pipeline =
+            catalogsource
+            fileexporter
+            marshaller
+            datacorrector
+            writer
+            EXPORTING
         
-    [catalogsource]
-    blueprint = quintagroup.transmogrifier.catalogsource
-    path = query= /isleofback/ohjeet
+        [catalogsource]
+        blueprint = quintagroup.transmogrifier.catalogsource
+        path = query= /isleofback/ohjeet
         
-Go to Zope Management Interface and in portal_setup -> Export tab. Check Content (transmogrifier) step.
+Also the following bit must be changed, because the target site does not necessary
+have the same content types available as the source site and this may prevent
+setting up folderish content settings::
+
+        [marshaller]
+        blueprint = quintagroup.transmogrifier.marshaller
+        exclude = 
+          immediatelyAddableTypes
+          locallyAllowedTypes
+            
+You might want to remove other, unneeded blueprints from the export ``pipeline``.
+For example, ``portletexporter`` may cause problems if the source and target site
+do not have the same portlet code.
+        
+Go to *Zope Management Interface* > *portal_setup* > *Export* tab. Check Content (transmogrifier) step.
 Press *Export Selected Steps* at the bottom of the page. Now a .tar.gz file will be downloaded.    
 
 During the export process ``instance.log`` file is updated with status info. You might want to follow
@@ -54,9 +83,40 @@ it in real-time from UNIX command line
 
         tail -f var/log/instance.log 
 
+In log you should see entries running like::
+
+        2010-12-27 12:05:30 INFO EXPORTING _path=sisalto/ohjeet/yritys/yritysten-tuotetiedot/tuotekortti
+        2010-12-27 12:05:30 INFO EXPORTING 
+        Pipeline processing time: 00:00:02
+                  94 items were generated in source sections
+                  94 went through full pipeline
+                   0 were discarded in some section
+
+Target site
++++++++++++
+
+Install ``quintagroup.transmogrifier`` via buildout and Plone add-on control panel.
+
+Open target site ``instance.log`` file for monitoring the import process
+
+.. code-block:: console
+
+        tail -f var/log/instance.log 
+
+
+Go to *Zope Management Interface* > *portal_setup* > *Import* tab. 
+
+Choose downloaded ``setup_toolxxx.tar.gz`` file at the bottom of the page,
+for *Import uploaded tarball* input.
+
+Run import and monitoring log file for possible errors. Note that the import
+completes even if the target site would not able to process incoming content.
+If there is a serious problem the import seems to complete succesfully,
+but no content is created.
                    
 
 More information
+++++++++++++++++
 
 * :doc:`How to perform portal_catalog queries </searching_and_indexing/query.txt>`
 
