@@ -25,26 +25,45 @@ exporting and importing content.
 
 Internally, it uses `collective.transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ package which itself does not provide any kind of user interface.
 
+`Transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ is a tool which serializes and deserializes content based o
+n pipelines. Pipelines are written in .ini-like plain text file based file format and they consists
+of sections.  
+Blueprints are self-contained reusable components which can be recycled between different content migration processes.
+Section is based on a blueprint and defines some configurable parameters for this blueprint.
+
 Exporting single folder only
 ============================
 
-You can limit export step to with arbitary :doc:`portal_catalog </searching_and_indexing/query>` conditions.
+Here is explained how to export and import `Plone CMS <http://plone.org>`_
+folders between different Plonen versions, or 
+different CMS systems, using  XML based content marshalling and 
+`quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_.
+
+This overcomes some problems with Zope management based export/import which uses `Python pickles
+<http://docs.python.org/library/pickle.html>`_ and thus needs identical codebase on the source 
+and target site. Exporting and importing between Plone 3 and Plone 4 is possible.
+
+You can limit export to cover source content to with arbitary :doc:`portal_catalog </searching_and_indexing/query>` conditions.
+If you limit source content by path you can effectively export single folder only.
 
 The recipe described here assumes the exported and imported site have the same path for the folder.
 Manually rename or move the folder on source or target to change its location.
 
 .. note ::
 
-        This recipe requires quintagroup.transmogrify 0.4 or later.
+        The instructions here requires quintagroup.transmogrify version 0.4 or later.
 
 Source site
 +++++++++++
+
+Execute these actions on the source Plone site.
 
 Install ``quintagroup.transmogrifier`` via buildout and Plone add-on control panel.
 
 Go to *Site setup* > *Content migration*.
 
-Edit export settings. Remove unnecessary pipeline entries by looking the example below. Add a new ``catalogsource`` blueprint::
+Edit export settings. Remove unnecessary pipeline entries by looking the example below. Add a new ``catalogsource`` blueprint.
+The ``exclude-contained`` option makes sure we do not export unnecessary items from the parent folders::
     
         [transmogrifier]
         pipeline =
@@ -58,8 +77,9 @@ Edit export settings. Remove unnecessary pipeline entries by looking the example
         [catalogsource]
         blueprint = quintagroup.transmogrifier.catalogsource
         path = query= /isleofback/ohjeet
+        exclude-contained = true
         
-Also the following bit must be changed, because the target site does not necessary
+Also we need to include some field-level exluding bits for the folders, because the target site does not necessary
 have the same content types available as the source site and this may prevent
 setting up folderish content settings::
 
@@ -95,6 +115,8 @@ In log you should see entries running like::
 Target site
 +++++++++++
 
+Execute these actions on the target Plone site.
+
 Install ``quintagroup.transmogrifier`` via buildout and Plone add-on control panel.
 
 Open target site ``instance.log`` file for monitoring the import process
@@ -102,7 +124,6 @@ Open target site ``instance.log`` file for monitoring the import process
 .. code-block:: console
 
         tail -f var/log/instance.log 
-
 
 Go to *Zope Management Interface* > *portal_setup* > *Import* tab. 
 
@@ -113,12 +134,18 @@ Run import and monitoring log file for possible errors. Note that the import
 completes even if the target site would not able to process incoming content.
 If there is a serious problem the import seems to complete succesfully,
 but no content is created.
-                   
+
+.. note ::
+
+       Currently export/import is not perfect. For example, ZMI content type icons  are currently
+       lost in the process. It is recommended to do a test run on a staging server
+       before doing this process on a production server.
+       Also, the item order in the folder is being lost.                 
 
 More information
 ++++++++++++++++
 
-* :doc:`How to perform portal_catalog queries </searching_and_indexing/query.txt>`
+* :doc:`How to perform portal_catalog queries </searching_and_indexing/query>`
 
 * http://webteam.medsci.ox.ac.uk/integrators-developers/transmogrifier-i-want-to-...
 
