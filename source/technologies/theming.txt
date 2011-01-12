@@ -1,1 +1,36 @@
 
+Theming
+=======
+
+To understand Plone's theming story you must first understand the technology
+stack on which it is built. 
+
+Zope2 (old style)
+-----------------
+
+Zope2 is the oldest portion of the stack. It offered the technology of
+Acquisition (among others) which facilitated the reuse of objects such as page
+templates, amongst a website full of "content" objects.
+
+CMF (old style)
+---------------
+
+Then along came the Zope CMF (content management framework) which offered
+the concepts of file system directory views (FSDV) and skin layers (among
+others). The CMF allowed people to manage their website's CSS and Javascript
+resources on the filesystem, typically inside a "skins" directory.
+
+ZTK (new style)
+---------------
+
+Initially called Zope 3 (more or less), the ZTK (Zope Toolkit) is a set of
+reusable packages (including zope.component and zope.interface which provide the
+Zope Component Architecture) that bring a modern, scalable development
+environment to Plone.
+
+Diazo (new style)
+-----------------
+
+Born out of the desire to separate code from website resources, Diazo
+(orginally called XDV) is a technology that maps Plone content to an XHTML
+template based on an XML ruleset. 
