@@ -212,6 +212,24 @@ are usable from *collective.basket* add-on products when your add-on product is 
 
         You might need to restart Plone if you edit metadata.xml - some information might be cached
         preventing immediate effect of changes.
+        
+.. note ::
+
+    Products.* Python namespace need to declare generic setup dependencies specially.
+    You actually do not mention Products.xxx space.
+    
+To declare dependency to ``Products.Carousel``::
+
+.. code-block:: xml
+
+        <?xml version="1.0"?>
+        <metadata>
+          <!-- Install Products.Carousel on the site when this add-on is installed -->
+          <dependencies>
+            <dependency>profile-Carousel:default</dependency>
+          </dependencies>
+        </metadata>
+            
 
 Custom setup code (setuphandlers.py)
 ---------------------------------------
