@@ -202,7 +202,7 @@ Example::
 Make NGINX aware where the request came from
 ============================================
 
-If you set up NGINX to run in front of Zope, and set up a virtual host with it like this:
+If you set up NGINX to run in front of Zope, and set up a virtual host with it like this::
 
         server {
                 server_name demo.webandmobile.mfabrik.com;
@@ -212,7 +212,7 @@ If you set up NGINX to run in front of Zope, and set up a virtual host with it l
                 }
         }
 
-Zope will always get the request from 127.0.0.1:8080 and not from the actual host, due to the redirection. To solve this problem correct your configuration to be like this:
+Zope will always get the request from 127.0.0.1:8080 and not from the actual host, due to the redirection. To solve this problem correct your configuration to be like this::
 
         server {
                 server_name demo.webandmobile.mfabrik.com;
@@ -222,6 +222,95 @@ Zope will always get the request from 127.0.0.1:8080 and not from the actual hos
                         proxy_set_header        Host            $host;
                         proxy_set_header        X-Real-IP       $remote_addr;
                         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                }
+        }
+
+
+PHP with NGINX and PHP-FPM
+===========================
+
+If you are coming from Apache world, you may be used to the 
+scenario where Apache handles all php related stuff. Well on 
+NGINX its a bit different: it does not automatically spawn 
+FCGI processes, so you must start them separately. In fact, 
+FCGI is a lot like proxying, which means that PHP-FPM will 
+run as a separate server and all we need to do is to forward 
+the request to it.
+
+A detailed tutorial on how to set it all up, configure and run 
+it can be found here:
+
+* http://alasdoo.com/2010/12/xdv-plone-and-phpbb-under-one-nginx-roof/
+
+
+SSI - server side include
+==========================
+
+In order to include external content to a page (XDV), we must 
+set up NGINX to make these includes for us. For including 
+external content we will use SSI (server side include) 
+method, which means that on each request NGINX will get the 
+needed external content, put it in place and only then return 
+the response. Here is a configuration that sets up the filtering 
+and turns on ssi for a specific location::
+
+
+        server {
+                listen 80;
+                server_name localhost;
+        
+                # Decide if we need to filter
+                if ($args ~ "^(.*);filter_xpath=(.*)$") {
+                    set $newargs $1;
+                    set $filter_xpath $2;
+                    # rewrite args to avoid looping
+                    rewrite    ^(.*)$    /_include$1?$newargs?;
+                }
+        
+                location @include500 { return 500; }
+                location @include404 { return 404; }
+        
+                location ^~ /_include {
+                    # Restrict to subrequests
+                    internal;
+                    error_page 404 = @include404;
+        
+                    # Cache in Varnish for 1h
+                    expires 1h;
+        
+                    # Proxy
+                    rewrite    ^/_include(.*)$    $1    break;
+                    proxy_pass http://127.0.0.1:80;
+        
+                    # Our safety belt.
+                    proxy_set_header X-Loop 1$http_X_Loop; # unary count
+                    proxy_set_header Accept-Encoding "";
+                    error_page 500 = @include500;
+                    if ($http_X_Loop ~ "11111") {
+                        return 500;
+                    }
+        
+                    # Filter by xpath
+                    xslt_stylesheet /home/ubuntu/plone/eggs/xdv-0.4b2-py2.6.egg/xdv/filter.xsl
+                    xpath=$filter_xpath
+                    ;
+                    xslt_html_parser on;
+                    xslt_types text/html;
+                }
+                
+                
+                location /forum {
+                    xslt_stylesheet /home/ubuntu/plone/theme/theme.xsl
+                    path='$uri'
+                    ;
+                    xslt_html_parser on;
+                    xslt_types text/html;
+                    # Switch on ssi here to enable external includes.
+                    ssi on;
+        
+                    root   /home/ubuntu/phpBB3;
+                    index  index.php;
+                    try_files $uri $uri/ /index.php?q=$uri&$args;
                 }
         }
 

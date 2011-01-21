@@ -878,5 +878,26 @@ that the theme integration works on your production site
 
 
 
+Using XDV to theme and integrate a phpBB forum
+--------------------------------------------------
 
- 
+What we want to achieve is to have a regular Plone site for 
+the CMS pages, and a mix of Plone and phpBB for the forum part. 
+By mix, I mean combination of elements from the two products. 
+The header and menu will come from Plone, and the body will be 
+from phpBB. This mixing will be done with XDV.
+
+First thought that came to mind was to use collective.xdv which 
+has a nice control panel page that holds all the configuration 
+stuff needed for XDV, and it does all the magic for me and I 
+don’t need to think about configuration or compiling on each change. 
+This is a very nice thing when the Plone site is the main site and 
+only some elements are needed to be dropped in from another 
+location. As usually we need the opposite from this: the phpBB site 
+needs to be the main one, and drop in some minor content from the 
+Plone site. This means that we can’t use the magic of collective.xdv, 
+but we must set up everything by hand.
+
+A detailed tutorial on how to make this happen can be found here:
+
+* http://alasdoo.com/2010/12/xdv-plone-and-phpbb-under-one-nginx-roof/
