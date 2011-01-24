@@ -12,7 +12,10 @@ RAM cache is a Zope facility to create custom in-process caches.
 Using memcache backend
 -------------------------
 
-By default, Zope uses in-process memory cache. It is possible to replace this with memcached. 
+Memoizers
+=========
+
+Memoize's RAM cache can be replaced with Memcached backend with the following snipped. 
 
 See *plone.org* set-up as an example
 
@@ -24,10 +27,10 @@ Advantages
 
 * Cache survives over a client restart
 
-See also
+By default, Zope uses in-process memory cache. It is possible to replace this with memcached. 
+You can add MemecachedManager to your zope setup, and replace RamCache instance in ZMI with a new instance of MemcachedManager (just with the sameid).
 
 * http://pypi.python.org/pypi/Products.MemcachedManager
-
 
 Using custom RAM cache
 -----------------------
