@@ -9,6 +9,26 @@ Introduction
 
 RAM cache is a Zope facility to create custom in-process caches.
 
+Using memcache backend
+-------------------------
+
+By default, Zope uses in-process memory cache. It is possible to replace this with memcached. 
+
+See *plone.org* set-up as an example
+
+* http://svn.plone.org/svn/plone/plone.org/Products.PloneOrg/trunk/Products/PloneOrg/caching.py
+
+Advantages
+
+* All front-end clients share the cache
+
+* Cache survives over a client restart
+
+See also
+
+* http://pypi.python.org/pypi/Products.MemcachedManager
+
+
 Using custom RAM cache
 -----------------------
 
