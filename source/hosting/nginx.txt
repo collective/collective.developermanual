@@ -199,8 +199,26 @@ Example::
         }
 
 
+More info
+==========
+
+Nginx location matching rules
+
+* http://wiki.nginx.org/NginxHttpCoreModule#location
+
+Nginx redirect module docs
+
+* http://wiki.nginx.org/NginxHttpRewriteModule
+
+More info of Nginx redirects 
+
+* http://scott.yang.id.au/2007/04/do-you-need-permalink-redirect/
+
+* http://aleksandarsavic.com/nginx-and-wordpress-setup-clean-seo-friendly-urls/
+
+
 Make NGINX aware where the request came from
-============================================
+---------------------------------------------
 
 If you set up NGINX to run in front of Zope, and set up a virtual host with it like this::
 
@@ -227,7 +245,7 @@ Zope will always get the request from 127.0.0.1:8080 and not from the actual hos
 
 
 PHP with NGINX and PHP-FPM
-===========================
+---------------------------
 
 If you are coming from Apache world, you may be used to the 
 scenario where Apache handles all php related stuff. Well on 
@@ -244,7 +262,7 @@ it can be found here:
 
 
 SSI - server side include
-==========================
+--------------------------
 
 In order to include external content to a page (XDV), we must 
 set up NGINX to make these includes for us. For including 
@@ -313,21 +331,3 @@ and turns on ssi for a specific location::
                     try_files $uri $uri/ /index.php?q=$uri&$args;
                 }
         }
-
-
-More info
-==========
-
-Nginx location matching rules
-
-* http://wiki.nginx.org/NginxHttpCoreModule#location
-
-Nginx redirect module docs
-
-* http://wiki.nginx.org/NginxHttpRewriteModule
-
-More info of Nginx redirects 
-
-* http://scott.yang.id.au/2007/04/do-you-need-permalink-redirect/
-
-* http://aleksandarsavic.com/nginx-and-wordpress-setup-clean-seo-friendly-urls/
