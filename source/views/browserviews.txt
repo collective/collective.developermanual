@@ -77,6 +77,36 @@ Views are resolved against different interfaces
 
 See also `related source code <http://svn.zope.org/zope.browserpage/trunk/src/zope/browserpage/metaconfigure.py?rev=103273&view=auto>`_.
 
+Finding a view to override
+--------------------------
+
+Here is short introduction how to find how existing views are defined.
+First, you go to portal_types to look what views have been registered to a particular content.
+
+For example, if you want to override *Folder's* Tabular view, you find out that
+it is registered as ``/folder_tabular_view`` handler.
+
+You look for *folder_tabular_view* old style page
+template or ``@@folder_tabular_view`` BrowserView ZCML registration in Plone source tree - 
+it can be either. 
+
+Example how to search for this using UNIX tools
+
+.. code-block:: console
+
+    find . | grep -i folder_tabular_view # find old style .pt files
+    
+.. code-block:: console
+
+    grep -Ri --include="*.zcml" folder_tabular_view * # find new style view registrations in ZCML files
+    
+``folder_tabular_view`` is found on :doc:`skin layer </templates_css_and_javascripts/skin_layers>`
+called ``plone_content`` in CMFPlone product.
+
+More info
+
+* :doc:`How to override old style page templates </templates_css_and_javascripts/skin_layers>`
+
 Creating and registering a view
 -------------------------------
 
