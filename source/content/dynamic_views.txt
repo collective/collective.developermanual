@@ -27,6 +27,7 @@ By default, Plone comes with dynamic views for
 
 Permission for changing the view template of an item
 -----------------------------------------------------
+
 An user needs the "Modify view template" permission to use the dynamic
 view dropdown. If you want to restrict this ability, grant/revoke this
 permission adequately.
@@ -35,6 +36,27 @@ This can be useful for some content-types like Dexterity ones, where
 dynamic views are enabled by default and the easiest way to disable
 them is using this permission.
 
+Default dynamic views
+---------------------
+
+Plone supports few dynamic views for folders out of the box
+
+* Summary view (folder_summary_view)
+
+* Tabular view (folder_tabular_view)
+
+* Album view (atct_album_view)
+
+* Listing (folder_listing)
+
+* Full view (folder_full_view) 
+
+These are defined in :doc:`portal_types information </content/types>` for *Folder* content type
+and mapped to *Display* menu all over in ZCML using ``browser:menuItem`` as described below.
+
+More info
+
+* :doc:`Overriding views </views/browserviews>` 
 
 Creating a dynamic view
 ------------------------
