@@ -9,6 +9,7 @@
 
 .. contents :: :local:
 
+.. highlight:: console
 
 Introduction
 ------------
@@ -58,11 +59,20 @@ Using this method also checks the new VCL for syntax errors before activating it
 Logging in to Varnish CLI requires varnishadm tool, address of management interface and authentication secret file. 
 See varnishadm man-page for details.
 
-Opening new CLI connection::
+Opening new CLI connection to Varnish console, buildout based Varnish installation::
+
+        parts/varnish-build/bin/varnishadm -T localhost:8088
+
+Port 8088 is defined in ``buildout.cfg``::
+
+        [varnish-instance]
+        telnet = localhost:8088
+                    
+Opening new CLI connection to Varnish console, system-wide Varnish installation on Ubuntu/Debian::
 
     varnishadm -T localhost:6082 -S /etc/varnish/secret
 
-The secret file’s location depends on your installation. Command for loading new VCL is::
+You can dynamically load and parse new VCL config file to memory::
 
 	vcl.load <name> <file>
 
@@ -70,10 +80,99 @@ For example::
 
 	vcl.load newconf_1 /etc/varnish/newconf.vcl
 
-This will load and compile the new configuration. Compilation will fail and report on syntax errors. 
+.. or ...
+
+        vcl.load test /srv/plone/myplonesitename/varnish.vcl
+        
+``vcl.load`` will load and compile the new configuration. Compilation will fail and report on syntax errors. 
 Now that the new configuration has been loaded it can be activated with::
 
 	vcl.use newconf_1 
+	
+.. note ::
+
+        Varnish does not reuse <name> in vcl.load, so every time you need to reload
+        your config you need to invent a new name for it.
+        
+Stats
+-----
+
+Check live "top like" Varnish monitor::
+
+        parts/varnish-build/bin/varnishstat
+        
+Use admin console to print stats for you::
+
+        stats
+        200 2114    
+        
+               95717  Client connections accepted
+              132889  Client requests received
+               38638  Cache hits
+               21261  Cache hits for pass
+               59565  Cache misses
+               23395  Backend conn. success
+                  87  Backend conn. failures
+               62062  Backend conn. reuses
+               17259  Backend conn. was closed
+               79331  Backend conn. recycles
+                  10  Fetch head
+               65423  Fetch with Length
+               15694  Fetch chunked
+                3753  Fetch EOF
+                 302  Fetch wanted close
+                 355  Fetch failed
+                 180  N struct sess_mem
+                 227  N struct object
+                 234  N struct objectcore
+                 259  N struct objecthead
+                 501  N struct smf
+                  35  N small free smf
+                  16  N large free smf
+                  10  N struct vbe_conn
+                  10  N worker threads
+                 478  N worker threads created
+                2929  N worker threads limited
+                3995  N overflowed work requests
+                   4  N backends
+               59052  N expired objects
+               36943  N LRU moved objects
+              105838  Objects sent with write
+               95717  Total Sessions
+              132889  Total Requests
+                  21  Total pipe
+               25917  Total pass
+               84827  Total fetch
+            56847844  Total header bytes
+          3212053619  Total body bytes
+               54026  Session Closed
+                 112  Session Pipeline
+                  39  Session Read Ahead
+               84400  Session Linger
+               75169  Session herd
+             8395856  SHM records
+              953122  SHM writes
+                   1  SHM flushes due to overflow
+                 913  SHM MTX contention
+                   4  SHM cycles through buffer
+              137327  allocator requests
+                 450  outstanding allocations
+            10911744  bytes allocated
+           257523712  bytes free
+                 675  SMS allocator requests
+              282210  SMS bytes allocated
+              282210  SMS bytes freed
+               85435  Backend requests made
+                   2  N vcl total
+                   2  N vcl available
+                   1  N total active purges
+                   1  N new purges added
+              119461  HCB Lookups without lock
+               38489  HCB Lookups with lock
+               38489  HCB Inserts
+              353868  Client uptime
+                  41  Backend conn. retry
+        
 
 Varnish buildout restart snippet
 --------------------------------
