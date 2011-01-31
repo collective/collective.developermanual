@@ -24,7 +24,36 @@ Plone has several methods of getting the list of folder items depending on wheth
 Special attentation must be paid also on object ids. Zope looks all objects by traversing site graph
 using ids. The id mapping is usually the property of a parent object, not child. Thus most of the listing 
 methods tend to return (id, object) tuples instead of plain objects.   
-   
+
+Ensuring contente item is a folder
+-----------------------------------
+
+All Plone folderish content types provide ``IFolderish`` interface.
+Check that this is present to make sure a content item is a 
+folder and you can call ``contentItems()`` and other methods::
+
+
+        from Products.CMFCore.interfaces import IFolderish
+        
+        def recurse_all_content(portal):
+            
+            output = StringIO()
+            
+            def recurse(context):
+                """ Recurse through all content on Plone site """
+                              
+                print  >> output, "Recusring to item:" + str(context)
+                
+                # Make sure that we recurse to real folders only,
+                # otherwise contentItems() might be acquired from higher level
+                if IFolderish.providedBy(context):
+                    for id, item in context.contentItems():
+                        recurse(item)
+                
+            recurse(portal)
+            
+            return output
+               
 
 Getting all content objects inside a folder
 -------------------------------------------
