@@ -34,17 +34,88 @@ from the different, unrelated, code paths.
 
 .. code-block:: python
 
-    from zope.annotation.interfaces import IAnnotations
+        from zope.annotation.interfaces import IAnnotations
 
-	# Non-conflicting key
-	KEY = "mypackage.something"
+        # Non-conflicting key
+        KEY = "mypackage.something"
+        
+        annotations = IAnnotations(request)
+        
+        value = annotations.get(KEY, None)
+        if value is None:
+        	# Compute value and store it on request object for further look-ups
+        	value = annotations[KEY] = something()
 
-	annotations = IAnnotations(request)
+Content annotations
+---------------------
 
-	value = annotations.get(KEY, None)
-	if value is None:
-		# Compute value and store it on request object for further look-ups
-		value = annotations[KEY] = something()
+If you want to extend any Plone content to contain "custom" settings annotations
+is the recommended way to do it.
+
+* Your add-on can store its settings in Plone site root object using local utilities or annotations
+
+* You can store custom settings on content objects using annotations 
+
+Example::
+
+        # Assume context variable refers to some content item
+
+         # Non-conflicting key
+        KEY = "yourcompany.packagename.magicalcontentnavigationsetting"
+        
+        annotations = IAnnotations(context)
+        
+        # Store some setting on the content item
+        annotations[KEY] = True
+        
+Cleaning up content annotations
+-------------------------------
+
+.. warning ::
+
+        If you store full Python objects in annotations you need to clean them up during your add-on
+        uninstallation. Otherwise if Python code is not present you cannot no longer import or export
+        Plone site (annotations are pickled objects in the database and pickles do no longer work
+        if the code is not present). 
+
+How to clean up annotations on content objects::
+
+        def clean_up_content_annotations(portal, names):
+            """
+            Remove objects from content annotations in Plone site,
+        
+            This is mostly to remove objects which might make the site un-exportable 
+            when eggs / Python code has been removed.
+        
+            @param portal: Plone site object
+            
+            @param names: Names of the annotation entries to remove
+            """
+            
+            output = StringIO()
+            
+            def recurse(context):
+                """ Recurse through all content on Plone site """
+                        
+                annotations = IAnnotations(context)
+                
+                #print  >> output, "Recusring to item:" + str(context)
+                print annotations
+                
+                for name in names:
+                    if name in annotations:
+                        print >> output, "Cleaning up annotation %s on item %s" % (name, context.absolute_url()) 
+                        del annotations[name]
+                
+                # Make sure that we recurse to real folders only,
+                # otherwise contentItems() might be acquired from higher level
+                if IFolderish.providedBy(context):
+                    for id, item in context.contentItems():
+                        recurse(item)
+                
+            recurse(portal)
+            
+            return output
 
 Other resources
 ---------------
