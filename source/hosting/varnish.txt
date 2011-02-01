@@ -93,6 +93,18 @@ Now that the new configuration has been loaded it can be activated with::
 
         Varnish does not reuse <name> in vcl.load, so every time you need to reload
         your config you need to invent a new name for it.
+
+
+Logs
+------
+
+To see real-time log dump (system-wide Varnish configuration)::
+
+        varnishlog
+        
+By default, Varnish does not log to any file and keeps log only in memory.
+If you want to extract Apache like log from varnish you need to use ``varnishncsa``
+utility.
         
 Stats
 -----
