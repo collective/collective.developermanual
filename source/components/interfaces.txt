@@ -34,6 +34,18 @@ Example::
         class MyContent(folder.ATFolder):
             """A Researcher synchronized from ORA"""
             implements(IORAResearcher, ILocalSyncedContent)
+            
+            
+Removing parent class interface implementations
+===================================================
+
+``implementsOnly()`` redeclares all inherited interface implementations. 
+This is useful if you, for example, want to make :doc:`z3c.form </forms/z3c.form>`
+widget bindings more accurate. 
+
+Example:: 
+
+    zope.interface.implementsOnly(IAddressWidget)            
 
 Checking whether object provides an interface
 ---------------------------------------------
