@@ -144,15 +144,16 @@ Example::
 Getting groups for a certain user
 =================================
 
-Below is an example how to get groups for the logged in user::
+Below is an example how to get groups for the logged in user (Plone 3 and below)::
 
         (portal.portal_membership.getAuthenticatedMember().has_role('Manager')) or 
         ('Organizzazione' in portal.portal_membership.getAuthenticatedMember().getGroups())
         
-        
-.. warning ::
+In Plone 4 you have to use::
+    
+    gtool = getToolByName(portal, "portal_groups", None)
+    gtool.getGroupsByUserId('admin')
 
-        Deprecation: This method won't work in Plone 4.
         
 Checking if user exists
 ------------------------
