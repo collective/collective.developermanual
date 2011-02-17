@@ -37,6 +37,8 @@ This exception is defined as::
 	the next call to obj.update() (edit form post) will automatically generate a friendly id
 	for the object based on the title of the object.
 
+
+
 Bypassing permissions when creating content item
 ================================================
 
@@ -82,6 +84,19 @@ Here is also alternative way::
     # is only for the owner, so we need to by bass it here
     from Products.CMFPlone.utils import _createObjectByType    
     _createObjectByType("YourContentType", folder, id)	
+
+PortalFactory
+=============
+
+PortalFactory (only for archetype) creates the object in a temporary folder and only moves it to the real folder when it is first saved
+
+
+.. note ::
+
+        to see if content is still temporary use portal_factory.isTemporary(obj)
+
+
+
     
 Restricting creating on content types
 --------------------------------------
