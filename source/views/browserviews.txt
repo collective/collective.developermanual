@@ -602,3 +602,32 @@ How to filter out views which provide certain interface.
         
         # Filter out all classes which do not filter a certain interface
         views = [ view.factory for view in views if IBlocksView.implementedBy(view.factory) ] 
+
+Default view of a content item
+-------------------------------
+
+Each content item has a default view.
+
+* This view is configured in :doc:`portal_types </content/types>`.
+
+* This view is rendered when content item is called - even though 
+  they are objects, they have ``__call__()`` Python method defined.
+
+Objects has views for "default", view, edit, and so on.
+
+The distinction between *default* and *view* views are that for files,
+the default can be download.
+
+If you explicitly need to get content item view for page rendering, 
+you can do it::
+
+    def viewURLFor(item):
+        cdtate = getMultiAdapter((item, item.REQUEST), name='plone_context_state)
+        return cstate.view_url() 
+  
+More info
+
+* :doc:`Context helpers and utilities </misc/context>`
+
+* http://plone.293351.n2.nabble.com/URL-to-content-view-tp6028204p6028204.html  
+       
