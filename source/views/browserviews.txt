@@ -606,17 +606,18 @@ How to filter out views which provide certain interface.
 Default view of a content item
 -------------------------------
 
-Each content item has a default view.
+Objects has views for "default", view, edit, and so on.
+
+The distinction between *default* and *view* views are that for files,
+the default can be download.
+
+The default view...
 
 * This view is configured in :doc:`portal_types </content/types>`.
 
 * This view is rendered when content item is called - even though 
   they are objects, they have ``__call__()`` Python method defined.
 
-Objects has views for "default", view, edit, and so on.
-
-The distinction between *default* and *view* views are that for files,
-the default can be download.
 
 If you explicitly need to get content item view for page rendering, 
 you can do it::
