@@ -99,6 +99,21 @@ project.
 
 	To use local commands you need to use paster command directly - zopeskel does not support them yet.
 
+
+To add ``paster`` to your buildout's ``bin/`` folder include the following 
+snippet in ``buildout.cfg``::
+
+        parts =
+            ...
+            paster
+        
+        [paster]
+        recipe = zc.recipe.egg
+        eggs =
+                PasteScript
+                ZopeSkel
+                ${instance:eggs} 
+
 Example what kind of Plone functionality you can add with local commands
 
 * Views
