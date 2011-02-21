@@ -118,6 +118,23 @@ Pointers
 
 * http://pypi.python.org/pypi/Products.PloneTestCase
 
+Posing as different users
+---------------------------
+
+There is a shortcut to priviledge you from all security checks::
+        
+      self.loginAsPortalOwner()
+          
+.. where self is the test case instance.
+
+.. note ::
+
+        This priviledges are effective only in the context
+        where permissions are checked manually. They do
+        not affect traversing related permissions: 
+        looking up views or pages in unit test Python code.
+        For that kind of testing, use functional testing.
+
 Unit tests and themes
 ------------------------
 
