@@ -146,6 +146,13 @@ Archetypes has to kind of access methods
 
 * Raw, so calle edit accessor, getSomethingRaw() which does not filter output
 
+Sometimes obj.getSomething() return a `BaseUnit <http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/BaseUnit.py>`_ object.
+BaseUnit is an encapsulation of raw data for long text or file.
+It contains information about mimetype, filename, encoding.
+To get the raw value of a BaseUnit object you can use getRaw method or more simpler str(baseunit)
+
+
+
 Indirect access
 ==================
 
