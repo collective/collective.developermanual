@@ -57,7 +57,28 @@ This stores field values in external SQL database.
 
 * `An old documentation how to use SQL storage <http://plone.sourceforge.net/archetypes/sqlstorage-howto.html>`_.
 
+FSSStorage
+----------
+
+Store fields raw values on the file system.
 
 
+.. code-block:: python
+
+    # Usual Zope/CMF/Plone/Archetypes imports
+    ...
+    from iw.fss.FileSystemStorage import FileSystemStorage
+    ...
+    my_schema = Schema((
+              FileField('file',
+                        ...
+                       storage=FileSystemStorage(),
+                       widget=FileWidget(...)
+                       ),
+              ...
+              ))
+    ...
+
+* `Official documentation of fss <http://pypi.python.org/pypi/iw.fss/>`_.
 
 
