@@ -1,22 +1,13 @@
-=====================
-Additional resources
-=====================
+=======================
+Additional information
+=======================
 
 .. admonition:: Description
 
-   Further info
+   Further in-depth information about dealing with buildout
+   in Plone context
 
-Plone and buildout
--------------------
-
-* http://maurits.vanrees.org/weblog/archive/2008/01/easily-creating-repeatable-buildouts
-
-Official Tutorial
-------------------
-
-Bit too hardcore for anyone except those creating their own build commands.
-
-* http://www.buildout.org/docs/index.html
+.. contents:: :local
 
 Recipes
 --------
@@ -57,6 +48,105 @@ Plone buildout's have folderes which have predefined purposes
   and you need to pick one for buildout command. E.g.::
 
         bin/buildout -c production.cfg
+
+Running buildout on Windows
+-----------------------------
+
+Windows Plone installer supplies ``buildout.exe``.
+This executable uses system Python installation.
+This installation is not necessary the correct Python 
+version if multiple Pythons are installed on the computer.
+
+A lot of Windows Python software use
+wrapper .exe files which pick the Python interpreter 
+based on this registry settings. One notable exe is buildout.exe,
+which is used to run buildout.
+
+If you install multiple Pythons,
+the latter installations might not become active in the registry automatically,
+and your Python wrapper still rely on the old version. This leads to
+version incompatibilities and you are unable to start the Python applications. 
+
+Since only one Python interpreter can be activate at a time,
+it is little bit difficult to develop multi-version Python code Windows.
+This kind of situation could be that you develop Plone 3 sites
+(Python 2.4) and Plone 4 sites (Python 2.6) simultaneously.
+
+Below is regpy.py code which changes the active Python interpreter.
+The orignal author is unknown, I picked up this code from some paste board
+long time ago. Just run this code with your Python and the running
+interpreter becomes active.
+
+Example::
+
+        C:\Plone\python\python.exe regpy.py
+        
+Code::
+
+        import sys
+        
+        from _winreg import *
+        
+        # tweak as necessary
+        version = sys.version[:3]
+        installpath = sys.prefix
+        
+        regpath = "SOFTWARE\\Python\\Pythoncore\\%s\\" % (version)
+        installkey = "InstallPath"
+        pythonkey = "PythonPath"
+        pythonpath = "%s;%s\\Lib\\;%s\\DLLs\\" % (
+            installpath, installpath, installpath
+        )
+        
+        def RegisterPy():
+            try:
+                reg = OpenKey(HKEY_LOCAL_MACHINE, regpath)
+            except EnvironmentError:
+                try:
+                    reg = CreateKey(HKEY_LOCAL_MACHINE, regpath)
+                    SetValue(reg, installkey, REG_SZ, installpath)
+                    SetValue(reg, pythonkey, REG_SZ, pythonpath)
+                    CloseKey(reg)
+                except:
+                    print "*** Unable to register!"
+                    return
+                print "--- Python", version, "is now registered!"
+                return
+            if (QueryValue(reg, installkey) == installpath and
+                QueryValue(reg, pythonkey) == pythonpath):
+                CloseKey(reg)
+                print "=== Python", version, "is already registered!"
+                return
+            CloseKey(reg)
+            print "*** Unable to register!"
+            print "*** You probably have another Python installation!"
+        
+        if __name__ == "__main__":
+            RegisterPy()       
+
+Example error when going from Plone 3 to Plone 4::
+
+        Traceback (most recent call last):
+        
+          File "C:\xxx\bin\idelauncher.py", line 99, in ?
+        
+            exec(data, globals())
+        
+          File "<string>", line 419, in ?
+        
+          File "c:\xxx\buildout-cache\eggs\plone.recipe.zope2instance-4.0.3-py2.6.egg\plone\recipe\zope2instance\__init__.py", line 27, in ?
+        
+            from plone.recipe.zope2instance import make
+        
+          File "c:\xxx\buildout-cache\eggs\plone.recipe.zope2instance-4.0.3-py2.6.egg\plone\recipe\zope2instance\make.py", line 5, in ?
+        
+            from hashlib import sha1
+        
+        ImportError: No module named hashlib
+        
+More info
+
+* http://blog.mfabrik.com/2011/02/22/changing-the-active-python-interpreter-on-windows/         
 
 Running buildout behind proxy
 ------------------------------
