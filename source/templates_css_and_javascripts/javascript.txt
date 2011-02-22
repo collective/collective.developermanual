@@ -38,6 +38,13 @@ portal_javascript will automatically
 
 * support IE conditional comments
 
+Javascript libraries
+----------------------
+
+You can use any Javascript library with Plone.
+
+Plone internally uses jQuery.
+
 Creating Javascripts for Plone
 ------------------------------
 
@@ -92,6 +99,9 @@ The following options are available
   The files with the same condition are grouped to the same compression bundle. For more information,
   see :doc:`expressions documentation </functionality/expressions>`.
 
+* *authenticated* (Plone 4+) is expression override, which tells
+  the load the script for authenticated users only
+
 * *cookable* is merging of Javascript files allowed during the compression
 
 * *inline* is script server as inline inside <script>...</script> tag
@@ -105,7 +115,11 @@ The following options are available
 
 `Full description in the source code <https://svn.plone.org/svn/plone/ResourceRegistries/trunk/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
 
-Example ``profiles/default/jsregistry.xml`` in your add-on product
+For every page
+===============
+
+Example ``profiles/default/jsregistry.xml`` in your add-on product.
+This registers a Javascript which is loaded for every page.
 
 .. code-block:: xml
         
@@ -117,6 +131,37 @@ Example ``profiles/default/jsregistry.xml`` in your add-on product
                         enabled="True" expression=""  inline="False" insert-after="toc.js"/>
         </object>
 
+For authenticated users only
+=============================
+
+The following registers two Javascript files which are aimed
+to edit mode and authenticated users. The Javascript are 
+added to the merge bundle and compressed, so they do not increase
+the load time of the page. The files are loaded from ``portal_skins`` 
+(not from resource folder) and can be referred by their direct filename -
+Plone resolves portal_skins files magically for the site root and every 
+folder.
+
+.. code-block:: xml
+
+        <?xml version="1.0"?>
+        <object name="portal_javascripts">
+        
+        
+                <javascript
+                        id="json.js"
+                        authenticated="True"
+                        cacheable="True" compression="safe" cookable="True"
+                        enabled="True" expression=""  inline="False" insert-after="tiny_mce.js"/>
+                
+                <javascript
+                        id="orapicker.js"
+                        authenticated="True"
+                        cacheable="True" compression="safe" cookable="True"
+                        enabled="True" expression=""  inline="False" insert-after="json.js"/>
+        
+        
+        </object>
 
 Bundles
 =======
