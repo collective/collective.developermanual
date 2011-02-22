@@ -11,6 +11,20 @@
 Introduction
 ------------
 
+Javascripts files must be distributed to Plone
+
+* By creating them through-the-web editor in :doc:`portal_skins </templates_css_and_javascripts/skin_layers>`. 
+  are stored in ZODB in this case.
+  
+* By add-on products using :doc:`Zope 3 resource folders </templates_css_and_javascripts/resourcefolders>`
+
+Then the Javascript must be registered on the site
+
+* Through-the-web in portal_javascripts in ZMI
+
+* Using :doc:`GenericSetup jsregistry.xml </components/genericsetup>` which
+  is run (and rerun) when you use the add-on installer in the control panel  
+
 Plone Javascripts are managed by resource registry *portal_javascripts*.
 You can find this in Zope Management interface, under your portal root folder.
 
