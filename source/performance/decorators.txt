@@ -48,6 +48,12 @@ Please read `Timed caching decorator with plone.memoize <http://danielnouri.org/
 Caching per request
 -------------------
 
+This pattern shows how to avoid recalculate the same value
+during the life cycle of a HTTP request object.
+
+Caching on BrowserViews
+========================
+
 This is useful if the same view/utility is going to be called many time from different sources for the same HTTP request.
 
 `plone.memoize.view <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/view.txt>`_
@@ -70,6 +76,35 @@ package provides necessary decorators for BrowserView based classes.
         def getValueNoContext():
             """ This value is recalculated for all context objects once per request """
             return "something"
+
+Caching on Archetypes accessors
+=================================
+
+If you have a custom :doc:`Archetypes accessor method </content/archetypes/fields>`
+you can avoid recalculating it during the request processing.
+
+Example::
+
+    def getParsedORADataCached(self):
+        """
+        Same as above, but does not run through JSON reader every time.
+        """
+    
+        # Manually store the result on HTTP request
+        # object annotations 
+        
+        
+        # Use function name + Archetypes unique identified as the key
+        key = "parsed-ora-data-" + self.UID()
+        
+        cache = IAnnotations(self.REQUEST)
+        data = cache.get(key, None)
+        if not data:
+            data = self.getParsedORAData()
+            cache[key] = data 
+
+        return data
+
 
 Other resources
 ---------------
