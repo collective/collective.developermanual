@@ -93,8 +93,19 @@ for this external method in ZMI.
 	
 	    return buffer.getvalue()
 	
+General methods to manipulate local roles (sharing)
+==================================================
 
+::
 
+	folder.manage_setLocalRoles(userid, ['Reader'])
+	
+
+would grant the role "Reader" (Can View on the Sharing Tab) to userid.
+
+Beware that this will set the local roles for the user to only ['Reader']. If the user already has other local roles, this will (untested) clear those.
+
+It will not affect inherited roles.
 
 Add sharing tab to a custom content type
 ----------------------------------------
