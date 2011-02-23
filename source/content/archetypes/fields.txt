@@ -233,7 +233,7 @@ Example
         # -*- Your Archetypes field definitions here ... -*-
         atapi.StringField(
             'pageTitle',
-            storage=atapi.AnnotationStorage(),
+            stxxxge=atapi.AnnotationStxxxge(),
             widget=atapi.StringWidget(
                 label=_(u"Page title"),
                 description=_(u"Title shown on the page text if differs from the navigation title"),
@@ -256,6 +256,183 @@ Example
     # Reorder schema fields to the final order,
     # show special pageTitle field after actual Title field
     ProductCardFolderSchema.moveField("pageTitle", after="title")
+
+Hiding widgets
+---------------
+
+* You should not remove core Plone fields (Title, Description) as they 
+  are used by Plone internally e.g. in the navigation tree
+  
+* But you can override their accessor functions ``Title()`` and
+  ``Description()``
+  
+* You can also hide the widgets
+
+The recommended approach is to hide the widgets, 
+then update the field contents when the relevant data is update. 
+E.g. you can generate title value from fields firstname and lastname.
+
+
+Below is an example which uses custom JSON field as input,
+and then sets title and description based on it.
+
+        """Definition of the XXX Researcher content type
+        """
+        
+        import logging
+        import json # py2.6
+        
+        from zope.interface import implements, directlyProvides, alsoProvides
+        
+        from five import grok
+        
+        from Products.Archetypes.interfaces import IObjectEditedEvent
+        from Products.Archetypes import atapi
+        from Products.ATContentTypes.content import folder
+        from Products.ATContentTypes.content import schemata
+        
+        from xxx.objects import objectsMessageFactory as _
+        from xxx.objects.interfaces import IXXXResearcher
+        from xxx.objects.config import PROJECTNAME
+        
+        XXXResearcherSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+        
+            # -*- Your Archetypes field definitions here ... -*-
+            
+            # Stores XXX entry as JSON string
+            atapi.TextField("XXXData", 
+                            required =  True,
+                            widget=atapi.StringWidget(
+                                        label="XXX source entry",
+                                        description="Start typing person's name"
+                                        )),
+            
+        ))
+        
+        XXXResearcherSchema["title"].widget.visible = {"edit": "invisible" }
+        XXXResearcherSchema["description"].widget.visible = {"edit": "invisible" }
+        
+        # Set stxxxge on fields copied from ATFolderSchema, making sure
+        # they work well with the python bridge properties.
+        
+        schemata.finalizeATCTSchema(
+            XXXResearcherSchema,
+            folderish=True,
+            moveDiscussion=False
+        )
+        
+        class XXXResearcher(folder.ATFolder):
+            """A Researcher synchronized from XXX.
+            
+            This content will have all 
+            
+        
+            
+            """
+            implements(IXXXResearcher)
+        
+            meta_type = "XXXResearcher"
+            schema = XXXResearcherSchema
+            
+            # -*- Your ATSchema to Python Property Bridges Here ... -*-
+            
+            def refreshXXXData(self):
+                """
+                Performs collective.mountpoint synchronization for one object.
+                """
+                #synchronize_item(self, logging.WARNING)
+                    
+            def updateXXX(self, json):
+                """        
+                @param json: JSON payload as a string
+                """
+                data = self.parseXXXData(json)
+                
+                # Set this core Plone fields to actual values,
+                # so that we surely co-operate with old legacy code
+                
+                title = self.getTitleFromData(data)
+                desc = self.getDescriptionFromData(data)
+                
+                self.setTitle(title)
+                self.setDescription(desc)
+            
+            def parseXXXData(self, jsonData):
+                """
+                @return Python dict
+                """
+                return json.loads(jsonData)
+            
+            def getParsedXXXData(self):
+                """ 
+                Return XXX JSON data parsed to Python object.
+                """        
+              
+                data = self.getXXXData()
+                if data == "" or data is None:
+                    return None
+                
+                return self.parseXXXData(data)
+                
+            def getTitleFromData(self, data):
+                """
+                Use lastname + surname from FOAF data as the connt title.
+                """
+                
+                title = data.get(u"foaf_name", None)
+                
+                if title == "" or title is None:
+                    # Title must have something so that the users
+                    # can click this item in list...
+                    title = "(unnamed)"
+            
+                # foaf_name is actually list of values, so we need to merge them
+                title = " ".join(title)
+        
+                return title
+            
+            def getDescriptionFromData(self, data):
+                """ Extract content item description from data blob """
+                
+                desc = data.get(u"dc_description", None)
+                
+                if desc is None or len(desc) == 0:
+                    # Decription is not required, we get omit it
+                    return None
+            
+                # dc_description is actually a list of description
+                # let's merge them to string here
+                desc = " ".join(desc)
+            
+                return desc
+                
+            
+        atapi.registerType(XXXResearcher, PROJECTNAME)
+        
+        @grok.subscribe(XXXResearcher, IObjectEditedEvent)
+        def object_edited(context, event):
+            """
+            Event handler which will update title + description
+            values every time the object has been edited.
+            
+            @param context: Object for which the event was fired
+            """
+        
+            # Read JSON data entry which user entered on the form
+            json = context.getXXXData()
+        
+            if json != None:
+                
+                # Update the core fields to reflect changes
+                # in JSON data
+                context.updateXXX(json)
+                
+                # Reflect object changes back to the portal catalog
+                # Note that we are running reindexObject()
+                # here again... edit itself runs it and
+                # we could do some optimization here
+                context.reindexObject()
+                
 
 Rendering widget
 ----------------
