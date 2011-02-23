@@ -22,6 +22,8 @@ or content objects:
 
 * Cut, copy, paste are actions
 
+* Logged in menu is populated by actions
+
 Actions are managed by
 
 * portal_actions for generic actions
@@ -72,7 +74,6 @@ Example:
     <object name="portal_actions" meta_type="Plone Actions Tool"
        xmlns:i18n="http://xml.zope.org/namespaces/i18n">
      <object name="document_actions" meta_type="CMF Action Category">
-      <property name="title"></property>
       <object name="sendto" meta_type="CMF Action" i18n:domain="plone">
        <property name="title" i18n:translate="">Send this</property>
        <property name="description" i18n:translate=""></property>
@@ -85,6 +86,29 @@ Example:
        <property name="visible">True</property>
       </object>
     </object>
+    
+Here is an another example which adds administrator action
+to Plone 4 users menu (top right corner)
+
+.. code-block:: xml
+
+        <?xml version="1.0"?>
+        <object name="portal_actions" meta_type="Plone Actions Tool"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+         <object name="user" meta_type="CMF Action Category">
+          <object name="ora_sync" meta_type="CMF Action" i18n:domain="plone">
+           <property name="title" i18n:translate="">ORA</property>
+           <property name="description" i18n:translate="">ORA site synchronization status</property>
+           <property name="url_expr">string:${portal_url}/@@syncall</property>
+           <property name="icon_expr"></property>
+           <property name="available_expr"></property>
+           <property name="permissions">
+            <element value="Manage portal"/>
+           </property>
+           <property name="visible">True</property>
+          </object>
+         </object>
+        </object>    
     
 Reordering actions in actions.xml
 ==================================
