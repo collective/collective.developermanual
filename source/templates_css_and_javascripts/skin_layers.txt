@@ -4,15 +4,17 @@ Skin layers
 
 .. admonition:: Description
 
-        Skin layers are legacy, still in use, Plone 2 tecnology to add 
-        overridable tempaltes and media resources to Plone packages.
-        
-.. contents:: :local:        
-        
+        Skin layers are a legacy Plone 2 technology, still is use, for
+        adding overridable templates and media resources to Plone
+        packages.
+
+.. contents:: :local:
+
 Introduction
 ------------
-        
-Skin layers, portal_skins and CMFCore.SkinsTool are old-fashioned way to manage Plone templates.
+
+Skin layers, portal_skins and CMFCore.SkinsTool are the old-fashioned
+way to manage Plone templates.
 
 * Each Plone theme has set of folders it will pick from portal_skins. These sets
   are defined in portal_skins -> properties.
@@ -25,9 +27,9 @@ Skin layers, portal_skins and CMFCore.SkinsTool are old-fashioned way to manage 
 Defining a skin layer
 ---------------------
 
-Skin files are put under *skins* folder in your add-on product.
+Skin files are placed in the *skins* folder of your add-on product.
 
-The structure looks like:
+The structure looks like this:
 
 * yourproduct/namespace/configure.zcml
 
@@ -77,13 +79,23 @@ If you test templates in your unit testing code you might need to call PloneTest
         # Must be called to load our add-on skins folders
         # for unit testing
         self._refreshSkinData()
-        
+
+
+Activating the current skin layer from a debug/ipzope shell
+===========================================================
+
+The skin needs to be initialised before its files can be accessed
+e.g. via restrictedTraverse::
+
+     portal.setupCurrentSkin()
+
 
 Rendering a skin layer template
----------------------------------
+-------------------------------
 
-Templates must be bound to context object before rendering.
-Plone acquisition magic maps templates as acquired attributes of all contentish objects.
+Templates must be bound to a context object before rendering.  Plone
+acquisition magic maps templates as acquired attributes of all
+contentish objects.
 
 Example::
 
@@ -113,10 +125,10 @@ Example::
     '/home/moo/workspace2/plone.app.headeranimation/plone/app/headeranimation/skins/headeranimation/document_view.pt'
 
 Poking portal_skins
----------------------
+-------------------
 
 ``portal_skins`` is a persistent tool in Plone site root providing functions to manage skin layers.
-Its code mostly lives in ``Products.CMFCore.SkinsTool``. 
+Its code mostly lives in ``Products.CMFCore.SkinsTool``.
 
 Available skin layers are directly exposed as :doc:`traversable </serving/traversing>` attributes::
 
@@ -154,5 +166,5 @@ You can edit a specific skin layer::
 holding *skin name* -> *comma separated layer list* mappings.
 
 
- 
- 
+
+
