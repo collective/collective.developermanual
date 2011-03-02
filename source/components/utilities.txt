@@ -49,8 +49,8 @@ Some hints::
         <Moo^_^> what's difference between gsm.queryUtility() (global site manager) and zope.component.queryUtility()
         <agroszer> Moo^_^, I think gsm... takes the global registrations, z.c.queryUtility respects the current context
         
-Registering an utility
-----------------------
+Registering a global utility
+-----------------------------
 
 Utility is constructed when Plone is started and ZCML is read.
 Utilities take no constructor parameters. If you need to use parameters
@@ -102,7 +102,14 @@ To use this class::
            filter = getUtility(IConvergenceMediaFilter)
            x = filter.foobar(3)                    
 
+Registering a local utility
+-----------------------------
 
+* http://plone.org/documentation/manual/developer-manual/generic-setup/reference/component-registry
+
+* http://davisagli.com/blog/registering-add-on-specific-components-using-z3c.baseregistry
+
+* http://pypi.python.org/pypi/z3c.baseregistry
 
 Overriding utility
 ------------------
