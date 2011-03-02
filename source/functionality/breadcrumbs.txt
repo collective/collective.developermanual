@@ -1,0 +1,62 @@
+==========================
+ Breadcrumbs (path bar)
+==========================
+
+.. admonition :: Description
+
+    Breadcrumbs is visual element showing where the user is on the site.
+    This document shows some example code how to create breadcrumbs 
+    programmatically.
+
+.. contents :: :local:
+    
+Example code
+------------
+
+Below is an example how we have exracted information like the parent container
+and such from breadcrumbs.
+
+.. note ::
+
+    We need special dealing for "default view" of obejcts... that's
+    the canonical part
+    
+.. code-block :: python 
+
+    class Back(grok.Viewlet):
+        """ Back button
+        """
+    
+        def update(self):
+            context= aq_inner(self.context)
+            
+            context_helper = getMultiAdapter((context, self.request), name="plone_context_state")
+            
+            portal_helper = getMultiAdapter((context, self.request), name="plone_portal_state")
+            
+            canonical = context_helper.canonical_object()
+            
+            parent = aq_parent(canonical)
+            
+            breadcrumbs_view = getView(self.context, self.request, 'breadcrumbs_view')
+            breadcrumbs = breadcrumbs_view.breadcrumbs()
+            
+            if (len(breadcrumbs)==1):
+                self.backTitle = _(u"Home")
+            else:
+                if hasattr(parent, "Title"):
+                    self.backTitle = parent.Title()
+                else:
+                    self.backTitle = _(u"Back")
+            
+            if hasattr(parent, "absolute_url"):
+                self.backUrl = parent.absolute_url()
+            else:
+                self.backUrl = portal_helper.portal_url()
+                
+            self.isHome = len(breadcrumbs)==0
+
+
+More info
+
+* http://code.google.com/p/plonegomobile/source/browse/gomobiletheme.basic/trunk/gomobiletheme/basic/viewlets.py#281    
