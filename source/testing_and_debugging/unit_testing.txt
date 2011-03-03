@@ -212,6 +212,16 @@ You can access it::
 
     self.portal.REQUEST # Faux HTTPRequest object
 
+Setting a real http request
+===========================
+
+::
+ 
+    >>> from Testing import makerequest
+    >>> self.app = makerequest.makerequest(Zope.app())
+    >>> request=self.portal.REQUEST
+
+
 Grabbing emails
 ---------------
 
