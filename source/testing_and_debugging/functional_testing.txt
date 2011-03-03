@@ -148,6 +148,15 @@ Example::
         browser.getControl(name='__ac_password').value = default_password
         browser.getControl(name='submit').click()
 
+Logout
+------
+
+Example::
+   
+        browser.open('http://nohost/plone/')
+        browser.getLink('Log out').click()
+
+
 Showing the contents from the last request
 ------------------------------------------
 
@@ -313,6 +322,15 @@ and test browser must be constructed based on this instance.
         When passing parameters to PublisherMechanizeBrowser.addheaders HTTP prefix will be automatically added
         to header name.
 
+Add header to browser
+=====================
+
+     >>> from Products.Five.testbrowser import Browser
+     >>> browser = Browser()
+     >>> browser.addHeader(key, value)
+
+
+
 Setting user agent
 =====================
 
@@ -349,7 +367,7 @@ Example::
             mech_browser.handler_classes["http"] = PublisherHTTPHandler
             browser.Browser.__init__(self, url=url, mech_browser=mech_browser)
 
-
+     
 
 
 For more information, see
