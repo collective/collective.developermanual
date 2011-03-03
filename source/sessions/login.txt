@@ -197,6 +197,88 @@ More info
 
 * http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py
 
+PAS cache settings
+=====================
+
+Here is a short view snippet to set PAS cache state::
+
+from Products.Five.browser import BrowserView
+from zope.app.component.hooks import getSite
+
+from Products.CMFCore.utils import getToolByName
+
+        class PASCacheController(BrowserView):
+            """
+            Set PAS caching parameters from browser address bar.
+            """
+            
+            def getPAS(self):
+                site=getSite()
+                return getToolByName(site, "acl_users")
+            
+            def setPASCache(self, value):
+                """
+                Enables or disables pluggable authentication servive caching.
+                
+                The setting is stored persistently in PAS 
+                        
+                This caches credentials for authenticated users after the first login. 
+                    
+                This will make authentication and permission operations little bit faster.
+                The downside is that the cache must be purged if you want to remove old values from there.
+                (user has been deleted, etc.)
+                
+                More info
+                
+                * http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py 
+                
+                """
+                
+                pas = self.getPAS()
+                
+                if value:
+                    
+                    # Enable
+                
+                    if pas.ZCacheable_getManager() is None:
+                        pas.ZCacheable_setManagerId(manager_id="RAMCache")
+                        
+                    pas.ZCacheable_setEnabled(True)
+                                
+                else:
+                    # Disable        
+                    pas.ZCacheable_setManagerId(None)
+                    pas.ZCacheable_setEnabled(False)
+                    
+                
+            def __call__(self):
+                """ Serve HTTP GET queries.
+                """
+                
+                cache_value = self.request.form.get("cache", None)
+                
+                if cache_value is None:
+                    # Output help text
+                    return "Use: http://localhost/@@pas-cache-controller?cache=true"
+                
+                value = (cache_value == "true")
+                
+                self.setPASCache(value)
+                
+                return "Set value to:" + str(value)
+
+... and related ZCML
+
+.. code-block:: xml
+
+    <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="pas-cache-controller"
+     class=".pascache.PASCacheController"
+     permission="cmf.ManagePortal"
+    />
+                        
+
 Login as another user ("sudo")
 -------------------------------
 
