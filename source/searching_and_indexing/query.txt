@@ -246,6 +246,27 @@ which is equivalent to ``obj.absolute_url()``.
         Calling getObject() has performance implications. Waking up
         each object needs a separate query to the database.
 
+Counting value of an specific index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The efficient way of counting the number value of an index is to work directly in this index. For example we want to count the number of each portal_type. Quering via search results is a performance bootleneck for that. Iterating on all brains put those in zodb cache. This method is also a memory bottleneck.
+So the good way for do that
+
+.. code-block:: python
+
+   ### count portal_type index
+   stats = {}
+   x = getToolByName(context, 'portal_catalog')
+   index = x._catalog.indexes['portal_type']
+   for key in index.uniqueValues():
+       t = index._index.get(key)
+       if type(t) is not int:
+           stats[str(key)] = len(t)
+       else:
+           stats[str(key)] = 1
+
+
+
 Sorting and limiting the number of results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
