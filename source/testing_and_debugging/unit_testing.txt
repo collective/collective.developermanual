@@ -159,6 +159,7 @@ Simple example::
 Complex example::
 
     ptc.setupPloneSite(products=['harvinaiset.app', 'TickingMachine'], extension_profiles=["harvinaiset.app:tests","harvinaiset.app:default"])
+    
 
 Tested package not found warning
 =================================
@@ -174,6 +175,18 @@ You might be missing this from your configure.zcml
     <five:registerPackage package="." initialize=".initialize" />
 
 ... or you have spelling error in your test setup code.
+
+Load zcml for testing
+---------------------
+
+For loading fs zcml in test you can use Five API
+
+::
+
+   import <your fabulous module>
+   from Products.Five import zcml
+   zcml.load_config('configure.zcml', <your fabulous module>)
+
 
 Setting log level in unit tests
 -------------------------------
