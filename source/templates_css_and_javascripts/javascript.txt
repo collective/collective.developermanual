@@ -236,6 +236,9 @@ For example, see ``FacebookConnectJavascriptViewlet``
 AJAX-y view loading
 -------------------
 
+Loading by page load
+======================
+
 Let's imagine we have this piece of synchronous page template code.
 The code is a :doc:`view page template </views/browserviews>` code which includes another view inside it.
 
@@ -279,3 +282,36 @@ To make it load the view asynchronous, to be loaded with AJAX call when the page
                                 });                             
                         </script>
                 </div>
+                
+Loading when element becomes visible
+======================================
+
+Here is another example where more page data is lazily loaded
+when the user scrolls down to the page and the item becomes visible. 
+
+.. code-block:: javascript
+                                
+        // Generate URL to ta view 
+                                
+        jq(document).ready(function() {
+                
+                // http://remysharp.com/2009/01/26/element-in-view-event-plugin/                                        
+                jq("#comment-placeholder").bind("inview", function() {
+
+                        // This function is executed when the placeholder becomes visible
+
+                        // Extract URL from HTML page
+                        var commentURL = jq("#comment-placeholder a").attr("href");
+                                                                                                
+                        if (commentURL) {
+                                // Trigger AJAX call
+                                jq("#comment-placeholder").load(commentURL);
+                        }
+                                                                
+                });                                     
+                
+        });                             
+
+More info
+
+* http://remysharp.com/2009/01/26/element-in-view-event-plugin/
