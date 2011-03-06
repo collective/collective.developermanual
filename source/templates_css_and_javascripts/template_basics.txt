@@ -15,7 +15,7 @@
 Introduction
 -------------
 
-Plone uses TAL template language which has METAL extensions for macros. 
+Plone uses `TAL template language <http://docs.zope.org/zope2/zope2book/AppendixC.html>`_. 
 
 Templated Plone page consists of
 
@@ -50,6 +50,7 @@ Templates can be associated with BrowserView code class (new style) or standalon
         easily cluttered with inline Python code. This makes templates hard to customize or override.
         New style templates provide better separation with view logic (Python code) and 
         HTML generation (page template)
+
 
 See `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_
 
@@ -131,6 +132,20 @@ TALES expressions are condition clauses used in TAL templates and various other 
 Read more about expressions in `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_.
 
 See :doc:`Expressions chapter </functionality/expressions>` for more information.
+
+Omitting tags
+-----------------
+
+Sometimes you need to create XML control structures which should not end up to the
+output page.
+
+You can use tal:omit-tag=""
+
+.. code-block:: xml
+
+	<div tal:omit-tag="">
+  		Only the content of the tag is rendered, not the tag itself.
+	</div>
 
 Images
 ------
