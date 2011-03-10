@@ -1413,7 +1413,9 @@ zope.configuration.xmlconfig.ZopeXMLConfigurationError: File "/srv/plone/yourins
     ZopeXMLConfigurationError: File "/srv/plone/yourinstance/src/gomobile.mobile/gomobile/mobile/browser/configure.zcml", line 24.4-29.10
     ImportError: No module named html
 
+
 Let's see if we are getting too old system wide lxml installation::
+
 
         plone@mansikki:/srv/plone/yourinstance$ python2.4
         Python 2.4.5 (#2, Jan 21 2010, 20:05:55) 
@@ -1428,6 +1430,7 @@ Let's see if we are getting too old system wide lxml installation::
         Traceback (most recent call last):
           File "<stdin>", line 1, in ?
         ImportError: cannot import name html
+
 
 If we cannot fix the system lxml (your system software depends on it) the only workaround is to
 create virtualenv. We cannot force Python 2.6, 2.5 or 2.4 not to use system libraries.
