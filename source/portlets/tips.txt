@@ -244,6 +244,121 @@ Example::
                 
         return False                
 
+Rendering a portlet
+--------------------------------
+
+Below is an example how to render a portlet in Plone
+
+* A portlet is assigned to some context in some portlet manager
+
+* We can dig these assignments up by portlet id (not user visible) or portlet type (portlet assignment interface)
+
+How to get your portlet HTML::
+
+        import Acquisition
+        from zope.component import getUtility, getMultiAdapter, queryMultiAdapter        
+        from plone.portlets.interfaces import IPortletRetriever, IPortletManager, IPortletRenderer
+        
+        def get_portlet_manager(column):
+            """ Return one of default Plone portlet managers.
+            
+            @param column: "plone.leftcolumn" or "plone.rightcolumn"
+            
+            @return: plone.portlets.interfaces.IPortletManagerRenderer instance
+            """
+            manager = getUtility(IPortletManager, name=column)
+            return manager
+               
+        def render_portlet(context, request, view, manager, interface):
+            """ Render a portlet defined in external location.
+            
+            .. note ::
+            
+                Portlets can be idenfied by id (not user visible)
+                or interface (portlet class). This method supports look up
+                by interface and will return the first matching portlet with this interface.
+            
+            @param context: Content item reference where portlet appear
+        
+            @param manager: IPortletManagerRenderer instance
+            
+            @param view: Current view or None if not available
+            
+            @param interface: Marker interface class we use to identify the portlet. E.g. IFacebookPortlet 
+            
+            @return: Rendered portlet HTML as a string, or empty string if portlet not found
+            """    
+            
+            retriever = getMultiAdapter((context, manager), IPortletRetriever)
+        
+            portlets = retriever.getPortlets()
+            
+            assignment = None
+        
+            for portlet in portlets:
+                
+                # portlet is {'category': 'context', 'assignment': <FacebookLikeBoxAssignment at facebook-like-box>, 'name': u'facebook-like-box', 'key': '/isleofback/sisalto/huvit-ja-harrasteet
+                # Identify portlet by interface provided by assignment 
+                if interface.providedBy(portlet["assignment"]):
+                    assignment = portlet["assignment"]
+                    break
+                
+            if assignment is None:
+                # Did not find a portlet
+                return ""
+            
+            #- A special type of content provider, IPortletRenderer, knows how to render each 
+            #type of portlet. The IPortletRenderer should be a multi-adapter from 
+            #(context, request, view, portlet manager, data provider).
+            
+            renderer = queryMultiAdapter((context, request, view, manager, assignment), IPortletRenderer)
+            
+            # Make sure we have working acquisition chain
+            renderer = renderer.__of__(context)
+            
+            if renderer is None:
+                raise RuntimeError("No portlet renderer found for portlet assignment:" + str(assignment))
+            
+            renderer.update()
+            # Does not check visibility here... force render always
+            html = renderer.render()
+            
+            return html
+                     
+How to use this code in your own view::
+
+    def render_slope_info(self):
+        """ Render a portlet from another page in-line to this page 
+        
+        Does not render other portlets in the same portlet manager.
+        """
+        context = self.context.aq_inner
+        request = self.request
+        view = self
+        
+        column = "isleofback.app.frontpageportlets"
+        
+        # Alternatively, you can directly query your custom portlet manager by interface
+        #from isleofback.app.interfaces.frontpagemanager import IFrontpagePortletManager
+        from isleofback.app.portlets.slopeinfo import ISlopeInfo
+        
+        #manager = getUtility(IFrontpagePortletManager)
+        
+        manager = get_portlet_manager(column)
+        
+        html = render_portlet(context, request, view, manager, ISlopeInfo)   
+        return html
+        
+How to call view helper function from page template
+
+.. code-block:: html
+
+         <div tal:replace="structure view/render_slope_info" />        
+                     
+More info
+
+* http://blog.mfabrik.com/2011/03/10/how%C2%A0to-render-a-portlet-in-plone/ 
+
 Writing your own portlet manager
 ----------------------------------
 
