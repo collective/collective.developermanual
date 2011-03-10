@@ -339,11 +339,8 @@ How to use this code in your own view::
         column = "isleofback.app.frontpageportlets"
         
         # Alternatively, you can directly query your custom portlet manager by interface
-        #from isleofback.app.interfaces.frontpagemanager import IFrontpagePortletManager
         from isleofback.app.portlets.slopeinfo import ISlopeInfo
-        
-        #manager = getUtility(IFrontpagePortletManager)
-        
+                
         manager = get_portlet_manager(column)
         
         html = render_portlet(context, request, view, manager, ISlopeInfo)   
