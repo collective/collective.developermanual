@@ -632,3 +632,56 @@ More info
 
 * http://plone.293351.n2.nabble.com/URL-to-content-view-tp6028204p6028204.html  
        
+Views and magical acquisition
+----------------------------------
+
+.. warning ::
+
+        This is really nasty stuff. If this were not be a public document I'd 
+        use more harsh words here.
+
+In Plone 3, the following will lead the very hard to debug errors.
+
+Views will automatically assign themselves as a parent for all member variables.
+
+E.g. you have Basket content item with absolute_url() of ::
+
+        http://localhost:9666/isleofback/sisalto/matkasuunnitelmat/d59ca034c50995d6a77cacbe03e718de
+     
+Then if you use this object in view code member variable assignment...
+
+::
+
+        self.basket = my_basket
+        
+... this will mess up Basket content item acquisition chain::
+
+        <Basket at /isleofback/sisalto/yritykset/katajamaan_taksi/d59ca034c50995d6a77cacbe03e718de>
+
+One workaround to avoid this mess it to put a member variable inside a Python array
+and create an accessor method to read it when needed::
+
+
+    def initSomeVariables():
+
+        basket = collector.get_collector(basket_folder, self.request, create)
+            
+        if basket is not None:
+            # Work around acquisition wrapping thing 
+            # which forces the parent
+            
+            # Assign a variable inside an array which prevents automatic
+            # acquisition wrapping for doing its broken magic or something
+            # along the lines
+            self.basket_holder = [ basket ]
+        else:
+            self.basket_holder = [ None ]
+        
+    
+    def getCollector(self):
+        """
+        @return: User's collector object where pages are stored
+        """
+        return self.basket_holder[0]
+
+                 
