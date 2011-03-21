@@ -331,3 +331,74 @@ and turns on ssi for a specific location::
                     try_files $uri $uri/ /index.php?q=$uri&$args;
                 }
         }
+        
+Session affinity
+-----------------
+
+If you indent to use nginx for session balancing between ZEO processes,
+you need to be aware of session affinity.
+By default, ZEO processes don't share session data. If you have site functionality
+which stores user specific data on the server, let's say an ecommerce site shopping cart,
+you must always redirect users to the same ZEO process or they will have 1/number of processes
+chance to see the orignal data.
+
+These instructions assume you are installing nginx via buildout.
+
+* `Nginx sticky sessions module <http://nginx-sticky-module.googlecode.com/files/nginx-sticky-module-1.0-rc2.tar.gz>`_
+
+Manually extract nginx-sticky-module under src::
+
+	cd src
+	wget http://nginx-sticky-module.googlecode.com/files/nginx-sticky-module-1.0-rc2.tar.gz
+	
+Then add it do nginx-build part::
+
+	[nginx-build]  
+	recipe = zc.recipe.cmmi
+	url = http://sysoev.ru/nginx/nginx-0.7.65.tar.gz
+	extra_options = --add-module=${buildout:directory}/src/nginx-sticky-module-1.0-rc2
+
+Now test reinstalling nginx in buildout::
+
+	mv parts/nginx-build/ parts/nginx-build-old # Make sure full rebuild is done
+	bin/buildout install nginx-build
+	
+See that it compiles without erros. Here is the line of compiling sticky::
+
+	gcc -c -O -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -Wunused-function -Wunused-variable -Wunused-value -Werror -g   -I src/core -I src/event -I src/event/modules -I src/os/unix -I objs -I src/http -I src/http/modules -I src/mail \
+			-o objs/addon/nginx-sticky-module-1.0-rc2/ngx_http_sticky_module.o \
+
+Now add sticky to the load balancer section of nginx config::
+
+		[balancer]
+		recipe = gocept.nginx
+		nginx = nginx-build
+		...
+        http {
+                client_max_body_size 64M;
+                upstream zope {
+                        sticky;
+                        server ${hosts:client1}:${ports:client1} max_fails=3 fail_timeout=30s;
+                        server ${hosts:client2}:${ports:client2} max_fails=3 fail_timeout=30s;
+                        server ${hosts:client3}:${ports:client3} max_fails=3 fail_timeout=30s;
+                }
+
+Reinstall nginx balaner configs and start-up scripts::
+
+	bin/buildout install balancer 
+
+See that generated configuration is ok::
+
+	bin/nginx-balancer configtest
+	
+Restart Nginx::
+
+	bin/nginx-balancer stop ;bin/nginx-balancer start
+
+Now test it by doing session related activity and see that your shopping cart is not "lost".	
+				
+More info
+
+* http://code.google.com/p/nginx-sticky-module/source/browse/trunk/README
+
+* http://nathanvangheem.com/news/nginx-with-built-in-load-balancing-and-caching		
