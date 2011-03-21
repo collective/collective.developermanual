@@ -1578,5 +1578,75 @@ Traceback::
 Reason: You are using command line script. getObject() fails for a catalog brain, because the actual object 
 is gone. However, unrestrictedTraverse() does not handle this case gracefully.
 
+
+get_language: 'NoneType' object has no attribute 'getLocaleID'
+------------------------------------------------------------------------------------
+
+Example traceback::
+       
+        Traceback (innermost last):
         
-            
+            Module ZPublisher.Publish, line 202, in publish_module_standard
+            Module ZPublisherEventsBackport.patch, line 115, in publish
+            Module plone.app.linkintegrity.monkey, line 21, in zpublisher_exception_hook_wrapper
+            Module Zope2.App.startup, line 221, in zpublisher_exception_hook
+            Module ZPublisherEventsBackport.patch, line 77, in publish
+            Module ZPublisher.mapply, line 88, in mapply
+            Module ZPublisher.Publish, line 42, in call_object
+            Module Products.Five.browser.metaconfigure, line 417, in __call__
+            Module Shared.DC.Scripts.Bindings, line 313, in __call__
+            Module Shared.DC.Scripts.Bindings, line 350, in _bindAndExec
+            Module Products.PageTemplates.PageTemplateFile, line 129, in _exec
+            Module Products.CacheSetup.patch_cmf, line 126, in PT_pt_render
+            Warning: Macro expansion failed
+            Warning: exceptions.TypeError: ('Could not adapt', <HTTPRequest, URL=http://mansikki.redinnovation.com:9666/isleofback/sisalto/etusivu/isleofbackfrontpage_view>, <InterfaceClass zope.i18n.interfaces.IUserPreferredLanguages>)
+            Module zope.tal.talinterpreter, line 271, in __call__
+            Module zope.tal.talinterpreter, line 346, in interpret
+            Module zope.tal.talinterpreter, line 891, in do_useMacro
+            Module zope.tal.talinterpreter, line 346, in interpret
+            Module zope.tal.talinterpreter, line 536, in do_optTag_tal
+            Module zope.tal.talinterpreter, line 521, in do_optTag
+            Module zope.tal.talinterpreter, line 516, in no_tag
+            Module zope.tal.talinterpreter, line 346, in interpret
+            Module zope.tal.talinterpreter, line 534, in do_optTag_tal
+            Module zope.tal.talinterpreter, line 516, in no_tag
+            Module zope.tal.talinterpreter, line 346, in interpret
+            Module zope.tal.talinterpreter, line 745, in do_insertStructure_tal
+            Module Products.PageTemplates.Expressions, line 223, in evaluateStructure
+            Module zope.tales.tales, line 696, in evaluate
+            URL: file:/srv/plone/saariselka.fi/src/plonetheme.isleofback/plonetheme/isleofback/skins/plonetheme_isleofback_custom_templates/main_template.pt
+            Line 58, Column 4
+            Expression: <StringExpr u'plone.htmlhead.links'>
+            Names:
+        
+            {'container': <IsleofbackFrontpage at /isleofback/sisalto/etusivu>,
+             'context': <IsleofbackFrontpage at /isleofback/sisalto/etusivu>,
+             'default': <object object at 0x7fd445785220>,
+             'here': <IsleofbackFrontpage at /isleofback/sisalto/etusivu>,
+             'loop': {},
+             'nothing': None,
+             'options': {'args': (<Products.Five.metaclass.SimpleViewClass from /srv/plone/saariselka.fi/src/isleofback.app/isleofback/app/browser/isleofbacknewfrontpageview.pt object at 0xbaa9910>,)},
+             'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0xcd1b3f8>,
+             'request': <HTTPRequest, URL=http://mansikki.redinnovation.com:9666/isleofback/sisalto/etusivu/isleofbackfrontpage_view>,
+             'root': <Application at >,
+             'template': <ImplicitAcquirerWrapper object at 0xcd208d0>,
+             'traverse_subpath': [],
+             'user': <SpecialUser 'Anonymous User'>,
+             'view': <Products.Five.metaclass.SimpleViewClass from /srv/plone/saariselka.fi/src/isleofback.app/isleofback/app/browser/isleofbacknewfrontpageview.pt object at 0xbaa9910>,
+             'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0xcd20d90>}
+        
+            Module Products.Five.browser.providerexpression, line 37, in __call__
+            Module plone.app.viewletmanager.manager, line 83, in render
+            Module plone.memoize.volatile, line 265, in replacement
+            Module plone.app.layout.links.viewlets, line 28, in render_cachekey
+            Module plone.app.layout.links.viewlets, line 19, in get_language
+        
+        AttributeError: <exceptions.AttributeError instance at 0xcd1bb48> (Also, the following error occurred while attempting to render the standard error message, please see the event log for full details: 'NoneType' object has no attribute 'getLocaleID')             
+        
+Some sort of Products.CacheSetup related problem on Plone 3.3.x, hiding the real error.
+Zope component architecture loading has failed (you are missing critical bits). This is 
+just the first entry where it tries to use an unloaded code.
+
+Start your instance on the foreground and you should see the actual error.
+
+       
