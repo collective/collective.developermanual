@@ -342,6 +342,23 @@ which stores user specific data on the server, let's say an ecommerce site shopp
 you must always redirect users to the same ZEO process or they will have 1/number of processes
 chance to see the orignal data.
 
+Make sure that your :doc:`Zope session cookie </sessions/cookies>` is not cleared by any front-end
+server (Nginx, Varnish). 
+
+By using IP addresses
+=========================
+
+This is the most reliable way. Nginx will balance each incoming request
+to a front end client by the request's source IP address.
+
+This method is reliable as long as Nginx can extract correctly
+IP address from the configuration.
+
+* http://wiki.nginx.org/NginxHttpUpstreamModule#ip_hash
+
+By using cookies
+==================
+
 These instructions assume you are installing nginx via buildout.
 
 * `Nginx sticky sessions module <http://nginx-sticky-module.googlecode.com/files/nginx-sticky-module-1.0-rc2.tar.gz>`_
@@ -394,6 +411,28 @@ See that generated configuration is ok::
 Restart Nginx::
 
 	bin/nginx-balancer stop ;bin/nginx-balancer start
+	
+Check that some (non-anonymous) page has route cookie set::
+
+	Huiske-iMac:tmp moo$ wget -S http://yoursite.com/sisalto/saariselka-infoa
+	--2011-03-21 21:31:40--  http://yoursite.com/sisalto/saariselka-infoa
+	Resolving yoursite.com (yoursite.com)... 12.12.12.12
+	Connecting to yoursite.com (yoursite.com)|12.12.12.12|:80... connected.
+	HTTP request sent, awaiting response... 
+	  HTTP/1.1 200 OK
+	  Server: nginx/0.7.65
+	  Content-Type: text/html;charset=utf-8
+	  Set-Cookie: route=7136de9c531fcda112f24c3f32c3f52f
+	  Content-Language: fi
+	  Expires: Sat, 1 Jan 2000 00:00:00 GMT
+	  Set-Cookie: I18N_LANGUAGE="fi"; Path=/
+	  Content-Length: 41471
+	  Date: Mon, 21 Mar 2011 19:31:40 GMT
+	  X-Varnish: 1979481774
+	  Age: 0
+	  Via: 1.1 varnish
+	  Connection: keep-alive
+	
 
 Now test it by doing session related activity and see that your shopping cart is not "lost".	
 				
