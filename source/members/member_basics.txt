@@ -111,7 +111,27 @@ More info
 
 * http://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/plugins/group.py
 
+Add local roles to a group
+==========================
 
+Example::
+   
+   from AccessControl.interfaces import IRoleManager
+   if IRoleManager.providedBy(context):
+       context.manage_addLocalRoles(groupid, ['Manager',])
+
+Update properties for a group
+=============================
+
+editGroup modify the title and description in source_groups plugin, then it calls setGroupProperties(kw) which set the properties on the mutable_properties plugin.
+
+Example::
+  
+   portal_groups.editGroup(groupid, **properties)
+   portal_groups.editGroup(groupid, roles = ['Manager',])
+   portal_groups.editGroup(groupid, title = u'my group title')
+   
+  
 Getting available groups
 ========================
 
