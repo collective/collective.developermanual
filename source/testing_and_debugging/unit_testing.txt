@@ -120,6 +120,58 @@ Pointers
 
 * http://www.zope.org/Members/shh/ZopeTestCaseWiki/ApiReference
 
+Base test class skeleton
+------------------------
+
+Example::
+
+    # Zope imports
+    from Testing import ZopeTestCase
+
+    # Plone imports -> PloneTestCase load zcml layer and install product
+    from Products.PloneTestCase import PloneTestCase 
+
+    # For loading zcml          
+    from Products.Five import zcml 
+
+    ## Import all module that you want load zcml
+    import Products.PloneFormGen
+    import Products.Five
+    import Products.GenericSetup
+    import Products.CMFPlone
+    import myapp.content
+
+    ## Install all product requirement
+    ZopeTestCase.installProduct('PloneLanguageTool')
+    ## ....
+    ZopeTestCase.installProduct('collective.dancing')
+    
+
+    ## load zcml
+    zcml.load_config('meta.zcml' , Products.CMFPlone)
+    zcml.load_config('meta.zcml' , Products.Five)
+    zcml.load_config('meta.zcml' , Products.GenericSetup)
+    zcml.load_config('configure.zcml' , Products.Five)
+    zcml.load_config('configure.zcml',Products.Five)
+    ## ....
+    zcml.load_config('configure.zcml',Products.PloneFormGen)
+    zcml.load_config('configure.zcml',myapp.content)
+
+    # Setup Plone site
+    PloneTestCase.setupPloneSite(products=['PloneLanguageTool', 'myapp.content'],extension_profiles=['myapp.content:default',])
+
+
+    class MySiteTestCase(PloneTestCase.PloneTestCase):
+        """Base class for all class with test cases"""
+     
+        def afterSetUp(self):
+            """ some tasks after setup the site """
+
+
+         
+
+ 
+
 Posing as different users
 ---------------------------
 
