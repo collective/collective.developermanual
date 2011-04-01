@@ -142,10 +142,11 @@ Example::
     import myapp.content
 
     ## Install all product requirement
-    ZopeTestCase.installProduct('PloneLanguageTool')
+    PloneTestCase.installProduct('PloneLanguageTool')
     ## ....
-    ZopeTestCase.installProduct('collective.dancing')
-    
+    PloneTestCase.installProduct('collective.dancing')
+    ## Install a Python package registered via five:registerPackage 
+    PloneTestCase.installPackage('myapp.content')
 
     ## load zcml
     zcml.load_config('meta.zcml' , Products.CMFPlone)
