@@ -2,11 +2,11 @@
  Writing and updating this document
 ====================================
 
-.. contents :: :local: 
+.. contents :: :local:
 
 .. admonition:: Description
 
-        How to write and submit text to Plone Community Developer Manual.
+        How to write and submit text to the Plone Community Developer Manual.
 
 Introduction
 ------------
@@ -26,14 +26,14 @@ Below is the list of documentation and references we'd like to see
 
 - Links to blog posts talking about particular issue
 
-- Links to email list dicussions
+- Links to email list discussions
 
 - Links to source code (directly to the version control)
 
 Contributing methods
 --------------------
 
-Committing directly to Plone collective version control 
+Committing directly to Plone collective version control
 ===================================================================
 
 This is the recommended method. Please do not be afraid to commit.
@@ -45,7 +45,7 @@ human errors happen all the time.
 
 * `Get Plone collective commit access <https://dev.plone.org/plone.org/wiki/SubversionAccess>`_
 
-* Get documentation source files::
+* Get the documentation source files::
 
     svn co https://svn.plone.org/svn/collective/collective.developermanual/trunk collective.developermanual
 
@@ -69,7 +69,7 @@ you can email suggestion to:
 
 .. note ::
 
-        The suggestions should contain the text which will be directly placed into 
+        The suggestions should contain the text which will be directly placed into
         the documentation. It is rare to get volunteers to write instructions for you
         just because you ask.
 
@@ -81,11 +81,11 @@ If ``sphinx-build`` manages to compile documentation successfully
 * Documentation at `collective-docs.plone.org <http://collective-docs.plone.org>`_ is updated nightly
 
 * Documentation at `plone.org <http://plone.org/documentation/manual/plone-community-developer-documentation>`_ is updated
-  by admins now and then. For this documentation upload, all Sphinx warnings are first clean up by hand.
+  by admins now and then. For this documentation upload, all Sphinx warnings are first cleaned up by hand.
 
 For more information, contact people Plone IRC channels ``#plone-docs`` and ``#plone.org``
 or ask on ``plone-documentation`` mailing list.
-        
+
 Document page format
 --------------------
 
@@ -96,39 +96,42 @@ Page structure
 
 Each page must contain, in this order:
 
-Main heading: This will be visible in table of contents::
+Main heading: This will be visible in the table of contents::
 
         ====================================
         Writing and updating this document
         ====================================
-        
-Description of the page, which will appear in Plone's *Description* Dublin Core metadata field,
-is created using reST *admonition* directive. Only one paragraph of text and 1-3 sentences are recommended,
-so that the same text fits to the search engine results (Google)::
+
+The description of the page, which will appear in Plone's
+*Description* Dublin Core metadata field, is created using the reST
+*admonition* directive. A single paragraph of text consisting of 1-3
+sentences is recommended, so that the same text fits into the search
+engine results (Google)::
 
         .. admonition:: Description
-        
+
                 This text will go to Plone's pages description field. It will
                 appear in the search engine listings for the page.
-                
-The *contents* directive will make Sphinx generate shortcut links at the start of the page.
-Giving option *local* excludes the page itself and ToC title from the listing::
 
-        .. contents :: :local:                
+The *contents* directive will cause Sphinx to generate the *Table of
+Contents* shortcut links at the start of the page.  Using the *local*
+option excludes the page itself and ToC title from the listing::
 
-Introduction paragraph: Telling what's this page is all about::
+        .. contents :: :local:
+
+Introduction paragraph: A brief overview::
 
         Introduction
         ------------
-        
-        This chapter will tell basics how to contribute to this document.
 
-N number of paragraphs: The actual content of the document page::
+        This chapter will describe the basics of how to contribute to this document.
+
+A number of paragraphs: The actual content of the document page::
 
 
         Contributions needed
         --------------------
-        
+
         Below is the list of documentation and references we'd like to see
 
 Section structure
@@ -138,18 +141,18 @@ Each section (folder) must contain
 
 * index.txt with
 
-        * Section heading: This will be visible in table of contents
-        
-        * One paragraph headingless paragraph of what this section is all about. This will be mapped
-          to Plone folder description.        
+        * Section heading: This will be visible in the table of contents
 
-        * Sphinx toctree directive, maxdepth 2. Each txt file in the folder should be linked to this toctree.                   
+        * A single paragraph summarizing what this section is all about. This will be mapped
+          to Plone folder description.
+
+        * Sphinx toctree directive, maxdepth 2. Each txt file in the folder should be linked to this toctree.
 
 
 Syntax highlighting
 -------------------
 
-Sphinx does syntax highlighting using `Pygments <http://pygments.org/>`_ library.
+Sphinx does syntax highlighting using the `Pygments <http://pygments.org/>`_ library.
 
 
 You can specify different highlighting for a code block using the following syntax
@@ -157,47 +160,47 @@ You can specify different highlighting for a code block using the following synt
 ::
 
         With two colons you start a code block using the default highlighter::
-                
+
                 # Some Python code here
-                # The language defaults to Python, we don't need to set it 
+                # The language defaults to Python, we don't need to set it
                 if 1 == 2:
                     pass
 
 
-You can specify highlight language using code-block::
+You can specify the language used for syntax highlighting by using *code-block*::
 
-       
+
 
         .. code-block:: python
-        
+
                 if "foo" == "bar":
                         # This is Python code
                         pass
 
-... and in XML::        
+... and in XML::
 
         .. code-block:: xml
-        
+
                 <somesnippet>Some XML</somesnippet>
 
 
 ... or in UNIX shell::
-        
+
         .. code-block:: console
-        
+
                 # A comment
                 sh myscript.sh
-        
+
 Setting the highlighting mode for the whole document::
 
         ..highlight\:\: console
-        
+
          All code blocks in this doc use console highlighting by default::
-         
+
                 some shell commands
-                         
-If syntax highlighting is not enabled for your code block you probably have a syntax 
-error and Pygments silently fail.        
+
+If syntax highlighting is not enabled for your code block you probably have a syntax
+error and Pygments will fail silently.
 
 Other Sphinx and restructured text source snippets
 ----------------------------------------------------
@@ -205,77 +208,77 @@ Other Sphinx and restructured text source snippets
 Italics::
 
         This *word* is italics.
-        
+
 Strong::
 
-        This **word** is in bold text.        
+        This **word** is in bold text.
 
 Inline code highlighting::
 
         This is ``aFunction()``
 
-Making an external link (note ending undescore)::
+Making an external link (note the underscore at the end)::
 
         `This is an external link to <http://mfabrik.com>`_
-    
+
 Making an internal link::
 
         :doc:`This is a link to </introduction/writing.txt>`
-        
+
 Bullet list::
 
         * First bullet
-        
+
         * Second bullet with `a link <http://mfabrik.com>`_
 
 Information boxes
 -----------------
 
 Below are some information boxes which are used across this documentation.
-They use Sphinx *warning* and *note* formatting directives. 
+They use Sphinx *warning* and *note* formatting directives.
 
 Security warning
 ================
 
-.. warning:: 
- 
+.. warning::
+
  Security: This box is used when the outcome of a function might depend on Plone security features.
- It means that the function behaves differently depending on who you are logged in and in which context you call
+ It means that the function behaves differently depending on who you are logged in as and in which context you call
  the function.
 
-Example 
+Example
 
 .. warning::
 
   Security: invokeFactory() checks the logged in user permission whether he/she can create the content.
-  
+
 Test warning
 ============
 
-.. warning:: 
+.. warning::
 
         Testing warning: This box is used when the outcome of a function might be
         different when code is run in unit or functional tests. Usually this is because
         there is no normal HTTP request/response lifecycle and some HTTP request specific
         caches are not being invalidated properly.
 
-Example: 
+Example:
 
 .. warning::
-        
+
         Unit testing code does not respect RestrictedPython restrictions
-        per se, as no HTTP request traversing is done when fetching the object. 
+        per se, as no HTTP request traversing is done when fetching the object.
 
 
 Deprecation warning
-===================        
+===================
 
 .. warning::
-        
+
         Deprecation: This approach is not recommended anymore and the same
         functionality can be achieved using newer technology.
 
-Example: 
+Example:
 
 .. warning::
 
@@ -291,6 +294,6 @@ Add a note like one below.
 .. note::
 
         TODO: Check whether metadata can exist with indexes as it looks
-        like it does not work like this in Plone 3.3. Or there might 
-        be a bug somewhere. 
-                
+        like it does not work like this in Plone 3.3. Or there might
+        be a bug somewhere.
+
