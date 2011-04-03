@@ -86,7 +86,7 @@ Rerun buildout.
 
 Restart Plone in foreground mode. If your template input contained errors it usually fails in this point.
 
-Now you should see your add-on in Plone add-on installer.
+Now you should see your add-on in the Plone add-on installer.
 
 Local commands
 ---------------------------------
@@ -97,7 +97,7 @@ project.
 
 .. note ::
 
-	To use local commands you need to use paster command directly - zopeskel does not support them yet.
+	To use local commands you need to use the paster command directly - zopeskel does not support them yet.
 
 
 To add ``paster`` to your buildout's ``bin/`` folder include the following
@@ -114,7 +114,7 @@ snippet in ``buildout.cfg``::
                 ZopeSkel
                 ${instance:eggs}
 
-Example what kind of Plone functionality you can add with local commands
+Examples of the kind of Plone functionality you can add with local commands
 
 * Views
 
@@ -127,11 +127,11 @@ Example what kind of Plone functionality you can add with local commands
 Example
 =======
 
-In this example we create Archetypes based content types add-on product.
+In this example we will create an Archetypes based content type add-on product.
 We will first create the project skeleton, then enter the project
 and add more content types there using local commands.
 
-Example or creating a content type::
+Example of creating a content type::
 
 		# First create an add-on skeleton if one does not exist
         cd src
@@ -156,7 +156,7 @@ Example or creating a content type::
 Above, ZopeSkel paster template adds its addcontent templates.
 Now you can use ``addcontent`` local command to contribute to the existing project
 
-Example how to create a special content type for managing lecture::
+Example of how to create a special content type for managing lectures::
 
         ../../bin/paster addcontent contenttype LectureInfo
 
@@ -171,9 +171,9 @@ Then you can add new fields to that content type::
 .. note ::
 
 	When changing the add-on code the changes usually touch GenericSetup XML files (ones
-	in profiles/default folder). This changes are not reflected to Plone/Zope application
+	in profiles/default folder). These changes are not reflected in Plone/Zope application
 	server when it is restarted, because they are site specific changes and apply to one
-	site only. You need to rerun add-on product installer when these files have changed.
+	site only. You need to rerun the add-on product installer when these files have changed.
 
 
 In-depth background information
@@ -182,7 +182,7 @@ In-depth background information
 How paster local commands work
 ================================
 
-paster reads setup.py. If it founds *paster_plugins* section there,
+paster reads setup.py. If it finds a *paster_plugins* section there,
 it will look for local commands there.
 For example, Plone project templates declare the following paste_plugins in setup.py::
 
@@ -191,8 +191,7 @@ For example, Plone project templates declare the following paste_plugins in setu
 setup.py install_requires
 ================================
 
-Python modules can dependencies to other modules using setup.py and *install_requires*
-section. For example, a Plone add-on might read::
+Python modules can specify dependencies to other modules by using the *install_requires* setup.py section. For example, a Plone add-on might read::
 
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
@@ -209,16 +208,13 @@ paster and install_requires
 
 .. warning ::
 
-        Do not never use system-wide paster installation with local commands.
-
-This is where things usually go haywire.
-
-Paster is not aware of this external Python package configuration set (paster cannot see
-them in its PYTHONPATH).
-
-Do not try to execute system-wide ``zopeskel`` or ``paster`` in a Python source code folder
-containing ``setup.py``. Otherwise paster downloads all the depenpencies mentioned in
-``setup.py`` into that folder even though they would be available in the ``eggs` folder (which paster is not aware of).
-
-
+    Never use a system-wide paster installation with local
+    commands. This is where things usually go haywire. Paster is not
+    aware of this external Python package configuration set (paster
+    cannot see them in its PYTHONPATH). Also don't try to execute
+    system-wide ``zopeskel`` or ``paster`` in a Python source code
+    folder containing ``setup.py``. Otherwise paster downloads all the
+    dependencies mentioned in the ``setup.py`` into that folder even
+    though they would be available in the ``eggs`` folder (which
+    paster is not aware of).
 
