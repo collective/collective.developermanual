@@ -2,13 +2,13 @@
  Zopeskel templates
 ====================
 
-.. contents :: :local: 
+.. contents :: :local:
 
 .. admonition:: Description
 
-        ZopeSkel template package provides product skeletons for Plone to
+        ZopeSkel template package provides product scaffolding code for Plone to
         start programming Plone more easily.
-        
+
 Introduction
 ------------
 
@@ -18,51 +18,51 @@ More about ZopeSkel
 
 ZopeSkel is based on `paster command <http://pythonpaste.org/script/>`_.
 
-ZopeSkel package provides bunch of templates and friendly ``zopekskel`` script
+The ZopeSkel package provides a bunch of templates and the friendly ``zopeskel`` script
 which wraps the more error prone ``paster`` script.
 
 Zopeskel and buildout
 ----------------------
 
-If you are using buildout to manage your Python application deployment, you can integrate paster  
+If you are using buildout to manage your Python application deployment, you can integrate paster
 with it.
 
 Add to your *buildout.cfg*::
 
-        
+
         parts =
             ...
             zopeskel
-            
-        
+
+
         [zopeskel]
         recipe = zc.recipe.egg
-        eggs = 
-                ZopeSkel 
+        eggs =
+                ZopeSkel
                 ${instance:eggs}
 
-After rerunning buildout, buildout adds *zopeskel* command to *bin* folder.
+After rerunning buildout, buildout adds the *zopeskel* command to the *bin* folder.
 
 Then you can run zopeskel from buildout folder::
 
         bin/zopeskel
-        
+
 .. warning ::
 
-    It is strongly advised to use or install paster in system-wide Python.
-    Always run paster command run the buildout itself. This way paster is aware of your deployment configuration and local commands
-    won't explode on your face.
+    It is recommended to install and use the paster from the virtualenv for your instance and not from your system Python.
+    This way paster is aware of your deployment configuration and local commands
+    won't explode in your face.
 
 Creating an add-on product skeleton
 -----------------------------------
 
-After you have followed the steps above to add ZopeSkel to your buildout, 
+After you have followed the steps above to add ZopeSkel to your buildout,
 you can create your first add-on.
 
 Create theme (applies for Plone 4 also)::
-	
+
 	bin/zopeskel plone3_theme plonetheme.mythemeid
-	
+
 Create Archetypes based content types package::
 
 	bin/zopeskel archetype mycompanyid.content
@@ -79,15 +79,15 @@ After this you need to include the newly created egg in your buildout.cfg::
 	eggs =
 		yourcompany.productname
 
-	develop-eggs = 
+	develop-eggs =
 		src/yourcompany.productname
-			
+
 Rerun buildout.
 
 Restart Plone in foreground mode. If your template input contained errors it usually fails in this point.
 
 Now you should see your add-on in Plone add-on installer.
-        
+
 Local commands
 ---------------------------------
 
@@ -100,19 +100,19 @@ project.
 	To use local commands you need to use paster command directly - zopeskel does not support them yet.
 
 
-To add ``paster`` to your buildout's ``bin/`` folder include the following 
+To add ``paster`` to your buildout's ``bin/`` folder include the following
 snippet in ``buildout.cfg``::
 
         parts =
             ...
             paster
-        
+
         [paster]
         recipe = zc.recipe.egg
         eggs =
                 PasteScript
                 ZopeSkel
-                ${instance:eggs} 
+                ${instance:eggs}
 
 Example what kind of Plone functionality you can add with local commands
 
@@ -136,22 +136,22 @@ Example or creating a content type::
 		# First create an add-on skeleton if one does not exist
         cd src
         ../bin/zopeskel archetype mycompanyid.mycustomcontenttypes
-                
+
         # Now new paster commands are available and listed when paster is run in this folder
         cd mycompanyid.mycustomcontenttypes
         ../../bin/paster
-        
+
         Usage: ../../bin/paster COMMAND
         usage: paster [paster_options] COMMAND [command_options]
-        
+
         ...
-                
+
         Commands:
           ...
-                  
+
         ZopeSkel local commands:
           addcontent   Adds plone content types to your project
-                
+
 
 Above, ZopeSkel paster template adds its addcontent templates.
 Now you can use ``addcontent`` local command to contribute to the existing project
@@ -173,12 +173,12 @@ Then you can add new fields to that content type::
 	When changing the add-on code the changes usually touch GenericSetup XML files (ones
 	in profiles/default folder). This changes are not reflected to Plone/Zope application
 	server when it is restarted, because they are site specific changes and apply to one
-	site only. You need to rerun add-on product installer when these files have changed. 	       
-        
+	site only. You need to rerun add-on product installer when these files have changed.
+
 
 In-depth background information
 ---------------------------------
-               
+
 How paster local commands work
 ================================
 
@@ -187,7 +187,7 @@ it will look for local commands there.
 For example, Plone project templates declare the following paste_plugins in setup.py::
 
         paster_plugins = ["ZopeSkel"]
-        
+
 setup.py install_requires
 ================================
 
@@ -199,26 +199,26 @@ section. For example, a Plone add-on might read::
                         "five.grok",
                         "plone.directives.form"
                         ],
-                        
+
 This means that when you use setuptools/buildout/pip/whatever Python package
 installation tool to install your package from `Python Package Index (PyPi) <http://pypi.python.org/pypi>`_
 it will also automatically install Python packages declared in install_requires.
 
 paster and install_requires
-===========================                     
+===========================
 
 .. warning ::
 
-        Do not never use system-wide paster installation with local commands. 
+        Do not never use system-wide paster installation with local commands.
 
 This is where things usually go haywire.
 
 Paster is not aware of this external Python package configuration set (paster cannot see
-them in its PYTHONPATH). 
+them in its PYTHONPATH).
 
-Do not try to execute system-wide ``zopeskel`` or ``paster`` in a Python source code folder 
-containing ``setup.py``. Otherwise paster downloads all the depenpencies mentioned in 
+Do not try to execute system-wide ``zopeskel`` or ``paster`` in a Python source code folder
+containing ``setup.py``. Otherwise paster downloads all the depenpencies mentioned in
 ``setup.py`` into that folder even though they would be available in the ``eggs` folder (which paster is not aware of).
 
 
-        
+
