@@ -1,8 +1,8 @@
 =============================
-Packages, products and eggs
+ Packages, products and eggs
 =============================
 
-.. admonition:: Description:
+.. admonition:: Description
 
    Looking at the core concepts in more detail
 
@@ -22,7 +22,7 @@ Before we begin, you should familiarize yourself with these terms:
 -  `easy\_install`_
 -  `Namespace package`_
 
-The magic Products namespace 
+The magic Products namespace
 -----------------------------
 
 When Zope finds a "product", it will create an entry in
@@ -46,7 +46,7 @@ the *basic\_namespace* template:
     $ paster create -t basic_namespace Products.myproduct
     Selected and implied templates:
       ZopeSkel#basic_namespace  A project with a namespace package
-    
+
     Variables:
       egg:      Products.myproduct
       package:  productsmyproduct
@@ -77,7 +77,7 @@ complete.
 
 It is possible to use packages (including egg-distributed ones)
 outside the *Products* namespace/directory as Zope 2 products. Many
-developers prefer this approach, feeling it unnatural to keep
+developers prefer this approach, feeling it is unnatural to keep
 everything in a single, "flat" namespace.
 
 Extra steps are required for this. Prior to Zope 2.10.4, this is
@@ -88,12 +88,12 @@ We must add a line like the following to the package's
 
 ::
 
-    <configure 
+    <configure
         xmlns="http://namespaces.zope.org/zope"
         xmlns:five="http://namespaces.zope.org/five">
-    
+
       <five:registerPackage package="." initialize=".initialize" />
-    
+
     </configure>
 
 
@@ -107,8 +107,8 @@ do), this must be explicitly included from somewhere. This may be:
 -  Another package's configure.zcml file.
 -  Zope's site.zcml, the root of all ZCML files, which is found in
    the *etc* directory in the instance home.
--  A ZCML *slug*, a one-liner created in the zope instance's
-   *etc/package-includes*directory, with a name like
+-  A ZCML :term:`Slug`, a one-liner created in the zope instance's
+   *etc/package-includes* directory, with a name like
    *my.package-configure.zcml*.
 
 In all cases, the syntax is the same:
@@ -120,7 +120,7 @@ In all cases, the syntax is the same:
 If you have *meta.zcml* or *overrides.zcml* files, you can add
 *<include />* directives for these as well. If you are using slugs,
 it must be named accordingly, e.g. *my.package-meta.zcml* or
-*my.package-overrides.zcml*. A slug can not contain more than one
+*my.package-overrides.zcml*. A :term:`Slug` can not contain more than one
 line.
 
 Later in this tutorial, we will show how buildout can manage slugs
