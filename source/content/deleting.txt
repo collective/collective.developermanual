@@ -53,6 +53,20 @@ Example how to check for this permission::
         else:
             pass
 
+Bypassing permissios
+=========================
+
+This is handy if you work e.g. in a :doc:`debug shell </misc/commandline>`
+and you are deleting badly behaving objects.
+
+.. code-block:: python
+
+        from AccessControl.SecurityManagement import newSecurityManager
+        admin=app.acl_users.getUserById("admin")
+        app.folder_sits.sitsngta.manage_delObjects("examples")
+        # Try harder:
+        # app.folder_sits.sitsngta._delObject("examples", suppress_events=True)
+        import transaction ; transaction.commit()
 
 Deleting all content in a folder
 --------------------------------
