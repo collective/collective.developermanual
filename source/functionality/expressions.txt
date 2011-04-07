@@ -168,4 +168,9 @@ Example how to generate multilingual aware RSS feed link::
 
         python:object.restrictedTraverse('@@plone_portal_state').language() == 'fi'
         
-            
+Check if object implements an interface
+============================================
+
+Example::
+
+        python:context.restrictedTraverse('@@plone_interface_info').provides('Products.CMFCore.interfaces.IFolderish')            
