@@ -138,12 +138,12 @@ Buildout generates *bin/toplone* command-line script.
 Example how to upload to a local Plone instance::
 
         make clean html
-        bin/toplone http://admin:admin@localhost:5011/foobar/knowledge-base/test/
+        bin/toplone bin/toplone --ploneupload:target=http://admin:admin@localhost:8080/Plone/documentation/manual/plone-community-developer-documentation    
         
 ... or in the case of Plone.org::
 
-    bin/toplone http://yourusername:password@http://plone.org/documentation/manual/plone-community-developer-documentation/        
-
+    bin/toplone --ploneupload:target=http://miohtama:xxx@manage.plone.org/documentation/manual/plone-community-developer-documentation    
+    
 Upload script will
 
 * Is generated when you run buildout (see buildout.cfg)
