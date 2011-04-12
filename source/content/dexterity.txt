@@ -23,3 +23,128 @@ ZopeSkel templates
 --------------------
 
 Please see :doc:`ZopeSkel page </tutorial/paste>` for project skeleton templates for Dexterity.
+
+Build example
+--------------------
+
+Below is a sample example which will install
+
+* Plone 4.1 beta 1
+
+* Dexterity 1.0 beta 7
+
+* Paster command + Dexterity templates 
+
+Please tune the versions according the latest available releases.
+
+buildout.cfg::
+
+        [buildout]
+        parts =  
+            instance
+            zopepy
+            i18ndude
+            zopeskel
+            test
+            paster
+            omelette
+        
+        extends = 
+            http://dist.plone.org/release/4.1b1/versions.cfg
+            http://good-py.appspot.com/release/dexterity/1.0b7?plone=4.1b1
+                
+        # Add additional egg download sources here. dist.plone.org contains archives
+        # of Plone packages.
+        find-links =
+            http://dist.plone.org/release/4.1b1
+            http://dist.plone.org/thirdparty
+        
+        extensions = 
+            mr.developer
+            buildout.dumppickedversions
+            buildout.threatlevel
+        
+        sources = sources
+                
+        versions = versions
+        
+        # Reference any folders where you have Python egg source code under development here 
+        # e.g.: develop = src/my.package
+        # If you are using the mr.developer extension and have the source code in a 
+        # repository mr.developer will handle this automatically for you
+        develop =
+        
+        
+        # Create bin/instance command to manage Zope start up and shutdown
+        [instance]
+        recipe = plone.recipe.zope2instance
+        user = admin:admin
+        http-address = 8080
+        debug-mode = off
+        verbose-security = on
+        blob-storage = var/blobstorage
+        
+        eggs =
+                Plone
+                plone.app.dexterity
+        
+        # Some pre-Plone 3.3 packages may need you to register the package name here in 
+        # order their configure.zcml to be run (http://plone.org/products/plone/roadmap/247)
+        # - this is never required for packages in the Products namespace (Products.*)
+        zcml =
+        
+        
+        # zopepy commands allows you to execute Python scripts using a PYTHONPATH 
+        # including all the configured eggs
+        [zopepy]
+        recipe = zc.recipe.egg
+        eggs = ${instance:eggs}
+        interpreter = zopepy
+        scripts = zopepy
+        
+        # create bin/i18ndude command
+        [i18ndude]
+        unzip = true
+        recipe = zc.recipe.egg
+        eggs = i18ndude
+        
+        # create bin/test command
+        [test]
+        recipe = zc.recipe.testrunner
+        defaults = ['--auto-color', '--auto-progress']
+        eggs =
+            ${instance:eggs}
+        
+        [paster]
+        recipe = zc.recipe.egg
+        eggs =
+           ZopeSkel
+           PasteScript
+           PasteDeploy
+           zopeskel.dexterity
+           ${instance:eggs}
+        entry-points = paster=paste.script.command:run
+        
+        # create ZopeSkel command
+        [zopeskel]
+        unzip = true
+        recipe = zc.recipe.egg
+        eggs =
+            ZopeSkel
+            ${instance:eggs}
+        
+        # symlinks all Python source code to parts/omelette folder when buildout is run
+        # windows users will need to install additional software for this part to build 
+        # correctly.  See http://pypi.python.org/pypi/collective.recipe.omelette for
+        # relevant details.
+        [omelette]
+        recipe = collective.recipe.omelette
+        eggs = ${instance:eggs}
+        
+        # Put your mr.developer managed source code repositories here, see
+        # http://pypi.python.org/pypi/mr.developer for details on format for this part
+        [sources]
+        collective.developermanual = svn http://svn.plone.org/svn/collective/collective.developermanual
+        
+        # Version pindowns for new style products go here - this section extends one provided in http://dist.plone.org/release/
+        [versions]
