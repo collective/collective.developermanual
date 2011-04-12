@@ -24,7 +24,38 @@ ZopeSkel templates
 
 Please see :doc:`ZopeSkel page </tutorial/paste>` for project skeleton templates for Dexterity.
 
-Build example
+Here is an example how to create your own add-on using the buildout below
+
+.. code-block:: console
+
+        cd src
+        ../bin/paster create -t dexterity yourcompany.app
+        
+Edit buildout.cfg and add:: 
+
+        eggs =
+                yourcompany.app
+
+        develop = 
+                src/yourcompany.app
+
+Then rerun buildout to get your new add-on skeleton included in the configuration
+
+.. code-block:: console
+
+        cd ..
+        bin/buildout
+        
+Now you can start adding content into your add-on
+
+.. code-block:: console
+
+        cd src/yourcompany.app
+        ../../bin/paster # Shows availablility of addcontent command
+        ../../bin/paster addcontent -l # Shows available templates (content, field, behavior, etc...)
+                           
+
+Buildout example
 --------------------
 
 Below is a sample example which will install
