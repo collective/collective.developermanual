@@ -61,7 +61,97 @@ Viewlet consists of
 
 * Page template (.pt) file
 
-* A :doc:`browser layer </views/layers>` defining which add-on product must be installed, so that the viewlet is rendered 
+* A :doc:`browser layer </views/layers>` defining which add-on product must be installed, so that the viewlet is rendered
+
+* A related Grok or ZCML directives to register the viewlet to a correct viewlet manager with a correct layer 
+
+Creating a viewlet using Grok
+==================================
+
+:doc:`Grok framework </components/grok>` allows you to register a viewlet easily using Python directives.
+
+It is recommended that you use :doc:`Dexterity ZopeSkel add-on product code skeleton </tutorials/paste>`
+where you add this code. 
+
+Create *yourcomponent.app/yourcomponent/app/browser/viewlets.py*::
+
+        """
+            
+            Viewlets related to application logic.
+        
+        """
+
+        # Zope imports
+        from Acquisition import aq_inner
+        from zope.interface import Interface
+        from five import grok
+        from zope.component import getMultiAdapter
+        
+        # Plone imports
+        from plone.app.layout.viewlets.interfaces import IHtmlHead
+        
+        from yourcompany.app.behavior.lsmintegration import ISomeDexterityBehavior
+        
+        # The viewlets in this file are rendered on every content item type
+        grok.context(Interface)
+        
+        # Use templates directory to search for templates.
+        grok.templatedir('templates')
+        
+        class JavascriptSnippet(grok.Viewlet):
+            """ A viewlet which will include some custom code in <head> if the condition is met """
+            
+            grok.viewletmanager(IHtmlHead)
+            
+            def available(self):
+                """ Check if we are in a specific content type.
+                
+                Check that the Dexerity content type has a certain
+                behavior set on it through Dexterity settings panel. 
+                """
+                try:
+                    avail = ISomeDexterityBehavior(self.context)
+                except TypeError:
+                    return False 
+                
+                return True
+            
+
+Then create folder *yourcomponent.app/yourcomponent/app/browser/templates* where you add the related javascripthead.pt::
+
+.. code-block:: html
+
+        <tal:extra-head omit-tag="" condition="viewlet/available">                
+                <meta name="something" content="your custom meta">        
+        </tal:extra-head>      
+
+More info
+
+* http://vincentfretin.ecreall.com/articles/using-five.grok-to-add-viewlets
+
+Viewlet behavior
+----------------
+
+Viewlets have two important methods
+
+#. update() - set up all variables
+
+#. render() - generate the resulting HTML code by evaluating the template with context variables set up in update()
+
+These methods should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
+
+See 
+
+* http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto
+
+* http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
+
+
+Creating a viewlet using Python code and ZCML 
+===============================================
+
+Here is an example code which extends an existing Plone base viewlet (found from plone.app.layout.viewlets.base package)
+and then puts this viewlet to a one of viewlet managers using :doc:`ZCML </components/ZCML>`.
 
 Example Python code for viewlets.py::
 
@@ -72,12 +162,7 @@ Example Python code for viewlets.py::
             http://mfabrik.com
         
         """
-        
-        __license__ = "GPL 2"
-        __copyright__ = "2010 mFabrik Research Oy"
-        __author__ = "Mikko Ohtamaa <mikko.ohtamaa@mfabrik.com>"
-        __docformat__ = "epytext"
-        
+                
         import urllib
         
         from plone.app.layout.viewlets import common as base
@@ -139,8 +224,8 @@ Then a sample page template (like.pt). You can use TAL template variable *view* 
                 >
         </iframe>
 
-Registering a viewlet
-----------------------
+Registering a viewlet using ZCML
+===================================
 
 Example configuration ZCML snippets below. You usually <viewlet> to *browser/configure.zcml* folder.
 
@@ -162,29 +247,6 @@ Example configuration ZCML snippets below. You usually <viewlet> to *browser/con
               />
         
         </configure>
-
-
-Creating viewlets, grok style
------------------------------
-
-* http://vincentfretin.ecreall.com/articles/using-five.grok-to-add-viewlets
-
-Viewlet behavior
-----------------
-
-Viewlets have two important methods
-
-#. update() - set up all variables
-
-#. render() - generate the resulting HTML code by evaluating the template with context variables set up in update()
-
-These methods should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
-
-See 
-
-* http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto
-
-* http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
 
 Conditionally rendering viewlets
 ----------------------------------
