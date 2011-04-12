@@ -1,0 +1,48 @@
+=======================
+ Basic troubleshooting
+=======================
+
+.. admonition:: Description
+
+        Here is some info for basic Plone troubleshooting, especially with add-on modules-
+        
+.. contents :: :local:
+
+Start Plone as foreground / debug mode
+----------------------------------------
+
+Plone runs on the top of Zope application service. Zope is a Python process and will appear
+as "python ....." in your task manager process list.
+
+Zope will report any problems with code when it is launched in foreground mode (attached to a terminal).
+
+First stop Zope if it's running as a background process 
+
+* On Windows: use Plone Control Panel or Windows Control Panel Services section to shutdown Plone first
+
+* On Linux: use /etc/init.d/plone stop or related command to shutdown Plone 
+
+Use the command
+
+.. code-block:: console
+
+        bin/instance fg
+        
+or Windows command-line command
+
+.. code-block:: console
+        
+        bin\instance.exe fg
+        
+to start Plone.
+                      
+All errors will be printed into the terminal. 
+The error is printed as Python *traceback*. It is important to copy-paste all lines of this traceback,
+not just the last line.
+      
+More info
+=========
+
+* :doc:`common exceptions which you might encounter when starting Zope </troubleshooting/exceptions>`_    
+
+* `Plone community support guidelines for asking help <http://plone.org/help>`_  
