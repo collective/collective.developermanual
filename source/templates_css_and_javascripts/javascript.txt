@@ -118,19 +118,37 @@ The following options are available
 For every page
 ===============
 
+The following example includes Javascript file intended for anonymous site users.
+It is included after toc.js so that the file ends up as the last script
+of the compressed JS bundle which served for all users.
+
+The Javascript file itself is usually *yourcompany/app/static/yourjsfile.js*
+folder in your :doc:`add-on product </tutorials/paste>`. 
+
+It is mapped to URI like::
+
+        http://localhost:8080/Plone/++resource++yourcompany.app/yourjsfile.js
+        
+by :doc:`Zope 3 resource subsystem </templates_css_and_javascripts/resourcefolders>`.
+
 Example ``profiles/default/jsregistry.xml`` in your add-on product.
-This registers a Javascript which is loaded for every page.
 
 .. code-block:: xml
-        
+
         <?xml version="1.0"?>
         <object name="portal_javascripts">
-                <javascript
-                        id="++resource++plonetheme.yourproduct/cufon-yui.js"
-                        cacheable="True" compression="safe" cookable="True"
-                        enabled="True" expression=""  inline="False" insert-after="toc.js"/>
+            <javascript
+                id="++resource++plonetheme.xxx.scripts/cufon-yui.js"
+                cacheable="True" compression="safe" cookable="True"
+                enabled="True" expression=""  inline="False" insert-after="toc.js"/>
         </object>
+        
 
+.. note ::
+
+        If <javascript> does not have insert-after or insert-before, the script will end up as the last
+        of the Javascript registry.
+                
 For authenticated users only
 =============================
 
@@ -141,6 +159,8 @@ the load time of the page. The files are loaded from ``portal_skins``
 (not from resource folder) and can be referred by their direct filename -
 Plone resolves portal_skins files magically for the site root and every 
 folder.
+
+``jsregistry.xml``:
 
 .. code-block:: xml
 
@@ -178,42 +198,6 @@ from Javascript definitions automatically.
 To inspect bundles and whether Javascripts have been registered succesfully,
 go to portal_javascripts -> Merged composition tab in ZMI.
 
-Javascript for anonymous
-========================
-
-The following example includes Javascript file intended for anonymous site users.
-It is included after toc.js so that the file ends up to anonymous users compression bundle.
-
-The Javascript file itself is in folder plonetheme/xxx/browser/scripts and it is
-mapped to ++resource++plonetheme.xxx.scripts namespace using <resourceDirectotory>
-ZCML directive.
-
-If insert-after or insert-before is omitted, the script will end up as the last
-of the Javascript registry.
-
-Example *profiles/default/jsregistry.xml*
-
-.. code-block:: xml
-
-	<?xml version="1.0"?>
-	<object name="portal_javascripts">
-	    <javascript
-	        id="++resource++plonetheme.xxx.scripts/cufon-yui.js"
-	        cacheable="True" compression="safe" cookable="True"
-	        enabled="True" expression=""  inline="False" insert-after="toc.js"/>
-	</object>
-
-The following example registers an anonymous user Javascript file, but does
-no place it to the compression bundle, because it is very big and
-slows down the page loading. It is placed before dropdown.js
-which is the first script for logged in users.
-
-.. code-block:: xml
-
-    <javascript
-        id="++resource++plonetheme.xxx.scripts/XXX_Script_400.font.js"
-        cacheable="True" compression="none" cookable="False"
-        enabled="True" expression=""  inline="False" insert-before="dropdown.js"/>
 
 Useful out of the box Javascripts
 ----------------------------------
