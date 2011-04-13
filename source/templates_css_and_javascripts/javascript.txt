@@ -115,8 +115,26 @@ The following options are available
 
 `Full description in the source code <https://svn.plone.org/svn/plone/ResourceRegistries/trunk/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
 
-For every page
-===============
+Bundles
+=======
+
+There are several compressed Javascript bundles served by Plone.
+The process of compressing & merging files to different bundles 
+is internally called "cooking"
+
+You can examine available bundles in *portal_javascripts*
+Zope Management Interface Tool, on *Merged Compositions* tab.
+
+Usually the following bundles are served 
+
+* Anonymous users (no condition)
+
+* Logged in users (condition: not: portal/portal_membership/isAnonymousUser)
+
+* Visual editor (TinyMCE) related Javascripts
+
+Include Javascript on every page
+===================================
 
 The following example includes Javascript file intended for anonymous site users.
 It is included after toc.js so that the file ends up as the last script
@@ -149,8 +167,8 @@ Example ``profiles/default/jsregistry.xml`` in your add-on product.
         If <javascript> does not have insert-after or insert-before, the script will end up as the last
         of the Javascript registry.
                 
-For authenticated users only
-=============================
+Including Javascript for authenticated users only
+=====================================================
 
 The following registers two Javascript files which are aimed
 to edit mode and authenticated users. The Javascript are 
@@ -183,21 +201,132 @@ folder.
         
         </object>
 
-Bundles
-=======
+Including Javascripts for widgets and other special conditions 
+=================================================================
 
-There are several compressed Javascript bundles cooked (compressed & merged)
-from Javascript definitions automatically.
+This is useful if you want to include Javascript for
+certain widgets only.
 
-* Anonymous users (no condition)
+The example here shows how to include a Javascript
+if a condition is met 
 
-* Logged in users (condition: not: portal/portal_membership/isAnonymousUser)
+* Content type has a certain :doc:`behavior </content/behaviors>` applied on it
 
-* Visual editor (Kupu) related Javascripts (condition: python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request))
+* Different files are avaialble for view and edit modes
 
-To inspect bundles and whether Javascripts have been registered succesfully,
-go to portal_javascripts -> Merged composition tab in ZMI.
+.. note ::
 
+        There is no easy way currently directly check whether a certain 
+        widget and widget mode is active on a particular view. Thus,
+        we do some assumptions and checks manually.
+        
+
+jsregistry.xml:
+
+.. code-block:: xml
+
+        <?xml version="1.0"?>
+        <object name="portal_javascripts">
+        
+                <!-- View mode javascript -->
+                <javascript
+                        id="++resource++yourcompany.app/integration.js"
+                        authenticated="False"
+                        cacheable="True" compression="safe" cookable="True"
+                        enabled="True" expression="context/@@integration_javascript"  
+                        inline="False" 
+                        />
+                
+                <!-- Edit mode javascript -->
+                <javascript
+                        id="++resource++yourcompany.app/integration.edit.js"
+                        authenticated="False"
+                        cacheable="True" compression="safe" cookable="True"
+                        enabled="True" expression="context/@@edit_integration_javascript"  
+                        inline="False" 
+                        />
+        
+        
+        </object>
+
+We create special conditions using :doc:`Grok subsystem </components/grok>` views.
+
+.. code-block:: python
+
+        # Zope imports
+        from Acquisition import aq_inner
+        from zope.interface import Interface
+        from five import grok
+        from zope.component import getMultiAdapter
+        
+        from yourcompany.app.behavior.lsmintegration import IYourWidgetIntegration
+                
+        class IntegrationJavascriptHelper(grok.CodeView):
+            """ Used by portal_javascripts to determine when to include our 
+                custom Javascript integration code.
+                
+            This view is referred from the expression in jsregistry.xml.         
+            """
+                
+            # The view is available on every content item type
+            grok.context(Interface)
+            grok.name("integration_javascript")
+            
+            def render(self):
+                """ Check if we are in a specific content type.
+                
+                Check that the Dexerity content type has a certain
+                behavior set on it through Dexterity settings panel. 
+                
+                Alternative, just check for a marker interface here.
+                """
+                
+                # render() methot is a the only traversable 
+                # Grok CodeView method. It can be used for rendering
+                # HTML code, but also for utility views
+                # to return raw Python data
+                        
+                try:
+                    # Check if a Dexterity behavior is available on the current context object
+                    # - if it is not, behavior adapter will raise TypeError
+                    avail = IYourWidgetIntegration(self.context)
+                except TypeError:
+                    return False 
+                
+                # If called directly from the browser like 
+                # http://localhost:8080/Plone/integration_javascript
+                # will return HTTP 204 No Content
+                
+                return True
+            
+        class EditModeIntegrationJavascriptHelper(IntegrationJavascriptHelper):    
+            """ Used by portal_javascripts to determine when to include our custom Javascript 
+                integration code *on edit pages* only.
+                
+            Subclass the existing checked and add more limiting conditions.        
+            """
+            grok.name("edit_integration_javascript")
+            
+            def render(self):
+                """
+                @return True: If this template is rendered "Edit view" of the item
+                """
+                
+                if not IntegrationJavascriptHelper.render(self):
+                    # We are not even on the correct content type
+                    return False 
+        
+                # This is a hacked together as Plone does not provide a real
+                # mechanism to separate edit views to other views.
+                # We simply check if the current view URI ends with "edit"
+                
+                path = self.request.get("PATH_INFO", "")
+                        
+                if path.endswith("/edit") or path.endswith("/@@edit"):
+                    return True 
+                
+                return False
+            
 
 Useful out of the box Javascripts
 ----------------------------------
