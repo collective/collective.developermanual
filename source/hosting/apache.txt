@@ -185,6 +185,15 @@ Then you can add to your virtual host configuration::
 	Since Apache caches the whole HTTP response, including
 	headers, see cookie implications below.
 
+.. note ::
+
+        TODO: Check if we need to do CacheIgnoreHeaders Set-Cookie here.
+        
+        
+More info 
+        
+* http://www.debian-administration.org/users/lee/weblog/35        
+
 Unsetting language cookie for media content
 =============================================
 
@@ -274,6 +283,15 @@ This config includes
 * Static resource caching w/HTTPS support
 
 * Server site https://production.yourorganization.org
+
+.. warning ::
+
+        When using Apache load balancing sticky sessions are must.
+        Otherwise you might encounter 
+        
+More information about how to set a sticky session cookie
+
+* http://plone.org/documentation/kb/sticky-sessions-and-mod_proxy_balancer        
 
 Example::
 
