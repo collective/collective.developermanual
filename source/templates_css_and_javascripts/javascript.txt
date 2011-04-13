@@ -204,15 +204,22 @@ folder.
 Including Javascripts for widgets and other special conditions 
 =================================================================
 
-This is useful if you want to include Javascript for
-certain widgets only.
+Here is described a way to include Javascript for
+certain widgets or certain pages only.
+
+* Javascripts are processed through portal_javascripts 
+
+* A special condition is created in Python code to determine when to include the script or not
+
+* Javascripts are served from a *static* media folder in 
+  a Plone add-on utilizing Grok framework  
 
 The example here shows how to include a Javascript
-if a condition is met 
+if the following conditions are met 
 
-* Content type has a certain :doc:`behavior </content/behaviors>` applied on it
+* Content type has a certain :doc:`Dexterity behavior </content/behaviors>` applied on it
 
-* Different files are avaialble for view and edit modes
+* Different files are served for view and edit modes
 
 .. note ::
 
