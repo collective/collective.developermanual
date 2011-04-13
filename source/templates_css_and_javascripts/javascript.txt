@@ -207,6 +207,13 @@ Including Javascripts for widgets and other special conditions
 Here is described a way to include Javascript for
 certain widgets or certain pages only.
 
+.. note ::
+
+        Since Plone loads very heavy Javascripts for logged in users (TinyMCE),
+        it often makes sense to decrease the count of HTTP requests and 
+        just merge your custom scripts with this bundle instead of trying
+        to have fine-tuned Javascript load conditions for rare cases.
+
 * Javascripts are processed through portal_javascripts 
 
 * A special condition is created in Python code to determine when to include the script or not
