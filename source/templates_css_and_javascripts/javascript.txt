@@ -340,7 +340,97 @@ We create special conditions using :doc:`Grok </components/grok>` views.
                     return True 
                 
                 return False
+
+Passing dynamic settings to Javascripts
+------------------------------------------
+
+Here is described a way to pass data from site or context object to a Javascripts easily.
+For each page, we create a ``<script>`` section which will include all the options
+filled in by Python code.
+
+We create the script tag in <head> section using a :doc:`Grok viewlet </views/viewlet>`
+registered there.
+
+This section is conditionally populated for certain Dexterity content
+types having a behavior applied on them (see above for more information).
+
+viewlet.py::
+
+        # -*- coding: utf-8 -*-
+        """
             
+            Viewlets related to application logic.
+        
+        """
+        
+        # Python imports
+        import json
+        
+        # Zope imports
+        from Acquisition import aq_inner
+        from zope.interface import Interface
+        from five import grok
+        from zope.component import getMultiAdapter
+        
+        # Plone imports
+        from plone.app.layout.viewlets.interfaces import IHtmlHead
+        
+        from yourcompany.app.behavior.integration import IYourIntegrationBehavior
+        
+        # The viewlets in this file are rendered on every content item type
+        grok.context(Interface)
+        
+        # Use templates directory to search for templates.
+        grok.templatedir('templates')
+        
+        # The generated HTML snippet going to <head>
+        TEMPLATE = u"""
+        <script type="text/javascript" class="javascript-settings">
+            var %(name)s = %(json)s;
+        </script>
+        """
+        
+        class JavascriptSettingsSnippet(grok.Viewlet):
+            """ Include dynamic Javascript code in <head>. 
+            
+            Include some code in <head> section which initializes
+            Javascript variables. Later this code can be used
+            by various scripts.
+            
+            Useful for settings.
+            """
+            
+            grok.viewletmanager(IHtmlHead)
+            
+            def getSettings(self):
+                """ 
+                @return: Python dictionary of settings 
+                """
+                
+                context = aq_inner(self.context)
+                portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+                
+                return {
+                    # Pass dynamically allocated site URL to the Javascripts (virtual host monster thing)         
+                    "staticMediaURL" : portal_state.portal_url() + "/++resource++yourcompany.app",
+                    # Some other example parameters            
+                    "schoolId" : 3,
+                    "restService" : "http://yourserver.com:8080/rest"      
+                }
+            
+        
+            def render(self):
+                """ 
+                Render the settings as inline Javascript object in HTML <head>
+                """
+                settings = self.getSettings()
+                json_snippet = json.dumps(settings)
+                
+                # Use Python string template facility to produce the code
+                html = TEMPLATE % { "name" : "lsmoptions", "json" : json_snippet }
+             
+                return html
+                            
 
 Useful out of the box Javascripts
 ----------------------------------
