@@ -1,0 +1,94 @@
+===================================
+ Facebook integration
+===================================
+
+.. admonition::
+
+        How to integrate Facebook to Plone site
+
+.. contents:: :local:
+
+Introduction
+--------------
+
+See the add-on 
+
+* http://plone.org/products/facebook-like-button
+
+for non-programming integration.
+
+Like button
+------------
+
+Here is an example which creates a Like button pointing to the current page.
+
+Page template code:
+
+.. code-block:: html
+
+       <iframe tal:attributes="src string:${view/getFBURL}" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:227px; height:50px;" allowTransparency="true"></iframe>
+        
+View code
+
+.. code-block:: python
+
+    import urllib
+    
+    ...
+    
+    class YourView(BrowserView):
+    
+        ...
+
+            def getQuotedURL(self):
+                url = self.context.absolute_url()
+                url = urllib.quote(url)
+                return url
+                    
+            def getFBURL(self):
+                base = "http://www.facebook.com/plugins/like.php?href=%(url)s;layout=standard&amp;show_faces=false&amp;width=227&amp;action=like&amp;font&amp;colorscheme=light&amp;height=35"
+                url = base % {"url" : self.getQuotedURL() }
+                return url
+   
+
+
+OpenGraph metadata
+--------------------
+
+Here is an example of
+
+* Using content description in Facebook
+
+* Having main image
+
+* Having location
+
+* Having contact info
+
+Example
+
+.. code-block:: html
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="saariselka.app"
+      >
+     
+      <tal:facebook-opengraph metal:fill-slot="head_slot" >
+                                             
+          <meta property="og:description" tal:attributes="content context/Description"/>
+          <meta property="og:type" content="hotel"/>
+          
+          <tal:has-location omit-tag="" tal:define="lat view/data/Latitude|nothing; long view/data/Longitude|nothing;" tal:condition="lat">
+                <meta property="og:latitude" tal:attributes="content lat"/>
+                <meta property="og:longitude" tal:attributes="content long"/>
+          </tal:has-location>
+          
+          <meta property="og:email" content="keskusvaraamo@saariselka.com"/>
+          <meta property="og:phone_number" content="+ 358 16 554 0500"/>
+          
+          <tal:has-image omit-tag="" condition="view/main_image">
+                <meta property="og:image" tal:attributes="content view/main_image"/>
+          </tal:has-image>                          
+      </tal:facebook-opengraph>    
