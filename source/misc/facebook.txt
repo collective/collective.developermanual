@@ -96,5 +96,14 @@ Example
           
           <tal:has-image omit-tag="" condition="view/main_image">
                 <meta property="og:image" tal:attributes="content view/main_image"/>
-          </tal:has-image>                          
+          </tal:has-image>     
+          
+          <tal:comment replace="nothing">
+               <!-- Facebook admins is a compulsory field. Put here the side admin Facebook id(s), comma separated             
+               
+                    http://apps.facebook.com/whatismyid
+               -->             
+          </tal:comment>
+          <meta property="fb:admins" content="123123" />
+                               
       </tal:facebook-opengraph>    
