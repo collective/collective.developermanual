@@ -49,6 +49,11 @@ View code
                 base = "http://www.facebook.com/plugins/like.php?href=%(url)s&layout=standardt&show_faces=false&width=227&action=like&colorscheme=light&height=50"
                 url = base % {"url" : self.getQuotedURL() }        
                 return url
+
+.. note ::
+
+        If you are using Like button you should also add OpenGraph metadata to your pages
+        as described below. 
    
 More info
 
@@ -57,11 +62,13 @@ More info
 OpenGraph metadata
 --------------------
 
-OpenGraph is Facebook page metadata protocol
+OpenGraph is Facebook page metadata protocol. You'll insert extra
+<meta> tags on the page which will give additional information about the page
+to be displayed with Facebook links.
 
 * http://developers.facebook.com/docs/opengraph/
 
-Here is an example of
+Below is an example of filling in Facebook metadata
 
 * Using content description in Facebook
 
@@ -80,20 +87,51 @@ Example
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="saariselka.app"
       >
+
+
+       <tal:comment replace="nothing">
+       <!-- 
+                
+                We will insert this HTML to <head> section,
+                "head_slot", defined by Plone's main_template.pt                
+                 
+       -->             
+      </tal:comment>          
      
       <tal:facebook-opengraph metal:fill-slot="head_slot" >
                                              
           <meta property="og:description" tal:attributes="content context/Description"/>
           <meta property="og:type" content="hotel"/>
-          
+
+          <tal:comment replace="nothing">
+               <!-- 
+
+                        Fill in geo info if available.                                              
+               -->             
+          </tal:comment>                    
           <tal:has-location omit-tag="" tal:define="lat view/data/Latitude|nothing; long view/data/Longitude|nothing;" tal:condition="lat">
                 <meta property="og:latitude" tal:attributes="content lat"/>
                 <meta property="og:longitude" tal:attributes="content long"/>
           </tal:has-location>
-          
-          <meta property="og:email" content="keskusvaraamo@saariselka.com"/>
-          <meta property="og:phone_number" content="+ 358 16 554 0500"/>
-          
+
+          <tal:comment replace="nothing">
+               <!-- 
+
+                        Fill in contact info.                                              
+               -->             
+          </tal:comment>              
+          <meta property="og:email" content="xxx@yoursite.com"/>
+          <meta property="og:phone_number" content="+ 358 123 1234"/>
+
+          <tal:comment replace="nothing">
+               <!-- 
+                        
+                        URL to 70 px wide image used by Facebook as the news item splash image.
+                        
+                        Note: Facebook resized the image automatically.
+                         
+               -->             
+          </tal:comment>          
           <tal:has-image omit-tag="" condition="view/main_image">
                 <meta property="og:image" tal:attributes="content view/main_image"/>
           </tal:has-image>     
