@@ -277,8 +277,65 @@ the language should be served::
                 
             # print "Done"
             
-                
+Following another approach (raptus.multilanguageplone)
+-------------------------------------------------------
 
+Another Plone extension for multilingual content is raptus.multilanguageplone. 
+raptus.multilanguageplone isn't meant to be a fully fledged multilanguage tool, 
+like LinguaPlone. Translation is done directly in the edit view of a content type 
+and provides a widget to use google's translation api to translate the different 
+fields.
 
+Unlike LinguaPlone raptus.multilanguageplone doesn't create an object for each 
+translation, it stores the translation on the object itself and therefor doesn't 
+support translation workflows and language aware object paths.
+
+If you have other than default content types, then you have to provide your own 
+multilanguagefields adapter.
+
+See https://svn.plone.org/svn/collective/raptus.multilanguagefields/trunk/raptus/multilanguagefields/samples/
+
+Installation
+------------
+
+Installation of raptus.multilanguageplone is straight forward with buildout. If 
+the site contains already articles then you have to migrate them.
+
+See http://pypi.python.org/pypi/raptus.multilanguagefields
+
+Migration from Linguaplone
+--------------------------
+
+If you want to switch from Linguaplone to raptus.multilanguageplone be aware that 
+you will loose the already translated content. 
+
+1. Uninstall Products.Linguaplone.
+2. Unfortunately Linguaplone does not uninstall cleanly. 2 utilities remain in 
+   your database. You can remove them in an interactive session from your site 
+   'plone'::
+        
+        (Pdb) site = plone.getSiteManager()
+        (Pdb) from plone.i18n.locales.interfaces import IContentLanguageAvailability
+        (Pdb) utils = site.getAllUtilitiesRegisteredFor(IContentLanguageAvailability)
+        (Pdb) utils
+        [<plone.i18n.locales.languages.ContentLanguageAvailability object at 0xb63c4cc>, 
+        <ContentLanguages at /plone/plone_app_content_languages>, 
+        <Products.LinguaPlone.vocabulary.SyncedLanguages object at 0xfa32e8c>, 
+        <Products.LinguaPlone.vocabulary.SyncedLanguages object at 0xfa32eac>]
+        (Pdb) utils = utils[:-2]
+        (Pdb) del site.utilities._subscribers[0][IContentLanguageAvailability]
+
+   Repeat the procedure for IMetadataLanguageAvailability and commit the transaction::
+   
+        (Pdb) import transaction
+        (Pdb) site._p_changed = True
+        (Pdb) pcu.utilities._p_changed = True
+        (Pdb) transaction.commit()
+        (Pdb) app._p_jar.sync()   # if zeo setup
+        
+3. Run buildout without Linguaplone and restart.
+4. Run the import step of the Plone Language Tool. Otherwise language switching will not work.
+5. Install raptus.multilanguageplone by buildout and portal_quickinstaller.
+6. Migrate the content.
 
  
