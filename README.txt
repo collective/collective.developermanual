@@ -7,7 +7,7 @@ Please read source/introduction/developermanual.txt
 License
 -------
 
-Copyright © 2011 Plone community
+Copyright © 2010-2011 mFabrik Research Oy and Plone community
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
