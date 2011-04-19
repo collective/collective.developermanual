@@ -351,9 +351,6 @@ filled in by Python code.
 We create the script tag in <head> section using a :doc:`Grok viewlet </views/viewlet>`
 registered there.
 
-This section is conditionally populated for certain Dexterity content
-types having a behavior applied on them (see above for more information).
-
 viewlet.py::
 
         # -*- coding: utf-8 -*-
@@ -427,7 +424,7 @@ viewlet.py::
                 json_snippet = json.dumps(settings)
                 
                 # Use Python string template facility to produce the code
-                html = TEMPLATE % { "name" : "lsmoptions", "json" : json_snippet }
+                html = TEMPLATE % { "name" : "youroptions", "json" : json_snippet }
              
                 return html
                             
