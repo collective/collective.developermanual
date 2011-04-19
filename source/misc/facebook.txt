@@ -78,7 +78,50 @@ Below is an example of filling in Facebook metadata
 
 * Having contact info
 
-Example
+.. note ::
+
+        You need to include your Facebook app or your Facebook user id as the admin for the site
+        in the metadata.
+        Otherwise Facebook will report an error for the page.
+        
+You can see Facebook id your yourself and your friends here        
+        
+* http://apps.facebook.com/whatismyid        
+
+Simple example. Add this to your :doc:`main_template.pt </templates_css_and_javascripts/template_basics>`. 
+Supports Plone default content types and news item image
+
+.. code-block:: html
+
+        <html xmlns="http://www.w3.org/1999/xhtml"
+              xml:lang="en"
+              lang="en"
+              tal:define="lang language"
+              tal:attributes="lang lang;
+                              xml:lang lang">
+        
+       
+          <head>
+       
+            ... 
+               
+            <!-- Facebook integration -->
+        
+            <meta property="og:description" tal:attributes="content context/Description|nothing"/>
+                
+            <tal:has-image omit-tag="" condition="context/image|nothing">
+                <tal:comment replace="nothing"><!-- News item image support --></tal:comment>           
+                <meta property="og:image" tal:attributes="content string:${context/absolute_url}/image"/>
+            </tal:has-image>     
+            
+            <meta property="fb:admins" content="123123" />
+            
+            <meta property="og:type" content="website"/>    
+                
+          </head>
+
+
+Complex example for custom content type
 
 .. code-block:: html
 
@@ -100,8 +143,8 @@ Example
      
       <tal:facebook-opengraph metal:fill-slot="head_slot" >
                                              
-          <meta property="og:description" tal:attributes="content context/Description"/>
-          <meta property="og:type" content="hotel"/>
+          <meta property="og:description" tal:attributes="content context/Description|nothing"/>
+         <meta property="og:type" content="hotel"/>
 
           <tal:comment replace="nothing">
                <!-- 
