@@ -95,9 +95,6 @@ PortalFactory (only for archetype) creates the object in a temporary folder and 
 
         to see if content is still temporary use portal_factory.isTemporary(obj)
 
-
-
-    
 Restricting creating on content types
 --------------------------------------
 
@@ -107,10 +104,26 @@ through *Add...* menu.
 Restricting available types per content type
 ===============================================
 
-portal_types defines which content can be created inside which content type.
-This is allowed_content_types setting and you can change it through ZMI as well.
+portal_types defines which content types can be created inside folderish content type.
+By default, all content types which have ``global_allow`` property set can be added.
 
-You can set the restriction in GenericSetup profiles/default/types/YourType.xml::
+The behavior can be controlled with ``allowed_content_types`` setting.
+
+* You can change it through portal_types management interface
+
+* You can change it in your add-on installer :doc:`GenericSetup </components/genericsetup>` profile
+
+Example for :doc:`Dexterity content type </content/dexterity>`. The file would be something like profiles/default/types/yourcompany.app.typeid.xml::
+  
+  <!-- List content types we allow here -->
+  <property name="filter_content_types">True</property>  
+  <property name="allowed_content_types">
+        <element value="yourcompany.app.courseinfo" />
+  </property>
+  <property name="allow_discussion">False</property>
+
+
+Example for :doc:`Archetypes content </content/archetypes>`. The file would be something like profiles/default/types/YourType.xml::
 
         <property name="filter_content_types">True</property>
         
