@@ -151,6 +151,60 @@ More info
 
 * http://www.coactivate.org/projects/deliverance/lists/deliverance-discussion/archive/2010/09/1284795659190
 
+Handling .. relative URLs
+---------------------------
+
+Here is an example of :doc:`monkey-patch </misc/monkeypatch>`
+which you can use to override relative URLs in your theme using 
+a dot notation.
+
+It adds a custom behavior to normal ``urlparse.urljoin()`` logic.
+
+.. code-block:: python
+
+        from xdv import rules
+        
+        from urlparse import urljoin
+        
+        def apply_absolute_prefix(theme_doc, absolute_prefix):
+            
+            def join(prefix, url):
+                """ Handle relative URLs specially.
+                
+                Theme files may contain .. URLs referring to other file locations on the file system.
+                Since transformation is not file system location aware, we need to manually fix these
+                kind references. This join assumes that all URLs with .. go to the absolute prefix root.
+                
+                This behavior might depend on the context of the theme files, so we can't have 
+                bullet-proof solution here but these must be solved case-by-case basis.  
+                """
+                if url.startswith("../"):
+                    url = url[3:]
+                                    
+                final = urljoin(prefix, url)
+                
+                return final
+            
+            if not absolute_prefix:
+                return
+            if not absolute_prefix.endswith('/'):
+                absolute_prefix = absolute_prefix + '/'
+            for node in theme_doc.xpath('//*[@src]'):
+                url = join(absolute_prefix, node.get('src'))
+                node.set('src', url)
+            for node in theme_doc.xpath('//*[@href]'):
+                url = join(absolute_prefix, node.get('href'))
+                node.set('href', url)
+            for node in theme_doc.xpath('//comment() | //style'):
+                if node.tag == 'style' or node.tag == etree.Comment and node.text.startswith("[if IE"):
+                    node.text = IMPORT_STYLESHEET.sub(
+                        lambda match: match.group(1) + join(absolute_prefix, match.group(2)) + match.group(3),
+                        node.text)
+        
+        # Monkey-patch XDV to support relative URL handling
+        rules.apply_absolute_prefix = apply_absolute_prefix 
+
+
 Using XDV to theme and integrate a Wordpress site
 --------------------------------------------------
 
