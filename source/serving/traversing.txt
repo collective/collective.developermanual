@@ -158,6 +158,8 @@ There is no a direct, easy, way to accomplish this.
 
 Example::
 
+        from zope.component import getMultiAdapter
+
         def getSiteRootRelativePath(context, request):
             """ Get site root relative path to an item
             
@@ -175,7 +177,7 @@ Example::
             site_path = site.getPhysicalPath();
             context_path = context.getPhysicalPath()
             
-            relative_path = context_path[len(site_path)+1:]
+            relative_path = context_path[len(site_path):]
             
             return "/" + "/".join(relative_path)             
 
