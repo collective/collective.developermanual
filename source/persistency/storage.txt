@@ -58,7 +58,7 @@ is any pickleable Python object or primitive you store in your database.
 Buckets
 -------
 
-BTree stores data in buckets (OOBBucket <http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBucket/index.html>`_).
+BTree stores data in buckets (`OOBucket <http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBucket/index.html>`_).
 
 Bucket is the smallest unit of data
 which is written to the database once. Buckets are loaded lazily: BTree only loads
@@ -72,7 +72,7 @@ When one value in bucket is changed the whole bucket must be rewritten to the di
 Storing as attribute vs. storing in BTree
 -----------------------------------------
 
-Plone has two kinds of fundamental way to store data
+Plone has two kinds of fundamental way to store data:
 
 * Attribute storage (stores values directly in the pickled objects).
 
@@ -100,7 +100,7 @@ BLOBs are supported since ZODB 3.8.x. Plone 3.x still uses
 ZODB 3.7.x by default. ZODB 3.8.x works but it is not officially
 supported.
 
-When you use BLOB interface to store and retrieve data they are stored
+When you use BLOB interface to store and retrieve data, they are stored
 physically as files on your file systems. File system, as the name says,
 was designed to handle files and has far better performance on large binary
 data as sticking the data into ZODB.
@@ -113,7 +113,7 @@ SQL values
 ----------
 
 Plone's Archetypes subsystem supports storing individual Archetypes fields in SQL database.
-This is mainly an integration feature. Read more about this in Archetypes manual.
+This is mainly `an integration feature <http://plone.293351.n2.nabble.com/Work-with-Contents-in-SQL-database-td5868800.html>`_. Read more about this in `Archetypes manual <http://plone.org/products/archetypes/documentation/old/ArchetypesDeveloperGuide/index_html#advanced-storage-manual>`_.
 
 Transaction sizes
 -----------------
