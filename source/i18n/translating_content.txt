@@ -307,12 +307,12 @@ Migration from Linguaplone
 --------------------------
 
 If you want to switch from Linguaplone to raptus.multilanguageplone be aware that 
-you will loose the already translated content. 
+you will loose already translated content. 
 
 1. Uninstall Products.Linguaplone.
 2. Unfortunately Linguaplone does not uninstall cleanly. 2 utilities remain in 
    your database. You can remove them in an interactive session from your site 
-   'plone'::
+   with the name 'plone' in this example::
         
         (Pdb) site = plone.getSiteManager()
         (Pdb) from plone.i18n.locales.interfaces import IContentLanguageAvailability
@@ -329,7 +329,7 @@ you will loose the already translated content.
    
         (Pdb) import transaction
         (Pdb) site._p_changed = True
-        (Pdb) pcu.utilities._p_changed = True
+        (Pdb) site.utilities._p_changed = True
         (Pdb) transaction.commit()
         (Pdb) app._p_jar.sync()   # if zeo setup
         
