@@ -26,10 +26,30 @@ read documentation in
 `plone.app.layout.globals.interfaces <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
 module.
 
+Example how to get portal root URL::
+
+    from Acquisition import aq_inner
+    from zope.component import getMultiAdapter
+
+    ...
+    
+    class MyView(BrowserView):
+
+        ...
+        
+        def mymethod(self):
+            context = aq_inner(self.context)
+            portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+        
+            url = portal_state.portal_url()
+
+
 Example how to get the current language::
 
     from Acquisition import aq_inner
     from zope.component import getMultiAdapter
+
+    ...
 
     context = aq_inner(self.context)
     portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
