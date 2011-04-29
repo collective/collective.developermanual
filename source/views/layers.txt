@@ -339,3 +339,14 @@ Layers are evaluated from zero index (highest priority) the last index (lowest p
 .. HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
 
 .. _resourceDirectory: http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/resourceDirectory/index.html
+
+
+Testing Layers
+--------------
+
+Plone testing toolkits won't register layers for you, you have to do it
+yourself somehere in the bolierplate code::
+
+	from zope.interface import directlyProvides
+
+        directlyProvides(self.portal.REQUEST, IThemeLayer)
