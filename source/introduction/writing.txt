@@ -59,6 +59,21 @@ human errors happen all the time.
 
     svn commit -m "My message what I changed"
 
+Using GIT with collective SVN
+=============================
+
+To find out initial commit, run the following::
+
+    svn log --stop-on-copy https://svn.plone.org/svn/collective/collective.developermanual/trunk | tail
+
+Then either get the full history (will take a while)::
+
+    git svn clone -r 85920:HEAD https://svn.plone.org/svn/collective/collective.developermanual/trunk collective.developermanual
+
+Or just get the latest version::
+
+    git svn clone -r HEAD https://svn.plone.org/svn/collective/collective.developermanual/trunk collective.developermanual
+
 Asking someone to do changes for you
 ====================================
 
