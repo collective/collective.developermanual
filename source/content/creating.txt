@@ -11,8 +11,23 @@
 Creating content objects
 ------------------------
 
-Permission aware way
-====================
+Permission aware way (Dexterity)
+===================================
+
+These instructions apply for :doc:`Dexterity </content/dexterity>` content types.
+
+Example::
+
+        from plone.dexterity.utils import createContentInContainer
+        
+        
+        # Factory-type information id is the same as in types.xml
+        # optionally you can set checkConstraints=False to skip permission checks
+        item = createContentInContainer(folder, "your.app.dexterity.fti.information", title=title)
+        
+
+Permission aware way (Archetypes)
+===================================
 
 Use ``invokeFactory(portal_type, constructred_object_id)``. ``invokeFactory()`` is available on all folderish content objects.
 ``invokeFactory()`` calls ``portal_factory`` persistent utility to create content item. 
