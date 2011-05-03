@@ -355,6 +355,26 @@ Acquisition effect
 Sometimes traversing can give you attributes which actually do not exist on the object, but are inherited from the parent objects
 in the persistent object graph. See acquisition_.
 
+Defaut content item
+--------------------
+
+Default content item or view sets some challenges for the traversing, as the
+object published path and internal path differ. 
+
+Below is an example to get the folder of the published object (parent folder for the default item)
+in page template
+
+.. code-block :: html
+
+    <div tal:define="folder context/@@plone_context_state/canonical_object" tal:condition="python:hasattr(folder, 'carousel') and hasattr(folder['carousel'], 'carouselText')">xxx</div>
+
+
+
+
+More info
+
+* See :doc:`plone_context_state helper </misc/contxet>` 
+
 Custom traversing
 -----------------
 
