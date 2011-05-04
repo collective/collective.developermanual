@@ -23,8 +23,8 @@ Permission check is done for
 The basic way of dealing with permissions is setting the ``permission`` attribute
 of view declaration. For more information see :doc:`views </views/browserviews>`_.
 
-Checking permission manually
-----------------------------
+Checking if the logged in user has a permission
+----------------------------------------------------
 
 The following code checks whether the logged in user
 has a certain permission for the some object.
@@ -47,6 +47,35 @@ has a certain permission for the some object.
          # ...
          # we have security clearance here
          #
+
+Checking if a specific role has a permission
+------------------------------------------------
+
+Example which checks if Authenticated role has a permission on a certain folder on the site using ``rolesOfPermission()``::
+
+        def checkDBPermission(self):
+                
+                from zope.app.component.hooks import getSite 
+                
+                site = getSite()
+                
+                obj = site.intranet
+                        
+                perms = obj.rolesOfPermission("View")
+                
+                found = False
+                
+                for perm in perms:
+                    if perm["name"] == "Authenticated":
+                        if perm["selected"] != "": # will be SELECTED if the permission is granted
+                            found = True
+                            break
+                
+                if not found:
+                    from Products.statusmessages.interfaces import IStatusMessage
+                    messages = IStatusMessage(self.request)
+                    messages.addStatusMessage(u"Possibe permission access problem with the intranet. Errors on creation form may happen.", type="info")
+
 
 Permission Access
 ------------------
