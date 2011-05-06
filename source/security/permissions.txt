@@ -82,14 +82,21 @@ Permission Access
 
 Object that are manageable ttw inherit of `RoleManager  <http://api.plone.org/CMF/1.5.4/private/AccessControl.Role.RoleManager-class.html>`_. API class provided by this class permit you to manage permission.
 
-Example : see all possibles  permissions 
+Example : 
+
+* see all possibles  permissions 
 
 ::
 
    >>> object.possible_permissions()
    ['ATContentTypes Topic: Add ATBooleanCriterion', 'ATContentTypes Topic: Add ATCurrentAuthorCriterion',...
 
+* Show the security matrix of permission
 
+::
+
+   >>> self.portal.rolesOfPermission('Modify portal content')
+  [{'selected': '', 'name': 'Anonymous'}, {'selected': '', 'name': 'Authenticated'}, {'selected': '', 'name': 'Contributor'}, {'selected': '', 'name': 'Editor'}, {'selected': 'SELECTED', 'name': 'GroupAdmin'}, {'selected': '', 'name': 'GroupContributor'}, {'selected': '', 'name': 'GroupEditor'}, {'selected': '', 'name': 'GroupLeader'}, {'selected': '', 'name': 'GroupMember'}, {'selected': '', 'name': 'GroupReader'}, {'selected': '', 'name': 'GroupVisitor'}, {'selected': 'SELECTED', 'name': 'Manager'}, {'selected': '', 'name': 'Member'}, {'selected': 'SELECTED', 'name': 'Owner'}, {'selected': '', 'name': 'Reader'}, {'selected': '', 'name': 'Reviewer'}, {'selected': '', 'name': 'SubscriptionViewer'}]
  
 
 
