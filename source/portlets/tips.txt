@@ -362,6 +362,52 @@ Writing your own portlet manager
 If you need additional portlet slots at the site.
 
 * https://weblion.psu.edu/svn/weblion/weblion/Products.ContentWellPortlets/trunk/Products/ContentWellPortlets/tests/test_setup.py
+
+Fixing relative links
+-------------------------
+
+Example (in progress)::
+
+    from lxml import etree
+    from StringIO import StringIO
+    import urlparse
+    from lxml import html
+        
+    def fix_links(content, absolute_prefix):
+        """
+        Rewrite relative links to be absolute links based on certain URL.
+        
+        @param html: HTML snippet as a string
+        """
+        
+        parser = etree.HTMLParser()
+                    
+        content = content.strip()
+        
+        tree  = html.fragment_fromstring(content, create_parent=True)
+            
+        def join(base, url):
+            """
+            Join relative URL  
+            """  
+            if not (url.startswith("/") or "://" in url):
+                return urlparse.urljoin(base, url)
+            else:
+                # Already absolute 
+                return url
+        
+        for node in tree.xpath('//*[@src]'):         
+            url = node.get('src')            
+            url = join(absolute_prefix, url)        
+            node.set('src', url)
+        for node in tree.xpath('//*[@href]'):    
+            href = node.get('href')                        
+            url = join(absolute_prefix, href)
+            node.set('href', url)
+        
+        data =  etree.tostring(tree, pretty_print=False, encoding="utf-8")
+            
+        return data
                                      
 Other resources and examples
 -----------------------------
@@ -369,4 +415,6 @@ Other resources and examples
 * `Static text portlet <https://svn.plone.org/svn/plone/plone.portlet.static/trunk/plone/portlet/static/>`_.
 
 * `Templated portlet <https://svn.plone.org/svn/collective/collective.easytemplate/trunk/collective/easytemplate/browser/portlets/templated.py>`_
+                                     
+
                                      
