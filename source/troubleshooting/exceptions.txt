@@ -1652,4 +1652,53 @@ just the first entry where it tries to use an unloaded code.
 
 Start your instance on the foreground and you should see the actual error.
 
+Error _restore_index() when starting instance / ZEO server
+--------------------------------------------------------------
+
+Example traceback::
+
+        2011-05-09 09:42:20 INFO ZServer HTTP server started at Mon May  9 09:42:20 2011
+                Hostname: 0.0.0.0
+                Port: 10997
+        2011-05-09 09:42:21 INFO Marshall libxml2-python not available. Unable to register libxml2 based marshallers, at least SimpleXMLMarshaller
+        2011-05-09 09:42:22 INFO DocFinderTab Applied patch version 1.0.4.
+        Traceback (most recent call last):
+          File "/home/moo/code/python2/parts/opt/lib/python2.4/pdb.py", line 1066, in main
+            pdb._runscript(mainpyfile)
+          File "/home/moo/code/python2/parts/opt/lib/python2.4/pdb.py", line 991, in _runscript
+            self.run(statement, globals=globals_, locals=locals_)
+          File "/home/moo/code/python2/parts/opt/lib/python2.4/bdb.py", line 366, in run
+            exec cmd in globals, locals
+          File "<string>", line 1, in ?
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/Startup/run.py", line 56, in ?
+            run()
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/Startup/run.py", line 21, in run
+            starter.prepare()
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/Startup/__init__.py", line 102, in prepare
+            self.startZope()
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/Startup/__init__.py", line 278, in startZope
+            Zope2.startup()
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/__init__.py", line 47, in startup
+            _startup()
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/App/startup.py", line 59, in startup
+            DB = dbtab.getDatabase('/', is_root=1)
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/Startup/datatypes.py", line 280, in getDatabase
+            db = factory.open(name, self.databases)
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/Startup/datatypes.py", line 178, in open
+            DB = self.createDB(database_name, databases)
+          File "/home/moo/xxx/parts/zope2/lib/python/Zope2/Startup/datatypes.py", line 175, in createDB
+            return ZODBDatabase.open(self, databases)
+          File "/home/moo/xxx/parts/zope2/lib/python/ZODB/config.py", line 97, in open
+            storage = section.storage.open()
+          File "/home/moo/xxx/parts/zope2/lib/python/ZODB/config.py", line 135, in open
+            quota=self.config.quota)
+          File "/home/moo/xxx/parts/zope2/lib/python/ZODB/FileStorage/FileStorage.py", line 154, in __init__
+            r = self._restore_index()
+          File "/home/moo/xxx/parts/zope2/lib/python/ZODB/FileStorage/FileStorage.py", line 365, in _restore_index
+            index = info.get('index')
+
+Reason: Data.fs.index is corrupted.
+
+Fix. Remove Data.fs.index file. The index will be rebuilt on the launch.
+
        
