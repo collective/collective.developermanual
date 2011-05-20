@@ -181,7 +181,20 @@ carousel.py::
                 
                
                 # Set a hidden flag which allows us later to delete images
-                image._migrated_to_carousel = True 
+                image._migrated_to_carousel = True
+                
+                 from Products.CMFCore.WorkflowCore import WorkflowException
+                
+                workflowTool = getToolByName(banner, "portal_workflow")
+                try:
+                    workflowTool.doActionFor(banner, "publish")
+                    logger.info("Published " + banner.getId())
+                except WorkflowException:
+                    # a workflow exception is risen if the state transition is not available
+                    # (the sampleProperty content is in a workflow state which
+                    # does not have a "submit" transition)
+                    logger.info("Could not publish:" + str(banner.getId()) + " already published?")
+                    pass
                                 
             def setupCarousel(self, carousel_folder):
                 """
@@ -227,6 +240,8 @@ carousel.py::
                 # Set a marker flag in the case we need to play around with these
                 # folderes programmatically in the future
                 folder._migrated_to_carousel = True
+                
+                                
         
                                                 
             def migrate(self):
