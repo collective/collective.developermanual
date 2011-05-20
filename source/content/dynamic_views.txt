@@ -197,6 +197,34 @@ Getting default page
 
     # Return content object which is the default page or None if not set
     default_page = default_page_helper.getDefaultPage(container)
+    
+Another example how to use this::
+
+    from Products.CMFCore.interfaces import IFolderish
+
+    def hasTabs(self):
+        """
+        Determine whether the page itself, or default page, in the case of folders, has setting showTabs set true.
+        
+        Show tab setting defined in dynamicpage.py.
+        """
+
+        
+        page = self.context
+        
+        try:
+            if IFolderish.providedBy(self.context):
+                folder = self.context
+                default_page_helper = getMultiAdapter((folder, self.request), name='default_page')
+                page_name = default_page_helper.getDefaultPage(folder)
+                page = folder[page_name]
+        except:
+            pass
+                
+        tabs = getattr(page, "showTabs", False)
+                
+        return tabs
+            
 
 Setting default page can be done as simple as setting default_page attribute
 of the folder to be the id of the default page:
