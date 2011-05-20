@@ -176,6 +176,26 @@ Then create *yourcompany.app/yourcompany/app/browser/templates* and add the rela
             </metal:block>
             
         </html>
+
+Another example (empty.pt) which renders only title and description Plone 3 way::
+
+        <html xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:metal="http://xml.zope.org/namespaces/metal"
+              xmlns:tal="http://xml.zope.org/namespaces/tal"
+              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+              i18n:domain="example.dexterityforms"
+              metal:use-macro="context/main_template/macros/master">
+              
+            <metal:block fill-slot="main">
+                
+                <h1 class="documentFirstHeading" tal:content="context/pretty_title_or_id" />
+               
+                <p class="documentDescription" tal:content="context/Description|nothing" />
+                        
+            </metal:block>
+            
+        </html>
+                     
         
 Possible :doc:`slot </templates_css_and_javascripts/template_basics>` options you can fill in
 
