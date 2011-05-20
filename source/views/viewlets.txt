@@ -258,7 +258,79 @@ There are two primary methods to render viewlets only on some pages
   
 * Hard-code a condition to your viewlet in Python code.
 
-Below is an example of overriding a render() method to conditionally render your viewlet::
+Below is an example of overriding a render() method to conditionally render your viewlet using Grok viewlets.
+
+Viewlet code::
+
+    from zope.interface import Interface
+    from five import grok
+    from Products.CMFCore.interfaces import IContentish
+    from plone.app.layout.viewlets.interfaces import IAboveContentTitle
+
+    class TopTabNavigation(grok.Viewlet):
+        """
+        
+        """
+        grok.context(Interface)
+        grok.viewletmanager(IAboveContentTitle)
+    
+        def getTabSources(self):
+            """ List content items in the folder of this item.
+            
+            """
+            parent = self.context.aq_parent
+            for obj in parent.objectValues():
+                if IContentish.providedBy(obj):
+                    yield obj
+        
+            
+        def getTabData(self):
+            """
+            Generate dict of data needed to render navigation tabs.
+            """
+            
+            self.tabs = self.getTabSources()
+            
+            published = self.request.get("PUBLISHED", None)
+            
+            if hasattr(published, "context"):
+                published = published.context
+            
+            for t in self.tabs:
+                                        
+                active = (t == published)                
+                
+                data = {
+                        "url" : t.absolute_url(),
+                        "class" : "navbar_selected" if active else "navbar_normal",
+                        "title" : t.Title(),
+                        "id" : t.getId() 
+                }
+                yield data
+    
+        def hasTabs(self):
+            """
+            Defined in dynamicpage.py
+            """
+            return getattr(self.context, "showTabs", False)
+            
+Page template code
+
+.. code-block:: html
+
+    <div class="navmenubar navmenubar-viewlet" tal:condition="viewlet/hasTabs">
+        <ul id="navigationBar">
+                <tal:tab repeat="tab viewlet/getTabData">
+                <li tal:attributes="class tab/class; id tab/id">
+                        <a tal:attributes="href tab/url" tal:content="tab/title" />
+                
+                </tal:tab>
+        
+                <li class="visualClear"><!-- --></li>
+        </ul>
+    </div>            
+
+Below is an example of overriding a render() method to conditionally render your viewlet using Zope 3 viewlets::
 
 
         import Acquisition
