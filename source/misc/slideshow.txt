@@ -1,0 +1,59 @@
+=================================
+ Slidehows and carousels
+=================================
+
+.. admonition:: Description
+
+        How to use annotation design pattern to store
+        arbitary values on Python objects (Plone site,
+        HTTP request) for storage and caching purposes.
+
+.. contents:: :local:
+
+Migrate Products.Slideshow to Products.Carousel
+==================================================
+
+Here is a sample migration code to transform your site 
+from one add-on to another.
+
+We create a migration view which you can call by typing in view name
+manually to web browser.
+
+This code will
+
+* Scan site for folders which have Slideshow add-on enabled. In this example we check against a predefined list (scanned earlier),
+  but the code contains example how to detect slideshow folders
+
+* Create Carousel for those folders
+
+* Create corresponds Carousel Banners for all Slideshow Image content items
+
+* Set some Carousel settings
+
+* Make sure that we invalidate cache for content items going through migration
+
+* Set a new default view for folders which were using slideshow
+
+Also
+
+* After inspecting the process was ok you can delete migrated images 
+
+carousel.py::
+
+ZCML bits::
+
+  <browser:page
+    for="*"
+    name="migrate_carousel"
+    permission="cmf.ManagePortal"
+    class=".carousel.MigrateSlideshowToCarousel"
+    />
+
+  <browser:page
+    for="*"
+    name="delete_migrated_slideshow_images"
+    permission="cmf.ManagePortal"
+    class=".carousel.DeleteMigratedImages"
+    />
+  
+  
