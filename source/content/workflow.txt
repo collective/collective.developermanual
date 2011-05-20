@@ -60,7 +60,22 @@ Always test your workflow methods using a normal user.
 In Python code
 ================
 
-Example::
+Example how to publish content item ``banner``::
+
+        from Products.CMFCore.WorkflowCore import WorkflowException
+        
+        workflowTool = getToolByName(banner, "portal_workflow")
+        try:
+            workflowTool.doActionFor(banner, "publish")
+        except WorkflowException:
+            # a workflow exception is risen if the state transition is not available
+            # (the sampleProperty content is in a workflow state which
+            # does not have a "submit" transition)
+            logger.info("Could not publish:" + str(banner.getId()) + " already published?")
+            pass
+         
+
+Example how to submit to review::
 
         from Products.CMFCore.WorkflowCore import WorkflowException
         
