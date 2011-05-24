@@ -10,6 +10,11 @@
 
 .. contents:: :local:
 
+Introduction
+==============
+
+* `Products.Carousel <http://plone.org/products/carousel/>`_
+
 Migrate Products.Slideshow to Products.Carousel
 ==================================================
 
@@ -343,4 +348,52 @@ ZCML bits::
     class=".carousel.DeleteMigratedImages"
     />
   
-  
+Setting every carousel widths on the site
+============================================
+
+Another example to manipulate Products.Carousel.
+This script will update all carousel settings
+on the site to have new image width.
+
+::
+
+        class SetCarouselWidths(BrowserView):
+            """
+            Set width to all carousels on the site.
+            """
+            
+            def __call__(self):
+                """
+                
+                """
+            
+                self.buffer = StringIO()
+        
+                print >> self.buffer, "Log output"
+                
+                brains = self.context.portal_catalog(portal_type="Folder")
+                for b in brains:
+                    obj = b.getObject()
+                    if "carousel" in obj.objectIds():
+                        carousel = obj["carousel"]                
+                        # Carousel installed on this folder
+                        settings = ICarouselSettings(carousel)
+                        print >> self.buffer, "Setting width for " + carousel.absolute_url()
+                        settings.width = 680
+                        
+                print >> self.buffer, "All carousels updated"
+                        
+                return self.buffer.getvalue()
+                        
+                        
+ZCML
+
+.. code-block:: xml
+
+  <browser:page
+    for="*"
+    name="set_carousel_widths"
+    permission="cmf.ManagePortal"
+    class=".carousel.SetCarouselWidths"
+    />
+                        
