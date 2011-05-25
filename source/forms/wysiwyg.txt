@@ -11,6 +11,25 @@ Introduction
 
 Plone supports TinyMCE (default), but Kupu and CKEditor are also supported.
 
+Editor preferences
+---------------------
+
+Plone supports user text changeable editor. The active editor is stored in 
+the :doc:`user preferences </members/member_profile>`.
+
+The user can fallback to hand-edited HTML by setting active editor to none.
+
+The rich text widget can also support optional input formats besides
+HTML: structured text and so on.
+
+Text format selector
+=====================
+
+The format selector itself is rendered by ``wysiwyg_support.pt`` macros
+which is Plone core
+
+* https://svn.plone.org/svn/plone/Products.CMFPlone/trunk/Products/CMFPlone/skins/plone_wysiwyg/wysiwyg_support.pt
+
 Customizing TinyMCE options
 ----------------------------
 
@@ -32,7 +51,20 @@ For Archetypes see
 
 * http://plone.org/products/tinymce/documentation/how-to/how-to-customize-tinymce-for-an-archetypes-richwidget
 
+Rich text transformations
+---------------------------
+
+* http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/rich-text-markup-and-transformations
+
+* http://pypi.python.org/pypi/plone.app.textfield
+
+Disabling transformations
+===========================
+
+* http://stackoverflow.com/questions/5796643/make-plone-accept-any-html-input
+
 Ploneboard and anonymous editor
 -------------------------------
 
 * http://www.llakomy.com/articles/enable-kupu-for-anonymous-in-ploneboard
+
