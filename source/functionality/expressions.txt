@@ -175,4 +175,11 @@ Example::
 
         python:context.restrictedTraverse('@@plone_interface_info').provides('Products.CMFCore.interfaces.IFolderish')            
 
-Returns True or False. Useful for actions.        
+Returns True or False. Useful for actions. 
+
+Check if a certain hostname was used for HTTP request
+========================================================
+
+Example::
+
+        python:"localhost" in request.environ.get("HTTP_HOST", "")
