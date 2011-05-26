@@ -16,6 +16,11 @@ They work like this::
         # This is run only once and all subsequent calls get value from the cache
         return  
 
+.. warning ::
+
+        Cache decorators do not work with methods or functions using generators (yield).
+        The cache stores empty value.
+
 `plone.memoize <http://pypi.python.org/pypi/plone.memoize>`_ package offers helpful function decorators to cache the resulting values.
 
 See also :doc:`using memcached backend for memoizers </performance/ramcache>`. 
