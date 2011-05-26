@@ -97,3 +97,22 @@ There are some tricks you can do here
 
 * http://pypi.python.org/pypi/collective.beaker/
 
+ZServer thread count
+----------------------
+
+How many requests one ZEO front end client (ZServer can handle).
+
+Buildout default is 2.
+
+Adjust it::
+
+        [client1]
+        recipe = plone.recipe.zope2instance
+        ....
+        zserver-threads = 5
+
+Find good value by doing performance testing for your site.
+
+More info
+
+* http://pypi.python.org/pypi/plone.recipe.zope2instance
