@@ -183,3 +183,11 @@ Check if a certain hostname was used for HTTP request
 Example::
 
         python:"localhost" in request.environ.get("HTTP_HOST", "")
+        
+        
+Check if the object is certain content type
+==============================================
+
+Example::
+
+        python:getattr(object, "portal_type", "") == "Custom GeoLocation"
