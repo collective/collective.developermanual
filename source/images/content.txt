@@ -161,6 +161,8 @@ images.py::
         ATImage.schema["image"].sizes.update({
             "custom1" : (290, 290),
             "custom2" : (210, 210),
+            "custom_210_189" : (210, 189),
+            "custom_290_258" : (290, 258),
         })
         
         class RescaleImages(BrowserView):
@@ -199,8 +201,15 @@ images.py::
                     print "(%d / %d) creating scales for image: %s" % (done, len(all_images), "/".join(content.getPhysicalPath()))
                     
                     # This will trigger ImageField scale rebuild
-                    content.schema["image"].createScales(content)
                     
+                    # Access schema in Plone 4 / archetypes.schemaextender compatible way
+                    schema = content.Schema()
+                    
+                    if "image" in schema:
+                        schema["image"].createScales(content)
+                    else:
+                        print "Had bad ATImage schema:" + content.absolute_url()
+                        
                     # Since this is HUGE operation (think resizing 2 GB images)
                     # it is not nice idea to buffer the transaction in the memory
                     # (Zope default behavior).
@@ -209,7 +218,7 @@ images.py::
                     # http://www.zope.org/Members/mcdonc/HowTos/transaction
                     if done % 10 == 0:
                         # Commit subtransaction for every 10th processed item
-                        transaction.get().commit(True) 
+                        transaction.get().commit() 
         
                         
                 # Note that when code exists the view
@@ -218,7 +227,7 @@ images.py::
                     
                 # Make simple HTTP 200 answer
                 return "Recreated image scales for %d images" % len(all_images)
-                    
+                                        
 
 
                     
