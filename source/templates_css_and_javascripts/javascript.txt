@@ -546,3 +546,88 @@ More info
 
 * http://remysharp.com/2009/01/26/element-in-view-event-plugin/
 
+Checking if document is in WYSIWYG edit mode
+----------------------------------------------
+
+WYSIWYG editor (TinyMCE) is loaded in its own <iframe>.
+Your UI related Javascript mode might want to do some special checks 
+for running different code paths when the text is being edited.
+
+Example::
+
+                // Check if we are in edit or view mode
+                if(document.designMode.toLowerCase() == "on") {
+                        // Edit mode document, do not tabify 
+                        // but let the user create the content
+                        return;
+                } else {
+                        kuputabs.collectTabs();         
+                }
+
+Image hovers
+-----------------
+
+Here is a simple jQuery method to enable image roll-over effects (hover).
+This method is suitable for content editors who can only images through TinyMCE 
+or normal upload - only naming image files specially is needed.
+No CSS, Javascript or other knowledge needed.
+
+The script
+
+.. code-block:: javascript
+        
+        /**
+         * Automatic image hover placement with jQuery
+         * 
+         * If image has -normal tag in it's filename assume there exist corresponding 
+         * file with -hover in its name.
+         * 
+         * E.g. http://host.com/test_normal.gif -> http://host.com/test_hover.gif
+         * 
+         * This image is preloaded and shown when mouse is placed on the image.
+         *
+         */
+        
+        (function (jQuery) {
+                var $ = jQuery;
+                        
+                // Look for available images which have hover option
+                function scanImages() {
+                        $("img").each(function() {
+                                
+                                $this = $(this);
+                                
+                                var src = $this.attr("src");
+                                
+                                // Images might not have src attribute, if they
+                                if(src) {
+                                        
+                                        // Detect if this image filename has hover marker bit
+                                        if(src.indexOf("-normal") >= 0) {
+                                                
+                                                console.log("Found rollover:" + src);
+                                                
+                                                // Mangle new URL for over image based on orignal
+                                                var hoverSrc = src.replace("-normal", "-hover");
+                                                
+                                                // Preload hover image
+                                                var preload = new Image(hoverSrc);
+                                                
+                                                // Set event handlers
+                                                
+                                                $this.mouseover(function() {
+                                                        this.src = hoverSrc;
+                                                });
+        
+                                                $this.mouseout(function() {
+                                                        this.src = src;
+                                                });
+        
+                                        }
+                                }
+                        });             
+                }
+                
+                $(document).ready(scanImages);
+                
+        })(jQuery);
