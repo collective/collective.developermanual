@@ -80,12 +80,62 @@ copy-paste its content into tiny_mce.js.
         doesn't seem to work as it breaks TinyMCE plug-in loading.
 
 TinyMCE plug-ins
-===================
+------------------
 
 TinyMCE consists of plug-ins. Existing plug-ins can be overlaid with your 
 custom version by loading Javascript after core TinyMCE load.
 
+Customizing plug-in
+---------------------
 
+The recommended way is to customize TinyMCE 
+
+* Re-register plug-in by simply including a plug-in JS code 
+  in a separate Javascript file loaded after tinymce.js
+
+* override existing individual TinyMCE files using 
+  :doc:`jbot </templates_css_and_javascripts/skin_layers>`.
+
+Overriding plug-in
+===================================
+
+Create a duplicate of plug-in JS file (table.js),
+register it as a custom Javascript from your add-on resource folder.
+
+TinyMCE overrides previous plug-in registrations with new ones
+and you can just re-register your own plug-in version to override the existing version.
+
+* Refer it in portal_javascripts
+
+.. code-block:: xml
+
+        <!-- TinyMCE customizations -->
+        <javascript
+                id="++resource++your.app/tiny_mce_special.js"
+                authenticated="True"
+                cacheable="True" compression="safe" cookable="True" insert-after="tinymce.js"
+                enabled="True" expression=""
+                inline="False" 
+                />
+
+
+
+Overriding plug-in resources
+===================================                
+
+Yoiu can also override CSS, HTML (.htm.pt templates) with ``z3c.jbot``
+as instructed above.
+
+Example::
+
+        jbot/Products.TinyMCE.skins.tinymce.plugins.table.js.table.js
+        
+.. warning ::
+
+        Since there resources are loaded in <iframe> the normal browser refresh
+        does not trigger reload for them. Right click <iframe>, choose Refresh
+        from context menu.        
+                
 Ploneboard and anonymous editor
 -------------------------------
 
