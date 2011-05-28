@@ -63,6 +63,29 @@ Disabling transformations
 
 * http://stackoverflow.com/questions/5796643/make-plone-accept-any-html-input
 
+Hacking TinyMCE Javascript
+---------------------------
+
+Plone ships with pre-compressed TinyMCE source code enabled by default.
+
+If you want to toy around with TinyMCE source code itself, you might
+want to first enable the usage of debug version of TinyMCE source.
+
+In ``Products.TinyMCE.skins`` open tiny_mce_src.js and
+copy-paste its content into tiny_mce.js.
+
+.. note ::
+
+        Replacing tiny_mce.js with tiny_mce_src.js in portal_javascripts
+        doesn't seem to work as it breaks TinyMCE plug-in loading.
+
+TinyMCE plug-ins
+===================
+
+TinyMCE consists of plug-ins. Existing plug-ins can be overlaid with your 
+custom version by loading Javascript after core TinyMCE load.
+
+
 Ploneboard and anonymous editor
 -------------------------------
 
