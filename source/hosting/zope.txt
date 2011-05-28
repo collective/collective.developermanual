@@ -26,14 +26,20 @@ List available command::
 
 For older Plone releases, the command is ``zopectl``.
 
-Adding users from command-line
----------------------------------
+Adding users from command-line (reset admin password)
+-------------------------------------------------------
 
 You need to do this when you forget admin password or the database is damaged.
 
 Add user with Zope Manager permissions::
 
+    bin/instance stop # stop the site first
     bin/instance adduser <user_name> <user_password>
+    bin/instance start
+    
+You need to stop the site first.
+
+You also cannot override existing ``admin`` user, so you probably want to add ``admin2``.
 
 Timezone
 ----------
