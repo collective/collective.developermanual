@@ -5,7 +5,7 @@ Translating text strings
 .. admonition:: Description
 
         Translating Python and TAL template source code text strings using gettext
-        library and other Plone i18n facilities.
+        framework and other Plone/Zope i18n facilities.
 
 .. contents :: :local:
 
@@ -166,6 +166,36 @@ Translation can be performed using context.translate() method::
 
     # translated is now u"Käännetty teksti" (in Finnish)
 
+``context.translate()`` uses translate.py Python script from 
+LanguageTool.
+
+It has the signature::
+
+            def translate(self, domain, msgid, mapping=None, context=None,
+                  target_language=None, default=None):
+
+.. and does the trick::
+
+        from Products.CMFCore.utils import getToolByName
+        
+        # get tool
+        tool = getToolByName(context, 'translation_service')
+        
+        # this returns type unicode
+        value = tool.translate(msgid,
+                                domain,
+                                mapping,
+                                context=context,
+                                target_language=target_language,
+                                default=default)                  
+                  
+.. note ::
+        
+        Translation needs HTTP request object and thus may not work correctly
+        from command-line scripts. 
+        
+
+
 Non-python message ids
 ======================
 
@@ -177,6 +207,31 @@ There are also other message id markers in code outside Python domain
 
 * TAL page templates have their own mechanism
 
+Testing translations
+----------------------
+
+Here is a simple way to check if your gettext domains are correctly loaded.
+
+Plone 4
+========
+
+You can start Plone debug shell and manually check if translations can be performed.
+
+First start Plone in debug shell::
+
+        bin/instance debug
+        
+.. and then call translation service, in your site, manually::
+
+        >>> site = app.yoursiteid
+        >>> translation_service = site.translation_service
+        >>> translation_service.translate("Add Events Portlet", domain="plone", target_language="fi")
+        u'Lis\xe4\xe4 Tapahtumasovelma'
+                
+Plone 3
+=========
+
+* You can find PlacelessTranslationService in Zope Management Interface root/control panel (not site root)
 
 Translation string substitution
 -------------------------------
