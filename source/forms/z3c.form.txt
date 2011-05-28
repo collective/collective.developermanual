@@ -1557,4 +1557,23 @@ If you want to custom error messages on per field level::
 	RequiredMissingErrorMessage = error.ErrorViewMessage(_(u'Required value is missing.'), error=RequiredMissing, field=IEmailFormSchema['email'])
 	zope.component.provideAdapter(RequiredMissingErrorMessage, name='message')
 	
-Leave ``field`` parameter away if you want the new error message apply to all fields. 	
+Leave ``field`` parameter away if you want the new error message apply to all fields. 
+
+
+Read-only and disabled fields
+================================
+
+Read-only fields are not rendered in form edit mode::
+
+    courseModeAccordion = schema.TextLine(title=u"Courses by mode accordion", 
+                                      default=u"Automatically from database",
+                                      readonly=True
+                                      )
+                                      
+If widget mode is display then it is rendered, but user cannot edit (the output as in form view mode)::
+
+    form.mode(courseModeAccordion="display")
+    courseModeAccordion = schema.TextLine(title=u"Courses by mode accordion", 
+                                      default=u"Automatically from database",
+                                      )
+                                      
