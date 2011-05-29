@@ -13,7 +13,13 @@
 Introduction
 ==============
 
+Header slideshows
+
 * `Products.Carousel <http://plone.org/products/carousel/>`_
+
+AJAX'y image pop-ups 
+
+* http://plone.org/products/pipbox
 
 Migrate Products.Slideshow to Products.Carousel
 ==================================================
@@ -396,4 +402,14 @@ ZCML
     permission="cmf.ManagePortal"
     class=".carousel.SetCarouselWidths"
     />
-                        
+                      
+AJAX full-size image loading for album views
+----------------------------------------------
+
+Plone album views can be easily converted to pop-up image viewing with PipBox.
+
+Put this to portal_properties / pipbox_properties::
+
+    {type:'overlay', subtype:'image', selector:'.photoAlbumEntry img', urlmatch:'/image_.+$',urlreplace:''} 
+
+            
