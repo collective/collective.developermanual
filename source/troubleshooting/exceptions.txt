@@ -1737,18 +1737,38 @@ Start site debug shell::
 
         bin/instance debug
 
-Then run the script::
+Then run the script for your site id and problem tool id::
 
-        bad_tool = 'notification_tool'
+        bad_tool = 'notifica_tool'
+        site = app.yoursiteid
         
-        setup_tool = app.myportal.portal_setup
+        setup_tool = site.portal_setup
         toolset = setup_tool.getToolsetRegistry()
         if bad_tool in toolset._required.keys():
             del toolset._required[bad_tool]
             setup_tool._toolset_registry = toolset
+        else:
+            print "Tool not found:" + bad_tool
         
         import transaction ; transaction.commit()
         app._p_jar.sync()
+
+In debug shell you can also check what all leftoverts toolset contains::
+
+        >>> toolset._required.keys()
+        ['portal_historyidhandler', 'portal_actions', 'portal_skins', 'portal_form_controller', 
+        'portal_workflow', 'portal_catalog', 'portal_languages', 'kupu_library_tool', 'portal_diff', 
+        'portal_repository', 'reference_catalog', 'portal_groupdata', 'portal_search_and_replace', 
+        'portal_atct', 'mimetypes_registry', 'portal_purgepolicy', 'formgen_tool', 'uid_catalog', 
+        'error_log', 'portal_modifier', 'portal_discussion', 'portal_actionicons', 'portal_calendar', 'portal_metadata', 'portal_url', 
+        'portal_kss', 'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel', 
+        'portal_uidannotation', 'portal_transforms', 'portal_memberdata', 'portal_javascripts', 'portal_registration', 'portal_css', 
+        'portal_facets_catalog', 'portal_password_reset', 'plone_utils', 'caching_policy_manager', 
+        'portal_historiesstorage', 'portal_undo', 'portal_placeful_workflow', 'translation_service', 
+        'archetype_tool', 'portal_view_customizations', 'portal_syndication', 'portal_quickinstaller', 'portal_uidhandler',
+        'portal_referencefactories', 'portal_interface', 'portal_facetednavigation', 'portal_membership', 
+        'MailHost', 'portal_properties', 'portal_migration', 'portal_types', 'portal_uidgenerator']
+
         
 More info
 
