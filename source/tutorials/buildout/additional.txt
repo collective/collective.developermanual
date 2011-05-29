@@ -319,6 +319,46 @@ Then log in to Zope Management Interface by going with your browser::
 
         http://localhost:8080
 
+.. _configuring-products-from-buildout:
+
+Configuring plone products from buildout
+----------------------------------------
+
+You can configure add-on products with the zope-conf-additional section of the plone.recipe.zope2instance part::
+
+        [instance]
+        recipe = plone.recipe.zope2instance
+        ...
+        zope-conf-additional =
+        <product-config foobar>
+            spam eggs
+        </product-config>
+
+This adds the configuration sections to your zope.conf file.
+
+Any named product-config section is then available as a simple dictionary to any python product that cares to look for it.
+The above example creates a 'foobar' entry which is a dict with a 'spam': 'eggs' mapping. 
+
+Here is how you then access that from your code::
+
+        from App.config import getConfiguration
+
+        config = getConfiguration()
+        configuration = config.product_config.get('foobar', dict())
+        spamvalue = configuration.get('spam')
+
+A similar method is used to configure the built-in Zope ClockServer enabling you to trigger scripts::
+
+        zope-conf-additional =
+            <clock-server>
+                method /mysite/do_stuff
+                period 60
+                user admin
+                password secret
+                host www.mysite.com
+            </clock-server>
+
+
 Setting LD_LIBRARY_PATH
 -------------------------
 
