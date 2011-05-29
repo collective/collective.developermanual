@@ -262,6 +262,28 @@ This is what Plone Folder content views out of the box
 
 * ``Products.CMFPlone/skins/plone_content/folder_summary_view.pt``
   (a non-view based old style Zope 2 page template)
+  
+Migration script from default view to another
+----------------------------------------------
+
+The below is a script snippet which allows you to change all default views
+of folder to another type. You can execute script through ZMI as Python Script.
+
+Script code::
+
+        from StringIO import StringIO
+        
+        buf = StringIO()
+        orignal='fancy_zoom_view'
+        target='atct_album_view'
+        for brain in context.portal_catalog(portal_type="Folder"):
+                obj = brain.getObject()
+                if getattr(obj, "layout", None) == orignal:
+                        print >> buf, "Updated:" + obj.absolute_url()
+                        obj.setLayout(target)
+        return buf.getvalue()
+
+This will allow you to migrate to ``collective.fancyzoom`` to Plone 4 default album view / Products.PipBox.
 
 Method aliases
 -----------------
