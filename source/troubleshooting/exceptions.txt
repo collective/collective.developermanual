@@ -1701,4 +1701,56 @@ Reason: Data.fs.index is corrupted.
 
 Fix. Remove Data.fs.index file. The index will be rebuilt on the launch.
 
+importToolset: TypeError: 'NoneType' object is not callable
+--------------------------------------------------------------
+
+This happens when you try to install an add-on
+product through Add-ons configuration panel.
+
+Traceback::
+
+  Module ZPublisher.Publish, line 47, in call_object
+  Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 575, in installProducts
+  Module Products.CMFQuickInstallerTool.QuickInstallerTool, line 512, in installProduct
+   - __traceback_info__: ('plone.app.registry',)
+  Module Products.GenericSetup.tool, line 323, in runAllImportStepsFromProfile
+   - __traceback_info__: profile-plone.app.registry:default
+  Module Products.GenericSetup.tool, line 1080, in _runImportStepsFromContext
+  Module Products.GenericSetup.tool, line 994, in _doRunImportStep
+   - __traceback_info__: toolset
+  Module Products.GenericSetup.tool, line 123, in importToolset
+
+You have leftovers from some old add-on installation (persistent tool) 
+and Python egg code is no longer present for this tool.
+
+You should see a warning in logs giving you a hint when running add-on installer::
+
+        2011-05-29 16:40:25 INFO GenericSetup.toolset Class Products.Notifica.NotificaTool.NotificaTool not found for tool notifica_tool
+
+To fix this, see informatin below (Removing portal tools part)
+
+* http://plone.org/documentation/kb/manually-removing-local-persistent-utilities/
+
+Example::
+
+Start site debug shell::
+
+        bin/instance debug
+
+Then run the script::
+
+        bad_tool = 'notification_tool'
+        
+        setup_tool = app.myportal.portal_setup
+        toolset = setup_tool.getToolsetRegistry()
+        if bad_tool in toolset._required.keys():
+            del toolset._required[bad_tool]
+            setup_tool._toolset_registry = toolset
+        
+        import transaction ; transaction.commit()
+        app._p_jar.sync()
+        
+More info
+
+* http://plone.293351.n2.nabble.com/importToolset-NoneType-object-is-not-callable-upon-product-install-td5553065.html
        
