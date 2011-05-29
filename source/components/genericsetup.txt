@@ -353,6 +353,9 @@ We add the upgrade step to the profile::
 
 The code for the upgrade method itself is best placed in *setuphandlers.py*::
 
+    import logging
+    PROFILE_ID='profile-YOUR.PRODUCT:default'
+
     def convert_price_to_string(context, logger=None):
         """Method to convert float Price fields to string.
 
