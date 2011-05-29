@@ -408,8 +408,14 @@ AJAX full-size image loading for album views
 
 Plone album views can be easily converted to pop-up image viewing with PipBox.
 
-Put this to portal_properties / pipbox_properties::
+Put the following to portal_properties / pipbox_properties
 
-    {type:'overlay', subtype:'image', selector:'.photoAlbumEntry img', urlmatch:'/image_.+$',urlreplace:''} 
+Album view <a> click handler::
 
-            
+    {type:'overlay', subtype:'image', selector:'.photoAlbumEntry a', urlmatch:'/view$', urlreplace:'/image_large'} 
+
+
+.. note ::
+
+        portal_javascript must be in debug mode while testing different Products.PipBox handlers.
+      
