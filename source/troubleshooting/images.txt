@@ -1,10 +1,40 @@
 =======================
- Problems with images
+ Image troubleshooting
 =======================
 
+.. admonition:: Description
+
+        Problems with imaging libraries, image loading and image scaling.
+
+.. contents:: :local:
+
+How to test see if your Python Imaging set-up works
+======================================================
+
+Example how to check if Python, Python Imaging Libary (PIL) and
+libjpeg are correctly working together.
+
+Get a sample image::
+
+    wget http://upload.wikimedia.org/wikipedia/commons/b/bb/JohnCarrollGilbertStuart.jpg
+
+Start Plone debug shell::
+
+     bin/instance debug    
+
+Run the following in Plone debug sell::
+
+    
+    import PIL
+    from PIL import Image
+    im = Image.open("JohnCarrollGilbertStuart.jpg")
+    im.thumbnail((64, 64), Image.ANTIALIAS)
+    im.save("test.jpg")
+
+No exceptions should be risen.
 
 Images are not loading
-----------------------
+=======================
 
 Plone is not loading images or resized images are not available
 is usually caused by broken PIL installation: PIL used by Python virtual machine driving
@@ -78,6 +108,24 @@ For more information see
 
 * http://permalink.gmane.org/gmane.comp.web.zope.plone.product-developers/4946         
 
+IOError when scaling images on Plone 4
+========================================
+
+Example::
+        
+        Traceback (most recent call last):
+          File "/srv/plone/xxx/plone-new/eggs/plone.app.imaging-1.0.4-py2.6.egg/plone/app/imaging/traverse.py", line 73, in createScale
+            imgdata, format = field.scale(data, width, height)
+          File "/srv/plone/xxx/plone-new/eggs/Products.Archetypes-1.6.6-py2.6.egg/Products/Archetypes/Field.py", line 2501, in scale
+            image.save(thumbnail_file, format, quality=self.pil_quality)
+          File "/srv/plone/python/python-2.6/lib/python2.6/site-packages/PIL-1.1.6-py2.6-linux-x86_64.egg/PIL/Image.py", line 1372, in save
+            self.load()
+          File "/srv/plone/python/python-2.6/lib/python2.6/site-packages/PIL-1.1.6-py2.6-linux-x86_64.egg/PIL/ImageFile.py", line 207, in load
+            raise IOError(error + " when reading image file")
+        IOError: decoding error when reading image file
+
+This means that libjpeg setup is not working. See above to how to test your set-up.
+
 Installing libraries on Ubuntu / Debian
 ==========================================
 
@@ -87,26 +135,6 @@ commands are your friends::
 
         sudo apt-get install libpng12-dev  libjpeg62-dev python-imaging
                
-How to test if PIL works
-========================
-
-Example how to do it with system-wide Python::
-
-    wget http://upload.wikimedia.org/wikipedia/commons/b/bb/JohnCarrollGilbertStuart.jpg
-
-    python2.4
-    
-    import PIL
-    from PIL import Image
-    im = Image.open("JohnCarrollGilbertStuart.jpg")
-    im.thumbnail((64, 64), Image.ANTIALIAS)
-    im.save("test.jpg")
-
-No exceptions should be risen.
-
-You can do the same thing in Zope console, started by::
-
-    bin/instance debug
 
 
 
