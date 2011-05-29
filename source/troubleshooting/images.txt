@@ -33,6 +33,7 @@ Run the following in Plone debug sell::
 
 No exceptions should be risen.
 
+
 Images are not loading
 =======================
 
@@ -135,7 +136,16 @@ commands are your friends::
 
         sudo apt-get install libpng12-dev  libjpeg62-dev python-imaging
                
+Forcing libjpeg path
+======================
 
+Try in buildout.cfg::
+
+        [instance]
+        ...
+        environment-vars =
+                LD_LIBRARY_PATH /srv/plone/python/python-2.6/lib
+        
 
 
 
