@@ -130,6 +130,19 @@ Example::
     email_catalog = self.portal.email_catalog
     email_catalog.reindexObject(myuserobject)
 
+Manually uncatalog object to a catalog
+--------------------------------------
+
+Sometimes is usefull to uncatalog object.
+
+code ::
+
+    ### uncatalog object name id
+    >>> brs = catalog(getId=id)
+    >>> for br in brs:
+    ...     catalog.uncatalog_object(br.getPath())
+
+
 Rebuilding a catalog
 --------------------
 
