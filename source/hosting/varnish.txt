@@ -25,6 +25,9 @@ Please read first
 Management console
 ------------------
 
+Telnet console
+=================
+
 Management console must be enabled in Varnish buildout settings.
 
 Example::
@@ -34,7 +37,14 @@ Example::
         
 .. note ::
 
-        Port number depends on your Varnish settings.        
+        Port number depends on your Varnish settings.
+        
+varnishadm (system-wide installation)
+=========================================
+
+Ubuntu/Debian supports accessing Varnish admin through::
+
+    varnishadm -T localhost:6082 -S /etc/varnish/secret               
 
 Quit console
 =============
