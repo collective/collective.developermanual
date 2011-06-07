@@ -363,12 +363,42 @@ Some interesting columns
 
 * exclude_from_nav: If True the object won't appear in sitemap, navigation tree
 
-Adding custom title sorting
+Custom sorting by title
 =============================
 
 ``sortable_title is type of FieldIndex (raw value) and normal ``Title`` index is type of searhable text.
 
 ``sortable_title`` is generated from ``Title`` in ``Products/CMFPlone/CatalogTool.py`. 
+
+You can override ``sortable_title`` by providing an indexer adapter with a specific interface of your content type.
+
+Example indexes.py::
+
+        from plone.indexer import indexer
+        
+        from xxx.researcher.interfaces import IResearcher
+
+        @indexer(IResearcher)
+        def sortable_title(obj):
+            """     
+            Provide custom sorting title.
+            
+            This is used by various folder functions of Plone. 
+            This can differ from actual Title.
+            """
+                
+            # Remember to handle None value if the object has not been edited yet 
+            first_name = obj.getFirst_name() or ""
+            last_name = obj.getLast_name() or ""
+            
+            return last_name + " " + first_name
+
+Related ``configure.zcml``
+
+.. code-block:: xml
+
+    <adapter factory=".indexes.sortable_title" name="sortable_title" />
+
 
 TextIndexNG3
 ------------
