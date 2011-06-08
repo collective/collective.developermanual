@@ -631,3 +631,24 @@ The related view with some sample code::
                 
                 # Default is visible
                 return True            
+                
+                
+Dynamic field definitions
+-----------------------------
+
+You can override Schemata() method in your content type class.
+
+Example::
+
+    from Products.Archetypes.Schema import getSchemata
+        
+    def Schemata(self):
+        """ Overrides field definitions in fly.
+        
+        """        
+                    
+        if True:
+            schemata = getSchemata(self).copy()
+            # Modify fields
+        else:    
+            return getSchemata(self)                              
