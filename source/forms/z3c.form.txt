@@ -467,7 +467,7 @@ Example::
         super(MyForm, self).update()
         move(self, 'fullname', before='*')
         move(self, 'username', after='fullname')
-        self.update()
+        super(ProfileRegistrationForm, self).update()
         
 For more information about how to reorder fields see the plone.z3cform pypi
 page:
