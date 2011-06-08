@@ -450,6 +450,31 @@ or in update() for dynamically constructed fields::
      
         self.fields["animation"].widgetFactory = HeaderFileFieldWidget 
 
+Reorder form widgets
+====================
+
+plone.z3cform allows you to reorder the field widgets by overriding the update
+method of the form class.
+
+Example::
+
+    from z3c.form import form
+    from plone.z3cform.fieldsets.utils import move
+    
+    class MyForm(form.Form):
+    
+        def update(self):
+        super(MyForm, self).update()
+        move(self, 'fullname', before='*')
+        move(self, 'username', after='fullname')
+        self.update()
+        
+For more information about how to reorder fields see the plone.z3cform pypi
+page:
+
+<http://pypi.python.org/pypi/plone.z3cform#fieldsets-and-form-extenders>`_
+
+
 Making widgets required conditionally
 +++++++++++++++++++++++++++++++++++++++++
 
