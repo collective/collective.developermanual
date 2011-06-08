@@ -40,6 +40,29 @@ Modify cell value in DGF::
     rows[0]["column1"] = "newvalue" # Set a string value for row 1, cell 1 (cell using column id column1)
     myobject.setMyDGF(rows) # Now set the value with one new row
 
+CheckboxColumn
+-----------------
+
+Checkbox column values are handled specially::
+
+        def convertCheckboxValue(value):
+            """ DataGridField value converter for CheckboxColumn """
+            if value is None:
+                return None
+        
+            if value == '':
+                return False
+            
+            if value == '1':
+                return True
+            
+            # XXX: Not sure if happens
+            if value == '0':
+                return False
+        
+            raise RuntimeError("Bad checkbox value:" + value)
+
+
 Other resources
 ---------------
 
