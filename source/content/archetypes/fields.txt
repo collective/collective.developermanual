@@ -600,3 +600,34 @@ Rendering single field
 Example::
 
         <metal:fieldMacro use-macro="python:context.widget(field.getName(), mode='edit')" />
+        
+Hiding widgets conditionally
+-------------------------------
+
+AT widgets have ``condition`` :doc:`expression </functionality/expressions>`.
+
+Example how to set a condition for multiple widgets to call a BrowserView to ask whether the widget should be visible or not::
+
+        for field in ResearcherSchema.values():
+            # setCondition() is in Products.Archetypes.Widget
+            # possible expression variables are_ object, portal, folder. 
+            field.widget.setCondition("python:object.restrictedTraverse('@@msd_widget_condition')('" + field.getName() + "')")
+            
+The related view with some sample code::
+
+        class WidgetCondition(BrowserView):
+            """ 
+            This is referred in msd.researcher schema conditions field.
+            """
+                          
+            def __call__(self, fieldName):
+                """
+                
+                """
+                settings = getResearcherSettings(self.context)    
+                customization = settings.getFieldCustomization(fieldName, "visible")
+                if customization is not None:
+                    return customization
+                
+                # Default is visible
+                return True            
