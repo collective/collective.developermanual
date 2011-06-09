@@ -636,19 +636,39 @@ The related view with some sample code::
 Dynamic field definitions
 -----------------------------
 
-You can override Schemata() method in your content type class.
+You can override ``Schema()`` and ``Schemata()`` methods in your content type class
+to poke the schema per HTTP request access basis.
 
 Example::
 
-    from Products.Archetypes.Schema import getSchemata
-        
-    def Schemata(self):
+    def Schema(self):
         """ Overrides field definitions in fly.
         
         """        
-                    
-        if True:
-            schemata = getSchemata(self).copy()
-            # Modify fields
-        else:    
-            return getSchemata(self)                              
+        
+        # XXX: Cache this method?
+        from Acquisition import ImplicitAcquisitionWrapper
+        from Products.Archetypes.interfaces import ISchema
+        
+        # Create modifiable copy of schema
+        # See Products.Archetypes.BaseObject
+        schema = ISchema(self)
+        schema = schema.copy()
+        schema = ImplicitAcquisitionWrapper(schema, self)
+        
+        settings = self.getResearchSettings()
+        
+        for row in settings.getFieldCustomizations():
+            name = row.get("fieldName", None)
+            vocab = row.get("vocabToUse", None)
+            
+            field = schema.get(name, None)
+                
+            if field and vocab and hasattr(field, "vocabulary"):
+                # Modify field copy ion 
+                
+                displayList = settings.getVocabulary(vocab)
+                if displayList is not None:
+                    field.vocabulary = displayList
+                
+        return schema
