@@ -29,6 +29,35 @@ The format selector itself is rendered by ``wysiwyg_support.pt`` macros
 which is Plone core
 
 * https://svn.plone.org/svn/plone/Products.CMFPlone/trunk/Products/CMFPlone/skins/plone_wysiwyg/wysiwyg_support.pt
+ 
+Applying styles only edit view
+--------------------------------
+
+You can use TinyMCE body selector make your CSS class have different styles in view and edit modes (inside TinyMCE)
+
+.. code-block:: css
+
+        
+        /* Break columns in two column layout 
+         * 
+         * https://developer.mozilla.org/en/css3_columns
+         * 
+         */
+        
+        .column-breaker {
+                column-break-before: always;
+                display: block;
+        }
+        
+        .mceContentBody .column-breaker {
+                color: red;
+                border: 1px dashed red;
+                display: block;
+        }
+
+.. note ::
+
+        Firefox does not actually support column breaks, so this was useful headaching experience.
 
 Customizing TinyMCE options
 ----------------------------
