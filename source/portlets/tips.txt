@@ -359,6 +359,29 @@ More info
 Hiding unwanted portlets
 -----------------------------
 
+Example portlets.xml::
+
+  <!-- This leaves only News portlet --> 
+
+  <portlet addview="portlets.Calendar" remove="true" />   
+  <portlet addview="portlets.Classic" remove="true" />   
+  <portlet addview="portlets.Login" remove="true" />   
+  <portlet addview="portlets.Events" remove="true" />   
+  <portlet addview="portlets.Recent" remove="true" />   
+  <portlet addview="portlets.rss" remove="true" />   
+  <portlet addview="portlets.Search" remove="true" />   
+  <portlet addview="portlets.Language" remove="true" />   
+  <portlet addview="plone.portlet.collection.Collection" remove="true" /> 
+  <portlet addview="plone.portlet.static.Static" remove="true" /> 
+ 
+  <!-- collective.flowplayer add-on -->
+  <portlet addview="collective.flowplayer.Player" remove="true" /> 
+    
+
+Portlet na,es can be found in ``plone.app.portlets/configure.zcml``.
+
+More info:
+
 * http://stackoverflow.com/questions/5897656/disabling-portlet-types-site-wide-in-plone
 
 Writing your own portlet manager
