@@ -260,6 +260,23 @@ Example::
 Constring download URLs
 ------------------------
 
+Simple example
+================
+
+In Dexterity you can ``@@download`` field for content types
+
+.. code-block:: html
+
+        <!-- Render link to video file if it's uploaded to this context item -->
+        <tal:video define="video nocall:context/videoFile"
+             tal:condition="nocall:video">    
+                <a class="flow-player" tal:attributes="href string:${context/absolute_url}/@@download/videoFile/${video/filename}">
+                </a>      
+        </tal:video>    
+
+Complex example
+===============
+
 You need to expose file content to the site user through a view and then
 refer to the URL of the view in your HTML template. There are some tricks you need to keep in mind
 
@@ -462,7 +479,6 @@ Some things you might want to keep in mind when playing with forms and images
 * Image data might be incomplete (no width/height) during the first POST
 
 * Image URL might change in the middle of request (image was updated)
-
 
 
 If you form content is something else than traversable context object then you must fix
