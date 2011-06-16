@@ -9,8 +9,88 @@
     programmatically.
 
 .. contents :: :local:
+
+Navigation level sensitive breadcrumbs
+---------------------------------------
+
+Below is a breadscrumbs viewlet displayed only on 3th navigation level onwward.
+
+Python code::
+
+        class Breadcrumbs(grok.Viewlet):
+            """ Breadcrumbs which are only displayed on 3rd level and forward
+            """
+            
+            grok.viewletmanager(IPortalHeader)   
+            
+            def visible(self):
+                """ Called by template condition. """
+                
+                # Note that "Home" does not count as a crumb
+                return len(self.breadcrumbs) >= 2
+        
+            def update(self):
+                context= self.context.aq_inner
+                
+                #context_helper = getMultiAdapter((context, self.request), name="plone_context_state")
+                
+                self.portal_state = getMultiAdapter((context, self.request), name="plone_portal_state")
+                self.site_url = self.portal_state.portal_url()
+                self.navigation_root_url = self.portal_state.navigation_root_url()        
+        
+                #parent = aq_parent(canonical)
+                
+                breadcrumbs_view = getMultiAdapter((context, self.request), name='breadcrumbs_view')
+                self.breadcrumbs = breadcrumbs_view.breadcrumbs()
+                        
+                # right-to-left reading order
+                self.is_rtl = self.portal_state.is_rtl()
+
+Template code
+
+.. code-block:: html
+
+        <div id="portal-breadcrumbs"
+             i18n:domain="plone"
+             tal:condition="viewlet/visible"
+             tal:define="breadcrumbs viewlet/breadcrumbs;
+                         is_rtl viewlet/is_rtl">
+        
+            <span id="breadcrumbs-home">
+                <a i18n:translate="tabs_home"
+                   tal:attributes="href viewlet/navigation_root_url">Home</a>
+                <span tal:condition="breadcrumbs" class="breadcrumbSeparator">
+                    <tal:ltr condition="not: is_rtl">|</tal:ltr>
+                    <tal:rtl condition="is_rtl">|</tal:rtl>
+                </span>
+            </span>
+            <span tal:repeat="crumb breadcrumbs"
+                  tal:attributes="dir python:is_rtl and 'rtl' or 'ltr';
+                                  id string:breadcrumbs-${repeat/crumb/number}">
+                <tal:item tal:define="is_last repeat/crumb/end;
+                                      url crumb/absolute_url;
+                                      title crumb/Title">
+                    <a href="#"
+                       tal:omit-tag="not: url"
+                       tal:condition="python:not is_last"
+                       tal:attributes="href url"
+                       tal:content="title">
+                        crumb
+                    </a>
+                    <span class="breadcrumbSeparator" tal:condition="not: is_last">
+                        <tal:ltr condition="not: is_rtl">|</tal:ltr>
+                        <tal:rtl condition="is_rtl">|</tal:rtl>
+                    </span>
+                    <span id="breadcrumbs-current"
+                          tal:condition="is_last"
+                          tal:content="title">crumb</span>
+                 </tal:item>
+            </span>
+        
+        </div>
+
     
-Example code
+Back button
 ------------
 
 Below is an example how we have exracted information like the parent container
