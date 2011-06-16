@@ -31,14 +31,10 @@ Python code::
         
             def update(self):
                 context= self.context.aq_inner
-                
-                #context_helper = getMultiAdapter((context, self.request), name="plone_context_state")
-                
+                                
                 self.portal_state = getMultiAdapter((context, self.request), name="plone_portal_state")
                 self.site_url = self.portal_state.portal_url()
-                self.navigation_root_url = self.portal_state.navigation_root_url()        
-        
-                #parent = aq_parent(canonical)
+                self.navigation_root_url = self.portal_state.navigation_root_url()             
                 
                 breadcrumbs_view = getMultiAdapter((context, self.request), name='breadcrumbs_view')
                 self.breadcrumbs = breadcrumbs_view.breadcrumbs()
