@@ -1773,4 +1773,21 @@ In debug shell you can also check what all leftoverts toolset contains::
 More info
 
 * http://plone.293351.n2.nabble.com/importToolset-NoneType-object-is-not-callable-upon-product-install-td5553065.html
+    
+    
+from zopeskel.basic_namespace import BasicNamespace
+---------------------------------------------------------
+
+When starting ZopeSkel::       
+
+  File "/home/moo/code/python2/parts/opt/lib/python2.6/pkgutil.py", line 238, in load_module
+    mod = imp.load_module(fullname, self.file, self.filename, self.etc)
+  File "/home/moo/code/plonecommunity/eggs/ZopeSkel-2.19-py2.6.egg/zopeskel/__init__.py", line 2, in <module>
+    from zopeskel.basic_namespace import BasicNamespace
+       
+You were not lucky today::
+
+        rm -rf /home/moo/code/python2/python-2.6/lib/python2.6/site-packages/ZopeSkel-2.19-py2.6.egg/
+        
+        
        
