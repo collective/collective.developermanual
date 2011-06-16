@@ -6,7 +6,7 @@
 
 .. admonition:: Description
 
-        ZopeSkel template package provides product scaffolding code for Plone to
+        ZopeSkel / paster template package provides product scaffolding code for Plone to
         start programming Plone more easily.
 
 Introduction
@@ -24,8 +24,11 @@ which wraps the more error prone ``paster`` script.
 Zopeskel and buildout
 ----------------------
 
-If you are using buildout to manage your Python application deployment, you can integrate paster
+If you are using buildout to manage your Python application deployment, you can integrate zopeskel/paster
 with it.
+
+The basic template package is ``ZopeSkel`` which depends on ``Paster``. ``zopeskel.dexterity`` adds
+support for Dexterity content types.
 
 Add to your *buildout.cfg*::
 
@@ -33,13 +36,25 @@ Add to your *buildout.cfg*::
         parts =
             ...
             zopeskel
+            paster
 
 
         [zopeskel]
         recipe = zc.recipe.egg
         eggs =
                 ZopeSkel
+                zopeskel.dexterity
                 ${instance:eggs}
+
+        [paster]
+        recipe = zc.recipe.egg
+        eggs =
+                PasteScript
+                ZopeSkel
+                zopeskel.dexterity
+                ${instance:eggs}
+
+
 
 After rerunning buildout, buildout adds the *zopeskel* command to the *bin* folder.
 
