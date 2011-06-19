@@ -5,7 +5,7 @@
 .. admonition:: Description
 
         This document explains integrating Sphinx and Plone,
-        and uses Plone Community Developer Manual and plone.org 
+        and uses the Plone Community Developer Manual and plone.org 
         site as an example.
 
 .. contents :: :local:
@@ -15,59 +15,61 @@
 Introduction
 --------------
 
-This concerns only those who
+This concerns only those who:
 
-* Wish to generate HTML version of Plone Community Developer manual 
-
-* Wish to upload Sphinx documentation to a Plone site
+* wish to generate a HTML version of Plone Community Developer manual;
+* wish to upload Sphinx documentation to a Plone site.
 
 collective.developermanual
 --------------------------
 
-collective.developermanual open-for-anyone-to-edit documentation for Plone developers in Sphinx format,
-living in Plone's collective Subversion version control system (anyone can get commmit access).
+collective.developermanual_ is open-for-anyone-to-edit documentation for Plone developers in Sphinx format,
+living in `Plone's collective Subversion version control system`_ (anyone can get commmit access).
 
-Sphinx is a tool that makes it easy to create intelligent and beautiful documentation, 
+.. _collective.developermanual: https://svn.plone.org/svn/collective/collective.developermanual/trunk
+.. _Plone's collective Subversion version control system: https://dev.plone.org/collective
+
+Sphinx_ is a tool that makes it easy to create intelligent and beautiful documentation, 
 written by Georg Brandl and licensed under the BSD license.
 
-* http://sphinx.pocoo.org/
+.. _Sphinx: http://sphinx.pocoo.org/
 
 collective.developermanual contains :doc:`buildout.cfg recipes </tutorials/buildout/index>` to
 
-* Install Sphinx
+* Install Sphinx 
+* Compile manual to HTML 
+* Upload manual to a Plone site (using the ``bin/toplone`` script and ``transmogrify`` source packages) 
 
-* Compile manual to HTML
+Upload does not need any special support from the Plone site to accept Sphinx documentation
+(besides installing `Plone Help Center`_, but the pipeline can be configured to use *Folders* and *Pages*
+instead of *Reference Manual* content types).  
 
-* Upload manual to a Plone site (bin/toplone script and transmogrify source packages) 
-
-Upload does not need any special support from Plone site to accept Sphinx documentation
-(besides installing Plone Help Center, but pipeline can be configured to use Folders and Pages
-instead of Reference Manual content type).  
+.. _Plone Help Center: http://plone.org/products/plonehelpcenter
 
 Setting up software for manual compilation and upload
 -------------------------------------------------------
 
 First you need to install Git for your operating system to be able to checkout necessary source code::
 
-        sudo apt-get install git-core # Linux
+        sudo apt-get install git-core # Debian-based Linux
          
 or::
 
-        sudo port install git-core # Mac
+        sudo port install git-core # Mac, using MacPorts
 
 .. note:::
 
-        You must not have Sphinx installed in your Python environment (easy_install).
+        You must not have Sphinx installed in your Python environment (``easy_install``).
         Remove it, as it will clash with the version created by buildout.
-        Use virtualenv if you need to have Sphinx around for other projects.
-                
-Run buildout to install Sphinx and necessary packages to upload the::
+        Use ``virtualenv`` if you need to have Sphinx around for other projects.
+
+Run buildout to install Sphinx and the necessary packages for uploading. First step: bootstrap::
 
         python2.6 bootstrap.py
         bin/buildout
-        
-This will always result to error, but bin/ folder is populated with required scripts.
-Now you need to checkout all the source code using Mr. Developer tool::
+
+This will always report an error, but the ``bin/`` folder is created and populated with the required scripts.
+Now you need to checkout all the source code using the *Mr. Developer* tool::
 
         bin/develop co ""
 
@@ -78,8 +80,8 @@ Run buildout again::
 Building static HTML with Sphinx
 ---------------------------------
 
-This creates *docs/html* folder from *source* folder by compiling all collective.developermanual pages,
-using sphinx-build command from buildout::
+This creates ``docs/html`` folder from the source documents in the ``source`` folder, by compiling all the ``collective.developermanual`` pages,
+using ``sphinx-build`` command from buildout::
 
         make html 
         
@@ -90,97 +92,90 @@ If you want to build everything from the scratch, to see all warnings::
 Uploading documentation to a site
 ---------------------------------
 
-The collective.developer manual contains a buildout
-which defines pipeline for `collective.transmogrify <http://pypi.python.org/pypi/collective.transmogrifier/>`_
-to read in Sphinx generated HTML files and upload them to Plone site
-as `Plone Help Center <http://plone.org/products/plonehelpcenter>`_ Reference Manual content item.
+The ``collective.developer`` manual contains a buildout
+which defines a pipeline for `collective.transmogrify <http://pypi.python.org/pypi/collective.transmogrifier/>`_
+to upload the Sphinx-generated HTML files to  Plone site
+as `Plone Help Center <http://plone.org/products/plonehelpcenter>`_ *Reference Manual* content.
 
-collective.transmogrify was originally developed to provide pipelines to import,
-manipulate and export content. It allows you to use plug-in architecture 
-to provide necessary steps, *blueprints*, to pass content in content pipeline from a filter to another.
-The idea is very similar as in  video and audio codec architectures.
+``collective.transmogrify`` was originally developed to provide pipelines to import,
+manipulate and export content. It allows you to use a plug-in architecture 
+to provide necessary steps, called *blueprints*, to pass content in a pipeline from one filter to another.
+The idea is very similar to video and audio codec architectures.
 
-Blueprints can be mix-and-matched using *pipeline.cfg* configuration file.
-collective.developermanual defines pipeline for crawling generated Sphinx HTML files,
+Blueprints can be mix-and-matched using a ``pipeline.cfg`` configuration file.
+``collective.developermanual`` defines pipelines for crawling the generated Sphinx HTML files,
 breaking down the HTML to fields (title, description, body) and then uploading it to a Plone
 site using Zope's XML-RPC API and URL functions, like workflow transition, exposed by Plone.
-As Zope provides necessary XML-RPC facilities, specific code for the uploader is not
+As Zope provides the necessary XML-RPC facilities, no specific code for the uploader is 
 needed on the server running the Plone site. 
-        
+
 Setting up Plone site for uploading Sphinx documentation
 =========================================================
 
-First install Plone Help Center add-on and create *Reference Manual* 
-content type at the remote site.
+First install the *Plone Help Center* add-on and create a *Reference Manual* 
+item at the remote site.
 
-The documentation can be uploaded to
+The documentation can be uploaded to:
 
-* Plone site
-
-* `Plone Help Center add-on <http://plone.org/products/plonehelpcenter>`_ installed
-
-* Sphinx specific CSS styles can be installed (optional) for source code colorization,
+* any Plone site 
+* with `Plone Help Center add-on <http://plone.org/products/plonehelpcenter>`_ installed.
+* Sphinx-specific CSS styles can be installed (optional) for source code colorization,
   warnings, notes and other mark-up in the documentation. These are included
-  as sphinx.css and it is easiest to drop them to your portal_skins layer manually.
+  as ``sphinx.css`` and it is easiest to drop them to your ``portal_skins`` layer manually.
 
-Compling HTML manual
-====================
+Compiling HTML manual
+=====================
 
-Use Sphinx makefile::
+Use the Sphinx makefile::
 
         make html
 
 Running upload
 ================
 
-Buildout generates *bin/toplone* command-line script.
+Buildout generates the ``bin/toplone`` command-line script.
 
 Example how to upload to a local Plone instance::
 
         make clean html
-        bin/toplone bin/toplone --ploneupload:target=http://admin:admin@localhost:8080/Plone/documentation/manual/plone-community-developer-documentation    
-        
+        bin/toplone bin/toplone --ploneupload:target=http://admin:admin@localhost:8080/Plone/documentation/manual/plone-community-developer-documentation
+
 ... or in the case of Plone.org::
 
-    bin/toplone --ploneupload:target=http://miohtama:xxx@manage.plone.org/documentation/manual/plone-community-developer-documentation    
-    
-Upload script will
+    bin/toplone --ploneupload:target=http://username:password@manage.plone.org/documentation/manual/plone-community-developer-documentation    
 
-* Is generated when you run buildout (see buildout.cfg)
+(Substitute your username and password in the URL.)
 
-* Reconfigure transmogrifier pipeline to use remote site and HTTP Basic Auth credentials
-  given on the command line 
+The upload script
 
-* Crawl Sphinx documentation and extract title, description and body text of each page.
-  In theory you could crawl any remote web site for this. ``toplone`` script is 
-  created to crawl local documentation only.
-
-* Create Plone Help Center content items at the remote Plone instance using Zope's XML-RPC
-
-* Update remote Plone items to reflect new documetation changes using Zope's XML-RPC
-
-* Publish items and hide unnecessary items from the navigation (image source folders)
+* is generated when you run buildout (see ``buildout.cfg``);
+* reconfigures the transmogrifier pipeline to use the remote site and *HTTP Basic Auth* credentials
+  provided on the command line;
+* crawl the Sphinx documentation and extract the title, description and body text of each page
+  (In theory you could crawl any remote web site for this. The ``toplone`` script is 
+  created to crawl local documentation only.);
+* create *Plone Help Center* content items at the remote Plone instance using Zope's XML-RPC;
+* update remote Plone items to reflect documentation changes, using Zope's XML-RPC;
+* Publish items, and hide unnecessary items from the navigation (e.g. image source folders).
 
 .. note ::
 
-        Upload script does not currently purge the existing uploaded documentation.
+        The upload script does not currently purge the existing uploaded documentation.
         If pages have been renamed or moved, you need to delete the documentation
-        on the target site before performing the upload. Just go to
-        Reference Manual Contents tab, select all and hit delete.
+        on the target site before performing the upload. Just go to the
+        *Reference Manual Contents* tab, select all, and hit delete.
 
 Setting up CSS
 ==============
 
-Example ``sphinx.css`` is provided with collective.developermanual
+An example ``sphinx.css`` is provided with ``collective.developermanual``.
 
-* It sets up CSS for default Sphinx styles (notices, warning, other adminition)
+* It sets up CSS for default Sphinx styles (notices, warning, other admonition).  
+* It sets up CSS for syntax highlighting.  
+* It resolves some CSS class conflicts between Sphinx and the plone.org theme.
 
-* It sets up CSS for Syntax highlighting
-
-* It resolves some CSS class conflicts between Sphinx and plone.org theme
-
-``sphinx.css`` assumes a special Sphinx *page.html* template is used.
-This template is modified to wrap everything Sphinx outputs to *sphinx-content*
+``sphinx.css`` assumes that a special Sphinx ``page.html`` template is used.
+This template is modified to wrap everything which Sphinx outputs in the ``sphinx-content``
 CSS class, so we can nicely separate them from standard Plone styles.
 
-``page.html`` can be found from ``sources/_templates/page.html``.
+``page.html`` can be found at ``sources/_templates/page.html``.
