@@ -26,6 +26,8 @@ Below is the list of documentation and references we'd like to see:
 - Links to email list discussions 
 - Links to source code (directly to the version control)
 
+- Clean up and restructuring
+
 Contributing methods
 ====================
 
@@ -47,13 +49,50 @@ human errors happen all the time.
 
 * Edit the file which you want to update.
 
+* Run buildout (or just bin/develop update) to get latest documentation include the code
+
 * Check that Sphinx building does not give warnings::
 
-    sphinx-build source build
+    bin/sphinx-build source build
 
 * Commit changes::
 
     svn commit -m "My message what I changed"
+
+
+Code documentation
+==================
+
+For certain kinds of documentation it is better to write the documentation in parts
+of the plone core code base. This can be done using the autodoc sphinx extension.
+
+... to include a module docstring ::
+
+ .. automodule:: plone.app.contentrules.exportimport
+
+... to include a class docstring ::
+
+ .. autoclass:: Products.CMFEditions.exportimport.repository.RepositoryToolXMLAdapter
+
+... or to include both a module and class docstrings ::
+
+ .. automodule:: Products.CMFEditions.exportimport.repository
+   :members: RepositoryToolXMLAdapter
+
+Not all documentation is best kept with the code. You should use autodoc if
+
+ - It's documentation that is reasonably self contained and relates just to that module
+ - It's mainly reference rather than tutorial style documentation
+ - You think it's more likely to be maintained by the code authors
+
+Once you write code documentation:
+
+ 1. find an appropriate place in this manual to place it. Make sure it flows and makes sense
+  read with the documentation around it
+ 2. include a comment in the docstring mentioning it's use in this manual so those editing
+  the code can test the manual if changes are made
+ 3. add the module to the autocheckout value in the manuals buildout.cfg
+
 
 Using GIT with collective SVN
 -----------------------------

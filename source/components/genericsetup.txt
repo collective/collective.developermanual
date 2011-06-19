@@ -284,8 +284,9 @@ Also you need to register this custom import step in ``configure.zcml``
 
   </configure>
 
-``setuphandlers.py`` example::
+``setuphandlers.py`` example
 
+.. code-block:: python
 
         __docformat__ = "epytext"
         
@@ -342,6 +343,8 @@ turns out, once you have the script, it's easy to put its code in an upgrade
 step.)
 
 We add the upgrade step to the profile::
+
+.. code-block:: xml
 
   <genericsetup:upgradeStep
       title="Convert Price to strings"
@@ -438,6 +441,8 @@ You might want to prevent your add-on product uninstall for some reason.
 
 Example::
 
+.. code-block:: python
+
         from zExceptions import BadRequest
 
         def uninstall(self, reinstall):
@@ -493,6 +498,10 @@ Content Generation
 .. automodule:: Products.GenericSetup.content
  :members: FolderishExporterImporter
 
+sharing.xml
+===========
+
+.. automodule:: plone.app.workflow.exportimport
 
 tinymce.xml
 -----------
@@ -512,7 +521,7 @@ skins.xml
 workflows.xml
 -------------
 
-.. autoclass:: Products.DCWorkflow.exportimport.WorkflowDefinitionConfigurator
+.. automodule:: Products.DCWorkflow.exportimport
 
 repositorytool.xml
 ------------------
@@ -531,10 +540,11 @@ Best Practices
 When importing items such as property sheets, make sure not to
 override other profile settings by setting the purge attribute to False.
 This will add the items listed to the property instead of resetting the
-property. Example: ::
+property. Example:
 
-    <property name="metaTypesNotToList" type="lines"
-    purge="False">
+.. code-block:: xml
+
+    <property name="metaTypesNotToList" type="lines" purge="False">
      <element value="File"/>
      <element value="Image"/>
     </property>
@@ -542,7 +552,9 @@ property. Example: ::
 Only use the configuration that you need. When you export your site's
 configuration, it will include things that you don't need. For example,
 if you needed to change only the 'Allow anonymous to view about'
-property, this is what your propertiestool.xml would look like: ::
+property, this is what your propertiestool.xml would look like:
+
+.. code-block:: xml
 
     <?xml version="1.0"?>
     <object name="portal_properties" meta_type="Plone Properties Tool">
@@ -551,3 +563,5 @@ property, this is what your propertiestool.xml would look like: ::
         type="boolean">True</property>
      </object>
     </object
+
+.. original content from http://www.sixfeetup.com/company/technologies/plone-content-management-new/quick-reference-cards/swag/swag-images-files/generic_setup.pdf
