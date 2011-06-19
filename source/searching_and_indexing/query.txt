@@ -807,33 +807,39 @@ Walking through all content
 ``portal_catalog()`` call without search parameters will return all indexed
 site objects.
 
+Here is an example how to crawl through Plone content to search HTML
+snippets. This can be done by rendering every content object and check
+whether certain substrings exists the output HTML This snippet can be
+executed through-the-web in Zope Management Interface.
+
+This kind of scripting is especially useful if you need to find old links or
+migrate some text / HTML snippets in the content itself. There might be
+artifacts which only appear on the resulting pages (portlets, footer texts,
+etc.) and thus they are invisible to the normal full text search.
+
 Example::
 
-Here is an example how to crawl through Plone content to search HTML snippets. This can be done by rendering every content object and check whether certain substrings exists the output HTML This snippet can be executed through-the-web in Zope Management Interface.
-
-This kind of scripting is especially useful if you need to find old links or migrate some text / HTML snippets in the content itself. There might be artifacts which only appear on the resulting pages (portlets, footer texts, etc.) and thus they are invisible to the normal full text search.::
-
-        # Find arbitary HTML snippets on Plone content pages 
-        
-        # Collect script output as text/html, so that you can
-        # call this script conveniently by just typing its URL to a web browser
-        buffer = ""
-        
-        # We need to walk through all the content, as the
-        # links might not be indexed in any search catalog
-        for brain in context.portal_catalog(): # This queries cataloged brain of every content object
-               try:
-                 obj = brain.getObject()
-                 # Call to the content object will render its default view and return it as text
-                 # Note: this will be slow - it equals to load every page from your Plone site
-                 rendered = obj()
-                 if "yourtextmatch" in rendered:
-                       # found old link in the rendered output
-                       buffer += "Found old links on <a href='%s'>%s</a><br>\n" % (obj.absolute_url(), obj.Title())
-               except:
-                 pass # Something may fail here if the content object is broken
-        
-        return buffer
+    # Find arbitary HTML snippets on Plone content pages 
+    
+    # Collect script output as text/html, so that you can
+    # call this script conveniently by just typing its URL to a web browser
+    buffer = ""
+    
+    # We need to walk through all the content, as the
+    # links might not be indexed in any search catalog
+    for brain in context.portal_catalog(): # This queries cataloged brain of every content object
+        try:
+            obj = brain.getObject()
+            # Call to the content object will render its default view and return it as text
+            # Note: this will be slow - it equals to load every page from your Plone site
+            rendered = obj()
+            if "yourtextmatch" in rendered:
+                # found old link in the rendered output
+                buffer += "Found old links on <a href='%s'>%s</a><br>\n" % (obj.absolute_url(), obj.Title())
+        except:
+            pass # Something may fail here if the content object is broken
+    
+    return buffer
 
 More info:
 
