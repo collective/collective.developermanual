@@ -1,5 +1,5 @@
 ===================================
- Facebook integration
+Facebook integration
 ===================================
 
 .. admonition:: Description
@@ -125,66 +125,66 @@ Complex example for custom content type
 
 .. code-block:: html
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      lang="en"
-      metal:use-macro="here/main_template/macros/master"
-      i18n:domain="saariselka.app"
-      >
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+          lang="en"
+          metal:use-macro="here/main_template/macros/master"
+          i18n:domain="saariselka.app"
+          >
 
 
-       <tal:comment replace="nothing">
-       <!--
+           <tal:comment replace="nothing">
+           <!--
 
-                We will insert this HTML to <head> section,
-                "head_slot", defined by Plone's main_template.pt
+                    We will insert this HTML to <head> section,
+                    "head_slot", defined by Plone's main_template.pt
 
-       -->
-      </tal:comment>
-
-      <tal:facebook-opengraph metal:fill-slot="head_slot" >
-
-          <meta property="og:description" tal:attributes="content context/Description|nothing"/>
-         <meta property="og:type" content="hotel"/>
-
-          <tal:comment replace="nothing">
-               <!--
-
-                        Fill in geo info if available.
-               -->
+           -->
           </tal:comment>
-          <tal:has-location omit-tag="" tal:define="lat view/data/Latitude|nothing; long view/data/Longitude|nothing;" tal:condition="lat">
-                <meta property="og:latitude" tal:attributes="content lat"/>
-                <meta property="og:longitude" tal:attributes="content long"/>
-          </tal:has-location>
 
-          <tal:comment replace="nothing">
-               <!--
+          <tal:facebook-opengraph metal:fill-slot="head_slot" >
 
-                        Fill in contact info.
-               -->
-          </tal:comment>
-          <meta property="og:email" content="xxx@yoursite.com"/>
-          <meta property="og:phone_number" content="+ 358 123 1234"/>
+              <meta property="og:description" tal:attributes="content context/Description|nothing"/>
+             <meta property="og:type" content="hotel"/>
 
-          <tal:comment replace="nothing">
-               <!--
+              <tal:comment replace="nothing">
+                   <!--
 
-                        URL to 70 px wide image used by Facebook as the news item splash image.
+                            Fill in geo info if available.
+                   -->
+              </tal:comment>
+              <tal:has-location omit-tag="" tal:define="lat view/data/Latitude|nothing; long view/data/Longitude|nothing;" tal:condition="lat">
+                    <meta property="og:latitude" tal:attributes="content lat"/>
+                    <meta property="og:longitude" tal:attributes="content long"/>
+              </tal:has-location>
 
-                        Note: Facebook resized the image automatically.
+              <tal:comment replace="nothing">
+                   <!--
 
-               -->
-          </tal:comment>
-          <tal:has-image omit-tag="" condition="view/main_image">
-                <meta property="og:image" tal:attributes="content view/main_image"/>
-          </tal:has-image>
+                            Fill in contact info.
+                   -->
+              </tal:comment>
+              <meta property="og:email" content="xxx@yoursite.com"/>
+              <meta property="og:phone_number" content="+ 358 123 1234"/>
 
-          <tal:comment replace="nothing">
-               <!-- Facebook admins is a compulsory field. Put here the side admin Facebook id(s), comma separated
+              <tal:comment replace="nothing">
+                   <!--
 
-                    http://apps.facebook.com/whatismyid
-               -->
-          </tal:comment>
-          <meta property="fb:admins" content="123123" />
+                            URL to 70 px wide image used by Facebook as the news item splash image.
 
-      </tal:facebook-opengraph>
+                            Note: Facebook resized the image automatically.
+
+                   -->
+              </tal:comment>
+              <tal:has-image omit-tag="" condition="view/main_image">
+                    <meta property="og:image" tal:attributes="content view/main_image"/>
+              </tal:has-image>
+
+              <tal:comment replace="nothing">
+                   <!-- Facebook admins is a compulsory field. Put here the side admin Facebook id(s), comma separated
+
+                        http://apps.facebook.com/whatismyid
+                   -->
+              </tal:comment>
+              <meta property="fb:admins" content="123123" />
+
+          </tal:facebook-opengraph>

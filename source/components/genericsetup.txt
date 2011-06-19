@@ -4,52 +4,50 @@
 
 .. admonition:: Description
 
-        GenericSetup is a framework to modify Plone site database during 
-        add-on product installation and uninstallation. It provides
-        XML based rules to change the site settings easily.
+        GenericSetup is a framework to modify the Plone site during add-on
+        product installation and uninstallation. It provides XML-based rules
+        to change the site settings easily.
 
 .. contents :: :local:
 
 Introduction
--------------
+=============
 
 GenericSetup is an XML-based way to import and export Plone site configurations.
 
-It is mainly used for prepare Plone site database for add-on product
+It is mainly used to prepare the Plone site for add-on products, by:
 
-* Register CSS files
-
-* Registering Javascript files
-
-* Setting various properties
-
-* Registering portlets
-
-* Registering portal_catalog search query indexes
-
+* registering CSS files, 
+* registering Javascript files,
+* setting various properties, 
+* registering portlets, 
+* registering portal_catalog search query indexes,
 * ...and so on...
 
-GenericSetup is mostly used to apply add-on specific changes to the site configuration
-and enabled add-on specific behavior when the add-on installer is run.
+GenericSetup is mostly used to apply add-on-specific changes to the site
+configuration, and to enable add-on-specific behavior when the add-on
+installer is run.
 
-GenericSetup XML files are usually under *profiles/default* folder inside
+GenericSetup XML files are usually in a ``profiles/default`` folder inside
 the add-on product.
 
-All run-time configurable items, like viewlets order through /@@manage-viewlets
-page, are made repeatable using GenericSetup profile files.
+All run-time configurable items, like viewlets order through
+``/@@manage-viewlets`` page, are made repeatable using GenericSetup profile
+files.
 
 You do not need to hand-edit GenericSetup profile files.
 You can always change the configuration options through Plone
-or Zope Management Interface. Then you can produce the profile
-XML file using *Export* tab in *portal_setup* ZMI tool.
+or using the Zope Management Interface. Then you can export the resulting
+profile as an XML file, using the *Export* tab in the ``portal_setup`` ZMI
+tool.
 
 Directly
-editing XML profile files do not change anything on the site, even after Zope
-restart. This is because run-time configurable items are stored in
-the database. If you edit profile files, you need reimport
-edited files using portal_setup tool or rerun the add-on
-product installer in Plone control panel. This import will
-read XML files and change Plone database accordingly.
+editing XML profile files does not change anything on the site, even after
+Zope restart. This is because run-time configurable items are stored in the
+database. If you edit profile files, you need reimport edited files using
+the ``portal_setup`` tool or rerun the add-on product installer in Plone
+control panel. This import will read XML files and change Plone database
+accordingly.
 
 
 .. note::
@@ -66,14 +64,15 @@ read XML files and change Plone database accordingly.
     directives, like viewlets and views, are registered
     to be active on a certain layer only using `layer`
     attribute. When GenericSetup XML is imported
-    through portal_setup, or the product add-on installer is
+    through ``portal_setup``, or the product add-on installer is
     run for a Plone site, the layer is activated for the
     particular site only, enabling all views registered
     for this layer.
     
 .. note ::
         
-        metadata.xml file (add-on dependency and version information) is read during Plone start-up.
+        The ``metadata.xml`` file (add-on dependency and version
+        information) is read during Plone start-up.
         If this file has problems your add-on might not appear in the installer control panel.    
 
 * `GenericSetup tutorial <http://plone.org/documentation/tutorial/genericsetup>`_
@@ -82,16 +81,19 @@ read XML files and change Plone database accordingly.
 
 * `Source code <http://svn.zope.org/Products.GenericSetup/trunk/Products/GenericSetup/README.txt?rev=87436&view=auto>`_.
 
+.. TODO: should the link be specifically to rev=87436?
+
 
 Creating a profile
-------------------
+==================
 
-You use <genericsetup> directive in your add-on product's configure.zcml.
-The name for the default profile executed by Plone add-on installer
+You use ``<genericsetup>`` directive in your add-on product's ``configure.zcml``.
+The name for the default profile executed by the Plone add-on installer
 is "default". If you need different profiles for e.g. unit testing
 you can declare them here.
 
-Profile XML files go to profiles/default folder inside your add-on product.
+Profile XML files go in the ``profiles/default`` folder inside your add-on
+product.
 
 .. code-block:: xml
 
@@ -112,23 +114,25 @@ Profile XML files go to profiles/default folder inside your add-on product.
 
 
 
-Add-on specific issues
-----------------------
+Add-on-specific issues
+======================
 
-Add-on product may contain
+Add-on products may contain:
 
-* Default GenericSetup XML profile which is automatically run when the product is quick installer. The profile name is "default".
+* A default GenericSetup XML profile which is automatically run when the
+  product is installed using the quick-installer. The profile name is
+  "default".
 
-* Other profiles which the user may install through portal_setup Import      or which can be manually enabled for unit tests
+* Other profiles which the user may install using the ``portal_setup`` *Import* tab, or which can be manually enabled for unit tests.
 
-* "Import various" step which runs Python code every time GenericSetup XML profile is installed
+* An "Import various" step, which runs Python code every time the GenericSetup XML profile is installed.
 
-More information about custom import steps
+For more information about custom import steps, see:
 
 * http://n2.nabble.com/indexing-of-content-created-by-Generic-Setup-tp4454703p4454703.html
 
 Listing available profiles
---------------------------
+==========================
 
 Example::
 
@@ -148,21 +152,21 @@ Results::
     ...
 
 Installing a profile
---------------------
+====================
 
 This is usually unit test specific question how to enable certain add-ons for unit testing.
 
 PloneTestCase.setupPloneSite
-============================
+----------------------------
 
 See *Running add-on installers and extensions profiles for unit tests*.
 
 Manually
-=========
+---------
 
 You might want to install profiles manually if they need to be enabled only for certain tests.
 
-Profile name is in format profile-${product name}:${profile id}
+The profile name is in the format ``profile-${product name}:${profile id}``
 
 Unit testing example::
 
@@ -170,16 +174,16 @@ Unit testing example::
     setup_tool.runAllImportStepsFromProfile('profile-betahaus.emaillogin:exdended')
     
 Uninstall profile
-------------------
+==================
 
-For the theory, see
+For the theory, see:
 `<http://plone.org/documentation/kb/genericsetup/creating-an-uninstall-profile>`_
 
 For an example, see the `collective.pdfpeek source code
 <http://svn.plone.org/svn/collective/collective.pdfpeek/trunk/collective/pdfpeek/profiles/>`_.    
 
 Dependencies
-------------
+============
 
 GenericSetup profile can contain dependencies to other product profiles (and installers).
 
@@ -223,7 +227,7 @@ are usable from *collective.basket* add-on products when your add-on product is 
     Products.* Python namespace need to declare generic setup dependencies specially.
     You actually do not mention Products.xxx space.
     
-To declare dependency to ``Products.Carousel``::
+To declare dependency to ``Products.Carousel``:
 
 .. code-block:: xml
 
@@ -237,7 +241,7 @@ To declare dependency to ``Products.Carousel``::
             
 
 Custom setup code (setuphandlers.py)
----------------------------------------
+=======================================
 
 Besides out-of-the-box XML steps which easily provide both install and uninstall,
 GenericSetup provides a way to run a custom Python code when your
@@ -316,12 +320,12 @@ More information
 * http://maurits.vanrees.org/weblog/archive/2009/12/catalog (unrelated, but contains pointers)
 
 Controlling the import step execution order
-===========================================
+-------------------------------------------
 
 * http://plone.293351.n2.nabble.com/indexing-of-content-created-by-Generic-Setup-td4454703.html
 
 Upgrade steps
--------------
+=============
 
 You can define upgrade steps to run code only when someone upgrades your
 product from version *x* to *y*.
@@ -417,7 +421,7 @@ After restarting Zope, your upgrade step should be visible in the ZMI: The
 which upgrade steps Zope knows about for your product.
 
 Add-on product appears twice in the installer list
----------------------------------------------------
+===================================================
 
 This happens if you are developing your own add-on and keep changing things.
 You have an error in your add-on product ZCML code which causes
@@ -428,7 +432,7 @@ More information
 * http://plone.293351.n2.nabble.com/Product-twice-in-quickinstaller-td5345492.html#a5345492
 
 Preventing uninstall
---------------------
+====================
 
 You might want to prevent your add-on product uninstall for some reason.
 
@@ -448,91 +452,91 @@ Example::
 
 
 Plone GenericSetup Reference
-----------------------------
+============================
 
 portlets.xml
-============
+------------
 
 .. automodule:: plone.app.portlets.exportimport.portlets
 
 viewlets.xml
-============
+------------
 
 .. automodule:: plone.app.viewletmanager.exportimport.storage
 
 cssregistry.xml
-===============
+---------------
 
 see :ref:`resourceregistries`
 
 jsregistry.xml
-==============
+--------------
 
 see :ref:`resourceregistries`
 
 kssregistry.xml
-===============
+---------------
 
 see :ref:`resourceregistries`
 
 .. _resourceregistries:
 
 Resource Registries
-===================
+-------------------
 
 .. automodule:: Products.ResourceRegistries.exportimport.resourceregistry
   :members: ResourceRegistryNodeAdapter
 
 Content Generation
-==================
+------------------
 
 .. automodule:: Products.GenericSetup.content
  :members: FolderishExporterImporter
 
 
 tinymce.xml
-===========
+-----------
 
 propertiestool.xml
-==================
+------------------
 
 metadata.xml
-============
+------------
 
 actions.xml
-===========
+-----------
 
 skins.xml
-=========
+---------
 
 workflows.xml
-=============
+-------------
 
 .. autoclass:: Products.DCWorkflow.exportimport.WorkflowDefinitionConfigurator
 
 repositorytool.xml
-==================
+------------------
 
 .. autoclass:: Products.CMFEditions.exportimport.repository.RepositoryToolXMLAdapter
 
 
 contentrules.xml
-================
+----------------
 
 .. automodule:: plone.app.contentrules.exportimport
 
 Best Practices
-==============
+--------------
 
 When importing items such as property sheets, make sure not to
 override other profile settings by setting the purge attribute to False.
 This will add the items listed to the property instead of resetting the
 property. Example: ::
 
-    <property name=ÓmetaTypesNotToListÓ type=ÓlinesÓ
-    purge=ÓFalseÓ>
-     <element value=ÓFileÓ/>
-     <element value=ÓImageÓ/>
+    <property name="metaTypesNotToList" type="lines"
+    purge="False">
+     <element value="File"/>
+     <element value="Image"/>
     </property>
 
 Only use the configuration that you need. When you export your site's
@@ -541,10 +545,8 @@ if you needed to change only the 'Allow anonymous to view about'
 property, this is what your propertiestool.xml would look like: ::
 
     <?xml version="1.0"?>
-    <object name="portal_properties" meta_type="Plone
-        Properties Tool">
-     <object name="site_propertiesÓ meta_type=ÓPlone
-        Property Sheet">
+    <object name="portal_properties" meta_type="Plone Properties Tool">
+     <object name="site_properties" meta_type="Plone Property Sheet">
       <property name="allowAnonymousViewAbout"
         type="boolean">True</property>
      </object>
