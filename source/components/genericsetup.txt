@@ -444,3 +444,108 @@ Example::
 .. note ::
 
         This example if for Extensions/install.py, old Plone 2 way of writing installers
+
+
+
+Plone GenericSetup Reference
+----------------------------
+
+portlets.xml
+============
+
+.. automodule:: plone.app.portlets.exportimport.portlets
+
+viewlets.xml
+============
+
+.. automodule:: plone.app.viewletmanager.exportimport.storage
+
+cssregistry.xml
+===============
+
+see :ref:`resourceregistries`
+
+jsregistry.xml
+==============
+
+see :ref:`resourceregistries`
+
+kssregistry.xml
+===============
+
+see :ref:`resourceregistries`
+
+.. _resourceregistries:
+
+Resource Registries
+===================
+
+.. automodule:: Products.ResourceRegistries.exportimport.resourceregistry
+  :members: ResourceRegistryNodeAdapter
+
+Content Generation
+==================
+
+.. automodule:: Products.GenericSetup.content
+ :members: FolderishExporterImporter
+
+
+tinymce.xml
+===========
+
+propertiestool.xml
+==================
+
+metadata.xml
+============
+
+actions.xml
+===========
+
+skins.xml
+=========
+
+workflows.xml
+=============
+
+.. autoclass:: Products.DCWorkflow.exportimport.WorkflowDefinitionConfigurator
+
+repositorytool.xml
+==================
+
+.. autoclass:: Products.CMFEditions.exportimport.repository.RepositoryToolXMLAdapter
+
+
+contentrules.xml
+================
+
+.. automodule:: plone.app.contentrules.exportimport
+
+Best Practices
+==============
+
+When importing items such as property sheets, make sure not to
+override other profile settings by setting the purge attribute to False.
+This will add the items listed to the property instead of resetting the
+property. Example: ::
+
+    <property name=ÓmetaTypesNotToListÓ type=ÓlinesÓ
+    purge=ÓFalseÓ>
+     <element value=ÓFileÓ/>
+     <element value=ÓImageÓ/>
+    </property>
+
+Only use the configuration that you need. When you export your site's
+configuration, it will include things that you don't need. For example,
+if you needed to change only the 'Allow anonymous to view about'
+property, this is what your propertiestool.xml would look like: ::
+
+    <?xml version="1.0"?>
+    <object name="portal_properties" meta_type="Plone
+        Properties Tool">
+     <object name="site_propertiesÓ meta_type=ÓPlone
+        Property Sheet">
+      <property name="allowAnonymousViewAbout"
+        type="boolean">True</property>
+     </object>
+    </object
