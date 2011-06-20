@@ -245,7 +245,6 @@ This must be enabled separately for Dexterity content types.
         
 Then you can manually also check this property::
 
-
         for t in self.tabs:
             
             nav = None
@@ -255,7 +254,8 @@ Then you can manually also check this property::
                 pass
                 
             if nav:
-                if nav.exclude_from_nav():
+                if nav.exclude_from_nav == True:
                     # FAQ page - do not show in tabs
                     continue
+                                    
                                             
