@@ -230,5 +230,32 @@ Add in your content type GenericSetup XML
 Reinstall your add-on.        
 Confirm that the new permission appears on *Security* tab in ZMI root.
 
+Exclusion from navigation
+---------------------------
+
+This must be enabled separately for Dexterity content types.
+
+.. code-block:: xml
+
+ <property name="behaviors">
+     <element value="plone.app.content.interfaces.INameFromTitle" />
+     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
+     <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
+ </property>
         
-        
+Then you can manually also check this property::
+
+
+        for t in self.tabs:
+            
+            nav = None
+            try:
+                nav = IExcludeFromNavigation(t)
+            except:
+                pass
+                
+            if nav:
+                if nav.exclude_from_nav():
+                    # FAQ page - do not show in tabs
+                    continue
+                                            
