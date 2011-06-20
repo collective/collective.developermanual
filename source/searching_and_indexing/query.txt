@@ -665,6 +665,23 @@ Example::
                                             DateTime('2062-05-08 15:16:17')),
                                    'range': 'min:max'})
 
+Example 2::
+
+        
+        # DateTime deltas are days as floating points
+        end = DateTime.DateTime() + 0.1 # If we have some clock skew peek a little to the future
+        start = DateTime.DateTime() - 1
+        
+        date_range_query = { 'query':(start,end), 'range': 'min:max'} 
+                
+        items = portal_catalog.queryCatalog({"portal_type":"FeedFeederItem",
+                                             "created" : date_range_query,
+                                             "sort_on":"positive_ratings",
+                                             "sort_order":"reverse",
+                                             "sort_limit":count,
+                                             "review_state":"published"})
+        
+
 Another example how to get news items for a particular year in the template code::
 
     <div metal:fill-slot="main" id="content-news"
@@ -693,6 +710,10 @@ Another example how to get news items for a particular year in the template code
                  localized_time python: modules['Products.CMFPlone.PloneUtilities'].localized_time;">
         ...
     </div>
+    
+More info 
+
+* http://www.ifpeople.net/fairsource/courses/material/apiPlone_en
 
 Query by language
 -----------------
