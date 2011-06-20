@@ -179,3 +179,56 @@ buildout.cfg::
         
         # Version pindowns for new style products go here - this section extends one provided in http://dist.plone.org/release/
         [versions]
+
+        
+Creation permissions
+------------------------
+
+By default, (global) Dexterity content types are addable to folder if the editor has 
+``cmf.AddPortalContent`` permission.
+
+You might want to fine tune permission control so that only certain priviledged
+members are allowed to create certain content types.
+
+.. note ::
+
+        This behavior differs from Archetypes behavior where each content type was automatically assigned a permission 
+        for controlling it's creation.
+
+Create a permission with :doc:`collective.autopermission </security/permissions>` in ``configure.zcml``
+
+.. code-block:: xml
+
+    <include package="collective.autopermission" />
+    <permission id="yourcompany.app.AddSuperContent" title="yourcompany.app: Add Super Content" />
+
+
+Make sure that this permission becomes available on your site by adding into ``rolemap.xml``
+
+.. code-block:: xml
+
+        <?xml version="1.0"?>
+        <rolemap>
+                
+           <permissions>
+                 <permission
+                 name="yourcompany.app: Add Super Content"
+                 acquire="True">
+                 <role name="Manager" />
+                 </permission>
+          </permissions>
+        
+        </rolemap>
+
+Add in your content type GenericSetup XML
+
+.. code-block:: xml
+
+    <!-- add permission -->
+    <property name="add_permission">yourcompany.app.AddSuperContent</property> 
+
+Reinstall your add-on.        
+Confirm that the new permission appears on *Security* tab in ZMI root.
+
+        
+        
