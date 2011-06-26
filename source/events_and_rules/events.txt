@@ -3,106 +3,103 @@ Events
 =======
 
 .. admonition:: Description
-        
+
         How to add event hooks to your Plone code to perform actions when
         something happens on a Plone site.
 
 .. contents :: :local:
 
 Introduction
-------------
+============
 
-This document briefly discuss about doing event handling using zope.event module.
-Zope component architecture's 'zope.event package <http://pypi.python.org/pypi/zope.event>' is
+This document briefly discusses event handling using the ``zope.event`` module.
+The Zope Component Architecture's `zope.event package <http://pypi.python.org/pypi/zope.event>`_ is
 used to manage subscribeable events in Plone.
 
-There are few notable characters in Plone event system
+Some of the notable characteristics of the Plone event system are:
 
-* It is simple
+* it is simple;
+* subscriber calling order is not modifiable |---| you cannot set the order in which event handlers are called;
+* events cannot be cancelled |---| all handlers will always get the event;
+* event handlers cannot have return values;
+* exceptions raised in an event handler will interrupt the request processing.
 
-* Subscriber calling order is not modifiable - you cannot set the order how the event handlers are called
-
-* Event cannot be cancelled - all handlers will get the event always
-
-* Event handlers cannot have return values 
-
-* Exceptions raised from an event handler will interrupt the request processing
-
-For more information
+For more information, see:
 
 * http://plone.org/products/dexterity/documentation/manual/five.grok/core-components/events
 
-Registering event handler
--------------------------
+Registering an event handler
+============================
 
-Subscribing using five.grok API
-===============================
+Subscribing using the  ``five.grok`` API
+-----------------------------------------
 
 Example::
 
+    from five import grok
+    from Products.Archetypes.interfaces import IObjectEditedEvent
 
-        from five import grok
-        from Products.Archetypes.interfaces import IObjectEditedEvent
+    class ORAResearcher(folder.ATFolder):
 
-        class ORAResearcher(folder.ATFolder):
-        
-            meta_type = "ORAResearcher"
-            schema = ORAResearcherSchema
-                        
-            def doSomethingDependingOnTheData():
-                """
-                Do something with the object 
-                """
-                
-        
-        @grok.subscribe(ORAResearcher, IObjectEditedEvent)
-        def object_edited(context, event):
+        meta_type = "ORAResearcher"
+        schema = ORAResearcherSchema
+
+        def doSomethingDependingOnTheData():
             """
-            Catch edit events.
-            
-            @param context: Object for which the event was fired
+            Do something with the object
             """
-            
-            # Call content type methods
-            context.doSomethingDependingOnTheData()
+
+
+    @grok.subscribe(ORAResearcher, IObjectEditedEvent)
+    def object_edited(context, event):
+        """
+        Catch edit events.
+
+        @param context: Object for which the event was fired
+        """
+
+        # Call content type methods
+        context.doSomethingDependingOnTheData()
 
 
 .. note ::
 
-        You need to have five.grok initialization code in your product's
-        root configure.zcml to be able to use Grok like event subscribers.
+        You need to have ``five.grok`` initialization code in your product's
+        root ``configure.zcml`` to be able to use Grok-like event subscribers.
         Otherwise your event handlers won't get called.
 
-More information 
+For more information, see:
 
 * http://plone.org/products/dexterity/documentation/manual/five.grok/core-components/events
 
-Subscribing in ZCML
-===================
+Subscribing using ZCML
+----------------------
 
 Custom event example::
 
-   <subscriber
-     for=".interfaces.IMyObject
-          .interfaces.IMyEvent"
-     handler=".content.MyObject.myEventHandler"
-     />
+    <subscriber
+      for=".interfaces.IMyObject
+           .interfaces.IMyEvent"
+      handler=".content.MyObject.myEventHandler"
+      />
 
 Life cycle events example::
 
-   <subscriber
-     zcml:condition="installed zope.lifecycleevent"
-     for=".interfaces.ISitsPatient
-          zope.lifecycleevent.IObjectModifiedEvent"
-     handler=".content.SitsPatient.objectModified"
-     />
+    <subscriber
+      zcml:condition="installed zope.lifecycleevent"
+      for=".interfaces.ISitsPatient
+           zope.lifecycleevent.IObjectModifiedEvent"
+      handler=".content.SitsPatient.objectModified"
+      />
 
 
-Subscribing in Python
-=====================
+Subscribing using Python
+-------------------------
 
-The following subscription is valid through the process life cycle. In unit tests,
-it is important to clear test event handlers between the test steps.
+The following subscription is valid through the process life cycle. In unit
+tests, it is important to clear test event handlers between the test steps.
+
+.. XXX: What does "through the process life cycle" mean?
 
 Example::
 
@@ -110,7 +107,7 @@ Example::
 
     def my_event_handler(context, event):
         """
-        @param context: Zope object for which the event was fired for. Usually this is Plone content object.
+        @param context: Zope object for which the event was fired for. Usually this is a Plone content object.
 
         @param event: Subclass of event.
         """
@@ -118,93 +115,115 @@ Example::
 
     gsm = zope.component.getGlobalSiteManager()
     gsm.registerHandler(my_event_handler, (IMyObject,IMyEvent))
-    
+
+
 Firing an event
----------------
-
-Use zope.event.notify() to fire event objects to their subscribers.
-
-Example how to fire an event in unit tests::
-
-        import zope.event
-        from plone.postpublicationhook.event import AfterPublicationEvent
-                
-        event = AfterPublicationEvent(self.portal, self.portal.REQUEST)
-        zope.event.notify(event)
-
-Event types
------------
-
-Creation events
 ===============
 
+Use ``zope.event.notify()`` to fire event objects to their subscribers.
 
-* Products.Archetypes.interfaces.IObjectInitializedEvent is fired for Archetypes object when it's being initialised, i.e. populated for the first time
+Example of how to fire an event in unit tests::
 
-* Products.Archetypes.interfaces.IWebDAVObjectInitializedEvent is fired for Archetypes object when it's being initialised via WebDAV
+    import zope.event
+    from plone.postpublicationhook.event import AfterPublicationEvent
 
-* zope.lifecycleevent.IObjectCreatedEvent is fired for all Zopeish objects when an object is created (doesn't necessarily need to be content object)
+    event = AfterPublicationEvent(self.portal, self.portal.REQUEST)
+    zope.event.notify(event)
 
-.. warning:: 
 
-   Archetypes and Zope 3 events might not be compatible with each other. Please see links below.   
-   
-Other resources
+Event types
+===========
+
+*Creation* events
+------------------
+
+``Products.Archetypes.interfaces.IObjectInitializedEvent``
+    is fired for an Archetypes-based object when it's being initialised; i.e.
+    when it's being populated for the first time.
+
+``Products.Archetypes.interfaces.IWebDAVObjectInitializedEvent``
+    is fired for an Archetypes-based object when it's being initialised via
+    WebDAV.
+
+``zope.lifecycleevent.IObjectCreatedEvent``
+    is fired for all Zopeish objects when they are being created (they don't
+    necessarily need to be content objects).
+
+.. warning::
+
+   Archetypes and Zope 3 events might not be compatible with each other.
+   Please see links below.
+
+Other resources:
 
 * http://plone.org/documentation/manual/developer-manual/archetypes/other-useful-archetypes-features/how-to-use-events-to-hook-the-archetypes-creation-process
 
 * http://n2.nabble.com/IObjectInitializedEvent-tp4784897p4784897.html
 
-Modified events
-===============
 
-Two different content event types are available and might work differently depending on your scenario
+*Modified* events
+------------------
 
-* Products.Archetypes.interfaces.IObjectEditedEvent - called for Archetypes object which are not
-  anymore in the creation stage
-  
+Two different content event types are available and might work differently
+depending on your scenario:
+
+``Products.Archetypes.interfaces.IObjectEditedEvent`` 
+    called for Archetypes-based objects that are not in the creation stage
+    any more.
+
 .. note::
 
-        Products.Archetypes.interfaces.IObjectEditedEvent is fired after
-        reindexObject() is called. If you manipulate your content object
-        in a handler for this event, you need to manually reindex new values,
-        or the changes are not reflected back to portal_catalog. 
+    ``Products.Archetypes.interfaces.IObjectEditedEvent`` is fired after
+    ``reindexObject()`` is called. If you manipulate your content object in a
+    handler for this event, you need to manually reindex new values, or the
+    changes will not be reflected in the ``portal_catalog``.
 
-* zope.lifecycleevent.IObjectModifiedEvent - called for creation stage events too
+``zope.lifecycleevent.IObjectModifiedEvent``
+    called for creation-stage events as well, unlike the previous event type.
 
-* Products.Archetypes.interfaces.IWebDAVObjectEditedEvent - called for Archetypes object when it's being edited via WebDAV
+``Products.Archetypes.interfaces.IWebDAVObjectEditedEvent`` 
+    called for Archetypes-based objects when they are being edited via WebDAV.
 
-* Products.Archetypes.interfaces.IEditBegunEvent - called for Archetypes object when an edit operation is begun
+``Products.Archetypes.interfaces.IEditBegunEvent``
+    called for Archetypes-based objects when an edit operation is begun.
 
-* Products.Archetypes.interfaces.IEditCancelledEvent - called for Archetypes object when an edit operation is cancelled
+``Products.Archetypes.interfaces.IEditCancelledEvent``
+    called for Archetypes-based objects when an edit operation is cancelled.
 
 
-Delete events
-==============
+*Delete* events
+----------------
 
-Delete events can be fired several times for the same object. 
+Delete events can be fired several times for the same object.
 Some delete event transactions are rolled back.
 
-* `Read more about Delete events in this discussion <http://n2.nabble.com/Event-on-object-deletion-tp3670562p3670562.html>`_.
+* Read more about Delete events in `this discussion <http://n2.nabble.com/Event-on-object-deletion-tp3670562p3670562.html>`_.
 
-Copy events
-============
+*Copy* events
+--------------
 
-* zope.lifecycleevent.IObjectCopiedEvent is triggered when an object is copied
+``zope.lifecycleevent.IObjectCopiedEvent``
+    is triggered when an object is copied.
+
 
 Zope startup events
-===================
+-------------------
 
-* zope.processlifetime.IProcessStarting is triggered after component registry have been loaded and zope is starting up
+``zope.processlifetime.IProcessStarting``
+    is triggered after component registry has been loaded and Zope is
+    starting up.
 
-* zope.processlifetime.IDatabaseOpened is triggered after the main ZODB database have been opened
+``zope.processlifetime.IDatabaseOpened``
+    is triggered after the main ZODB database has been opened.
+
 
 See also
---------
+========
 
 * http://pypi.python.org/pypi/zope.event/3.4.1
 
 * http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/subscriber/index.html
 
-* zope.component.registry
+* ``zope.component.registry``
 
+.. |---| unicode:: U+02014 .. em dash
