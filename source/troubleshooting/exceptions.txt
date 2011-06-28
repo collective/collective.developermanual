@@ -1790,4 +1790,36 @@ You were not lucky today::
         rm -rf /home/moo/code/python2/python-2.6/lib/python2.6/site-packages/ZopeSkel-2.19-py2.6.egg/
         
         
-       
+      
+'ExtensionClass.ExtensionClass' object is not iterable
+-----------------------------------------------------------
+
+This error tends to happen after moving a Data.fs to a new instance that does not have the identical add-ons to the original instance.
+
+Traceback::
+
+  Module ZPublisher.Publish, line 126, in publish
+  Module ZPublisher.mapply, line 77, in mapply
+  Module ZPublisher.Publish, line 46, in call_object
+  Module Shared.DC.Scripts.Bindings, line 322, in __call__
+  Module Products.PloneHotfix20110531, line 106, in _patched_bindAndExec
+  Module Shared.DC.Scripts.Bindings, line 359, in _bindAndExec
+  Module App.special_dtml, line 185, in _exec
+  Module DocumentTemplate.DT_Let, line 77, in render
+  Module DocumentTemplate.DT_In, line 647, in renderwob
+  Module DocumentTemplate.DT_In, line 772, in sort_sequence
+  Module ZODB.Connection, line 860, in setstate
+  Module ZODB.Connection, line 914, in _setstate
+  Module ZODB.serialize, line 612, in setGhostState
+  Module ZODB.serialize, line 605, in getState
+  Module zope.interface.declarations, line 756, in Provides
+  Module zope.interface.declarations, line 659, in __init__
+  Module zope.interface.declarations, line 45, in __init__
+  Module zope.interface.declarations, line 1382, in _normalizeargs
+  Module zope.interface.declarations, line 1381, in _normalizeargs
+  TypeError: ("'ExtensionClass.ExtensionClass' object is not iterable", <function Provides at 0x9f04d84>, (<class 'Products.ATContentTypes.content.folder.ATFolder'>, <class 'Products.Carousel.interfaces.ICarouselFolder'>))
+
+In this example traceback the missing add-on is Products.Carousel which provides the marker interface Products.Carousel.interfaces.ICarousel
+
+Solution: Install the missing add-on(s) 
+ 
