@@ -258,8 +258,8 @@ Then you can manually also check this property::
                     # FAQ page - do not show in tabs
                     continue
                                     
-Custom add view
--------------------
+Custom add form/view
+----------------------
 
 Dexterity relies on ++add++yourcontent.type.name traverser hook defined in ``Products/CMFCore/namespace.py``.
 
@@ -326,4 +326,22 @@ See also
 
 * :doc:`z3c.form </forms/z3c.form>`
 
-                                            
+Custom edit form
+--------------------
+
+Example::
+
+
+    from five import grok
+    from plone.directives import dexterity
+    
+    class EditForm(dexterity.EditForm):
+    
+        grok.context(IFlexibleContent)
+        
+        def updateWidgets(self):
+            """ """
+            dexterity.EditForm.updateWidgets(self)
+        
+            # XXX: customize widgets here
+                                                     
