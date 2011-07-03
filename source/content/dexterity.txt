@@ -181,8 +181,8 @@ buildout.cfg::
         [versions]
 
         
-Creation permissions
-------------------------
+Content creation permissions
+-----------------------------
 
 By default, (global) Dexterity content types are addable to folder if the editor has 
 ``cmf.AddPortalContent`` permission.
@@ -233,7 +233,7 @@ Confirm that the new permission appears on *Security* tab in ZMI root.
 Exclusion from navigation
 ---------------------------
 
-This must be enabled separately for Dexterity content types.
+This must be enabled separately for Dexterity content types with a behavior.
 
 .. code-block:: xml
 
@@ -258,4 +258,51 @@ Then you can manually also check this property::
                     # FAQ page - do not show in tabs
                     continue
                                     
+Custom add view
+-------------------
+
+Dexterity relies on ++add++yourcontent.type.name traverser hook defined in ``Products/CMFCore/namespace.py``.
+
+It will look up a multi-adapter with this expression::
+
+        if ti is not None:
+            add_view = queryMultiAdapter((self.context, self.request, ti),
+                                         name=ti.factory)
+            if add_view is None:
+                add_view = queryMultiAdapter((self.context, self.request, ti))
+
+``name`` parameter is portal_types id of your content type.
+
+You can register such an adapter in ``configure.zcml``
+
+.. code-block:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        >
+    
+        <adapter
+            for="Products.CMFCore.interfaces.IFolderish
+                 Products.CMFDefault.interfaces.ICMFDefaultSkin
+                plone.dexterity.interfaces.IDexterityFTI"
+            provides="zope.publisher.interfaces.browser.IBrowserPage"
+            factory=".flexicontent.AddView"
+            name="your.app.flexiblecontent"
+            />
+            
+    </configure>        
+
+
+.. warning ::
+
+    Overriding add_view_expr or add_view_expr_object in Dexterity factory type information to directly link to a view provided
+    to be not possible. You can manually type Add view link in portal_types, but setting it through GenericSetup installer
+    code is not possible.
+
+
+See also
+
+* :doc:`FTI </content/types>`
+
                                             
