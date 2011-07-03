@@ -422,7 +422,26 @@ Example::
             for i in self.widgets.items():
                 print i
 
+Reordering and hiding widgets
+==============================
 
+With Dexterity forms you can use `plone.directives.fotm <http://pypi.python.org/pypi/plone.directives.form>`_::
+
+    from z3c.form.interfaces import IAddForm, IEditForm
+    
+    class IFlexibleContent(form.Schema):
+        """
+        Description of the Example Type
+        """
+        
+        # -*- Your Zope schema definitions here ... -*-
+        form.order_before(sections='title')
+        form.mode(sections='hidden')
+        form.mode(IEditForm, sections='input')
+        form.mode(IAddForm, sections='input')
+        sections = schema.TextLine(title=u"Sections")
+        
+         
 
 Modifying a widget
 ==================
@@ -636,7 +655,86 @@ Example (page template)::
 Setting widget templates
 ========================
 
-Usually the correct way to set the widget template is using <z3c:widgetTemplate> ZCML::
+You might want to customize the template of a widget to have custom HTML code for a specific use case.
+
+Setting the template of an individual widget
+-------------------------------------------------
+
+First copy the existing page template code of the widget.
+For basic widgets you can find the template in ``z3c.form source tree <http://svn.zope.org/z3c.form/trunk/src/z3c/form/browser/>``_.
+
+yourwidget.pt (text area widget copied over an example text)
+
+.. code-block:: html
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          tal:omit-tag="">
+    
+    <!-- Sections widget custom templates -->
+    
+    <textarea
+       id="" name="" class="" cols="" rows=""
+       tabindex="" disabled="" readonly="" accesskey=""
+       tal:attributes="id view/id;
+                       name view/name;
+                       class view/klass;
+                       style view/style;
+                       title view/title;
+                       lang view/lang;
+                       onclick view/onclick;
+                       ondblclick view/ondblclick;
+                       onmousedown view/onmousedown;
+                       onmouseup view/onmouseup;
+                       onmouseover view/onmouseover;
+                       onmousemove view/onmousemove;
+                       onmouseout view/onmouseout;
+                       onkeypress view/onkeypress;
+                       onkeydown view/onkeydown;
+                       onkeyup view/onkeyup;
+                       disabled view/disabled;
+                       tabindex view/tabindex;
+                       onfocus view/onfocus;
+                       onblur view/onblur;
+                       onchange view/onchange;
+                       cols view/cols;
+                       rows view/rows;
+                       readonly view/readonly;
+                       accesskey view/accesskey;
+                       onselect view/onselect"
+       tal:content="view/value" />
+    </html>
+
+.. then you can override the template factory in ``updateWidgets()`` method of your form class
+
+.. code-block:: python
+
+    from z3c.form.ptcompat import ViewPageTemplateFile
+    from z3c.form.interfaces import INPUT_MODE
+    
+    class AddForm(DefaultAddForm):
+        
+        def updateWidgets(self):
+            """ """
+            # Call parent to set-up initial widget data
+            DefaultAddForm.updateWidgets(self)
+        
+            # Note we need to be discreet to different form modes (view, edit, hidden)
+            if self.fields["sections"].mode == INPUT_MODE:
+            
+                # Modify a widget with certain name for our purposes
+                widget = self.widgets["sections"]
+                            
+                # widget.template is a template factory -
+                # Widget.render() will associate later this factory with the widget         
+                widget.template = ViewPageTemplateFile("templates/sections.pt")
+
+Setting template for your own widget type
+---------------------------------------------
+
+You can set the widget template is using ``<z3c:widgetTemplate>`` ZCML directive
+
+.. code-block:: xml
 
  <z3c:widgetTemplate
         mode="display"
