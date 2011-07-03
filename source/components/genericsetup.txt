@@ -240,8 +240,8 @@ To declare dependency to ``Products.Carousel``:
         </metadata>
             
 
-Custom setup code (setuphandlers.py)
-=======================================
+Custom installer code (setuphandlers.py)
+=========================================
 
 Besides out-of-the-box XML steps which easily provide both install and uninstall,
 GenericSetup provides a way to run a custom Python code when your
@@ -279,7 +279,7 @@ Also you need to register this custom import step in ``configure.zcml``
               name="your.package"
               title="your.package special import handlers"
               description=""
-              handler="your.package.setuphandlers.import_various" />
+              handler="your.package.setuphandlers.setupVarious" />
               />
 
   </configure>
@@ -311,8 +311,10 @@ Also you need to register this custom import step in ``configure.zcml``
         
             runCustomCode(portal)
 
-And add a dummy text file ``your.package/your/package/profiles/default/your.package.marker.txt``.
-It can contain any content. You can, for example, curse there how complex this all needs to be.
+And add a dummy text file ``your.package/your/package/profiles/default/your.package.marker.txt``::
+
+    This text file can contain any content - it just needs to be present
+
 
 More information
 
