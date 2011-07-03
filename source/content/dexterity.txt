@@ -300,9 +300,30 @@ You can register such an adapter in ``configure.zcml``
     to be not possible. You can manually type Add view link in portal_types, but setting it through GenericSetup installer
     code is not possible.
 
+Then you can inherit from proper ``plone.dexterity`` base classes::
 
+    from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
+
+    class AddForm(DefaultAddForm):
+    
+      
+        def update(self):
+            DefaultAddForm.update(self)
+                    
+        def updateWidgets(self):
+            """ """
+            # Some custom code here
+    
+        def getBlockPlanJSON():
+            return getBlockPlanJSON()
+        
+    class AddView(DefaultAddView):
+        form = AddForm    
+        
 See also
 
 * :doc:`FTI </content/types>`
+
+* :doc:`z3c.form </forms/z3c.form>`
 
                                             
