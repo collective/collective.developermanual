@@ -729,6 +729,14 @@ yourwidget.pt (text area widget copied over an example text)
                 # Widget.render() will associate later this factory with the widget         
                 widget.template = ViewPageTemplateFile("templates/sections.pt")
 
+You can also interact with your ``form`` class instance from the widget template
+
+.. code-block:: html
+
+    <!-- Some hidden JSON data for our Javascripts by calling a method on our form class -->
+    <span style="display:none" tal:content="view/form/getBlockPlanJSON" />
+
+
 Setting template for your own widget type
 ---------------------------------------------
 
