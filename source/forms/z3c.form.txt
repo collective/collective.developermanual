@@ -368,6 +368,46 @@ You might also want to disable edit button if none if the fields are editable:
         zope.schema.Field has readonly propertly. z3c.form.field.Field does not have this property,
         but has mode property. Do not confuse these two.
 
+Dynamic schemas
+============================
+
+Below is an example how to include new schemas in fly::
+
+    class EditForm(dexterity.EditForm, Helper):
+    
+        grok.context(IFlexibleContent)
+        
+        def updateFields(self):
+            
+            super(dexterity.EditForm, self).updateFields()
+            sections = self.getSections()
+            
+            # See plone.app.z3cform.fieldsets.extensible for more examples
+            for s in sections:
+                
+                # s = {'schema': <InterfaceClass your.app.content.flexiblecontent.IBodyText>, 'id': u'title', 'name': u'Title'}
+                if s == None:
+                    # This section has been removed from available flexi_blocks
+                    continue 
+                
+                # convert zope schema interface to z3c.form.Fields instance
+                schema = s["schema"]
+                                            
+                if not schema.providedBy(self.context):
+                    # We need to force the content item to provide
+                    # custom for interfaces or datamanger is not happy
+                    #   Module z3c.form.datamanager, line 51, in adapted_context
+                    #   TypeError: ('Could not adapt', <Item at /xxx/tydryd>, <InterfaceClass xxx.app.content.flexiblecontent.IColumns>)
+                    alsoProvides(self.context, schema) # XXX: This is persistent change?
+                            
+                # We need to manually apply hints from plone.directives.form, as 
+                # updateFields() does it for base schema earlier
+                processFields(self, schema, permissionChecks=True)
+               
+            print "Final results"
+            for name, field in self.fields.items():
+                print str(name) + " " + str(field)
+        
 
 Widgets
 -------
