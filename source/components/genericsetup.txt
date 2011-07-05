@@ -185,7 +185,7 @@ For an example, see the `collective.pdfpeek source code
 Dependencies
 ============
 
-GenericSetup profile can contain dependencies to other product profiles (and installers).
+GenericSetup profile can contain dependencies to other add-on product installers and profiles.
 
 * `More information about GenericSetup dependencies <http://plone.org/products/plone/roadmap/195/>`_.
 
@@ -193,6 +193,8 @@ For example, if you want to declare dependency to *collective.basket* add-on pro
 is automatically installed when your add-on installed you can use the declaration below.
 This way, you can be sure that all layers, portlets, etc. features which require database changes
 are usable from *collective.basket* add-on products when your add-on product is run.
+
+``metadata.xml``:
 
 .. code-block:: xml
 
@@ -217,10 +219,12 @@ are usable from *collective.basket* add-on products when your add-on product is 
               />
  
 
-.. note ::
+.. warning ::
 
-        You might need to restart Plone if you edit metadata.xml - some information might be cached
-        preventing immediate effect of changes.
+        Unlike other GenericSetup XML files, metadata.xml is read on the start-up and this read is cached.
+        Always restart Plone after editing metadata.xml. If your metadata.xml contains syntax errors
+        or dependencies to a missing product (typo in name) your add-on will disapper from the
+        Installation control panel. 
         
 .. note ::
 
@@ -315,12 +319,22 @@ And add a dummy text file ``your.package/your/package/profiles/default/your.pack
 
     This text file can contain any content - it just needs to be present
 
-
 More information
 
 * http://keeshink.blogspot.com/2009/02/creating-portal-content-in.html
 
 * http://maurits.vanrees.org/weblog/archive/2009/12/catalog (unrelated, but contains pointers)
+
+Overriding import step order
+===============================
+
+You need ``import_steps.xml``.
+
+More information
+
+* http://plone.293351.n2.nabble.com/Overriding-import-step-order-td2189638.html
+
+* http://dev.communesplone.org/trac/browser/communesplone/urban/trunk/profiles/default/import_steps.xml?rev=5652
 
 Controlling the import step execution order
 -------------------------------------------
