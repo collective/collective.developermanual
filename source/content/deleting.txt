@@ -125,3 +125,43 @@ objects from folder without firing any events::
 The best way to clean up bad objects on your site is via :doc:`command line script </misc/commandline>` in which case remember to commit the transaction
 after removing the broken objects.
 
+Purging site from old content
+----------------------------------------
+
+This ZMI script allows you to find content items of certain type and delete if they are created too long ago.
+
+::
+
+        # Delete FeedfeederItem content items which are more than three months old
+        
+        from StringIO import StringIO
+        import DateTime
+        
+        buf = StringIO()
+        
+        # DateTime deltas are days as floating points
+        end = DateTime.DateTime() - 30*3
+        start = DateTime.DateTime(2000, 1,1)
+        
+        date_range_query = { 'query':(start,end), 'range': 'min:max'} 
+                
+        items = context.portal_catalog.queryCatalog({"portal_type":"FeedFeederItem",
+                                             "created" : date_range_query,
+                                             "sort_on" : "created"
+                                            })
+        
+        items = list(items)
+        
+        print >> buf, "Found %d items to be purged" % len(items)
+        
+        count = 0
+        for b in items:
+            count += 1            
+            obj = b.getObject()
+            print >> buf, "Deleting:" + obj.absolute_url() + " " + str(obj.created())
+            obj.aq_parent.manage_delObjects([obj.getId()])
+        
+        
+        return buf.getvalue()
+        
+                
