@@ -276,6 +276,9 @@ Getting the site root
 
 You can resolve the site root if you have the handle to any context object.
 
+Using portal_url tool
+=======================
+
 Example::
 
     from Products.CMFCore.utils import getToolByName
@@ -286,7 +289,11 @@ Example::
 
 You can also do shortcut using acquisition (not recommended if you can avoid this)::
 
-    portal = context.portal_url.getPortalObject() 
+    portal = context.portal_url.getPortalObject()
+
+
+Using getSite()
+==================== 
 
 Site is also stored a thread local variable. In Zope each request is
 processed in its own thread. Site thread local is set when the request processing starts.
@@ -309,6 +316,31 @@ Example::
         you still can query the actual parent object which is the site root.    
         If you need to traverse using user visible breadcrumbs, see 
         how breadcrumbs viewlet code does it.
+
+Traversing back to the site root
+===================================
+
+Sometimes ``getSite()`` or ``portal_url`` are not available, but you still
+have acquisition chain intact. In these cases you can simply traverse
+parent objects back to the site root using ``aq_parent`` accessor::
+
+        from Products.CMFCore.interfaces import ISiteRoot
+
+        @@grok.provider(IContextSourceBinder)
+        def languages(context):
+            
+            # z3c.form KSS inline validation hack
+            if not ISiteRoot.providedBy(context):
+                for item in getSite().aq_chain:
+                    if ISiteRoot.providedBy(item):
+                        context = item
+                
+            ltool = getToolByName(context, 'portal_languages')
+            lang_items = ltool.listAvailableLanguageInformation()
+            return SimpleVocabulary(
+                [SimpleTerm(value=item['code'], token=item['code'], title=item[u'native']) for item in lang_items]
+            )
+
     
 Checking for the site root
 ===========================
