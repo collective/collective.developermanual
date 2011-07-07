@@ -334,3 +334,56 @@ Example::
                     # Clear creation flag so that edit screen 
                     item.markCreationFlag()
 
+
+Creating content from PloneFormGen
+-----------------------------------------
+
+PloneFormGen is a popular add-on for Plone.
+
+Below is a snippet for ``Custom Script Adapter`` which allows to create content
+straight out of PloneFormGen in *pending* review state (it is not public and
+will appear in the review list).
+
+        # Folder id where we create content is "directory" under site root
+        target = context.portal_url.getPortalObject()["directory"]
+        
+        # The request object has an dictionary attribute named
+        # form that contains the submitted form content, keyed
+        # by field name
+        form = request.form
+        
+        # We need to engineer a unique ID for the object we're
+        # going to create. If your form submit contained a field
+        # that was guaranteed unique, you could use that instead.
+        from DateTime import DateTime
+        uid = str(DateTime().millis())
+        
+        # We use the "invokeFactory" method of the target folder
+        # to create a content object of type "Document" with our
+        # unique ID for an id and the form submission's topic
+        # field for a title.
+        
+        # Field id have been set in Form Folder Contents view,
+        # using rename functionality
+        target.invokeFactory("Link", id=uid, 
+                             title=form['site-name'], 
+                             description=form['site-description'],
+                             remoteUrl=form["link"]                             
+                             )
+        
+        # Find our new object in the target folder
+        obj = target[uid]
+        
+        # Trigger rename-after-creation behavior
+        # where actual id is generated from the title
+        obj.processForm()
+        
+        # Make item to pending state
+        portal_workflow = context.portal_workflow
+        portal_workflow.doActionFor(obj, "submit")
+
+More info
+
+* http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg
+
+* http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg        
