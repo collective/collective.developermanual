@@ -284,6 +284,9 @@ Example::
     portal_url = getToolByName(context, "portal_url")
     portal = portal_url.getPortalObject()
 
+You can also do shortcut using acquisition (not recommended if you can avoid this)::
+
+    portal = context.portal_url.getPortalObject() 
 
 Site is also stored a thread local variable. In Zope each request is
 processed in its own thread. Site thread local is set when the request processing starts.
