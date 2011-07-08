@@ -44,7 +44,7 @@ human errors happen all the time.
 
 * Get the documentation source files::
 
-    svn co https://svn.plone.org/svn/collective/collective.developermanual/trunk collective.developermanual
+    git clone https://github.com/collective/collective.developermanual
 
 * Edit the file which you want to update.
 
@@ -56,7 +56,8 @@ human errors happen all the time.
 
 * Commit changes::
 
-    svn commit -m "My message what I changed"
+    git commit -m "My message what I changed"
+    git push
 
 
 Code documentation
@@ -93,22 +94,6 @@ Once you write code documentation:
 #. include a comment in the docstring mentioning its use in this manual so
    those editing the code can test the manual if changes are made;
 #. add the module to the autocheckout value in the manual's ``buildout.cfg``.
-
-
-Using GIT with collective SVN
------------------------------
-
-To find the initial commit, run the following::
-
-    svn log --stop-on-copy https://svn.plone.org/svn/collective/collective.developermanual/trunk | tail
-
-Then either get the full history (will take a while)::
-
-    git svn clone -r 85920:HEAD https://svn.plone.org/svn/collective/collective.developermanual/trunk collective.developermanual
-
-or just get the latest version::
-
-    git svn clone -r HEAD https://svn.plone.org/svn/collective/collective.developermanual/trunk collective.developermanual
 
 Asking someone to do changes for you
 ------------------------------------
