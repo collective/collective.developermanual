@@ -1,30 +1,31 @@
-=========================
+============
  References
-=========================
+============
 
 .. admonition:: Description 
 
-        Inter-content references in Plone are done using reference_catalog 
-        
+    Inter-content references in Plone are done using `reference_catalog` 
+
 .. contents:: :local:
 
 
 Introduction
---------------
+==============
 
-Plone uses a persistent tool ``reference_catalog`` to store (Archetypes) object references.
+Plone uses a persistent tool ``reference_catalog`` to store (Archetypes)
+object references.
 It is used by the out of the box "Related items" and you can use it in your
 own content types with ReferenceField.
 
 reference_catalog references can be bidirectional.
 
-reference_catalog acts like :doc:`portal_catalog </searching_and_indexing/catalog>`_,
+reference_catalog acts like :doc:`portal_catalog </searching_and_indexing/catalog>`,
 but just uses different indexes and metadata.
 
 reference_catalog is defined in `ReferenceEngine.py <http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/ReferenceEngine.py>`_.
 
 Using references
------------------
+=================
 
 Here is an example how to use reference field to make
 *programme* -> *researcher* references and reverse look-up for them.
