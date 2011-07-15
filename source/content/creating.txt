@@ -342,7 +342,7 @@ PloneFormGen is a popular add-on for Plone.
 
 Below is a snippet for ``Custom Script Adapter`` which allows to create content
 straight out of PloneFormGen in *pending* review state (it is not public and
-will appear in the review list).
+will appear in the review list)::
 
         # Folder id where we create content is "directory" under site root
         target = context.portal_url.getPortalObject()["directory"]
@@ -368,7 +368,7 @@ will appear in the review list).
         target.invokeFactory("Link", id=uid, 
                              title=form['site-name'], 
                              description=form['site-description'],
-                             remoteUrl=form["link"]                             
+                             remoteUrl=form["link"]
                              )
         
         # Find our new object in the target folder
