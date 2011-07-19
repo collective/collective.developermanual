@@ -1,36 +1,36 @@
-=====
-Files
-=====
+==================
+Files and images
+==================
 
 .. admonition:: Description
 
-        Using files with z3c.forms, plone.formwidget.namedfile
+        How to program files and image fields for z3c.forms and Dexterity content types
 
 .. contents:: :local:
 
 Introduction
 -------------
 
-This chapter discuss about file uploads and downloads in zope.schema and z3c.form packages.
+This chapter discuss about file uploads and downloads using
+zope.schema based forms and content with :doc:`Dexterity </content/dexterity> content subsystem`.
 
-ZODB is not especially good handling large files - file systems were designed for that purpose.
-BLOBs are a way to store file data outside the database, but still maintaining database references
+.. note ::
 
-For more about `Plone and BLOBs read these notes <http://myriadicity.net/Sundry/PloneBlobs>`_.
+        These instructions apply for Plone 4 and forward.
 
-* `plone.namedfield BLOB support <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/>`_ and
-  `plone.formwidget.namefield File upload and download <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.txt>`_.
+Plone uses BLOBs to store file-like data in ZODB. This means
+that files are stored on the file-system, but due to security, performance and
+transaction constrains, the orignal filename is not visible, but the files
+are stored in a distributed tree. 
 
-If you are not storing NamedFile objects directly in content objects, you might need to create a
-special publisher which makes files available from some URL.
+For more introduction information
 
-* See `plone.namedfile.browser <http://svn.plone.org/svn/plone/plone.namedfile/trunk/plone/namedfile/browser.py>`_.
+* http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/files-and-images
 
-* See `plone.formwidget.namedfile.widget <http://svn.plone.org/svn/plone/plone.formwidget.namedfile/trunk/plone/formwidget/namedfile/widget.py>`_.
+Simple content item file or image field
+-----------------------------------------
 
-BLOBs pose a problem for unit-tests, because default ZODB DemoStorage doesn't support writing BLOBS.
-Please read `how z3c.blobfile <http://svn.zope.org/z3c.blobfile/trunk/src/z3c/blobfile/testing.py?rev=98849&view=auto>`
-tests this.
+* http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/files-and-images
 
 Simple upload form example
 ---------------------------

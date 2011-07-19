@@ -4,33 +4,36 @@
 
 .. admonition:: Description
 
-	Creating and controlling creation of Plone content items programmatically.
+    Creating and controlling creation of Plone content items
+    programmatically.
 
 .. contents :: :local:
 
 Creating content objects
-------------------------
+========================
 
-Permission aware way (Dexterity)
-===================================
+Permission-aware way (Dexterity)
+-----------------------------------
 
-These instructions apply for :doc:`Dexterity </content/dexterity>` content types.
+These instructions apply for :doc:`Dexterity </content/dexterity>` content
+types.
 
 Example::
 
-        from plone.dexterity.utils import createContentInContainer
-        
-        
-        # Factory-type information id is the same as in types.xml
-        # optionally you can set checkConstraints=False to skip permission checks
-        item = createContentInContainer(folder, "your.app.dexterity.fti.information", title=title)
-        
+    from plone.dexterity.utils import createContentInContainer
 
-Permission aware way (Archetypes)
-===================================
+    # Factory-type information id is the same as in types.xml
+    # optionally you can set checkConstraints=False to skip permission checks
+    item = createContentInContainer(folder, "your.app.dexterity.fti.information", title=title)
 
-Use ``invokeFactory(portal_type, constructred_object_id)``. ``invokeFactory()`` is available on all folderish content objects.
-``invokeFactory()`` calls ``portal_factory`` persistent utility to create content item. 
+
+Permission-aware way (Archetypes)
+-----------------------------------
+
+Use ``invokeFactory(portal_type, constructred_object_id)``.
+``invokeFactory()`` is available on all folderish content objects.
+``invokeFactory()`` calls the ``portal_factory`` persistent utility to
+create content item.
 
 Example (from unit tests)::
 
@@ -40,121 +43,130 @@ Example (from unit tests)::
     self.portal.folder.subfolder.invokeFactory("Document", "doc")
 
 
-``invokeFactory()`` will raise an ``Unauthorized`` exception if the logged in user does not have permission to create
-content in the folder (lacks type specific creation permission and ``Add portal content`` permissions).
-This exception is defined as::
+``invokeFactory()`` will raise an ``Unauthorized`` exception if the
+logged-in user does not have permission to create content in the folder
+(lacks type specific creation permission and ``Add portal content``
+permissions).  This exception can be imported as follows::
 
 	from Products.Archetypes.exceptions import AccessControl_Unauthorized
-    
+
 .. note ::
 
-	If the content class has  _at_rename_after_creation = True (Archetypes based content)
-	the next call to obj.update() (edit form post) will automatically generate a friendly id
-	for the object based on the title of the object.
-
+    If the content class has  ``_at_rename_after_creation = True``
+    (Archetypes-based content) the next call to ``obj.update()`` (edit form
+    post) will automatically generate a friendly id for the object based on
+    the title of the object.
 
 
 Bypassing permissions when creating content item
-================================================
+------------------------------------------------
 
-If you need to have special workflows where you bypass the workflow and logged 
-in users when creating the content item, do as following::
+If you need to have special workflows where you bypass the workflow and
+logged in users when creating the content item, do as follows::
 
 	def construct_without_permission_check(folder, type_name, id, *args, **kwargs):
 	    """ Construct a new content item bypassing creation and content add permissios checks.
-	    
-	    
+
+
 	    @param folder: Folderish content item where to place the new content item
-	    
+
 	    @param type_name: Content type id in portal_types
-	    
-	    @param id: Traversing id for the new content 
-	    
+
+	    @param id: Traversing id for the new content
+
 	    @param args: Optional arguments for the construction (will be passed to the creation method if the type has one)
-	    
+
 	    @param kwargs: Optional arguments for the construction (will be passed to the creation method if the type has one)
-	    
-	    @return: Reference to newly created content item    
+
+	    @return: Reference to newly created content item
 	    """
-	          
+
 	    portal_types = getToolByName(folder, "portal_types")
-	    
+
 	    # Get this content type definition from content types registry
 	    type_info = portal_types.getTypeInfo(type_name)
-	    
+
 	    # _constructInstance takes optional *args, **kw parameters too
 	    new_content_item = type_info._constructInstance(folder, id)
-	    
+
 	    # Return reference to justly created content
-	    return new_content_item    
-
-.. note :: 
-
-	The function above only bypasses the content item contruction permission check.
-	It does not bypass checks for setting field values for initially created content. 	 
-	
-Here is also alternative way::
-
-    # Note that by default Add portal member permissions
-    # is only for the owner, so we need to by bass it here
-    from Products.CMFPlone.utils import _createObjectByType    
-    _createObjectByType("YourContentType", folder, id)	
-
-PortalFactory
-=============
-
-PortalFactory (only for archetype) creates the object in a temporary folder and only moves it to the real folder when it is first saved
-
+	    return new_content_item
 
 .. note ::
 
-        to see if content is still temporary use portal_factory.isTemporary(obj)
+    The function above only bypasses the content item contruction permission
+    check.  It does not bypass checks for setting field values for initially
+    created content.
+
+There is also an alternative way::
+
+    # Note that by default Add portal member permissions
+    # is only for the owner, so we need to by bass it here
+    from Products.CMFPlone.utils import _createObjectByType
+    _createObjectByType("YourContentType", folder, id)
+
+PortalFactory
+-------------
+
+``PortalFactory`` (only for Archetypes) creates the object in a temporary
+folder and only moves it to the real folder when it is first saved.
+
+.. note ::
+
+    To see if content is still temporary, use
+    ``portal_factory.isTemporary(obj)``.
 
 Restricting creating on content types
---------------------------------------
+======================================
 
-Plone can restrict available content types which you can create in folder
-through *Add...* menu.
+Plone can restrict which content types are available for creation in a
+folder via the *Add...* menu.
 
 Restricting available types per content type
-===============================================
+-----------------------------------------------
 
-portal_types defines which content types can be created inside folderish content type.
-By default, all content types which have ``global_allow`` property set can be added.
+``portal_types`` defines which content types can be created inside a
+folderish content type.  By default, all content types which have the
+``global_allow`` property set can be added.
 
 The behavior can be controlled with ``allowed_content_types`` setting.
 
-* You can change it through portal_types management interface
+* You can change it through the ``portal_types`` management interface
 
-* You can change it in your add-on installer :doc:`GenericSetup </components/genericsetup>` profile
+* You can change it in your add-on installer :doc:`GenericSetup
+  </components/genericsetup>` profile
 
-Example for :doc:`Dexterity content type </content/dexterity>`. The file would be something like profiles/default/types/yourcompany.app.typeid.xml::
-  
-  <!-- List content types we allow here -->
-  <property name="filter_content_types">True</property>  
-  <property name="allowed_content_types">
-        <element value="yourcompany.app.courseinfo" />
-  </property>
-  <property name="allow_discussion">False</property>
+Example for :doc:`Dexterity content type </content/dexterity>`. The file
+would be something like
+``profiles/default/types/yourcompany.app.typeid.xml``::
+
+    <!-- List content types we allow here -->
+    <property name="filter_content_types">True</property>
+    <property name="allowed_content_types">
+          <element value="yourcompany.app.courseinfo" />
+    </property>
+    <property name="allow_discussion">False</property>
 
 
-Example for :doc:`Archetypes content </content/archetypes/index>`. The file would be something like `profiles/default/types/YourType.xml`::
+Example for :doc:`Archetypes content </content/archetypes/index>`. The file
+would be something like ``profiles/default/types/YourType.xml``::
 
-        <property name="filter_content_types">True</property>
-        
-        <property name="allowed_content_types">
-                <element value="YourContentTypeName" />
-                <element value="Image" />
-                <element value="News Item" />
-                ...
-        </property>
+    <property name="filter_content_types">True</property>
+
+    <property name="allowed_content_types">
+            <element value="YourContentTypeName" />
+            <element value="Image" />
+            <element value="News Item" />
+            ...
+    </property>
 
 Restricting available types per folder instance
-===============================================
+-----------------------------------------------
 
-In UI, you can access this feature through *Add...* menu *Restrict* option.
+In the UI, you can access this feature via the *Add...* menu *Restrict*
+option.
 
-Type contraining is managed by ATContentTypes product
+Type contraining is managed by the ``ATContentTypes`` product:
 
 * http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/lib/constraintypes.py
 
@@ -173,103 +185,106 @@ Example::
     # Add new... menu  listing
     folder.setImmediatelyAddableTypes(["ExperienceEducator"])
 
-You can also override contraintypes accessor method to have programmable logic which types are addable and which not.
+You can also override the ``contraintypes`` accessor method to have
+programmable logic regarding which types are addable and which not.
 
-More info
+More info:
 
 * http://plone.org/documentation/kb/restrict-addable-types
 
 Other restrictions
-=====================
+---------------------
 
-See this discussion thread
+See this discussion thread:
 
 * http://plone.293351.n2.nabble.com/Folder-constraints-not-applicable-to-custom-content-types-tp6073100p6074327.html
 
 Creating OFS objects
---------------------------
+==========================
 
-Zope has facilities for basic folder and contained objects by OFS_ subsystem. You do not
-need to work with raw objects unless you are doing your custom lightweight, Plone free, persistent data.
+Zope has facilities for basic folder and contained objects using the OFS_
+subsystem. You do not need to work with raw objects unless you are doing
+your custom lightweight, Plone-free, persistent data.
 
-More examples in
+More examples in:
 
 * `Singing & Dancing <https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/channel.py>`_.
 
 .. _OFS: `IObjectManager definition <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_.
 
 Oject construction life cycle
-------------------------------------------
-
+==========================================
 
 .. note ::
-	
-	The following applies to Archetypes based objects only. The process might be different
-	for Dexterity based content.
 
-Archetypes content contruction has two phases
+    The following applies to Archetypes-based objects only. The process
+    might be different for Dexterity-based content.
 
-#. Object is created using ?createType= URL or Folder.invokeFactory() call. If createType is used
-   then the object is given a temporary id. Object has a "in creationg" flag set.
+Archetypes content contruction has two phases:
 
-#. Object is saved for the first time and the final id is generated based on the object title.
-   Object id is renamed. Creation flag is cleared.
+#. The object is created using a ``?createType=`` URL or a
+   ``Folder.invokeFactory()``
+   call.  If ``createType`` is used then the object is given a temporary id.
+   The object has an "in creationg" flag set.
 
-You are supposed to call either object.unmarkCreationFlag() or
-object.processForm() after content is created manually using
-invokeFactory().
+#. The object is saved for the first time and the final id is generated
+   based on the object title. The object is renamed. The creation flag is
+   cleared.
 
-processForm() will perform following tasks:
+You are supposed to call either ``object.unmarkCreationFlag()`` or
+``object.processForm()`` after content is created manually using
+``invokeFactory()``.
 
-- unmarks creation flag
+``processForm()`` will perform the following tasks:
 
-- renames object according to title
+- unmarks creation flag;
+- renames object according to title;
+- reindexes object;
+- invokes the ``after_creation`` script and fires the ``ObjectInitialized``
+  event.
 
-- reindexes object
-
-- invokes after_creation script and fires ObjectInitialzed event
-
-If you don't want to do particular step, look to
-Archetypes/BaseObject.py and call only what you really want.
-But unless unmarkCreationFlag() is called the object will behave strangely
-after the first edit.
+If you don't want some particular step to be executed, study
+``Archetypes/BaseObject.py`` and call only what you really want.  But unless
+``unmarkCreationFlag()`` is called, the object will behave strangely after
+the first edit.
 
 Rename after creation
-=====================
+---------------------
 
-To prevent the automatic content id rename on the first through-the-web save, put your class code::
+To prevent the automatic rename on the first through-the-web save, add the
+following attribute to your class::
 
  _at_rename_after_creation = False
 
-See 
+See:
 
 * http://plone.org/documentation/kb/richdocument/controlling-creation
 
 Factory type information
-------------------------
+========================
 
-Factory type information (FTI) is responsible for content creation in the portal.
-It is independend from content type (Archetypes, Dexteriry) subsystems.
+Factory type information (FTI) is responsible for content creation in the
+portal.  It is independend from content type (Archetypes, Dexteriry)
+subsystems.
 
 .. warning::
 
-    FTI codebase is historical (updated circa 2001). Useful documentation might be hard to find.
+    The FTI codebase is old (updated circa 2001). Useful documentation
+    might be hard to find.
 
-FTI is responsible for
+FTI is responsible for:
 
-* Which function is called when new content type is added
+* Which function is called when new content type is added;
+* icons available for content types;
+* creation views for content types;
+* permission and security;
+* whether discussion is enabled;
+* providing the ``factory_type_information`` dictionary. This is used
+  elsewhere in the code (often in ``__init__.py`` of a product) to set the
+  initial values for a *ZODB Factory Type Information* object (an object in
+  the ``portal_types`` tool).
 
-* Icons available for content types
-
-* Creation views for content types
-
-* Permission and security
-
-* Whether discussion is enabled
-
-* factory_type_information is a dictionary that is used elsewhere in the code (often in __init__.py of a product) to set the initial values for a ZODB Factory Type Information object (an object in the portal_types tool)
-
-See
+See:
 
 * `FTI source code <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/TypesTool.py?rev=101748&view=auto>`_.
 
@@ -277,113 +292,127 @@ See
 
 * `Notes Zope types mechanism <http://www.zope.org/Products/CMF/docs/devel/taming_types_tool/view>`_
 
-Content does not show in Add Menu or Unauthorized errors
-----------------------------------------------------------
+Content does not show in *Add* menu, or ``Unauthorized`` errors
+=================================================================
 
-When creating new content types, many factors can silently fail due to human errors in the complex content type setup chain and security limitations. 
-The effect is that you don't see your content type in Add drop down menu. Here are tips for debugging.
+When creating new content types, many things can silently fail due to human
+errors in the complex content type setup chain and security limitations.
+The consequence is that you don't see your content type in the *Add*
+drop-down menu.  Here are some tips for debugging.
 
-* Is your product broken due to Python import time errors? Check Zope Management Interface -> Control panel -> Products. Turn on Zope debugging mode to trace import errors.
+* Is your product broken due to Python import time errors? Check *Zope
+  Management Interface -> Control panel -> Products*. Turn on Zope debugging
+  mode to trace import errors.
 
-* Have you rerun the quick installer (GenericSetup) after creating/modifying the content type?
+* Have you rerun the quick installer (``GenericSetup``) after
+  creating/modifying the content type?
 
-* Do you have a correct Add permission for the product? Check __init__.py ContentInit() call.
+* Do you have a correct *Add* permission for the product? Check
+  ``__init__.py`` ``ContentInit()`` call.
 
-* Does it show up in the portal factory? Check ZMI -> portal_factory and factorytool.xml. 
+* Does it show up in the portal factory? Check *ZMI -> portal_factory* and
+  ``factorytool.xml``.
 
-* Is it corretly registered as a portal type and implictly addable? Check ZMI -> portal_types. Check default/profiles/type/yourtype.xml
+* Is it corretly registered as a portal type and implictly addable? Check
+  *ZMI -> portal_types*. Check ``default/profiles/type/yourtype.xml``
 
-* Does it have correct product name defined? Check ZMI -> portal_types.
+* Does it have correct product name defined? Check *ZMI -> portal_types*.
 
-* Does it have a proper factory method? Check ZMI -> types_tool. Check Zope logs for _queryFactory and import errors.
+* Does it have a proper factory method? Check *ZMI -> types_tool*. Check
+  Zope logs for ``_queryFactory`` and import errors.
 
-* Does it register itself with Archetypes? Check ZMI -> archetypes_tool. Make sure that you have ContentInit properly run in your __init__.py. Make sure that all modules having Archetypes content types defined and registerType() call are imported in __init__py.
+* Does it register itself with Archetypes? Check *ZMI -> archetypes_tool*.
+  Make sure that you have ``ContentInit`` properly run in your
+  ``__init__.py``. Make sure that all modules having Archetypes content
+  types defined and ``registerType()`` call are imported in ``__init__py``.
 
 Link to creation page
--------------------------
+=========================
 
-* Add... menu contains links how ot create individual content types. Copy URLs there.
+* The *Add...* menu contains links for creating individual content types.
+  Copy the URLs that you see there.
 
-* If you want to the user to have a choice which content type to create,
-  you can link to /folder_factories page (creation page when Javascript is disabled).
+* If you want to the user to have a choice about which content type to
+  create, you can link to ``/folder_factories`` page. (This is also the
+  creation page when Javascript is disabled).
 
 Populating folder on creation
------------------------------
+=============================
 
-Archetypes have a hook called initializeArchetype(). Your content type 
+Archetypes have a hook called ``initializeArchetype()``. Your content type
 subclass can override this.
 
 Example::
 
-        class LandingPage(folder.ATFolder):
-            """Landing page"""
-                
-            def initializeArchetype(self, **kwargs):    
-                """
-                Prepopulate folder during the creation.
-                
-                Create five subfolders of "BigBlock" type, with title and id preset.
-                """
-                folder.ATFolder.initializeArchetype(self, **kwargs)
-                
-                for i in range(0, 5):
-                    id = "container" + str(i)
-                    self.invokeFactory("BigBlock", id, title="Big block " + str(i+1))
-                    item = self[id]
-                    
-                    # Clear creation flag so that edit screen 
-                    item.markCreationFlag()
+    class LandingPage(folder.ATFolder):
+        """Landing page"""
+
+        def initializeArchetype(self, **kwargs):
+            """
+            Prepopulate folder during the creation.
+
+            Create five subfolders of "BigBlock" type, with title and id preset.
+            """
+            folder.ATFolder.initializeArchetype(self, **kwargs)
+
+            for i in range(0, 5):
+                id = "container" + str(i)
+                self.invokeFactory("BigBlock", id, title="Big block " + str(i+1))
+                item = self[id]
+
+                # Clear creation flag 
+                item.markCreationFlag()
 
 
 Creating content from PloneFormGen
------------------------------------------
+=========================================
 
 PloneFormGen is a popular add-on for Plone.
 
-Below is a snippet for ``Custom Script Adapter`` which allows to create content
-straight out of PloneFormGen in *pending* review state (it is not public and
-will appear in the review list).
+Below is a snippet for a ``Custom Script Adapter`` which allows to create
+content straight out of PloneFormGen in the *pending* review state (it is
+not public and will appear in the review list)::
 
-        # Folder id where we create content is "directory" under site root
-        target = context.portal_url.getPortalObject()["directory"]
-        
-        # The request object has an dictionary attribute named
-        # form that contains the submitted form content, keyed
-        # by field name
-        form = request.form
-        
-        # We need to engineer a unique ID for the object we're
-        # going to create. If your form submit contained a field
-        # that was guaranteed unique, you could use that instead.
-        from DateTime import DateTime
-        uid = str(DateTime().millis())
-        
-        # We use the "invokeFactory" method of the target folder
-        # to create a content object of type "Document" with our
-        # unique ID for an id and the form submission's topic
-        # field for a title.
-        
-        # Field id have been set in Form Folder Contents view,
-        # using rename functionality
-        target.invokeFactory("Link", id=uid, 
-                             title=form['site-name'], 
-                             description=form['site-description'],
-                             remoteUrl=form["link"]                             
-                             )
-        
-        # Find our new object in the target folder
-        obj = target[uid]
-        
-        # Trigger rename-after-creation behavior
-        # where actual id is generated from the title
-        obj.processForm()
-        
-        # Make item to pending state
-        portal_workflow = context.portal_workflow
-        portal_workflow.doActionFor(obj, "submit")
+    # Folder id where we create content is "directory" under site root
+    target = context.portal_url.getPortalObject()["directory"]
 
-More info
+    # The request object has an dictionary attribute named
+    # form that contains the submitted form content, keyed
+    # by field name
+    form = request.form
+
+    # We need to engineer a unique ID for the object we're
+    # going to create. If your form submit contained a field
+    # that was guaranteed unique, you could use that instead.
+    from DateTime import DateTime
+    uid = str(DateTime().millis())
+
+    # We use the "invokeFactory" method of the target folder
+    # to create a content object of type "Document" with our
+    # unique ID for an id and the form submission's topic
+    # field for a title.
+
+    # Field id have been set in Form Folder Contents view,
+    # using rename functionality
+    target.invokeFactory("Link", id=uid,
+                         title=form['site-name'],
+                         description=form['site-description'],
+                         remoteUrl=form["link"]
+                         )
+
+    # Find our new object in the target folder
+    obj = target[uid]
+
+    # Trigger rename-after-creation behavior
+    # where actual id is generated from the title
+    obj.processForm()
+
+    # Make item to pending state
+    portal_workflow = context.portal_workflow
+    portal_workflow.doActionFor(obj, "submit")
+
+More info:
 
 * http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg
 
-* http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg        
+* http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg
