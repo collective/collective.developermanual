@@ -23,7 +23,10 @@ After your ``mail_text`` is prepared, sending it is as simple as::
 
     try:
         host = getToolByName(self, 'MailHost')
-        return host.send(mail_text)
+        # The `immediate` parameter causes an email to be sent immediately
+        # (if any error is raised) rather than sent at the transaction
+        # boundary or queued for later delivery.
+        return host.send(mail_text, immediate=True)
     except SMTPRecipientsRefused:
         # Don't disclose email address on failure
         raise SMTPRecipientsRefused('Recipient address rejected by server')
@@ -58,11 +61,7 @@ This can be called with a ``member`` object and the ``portal_url``::
     mail_text = mail_template(member=member,
                               portal_url=portal.absolute_url(),
                               charset=email_charset,
-                              request=REQUEST,
-                              immediate=True)  
-    # causes an email to be sent immediately (if any error is raised)
-    # rather than sent at the transaction boundary or queued for later
-    # delivery
+                              request=REQUEST)  
 
 For more complete examples (with i18n support, etc.) see the password reset
 modules (particularly ``Products.remember.tools.registration``).
