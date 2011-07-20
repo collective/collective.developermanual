@@ -1,13 +1,16 @@
-
 Introduction
 ============
 
-Please read source/introduction/developermanual.txt
+This is a Sphinx source for `Plone CMS <http://plone.org>`_ 
+developer manual.
+
+To read the documentation (formatted) in your web browser
+please head to `Plone Developer Documentation at readthedocs.org http://collective-docs.readthedocs.org/en/latest/`_.
 
 License
 -------
 
-Copyright © 2010-2011 mFabrik Research Oy and Plone community
+Copyright © 2010-2011 Plone Foundation and individual contributors.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
