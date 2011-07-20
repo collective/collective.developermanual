@@ -1,5 +1,5 @@
 ==============================
- Sending email 
+ Sending email
 ==============================
 
 .. admonition:: Description
@@ -9,18 +9,16 @@
 .. contents :: :local:
 
 Introduction
-------------
+============
 
 This document tells how to send email from Plone.
 
-Email can be sent 
+Email can be sent:
 
-* Manually calling MailHost
-
-* Content rule based (content rules have default email out action) which
-  can be activated e.g. workflow transition
-  
-* Triggering email based password reset
+* manually, by calling *MailHost*;
+* using a *Content Rule* (content rules have an email-out action by default)
+  which can be activated by a workflow transition, for example;
+* triggering email-based password reset.
 
 Manually calling MailHost
 -------------------------
@@ -29,13 +27,17 @@ After your mail_text is prepared, sending it is a simple as::
 
  try:
   host = getToolByName(self, 'MailHost')
-  return host.send(mail_text)
+  # The `immediate` parameter causes an email to be sent immediately
+  # (if any error is raised) rather than sent at the transaction
+  # boundary or queued for later delivery.
+  return host.send(mail_text, immediate=True)
  except SMTPRecipientsRefused:
   # Don't disclose email address on failure
   raise SMTPRecipientsRefused('Recipient address rejected by server')
 
 With ``immediate=True`` parameter you can control whether email is send right away
-(blocks the request processing may be slow) or after the request has been complete (cannot 
+(blocks the request processing may be slow) or with ``immediate=False``  
+after the request has been complete (cannot 
 roll back the ongoing transaction).
 
 Preparing mail text
