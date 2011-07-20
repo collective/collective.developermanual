@@ -408,6 +408,23 @@ Below is an example how to include new schemas in fly::
             for name, field in self.fields.items():
                 print str(name) + " " + str(field)
         
+Date and time
+===============
+
+Example::
+
+        class IDeal(form.Schema):
+            """
+            Deals and discounts item
+            """
+            
+            validUntil = schema.Datetime(title=u"Valid until")
+
+See 
+
+* http://stackoverflow.com/questions/5776498/specify-datetime-format-on-zope-schema-date-on-plone
+
+* http://svn.zope.org/zope.schema/trunk/src/zope/schema/tests/test_datetime.py?rev=113055&view=auto
 
 Widgets
 -------
