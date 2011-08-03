@@ -1,0 +1,137 @@
+==============
+ Caching
+==============
+
+.. contents :: :local:
+
+.. admonition:: Description
+
+    How to program front end caching server (Varnish, Apache) to cache the content from Plone site
+    and thus make it faster.
+
+Introduction
+---------------
+
+Plone caching is configured using
+ `plone.app.caching <http://pypi.python.org/pypi/plone.app.caching>`_ add on. 
+ It supplies cache configuration web user interface and default caching rules for Plone.
+
+Internally ``plone.app.caching`` uses `z3c.caching <http://pypi.python.org/pypi/z3c.caching/>`_
+which defines programming level ZCML directives to create your cache rules.
+
+``plone.app.caching`` does both
+
+* Front end caching server support
+
+* In-memory cache in Zope
+
+``plone.app.caching`` also defines default rules for various Plone out-of-the-box
+content views and items
+
+* http://svn.plone.org/svn/plone/plone.app.caching/trunk/plone/app/caching/caching.zcml
+
+The caching operations (strong, moderate, weak) are defined in Python code itself, 
+as they have quite tricky conditions. You can find the default operations here:
+
+* http://svn.plone.org/svn/plone/plone.app.caching/trunk/plone/app/caching/operations/default.py
+
+.. note ::
+
+        You usually don't need to override the operation classes itself. plone.app.caching
+        provides web UI to override parameters, like timeout, for each rule throught-the-web
+        on Detailed settings tab in cache control panel (Create per-ruleset parameters link).
+
+.. note ::
+
+        Plone 3 has its own, older, caching mechanisms. 
+
+Setting per-view cache rules
+------------------------------
+
+Here is an example how you can define a cache rules for your custom view.
+In this example we want to cache front page in Varnish, because
+in our case the site front page is very complex, pulling and waking up a lot of ZODB 
+objects. The front page is subject to moderate changes as new content comes in, 
+but it is not time critical, so we define one hour timeout for this.
+Also, having blazingly fast site front page gives good user experience.
+
+In our case we are also using "a dummy cache" which does not provide purging through Plone
+- the only way to purge the front end proxy is to do it from Varnish control panel.
+
+Here is our ``configure.zcml`` for your custom add-on ``browser`` package
+
+.. code-block:: xml
+
+        <configure
+            xmlns="http://namespaces.zope.org/zope"
+            xmlns:browser="http://namespaces.zope.org/browser"
+            xmlns:cache="http://namespaces.zope.org/cache"
+            >
+
+          <include package="z3c.caching" file="meta.zcml" />
+        
+          <!-- Let's define a ruleset which we use to cover all almost static pages which get heavy traffic.
+               This will appear in Cache configuration of Site setup control panel. -->
+          <cache:rulesetType
+              name="plone.homepage"
+              title="Homepage"
+              description="Site homepage view"
+              />
+        
+          <!-- We include one grok.View class in our ruleset. This view is being used at the site front page. -->
+          <cache:ruleset
+              for=".views.CoursePage"
+              ruleset="plone.homepage"
+              />
+        
+                
+        </configure>         
+
+After defining the rule and see it appears in the site control panel, we'll 
+
+* Assign *Moderate caching* operation to *Homepage*
+
+* On *Detailed settings* tab we'll use *Create per-ruleset* command to override
+  timeout to be 1h instead of default 24h for *Homepage*
+   
+Testing the rule
+=================
+
+.. note ::
+
+        To test plone.app.caching rules you need to run the site in production mode (not fg).
+        Otherwise plone.app.caching is disabled.
+
+Here is example how to test loading the page using ``wget`` UNIX command line utility::
+
+        cd /tmp # wget wants to save files, let's go to place where we don't pollute hard disk
+        wget -S http://localhost:8080/ # wget -S switch prints HTTP headers
+        
+The output looks like::        
+
+        huiske-imac:tmp moo$ wget -S http://localhost:8080/LS/courses
+        --2011-08-03 15:18:27--  http://localhost:8080/LS/courses
+        Resolving localhost (localhost)... 127.0.0.1, ::1
+        Connecting to localhost (localhost)|127.0.0.1|:8080... connected.
+        HTTP request sent, awaiting response... 
+          HTTP/1.0 200 OK
+          Server: Zope/(2.13.7, python 2.6.4, darwin) ZServer/1.1
+          Date: Wed, 03 Aug 2011 12:18:55 GMT
+          Content-Length: 42780
+          X-Cache-Operation: plone.app.caching.moderateCaching
+          Content-Language: en
+          Expires: Sun, 05 Aug 2001 12:18:55 GMT
+          Connection: Keep-Alive
+          Cache-Control: max-age=0, s-maxage=3600, must-revalidate
+          X-Cache-Rule: plone.homepage
+          Content-Type: text/html;charset=utf-8
+        Length: 42780 (42K) [text/html]
+        Saving to: `courses.10'
+
+We see that ``X-Cache-Operation`` and ``X-Cache-Rule`` from ``plone.app.caching`` debug
+info are present, so
+now it is settings HTTP headers correctly, so that the front end server (Varnish).
+
+More info
+
+* http://stackoverflow.com/questions/6170962/plone-app-caching-for-front-page-only
