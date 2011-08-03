@@ -27,6 +27,13 @@ Traversing can happen in two places
 
 * You can manually traverse the ZODB tree in your code to locate objects by their path
 
+When HTTP request is being published the traversing happens in ``ZPublisher.BaseRequest.traverse``
+
+* http://svn.zope.org/Zope/trunk/src/ZPublisher/BaseRequest.py?rev=122282&view=auto
+
+... but Zope includes other traversers, like ``unrestrictedTraverse()`` in OFS module.
+Different traversing methods behave differently and may fire different events.
+
 Object ids
 ----------
 
@@ -471,6 +478,33 @@ Example using ``__getitem__()``::
 More information
 
 * http://play.pixelblaster.ro/blog/archive/2006/10/21/custom-traversing-with-five-and-itraversable
+
+Traverse events
+-------------------
+
+Use ``zope.traversing.interfaces.IBeforeTraverseEvent`` for register a traversing hook
+for Plone site object or such.
+
+Example::
+
+        from Products.CMFCore.interfaces import ISiteRoot
+        
+        from zope.traversing.interfaces import IBeforeTraverseEvent
+        
+        from five import grok
+                
+        
+        @grok.subscribe(ISiteRoot, IBeforeTraverseEvent)
+        def check_redirect(site, event):
+            """
+            """
+            request = event.request
+            
+            # XXX: To something
+            
+Use ZPublisher.BeforeTraverse to register traverse hooks for any objects.
+
+TODO: Example - note sure if before travese hooks are persistent or not
 
 Advanced traversing with search conditions
 -------------------------------------------
