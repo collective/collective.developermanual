@@ -31,10 +31,14 @@ For more information, see:
 Registering an event handler
 ============================
 
-Subscribing using the  ``five.grok`` API
+.. note ::
+
+        Starting Plone 4, using grok method is recommended as it is simpler
+
+Subscribing using the ``grok`` API
 -----------------------------------------
 
-Example::
+Example subscription which subscribes certain events for an content item type::
 
     from five import grok
     from Products.Archetypes.interfaces import IObjectEditedEvent
@@ -61,14 +65,23 @@ Example::
         # Call content type methods
         context.doSomethingDependingOnTheData()
 
+Example subscription which subscribes events without context::
 
-.. note ::
-
-        You need to have ``five.grok`` initialization code in your product's
-        root ``configure.zcml`` to be able to use Grok-like event subscribers.
-        Otherwise your event handlers won't get called.
+        # Really old stuff
+        from ZPublisher.interfaces import IPubStart
+        
+        # Modern stuff
+        from five import grok
+        
+        @grok.subscribe(IPubStart)
+        def check_redirect(e):
+            """
+            Check if we have a custom redirect script in Zope application server root.
+            
 
 For more information, see:
+
+* :doc:`Using Grok </components/grok>`
 
 * http://plone.org/products/dexterity/documentation/manual/five.grok/core-components/events
 
