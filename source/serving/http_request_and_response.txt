@@ -477,6 +477,99 @@ insert caching headers into the response.
 Read more at the `plone.postpublicationhook package page
 <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
 
+Custom redirect mappings
+===========================
+
+Below is an example how you use :doc:`five.grok </components/grok>`
+to install an event handler which checks in the site root for a TTW Python
+script and if such exist it asks it to provide a HTTP redirect.
+
+This behavior allows you to write site-wide redirects easily
+
+* In Python (thank god no Apache regular expressions)
+
+* Redirects can access Plone content items
+
+* You can easily have some redirects migrated from the old (non-Plone) sites
+
+``redirect.py``::
+        
+        """
+        
+            Call a custom TTW script and allow it to handle redirects.
+        
+        
+            Use Zope Management Interface to add a ``Script (Python)`` item named ``redirect_handler``
+            to your site root - you can edit this script in fly to change the redirects.
+            
+            * Redirect script must contain ``url`` in its parameter list
+            
+        """
+        
+        # Now we import things through the last decade...
+        import logging
+        
+        # Really old old stuff
+        from zExceptions import Redirect
+        
+        # 
+        from Products.CMFCore.interfaces import ISiteRoot
+        
+        # Old stuff
+        from zope.traversing.interfaces import IBeforeTraverseEvent
+        
+        # Modern stuff
+        from five import grok
+        
+        logger = logging.getLogger("redirect")
+        
+        @grok.subscribe(ISiteRoot, IBeforeTraverseEvent)
+        def check_redirect(site, event):
+            """
+            Check if we have a custom redirect script in Zope application server root.
+            
+            If we do then call it and see if we get a redirect.
+            
+            The script itself is TTW Python script which may return 
+            string in the case of redirect or None if no redirect is needed.
+            
+            For more examples, check 
+            
+            http://svn.zope.org/Zope/trunk/src/Zope2/App/tests/testExceptionHook.py?rev=115555&view=markup
+            """
+            request = event.request
+            
+            url = request["ACTUAL_URL"]
+            
+            if "no_redirect" in request.form:
+                # Use no_redirect query parameter to disable this behavior in the case
+                # you mess up with the redirect script
+                return 
+            
+            # Check if we have a redirect handler script in the site root
+            if "redirect_handler" in site:
+                
+                try:
+                    # Call the script and get its output
+                    value = site.redirect_handler(url)
+                except Exception, e:
+                    logger.error("Redirect exception for URL:" + url)
+                    logger.exception(e)
+                    return
+                
+                if value is not None and value.startswith("http"):
+                    # Trigger redirect, but only if the output value looks sane
+                    raise Redirect, value
+            
+
+Then an example ``redirect_handler`` script added through ZMI. Remember
+to add ``url`` to the *Parameter List* field of TTW interface::
+
+        if "blaablaa" in url:
+            return "http://webandmobile.mfabrik.com"
+        
+
+
 Extracting useful information in the post-publication hook
 --------------------------------------------------------------
 
