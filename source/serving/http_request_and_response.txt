@@ -506,13 +506,15 @@ This behavior allows you to write site-wide redirects easily
             
         """
         
-        # Now we import things through the last decade...
+
         import logging
+
+        # Now we import things through the last decade...
         
         # Really old old stuff
         from zExceptions import Redirect
         
-        # 
+        # Really old stuff
         from Products.CMFCore.interfaces import ISiteRoot
         
         # Old stuff
@@ -553,6 +555,7 @@ This behavior allows you to write site-wide redirects easily
                     # Call the script and get its output
                     value = site.redirect_handler(url)
                 except Exception, e:
+                    # No silent exceptions plz
                     logger.error("Redirect exception for URL:" + url)
                     logger.exception(e)
                     return
