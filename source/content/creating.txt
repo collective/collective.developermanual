@@ -135,6 +135,59 @@ There is also an alternative way::
     from Products.CMFPlone.utils import _createObjectByType
     _createObjectByType("YourContentType", folder, id)
 
+Manual friendly id generation
+==============================
+
+If you are creating Plone objects by hand e.g. in a batch
+job and Plone automatic id generation does not kick in,
+you can use the following example to see how to create friendly
+object ids manually:
+
+        from zope.component import getUtility
+        from plone.i18n.normalizer.interfaces import IIDNormalizer
+            
+        import transaction
+            
+        def createResearcherById(folder, id):
+            """ Create one researcher in a folder based on its ORA id.
+            
+            @param id: ORA id of the researcher
+        
+            @returns: Newly created researcher
+            """
+            
+            # Call ORA REST service to get JSON blob for this researcher
+            # Note: queryById parses JSON back to Python to do some sanity checks for it
+            index = ORAPeopleIndex()
+                
+            # Need to have temporary id
+            id = str(random.randint(0, 99999999))
+            
+            folder.invokeFactory("ORAResearcher", id)
+            content = folder[id]
+
+            # XXX: set up content item data            
+            
+            # Will finish Archetypes content item creation process,
+            # rename-after-creation and such
+            content.processForm()
+                
+            # make _p_jar on content
+            transaction.savepoint(optimistic=True)
+            
+            # Need to perform manual normalization for id,
+            # as we don't have title available during the creation time
+            normalizer = getUtility(IIDNormalizer)
+            new_id = normalizer.normalize(content.Title())
+            
+            if new_id in folder.objectIds():
+                raise RuntimeError("Item already exists:" + new_id + " in " + folder.absolute_url())
+            
+            content.aq_parent.manage_renameObject(id, new_id)
+                    
+            return content
+                        
+
 PortalFactory
 -------------
 
