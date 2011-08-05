@@ -30,10 +30,41 @@ Example::
 Permission-aware way (Archetypes)
 -----------------------------------
 
-Use ``invokeFactory(portal_type, constructred_object_id)``.
 ``invokeFactory()`` is available on all folderish content objects.
 ``invokeFactory()`` calls the ``portal_factory`` persistent utility to
 create content item.
+
+Example::
+        
+        def createResearcherById(folder, id):
+            """ Create one researcher in a folder based on its X id.
+            
+            @param id: X id of the researcher
+        
+            @returns: Newly created researcher
+            """
+            
+            # Call X REST service to get JSON blob for this researcher
+            # Note: queryById parses JSON back to Python to do some sanity checks for it
+            index = XPeopleIndex()
+            oraData = index.queryById(id)
+                
+            # Need to have temporary id
+            id = str(random.randint(0, 99999999))
+            
+            folder.invokeFactory("XResearcher", id)
+            content = folder[id]
+            
+            # XResearcher stores its internal data as JSON
+            json_data = json.dumps(oraData)    
+            content.setXData(json_data)
+            
+            # Will finish Archetypes content item creation process,
+            # rename-after-creation and such
+            content.processForm()
+            
+            return content
+    
 
 Example (from unit tests)::
 
@@ -41,7 +72,6 @@ Example (from unit tests)::
     self.portal.invokeFactory("Folder", "folder")
     self.portal.folder.invokeFactory("Folder", "subfolder")
     self.portal.folder.subfolder.invokeFactory("Document", "doc")
-
 
 ``invokeFactory()`` will raise an ``Unauthorized`` exception if the
 logged-in user does not have permission to create content in the folder
