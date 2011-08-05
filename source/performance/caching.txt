@@ -49,6 +49,7 @@ as they have quite tricky conditions. You can find the default operations here:
 
         Plone 3 has its own, older, caching mechanisms. 
 
+
 Setting per-view cache rules
 ------------------------------
 
@@ -107,6 +108,12 @@ After defining the rule and see the rule appears in the caching control panel, w
 * On *Detailed settings* tab we'll use *Create per-ruleset* command to override
   timeout to be 1h instead of default 24h for *Homepage*
   
+.. warning ::
+
+        Do not enable RAM cache. Somehow, in some point,
+        you will end up having some bad page HTML in Zope's internal
+        cache and you have no idea how to clear it. 
+        
 .. note ::
 
         If you are testing the rule on a local computer first, remember
