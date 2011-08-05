@@ -54,6 +54,30 @@ To get all usernames::
 
     memberIds = getToolByName(self.context, 'acl_users').getUserIds()
 
+Getting member information
+==========================
+
+Once you have acces to the member object, you can grab basic information about it.
+
+Get the user's name:
+
+.. code-block:: python
+
+    member.getName()
+    
+Get the user's password (Only hash is available and only for standard plone user objects).
+
+.. code-block:: python
+    
+    acl_users = getToolByName(context, 'acl_users')
+    passwdlist = acl_users.source_users._user_passwords
+    userpassword = passwdlist.get(member.id, '')
+
+Also, take a look at a script for exporting Plone 3.0 's memberdata and passwords:
+
+* http://blog.kagesenshi.org/2008/05/exporting-plone30-memberdata-and.html
+
+
 
 Iterating all site users
 ============================
