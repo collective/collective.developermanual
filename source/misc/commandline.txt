@@ -11,6 +11,14 @@
 
 Introduction
 ------------
+  
+.. warning ::
+
+        Plone code is somewhat ugly and expects you to have real HTTP request lifecycle
+        to do many things. For command line scripts, you need to mock up this and mocking
+        up ofter fails. Instead of trying to create a pure command-line script,
+        just create a browser view and call that browser view usings wget or 
+        lynx or similar command line HTTP tool.
 
 Zope provides facilities to run command-line scripts.
 or maintenance work, like migration script.
@@ -39,6 +47,7 @@ See also
 
 * `lovely.remotetask package <http://pypi.python.org/pypi/lovely.remotetask>`_ 
   for more fine-graned control and Zope-based cron jobs
+
   
 Starting interactive interpreter
 --------------------------------
@@ -94,6 +103,8 @@ Script could look like::
         # modules are being loaded on the start-up
         if "app" in locals():
             main(app)
+
+You probaly need to spoof your :doc:`security credentials </security/permissions>`.
 
 .. note ::
         
