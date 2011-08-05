@@ -151,19 +151,19 @@ object ids manually:
         def createResearcherById(folder, id):
             """ Create one researcher in a folder based on its ORA id.
             
-            @param id: ORA id of the researcher
+            @param id: X id of the researcher
         
             @returns: Newly created researcher
             """
             
-            # Call ORA REST service to get JSON blob for this researcher
+            # Call X REST service to get JSON blob for this researcher
             # Note: queryById parses JSON back to Python to do some sanity checks for it
-            index = ORAPeopleIndex()
+            index = XPeopleIndex()
                 
             # Need to have temporary id
             id = str(random.randint(0, 99999999))
             
-            folder.invokeFactory("ORAResearcher", id)
+            folder.invokeFactory("XResearcher", id)
             content = folder[id]
 
             # XXX: set up content item data            
