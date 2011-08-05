@@ -43,21 +43,61 @@ See also
 Starting interactive interpreter
 --------------------------------
 
-se *bin/instance debug* command. 
+se *bin/instance debug* command to start interactive interpreter with Zope application server and 
+database loaded
 
 Example::
 
         bin/instance debug 
 
+.. note ::
+        
+        Instance must be stopped in order to run this.
   
 Running scripts
 ---------------
 
-Use *bin/instance run* command. 
+Use *bin/instance run* command to run scripts which can interact
+with the opened database.
 
 Example::
 
 	bin/instance run src/namespace.mypackage/namespace/mypackage/bin/script.py 
+
+The script will have global ``app`` variable assigned to the Zope application server root.
+You can use this as a starting point and traverse into your Plone site(s). 
+
+Script could look like::
+
+        """
+        
+            Instance script for testing a researcher creation
+        
+            Execution::
+            
+                bin/instance run src/x.y/x/y/testscript.py
+        
+        """
+        
+        from ora.objects.content.oraresearcher import createResearcherById
+        
+        def main(app):
+            folder = app.unrestrictedTraverse("x/y/z/cancer")
+            
+            # Create a researcher 
+            createResearcherById(folder, "http://localhost/people/9947603276956765")
+            
+            # This script does not commit
+            
+        # If this script lives in your source tree, then we need to use this trick so that
+        # five.grok, which scans all modules, does not try to execute the script while
+        # modules are being loaded on the start-up
+        if "app" in locals():
+            main(app)
+
+.. note ::
+        
+        Instance must be stopped in order to run this.
 	
 Cron and timed jobs
 ---------------------
