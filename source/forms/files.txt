@@ -4,19 +4,20 @@ Files and images
 
 .. admonition:: Description
 
-        How to program files and image fields for z3c.forms and Dexterity content types
+    How to program files and image fields for ``z3c.forms`` and Dexterity
+    content types
 
 .. contents:: :local:
 
 Introduction
--------------
+=============
 
 This chapter discuss about file uploads and downloads using
 zope.schema based forms and content with :doc:`Dexterity content subsystem </content/dexterity>`.
 
 .. note ::
 
-        These instructions apply for Plone 4 and forward.
+    These instructions apply for Plone 4 and forward.
 
 Plone uses BLOBs to store file-like data in ZODB. This means
 that files are stored on the file-system, but due to security, performance and
@@ -28,12 +29,12 @@ For more introduction information
 * http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/files-and-images
 
 Simple content item file or image field
------------------------------------------
+=========================================
 
 * http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/files-and-images
 
 Simple upload form example
----------------------------
+===========================
 
 The example below uses :doc:`five.grok </components/grok>` 
 to declare the form schema and form.
@@ -185,14 +186,14 @@ Code::
 
 
 File-system access in load balanced configurations
---------------------------------------------------
+==================================================
 
 `plone.namedfiled <http://plone.org/products/plone.app.blob>` 
 product page contains configuration instructions
 for plone.namedfile and ZEO.
 
 Form encoding
--------------
+=============
 
 .. warning::
 
@@ -208,7 +209,7 @@ Example correct form header::
 
 
 File field contents
----------------------------
+===========================
 
 Example::
 
@@ -258,10 +259,10 @@ Example::
     animation.file = namedfile.NamedBlobFile(sample_data, filename=u"flash.swf")
 
 Constring download URLs
-------------------------
+========================
 
 Simple example
-================
+----------------
 
 In Dexterity you can ``@@download`` field for content types
 
@@ -275,7 +276,7 @@ In Dexterity you can ``@@download`` field for content types
         </tal:video>    
 
 Complex example
-===============
+---------------
 
 You need to expose file content to the site user through a view and then
 refer to the URL of the view in your HTML template. There are some tricks you need to keep in mind
@@ -337,7 +338,7 @@ Complex example (plone.app.headeranimations)::
         return context.absolute_url() + "/" + download_view_name + "/" + func_name + "?timestamp=" + str(timestamp)
 
 Streaming file data
--------------------
+===================
 
 File data is deliever to the browser as stream. The view function returns streaming iterator instead
 of data as is. This greatly reduces the latency and memory usage when the file must not be buffered
@@ -413,7 +414,7 @@ Example (plone.app.headeranimation)::
             return stream_iterator
 
 POSKeyError
------------
+===========
 
 POSKeyError is raised when you try to access blob *attributes*, but the actual
 file is not available on the disk. You can still load the blob object itself
@@ -472,7 +473,7 @@ more sane::
             raise NotFound(context, '', request)
 
 Widget download URLs
--------------------------
+=========================
 
 Some things you might want to keep in mind when playing with forms and images
 
@@ -487,7 +488,7 @@ file download URLs manually.
 `See example in plone.app.headeranimations <https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/widgets.py>`_.
 
 Migrating custom content for blobs 
-------------------------------------
+====================================
 
 Some hints how to migrate your custom content
 
