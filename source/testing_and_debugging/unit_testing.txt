@@ -7,17 +7,19 @@
 Introduction
 ============
 
-Unit tests are automated tests created by developer to ensure that the add-on product is
-intact in the current product configuration. Unit tests are regression tests and
-are designed to catch broken functionality over the code evolution.
+Unit tests are automated tests created by the developer to ensure that the
+add-on product is intact in the current product configuration. Unit tests
+are regression tests and are designed to catch broken functionality over the
+code evolution.
 
 `Plone unit testing tutorial <http://plone.org/documentation/tutorial/richdocument/unit-testing>`_.
 
 Running unit tests
 ===================
 
-Since Plone 4, ``zc.testrunner`` is recommended to use to run the test suites.
-You need to add it to your ``buildout.cfg`` to generate ``test`` command.
+Since Plone 4, it is recommended to use ``zc.testrunner``  to run the test
+suites.  You need to add it to your ``buildout.cfg``, so that the ``test``
+command will be generated.
 
 .. code-block:: cfg
 
@@ -33,48 +35,48 @@ You need to add it to your ``buildout.cfg`` to generate ``test`` command.
 
 .. note ::
 
-        On Plone 3 you can run tests with "bin/instance test"
-        command, which corresponds "bin/test".             
+    On Plone 3 you can run tests with the ``bin/instance test`` command,
+    which corresponds ``bin/test``.             
 
 
-Running tests for one package
+Running tests for one package:
 
 .. code-block:: console
 
     bin/test -s package.subpackage
 
-Running tests for one test case
+Running tests for one test case:
 
 .. code-block:: console
 
     bin/test -s package.subpackage -t TestCaseClassName
 
-Running tests for two test cases
+Running tests for two test cases:
 
 .. code-block:: console
 
     bin/test -s package.subpackage -t TestClass1|TestClass2    
 
-To drop in pdb debugger after each test failure
+To drop into the pdb debugger after each test failure:
 
 .. code-block:: console
 
     bin/test -s package.subpackage -D
 
-To exclude tests
+To exclude tests:
 
 .. code-block:: console
 
     bin/test -s package.subpackage -t !test_name
 
-To list tests that will be run
+To list tests that will be run:
 
 .. code-block:: console
 
     bin/test -s package.subpackage --list-tests
 
-The following will run tests for *all* Plone and -ons - 
-useful to check whether you have a good component set
+The following will run tests for *all* Plone add-ons: useful to check
+whether you have a set of component that function well together:
 
 .. code-block:: console
 
@@ -82,37 +84,38 @@ useful to check whether you have a good component set
 
 .. warning::
 
-    Test runner does not give an error if you supply invalid package and test case name.
-    Instead it just simply doesn't execute tests.
+    The test runner does not give an error if you supply invalid package and
+    test case name.  Instead it just simply doesn't execute tests.
 
-More information
+More information:
 
 * http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/no-longer-bin-instance-test-use-zc.recipe.testrunner
 
 AttributeError: 'module' object has no attribute 'test_suite'
 -------------------------------------------------------------
 
-If you get the above error message there are potential reasons
+If you get the above error message there are two potential reasons:
 
-* Having both tests.py and tests folder
+* You have both a ``tests.py`` file and a ``tests`` folder.
 
 * Old version: Zope version X unit test framework was updated not to need 
-  anymore explicit test_suite declaration in test module. 
-  Instead, all classes subclasses TestCase are automatically picked.
+  an explicit ``test_suite`` declaration in the ``test`` module any more. 
+  Instead, all subclasses of ``TestCase`` are automatically picked.
   However, this change is backwards incompatible.
   http://wiki.zope.org/zope2/HowToRunZopeUnitTests 
 
 Test coverage
 =============
 
-Zope test running can show how much your code is covered by automatic tests.
+Zope test running can show how much of your code is covered by automatic
+tests:
 
 * http://plone.org/documentation/kb/testing/code-coverage
 
 Creating unit tests
 ====================
 
-Pointers
+Pointers:
 
 * http://plone.org/documentation/kb/testing
 
@@ -169,33 +172,29 @@ Example::
             """ some tasks after setup the site """
 
 
-         
-
- 
-
 Posing as different users
 ===========================
 
-There is a shortcut to priviledge you from all security checks::
+There is a shortcut to privilege you from all security checks::
         
-      self.loginAsPortalOwner()
+    self.loginAsPortalOwner()
           
-.. where self is the test case instance.
+where ``self`` is the test case instance.
 
 .. note ::
 
-        This priviledges are effective only in the context
-        where permissions are checked manually. They do
-        not affect traversing related permissions: 
-        looking up views or pages in unit test Python code.
-        For that kind of testing, use functional testing.
+    This privileges are effective only in the context where permissions are
+    checked manually. They do not affect traversal-related permissions:
+    looking up views or pages in unit test Python code.  For that kind of
+    testing, use functional testing.
 
 Unit tests and themes
 ========================
 
-If your test code modifies skin registries you need to force skin data reload.
+If your test code modifies skin registries you need to force the skin data
+to be reloaded.
 
-Example (self = unit test)::
+Example (``self`` is the unit test)::
 
     self._refreshSkinData()
 
@@ -204,8 +203,8 @@ Running add-on installers and extensions profiles for unit tests
 
 By default, no add-on installers or extension profiles are installed.
 
-You need to modify PloneTestCase.setupPloneSite() call in your
-base unit tests.
+You need to modify ``PloneTestCase.setupPloneSite()`` call in your base unit
+tests.
 
 Simple example::
 
@@ -219,35 +218,35 @@ Complex example::
 Tested package not found warning
 ---------------------------------
 
-Installers may fail without interrupting the test run. Monitor Zope start up messages. If you get error like::
+Installers may fail without interrupting the test run. Monitor Zope start up
+messages. If you get error like::
 
     Installing gomobiletheme.basic ... NOT FOUND
 
-You might be missing this from your configure.zcml
+You might be missing this from your ``configure.zcml``
 
 .. code-block:: xml
 
     <five:registerPackage package="." initialize=".initialize" />
 
-... or you have spelling error in your test setup code.
+... or you have a spelling error in your test setup code.
 
-Load zcml for testing
+Load ZCML for testing
 =====================
 
-For loading fs zcml in test you can use Five API
+For loading ZCML files in your test, you can use the Five API::
 
-::
-
-   import <your fabulous module>
-   from Products.Five import zcml
-   zcml.load_config('configure.zcml', <your fabulous module>)
+    import <your fabulous module>
+    from Products.Five import zcml
+    zcml.load_config('configure.zcml', <your fabulous module>)
 
 
 Setting log level in unit tests
 ===============================
 
-Many components use debug output level and unit testing default output level is info.
-Import messages may go unnoticed during the unit test development.
+Many components use the ``DEBUG`` output level, while the default output
+level for unit testing is ``INFO``.  Import messages may go unnoticed during
+the unit test development.
 
 Add this to your unit test code::
 
@@ -261,13 +260,13 @@ Add this to your unit test code::
 HTTP request
 ============
 
-Zope unit tests have faux HTTPRequest object set up.
+Zope unit tests have a mock ``HTTPRequest`` object set up.
 
-You can access it::
+You can access it as follows::
 
-    self.portal.REQUEST # Faux HTTPRequest object
+    self.portal.REQUEST # mock HTTPRequest object
 
-Setting a real http request
+Setting a real HTTP request
 ---------------------------
 
 ::
@@ -284,7 +283,8 @@ To debug outgoing email traffic you can create a dummy mailhost.
 
 .. note ::
 
-        MailHost code has been changed in Plone 4. This instructions apply for Plone 3.
+    The ``MailHost`` code has changed in Plone 4. These instructions
+    apply only to Plone 3.
         
 Example::
 
@@ -341,14 +341,14 @@ Example::
         self.assertEqual(review_state, "approved_by_sits")
                                 
         # Check that email has been sent
-        self.assertEqual(len(self.dummyMailHost.sent), 1)                      
+        self.assertEqual(len(self.dummyMailHost.sent), 1)
 
-Unit testing and Zope component architecture
-============================================
+Unit testing and the Zope component architecture
+==================================================
 
-If you are dealing with low level Zope component architecture in your unit tests,
-there are some things to note.
-Global site manager doesn't behave properly in the unit tests.
+If you are dealing with the Zope component architecture at a low level in
+your unit tests, there are some things to remember, because the global site
+manager doesn't behave properly in unit tests.
 
 See discussion: http://n2.nabble.com/PTC-global-components-bug--tp3413057p3413057.html
 
