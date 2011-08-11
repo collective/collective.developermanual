@@ -19,12 +19,12 @@ zope.schema based forms and content with :doc:`Dexterity content subsystem </con
 
     These instructions apply for Plone 4 and forward.
 
-Plone uses BLOBs to store file-like data in ZODB. This means
-that files are stored on the file-system, but due to security, performance and
-transaction constrains, the orignal filename is not visible, but the files
-are stored in a distributed tree. 
+Plone uses "blobs" (large binary objects) to store file-like data in the
+ZODB. The ZODB writes these objects to the filesystem as separate files,
+but due to security, performance and transaction consideration, the orignal
+filename is not visible. The files are stored in a distributed tree. 
 
-For more introduction information
+For more introduction information, see:
 
 * http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/files-and-images
 
@@ -40,170 +40,176 @@ The example below uses :doc:`five.grok </components/grok>`
 to declare the form schema and form.
 
 We use `plone.namedfile <http://pypi.python.org/pypi/plone.namedfile>`_
-for the upload field, which is CSV file. We accept the upload
-and then process the file.  
+for the upload field, which is a CSV file. We accept the upload and then
+process the file.  
 
-You need to declare ``extends`` directive to pin down
-required dependency versions in ``buildout.cfg``.
+You need to declare an ``extends`` directive to pin down required dependency
+versions in ``buildout.cfg``.
 For more information, see :doc:`buildout troubleshooting </troubleshooting/buildout>`.
 
-You also need to declare packages ``five.grok``, ``plone.autoform``,
-``plone.directives.form`` packages as dependencies in your ``setup,py``
-``install_dependencies`` directive. After this, rerunning ``buildout``
-will pull these packages for you and you can import them succesfully.
-For more information, see `plone.directives.form README <http://pypi.python.org/pypi/plone.directives.form>`_.
+You also need to declare the following packages as dependencies in 
+the ``install_dependencies`` directive of your ``setup.py`` file:
 
+* ``five.grok``,
+* ``plone.autoform``, 
+* ``plone.directives.form``.
+
+After doing this, rerunning ``buildout`` will pull in these packages for you
+and you will be able to import them succesfully.
+For more information, see `plone.directives.form README <http://pypi.python.org/pypi/plone.directives.form>`_.
 
 Code::
 
-        # Core Zope 2 + Zope 3 + Plone
-        from zope.interface import Interface
-        from zope import schema
-        from zope.app.component.hooks import getSite 
-        from five import grok 
-        from Products.CMFCore.interfaces import ISiteRoot
-        from Products.CMFCore.utils import getToolByName
-        from Products.CMFCore import permissions
-        from Products.statusmessages.interfaces import IStatusMessage
-                
-        # Form and validation
-        from z3c.form import field
-        import z3c.form.button
-        from plone.directives import form
-        from collective.z3cform.grok.grok import PloneFormWrapper
-        import plone.autoform.form
+    # Core Zope 2 + Zope 3 + Plone
+    from zope.interface import Interface
+    from zope import schema
+    from zope.app.component.hooks import getSite 
+    from five import grok 
+    from Products.CMFCore.interfaces import ISiteRoot
+    from Products.CMFCore.utils import getToolByName
+    from Products.CMFCore import permissions
+    from Products.statusmessages.interfaces import IStatusMessage
+            
+    # Form and validation
+    from z3c.form import field
+    import z3c.form.button
+    from plone.directives import form
+    from collective.z3cform.grok.grok import PloneFormWrapper
+    import plone.autoform.form
 
-        import StringIO
-        import csv
+    import StringIO
+    import csv
+    
+    
+    from plone.namedfile.field import NamedFile        
+    from plone.i18n.normalizer import idnormalizer
+    
+    
+    class IImportUsersFormSchema(form.Schema):
+        """ Define fields used on the form """
+        
+        csv_file = NamedFile(title=_(u"CSV file"))
+    
+    class ImportUsersForm(form.SchemaForm):
+        """ A sample form showing how to mass import users using an uploaded CSV file. 
+        """
+        
+        # Form label
+        name = _(u"Import Companies")
+        
+        # Which plone.directives.form.Schema subclass is used to define 
+        # fields for this form 
+        schema = IImportUsersFormSchema
+        
+        # Permission required to 
+        grok.require("cmf.ManagePortal")
+        
+        ignoreContext = True
+        
+        # This form is available at the site root only
+        grok.context(ISiteRoot)
+    
+        # appear as @@import_companies view
+        grok.name("import_companies")
         
         
-        from plone.namedfile.field import NamedFile        
-        from plone.i18n.normalizer import idnormalizer
-        
-        
-        class IImportUsersFormSchema(form.Schema):
-            """ Define fields used on the form """
+        def processCSV(self, data):
+            """
+            """                
+            io =  StringIO.StringIO(data)
             
-            csv_file = NamedFile(title=_(u"CSV file"))
-        
-        class ImportUsersForm(form.SchemaForm):
-            """ A sample form how to mass import users using uploaded CSV file. 
+            reader = csv.reader(io, delimiter=',', dialect="excel", quotechar='"')
+                        
+            header = reader.next()
+            print header
+                            
+            def get_cell(row, name):
+                """ Read one cell on a 
+                
+                @param row: CSV row as list
+                
+                @param name: Column name: 1st row cell content value, header
+                """
+                
+                assert type(name) == unicode, "Column names must be unicode"
+                
+                index = None
+                for i in range(0, len(header)):
+                    if header[i].decode("utf-8") == name:
+                        index = i
+                        
+                if index is None:
+                    raise RuntimeError("CSV data does not have column:" + name)
+                
+                return row[index].decode("utf-8")
             
+            
+            # Map CSV import fields to a corresponding content item AT fields
+            mappings = {
+                        u"Puhnro" : "phonenumber",
+                        u"Fax" : "faxnumber",
+                        u"Postinumero" : "postalCode",
+                        u"Postitoimipaikka" : "postOffice",
+                        u"Www-osoite" : "homepageLink",
+                        u"Lähiosoite" : "streetAddress",                                                            
+                        }
+            
+            updated = 0
+            
+            for row in reader:
+                           
+                # do stuff ...
+                updated += 1 
+                                        
+                
+            return updated 
+                 
+                                            
+        @z3c.form.button.buttonAndHandler(_('Import'), name='import')
+        def importCompanies(self, action):
+            """ Create and handle form button "Create company"
             """
             
-            # Form label
-            name = _(u"Import Companies")
+            # Extract form field values and errors from HTTP request
+            data, errors = self.extractData()
+            if errors:
+                self.status = self.formErrorsMessage
+                return
             
-            # Which plone.directives.form.Schema subclass is used to define 
-            # fields for this form 
-            schema = IImportUsersFormSchema
+            # Do magic
+            file = data["csv_file"].data
             
-            # Permission required to 
-            grok.require("cmf.ManagePortal")
+            number = self.processCSV(file)
             
-            ignoreContext = True
-            
-            # This form is available at the site root only
-            grok.context(ISiteRoot)
-        
-            # appear as @@import_companies view
-            grok.name("import_companies")
-            
-            
-            def processCSV(self, data):
-                """
-                """                
-                io =  StringIO.StringIO(data)
-                
-                reader = csv.reader(io, delimiter=',', dialect="excel", quotechar='"')
-                            
-                header = reader.next()
-                print header
-                                
-                def get_cell(row, name):
-                    """ Read one cell on a 
-                    
-                    @param row: CSV row as list
-                    
-                    @param name: Column name: 1st row cell content value, header
-                    """
-                    
-                    assert type(name) == unicode, "Column names must be unicode"
-                    
-                    index = None
-                    for i in range(0, len(header)):
-                        if header[i].decode("utf-8") == name:
-                            index = i
-                            
-                    if index is None:
-                        raise RuntimeError("CSV data does not have column:" + name)
-                    
-                    return row[index].decode("utf-8")
-                
-                
-                # Map CSV import fields to a corresponding content item AT fields
-                mappings = {
-                            u"Puhnro" : "phonenumber",
-                            u"Fax" : "faxnumber",
-                            u"Postinumero" : "postalCode",
-                            u"Postitoimipaikka" : "postOffice",
-                            u"Www-osoite" : "homepageLink",
-                            u"Lähiosoite" : "streetAddress",                                                            
-                            }
-                
-                updated = 0
-                
-                for row in reader:
-                               
-                    # do stuff ...
-                    updated += 1 
-                                            
-                    
-                return updated 
-                     
-                                                
-            @z3c.form.button.buttonAndHandler(_('Import'), name='import')
-            def importCompanies(self, action):
-                """ Create and handle form button "Create company"
-                """
-                
-                # Extract form field values and errors from HTTP request
-                data, errors = self.extractData()
-                if errors:
-                    self.status = self.formErrorsMessage
-                    return
-                
-                # Do magic
-                file = data["csv_file"].data
-                
-                number = self.processCSV(file)
-                
-                # If everything was ok post success note
-                # Note you can also use self.status here unless you do redirects
-                if number is not None:
-                    # mark only as finished if we get the new object
-                    IStatusMessage(self.request).addStatusMessage(_(u"Created/updated companies:") + unicode(number), "info")
+            # If everything was ok post success note
+            # Note you can also use self.status here unless you do redirects
+            if number is not None:
+                # mark only as finished if we get the new object
+                IStatusMessage(self.request).addStatusMessage(_(u"Created/updated companies:") + unicode(number), "info")
 
 
-File-system access in load balanced configurations
+File-system access in load-balanced configurations
 ==================================================
 
-`plone.namedfiled <http://plone.org/products/plone.app.blob>` 
+The `plone.namedfiled <http://plone.org/products/plone.app.blob>` 
 product page contains configuration instructions
-for plone.namedfile and ZEO.
+for ``plone.namedfile`` and ZEO.
 
 Form encoding
 =============
 
 .. warning::
 
-    Make sure that all forms containing file content are posted as enctype="multipart/form-data".    
-    Otherwise Zope decodes request POST values as string input and you get either empty strings
-    or filenames as your file content data. The older plone.app.z3cform templates
-    do not necessarily declare enctype, meaning that you need to use custom page template
-    file for forms doing uploads.
+    Make sure that all forms containing file content are posted as
+    ``enctype="multipart/form-data"``.  If you don't do this, Zope decodes
+    request ``POST`` values as string input and you get either empty strings
+    or filenames as your file content data. The older ``plone.app.z3cform``
+    templates do not necessarily declare ``enctype``, meaning that you need
+    to use a custom page template file for forms doing uploads.
 
-Example correct form header::
+Example correct form header:
+
+.. code-block:: xml
 
   <form action="." enctype="multipart/form-data" method="post" tal:attributes="action request/getURL">
 
@@ -264,29 +270,30 @@ Constring download URLs
 Simple example
 ----------------
 
-In Dexterity you can ``@@download`` field for content types
+In Dexterity you can specify a ``@@download`` field for content types:
 
 .. code-block:: html
 
-        <!-- Render link to video file if it's uploaded to this context item -->
-        <tal:video define="video nocall:context/videoFile"
-             tal:condition="nocall:video">    
-                <a class="flow-player" tal:attributes="href string:${context/absolute_url}/@@download/videoFile/${video/filename}">
-                </a>      
-        </tal:video>    
+    <!-- Render link to video file if it's uploaded to this context item -->
+    <tal:video define="video nocall:context/videoFile" 
+        tal:condition="nocall:video">    
+        <a class="flow-player" tal:attributes="href string:${context/absolute_url}/@@download/videoFile/${video/filename}"></a>      
+    </tal:video>    
 
 Complex example
 ---------------
 
 You need to expose file content to the site user through a view and then
-refer to the URL of the view in your HTML template. There are some tricks you need to keep in mind
+refer to the URL of the view in your HTML template. There are some tricks
+you need to keep in mind:
 
-* All file download URLs should be timestamped or the reupload file change is not reflected in the browser
+* All file download URLs should be timestamped, or the reupload file change
+  will not be reflected in the browser.
 
 * You might want to serve different file types from different URLs and set
-  special HTTP headers for them
+  special HTTP headers for them.
 
-Complex example (plone.app.headeranimations)::
+Complex example (``plone.app.headeranimations``)::
 
     from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
 
@@ -340,11 +347,12 @@ Complex example (plone.app.headeranimations)::
 Streaming file data
 ===================
 
-File data is deliever to the browser as stream. The view function returns streaming iterator instead
-of data as is. This greatly reduces the latency and memory usage when the file must not be buffered
-as whole to the memory before sending to the wite.
+File data is delivered to the browser as a stream. The view function returns
+a streaming iterator instead of raw data. This greatly reduces the latency
+and memory usage when the file should not be buffered as a whole to 
+memory before sending.
 
-Example (plone.app.headeranimation)::
+Example (``plone.app.headeranimation``)::
 
     from zope.publisher.interfaces import IPublishTraverse, NotFound
 
@@ -413,12 +421,13 @@ Example (plone.app.headeranimation)::
             stream_iterator = download_blob(self.context, self.request, animation.image)
             return stream_iterator
 
-POSKeyError
-===========
+``POSKeyError``
+================
 
-POSKeyError is raised when you try to access blob *attributes*, but the actual
-file is not available on the disk. You can still load the blob object itself
-fine (as its being stored in ZODB, not FS).
+A ``POSKeyError`` is raised when you try to access blob *attributes*, but
+the actual file is not available on the disk. You can still load the blob
+object itself fine (as it's being stored in the ZODB, not on the
+filesystem).
 
 Example::
 
@@ -434,11 +443,11 @@ Example::
     Module ZODB.blob, line 623, in loadBlob
     POSKeyError: 'No blob file'
 
-This might occur for example because you have copied Data.fs to another computer, but
-not blob files.
+This might occur for example because you have copied the ``Data.fs`` file to
+another computer, but not blob files.
 
-You probably want to catch POSKeyErrors and make them return something
-more sane::
+You probably want to catch ``POSKeyError`` s and return something more
+sane instead::
 
     def download_blob(context, request, file):
         """ Stream animation or image BLOB to the browser.
@@ -475,22 +484,22 @@ more sane::
 Widget download URLs
 =========================
 
-Some things you might want to keep in mind when playing with forms and images
+Some things you might want to keep in mind when playing with forms and
+images:
 
-* Image data might be incomplete (no width/height) during the first POST
+* Image data might be incomplete (no width/height) during the first ``POST``.
 
-* Image URL might change in the middle of request (image was updated)
+* Image URLs might change in the middle of request (image was updated).
 
+If your form content is something else than traversable context object then
+you must fix file download URLs manually.
 
-If you form content is something else than traversable context object then you must fix
-file download URLs manually.
-
-`See example in plone.app.headeranimations <https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/widgets.py>`_.
+See `example in plone.app.headeranimations <https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/widgets.py>`_.
 
 Migrating custom content for blobs 
 ====================================
 
-Some hints how to migrate your custom content
+Some hints how to migrate your custom content:
 
 * http://plone.293351.n2.nabble.com/plone-4-upgrade-blob-and-large-files-tp5500503p5500503.html
 
