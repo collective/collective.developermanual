@@ -571,6 +571,28 @@ to add ``url`` to the *Parameter List* field of TTW interface::
         if "blaablaa" in url:
             return "http://webandmobile.mfabrik.com"
         
+Or more complex example::
+
+        # Don't leak non-themed interface fom port 80
+        if ("manage.") in url and (not "8080" in url):
+            return "http://manage.underconstruction.mfabrik.com:8080/LS"
+        
+        if url == "http://underconstruction.mfabrik.com/":
+            return "http://underconstruction.mfabrik.com/special-front-page"
+        
+        # Redirect to the actual front page
+        if url == "http://site.com/":
+            return "http://www.site.com/special-front-page"
+        
+        if url == "http://www.site.com/":
+            return "http://www.site.com/special-front-page"
+        
+        if url.startswith("http://underconstruction.mfabrik.com/"):
+            return url.replace("underconstruction.mfabrik.com", "www.site.com")
+        
+        # Make sure that search engines and visitors access the site only using www. prefix
+        if url.startswith("http://site.com/"):
+            return url.replace("site.com", "www.site.com")
 
 
 Extracting useful information in the post-publication hook
