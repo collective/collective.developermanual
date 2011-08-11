@@ -5,7 +5,7 @@
 .. contents :: :local:
 
 Introduction
-------------
+============
 
 Unit tests are automated tests created by developer to ensure that the add-on product is
 intact in the current product configuration. Unit tests are regression tests and
@@ -14,7 +14,7 @@ are designed to catch broken functionality over the code evolution.
 `Plone unit testing tutorial <http://plone.org/documentation/tutorial/richdocument/unit-testing>`_.
 
 Running unit tests
--------------------
+===================
 
 Since Plone 4, ``zc.testrunner`` is recommended to use to run the test suites.
 You need to add it to your ``buildout.cfg`` to generate ``test`` command.
@@ -90,7 +90,7 @@ More information
 * http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/no-longer-bin-instance-test-use-zc.recipe.testrunner
 
 AttributeError: 'module' object has no attribute 'test_suite'
-=============================================================
+-------------------------------------------------------------
 
 If you get the above error message there are potential reasons
 
@@ -103,14 +103,14 @@ If you get the above error message there are potential reasons
   http://wiki.zope.org/zope2/HowToRunZopeUnitTests 
 
 Test coverage
--------------
+=============
 
 Zope test running can show how much your code is covered by automatic tests.
 
 * http://plone.org/documentation/kb/testing/code-coverage
 
 Creating unit tests
---------------------
+====================
 
 Pointers
 
@@ -121,7 +121,7 @@ Pointers
 * http://www.zope.org/Members/shh/ZopeTestCaseWiki/ApiReference
 
 Base test class skeleton
-------------------------
+========================
 
 Example::
 
@@ -174,7 +174,7 @@ Example::
  
 
 Posing as different users
----------------------------
+===========================
 
 There is a shortcut to priviledge you from all security checks::
         
@@ -191,7 +191,7 @@ There is a shortcut to priviledge you from all security checks::
         For that kind of testing, use functional testing.
 
 Unit tests and themes
-------------------------
+========================
 
 If your test code modifies skin registries you need to force skin data reload.
 
@@ -200,7 +200,7 @@ Example (self = unit test)::
     self._refreshSkinData()
 
 Running add-on installers and extensions profiles for unit tests
------------------------------------------------------------------
+=================================================================
 
 By default, no add-on installers or extension profiles are installed.
 
@@ -217,7 +217,7 @@ Complex example::
     
 
 Tested package not found warning
-=================================
+---------------------------------
 
 Installers may fail without interrupting the test run. Monitor Zope start up messages. If you get error like::
 
@@ -232,7 +232,7 @@ You might be missing this from your configure.zcml
 ... or you have spelling error in your test setup code.
 
 Load zcml for testing
----------------------
+=====================
 
 For loading fs zcml in test you can use Five API
 
@@ -244,7 +244,7 @@ For loading fs zcml in test you can use Five API
 
 
 Setting log level in unit tests
--------------------------------
+===============================
 
 Many components use debug output level and unit testing default output level is info.
 Import messages may go unnoticed during the unit test development.
@@ -259,7 +259,7 @@ Add this to your unit test code::
         logger.root.addHandler(logging.StreamHandler(sys.stdout))
 
 HTTP request
-------------
+============
 
 Zope unit tests have faux HTTPRequest object set up.
 
@@ -268,7 +268,7 @@ You can access it::
     self.portal.REQUEST # Faux HTTPRequest object
 
 Setting a real http request
-===========================
+---------------------------
 
 ::
  
@@ -278,7 +278,7 @@ Setting a real http request
 
 
 Grabbing emails
----------------
+===============
 
 To debug outgoing email traffic you can create a dummy mailhost.
 
@@ -344,7 +344,7 @@ Example::
         self.assertEqual(len(self.dummyMailHost.sent), 1)                      
 
 Unit testing and Zope component architecture
---------------------------------------------
+============================================
 
 If you are dealing with low level Zope component architecture in your unit tests,
 there are some things to note.
@@ -353,7 +353,7 @@ Global site manager doesn't behave properly in the unit tests.
 See discussion: http://n2.nabble.com/PTC-global-components-bug--tp3413057p3413057.html
 
 ZCML
-----
+====
 
 Below are examples how to run special ZCML snippets for your unit tests.
 
