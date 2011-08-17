@@ -1,10 +1,10 @@
 Introduction
 ============
 
-This is a Sphinx source for `Plone CMS <http://plone.org>`_ 
+This is the Sphinx source for the `Plone CMS <http://plone.org>`_ 
 developer manual.
 
-To read the documentation (formatted) in your web browser
+To read the documentation (formatted) in your web browser,
 please head to `Plone Developer Documentation at readthedocs.org <http://collective-docs.readthedocs.org/en/latest/>`_.
 
 License
