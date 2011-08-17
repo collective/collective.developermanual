@@ -295,6 +295,42 @@ More info
 
 * http://blog.carumba.com/post/226455049/remove-google-analytics-cookies-in-varnish                  
 
+Full purge
+======================================
+
+Below is an example how to create an action to purge the whole Varnish cache.
+
+First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from localhost::
+
+        acl purge {
+                "localhost";
+        }
+
+        ...
+        
+        sub vcl_recv {
+        
+                ...
+        
+                # Allow purging by wildcards
+                if (req.request == "PURGE") {
+                        if (!client.ip ~ purge) {
+                                error 405 "Not allowed.";
+                        }
+                        purge("req.url ~ " req.url " && req.http.host == " req.http.host);
+                        error 200 "Purged.";
+                }
+        }       
+        
+Then let's create a Plone view which will make a request from Plone to Varnish (upstream localhost:80)
+and issue ``PURGE`` command. We do this using `Requests <http://pypi.python.org/pypi/requests>`_ Python lib.
+
+XXX TODO
+        
+More info
+
+* https://www.varnish-cache.org/trac/wiki/VCLExamplePurging        
+
 Session cookies
 ==================
 
