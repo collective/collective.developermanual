@@ -300,7 +300,9 @@ Full purge
 
 Below is an example how to create an action to purge the whole Varnish cache.
 
-First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from localhost::
+First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from localhost.
+We'll create a special ``PURGE`` command which takes URLs to be purged out of 
+the cache in a special header::
 
         acl purge {
                 "localhost";
@@ -315,12 +317,13 @@ First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from localhost
         
                 ...
         
-                # Allow purging by wildcards
+                # Allow PURGE requests clearing everything
                 if (req.request == "PURGE") {
                         if (!client.ip ~ purge) {
                                 error 405 "Not allowed.";
                         }
-                        purge("req.url ~ " req.url " && req.http.host == " req.http.host);
+                        # Purge for the current host using reg-ex from X-Purge-Regex header
+                        purge("req.http.host == " req.http.host " && req.url ~ " req.http.X-Purge-Regex);
                         error 200 "Purged.";
                 }
         }       
@@ -373,10 +376,15 @@ Example view code::
                 """
                         
                 site_url = "http://www.site.com/"
-                resp = requests.request("PURGE", site_url + ".*")
+                  
+                headers = {
+                           # Match all pages
+                           "X-Purge-Regex" : ".*"
+                }
+                
+                resp = requests.request("PURGE", site_url + "*", headers=headers)
         
-                self.request.response["Content-type"] = "text/plain"
-                 
+                self.request.response["Content-type"] = "text/plain"                 
                 text = []
                 
                 text.append("HTTP " + str(resp.status_code))
@@ -398,6 +406,8 @@ More info
 * https://www.varnish-cache.org/trac/wiki/VCLExamplePurging     
 
 * https://github.com/kennethreitz/requests/tree/develop/requests   
+
+* http://kristianlyng.wordpress.com/2010/02/02/varnish-purges/
 
 Session cookies
 ==================
