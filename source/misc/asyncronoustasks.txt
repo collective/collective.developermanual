@@ -7,7 +7,23 @@
 
         How to run background tasks or cron jobs with Zope
         
-        
+.. contents:: :local:
+
+Cron jobs
+==================
+
+You can use simple UNIX cron + wget combo to make timed jobs in Plone.
+
+If you need to authenticate, e.g. as an admin, Zope users (not Plone users)
+can be authenticated using HTTP Basic Auth. 
+
+* Create user in Zope root (not Plone site root) in acl_users folder
+
+* Call it via HTTP Basic Auth
+
+       http://username:password@localhost:8080/yoursideid/@@clock_view_name
+
+
 Clock server
 ==================
 
