@@ -31,6 +31,23 @@ Actions are managed by
 * portal_types for view, edit etc. actions and object default action... all actions
   which are tied to a particular content type and may vary by type 
 
+Iterating through available actions
+-------------------------------------
+
+Here is a page template example
+
+.. code-block:: html
+
+          <ul>
+               <tal:actions repeat="action python:context.portal_actions.listFilteredActionsFor(context)['portal_tabs']">
+                 <li>
+                       <a tal:attributes="href action/url; title action/title;" tal:content="action/title">
+                         Action title
+                       </a>
+                 </li>
+               </tal:actions>
+         </ul>
+
 Creating actions through-the-web
 ---------------------------------
 
