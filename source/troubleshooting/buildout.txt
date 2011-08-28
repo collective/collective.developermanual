@@ -369,4 +369,31 @@ On Ubuntu/Debian
     sudo apt-get install libxml2-dev libxslt-dev
 
 
+VersionConflict: distribute 0.6.19
+--------------------------------------
+
+When running buildout you see something like this
+
+::        
+        
+          File "/home/danieltordable.es/buildout-cache/eggs/zc.buildout-1.4.4-py2.6.egg/zc/buildout/easy_install.py", line 606, in _maybe_add_setuptools
+            if ws.find(requirement) is None:
+          File "/home/danieltordable.es/buildout-cache/eggs/distribute-0.6.19-py2.6.egg/pkg_resources.py", line 474, in find
+            raise VersionConflict(dist,req)     # XXX add more info
+        VersionConflict: (distribute 0.6.19 (/home/danieltordable.es/buildout-cache/eggs/distribute-0.6.19-py2.6.egg), Requirement.parse('distribute==0.6.15'))
                               
+Buildout uses system-wide Distribute installation (python-distribute or similar package, depends on your OS).
+To fix this, you need to update system-wide distribution.
+
+.. note ::
+
+        It is preferred you do virtualenv'd Python + buildout installation, just not to break
+        your OS
+
+Update Distribute (Plone universal installer, using supplied easy_install script)::
+
+        python/bin/easy_install -U Distribute                
+        
+Update Distribute (OSX/Ubuntu/Linux)::
+
+        easy_install -U Distribute        
