@@ -164,20 +164,39 @@ This ZMI script allows you to find content items of certain type and delete if t
         
         return buf.getvalue()
         
-Below is an advanced version of the same code which is more suitable for huge sites.
+Below is an advanced version for old item date based deletion code
+which issuitable for huge sites.
+This snippet is from ``Products.feedfeeder`` package.
+It will look for Feedfeeder items (automatically generated from RSS) which 
+are older than X days and delete them.
+
+It's based on Zope 3 page registration (sidenote: I noticed that views do not
+need to be based on BrowserView page class).
 
 * Transaction thresholds make sure the code runs faster
 
 * Logging to Plone event log files
 
-This version if from ``Products.feedfeeder`` package.
+* Number of days to look into past is not hardcoded
+
+* Manage rights needed to execute the code
 
 You can call this view like::
 
         http://localhost:9999/plonecommunity/@@feed-mega-cleanup?days=90
 
-::
+Here is the view Python source code::
 
+        import logging
+        
+        import transaction
+        from zope import interface
+        from zope import component
+        import DateTime
+        import zExceptions
+
+        logger = logging.getLogger("feedfeeder")
+        
         class MegaClean(object):
             """ Clean-up old feed items by deleting them on the site.
         
@@ -246,4 +265,12 @@ You can call this view like::
                 days = int(days)
                 
                 return self.clean(days)
-             
+   
+Then we have the view ZCML registration::
+
+  <page
+      name="feed-mega-cleanup"
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      permission="cmf.ManagePortal"
+      class=".feed.MegaClean"
+      />                   
