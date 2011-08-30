@@ -153,8 +153,12 @@ Logout
 
 Example::
    
-        browser.open('http://nohost/plone/')
-        browser.getLink('Log out').click()
+    def logoutWithTestBrowser(self):
+        """
+        """
+        self.browser.open(self.portal.absolute_url() + '/logout')
+        html = self.browser.contents
+        self.assertTrue("You are now logged out" in html)
 
 
 Showing the contents from the last request
