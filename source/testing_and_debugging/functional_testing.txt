@@ -285,6 +285,27 @@ Example::
             # Mechanize, the engine under testbrowser
             # uses urlllib2 and will raise this exception
             self.assertEqual(e.code, 401, "Got HTTP response code:" + str(e.code))
+            
+Another example where test browser / Zope 2 publisher where invalidly handling Unauthorized exception::
+
+    def test_anon_access_forum(self):
+        """
+        Anonymous users should not be able to open the forum page.
+        """
+        
+        self.portal.error_log._ignored_exceptions = ()
+        self.portal.acl_users.credentials_cookie_auth.login_path = ""
+        
+        exception = None
+        try:
+            self.browser.open(self.portal.intranet.forum.absolute_url())
+        except:
+            # Handle a broken case where
+            # test browser spits out an exception without a base class (WTF)
+            import sys
+            exception = sys.exc_info()[0]
+            
+        self.assertFalse(exception is None)            
 
 Checking a HTTP response header
 --------------------------------
