@@ -75,6 +75,16 @@ Example BrowserView method::
 
         return aq_inner(self.context).Language() or portal_state.default_language()
 
+Simple language conditions in page templates
+-----------------------------------------------
+
+You can do this is full translation strings are not worth of the all troubles::
+
+   <div class="main-text">
+     <a tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'fi'" href="http://www.saariselka.fi/sisalto?force-web">Siirry täydelle web-sivustolle</a>
+     <a tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() != 'fi'" href="http://www.saariselka.fi/sisalto?force-web">Go to full website</a>
+   </div>
+
 
 Set site language settings
 --------------------------
