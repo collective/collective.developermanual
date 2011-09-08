@@ -135,24 +135,29 @@ Each field has accessor method. Accessor method is
 
     * Automatically generated if you don't give it manually
 
-    * Has name get + schema field name with first letter uppercase. E.g. yourfield has accessor method context.getYourfield()
-      There are a new exceptions from this rule. The accessor method for the ``title`` field is ``Title()`` and ``Description()`` 
-      for the ``description`` field.
+    * Has name ``get`` + schema field name with first letter uppercase. E.g.
+      ``yourfield`` has accessor method ``context.getYourfield()``
+      There are a few exceptions to this rule, for fields that correspond
+      to Dublin Core metadata. To conform to the Dublin Core specifiction,
+      the accessor method for the ``title`` field is ``Title()`` and
+      ``Description()`` for the ``description`` field.
 
 Raw access
 ==========
 
-Archetypes has to kind of access methods
+Archetypes has two kinds of access methods:
 
-* Normal, getSomething(), which filters output
+* normal, ``getSomething()``, which filters output;
 
-* Raw, so calle edit accessor, getSomethingRaw() which does not filter output
+* raw, the so-called *edit* accessor, ``getSomethingRaw()`` which does not
+  filter output.
 
-When you access directly by obj.something you can have a `BaseUnit <http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/BaseUnit.py>`_ object.
-BaseUnit is an encapsulation of raw data for long text or file.
+If you use direct attribute access, i.e. ``obj.something`` you can get a `BaseUnit <http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/BaseUnit.py>`_ object.
+``BaseUnit`` is an encapsulation of raw data for long text or file.
 It contains information about mimetype, filename, encoding.
-To get the raw value of a BaseUnit object you can use getRaw method or more simpler str(baseunit)
-
+To get the raw value of a ``BaseUnit`` object you can use the ``getRaw``
+method, or more simply ``str(baseunit)`` (but take care that you don't 
+mess up the encoding).
 
 
 Indirect access
