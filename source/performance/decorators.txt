@@ -4,13 +4,13 @@ Cache decorators
 
 .. admonition:: Description
 
-        How to use Python decorator pattern to cache the result values of your
-        computationally sensitive function calls.
+    How to use the Python decorator pattern to cache the result values of
+    your computationally expensive method calls.
 
 .. contents :: :local:
 
 Introduction
-------------
+============
 
 Cache decorators are convenient methods caching of function return values.
 
@@ -23,15 +23,16 @@ They work like this::
 
 .. warning ::
 
-        Cache decorators do not work with methods or functions using generators (yield).
-        The cache stores empty value.
+    Cache decorators do not work with methods or functions using generators
+    (``yield``). The cache stores empty value.
 
-`plone.memoize <http://pypi.python.org/pypi/plone.memoize>`_ package offers helpful function decorators to cache the resulting values.
+The `plone.memoize <http://pypi.python.org/pypi/plone.memoize>`_ package
+offers helpful function decorators to cache return values.
 
 See also :doc:`using memcached backend for memoizers </performance/ramcache>`. 
 
 Cache result for process lifecycle
-----------------------------------
+==================================
 
 Example::
 
@@ -46,27 +47,29 @@ Example::
         @return: List of internal fields
         """
         schema = getSchema(area)
-        return [ field for field in schema if field["subject"] == subject ]
+        return [field for field in schema if field["subject"] == subject]
+
 
 Timeout caches
---------------
+==============
 
 Please read `Timed caching decorator with plone.memoize <http://danielnouri.org/blog/devel/plone-memoize-timeout.html?showcomments=yes>`_.
 
 * `Another example <https://svn.plone.org/svn/collective/collective.externalcontent/trunk/collective/externalcontent/tests/test_vocabulary.py>`_.
 
 Caching per request
--------------------
+===================
 
-This pattern shows how to avoid recalculate the same value
-during the life cycle of a HTTP request object.
+This pattern shows how to avoid recalculating the same value repeatedly
+during the lifecycle of an HTTP request object.
 
 Caching on BrowserViews
-========================
+------------------------
 
-This is useful if the same view/utility is going to be called many time from different sources for the same HTTP request.
+This is useful if the same view/utility is going to be called many times
+from different places for the same HTTP request.
 
-`plone.memoize.view <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/view.txt>`_
+The `plone.memoize.view <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/view.txt>`_
 package provides necessary decorators for BrowserView based classes.
 
 
@@ -76,37 +79,39 @@ package provides necessary decorators for BrowserView based classes.
 
     class MyView(BrowserView):
 
-
         @memoize
         def getValue():
-            """ This value is recalculated for every new BrowserView context per request """
+            """ This value is recalculated for every new BrowserView context
+                per request 
+            """
             return "something"
 
         @memoize_contextless
         def getValueNoContext():
-            """ This value is recalculated for all context objects once per request """
+            """ This value is recalculated for all context objects once per
+                request
+            """
             return "something"
 
 Caching on Archetypes accessors
-=================================
+---------------------------------
 
-If you have a custom :doc:`Archetypes accessor method </content/archetypes/fields>`
+If you have a custom 
+:doc:`Archetypes accessor method </content/archetypes/fields>`,
 you can avoid recalculating it during the request processing.
 
 Example::
 
     def getParsedORADataCached(self):
+        """ Same as above, but does not run through JSON reader every time.
         """
-        Same as above, but does not run through JSON reader every time.
-        """
-    
+
         # Manually store the result on HTTP request
         # object annotations 
-        
-        
+
         # Use function name + Archetypes unique identified as the key
         key = "parsed-ora-data-" + self.UID()
-        
+
         cache = IAnnotations(self.REQUEST)
         data = cache.get(key, None)
         if not data:
@@ -117,9 +122,9 @@ Example::
 
 
 Other resources
----------------
+===============
 
-* `plone.memoize source code <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/>`_.
+* `plone.memoize source code <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/>`_
 
 * `zope.app.cache source code <http://svn.zope.org/zope.app.cache/trunk/src/zope/app/cache/>`_
 

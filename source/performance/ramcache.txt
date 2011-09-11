@@ -5,46 +5,52 @@
 .. contents :: :local:
 
 Introduction
-------------
+============
 
-RAM cache is a Zope facility to create custom in-process caches.
+The RAM cache is a Zope facility to create custom in-process caches.
 
 Using memcached backend
--------------------------
+=========================
 
-By default, Zope uses in-process memory cache. It is possible to replace this with memcached.
+By default, Zope uses an in-process memory cache. It is possible to replace
+this with ``memcached``.
 
-Advantages
+Advantages:
 
-* All front-end clients share the cache
+* All front-end clients share the cache.
 
-* Cache survives over a client restart
+* Cache survives over a client restart.
 
 Memoizers
-=========
+---------
 
-Memoize's RAM cache can be replaced with Memcached backend with the following snipped. 
+Memoize's RAM cache can be replaced with a ``memcached`` backend with the
+following snippet. 
 
-See *plone.org* set-up as an example
+See the set-up for the http://plone.org/ site as an example:
 
 * http://svn.plone.org/svn/plone/plone.org/Products.PloneOrg/trunk/Products/PloneOrg/caching.py
 
 RAM Cache
-=========
+---------
 
-RAM cache is used e.g. as a rendered template cache backend.
+The RAM cache is used e.g. as a rendered template cache backend.
  
-You can add MemecachedManager to your zope setup, and replace RamCache instance in ZMI with a new instance of MemcachedManager (just with the same id).
+You can add ``MemecachedManager`` to your Zope setup, and replace the
+RamCache instance in the ZMI with a new instance of ``MemcachedManager``
+(keep the id the same).
 
 * http://pypi.python.org/pypi/Products.MemcachedManager
 
 Using custom RAM cache
------------------------
+=======================
 
-You want to use a custom cache if you think cache size or saturation will pose problems.
+You want to use a custom cache if you think cache size or saturation will
+pose problems.
 
-The following advanced example shows how to enhance existing content type text and description accessors
-by performing HTML transformations and caching the result in a custom RAM cache.
+The following advanced example shows how to enhance existing content type
+text and description accessors by performing HTML transformations and
+caching the result in a custom RAM cache.
 
 Example::
 
@@ -152,20 +158,20 @@ Example::
     FeedFeederItem.setDescription = _setDescription
 
 ZCacheable
-----------
+==========
 
-ZCacheable is ancient Zope design pattern for cache. 
-It allows persistent objects inherited from OFS.Cacheable
-to have cache backend set externally.
+``ZCacheable`` is an ancient Zope design pattern for caching.  It allows
+persistent objects that are subclasses of ``OFS.Cacheable`` to have the
+cache backend configured externally.
 
-Used cache type (cache id) is stored :doc:`persistently </persistency/persistent>` 
-per cache user object,
-but cache can be created run-time (RAM cache) or externally (memcache) depending
-on the situation.
+The cache type (cache id) in use is stored 
+:doc:`persistently </persistency/persistent>` per cache user object,
+but the cache can be created at runtime (RAM cache) or externally
+(``memcached``) depending on the situation.
 
 .. note ::
 
-        Do not use ZCacheable in new code.
+        Do not use ``ZCacheable`` in new code.
 
 It takes optional backends which must be explicitly set::
 
@@ -175,35 +181,36 @@ It takes optional backends which must be explicitly set::
                 pas.ZCacheable_setManagerId(manager_id="RAMCache")
             getLDAPPlugin().ZCacheable_setManagerId(manager_id="RAMCache")
 
-The RAMCAche above is per thread. You cannot clear this cache for all ZEO clients easily.
+The ``RAMCache`` above is per thread. You cannot clear this cache for all
+ZEO clients easily.
 
-Some hints
+Some hints:
 
-Is enabled per persistent object::
+It is enabled per persistent object::
 
-        >>> app.test2.acl_users.ZCacheable_isCachingEnabled()
-        <Products.StandardCacheManagers.RAMCacheManager.RAMCache instance at 0x10a064cf8>
+    >>> app.test2.acl_users.ZCacheable_isCachingEnabled()
+    <Products.StandardCacheManagers.RAMCacheManager.RAMCache instance at 0x10a064cf8>
 
-        >>> app.test2.acl_users.ZCacheable_enabled()
-        1
+    >>> app.test2.acl_users.ZCacheable_enabled()
+    1
         
 Get known cache backends::
 
-        >>> app.test2.acl_users.ZCacheable_getManagerIds()
-        ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
+    >>> app.test2.acl_users.ZCacheable_getManagerIds()
+    ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
         
 Disabling it (persistent change)::
 
-        >>> app.test2.acl_users.ZCacheable_setManagerId(None)
-        >>> app.test2.acl_users.ZCacheable_enabled()
-        1
-        >>> app.test2.acl_users.ZCacheable_getManagerIds()
-        ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
-        >>> app.test2.acl_users.ZCacheable_isCachingEnabled()
-        >>> app.test2.acl_users.ZCacheable_setEnabled(False)
+    >>> app.test2.acl_users.ZCacheable_setManagerId(None)
+    >>> app.test2.acl_users.ZCacheable_enabled()
+    1
+    >>> app.test2.acl_users.ZCacheable_getManagerIds()
+    ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
+    >>> app.test2.acl_users.ZCacheable_isCachingEnabled()
+    >>> app.test2.acl_users.ZCacheable_setEnabled(False)
         
 
-More info
+More info:
 
 * http://svn.zope.org/Zope/trunk/src/OFS/Cache.py?rev=115280&view=auto
 
@@ -212,7 +219,7 @@ More info
 * http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py
 
 Other resources
----------------
+===============
 
 * `plone.memoize source code <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/>`_.
 

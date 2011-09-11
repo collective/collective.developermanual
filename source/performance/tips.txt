@@ -6,58 +6,61 @@
 
 .. admonition:: Description
 
-    Tips for Plone performance tuning and making your add-on product and customizations faster.
+    Tips for Plone performance tuning and making your add-on product and
+    customizations faster.
 
 Optimizing ZEO and threads
----------------------------
+===========================
 
-For multicore systems, which basically all production systems nowadays are, you might want
-to optimize Python threading vs. processes. You may also tune how many  
-Python interpreter instructions are run before doing green thread switches in the interpreter.
+For multicore systems, which basically all production systems nowadays are,
+you might want to optimize Python threading vs. processes. You may also tune
+how many Python interpreter instructions are run before doing green thread
+switches in the interpreter.
 
 * https://mail.zope.org/pipermail/zodb-dev/2010-December/013897.html
 
 Debugging slow threads in production
-------------------------------------
+====================================
 
 * http://pypi.python.org/pypi/Products.LongRequestLogger
 
 Memcached as session storage
-----------------------------
+============================
 
-Storing sessions in ZEO/ZODB is not scaling up since they are
-very prone to raise ConflictErrors if there is considerable load
-on the system.
+Storing sessions in ZEO/ZODB does not scale well, since they are very prone
+to raise ``ConflictErrors`` if there is considerable load on the system.
 
-Memcached provides more scalable session backend.
+Memcached provides a more scalable session backend.
 
-For more information, see `lovely.session add-on product <http://pypi.python.org/pypi/lovely.session/0.2.2>`_.
+For more information, see 
+`lovely.session add-on product <http://pypi.python.org/pypi/lovely.session/0.2.2>`_.
 
 Input/output performance of the server
---------------------------------------
+======================================
 
 http://plope.com/Members/chrism/iostat_debugging
 
-Clarification::
+Summary::
 
     <mcdonc> well, the example has await at about 40X svctime.. that's pretty shitty
     <mcdonc> i mean that box was useless
 
 
 Tuning complex configurations
------------------------------
+=============================
 
 http://www.lovelysystems.com/the-decathlon-of-computer-science/
 
 Reducing memory usage
------------------------
+=======================
 
-This tips are especially critical when running Plone on low-memory virtual private server (VPS).
+These tips are especially critical when running Plone on low-memory virtual
+private server (VPS).
 
 Disable extra languages
-=========================
+-------------------------
 
-Add PTS_LANGUAGES to buildout.cfg::
+Add ``PTS_LANGUAGES`` to ``buildout.cfg``::
 
         [instance]
         ...
@@ -65,44 +68,47 @@ Add PTS_LANGUAGES to buildout.cfg::
             PTS_LANGUAGES=en fi
 
 Large files
-------------
+============
 
-How to offload blob processing away from Zope
+How to offload blob processing from Zope:
 
 * http://www.slideshare.net/Jazkarta/large-files-without-the-trials
 
 LinguaPlone and multi-lingual sites
--------------------------------------
+=====================================
 
-Do not use ``LanguageIndex`` and update your LinguaPlone to version 3.1.
+Do not use ``LanguageIndex``, and update your ``LinguaPlone`` to version
+3.1.
 
 * http://plone.293351.n2.nabble.com/Products-LinguaPlone-LanguageIndex-vs-FieldIndex-tp5554729p5554729.html
 
 * http://plone-regional-forums.221720.n2.nabble.com/New-LinguaPlone-releases-with-large-performance-improvements-td5578581.html
 
 Sessions and performance
-------------------------
+========================
 
-Write transactions are great deal worse performance wise than read transactions.
+Write transactions much worse performance-wise than read transactions.
 
 By default, every login is a write transaction. Also, Plone needs to update
-logged user in session timestamp once in a while to keep the session active.
+the logged-in user's session timestamp once in a while to keep the session
+active.
 
-With high amount of users you may run to many ConflictErrors (read conflicts)
-with ZODB.
+With a high amount of users, you may start seeing many ``ConflictErrors``
+(read conflicts) with ZODB.
 
-There are some tricks you can do here
+There are some tricks you can use here:
 
 * http://plone.293351.n2.nabble.com/the-mysterious-case-of-the-zope-sessions-that-shouldn-t-tp5731395p5731395.html
 
 * http://pypi.python.org/pypi/collective.beaker/
 
 ZServer thread count
-----------------------
+======================
 
-How many requests one ZEO front end client (ZServer can handle).
+This specifies how many requests one ZEO front-end client (ZServer) can
+handle.
 
-Buildout default is 2.
+The default set by buildout default is 2.
 
 Adjust it::
 
@@ -115,19 +121,20 @@ Find good value by doing performance testing for your site.
 
 .. note ::
 
-        Increasing thread count is useful if your Plone site does server-to-server traffic
-        and your Plone site needs to wait the other end, thus blocking Zope threads.
+    Increasing thread count is useful if your Plone site does
+    server-to-server traffic and your Plone site needs to wait for the other
+    end, thus blocking Zope threads.
 
-More info
+More info:
 
 * http://pypi.python.org/pypi/plone.recipe.zope2instance
 
 XSendFile
-------------
+============
 
-XSendFile is an enhancement over HTTP front end proxy protocol
-which allows offloading of file uploads and downloads to the front end web server
+XSendFile is an enhancement over HTTP front end proxy protocol which allows
+offloading of file uploads and downloads to the front end web server.
 
-More info for Plone support 
+More info for Plone support:
 
 * https://github.com/collective/collective.xsendfile
