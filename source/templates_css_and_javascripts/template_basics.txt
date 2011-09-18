@@ -4,84 +4,115 @@
 
 .. admonition:: Description
 
-	Plone uses TAL template language for its templates.
-	This document contains references to this template
-	language and generally available templates, macros
-	and views you can use to build your Plone add-on
-	product.
+    Plone uses Zope Page Templates. This document contains references to
+    this template language and generally available templates, macros and
+    views you can use to build your Plone add-on product.
 
 .. contents :: :local:
 
 Introduction
--------------
+=============
 
-Plone uses `TAL template language <http://docs.zope.org/zope2/zope2book/AppendixC.html>`_. 
+Plone uses `Zope Page Templates <http://docs.zope.org/zope2/zope2book/AppendixC.html>`_, 
+consisting of the three related standards: Template Attribute Language
+(TAL), TAL Expression Syntax (TALES), and Macro Expansion TAL (METAL).
 
-Templated Plone page consists of
+A templated Plone page consists of:
 
-* Master template
-
-* Slots
-
+* the *master template*, defining the overall layout of the page,
+* *slots*, defined by the master template, and filled by the object being
+  published,
 * :doc:`Viewlet managers </views/viewlets>` containing :doc:`viewlets </views/viewlets>`
 
-Templates can be associated with BrowserView code class (new style) or standalone (old style)
+Templates can be associated with ``BrowserView`` code class (new style) or
+they can be standalone (old style).
 
-* View page templates (BrowserView, new style)
+* View page templates (``BrowserView``, new style)
 
-        *  These templates live under browser/folder in add-on product. 
-  
-        * You can override them by <browser:page> ZCML directive.
-        
-        * You can customize them through-the-web using ``portal_view_customization`` tool in ZMI
+        * These templates live under ``browser/<folder>`` in an add-on
+          product. 
+        * You can override them by using the ``<browser:page>`` ZCML
+          directive.
+        * You can customize them through-the-web using the
+          ``portal_view_customization`` tool in the ZMI.
 
 * Standalone page templates (old style) 
 
-        * They live under plone_skins structure 
-        
-        * You can override them by :doc:`register a new plone_skins layer </templates_css_and_javascripts/skin_layers>`. 
-        
-        * You can customize them through-the-web using ``portal_skins`` / ``custom`` folder in ZMI. Just copy
-          the orignal template through-the-web to ``custom`` folder and edit it.
+        * They live under ``plone_skins`` structure 
+        * You can override them by 
+          :doc:`registering a new plone_skins layer </templates_css_and_javascripts/skin_layers>`. 
+        * You can customize them through-the-web using the
+          ``portal_skins/custom`` folder in the ZMI. Just copy the orignal
+          template through-the-web to the ``custom`` folder and edit it.
 
 .. note ::
 
-        Rationale moving away from standalone page templates is that the page template code becomes
-        easily cluttered with inline Python code. This makes templates hard to customize or override.
-        New style templates provide better separation with view logic (Python code) and 
-        HTML generation (page template)
-
+        The rationale for moving away from standalone page templates is that
+        the page template code becomes easily cluttered with inline Python
+        code. This makes templates hard to customize or override.  New style
+        templates provide better separation with view logic (Python code)
+        and HTML generation (page template).
 
 See `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_
 
 Main template
--------------
+=============
 
-The master page template in Plone is called ``main_template.pt`` and it is provided by `Products.CMFPlone package <http://svn.plone.org/svn/plone/Plone/trunk/Products/CMFPlone/skins/plone_templates/main_template.pt>`_.
+The master page template in Plone is called ``main_template.pt`` and it is
+provided by the
+`Products.CMFPlone package <http://svn.plone.org/svn/plone/Plone/trunk/Products/CMFPlone/skins/plone_templates/main_template.pt>`_.
 
-This template provides visual frame for Plone themes. The template is old style page template living in ``plone_templates`` folder under ``plone_skins``.
+This template provides the visual frame for Plone themes. The template is
+an old-style page template living in ``plone_skins/plone_templates``.
 
 Plone template element map
---------------------------
+==========================
 
-Plone 4 ships with *Sunburst* theme. Its viewlets and viewlets managers are described `here <http://plone.org/documentation/manual/theme-reference/elements/elementsindexsunburst4>`_. 
+Plone 4 ships with the *Sunburst* theme. Its viewlets and viewlets managers
+are described 
+`here <http://plone.org/documentation/manual/theme-reference/elements/elementsindexsunburst4>`_. 
 
 .. note ::
 
         Plone 3 viewlets differ.
 
-TAL
----
+Zope Page Templates
+===================
 
-`TAL <http://wiki.zope.org/ZPT/TALSpecification14>`_ is template language used Plone.
-TAL is XML based language, which puts programming logic to XML attributes.
+Zope Page Templates, or ZPT for short, is an XML-based templating language,
+consisting of the Template Attribute Language (TAL), TAL Expression Syntax
+(TALES), and Macro Expansion TAL (METAL).
+
+It operates using two XML namespaces (``tal:`` and ``metal:``) that can
+occur either on attributes of elements in another namespace (e.g. you will
+often have TAL attributes on HTML elements) or on elements (in which case
+the element itself will be ignored, but all its attributes will be
+recognized as TAL statements).
+
+A statement in the ``tal:`` namespace will modify the element on which it
+occurs and/or its child elements.
+
+A statement in the ``metal::`` namespace defines how a template interacts
+with other templates (defining or using macros and slots to be filled by
+macros).
+
+The value of an attribute in the ``tal:`` namespace is an expression. The 
+format of this expression is defined by the TALES standard.
+
+
+TAL
+===
+
+`TAL <http://wiki.zope.org/ZPT/TALSpecification14>`_ is the Template
+Attribute Language used in Plone.
 
 * `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_
+
 
 Escaped and unescaped content
 =============================
 
-By default, all TAL output is escaped for the security reasons.
+By default, all TAL output is escaped for security reasons.
 
 .. code-block:: python
 
@@ -90,43 +121,52 @@ By default, all TAL output is escaped for the security reasons.
 .. code-block:: html
 
 	<div tal:content="view/text" />
-	
+
 Will output escaped HTML source code::
 
 	&lt;b&gt;Testlt;/b&gt;
-	
-Unescaped content can be outputted using tal:replace attribute and structure.
+
+Unescaped content can be outputted using the TALES ``structure`` keyword
+in the expression for the ``tal:replace`` and ``tal:content`` statements:
 
 .. code-block:: html
 
 	<div tal:replace="structure view/text" />
-	
+
 Will output unescaped HTML source code::
 
 	<b>Test</b>
 
 METAL
-------
+======
 
-METAL is TAL extension to provide macros and slots to the template language.
+The METAL (Macro Expansion TAL) standard provides macros and slots to the
+template language.
 
-Using METAL macros is no longer recommended, since they couple 
-programming logic too tightly with the template language.
-You should use views instead.
+Using METAL macros is no longer recommended, since they couple programming
+logic too tightly with the template language.  You should use views instead.
 
-Read more about in `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_.
+Read more about them in the 
+`TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_.
 
 TALES expressions
-----------------------
+======================
 
-TALES expressions are condition clauses used in TAL templates and various other parts of Plone
+The value of TAL statements are defined by TALES expressions. A TALES
+expression starts with the expression type. If no type is specified, the
+default is assumed. Three types are standard:
 
-* CSS, Javascript and KSS registries whether to include a particular file
+* ``path:`` expressions (*default*),
+* ``python:`` expressions,
+* ``string:`` expressions.
 
-* Action conditions whether to show or hide action link
+They are generally usefull, and not limited to use in Page Templates. For example, they are widely used in various other parts of Plone:
 
-* Workflow security guards whether to allow workflow state transition
-
+* CSS, Javascript and KSS registries, to decide whether to include a
+  particular file;
+* Action conditions, to decide whether to show or hide action link;
+* Workflow security guards, to decide whether to allow a workflow state
+  transition
 * etc.
 
 Read more about expressions in `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_.
@@ -134,76 +174,84 @@ Read more about expressions in `TAL Guide <http://www.owlfish.com/software/simpl
 See :doc:`Expressions chapter </functionality/expressions>` for more information.
 
 Omitting tags
------------------
+=================
 
-Sometimes you need to create XML control structures which should not end up to the
-output page.
+Sometimes you need to create XML control structures which should not end up
+to the output page.
 
-You can use tal:omit-tag=""
+You can use ``tal:omit-tag=""``
 
 .. code-block:: xml
 
 	<div tal:omit-tag="">
-  		Only the content of the tag is rendered, not the tag itself.
+  		Only the content of the tag is rendered, not the DIV tag itself.
 	</div>
 
 Images
-------
+======
 
 See :doc:`how to use images in templates </images/templates>`.
 
 Overriding templates for exising Plone views
-----------------------------------------------
+==============================================
 
-#. New style templates can be overridden by overriding the view using the template.
+#. New style templates can be overridden by overriding the view using the
+   template.
 
-#. Old stype templates can be overridden by register a new skins layer in plone_skins
+#. Old stype templates can be overridden by register a new skins layer in
+   ``plone_skins``.
 
 View page template
-==================
+------------------
 
 * http://lionfacelemonface.wordpress.com/2009/03/02/i-used-macros-in-my-browser-views-and-saved-a-bunch-of-money-on-my-car-insurance/
 
 Old style page template
-=======================
+-----------------------
 
-* Create a new layer in portal_skins
+* Create a new layer in ``portal_skins``
 
-* Templates are resolved by their name and portal_skins properties
-  sets the priority which add-on product is looked for the first
+* Templates are resolved by their name, and a property on the
+  ``portal_skins`` tool defines the order in which skin layers are 
+  searched for the name (see the *Properties* tab on ``portal_skins``).
 
-* Reorder layers for the active theme so that your layer thakes
-  priority (see *Properties* tab on portal_skins)
+* You can reorder layers for the active theme so that your layer takes
+  priority.
 
 Portlet slots
--------------
+=============
 
-By default, Plone main_template has slots for left and right portlets.
-If you have a view where you don't explicitly want to render portlets you can do
+By default, Plone ``main_template`` has slots for left and right portlets.
+If you have a view where you don't explicitly want to render portlets you
+can do:
 
 .. code-block:: html
 
-        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-                xmlns:tal="http://xml.zope.org/namespaces/tal"
-                xmlns:metal="http://xml.zope.org/namespaces/metal"
-                xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-                lang="en"
-                metal:use-macro="here/main_template/macros/master"
-                i18n:domain="plone">
-        
-                <head>
-                        <metal:block fill-slot="column_one_slot" />
-                        <metal:block fill-slot="column_two_slot" />
-                </head>
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+            xmlns:tal="http://xml.zope.org/namespaces/tal"
+            xmlns:metal="http://xml.zope.org/namespaces/metal"
+            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+            lang="en"
+            metal:use-macro="here/main_template/macros/master"
+            i18n:domain="plone">
+
+            <head>
+                <metal:block fill-slot="column_one_slot" />
+                <metal:block fill-slot="column_two_slot" />
+            </head>
+
+This blanks out the ``column_one_slot`` and ``column_two_slot`` slots.
 
 Head slots
-----------------
+================
 
-You can easily include per-template CSS and Javscripts in <head> using 
+You can easily include per-template CSS and Javscripts in ``<head>`` using
 extra slots defined in Plone's ``main_template.pt``.
 
-Note that these media files do not participate in :doc:`portal_css </templates_css_and_javascripts/css>` or
-:doc:`portal_javascript </templates_css_and_javascripts/javascript>` resource compression. 
+Note that these media files do not participate in 
+:doc:`portal_css </templates_css_and_javascripts/css>` or
+:doc:`portal_javascript </templates_css_and_javascripts/javascript>`
+resource compression. 
 
 Extra slots are
 
@@ -225,79 +273,77 @@ Example use
 
 .. code-block:: html
 
-        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-              lang="en"
-              metal:use-macro="here/main_template/macros/master"
-              i18n:domain="sits">
-        
-              <metal:slot fill-slot="css_slot">
-                      <style media="all" type="text/css">
-                        
-                        .schema-browser {
-                                border-collapse: collapse;
-                        }
-                        
-                        .schema-browser td,
-                        .schema-browser th {
-                                vertical-align: top;
-                                border: 1px solid #aaa;
-                                padidng: 0.5em;
-                                text-align: left;
-                        }
-                        
-                        .default {
-                                color: green;
-                        }
-                        
-                        .mandatory {
-                                color: red;
-                        }
-                      </style>
-              </metal:slot>
-        
-        <body>
-                <metal:main fill-slot="main">
-                        
-                        <p>
-                                Protocols marked with question marks can be required or not 
-                                depending of the current state of the patient.
-                                For example, priodisability field depends on other set fields of the patient.
-                        </p>
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+          lang="en"
+          metal:use-macro="here/main_template/macros/master"
+          i18n:domain="sits">
+
+          <metal:slot fill-slot="css_slot">
+              <style media="all" type="text/css">
+
+                .schema-browser {
+                        border-collapse: collapse;
+                }
+
+                .schema-browser td,
+                .schema-browser th {
+                        vertical-align: top;
+                        border: 1px solid #aaa;
+                        padding: 0.5em;
+                        text-align: left;
+                }
+
+                .default {
+                        color: green;
+                }
+
+                .mandatory {
+                        color: red;
+                }
+              </style>
+          </metal:slot>
+
+    <body>
+        <metal:main fill-slot="main">
+            <p>
+                Protocols marked with question marks can be required or not
+                depending of the current state of the patient.  For example,
+                priodisability field depends on other set fields of the
+                patient.
+            </p>
+        ...
 
 
 Edit frame
 ---------------
 
-By default, Plone draws green edit frame around the content if you can 
+By default, Plone draws a green *edit* frame around the content if you can
 edit it. You might want to disable this behavior for particular views.
 
 Hiding the edit frame
-===========================
-If you'd like to hide the (green) editing frame place the following code to your Zope 2 like page template::
+---------------------------
 
- <metal:block fill-slot="top_slot"
+If you'd like to hide the (green) editing frame, place the following code in
+your Zope 2-style page template::
+
+     <metal:block fill-slot="top_slot"
                 tal:define="dummy python:request.set('disable_border',1)" />
 
-Examples of this usage
+Examples of this usage:
 
 * Contact info page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/contact-info.cpt
 
 * Recently modified page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/recently_modified.pt
 
 Special style on individual pages
------------------------------------
+===================================
 
-To override page layout partially for individual pages you
-can use marker interface to register special overriding viewlets.
+To override page layout partially for individual pages you can use marker
+interfaces to register special overriding viewlets.
 
-More information
+More information:
 
 * :doc:`Viewlets </views/viewlets>`
 
 * http://starzel.de/blog/how-to-get-a-different-look-for-some-pages-of-a-plone-site
-
-
-
-
-
 
