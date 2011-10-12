@@ -60,3 +60,34 @@ You can enable, disable and reorder skins layer applied in the theme.
 Upgrade may change the default theme and you might want to restore
 custom theme in *portal_skins*.
 
+Enabling plone.app.discussion after Plone 4.1 upgrade
+-----------------------------------------------------
+
+After migration from an earlier version of Plone, you will may notice that you
+do not have a *Discussion* control panel for ``plone.app.discussion``, the new
+commenting infrastructure which now ships as part of new Plone installs beyond
+version 4.1.  If a check of your *Site Setup* page reveals that you do not have
+the *Discussion* control panel, implement the following.
+
+Install plone.app.discussion manually
+=====================================
+
+#. Log into your Plone site as a user with Manager access
+#. Browse to the following URL to manually install ``plone.app.discussion``::
+
+    http://<your-plone-url>:<port>/<plone-instance>/portal_setup/manage_importSteps
+
+#. In the *Select Profile or Snapshot* drop-down menu, select 
+   ``Plone Discussions``.
+#. Click the ``Import all steps`` button at the bottom of the page.
+#. Confirm that *Discussion* is now present as a control panel in your 
+   *Site Setup*
+
+Migrate existing comments
+=========================
+
+Follow the instructions regarding `How to migrate comments to
+plone.app.discussion
+<http://plone.org/products/plone.app.discussion/documentation/how-to/how-to-migrate-comments-to-plone.app.discussion>`_
+to migrate existing Plone comments.
+
