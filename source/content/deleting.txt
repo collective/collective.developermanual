@@ -109,6 +109,42 @@ When the user presses confirm, the orignal request gets unpickled
 from HTTP POST payload. Then the view modifies Zope publisher 
 so that it will play the orignal unpickled HTTP POST with the marker interface
 "Do not care about link integrity breaches" turned on.
+
+Here is an sample batch delete code which tries to work around the link integrity check::
+
+        from zope.component import queryUtility
+        from Products.CMFCore.interfaces import IPropertiesTool
+
+        # We need to disable link integrity check,
+        # because it cannot handle several delete calls in
+        # one request
+        ptool = queryUtility(IPropertiesTool)
+        props = getattr(ptool, 'site_properties', None)
+        old_check = props.getProperty('enable_link_integrity_checks', False)
+        props.enable_link_integrity_checks = False
+        
+        for b in items:
+            count += 1            
+            obj = b.getObject()
+            logger.info("Deleting:" + obj.absolute_url() + " " + str(obj.created()))
+            
+            try:
+                obj.aq_parent.manage_delObjects([obj.getId()])
+            except Exception, e:
+                # E.g. linkintegrityerror or some other
+                logger.error("Could not remove item:" + obj.absolute_url())
+                logger.exception(e)
+                continue
+                
+            if count % transaction_threshold == 0:
+                # Prevent transaction becoming too large (memory buffer)
+                # by committing now and then
+                logger.info("Committing transaction")
+                transaction.commit()
+
+        props.enable_link_integrity_checks = old_check
+
+        logger.info(msg)
     
 Fail safe deleting
 -------------------
