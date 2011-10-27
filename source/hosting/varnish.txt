@@ -17,11 +17,25 @@ Introduction
 This chapter contains information about using the Varnish caching proxy with
 Plone.
 
-Before continuing, please read these documents first:
+* http://varnish-cache.org/
+
+Installation
+==========================
+
+* You can install using packages (RPM/DEB) - consult your operating system instructions. **This is the recommended method.**
+
+* You can install backports 
+
+* You can install using buildout
+
+
+Backporting examples (Ubuntu 8.04 Hardy Heron)
+
+* http://www.lunix.com.au/blog/sane_varnish_on_hardy/
+
+Buildout examples
 
 * http://pypi.python.org/pypi/plone.recipe.varnish
-
-* http://varnish-cache.org/
 
 Management console
 ==================
@@ -310,7 +324,7 @@ More info
 
 * http://blog.carumba.com/post/226455049/remove-google-analytics-cookies-in-varnish                  
 
-Full purge
+Custom and full cache purges
 ======================================
 
 Below is an example how to create an action to purge the whole Varnish cache.
@@ -428,3 +442,43 @@ Session cookies
 ==================
 
 * http://www.phase2technology.com/node/1218/
+
+Round robin balancing
+========================
+
+Varnish can do round robin load balancing internally.
+You want to distribute CPU intensive load between several
+ZEO front end client instances each listeting to 
+its own port.
+
+Example::
+
+
+  # Round-robin between two ZEO front end clients
+
+  backend app1 {
+  .host = "localhost";
+  .port = "8080";
+  }
+
+  backend app2 {
+  .host = "localhost";
+  .port = "8081";
+  }
+
+  director app_director round-robin {
+    {
+        .backend = app1;
+    }
+    {
+        .backend = app2;
+    }
+  }
+
+
+  sub vcl_recv {
+
+   if (req.http.host ~ "(www\.|www2\.)?app\.fi(:[0-9]+)?$") {
+      set req.url = "/VirtualHostBase/http/www.app.fi:80/app/app/VirtualHostRoot" req.url;
+      set req.backend = app_director;   
+    }  
