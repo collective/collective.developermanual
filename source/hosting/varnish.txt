@@ -253,6 +253,19 @@ Example::
 	        }
 	}
 	
+Varnishd port and IP address to listen
+========================================
+
+You give IP address(s) and ports to Varnish to listen to
+on the ``varnishd`` command line using -a switch.
+Edit ``/etc/default/varnish``::
+
+  DAEMON_OPTS="-a 192.168.1.1:80 \
+               -T localhost:6082 \
+               -f /etc/varnish/default.vcl \
+               -s file,/var/lib/varnish/$INSTANCE/varnish_storage.bin,1G"
+
+
 	
 Cached and editor subdomains
 ==============================
