@@ -91,3 +91,61 @@ plone.app.discussion
 <http://plone.org/products/plone.app.discussion/documentation/how-to/how-to-migrate-comments-to-plone.app.discussion>`_
 to migrate existing Plone comments.
 
+Fixing Creator details on existing comments
+===========================================
+
+You may notice that some of your site's comments have the user's ID as their
+Creator property.  At time of writing (for ``plone.app.discussion==2.0.10``),
+the Creator field should refer to the user's full name and not their user ID.  You'll likely notice that a number of other fields, including ``author_username``, ``author_name`` and ``author_email`` are not present on some of your migrated comments.  Reasons why comments get migrated but unsuccessfully are being investigated.
+
+This may change for future versions of ``plone.app.discussion``.  For now,
+though, having the user ID left as the Creator is less than helpful and means
+aspects like the username, name, and email not present affect usability of
+comments.
+
+If a site has many comments with this issue, it is possible to step through all
+of them and correct them.  Using a script like the following will process each
+of the affected comments accordingly:
+
+.. code-block:: python
+
+    from Products.CMFPlone.utils import getToolByName
+    from zope.app.component import hooks
+    context = hooks.getSite()
+    catalog = getToolByName(context, 'portal_catalog')
+    mtool = getToolByName(context, 'portal_membership')
+    brains = catalog.searchResults(object_provides='plone.app.discussion.interfaces.IComment')
+    for brain in brains:
+        member = mtool.getMemberById(brain.Creator)
+        comment = brain.getObject()
+
+        if member and not comment.author_username and not comment.author_name and not comment.author_email:
+            fullname = member.getProperty('fullname')
+            email = member.getProperty('email')
+            if fullname and email:
+                comment.author_username = brain.Creator #our borked user ID
+                comment.creator = fullname
+                comment.author_name = fullname
+                comment.author_email = email
+                comment.reindexObject()
+                print 'Fixed and reindexed %s' % comment
+            else:
+                print 'Could not find properties for author of %s' % comment
+    
+This can be run anywhere an Acquisition ``context`` object is available, such
+as running your Zope instance in ``debug`` mode, an ipython prompt, or some
+other function on the filesystem.  The ``getSite()`` function call can (and may
+need to) be replaced with some other pre-existing context object if that is
+more suitable.
+
+Keep in mind that this script was successfully used in a situation where no
+possible collisions existed between correctly-migrated comments Creators' full
+names and user IDs (the code looks up the Creator in the hope of finding a
+valid Plone member).  So, if you had a situation where you had some correctly
+migrated comments written by a user with ID ``david`` and full name of
+``Administrator``, and also had a user with the ID of ``Administrator``, then
+this script may not be suitable.  In the test situation, the three attributes
+of ``author_username``, ``author_name``, and ``author_email`` were observed as
+all being ``None``, so in checking for this too, this may avoid problems.  Test
+the code first with something like a ``print`` statement to ensure all comments
+will get modified correctly.
