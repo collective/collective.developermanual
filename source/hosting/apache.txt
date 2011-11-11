@@ -215,11 +215,17 @@ for the image and it contains Set-Cookie: I18N_LANGUAGE header for the wrong lan
 
 A workaround is to force language cookie off from media like content::
 
-  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js|ico)$" language-neural
-  SetEnvIfNoCase Request_URI "image_preview(/)$" language-neural
-  SetEnvIfNoCase Request_URI "image_large(/)$" language-neural
-  SetEnvIfNoCase Request_URI "image_thumb(/)$" language-neural
-  SetEnvIfNoCase Request_URI "image_mini(/)$" language-neural
+SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" language-neutral
+  SetEnvIfNoCase Request_URI "image_preview(/)$" language-neutral
+  SetEnvIfNoCase Request_URI "image_large(/)$" language-neutral
+  SetEnvIfNoCase Request_URI "image_small(/)$" language-neutral
+  SetEnvIfNoCase Request_URI "image_thumb(/)$" language-neutral
+  SetEnvIfNoCase Request_URI "image_mini(/)$" language-neutral
+  SetEnvIfNoCase Request_URI "image*$" language-neutral
+  SetEnvIfNoCase Request_URI "navImage_small(/)$" language-neutral
+  # Any URL having image in it
+  SetEnvIfNoCase Request_URI "^.*image*" language-neutral
+
    
   Header unset Set-Cookie env=language-neutral
 
