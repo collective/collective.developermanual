@@ -188,5 +188,82 @@ How versioning (CMFEditions) works
         You might actually want to check out the package to get your web browser to 
         properly read the file.
         
+Getting the complete revision history for an object
+---------------------------------------------------
 
-        
+You may find yourself needing to (programmatically) get some/all of a content
+object's revision history. The content history view can be utilised to do this;
+this view is the same one that is visible through Plone's web interface at
+``@@contenthistory`` (or indirectly on ``@@historyview``).  This code works
+with Plone 4.1 and has been utilised for exporting raw content modification
+information:
+
+.. code-block:: python
+
+    from plone.app.layout.viewlets.content import ContentHistoryView
+    context = portal['front-page']
+    print ContentHistoryView(context, context.REQUEST).fullHistory()
+
+The end result should look something like this, which has plenty of tasty
+morsels to pull apart and use::
+
+    [{'action': u'Edited',
+      'actor': {'description': '',
+                'fullname': 'admin',
+                'has_email': False,
+                'home_page': '',
+                'language': '',
+                'location': '',
+                'username': 'admin'},
+      'actor_home': 'http://www.foo.com/author/admin',
+      'actorid': 'admin',
+      'comments': u'Initial revision',
+      'diff_current_url': 'http://foo/Plone5/front-page/@@history?one=current&two=0',
+      'preview_url': 'http://foo/Plone5/front-page/versions_history_form?version_id=0#version_preview',
+      'revert_url': 'http://foo/Plone5/front-page/revertversion',
+      'time': 1321397285.980262,
+      'transition_title': u'Edited',
+      'type': 'versioning',
+      'version_id': 0},
+     {'action': 'publish',
+      'actor': {'description': '',
+                'fullname': '',
+                'has_email': False,
+                'home_page': '',
+                'language': '',
+                'location': '',
+                'username': 'admin'},
+      'actor_home': 'http://www.foo.com/author/admin',
+      'actorid': 'admin',
+      'comments': '',
+      'review_state': 'published',
+      'state_title': 'Published',
+      'time': DateTime('2011/11/15 09:49:8.023381 GMT+10'),
+      'transition_title': 'Publish',
+      'type': 'workflow'},
+     {'action': None,
+      'actor': {'description': '',
+                'fullname': '',
+                'has_email': False,
+                'home_page': '',
+                'language': '',
+                'location': '',
+                'username': 'admin'},
+      'actor_home': 'http://www.foo.com/author/admin',
+      'actorid': 'admin',
+      'comments': '',
+      'review_state': 'private',
+      'state_title': 'Private',
+      'time': DateTime('2011/11/15 09:49:8.005597 GMT+10'),
+      'transition_title': u'Create',
+      'type': 'workflow'}]
+
+For instance, you can determine who the last person to modify this Plone
+content was by looking at the first list element (and get all their details
+from the actor information). Refer to the source of
+``plone.app.layout.viewlets.content`` for more information about
+``ContentHistoryView``, ``ContentHistoryViewlet`` and
+``WorkflowHistoryViewlet``.  Using these other class definitions, you can see
+that you can get just the workflow history using ``.workflowHistory()`` or just
+the revision history using ``.revisionHistory()``.
+
