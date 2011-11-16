@@ -204,6 +204,30 @@ information:
     context = portal['front-page']
     print ContentHistoryView(context, context.REQUEST).fullHistory()
 
+If you want to run this from somewhere without a ``REQUEST`` available, such
+as the *Plone/Zope debug console*, then you'll need to fake a request and access
+level accordingly. Note the subtle change to using ``ContentHistoryViewlet``
+rather than ``ContentHistoryView`` - we need to avoid initialising an entire
+view because this involves component lookups (and thus, pain).  We also need to 
+fake our security as well to avoid anything being left out from the history.
+
+.. code-block:: python
+
+    from plone.app.layout.viewlets.content import ContentHistoryViewlet
+    from zope.publisher.browser import TestRequest
+    from AccessControl.SecurityManagement import newSecurityManager
+
+    admin = app.acl_users.getUser('webmaster')
+    request = TestRequest()
+    newSecurityManager(request,admin)
+
+    portal = app.ands
+    context = portal['front-page']
+    chv = ContentHistoryViewlet(context, request, None, None)
+    #These attributes are needed, the fullHistory() call fails otherwise
+    chv.navigation_root_url = chv.site_url = 'http://www.foo.com'
+    print chv.fullHistory()
+
 The end result should look something like this, which has plenty of tasty
 morsels to pull apart and use::
 
