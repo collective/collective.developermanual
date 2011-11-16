@@ -242,18 +242,23 @@ Please see :doc:`cache issues related to LinguaPlone </i18n/cache>`.
 Sanifying cookies 
 ===========================================
 
-Any cookie set by the server or on the client-side (e.g. Google Analytics)
-will be poisong for caching the anonymous visitor content.
-This is because the client will send HTTP request
-with ``Set-Cookie`` header confusing Varnish cache look-up.
+Any cookie set on the server side (session cookie) or on the client-side 
+(e.g. Google Analytics Javascript cookies)
+is poison for caching the anonymous visitor content.
 
-.. note ::
+HTTP caching needs to deal with both HTTP request and response cookie handling
 
-  By default, Varnish does not cache responses if they have any cookie set (Set-Cookie 
-  header). Howerver, this might be desirable
-  behavior if e.g. multi-lingual content is served from one URL.
+* HTTP request *Cookie* header. The browser sending HTTP request
+  with ``Cookie`` header confuses Varnish cache look-up. This header can be 
+  set by Javascript also, not just by the server. *Cookie* can be preprocessed in *vcl_recv*.
+  
+* HTTP request *Set-Cookie* header. This is server-side cookie set. If your server is setting
+  cookies Varnish does not cache these responses by default. 
+  Howerver, this might be desirable
+  behavior if e.g. multi-lingual content is served from one URL with language cookies.
+  *Set-Cookie* can be post-processed in *vcl_fetch*.
 
-Example how remove all Plone cookies besides one dealing with the logged in users (content authors)::
+Example how remove all Plone related cookies besides ones dealing with the logged in users (content authors)::
 
   sub vcl_recv {
 
@@ -311,7 +316,7 @@ Debugging cookie issues
 ++++++++++++++++++++++++++
 
 Use the following snippet to set a HTTP response debug header to see what Varnish
-see as cookie after *vcl_fetch* clean-up::
+see as cookie after *vcl_recv* clean-up::
 
   sub vcl_fetch {
 
@@ -348,7 +353,8 @@ Plone Language cookie (I18N_LANGUAGE)
 +++++++++++++++++++++++++++++++++++++++
 
 This cookie could be removed in *vcl_fetch* response post-processing (how?).
-However, a better solution is to disable this cookie in Plone portal_languages backend tool.
+However, a better solution is to disable this cookie in the backend itself: in this
+case in Plone portal_languages backend tool.
 Disable it by *Use cookie for manual override* setting in portal_languages.
                   
 More info
