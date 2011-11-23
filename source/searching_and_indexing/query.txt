@@ -435,6 +435,11 @@ Example::
 
     # Print absolute content of portal_catalog
     for i in portal_catalog.unrestrictedSearchResults(): print i.getURL()
+
+With ``unrestrictedSearchResults()`` you need also a special way to get access to 
+the objects without triggering a security exception::
+
+    obj = brain._unrestrictedGetObject()
     
 Bypassing language check
 ------------------------
