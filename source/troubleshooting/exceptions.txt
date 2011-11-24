@@ -1869,5 +1869,22 @@ Also:
 
 * Put portal_kss for debug mode (in development environment)
 
+ComponentLookupError: cmf.ManagePortal
+----------------------------------------
 
- 
+When starting Plone you'll get::
+	
+	zope.configuration.config.ConfigurationExecutionError: <class 'zope.component.interfaces.ComponentLookupError'>: (<InterfaceClass zope.security.interfaces.IPermission>, u'cmf.ManagePortal')
+	  in:
+	  File "/fast/x/src/collective.portletcollection/collective/portletcollection/portlets/configure.zcml", line 11.2-20.8 
+
+This is a sign of changed loading order, starting from Plone 4.1. 
+You need to explicitly include *CMFCore/permissions.zcml* in your *configuration.zcml*.
+
+Example::
+	
+	<include package="Products.CMFCore" file="permissions.zcml" />
+
+More info
+
+* http://dev.plone.org/ticket/11837
