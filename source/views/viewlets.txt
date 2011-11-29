@@ -16,6 +16,12 @@ Viewlets are view snippets which will render a part of the HTML page.
 Viewlets provide conflict-free way to contribute new user-interface actions and
 HTML snippets to Plone pages.
 
+Each viewlet is an a viewlet manager. To add viewlets to your HTML code you first need
+to add them to a viewlet manager, which allows you to shuffle viewlets around through-the-web.
+
+What viewlets do
+===================
+
 * Viewlets are managed using /@@manage-viewlets page
 
 * Viewlets can shown and hidden through-the-web
@@ -40,6 +46,8 @@ More info
 
 * `ZCML viewlet definition <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/viewlet/index.html>`_.
 
+* http://pypi.python.org/pypi/zope.viewlet/
+
 Finding viewlets
 ----------------
 
@@ -62,6 +70,14 @@ Viewlet consists of
 * A :doc:`browser layer </views/layers>` defining which add-on product must be installed, so that the viewlet is rendered
 
 * A related Grok or ZCML directives to register the viewlet to a correct viewlet manager with a correct layer 
+
+Stock viewlets
+===================
+
+These can be found in `plone.app.layout.viewlet module <https://github.com/plone/plone.app.layout/blob/master/plone/app/layout/viewlets/configure.zcml>`_.
+
+The language selector lives in `plone.app.i18n.locales.browser <https://github.com/plone/plone.app.i18n/blob/master/plone/app/i18n/locales/browser/configure.zcml>`_,
+but it is a *view*. Don't know why.
 
 Creating a viewlet using Grok
 ==================================
@@ -126,6 +142,154 @@ Then create folder ``yourcomponent.app/yourcomponent/app/browser/templates`` whe
 More info
 
 * http://vincentfretin.ecreall.com/articles/using-five.grok-to-add-viewlets
+
+Creating a viewlet manager
+-----------------------------
+
+Viewlet managers contains viewlet. 
+
+Viewlet manage can be rendered in a page template code using the following expression::
+
+  <div tal:replace="structrure viewletmanagerid" />
+
+Each viewlet manager allows you to shuffle viewlets inside a viewlet manager.
+This is done by using ``/@@manage-viewlets`` view. These settings
+are stored in the site database, so a good practice is to export ``viewlets.xml``
+using ``portal_setup`` and then include the necessary bits of this ``viewlets.xml``
+with your add-on installer so that when your add-on is installed, the viewlet
+configuration is changed accordingly.
+
+.. note ::
+
+    You cannot move viewlets between viewlet managers.
+    I know it sucks, but life is hard and Plone is harder.
+    Hide viewlets in one manager using /@@manage-viewlets and viewlets.xml
+    export, then re-register the same viewlet to a new manager.
+
+Viewlet managers are based on `zope.viewlet.manager.ViewletManager <http://svn.zope.org/zope.viewlet/trunk/src/zope/viewlet/manager.py?rev=113069&view=auto>`_
+and `plone.app.viewletmanager.manager.OrderedViewletManager <https://github.com/plone/plone.app.viewletmanager/blob/master/plone/app/viewletmanager/manager.py>`_.
+
+More info
+
+* http://grok.zope.org/doc/current/reference/components.html?highlight=viewlet#grok.ViewletManager
+
+* http://svn.zope.org/zope.viewlet/trunk/src/zope/viewlet/viewlet.py?rev=113069&view=auto
+
+* http://plone.org/documentation/manual/theme-reference/elements/viewletmanager/anatomy/
+
+* http://plone.org/documentation/kb/customizing-main-template-viewlets/viewlets-registration
+
+Creating a viewlet manager: Grok way
+============================================
+
+Recommended.
+
+An example here
+
+* http://code.google.com/p/plonegomobile/source/browse/gomobiletheme.basic/trunk/gomobiletheme/basic/viewlets.py#80
+
+Creating a viewlet manager: ZCML way
+============================================
+
+For those who want to write XML.
+
+Usually viewlet managers are dummy interfaces and the actual implementation 
+comes from ``plone.app.viewletmanager.manager.OrderedViewletManager``.
+
+In this example we put two viewlets in a new viewlet manager so that we can
+properly CSS float then and close this float.
+
+.. note ::
+
+    This example uses extensive Python module nesting: plonetheme.yourtheme.browser.viewlets is just too deep.
+    You really don't need to do some many levels,
+    but the orignal plone3_theme paster templates do it in bad way. One of Python golden
+    rules is that flat is better than nested. You can just dump everything to the
+    root of your plonetheme.yourtheme package.    
+
+In your ``browser/viewlets/manager.py`` or similar file add::
+
+    <browser:viewletManager
+     name="plonetheme.yourtheme.headerbottommanager"
+     provides="plonetheme.yourtheme.browser.viewlets.manager.IHeaderBottomViewletManager"
+     class="plone.app.viewletmanager.manager.OrderedViewletManager"
+     layer="plonetheme.yourtheme.browser.interfaces.IThemeSpecific"
+     permission="zope2.View"
+     template="headerbottomviewletmanager.pt"
+     />
+
+Then in ``browser/viewlets/configure.zcml``::
+
+    <browser:viewletManager
+     name="plonetheme.yourock.browser.viewlets.MyViewletManager"
+     provides=".viewlets.MyViewletManager"
+     class="plone.app.viewletmanager.manager.OrderedViewletManager"
+     layer="plonetheme.yourock.interfaces.IThemeLayer"
+     permission="zope2.View"
+     />
+
+Optionally you can include a template which renders some wrapping HTML around viewlets. *browser/viewlets/headerbottomviewletmanager.pt*::     
+
+    <div id="header-bottom">
+        <tal:comment replace="nothing">
+            <!-- Rendeder all viewlets inside this manager.
+            
+                 Pull viewlets out of the manager and render then one-by-one
+             -->
+        </tal:comment>
+        
+        <tal:viewlets repeat="viewlet view/viewlets">
+               <tal:viewlet replace="structure python:viewlet.render()" />
+        </tal:viewlets>
+        
+        <div style="clear:both"><!-- --></div>
+    </div>  
+
+
+And then re-register some stock viewlets against your new viewlet manager in *browser/viewlets/configure.zcml*::
+
+   <!-- Re-register two stock viewlets to the new manager --> 
+    
+   <browser:viewlet
+     name="plone.path_bar"
+     for="*"
+     manager="plonetheme.yourtheme.browser.viewlets.manager.IHeaderBottomViewletManager"
+     layer="plonetheme.yourtheme.browser.interfaces.IThemeSpecific"
+     class="plone.app.layout.viewlets.common.PathBarViewlet"
+     permission="zope2.View"
+     />     
+
+
+  <!-- This is a customization for rendering the a bit different language selector -->     
+  <browser:viewlet
+     name="plone.app.i18n.locales.languageselector"
+     for="*"
+     manager="plonetheme.yourtheme.browser.viewlets.manager.IHeaderBottomViewletManager"
+     layer="plonetheme.yourtheme.browser.interfaces.IThemeSpecific"
+     class=".selector.LanguageSelector"
+     permission="zope2.View"
+    />    
+
+
+Now, we need to render our viewlet manager somehow. One place to do it is in a ``main_template.pt``,
+but because we need to add this HTML output to a header section which is produced by *another*
+viewlet manager, we need to create a new viewlet just for rendering our viewlet manager.
+Yo dawg - we put viewlets in your viewlets so you can render viewlets!
+
+``browser/viewlets/headerbottom.pt``::
+
+    <tal:comment replace="nothing">
+        <!-- Render our precious viewlet manager -->
+    </tal:comment>  
+    <tal:render-manager replace="structure provider:plonetheme.yourtheme.headerbottommanager" />
+
+Only six files needed to change a bit of HTML code - welcome to the land of productivity!
+
+After all this ZCML typing you probably should just look the grok example above.
+
+More info
+
+* http://plone.org/documentation/manual/theme-reference/elements/viewletmanager/override
 
 Viewlet behavior
 ----------------
