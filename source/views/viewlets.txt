@@ -146,11 +146,14 @@ More info
 Creating a viewlet manager
 -----------------------------
 
-Viewlet managers contains viewlet. 
+Viewlet managers contains viewlets. Viewlet manager itself 
+is a Zope 3 interface which contains an OrdereredViewletManager implementation.
+OrderedViewletManager handles saving the order of the viewlets in the site database
+and provides the fancy /@@manage-viewlets output.
 
 Viewlet manage can be rendered in a page template code using the following expression::
 
-  <div tal:replace="structrure viewletmanagerid" />
+  <div tal:replace="structrure provider:viewletmanagerid" />
 
 Each viewlet manager allows you to shuffle viewlets inside a viewlet manager.
 This is done by using ``/@@manage-viewlets`` view. These settings
@@ -182,9 +185,9 @@ More info
 Creating a viewlet manager: Grok way
 ============================================
 
-Recommended.
+Recommended if you want to keep the number of files and lines of XML and Python minimum.
 
-An example here
+An example here for related Python code::
 
 * http://code.google.com/p/plonegomobile/source/browse/gomobiletheme.basic/trunk/gomobiletheme/basic/viewlets.py#80
 
@@ -284,6 +287,7 @@ Yo dawg - we put viewlets in your viewlets so you can render viewlets!
     <tal:render-manager replace="structure provider:plonetheme.yourtheme.headerbottommanager" />
 
 Only six files needed to change a bit of HTML code - welcome to the land of productivity!
+On the top of this you also need to create a new ``viewlets.xml`` export for your theme.
 
 After all this ZCML typing you probably should just look the grok example above.
 
