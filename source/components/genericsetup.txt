@@ -273,21 +273,21 @@ context.
 
 Also you need to register this custom import step in ``configure.zcml``
 
-.. code-block:: xml
+.. code-block :: xml
 
-  <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
-
-          <!-- Register the import step -->
-          <genericsetup:importStep
-              name="your.package"
-              title="your.package special import handlers"
-              description=""
-              handler="your.package.setuphandlers.setupVarious" />
-              />
-
-  </configure>
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+        
+        <!-- Register the import step -->
+        <genericsetup:importStep
+            name="your.package"
+            title="your.package special import handlers"
+            description=""
+            handler="your.package.setuphandlers.setupVarious" />
+            />
+    
+    </configure>
 
 ``setuphandlers.py`` example
 
@@ -365,26 +365,25 @@ add sens like the status of the addon: is it stable, is it in dev, in beta,
 which branch it is. A profile version indicate only that you have to migrate
 data in the database.
 
-Next we add an upgrade step::
+Next we add an upgrade step:
 
 .. code-block:: xml
 
-  <configure
-      xmlns="http://namespaces.zope.org/zope"
-      xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-      i18n_domain="YOUR.PRODUCT">
-  
-  <genericsetup:upgradeStep
-      title="Convert Price to strings"
-      description="Price was previously a float field, it should be converted to string"
-      source="1000"
-      destination="1100"
-      handler="YOUR.PRODUCT.upgrades.convert_price_to_string"
-      sortkey="1"
-      profile="YOUR.PRODUCT:default" 
-      />
-  
-  </configure>
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+        i18n_domain="YOUR.PRODUCT">
+        
+        <genericsetup:upgradeStep
+            title="Convert Price to strings"
+            description="Price was previously a float field, it should be converted to string"
+            source="1000"
+            destination="1100"
+            handler="YOUR.PRODUCT.upgrades.convert_price_to_string"
+            sortkey="1"
+            profile="YOUR.PRODUCT:default"/>
+    
+    </configure>
 
 
 * You can use a wildcard character for *source* to indicate an upgrade for any
@@ -522,7 +521,7 @@ Preventing uninstall
 
 You might want to prevent your add-on product uninstall for some reason.
 
-Example::
+Example:
 
 .. code-block:: python
 
