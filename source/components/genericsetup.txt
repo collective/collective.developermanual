@@ -200,7 +200,7 @@ are usable from *collective.basket* add-on products when your add-on product is 
 
         <?xml version="1.0"?>
         <metadata>
-          <!-- We do not declare <version> here because Plone 3.3+ picks the version from setup.py file -->
+          <version>1000</version>
           <dependencies>
             <dependency>profile-collective.basket:default</dependency>
           </dependencies>
@@ -237,6 +237,7 @@ To declare dependency to ``Products.Carousel``:
 
         <?xml version="1.0"?>
         <metadata>
+          <version>1000</version>
           <!-- Install Products.Carousel on the site when this add-on is installed -->
           <dependencies>
             <dependency>profile-Carousel:default</dependency>
@@ -347,7 +348,7 @@ Upgrade steps
 You can define upgrade steps to run code only when someone upgrades your
 product from version *x* to *y*.
 
-As an example, let's say that the new version 1.2 of YOUR.PRODUCT defines a
+As an example, let's say that the new version of YOUR.PRODUCT defines a
 *price* field on a content type *MyType* to be a string, but previously
 (version 1.1.  and earlier) it was a float. Code that uses this field and
 assumes it to be a float will break after the upgrade, so you'd like to
@@ -358,28 +359,42 @@ GenericSetup upgrade step means non-technical people can do it as well. As it
 turns out, once you have the script, it's easy to put its code in an upgrade
 step.)
 
-We add the upgrade step to the profile::
+First increase the number of the version in the metadata.xml. This version
+number should be an integer. Package version are different because they
+add sens like the status of the addon: is it stable, is it in dev, in beta,
+which branch it is. A profile version indicate only that you have to migrate
+data in the database.
+
+Next we add an upgrade step::
 
 .. code-block:: xml
 
+  <configure
+      xmlns="http://namespaces.zope.org/zope"
+      xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+      i18n_domain="YOUR.PRODUCT">
+  
   <genericsetup:upgradeStep
       title="Convert Price to strings"
       description="Price was previously a float field, it should be converted to string"
-      source="*"
-      destination="1.2"
-      handler="YOUR.PRODUCT.setuphandlers.convert_price_to_string"
+      source="1000"
+      destination="1100"
+      handler="YOUR.PRODUCT.upgrades.convert_price_to_string"
       sortkey="1"
       profile="YOUR.PRODUCT:default" 
       />
+  
+  </configure>
+
 
 * You can use a wildcard character for *source* to indicate an upgrade for any
   previous version. To run the upgrade step only when upgrading from a specific
   version, use that version's number.
 
-* The *sortkey* can be used to indicate the order in which upgrade steps are
+* A *sortkey* can be used to indicate the order in which upgrade steps are
   run.
 
-The code for the upgrade method itself is best placed in *setuphandlers.py*::
+The code for the upgrade method itself is best placed in a *upgrades.py* module::
 
     import logging
     PROFILE_ID='profile-YOUR.PRODUCT:default'
@@ -438,6 +453,58 @@ XXX Fix the link above
 After restarting Zope, your upgrade step should be visible in the ZMI: The
 *portal_setup* tool has a tab *Upgrades*. Select your product profile to see
 which upgrade steps Zope knows about for your product.
+
+You can create many upgrade steps under one migration. This is useful when
+you want to have the ability to re-run some parts of the migration and make
+your code more re-useable (for example cook css resource of your theme).
+
+Here is an example of many upgrade steps you can have to achieve on a
+site policy:
+
+.. code-block:: xml
+
+    <genericsetup:upgradeSteps
+        source="3900"
+        destination="4000"
+        profile="project.policy:default">
+    
+        <genericsetup:upgradeStep
+            title="Upgrade addons"
+            description="Install and upgrades add-ons"
+            handler=".v4.upgrade_addons"/>
+    
+        <genericsetup:upgradeStep
+            title="Remove LDAP PAS Plugin"
+            description="Execute this upgrade after the plonesite upgrade"
+            handler=".v4.upgrade_pas"/>
+    
+        <genericsetup:upgradeStep
+            title="Upgrade resources"
+            description="Update javascripts and css"
+            handler=".v4.upgrade_resources"/>
+    
+        <genericsetup:upgradeStep
+            title="Apply new steps of of policy"
+            description=""
+            handler=".v4.upgrade_of_policy"/>
+    
+        <genericsetup:upgradeStep
+            title="upgrade rules"
+            description="collective.contentrules.mail is deprecated, replace with default"
+            handler=".v4.upgrade_contentrules"/>
+    
+        <genericsetup:upgradeStep
+            title="upgrade views"
+            description="get ride of dot in viewname zone1.html -> zone1_view"
+            handler=".v4.upgrade_views"/>
+    
+        <genericsetup:upgradeStep
+            title="remove instance of deprecated portlets"
+            description=""
+            handler=".v4.remove_portlets"/>
+    
+    </genericsetup:upgradeSteps>
+
 
 Add-on product appears twice in the installer list
 ===================================================
