@@ -95,6 +95,20 @@ Example 2::
         contentMedias = schema.Choice(vocabulary=myVocabulary,
                                       title=u"Test choice")
 
+Retrieving a vocabulary
+======================
+
+zope.schema's SimpleVocabulary objects are retrieved via factories registered as utilities.
+
+To get one, use zope.component's getUtility::
+
+    from zope.component import getUtility
+    from zope.schema.interfaces import IVocabularyFactory
+
+    factory = getUtility(IVocabularyFactory, name)
+    vocabulary = factory(context)
+
+
 Getting a term
 ==============
 
