@@ -14,12 +14,11 @@ Introduction
 ============
 
 Plone uses the ZODB database.  The ZODB happily stores any Python object with
-any attributes |---| there is no need to write "database schemas" as there is
-with SQL-based systems.
-
-Subclasses of ``persistent.Persistent`` will have all their attributes
-written to the database.  Lists and dictionaries will be automatically
-converted to persistent versions.
+any attributes |---| there is no need to write database schema or table
+descriptions as there is
+with SQL-based systems. If data models are described somehow 
+the descriptions are written in Python, usually using
+``zope.schema`` package.
 
 This chapter is about the basics of the ZODB, working with the ZODB database
 directly, like tuning database settings.
@@ -99,6 +98,12 @@ Data model
 
 There is no hardwired way for desceribe
 data in ZODB database. 
+
+Subclasses of ZODB ``persistent.Persistent`` 
+clas will have all their attributes and referred objects
+written to the database using Python pickle mechanism.  
+Lists and dictionaries will be automatically
+converted to persistent versions.
 
 There are currently three primary ways to define data models in Plone
 
