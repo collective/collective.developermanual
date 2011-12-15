@@ -14,17 +14,32 @@ Introduction
 ============
 
 Plone uses the ZODB database.  The ZODB happily stores any Python object with
-any attributes |---| there is no need to write "database schemas" as there is
-with SQL-based systems.
-
-Subclasses of ``persistent.Persistent`` will have all their attributes
-written to the database.  Lists and dictionaries will be automatically
-converted to persistent versions.
+any attributes |---| there is no need to write database schema or table
+descriptions as there is
+with SQL-based systems. If data models are described somehow 
+the descriptions are written in Python, usually using
+``zope.schema`` package.
 
 This chapter is about the basics of the ZODB, working with the ZODB database
 directly, like tuning database settings.
 
-Object database constraints
+More information about ZODB
+
+* http://www.zodb.org/
+
+* `Documentation <http://www.zodb.org/zodbbook/>`_
+
+* `API documentation <http://zodb.readthedocs.org/en/latest/api.html>`_
+
+Database files
+===============
+
+Usually Plone's database is configured to file ``var/filestorage/Data.fs``
+and uploaded files can be found as BLOBs in ``var/blobstorage``.
+
+* `Copying a Plone site <http://plone.org/documentation/kb/copying-a-plone-site>`_
+
+Object database features
 ===========================
 
 The ZODB is an object database.  It makes very easy to store different kinds of
@@ -79,18 +94,24 @@ This gives some benefits
   using reference_catalog)  
   
 Data model
-==========
+------------
 
 There is no hardwired way for desceribe
 data in ZODB database. 
 
+Subclasses of ZODB ``persistent.Persistent`` 
+clas will have all their attributes and referred objects
+written to the database using Python pickle mechanism.  
+Lists and dictionaries will be automatically
+converted to persistent versions.
+
 There are currently three primary ways to define data models in Plone
+
+* Using zope.schema package (modern way) to describe Python object properties
 
 * Using Archetypes content type subsystem (all Plone 3 content)
 
-* Using zope.schema package (modern way)
-
-* Not defining the model, but relying 
+* Not defining the model, but relying on ad hoc object attributes
 
 Read about :doc:`zope.schema </models/schemas>`
 how to define a model for the data to be stored 
@@ -99,32 +120,36 @@ in ZODB database.
 Browsing
 ========
 
-You can explore ZODB outside Plone, assuming you have related Python code available 
+You can explore ZODB with-in Plone using `ZODBBrowser <http://plone.org/products/zodbbrowser>`_.
 
-* http://robertoallende.com/en/zodbbrowser-released
+Packing database
+=====================
 
-ZODB versions
-==============
+As ZODB is append-only database it remembers all its history unless packed. Packing will erase undo history.
 
-Plone uses ZODB database. The default ZODB version with Plone 3.x is ZODB 3.7.x. 
-ZODB 3.8.x is not officially supported, but has been reported to work to work
-with Plone 3. ZODB 3.9.x is to be used with Plone 4.
+Packing throught-the-web
+----------------------------
 
-* `ZODB overview <http://www.zodb.org/documentation/articles/ZODB-overview.html>`_
+Manual packing can be executed through Zope Control Panel (not Plone control panel)
+in Zope application server root (not Plone site root) in ZMI.
 
-* `ZODB programming guide <http://www.zodb.org/documentation/guide/index.html>`_
+Packing from command line
+----------------------------
 
-* http://www.ibm.com/developerworks/aix/library/au-zodb/
+`plone.recipe.zeoserver <https://github.com/plone/plone.recipe.zeoserver/>`_ buildout recipe provides command called ``bin/zeopack``
+inside buildout.
+It allows you to trigger packing from the command line when Zope is clustered ZEO configuration.
+``zeopack`` command runs against an on-line site.
 
-ZODB tips and tricks
-====================
+This command is useful to run in cron to keep your Data.fs file growing forever. 
+You can control the number of days of history to be kept, etc., using buildout recipe variables.
 
-Please see
+More info
 
-* http://plone.org/events/regional/nola05/collateral/Chris%20McDonough-ZODB%20Tips%20and%20Tricks.pdf
+* https://github.com/plone/plone.recipe.zeoserver
 
 Packing the database offline
-=============================
+----------------------------
 
 `See this blog post <http://blog.twinapex.fi/2009/09/01/packing-and-copying-data-fs-from-production-server-for-local-development/>`_.
 
@@ -144,7 +169,7 @@ script from your ``buildout/bin`` folder::
     
 For more information, see :doc:`command-line scripts </misc/commandline>`.
         
-Visualizing database object graphs
+Visualizing object graphs
 ====================================
 
 * http://blog.hannosch.eu/2009/05/visualizing-persistent-structure-of.html
@@ -171,5 +196,12 @@ and there are no problems due to low level disk corruption or bit flip.
         It is recommended best practice to run integrity against your Data.fs regularly.
         This is the only way to detect corruption which would otherwise go unnoticed
         for a long time. 
+
+ZODB tips and tricks
+====================
+
+Please see
+
+* http://plone.org/events/regional/nola05/collateral/Chris%20McDonough-ZODB%20Tips%20and%20Tricks.pdf        
 
 .. |---| unicode:: U+02014 .. em dash
