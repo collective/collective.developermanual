@@ -1,6 +1,6 @@
-========================
- Manual form processing
-========================
+=====================================
+ Processing raw HTTP post requests
+=====================================
 
 .. admonition:: Description
 
@@ -77,5 +77,36 @@ Page template code:
             </div>
         </body>
         </html>
+
         
                                         
+Magical Zope form variables
+-------------------------------
+
+
+Zope provides some magical HTTP POST variable names which are automatically
+converted to native Python primivites by ZPublisher.
+        
+Quick explanation
+=============================
+
+If you have HTML::
+
+        <INPUT TYPE="text" NAME="member.age:int"></P><BR>
+        
+Then::
+
+        request.form["member.age"] 
+        
+will return integer 30 instead of string "30".
+
+.. note ::
+
+        This behavior is hard-coded to ZPublisher and cannot be extended or disabled. The recommendation is
+        not to use it, but do the conversion of data-types yourself or use a more high-level 
+        form framework like z3c.form.         
+
+More information
+=============================
+
+* http://www.zope.org/Members/Zen/howto/FormVariableTypes
