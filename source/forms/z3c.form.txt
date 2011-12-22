@@ -13,6 +13,12 @@ z3c.form
 Introduction
 -------------
 
+This document gives you 
+
+* Learning resources for creating Python driven z3c.forms with Plone
+
+* Additional insight how to accomplish specific tasks with z3c.form and Plone
+
 `z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is generic, very flexible and very complex form library for Python.
 `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ and
 `plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_
@@ -76,6 +82,80 @@ Form call chain goes like
 
 Form
 ----
+
+Simple boilerplate
+=======================
+
+Here is a minimal form implementation using ``z3c.form`` and Dexterity
+
+* Include Dexterity in your buildout as instructed by Dexterity manual
+
+* Create Plone add-on product using :doc`Paster </tutorials/paste>` 
+
+* Include :doc:`five.grok support in your add-on </components/grok>`
+
+* Toss form.py into your add-on product
+
+form.py::
+
+"""
+
+    Simple sample form
+
+"""
+
+from five import grok
+from plone.directives import form
+
+from zope import schema
+from z3c.form import button
+
+from Products.CMFCore.interfaces import ISiteRoot
+from Products.statusmessages.interfaces import IStatusMessage
+
+
+class IMyForm(form.Schema):
+    """ Define form fiels """
+    
+    name = schema.TextLine(
+            title=u"Your name",
+        )
+
+class MyForm(form.SchemaForm):
+    """ Define Form handling 
+    
+    This form can be accessed as http://yoursite/@@my-form
+    
+    """
+    grok.name('my-form')
+    grok.require('zope2.View')
+    grok.context(ISiteRoot)
+    
+    schema = IMyForm
+    ignoreContext = True
+
+    @button.buttonAndHandler(u'Ok')
+    def handleApply(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        # Do something with valid data here
+        
+        # Set status on this form page 
+        # (this status message is not bind to the session and does not go thru redirects) 
+        self.status = "Thank you very much!"
+        
+    @button.buttonAndHandler(u"Cancel")
+    def handleCancel(self, action):
+        """User cancelled. Redirect back to the front page.
+        """
+
+    
+
+    
+
 
 Setting form status message
 ===========================
