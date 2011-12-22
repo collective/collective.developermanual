@@ -98,61 +98,61 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity
 
 form.py::
 
-"""
-
-    Simple sample form
-
-"""
-
-from five import grok
-from plone.directives import form
-
-from zope import schema
-from z3c.form import button
-
-from Products.CMFCore.interfaces import ISiteRoot
-from Products.statusmessages.interfaces import IStatusMessage
-
-
-class IMyForm(form.Schema):
-    """ Define form fiels """
-    
-    name = schema.TextLine(
-            title=u"Your name",
-        )
-
-class MyForm(form.SchemaForm):
-    """ Define Form handling 
-    
-    This form can be accessed as http://yoursite/@@my-form
-    
     """
-    grok.name('my-form')
-    grok.require('zope2.View')
-    grok.context(ISiteRoot)
-    
-    schema = IMyForm
-    ignoreContext = True
 
-    @button.buttonAndHandler(u'Ok')
-    def handleApply(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
+        Simple sample form
 
-        # Do something with valid data here
+    """
+
+    from five import grok
+    from plone.directives import form
+
+    from zope import schema
+    from z3c.form import button
+
+    from Products.CMFCore.interfaces import ISiteRoot
+    from Products.statusmessages.interfaces import IStatusMessage
+
+
+    class IMyForm(form.Schema):
+        """ Define form fiels """
         
-        # Set status on this form page 
-        # (this status message is not bind to the session and does not go thru redirects) 
-        self.status = "Thank you very much!"
+        name = schema.TextLine(
+                title=u"Your name",
+            )
+
+    class MyForm(form.SchemaForm):
+        """ Define Form handling 
         
-    @button.buttonAndHandler(u"Cancel")
-    def handleCancel(self, action):
-        """User cancelled. Redirect back to the front page.
+        This form can be accessed as http://yoursite/@@my-form
+        
         """
+        grok.name('my-form')
+        grok.require('zope2.View')
+        grok.context(ISiteRoot)
+        
+        schema = IMyForm
+        ignoreContext = True
 
-    
+        @button.buttonAndHandler(u'Ok')
+        def handleApply(self, action):
+            data, errors = self.extractData()
+            if errors:
+                self.status = self.formErrorsMessage
+                return
+
+            # Do something with valid data here
+            
+            # Set status on this form page 
+            # (this status message is not bind to the session and does not go thru redirects) 
+            self.status = "Thank you very much!"
+            
+        @button.buttonAndHandler(u"Cancel")
+        def handleCancel(self, action):
+            """User cancelled. Redirect back to the front page.
+            """
+
+        
 
     
 
