@@ -252,7 +252,7 @@ HTTP caching needs to deal with both HTTP request and response cookie handling
   with ``Cookie`` header confuses Varnish cache look-up. This header can be 
   set by Javascript also, not just by the server. *Cookie* can be preprocessed in *vcl_recv*.
   
-* HTTP request *Set-Cookie* header. This is server-side cookie set. If your server is setting
+* HTTP response *Set-Cookie* header. This is server-side cookie set. If your server is setting
   cookies Varnish does not cache these responses by default. 
   Howerver, this might be desirable
   behavior if e.g. multi-lingual content is served from one URL with language cookies.
@@ -313,7 +313,7 @@ Another example how to purge Google cookies only and allow other cookies by defa
                   ....    
                                 
 Debugging cookie issues
-++++++++++++++++++++++++++
+------------------------------------
 
 Use the following snippet to set a HTTP response debug header to see what Varnish
 see as cookie after *vcl_recv* clean-up::
@@ -350,7 +350,7 @@ And then test with ``wget``::
     Via: 1.1 varnish
 
 Plone Language cookie (I18N_LANGUAGE)
-+++++++++++++++++++++++++++++++++++++++
+------------------------------------------------------------------------
 
 This cookie could be removed in *vcl_fetch* response post-processing (how?).
 However, a better solution is to disable this cookie in the backend itself: in this
@@ -358,7 +358,7 @@ case in Plone portal_languages backend tool.
 Disable it by *Use cookie for manual override* setting in portal_languages.
                   
 More info
-+++++++++++++
+------------------------------------------------------------------------
 
 * :doc:`Plone cookies documentation </sessions/cookies>`
 
