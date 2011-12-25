@@ -68,6 +68,10 @@ or::
         Remove it, as it will clash with the version created by buildout.
         Use ``virtualenv`` if you need to have Sphinx around for other projects.
 
+Then clone ``collective.developermanual`` from GitHub::
+
+    git clone git://github.com/collective/collective.developermanual.git
+
 Run buildout to install Sphinx and the necessary packages for uploading. First step: bootstrap::
 
         python2.6 bootstrap.py
@@ -96,7 +100,7 @@ Building static HTML with Sphinx
 This creates ``docs/html`` folder from the source documents in the ``source`` folder, by compiling all the ``collective.developermanual`` pages,
 using ``sphinx-build`` command from buildout::
 
-        bin/sphinx-build sources build
+        bin/sphinx-build source build
         
 If you want to build everything from the scratch, to see all warnings::
 
