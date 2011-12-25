@@ -5,7 +5,6 @@
 
 {% extends "!layout.html" %}
 
-
 {% block extrahead %}
 <script type="text/javascript">
 
@@ -41,7 +40,6 @@
 </script>
 {% endblock %}
 
-
 {#
   Remove version number from the top and bottom path bars
 #}
@@ -49,64 +47,57 @@
     <li><a href="{{ pathto(master_doc) }}">Home{{ reldelim1 }}</li>
 {%- endblock %}
 
-
-{%- block relbar2 %}{{ relbar() }}{% endblock %}
-
 {#
-  Include Editor Help Pop-Up on every page
+  
+  Add Editor Help Pop Up HTML.
+
+  Enable Analytics tracking on the docs.
+
+
 #}
-
-{% block body %}
-  <div class="sphinx-content">
-    {{ body }}
-  </div>
-
-  <div id="editor-trap">
-  	  <h3>Edit this document</h3>
-
-  	  <p>
-  	  	The Sphinx documentation source of this file is hosted on GitHub. Everyone can 
-  	  	update and fix errors if they are spotted here.
-  	  <p>
-
-  	  <ol>
-
-	  	  <li>
-		  	  Go to 
-			  <a href="https://github.com/collective/collective.developermanual/blob/master/source/{{ pagename }}.txt">
-			  	{{ title }}
-			  </a> on GitHub.
-	 	  </li>
-
-	  	  <li>
-	  	  	Press <b>Fork and edit this file</b> button
-	 	  </li>
-
-	  	  <li>
-	  	  	Edit file contents using GitHub's text editor in your web browser
-	 	  </li>
-
-	 	  <li>
-	 	  	Press <b>Propose file change</b> at the bottom of the page
-	 	  </li>
-
-  	  </ol>
-
-  	  <p>
-  	  	For basic information about updating this manual 
-  	  	and Sphinx syntax please see <a href="http://collective-docs.readthedocs.org/en/latest/introduction/writing.html">
-  	  	Writing and updating the manual</a> guide.
-  	  </p>
-  	  
-  </div>
-{% endblock %}
-
-{#
-  Enable Analytics tracking on the docs
-#}
-
 {% block footer %}
 {{ super() }}
+
+<div id="editor-trap">
+      <h3>Edit this document</h3>
+
+      <p>
+        The source code of this file is hosted on GitHub. Everyone can 
+        update and fix errors in this document with few clicks - 
+        no downloads needed.
+      <p>
+
+      <ol>
+
+        <li>
+          Go to 
+        <a href="https://github.com/collective/collective.developermanual/blob/master/source/{{ pagename }}.txt">
+          {{ title }}
+        </a> on GitHub.
+      </li>
+
+        <li>
+          Press <b>Fork and edit this file</b> button
+      </li>
+
+        <li>
+          Edit file contents using GitHub's text editor in your web browser
+      </li>
+
+      <li>
+        Press <b>Propose file change</b> at the bottom of the page
+      </li>
+
+      </ol>
+
+      <p>
+        For basic information about updating this manual 
+        and Sphinx format please see <a href="http://collective-docs.readthedocs.org/en/latest/introduction/writing.html">
+        Writing and updating the manual</a> guide.
+      </p>
+      
+  </div>
+
 <script type="text/javascript">
 
   var _gaq = _gaq || [];

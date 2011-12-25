@@ -137,7 +137,9 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
-
+html_sidebars = {
+   '**': ['localtoc.html', 'searchbox.html', 'plone.html'],
+}
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
 #html_additional_pages = {}
@@ -209,3 +211,5 @@ html_domain_indices = False
 # Don't build term index
 html_use_index = False
 
+# Don't copy sources with output HTML, as they live on GitHub
+html_copy_source = False
