@@ -1,12 +1,11 @@
 ====================================================================
- How to upload Plone community developer documentation to Plone CMS
+ How to update and maintain collective.developermanual
 ====================================================================
 
 .. admonition:: Description
 
-        This document explains integrating Sphinx and Plone,
-        and uses the Plone Community Developer Manual and plone.org 
-        site as an example.
+        This document explains how collective.developermanual
+        package is maintaned and how changes are pushed
 
 .. contents :: :local:
 
@@ -15,10 +14,16 @@
 Introduction
 --------------
 
-This concerns only those who:
+This document concerns those who:
 
-* wish to generate a HTML version of Plone Community Developer manual;
-* wish to upload Sphinx documentation to a Plone site.
+* wish to generate a HTML version of Plone Community Developer manual
+
+* need to edit templates or styles of Plone Community Developer manual, or
+  otherwise customize Sphinx process
+
+* Need to deal with readthedocs.org integration
+
+* wish to upload Sphinx documentation to a Plone site (deprecated)
 
 collective.developermanual
 --------------------------
@@ -77,20 +82,43 @@ Run buildout again::
 
         bin/buildout
 
+readthedocs.org
+-----------------
+
+The documentation is automatically synced to `readthedocs.org <http://collective-docs.readthedocs.org/>`_
+by readthedocs.org bot.
+
+Pushing changes to GitHub is enough to publish the changes.        
+
 Building static HTML with Sphinx
 ---------------------------------
 
 This creates ``docs/html`` folder from the source documents in the ``source`` folder, by compiling all the ``collective.developermanual`` pages,
 using ``sphinx-build`` command from buildout::
 
-        make html 
+        bin/sphinx-build sources build
         
 If you want to build everything from the scratch, to see all warnings::
 
-        make clean html                     
+        rm -rf build
+        bin/sphinx-build                                     
 
-Uploading documentation to a site
----------------------------------
+Editing CSS styles
+---------------------
+
+When ``sphinx-build`` is run it copies stylesheet from *sources* to *build*.
+
+For live editing of CSS styles you might want to do::
+
+    rm build/_static/plone.css
+    ln -s source/_static/plone.css build/_static
+
+Uploading documentation to a Plone site
+------------------------------------------
+
+.. warning :: 
+
+    This part is deprecated; docs are no longer hosted on plone.org, but readthedocs.org instead
 
 The ``collective.developer`` manual contains a buildout
 which defines a pipeline for `collective.transmogrify <http://pypi.python.org/pypi/collective.transmogrifier/>`_
@@ -165,8 +193,8 @@ The upload script
         on the target site before performing the upload. Just go to the
         *Reference Manual Contents* tab, select all, and hit delete.
 
-Setting up CSS
-==============
+Setting up CSS fixes on plone.org
+===================================
 
 An example ``sphinx.css`` is provided with ``collective.developermanual``.
 
