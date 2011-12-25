@@ -1,6 +1,106 @@
-{% extends "layout.html" %}
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+<script type="text/javascript">
+
+  // Store editor pop-up help state in localStorage 
+  // so it does not re-pop-up itself between page loads.
+  // Do not even to pretend to support IE gracefully.
+  (function($) {
+    
+    $(document).ready(function() {
+        var box = $("#editor-trap");
+        var klass = "toggled";
+        var storageKey = "toggled";
+
+        function toggle() {
+            box.toggleClass(klass);
+            // Store the toggle status in local storage as "has value string" or null
+            window.localStorage.setItem(storageKey, box.hasClass(klass) ? klass : null);
+        }
+
+        box.click(toggle);
+
+        // Check the persistent state of the editor pop-up
+        // Note that localStorage does not necessarily support boolean values (ugh!)
+        // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
+        if(window.localStorage.getItem(storageKey) == klass) {
+          box.addClass(klass);
+        }
+
+    });
+
+  })(jQuery);
+</script>
+
+{% endblock %}
+
+{#
+  Include Editor Help Pop-Up on every page
+#}
+
 {% block body %}
   <div class="sphinx-content">
     {{ body }}
   </div>
+
+  <div id="editor-trap">
+  	  <h3>Edit this document</h3>
+
+  	  <p>
+  	  	The Sphinx documentation source of this file is hosted on GitHub. Everyone can 
+  	  	update and fix errors if they are spotted here.
+  	  <p>
+
+  	  <ol>
+
+	  	  <li>
+		  	  Go to 
+			  <a href="https://github.com/collective/collective.developermanual/blob/master/source/{{ pagename }}.txt">
+			  	{{ title }}
+			  </a> on GitHub.
+	 	  </li>
+
+	  	  <li>
+	  	  	Press <b>Fork and edit this file</b> button
+	 	  </li>
+
+	  	  <li>
+	  	  	Edit file contents using GitHub's text editor in your web browser
+	 	  </li>
+
+	 	  <li>
+	 	  	Press <b>Propose file change</b> at the bottom of the page
+	 	  </li>
+
+  	  </ol>
+
+  	  <p>
+  	  	For basic information about updating this manual 
+  	  	and Sphinx syntax please see <a href="http://collective-docs.readthedocs.org/en/latest/introduction/writing.html">
+  	  	Writing and updating the manual</a> guide.
+  	  </p>
+  	  
+  </div>
+{% endblock %}
+
+{#
+  Enable Analytics tracking on the docs
+#}
+
+{% block footer %}
+{{ super() }}
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27914060-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 {% endblock %}

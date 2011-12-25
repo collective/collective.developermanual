@@ -94,6 +94,12 @@ by readthedocs.org bot.
 
 Pushing changes to GitHub is enough to publish the changes.        
 
+Analytics
+==========
+
+readthedocs.org pages have Google Analytics script installed.
+Please ask on #plone.org IRC channel for data access.
+
 Building static HTML with Sphinx
 ---------------------------------
 
@@ -114,8 +120,20 @@ When ``sphinx-build`` is run it copies stylesheet from *sources* to *build*.
 
 For live editing of CSS styles you might want to do::
 
-    rm build/_static/plone.css
-    ln -s source/_static/plone.css build/_static
+    cp source/_static/plone.css build/_static
+
+Then copy back::
+
+    cp build/_static/plone.css source/_static    
+
+.. note ::
+
+    Firefox does not follow symlinks on file:// protocol, or cannot load CSS files
+    from them.
+
+More info
+
+* http://sphinx.pocoo.org/templating.html
 
 Uploading documentation to a Plone site
 ------------------------------------------
@@ -211,3 +229,5 @@ This template is modified to wrap everything which Sphinx outputs in the ``sphin
 CSS class, so we can nicely separate them from standard Plone styles.
 
 ``page.html`` can be found at ``sources/_templates/page.html``.
+
+
