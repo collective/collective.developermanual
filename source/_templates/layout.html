@@ -1,4 +1,10 @@
+{# 
+  Drop version number from the HTML documentation title
+#}
+{%- set docstitle = "Plone Developer Documentation" %}
+
 {% extends "!layout.html" %}
+
 
 {% block extrahead %}
 <script type="text/javascript">
@@ -16,7 +22,7 @@
         function toggle() {
             box.toggleClass(klass);
             // Store the toggle status in local storage as "has value string" or null
-            window.localStorage.setItem(storageKey, box.hasClass(klass) ? klass : null);
+            window.localStorage.setItem(storageKey, box.hasClass(klass) ? "toggled" : "not-toggled");
         }
 
         box.click(toggle);
@@ -24,7 +30,8 @@
         // Check the persistent state of the editor pop-up
         // Note that localStorage does not necessarily support boolean values (ugh!)
         // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
-        if(window.localStorage.getItem(storageKey) == klass) {
+        var v = window.localStorage.getItem(storageKey); 
+        if(v == "toggled" || !v) {
           box.addClass(klass);
         }
 
@@ -32,8 +39,18 @@
 
   })(jQuery);
 </script>
-
 {% endblock %}
+
+
+{#
+  Remove version number from the top and bottom path bars
+#}
+{%- block rootrellink %}
+    <li><a href="{{ pathto(master_doc) }}">Home{{ reldelim1 }}</li>
+{%- endblock %}
+
+
+{%- block relbar2 %}{{ relbar() }}{% endblock %}
 
 {#
   Include Editor Help Pop-Up on every page
