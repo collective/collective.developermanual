@@ -12,26 +12,29 @@ times during its lifecycle. The most important ones are outlined below.
 .. contents :: :local:
 
 Process lifecycle
------------------
+=================
 
 ``zope.processlifetime`` defines three events:
 
-* ``IDatabaseOpened``, notified when the main ZODB has been opened, but before
+``IDatabaseOpened``
+  notified when the main ZODB has been opened, but before
   the root application object is set.
-* ``IDatabaseOpenedWithRoot``, notified later in the startup cycle, when the
+``IDatabaseOpenedWithRoot``
+  notified later in the startup cycle, when the
   application root has been set and initalised.
-* ``IProcessStarting``, notified when the Zope startup process has completed,
+``IProcessStarting``
+  notified when the Zope startup process has completed,
   but before the Zope server runs (and so can listen to requests).
 
 ZODB connection lifecycle
--------------------------
+=========================
 
 The list ``App.ZApplication.connection_open_hooks`` can be used to hold
 functions that are called with a ZODB connection as their sole argument just
 after traversal over the ``ZApplicationWrapper`` as it opens a ZODB connection
 for the request.
 
-The ZODB transaction provides two methods to register hooks -
+The ZODB transaction provides two methods to register hooks |---|
 ``addBeforeCommitHook()`` and ``addAfterCommitHook()``. These can be passed
 functions and a (static) set of arguments and will be called just before, and
 just after, a transaction is committed. The hook function must take at least one
@@ -41,7 +44,7 @@ Use ``transaction.get()`` to get hold of the transaction object. See
 ``transaction.interfaces.ITransaction`` for more details.
 
 Request lifecycle
------------------
+=================
 
 Request-scoped items may be held from garbage collection using
 ``request._hold()``. If applicable, the item held can implement ``__del__()``,
@@ -51,7 +54,7 @@ The event ``zope.publisher.events.EndRequestEvent`` is triggered at the end
 of an event, just before any held items are cleared.
 
 Publication
------------
+===========
 
 The publisher notifies a number of events, which can be used to hook into
 various stages of the publication process. These are all defined in the module
@@ -62,7 +65,7 @@ context (and a generic request) named ``index.html`` will be rendered as an
 error message, if it exists.
 
 Traversal
----------
+=========
 
 If an object has a method ``__bobo_traverse__(self, request, name)``, this will
 be used during traversal in lieu of attribute or item access. It is expected to
@@ -88,3 +91,5 @@ to register an adapter to ``IBrowserPublisher``.
 
 An adapter to ``ITraversable`` can be used to implement namespace traversal
 (``.../++<namespace>++name/...``). See above for further details.
+
+.. |---| unicode:: U+02014 .. em dash

@@ -10,7 +10,7 @@ Startup and product initialisation
 .. contents :: :local:
 
 What happens on Zope startup?
------------------------------
+=============================
 
 A startup script (e.g. ``bin/instance fg``) calls Zope 2's ``run.py`` in an
 appropriate interpreter context (i.e. one that has the necessary packages on
@@ -19,12 +19,12 @@ appropriate interpreter context (i.e. one that has the necessary packages on
 
 .. code-block:: python
 
-        import Zope2.Startup
-        starter = Zope2.Startup.get_starter()
-        opts = _setconfig()
-        starter.setConfiguration(opts.configroot)
-        starter.prepare()
-        starter.run()
+    import Zope2.Startup
+    starter = Zope2.Startup.get_starter()
+    opts = _setconfig()
+    starter.setConfiguration(opts.configroot)
+    starter.prepare()
+    starter.run()
 
 There are various variants that allow different ways to supply configuration.
 
@@ -60,9 +60,9 @@ performs a number of actions during the ``prepare()`` phase:
         logger.info('Ready to handle requests')
         self.sendEvents()
 
-Mostly, this is about using information from the configuration (read using
+Mostly, this is about using information from the configuration (which is read using
 ``ZConfig`` from a configuration file, or taken from the global defaults) to
-set various module level variables and options.
+set various module-level variables and options.
 
 The ``startZope()`` call ends up in ``Zope2.App.startup.startup()``, which
 performs a number of startup tasks:
@@ -70,7 +70,7 @@ performs a number of startup tasks:
 * Importing products (``OFS.Application.import_products()``)
 * Creating a ZODB for the chosen storage (as set in the ``ZConfig``
   configuration). This is stored in both ``Globals.DB`` and ``Zope2.DB``, and is
-  configured using a ``dbtab`` (mount points) read from the configuration file.
+  configured using a ``dbtab`` (mount points specification) read from the configuration file.
   When this is done, the event ``zope.processlifetime.DatabaseOpened`` is
   notified.
 * Setting the ``ClassFactory`` on the ZODB instance to
@@ -86,7 +86,7 @@ performs a number of startup tasks:
   ``OFS.Application.Application``. The purpose of the wrapper is to:
 
   * Create an instance of the application object at the root of the ZODB on
-    ``__init__()`` if not there already. The name by default is ``Application``.
+    ``__init__()`` if it is not there already. The name by default is ``Application``.
   * Implement traversal over this wrapper (``__bobo_traverse__``) to open a ZODB
     connection before continuing traversal, and closing it at the end of the
     request.
@@ -94,7 +94,7 @@ performs a number of startup tasks:
     called.
 
   The wrapper is set as ``Zope2.bobo_application``, which is used when the
-  publisher publishes the ``Zope2`` module - more on publication later.
+  publisher publishes the ``Zope2`` module |---| more on publication later.
 * Initialising the application object using ``OFS.Application.initialize()``.
   This defensively creates a number of items:
 
@@ -163,7 +163,7 @@ handlers are registered with a call to ``Zope2.startup.handlers.handleConfig()``
 during the ``_setconfig()`` call in ``run.py``.
 
 How are products installed?
----------------------------
+===========================
 
 During application initialisation, the method ``install_products()`` will call
 the method ``OFS.Application.install_products()``. This will record products
@@ -179,12 +179,12 @@ directories with an ``__init__.py``. For each, it calls
 
 * Import the product as a Python package
 * Look for an attribute ``misc_`` at the product root, which is used to store
-  things like icons. If it is a dict, wrap it in an ``OFS.misc_.Misc_`` object,
+  things like icons. If it is a dictionary, wrap it in an ``OFS.misc_.Misc_`` object,
   which is just a simple, security-aware class. Then store a copy of it as an
   attribute on the object ``Application.misc_``. The attribute name is the
   product name. This allows traversal to the ``misc_`` resources.
 
-  As an example of the use of the use of ``misc_``, consider this dict set up
+  As an example of the use of the use of ``misc_``, consider this dictionary set up
   in ``Products/CMFPlone/__init__.py``:
 
   .. code-block:: python
@@ -201,18 +201,18 @@ directories with an ``__init__.py``. For each, it calls
 
   There are two ways to obtain the ``product`` object:
 
-  If persistent product installation (in the ``Control_Panel``) is enabled in
-  ``zope.conf``, call ``App.Product.initializeProduct``. This will create a
-  ``App.Product.Product`` object and save it persistently in
-  ``App.Control_Panel.Products``. It also reads the file ``version.txt`` from
-  the product to determine a version number, and will change the persistent
-  object (at Zope startup) if the version has changed. The ``Product`` object is
-  initialised with a product name and title and is used to store basic
-  information about the product. The ``Product`` object is then returned.
+  * If persistent product installation (in the ``Control_Panel``) is enabled
+    in ``zope.conf``, call ``App.Product.initializeProduct``. This will
+    create a ``App.Product.Product`` object and save it persistently in
+    ``App.Control_Panel.Products``. It also reads the file ``version.txt`` from
+    the product to determine a version number, and will change the persistent
+    object (at Zope startup) if the version has changed. The ``product`` object is
+    initialised with a product name and title and is used to store basic
+    information about the product. The ``product`` object is then returned.
 
-  If persistent product installation is disabled (the default), simply
-  instantiate a ``FactoryDispatcher.Product`` object (which is a simpler,
-  duck-typing-equivalent of ``App.Product.Product``) with the product name.
+  * If persistent product installation is disabled (the default), simply
+    instantiate a ``FactoryDispatcher.Product`` object (which is a simpler,
+    duck-typing-equivalent of ``App.Product.Product``) with the product name.
 
 * If the product has an ``initialize()`` method at its root, call it with the
   product context as an argument.
@@ -229,7 +229,7 @@ much like ``install_product()``. When it is done, it calls the function
 list of packages to initalise.
 
 How do Zope 2 product constructors work?
-----------------------------------------
+========================================
 
 Products can make constructors available to the Zope runtime. This is what
 powers the ``Add`` drop-down in the ZMI, for instance. They do so by calling
@@ -295,7 +295,7 @@ function. This takes the following main arguments:
   ``<form />`` on this page has a relative URL ``action="manage_addMailHost"``,
   which means that when the form is submitted, the ``manage_addMailHost()``
   function is called. ``id``, ``title`` and the other variables are passed as
-  request parameters and marshalled (by ``mapply()`` - see below) into function
+  request parameters and marshalled (by ``mapply()`` |---| see below) into function
   arguments, and the ``REQUEST`` is implicitly passed (again by ``mapply()``).
 ``icon``
   The name of an image file in the package to be used for instances. The class
@@ -352,7 +352,7 @@ create a ``FactoryDispatcher`` that allow traversal to the constructor method.
 * If no ``interfaces`` were passed in explicitly, obtain the interfaces
   implemented by the ``instance_class``, if provided.
 * Record information about the primary constructor in the tuple
-  ``Products.meta_types`` by appending a dict with keys:
+  ``Products.meta_types`` by appending a dictionary with keys:
 
   ``name``
     The ``meta_type`` passed in or obtained from the ``instance_class``.
@@ -411,8 +411,9 @@ Finally, let us consider the ``manage_addProduct`` method seen in the ``action``
 used to traverse to a registered constructor callable (e.g. an add form) using
 a path such as ``/<container>/manage_addProduct/<productname>/<constructname>``.
 It is set on ``OFS.ObjectManager.ObjectManager``, and is actually an instance of
-``App.FactoryDispatcher.ProductDispatcher``. This is an implicit-acquisition
-capable object that implements ``__bobo_traverse__`` as follows:
+``App.FactoryDispatcher.ProductDispatcher``. This is an
+implicit-acquisition-capable object that implements ``__bobo_traverse__`` as
+follows:
 
 * Attempt to obtain a ``__FactoryDispatcher__`` attribute from the product
   package (from the name being traversed to), defaulting to the standard
@@ -421,7 +422,7 @@ capable object that implements ``__bobo_traverse__`` as follows:
   simple ``App.FactoryDispatcher.Product`` wrapper if persistent product
   installation has not taken place.
 * Create an instance of the factory dispatcher on the fly, passing in the
-  product descriptor and the parent object (i.e. the continer).
+  product descriptor and the parent object (i.e. the container).
 * Return this, acquisition-wrapped in ``self``, to allow traversal to continue.
 
 Traversal then continues over the ``FactoryDispatcher``. In the version of
@@ -433,6 +434,8 @@ There is also a fallback ``__getattr__()`` implementation in the base
 ``FactoryDispatcher`` class, which will inspect the ``_m`` attribute on the
 product package for an appropriate constructor, and is also able to obtain
 constructor information from a persistent ``Product`` instance (from
-``Control_Panel`` if there was one. This supports a (legacy) approach where
+``Control_Panel`` if there was one). This supports a (legacy) approach where
 instead of calling ``registerClass()`` to register constructors, constructors
-are set in a dict called``_m`` at the root of the product.
+are set in a dict called ``_m`` at the root of the product.
+
+.. |---| unicode:: U+02014 .. em dash
