@@ -17,7 +17,8 @@ zope.schema based forms and content with :doc:`Dexterity content subsystem </con
 
 .. note ::
 
-    These instructions apply for Plone 4 and forward.
+    These instructions apply for Plone 4 and forward. These instructions
+    does not apply for Archetypes content or PloneFormGen.
 
 Plone uses "blobs" (large binary objects) to store file-like data in the
 ZODB. The ZODB writes these objects to the filesystem as separate files,
@@ -26,12 +27,12 @@ filename is not visible. The files are stored in a distributed tree.
 
 For more introduction information, see:
 
-* http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/files-and-images
+* http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/files-and-images.html
 
 Simple content item file or image field
 =========================================
 
-* http://plone.org/products/dexterity/documentation/manual/developer-manual/advanced/files-and-images
+* http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/files-and-images.html
 
 Simple upload form example
 ===========================
@@ -421,8 +422,8 @@ Example (``plone.app.headeranimation``)::
             stream_iterator = download_blob(self.context, self.request, animation.image)
             return stream_iterator
 
-``POSKeyError``
-================
+``POSKeyError`` on missing blob
+=================================
 
 A ``POSKeyError`` is raised when you try to access blob *attributes*, but
 the actual file is not available on the disk. You can still load the blob
@@ -480,6 +481,10 @@ sane instead::
             # Blob storage damaged
             logger.warn("Could not load blob for " + str(context))
             raise NotFound(context, '', request)
+
+See also
+
+* http://pypi.python.org/pypi/experimental.gracefulblobmissing/
 
 Widget download URLs
 =========================

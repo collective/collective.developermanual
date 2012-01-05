@@ -216,9 +216,25 @@ Some delete event transactions are rolled back.
 ``zope.lifecycleevent.IObjectCopiedEvent``
     is triggered when an object is copied.
 
+*Workflow* events
+-----------------
 
-Zope startup events
--------------------
+``Products.DCWorkflow.interfaces.IBeforeTransitionEvent``
+    is triggered before a workflow transition is executed.
+
+``Products.DCWorkflow.interfaces.IAfterTransitionEvent``
+    is triggered after a workflow transition has been executed.
+
+The DCWorkflow events are low-level events that can tell you a lot about the
+previous and current states.
+
+``Products.CMFCore.interfaces.IActionSucceededEvent``
+    this is a higher level event that is more commonly used to react after a
+    workflow action has completed.
+
+
+*Zope startup* events
+----------------------
 
 ``zope.processlifetime.IProcessStarting``
     is triggered after component registry has been loaded and Zope is

@@ -197,3 +197,65 @@ Example::
     portal_types = self.context.portal_types
     lpf = portal_types["Large Plone Folder"]
     lpf.global_allow = True # This is "Globally allowed" property
+
+
+Constraining the addable types per type instance
+------------------------------------------------
+
+For the instances of some content types, the user may manually
+restrict which kinds of objects may be added inside. This is done by clicking
+the *Add new...* link on the green edit bar and then choosing
+*Restrictions...*.
+ 
+This can also be done programmatically on an instance of a content type that
+supports it.
+
+First, we need to know whether the instance supports this:
+
+Example:: 
+
+    from Products.Archetypes.utils import shasattr # To avoid acquisition
+    if shasattr(context, 'canSetConstrainTypes'):
+        # constrain the types
+        context.setConstrainTypesMode(1)
+        context.setLocallyAllowedTypes(('News Item',))
+
+If setConstrainTypesMode is 1, then only the types enabled by using
+setLocallyAllowedTypes will be allowed.
+
+The types specified by setLocallyAllowedTypes must be a subset of the allowable
+types specified in the content-type's FTI (Factory Type Information) in the
+portal_types tool.
+
+If you want the types to appear in the "Add new.." dropdown menu, then you must
+also set the immediately addable types. Otherwise, they will appear under the
+"more" submenu of "Add new..".
+
+Example::
+
+    context.setImmediatelyAddableTypes(('News Item',))
+
+The immediately addable types must be a subset of the locally allowed types.
+
+
+To retrieve information on the constrained types, you can just use the accessor
+equivalents of the above methods.
+
+Example::
+
+    context.getConstrainTypesMode()
+    context.getLocallyAllowedTypes()
+    context.getImmediatelyAddableTypes()
+    context.getDefaultAddableTypes()
+    context.allowedContentTypes()
+
+**Be careful of Acquisition**. You might be aquiring these methods from the
+current instance's parent. It would be wise to first check whether the current
+object has this attibute. Either by using *shasattr* or by using *hasattr* on the
+object's base (via *aq_base*).
+
+The default addable types, are the types that would be addable, if
+constrainTypesMode is 0 (i.e not enabled).
+
+For more information, see **Products/CMFPlone/interfaces/constraints.py**
+

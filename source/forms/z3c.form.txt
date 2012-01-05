@@ -2,36 +2,48 @@
 z3c.form
 =========
 
+
+
 .. admonition:: Description
 
-	z3c.form is modern, flexible, form library for web frameworks. 
-	A Plone specific implementation, plone.app.z3cform exists.
-	This document will give you pointers how to use z3c.form
-	to build your web forms programmaticaly.
+    z3c.form is flexible, powerful and complex form library for Zope 3. 
+    It is recommended way to create complex, Python driven, forms
+    for Plone 4 onwards.
+
 
 .. contents :: :local:
+
 
 Introduction
 -------------
 
-`z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is generic, very flexible and very complex form library for Python.
-`plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ and
-`plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_
-provide Plone adaptions of this library.
+This document gives you 
 
-Read each package tutorials before proceeding.
+* Learning resources for creating Python driven z3c.forms with Plone
 
-* `Rok Garbas talk in Ploneconf 2009 <http://maurits.vanrees.org/weblog/archive/2009/10/complex-forms-with-z3c.form>`_ 
+* Additional insight how to accomplish specific tasks with z3c.form and Plone
 
-* `plone.z3cform and Plone 4 <http://n2.nabble.com/z3c-form-and-plone-z3cform-in-Plone-4-Zope-2-12-tp4449218p4449218.html>`_
+``z3c.form`` uses :doc:`zope.schema <schemas>` package to define form data model. Then it applies 
+its own form specific data extraction (HTTP request processing), field, widget and form button logic on the
+top of this.  
 
-* `plone.z3cform source <http://svn.zope.org/plone.z3cform/trunk/plone/z3cform/>`_
+.. note ::
 
-* `plone.app.z3cform source <http://svn.plone.org/svn/plone/plone.app.z3cform/trunk/>`_.
+    You can use z3c.form as standalone package. But if you want to make the development more easier for you
+    you'd probably prefer shortcut bindings and directives provided with Dexterity subsystem
 
-* `collective <http://svn.plone.org/svn/collective/>`_ has several components for z3c.form,
-  find by z3cform in their name.
-  
+Read more about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_ 
+
+
+Related documentation
+---------------------
+
+- `z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is generic, very flexible and very complex form library for Python.
+- `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ and
+- `plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_ provide Plone adaptions of this library.
+- `z3c.form tutorial by garbas <http://garbas.github.com/plone-z3c.form-tutorial/>`_
+
+
 z3c.form big picture
 ---------------------
 
@@ -79,6 +91,80 @@ Form call chain goes like
 
 Form
 ----
+
+Simple boilerplate
+=======================
+
+Here is a minimal form implementation using ``z3c.form`` and Dexterity
+
+* Include Dexterity in your buildout as instructed by Dexterity manual
+
+* Create Plone add-on product using :doc`Paster </tutorials/paste>` 
+
+* Include :doc:`five.grok support in your add-on </components/grok>`
+
+* Toss form.py into your add-on product
+
+form.py::
+
+    """
+
+        Simple sample form
+
+    """
+
+    from five import grok
+    from plone.directives import form
+
+    from zope import schema
+    from z3c.form import button
+
+    from Products.CMFCore.interfaces import ISiteRoot
+    from Products.statusmessages.interfaces import IStatusMessage
+
+
+    class IMyForm(form.Schema):
+        """ Define form fiels """
+        
+        name = schema.TextLine(
+                title=u"Your name",
+            )
+
+    class MyForm(form.SchemaForm):
+        """ Define Form handling 
+        
+        This form can be accessed as http://yoursite/@@my-form
+        
+        """
+        grok.name('my-form')
+        grok.require('zope2.View')
+        grok.context(ISiteRoot)
+        
+        schema = IMyForm
+        ignoreContext = True
+
+        @button.buttonAndHandler(u'Ok')
+        def handleApply(self, action):
+            data, errors = self.extractData()
+            if errors:
+                self.status = self.formErrorsMessage
+                return
+
+            # Do something with valid data here
+            
+            # Set status on this form page 
+            # (this status message is not bind to the session and does not go thru redirects) 
+            self.status = "Thank you very much!"
+            
+        @button.buttonAndHandler(u"Cancel")
+        def handleCancel(self, action):
+            """User cancelled. Redirect back to the front page.
+            """
+
+        
+
+    
+
 
 Setting form status message
 ===========================

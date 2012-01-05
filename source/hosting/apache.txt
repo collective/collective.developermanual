@@ -79,6 +79,13 @@ Redirecting all the pages to the root of a new site:
        RewriteEngine On
        RewriteRule (.*) http://www.newsite.com [L,R=302]
 
+Migration redirects
+--------------------
+
+To redirect traffic from all pages permanently (301) to the landing page of a new site::
+
+	RewriteEngine On
+	RewriteRule (.*) http://collective-docs.readthedocs.org/ [L,R=301]
 
 Proxying other site under Plone URI space
 -----------------------------------------
@@ -215,7 +222,7 @@ for the image and it contains Set-Cookie: I18N_LANGUAGE header for the wrong lan
 
 A workaround is to force language cookie off from media like content::
 
-SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" language-neutral
+  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" language-neutral
   SetEnvIfNoCase Request_URI "image_preview(/)$" language-neutral
   SetEnvIfNoCase Request_URI "image_large(/)$" language-neutral
   SetEnvIfNoCase Request_URI "image_small(/)$" language-neutral

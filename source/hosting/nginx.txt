@@ -19,6 +19,91 @@ Nginx is an modern alternative server to Apache
 
 * Handle HTTPS
 
+Minimal Nginx front end configuration for Plone on Ubuntu/Debian Linux
+-----------------------------------------------------------------------
+
+Here is the minimal Nginx configuration in order to needed to run Nginx at the front of Plone site
+
+This is a minimal Nginx configuration for Ubuntu/Debian Nginx to run at the front of Plone. 
+These instructions are *not* for configurations where one uses buildout configuration
+tool to build a static Nginx server.
+
+* Plone will by default served from port 8080
+
+* We use a `VirtualHostMonster URL rewriting mechanism <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_ to pass the orignal protocol and hostname to Plone. VirtualHostMonster is a way to rewrite the request path.
+
+* We also need to rewrite the request path, because you want to site be directly serverd from port 80 root (/),
+  but Plone sites are nested in the Zope application server as paths */site1*, */site2* etc.
+
+* You don't need to configure VirtualHostMonster in Plone/Zope in any way, because all the installers
+  will automatically install one for you. Nginx configuration is all you need to touch.
+
+* The URL passed for VirtualHostMonster is the URL Plone uses to construct links in the template 
+  (``portal_url`` in the code, also used by content ``absolute_url()`` method). If your 
+  site loads without CSS styles usually it is a sign that VirtualHostMonster URL is
+  incorrectly written - Plone uses the URL to link stylesheets also.
+
+* Plone itself contains a mini web server (Medusa) which servers the requests from port 8080 - 
+  Nginx acts simple as a HTTP proxy between Medusa and outgoing port 80 traffic.
+  Nginx does not spawn Plone process or anything like that, but Plone processes are externally
+  controlled, usually by buildout created ``bin/instance`` and ``bin/plonectl`` commands.
+
+Create file ``/etc/nginx/sites-available/yoursite.conf`` with contents::
+
+    # This defines in which IP and port Plone is running.
+    # The default is 127.0.0.1:8080    
+    upstream plone {
+        server 127.0.0.1:8090;
+    }
+
+    # Redirect all www-less traffic to www.site.com domain 
+    # (you could also do the opposite www -> non-www domain)
+    server {
+        listen 80;
+        server_name yoursite.com;
+        rewrite ^/(.*) http://www.yoursite.com/$1 permanent;
+    }
+
+    server {
+
+        listen 80;
+        server_name yoursite.com;
+        access_log /var/log/nginx/yoursite.com.access.log;
+        error_log /var/log/nginx/yoursite.com.error.log;
+
+        # Note that domain name spelling in VirtualHostBase URL matters
+        # -> this is what Plone sees as the "real" HTTP request URL.
+        # "Plone" in the URL is your site id (case sensitive)
+        location / {
+              proxy_pass http://plone/VirtualHostBase/http/yoursite.com:80/Plone/VirtualHostRoot/;
+        }
+    }
+
+Then enable the site by creating a symbolic link::
+
+    sudo -i
+    cd /etc/nginx/sites-enabled
+    ln -s ../sites-available/yoursite.com .
+
+See that your Nginx configuration is valid::
+
+    /etc/init.d/nginx configtest
+    
+
+    ok
+    configuration file /etc/nginx/nginx.conf test is successful
+    nginx.        
+
+If the config was ok then restart::
+
+    /etc/init.d/nginx restart
+
+More info
+
+* http://wiki.mediatemple.net/w/%28ve%29:Configure_virtual_hosts_with_Nginx_on_Ubuntu  
+
+* http://www.starzel.de/blog/securing-plone-sites-with-https-and-nginx
+
 Buildout and recipe
 --------------------
 
