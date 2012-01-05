@@ -251,12 +251,12 @@ Here are the gory details:
       This is expected to return an object to traverse to next. If this
       succeeds, acquisition-wrap the returned object in the parent object.
 
-      .. Note: As this implies, objects returned from the ``traverse()`` method
-         of an ``ITraversable`` adapter are *not* expected to be
-         acquisition-wrapped. This is in contrast to objects returned by
-         ``__bobo_traverse__()``, ``__getitem__()``, ``__getattr__()``, or a custom
-         ``IPublishTraverse`` adapter (see below), which *are* expected to be
-         wrapped.
+      **Note**: As this implies, objects returned from the ``traverse()``
+      method of an ``ITraversable`` adapter are *not* expected to be
+      acquisition-wrapped. This is in contrast to objects returned by
+      ``__bobo_traverse__()``, ``__getitem__()``, ``__getattr__()``, or a
+      custom ``IPublishTraverse`` adapter (see below), which *are* expected
+      to be wrapped.
 
     * If there is no namespace traversal adapter, find an ``IPublishTraverse``
       object in one of three places: 
