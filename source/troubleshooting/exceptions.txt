@@ -1888,3 +1888,43 @@ Example::
 More info
 
 * http://dev.plone.org/ticket/11837
+
+
+AttributeError: Schema
+-----------------------
+
+The following traceback comes when you try to view your custom content type::
+
+    Module zope.tales.tales, line 696, in evaluate
+     - URL: file:/fast/xxxm2011/eggs/Products.Archetypes-1.7.10-py2.6.egg/Products/Archetypes/skins/archetypes/base_view.pt
+     - Line 50, Column 4
+     - Expression: <PythonExpr context.Schema().viewableFields(here)>
+     - Names:
+        {'container': <CourseInfo at /xxx/courses/professional-courses/business-management-courses/postgraduate-diploma-in-business-and-management-consultancy>,
+         'context': <CourseInfo at /xxx/courses/professional-courses/business-management-courses/postgraduate-diploma-in-business-and-management-consultancy>,
+         'default': <object object at 0x1002edb70>,
+         'here': <CourseInfo at /xxx/courses/professional-courses/business-management-courses/postgraduate-diploma-in-business-and-management-consultancy>,
+         'loop': {},
+         'nothing': None,
+         'options': {'args': ()},
+         'repeat': <Products.PageTemplates.Expressions.SafeMapping object at 0x10b70a208>,
+         'request': <HTTPRequest, URL=http://localhost:8090/xxx/courses/professional-courses/business-management-courses/postgraduate-diploma-in-business-and-management-consultancy/base_view>,
+         'root': <Application at >,
+         'template': <FSPageTemplate at /xxx/courses/professional-courses/business-management-courses/postgraduate-diploma-in-business-and-management-consultancy/base_view>,
+         'traverse_subpath': [],
+         'user': <PropertiedUser 'admin'>}
+    Module Products.PageTemplates.ZRPythonExpr, line 48, in __call__
+     - __traceback_info__: context.Schema().viewableFields(here)
+    Module PythonExpr, line 1, in <expression>
+    Module AccessControl.ImplPython, line 675, in guarded_getattr
+
+Reason: It is picking up Archetypes default view template for your Dexterity content type.
+
+Try if you can access your view by a directly calling it to by its name. E.g.::
+
+  http://yoursite.com/folder/content/@@view
+
+If it's working then it is wrong data in *portal_types*.
+
+Your content item might also be corrupted. It is trying to use dynamic view selector even if it's not supported. Try re-creating
+the particular content item. 
