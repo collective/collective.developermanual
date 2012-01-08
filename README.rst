@@ -10,6 +10,14 @@ please head to `Plone Developer Documentation at readthedocs.org <http://collect
 To learn how to update and manage this documentation and its tools, read 
 `Writing and updating this documentation <http://collective-docs.readthedocs.org/en/latest/introduction/writing.html>`_.
 
+Some clarifications
+
+* ``source`` folder contains the Sphinx manual source
+
+* ``src`` folder will be target for Plone source code, checkouted for source code documentation inclusion
+
+* Uploading documentatin to plone.org is no longer supported - instead readthedocs.org is preferred method of distribution 
+
 License
 -------
 
