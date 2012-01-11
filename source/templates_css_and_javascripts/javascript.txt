@@ -1,10 +1,10 @@
 ==================
- Javascripting
+ Javascript
 ==================
 
 .. admonition:: Description
 
-        How to add your own Javascript files to Plone and Plone add-on products
+        Writing, including and customizing Javascript for Plone add-ons
 
 .. contents:: :local:
 
@@ -38,12 +38,38 @@ portal_javascript will automatically
 
 * support IE conditional comments
 
-Javascript libraries
-----------------------
+Javascript basic tips
+=================================
 
-You can use any Javascript library with Plone.
+When using jQuery etc. libraries with Plone write your code so that you pass 
+the library global reference to your script as a local - this way you can
+include several library versions in one codebase.
 
-Plone internally uses jQuery.
+.. code-block:: javascript
+
+     (function($) {
+          $(document).ready(function() {
+                ... do stuff here ...
+          })
+     })(jQuery);
+
+Always use DOM ready event before executing your DOM manipulation.
+
+Don't include Javascript inline in HTML code unless you are passing variables from Python to Javascript.
+
+Use JSLint with your code editor and ECMAStrict 5 strict mode to catch common Javascript mistakes (like missing var).
+
+For more Javascript tips see `brief introduction to good Javascript practices and JSLint <http://opensourcehacker.com/2011/11/05/javascript-how-to-avoid-the-bad-parts/>`_ 
+
+Plone default Javascript libraries
+-------------------------------------
+
+You can use any Javascript library with Plone
+after inclusion it to JS registry (see below).
+
+Plone 4.1 ships with jQuery and jQuery tools libraries.
+
+`Plone compatible jQuery UI package <http://plone.org/products/collective.js.jqueryui>`_.
 
 Creating Javascripts for Plone
 ------------------------------
