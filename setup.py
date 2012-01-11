@@ -5,24 +5,21 @@ from setuptools import setup, find_packages
 # 
 import os
 
-version = '0.2'
+version = '1.0'
 
 setup(name='collective.developermanual',
       version=version,
-      description="Plone community maintained developer documentation in Sphinx format",
-      #long_description=open("README.txt").read() + "\n",
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+      description="Plone Developer Documentation",
       classifiers=[
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='',
-      author='mFabrik Research Oy',
-      author_email='info@mfabrik.com',
-      url='http://mfabrik.com',
+      author='Mikko Ohtamaa & Plone community contributors',
+      author_email='mikko@opensourcehacker.com',
+      url='http://plone.org',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      #namespace_packages=['gomobiletheme'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[

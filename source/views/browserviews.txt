@@ -376,7 +376,32 @@ constructed ``ViewPageTemplateFile`` with a chosen file in run-time::
         # This will make template callable with template() syntax and context
         form_instance.template = BoundPageTemplate(template, form_instance)
  
-            
+
+Several templates per view
++++++++++++++++++++++++++++
+
+You can bind several template per one view and render them in bits.
+This is very useful for reusable templating and when you subclass 
+your functional views.
+
+Example using five.grok::
+
+	class CourseTimetables(grok.View):
+	
+	    # For communicating state variables from Python code to Javascript
+	    jsHeaderTemplate = grok.PageTemplateFile("templates/course-timetables-fees-js-snippet.pt") 
+	
+	    def renderJavascript(self):    
+	        return self.jsHeaderTemplate.render(self)
+
+And then call in the template
+
+.. code-block:: html
+
+    <metal:javascriptslot fill-slot="javascript_head_slot">
+        <script tal:replace="structure view/renderJavascript" />
+    </metal:javascriptslot>
+
 Layers
 ------
 
