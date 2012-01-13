@@ -384,6 +384,35 @@ More info:
 
 * http://stackoverflow.com/questions/5897656/disabling-portlet-types-site-wide-in-plone
 
+Disabling right or left columns in a view or template
+-----------------------------------------------------
+
+Sometimes, when you work with custom views and custom templates you need to
+disable right or left column for portlets.
+
+This is how you do from within a template:
+
+.. code-block:: xml
+
+    <metal:override fill-slot="top_slot"
+        tal:define="disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                    disable_column_two python:request.set('disable_plone.rightcolumn',1);"/>
+
+And this is how you do it from within a view::
+
+    import grok
+    
+    class SomeView(grok.View):
+        grok.context(IPloneSiteRoot)
+           
+        def update(self):
+            super(SomeViewº, self).update()
+            self.request.set('disable_plone.rightcolumn',1)
+            self.request.set('disable_plone.leftcolumn',1)
+
+Source: http://stackoverflow.com/questions/5872306/how-can-i-remove-portlets-in-edit-mode-with-plone-4
+
+
 Writing your own portlet manager
 ----------------------------------
 
