@@ -178,6 +178,11 @@ Posing as different users
 There is a shortcut to privilege you from all security checks::
         
     self.loginAsPortalOwner()
+
+In Plone 4, using plone.app.testing, use::
+    from plone.app.testing import login
+    ...
+    login(self.portal, 'admin')
           
 where ``self`` is the test case instance.
 
