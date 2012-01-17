@@ -1310,10 +1310,10 @@ Related
 
 * http://plone.org/products/linguaplone/issues/253	    
 
-TypeError: 'NoneType' object is not callable
----------------------------------------------
+TypeError: 'NoneType' object is not callable during upgrade
+-----------------------------------------------------------------
 
-Traceback during add-on install run::
+Traceback during add-on install run / site upgrade::
 
         Traceback (innermost last):
           Module ZPublisherEventsBackport.patch, line 77, in publish
@@ -1329,8 +1329,11 @@ Traceback during add-on install run::
            - __traceback_info__: toolset
           Module Products.GenericSetup.tool, line 128, in importToolset
         TypeError: 'NoneType' object is not callable
-        
-More pointers::
+
+This means that your site database contains installed add-on utility objects
+for which Python code is no longer present.
+
+More pointers for resolving the tool can be found using pdb::
 
         (Pdb) tool_id
         'portal_newsletters'        
@@ -1344,7 +1347,9 @@ is problematic and does not uninstall cleanly.
 
 * Hope your site works again
 
-Or try
+More info
+
+* http://opensourcehacker.com/2011/06/01/plone-4-upgrade-results-and-steps/
 
 * http://pypi.python.org/pypi/wildcard.fixpersistentutilities
 
