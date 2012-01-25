@@ -185,8 +185,11 @@ Example::
     sudo kill `cat var/varnishncsa.pid`
     sudo parts/varnish-build/bin/varnishncsa -D -d -a -w var/log/varnish.log -P var/varnishncsa.pid
 
-Virtual hosting 
-==================
+Virtual hosting proxy rule
+=============================
+
+When Varnish has been set-up you need to include Plone virtual hosting
+rule in its configuration file.
 
 If you want to map Varnish backend directly to Plone-as-a-virtualhost (i.e.
 Zope's VirtualHostMonster is used to map site name to Plone site instance
@@ -208,10 +211,12 @@ Example::
 	            || req.http.host ~ "^plonecommunity.mfabrik.com(:[0-9]+)?$") {
 	
 	                set req.backend = plonecommunity 
-	                set req.url = "/VirtualHostBase/http/plonecommunity.mobi:80/plonecommunity/VirtualHostRoot" req.url;
+	                set req.url = "/VirtualHostBase/http/" req.http.host ":80/plonecommunity/VirtualHostRoot" req.url;
 	                set req.backend = plonecommunity;
 	        }
 	}
+
+
 	
 Varnishd port and IP address to listen
 ========================================
