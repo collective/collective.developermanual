@@ -413,71 +413,64 @@ and issue ``PURGE`` command. We do this using `Requests <http://pypi.python.org/
 Example view code::
         
                 
-        import requests
-        
-        from Products.CMFCore.interfaces import ISiteRoot
-        from five import grok
-        
-        # We need to monkey-patch requets.Request as it is happily unaware
-        # of PURGE and will throw an exception on your face so hard
-        # that you hope they would have this level of input validation in Joomla!
-        # requests 0.6.0
-        
-        from requests.models import Request
-        
-        if not "PURGE" in Request._METHODS:
-            lst = list(Request._METHODS)
-            lst.append("PURGE")
-            Request._METHODS = tuple(lst)
-                    
-        class Purge(grok.CodeView):
-            """
-            Purge upstream cache from all entries.
-            
-            This is ideal to hook up for admins e.g. through portal_actions menu.
-            
-            You can access it as admin::
-            
-                http://site.com/@@purge
-                
-            """
-            
-            grok.context(ISiteRoot)
-        
-            # Onlyl site admins can use this 
-            grok.require("cmf.ManagePortal")
-            
-            def render(self):
-                """
-                Call the parent cache using Requets Python library and issue PURGE command for all URLs. 
-                
-                Pipe through the response as is.
-                """
-                        
-                site_url = "http://www.site.com/"
-                  
-                headers = {
-                           # Match all pages
-                           "X-Purge-Regex" : ".*"
-                }
-                
-                resp = requests.request("PURGE", site_url + "*", headers=headers)
-        
-                self.request.response["Content-type"] = "text/plain"                 
-                text = []
-                
-                text.append("HTTP " + str(resp.status_code))
-                            
-                # Dump response headers as is to the Plone user,
-                # so he/she can diagnose the problem
-                for key, value in resp.headers.items():
-                    text.append(str(key) + ": " + str(value))
-                    
-                # Add payload message from the server (if any)
-            
-                text.append(str(resp.body))
-                    
-                return "\n".join(text)
+	import requests
+
+	from Products.CMFCore.interfaces import ISiteRoot
+	from five import grok
+
+	from requests.models import Request
+
+	class Purge(grok.CodeView):
+	    """
+	    Purge upstream cache from all entries.
+
+	    This is ideal to hook up for admins e.g. through portal_actions menu.
+
+	    You can access it as admin::
+
+	        http://site.com/@@purge
+
+	    """
+
+	    grok.context(ISiteRoot)
+
+	    # Onlyl site admins can use this
+	    grok.require("cmf.ManagePortal")
+
+	    def render(self):
+	        """
+	        Call the parent cache using Requets Python library and issue PURGE command for all URLs.
+
+	        Pipe through the response as is.
+	        """
+
+	        # This is the root URL which will be purged
+	        # - you might want to have different value here if 
+	        # your site has different URLs for manage and themed versions
+	        site_url = self.context.portal_url() + "/"
+
+	        headers = {
+	                   # Match all pages
+	                   "X-Purge-Regex" : ".*"
+	        }
+
+	        resp = requests.request("PURGE", site_url + "*", headers=headers)
+
+	        self.request.response["Content-type"] = "text/plain"
+	        text = []
+
+	        text.append("HTTP " + str(resp.status_code))
+
+	        # Dump response headers as is to the Plone user,
+	        # so he/she can diagnose the problem
+	        for key, value in resp.headers.items():
+	            text.append(str(key) + ": " + str(value))
+
+	        # Add payload message from the server (if any)
+
+	        if hasattr(resp, "body"):
+	        	text.append(str(resp.body))
+
             
         
 More info
