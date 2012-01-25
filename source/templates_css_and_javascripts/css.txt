@@ -5,6 +5,7 @@ CSS
 .. admonition:: Description
 
         Creating and registering CSS files for Plone and Plone add-on products.
+        CSS related Python functionality.
 
 .. contents::
 
@@ -143,8 +144,8 @@ Defining CSS styles reaction to the presence of the class::
     #region-content { padding: 0 0 0 0px !important;}
     .member-logged-in #region-content { padding: 0 0 0 4px !important;}
 
-Per folder overrides
----------------------
+Per folder CSS theme overrides
+---------------------------------
 
 * http://pypi.python.org/pypi/Products.CustomOverrides
 
@@ -209,3 +210,75 @@ CSS reset
         table { border-spacing: 0; }
         img { vertical-align: middle; }
          
+Adding new CSS body classes
+-----------------------------
+
+Plone themes provide ``<body>`` CSS classes to identify view, template,
+site section, etc. for theming.
+
+The default body CSS classes look like
+
+.. code-block:: html
+
+  <body class="template-subjectgroup portaltype-xxx-app-subjectgroup site-LS section-courses icons-on" dir="ltr">
+
+But you can include your own CSS classes as well.
+This can be done by overriding ``plone.app.layout.globals.LayoutPolicy`` class
+which is registerd as ``plone_layout`` view.
+
+layout.py::
+
+.. code-block:: python
+
+  """
+
+      Override the default Plone layout utility.
+
+
+  """
+
+  from zope.component import queryUtility
+  from zope.component import queryMultiAdapter
+
+  from plone.i18n.normalizer.interfaces import IIDNormalizer
+  from plone.app.layout.globals import layout as base
+
+  class LayoutPolicy(base.LayoutPolicy):
+      """
+      Enhanched layout policy helper.
+
+      Extend the Plone standard class to have some more <body> CSS classes based on the current
+      context.
+      """
+
+      def bodyClass(self, template, view):
+          """Returns the CSS class to be used on the body tag.
+          """
+
+          # Call parent
+          body_class = base.LayoutPolicy.bodyClass(self, template, view)
+
+          # Include context and parent classes
+          normalizer = queryUtility(IIDNormalizer)
+
+          body_class += " context-" + normalizer.normalize(self.context.getId())
+
+          parent = self.context.aq_parent
+
+          # Check that we have a valid parent
+          if hasattr(parent, "getId"):
+              body_class += " parent-" + normalizer.normalize(parent.getId())
+
+          return body_class
+          
+Related ZCML regisration
+
+.. code-block:: xml
+
+    <browser:page
+        name="plone_layout"
+        for="*"
+        permission="zope.Public"
+        class=".layout.LayoutPolicy"
+        allowed_interface="plone.app.layout.globals.interfaces.ILayoutPolicy"
+        />                   
