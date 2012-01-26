@@ -97,6 +97,13 @@ Example 2::
         contentMedias = schema.Choice(vocabulary=myVocabulary,
                                       title=u"Test choice")
 
+Creating vocabulary from list of objects
+------------------------------------------
+
+Here is one example where value = title in term::
+
+      SimpleVocabulary.fromValues('%s.%s.%s' % (at['package'],at['meta_type'],at['portal_type']) for at in list_of_ats)"
+
 Retrieving a vocabulary
 =========================
 
