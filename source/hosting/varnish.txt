@@ -19,6 +19,12 @@ Plone.
 
 * http://varnish-cache.org/
 
+To use Varnish with Plone
+
+* Learn how to install and configure Varnish
+
+* Add Plone virtual hosting rule to the default varnish configuration 
+
 Installation
 ==========================
 
@@ -230,7 +236,6 @@ Edit ``/etc/default/varnish``::
                -f /etc/varnish/default.vcl \
                -s file,/var/lib/varnish/$INSTANCE/varnish_storage.bin,1G"
 
-
 	
 Cached and editor subdomains
 ==============================
@@ -372,6 +377,24 @@ More info
 * https://www.varnish-cache.org/trac/wiki/VCLExampleRemovingSomeCookies
 
 * http://blog.carumba.com/post/226455049/remove-google-analytics-cookies-in-varnish                  
+
+Do not cache error pages
+==========================
+
+You can make sure that Varnish does not accidentally cache error pages.
+E.g. it would cache front page when the site is down::
+
+	sub vcl_fetch {
+		if ( obj.status >= 500 ) {
+			set obj.ttl = 0s;
+			set obj.cacheable = false;
+		}
+		...
+	}
+
+More info
+
+* https://www.varnish-cache.org/lists/pipermail/varnish-misc/2010-February/003774.html
 
 Custom and full cache purges
 ======================================
