@@ -4,7 +4,7 @@ Vocabularies
 
 .. admonition:: Description
 
-        Vocabularies are lists of value -> human readable title pairs used
+        Vocabularies are lists of (value -> human readable title) pairs used
         by e.g. selection drop downs. zope.schema provides
         tools to programmatically construct there vocabularies. 
 
@@ -324,10 +324,11 @@ Complex example 2
 For another example, see `Dynamic sources <http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/vocabularies.html>`_
 chapter in Dexterity manual.
 
-<vocabularies> directive
-========================
+Registering a named vocabulary provider in ZCML
+===================================================
 
-On older Plones you can use <utility> in ZCML to register vocabularies
+You can use ``<utility>`` in ZCML to register vocabularies by name
+and then refer them by name via ``getUtility()`` or in zope.schema.Choice.
 
 .. code-block:: xml
 
