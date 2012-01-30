@@ -181,6 +181,16 @@ And you can colorize this with CSS
         }
          
          
+plone.css
+-----------
+
+``plone.css`` is a magical file which is generated dynamically based on the full ``portal_css`` registry contents.
+It is used e.g. TinyMCE to load all CSS styles into TinyMCE ``<iframe>`` in a single pass. It is not
+used on the normal Plone pages.
+
+``plone.css`` generation:
+
+* https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/skins/plone_scripts/plone.css.py
 
 CSS reset
 -----------
