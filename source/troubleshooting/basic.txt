@@ -44,9 +44,28 @@ The error is printed as Python *traceback*. It is important to copy-paste all li
 not just the last line.
 
 If there is no start up error you will see the line 
-      
+
+Check if Plone is up and responds to requests
+-----------------------------------------------
+
+Enter to the computer running Plone (SSH in on UNIX).
+
+Use ``telnet`` command to connect Plone port and see if you get valid HTTP response from Plone
+
+.. code-block:: console
+
+     telnet localhost 8080
+     
+Then do a human HTTP user agent simulation by typing::
+
+     GET / HTTP/1.0<enter><enter>
+
+If you get the answer from Plone (based on HTTP response headers) then 
+Plone is running and you have problem elsewhere in your firewall/server/
+front-end web server configuration.
+
 More info
-=========
+----------
 
 * :doc:`common exceptions which you might encounter when starting Zope </troubleshooting/exceptions>`
 
