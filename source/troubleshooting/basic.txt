@@ -60,9 +60,32 @@ Then do a human HTTP user agent simulation by typing::
 
      GET / HTTP/1.0<enter><enter>
 
+Plone response looks like this::
+
+    Trying 127.0.0.1...
+    Connected to localhost.localdomain.
+    Escape character is '^]'.
+    GET / HTTP/1.0
+    
+    HTTP/1.0 200 OK
+    Server: Zope/(2.13.10, python 2.6.6, linux2) ZServer/1.1
+    Date: Wed, 01 Feb 2012 09:59:40 GMT
+    Content-Length: 1614
+    Content-Type: text/html; charset=utf-8
+    Connection: close
+    
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    
+    <head>
+    <base href="http://xxx.fi:9980/" />
+
 If you get the answer from Plone (based on HTTP response headers) then 
 Plone is running and you have problem elsewhere in your firewall/server/
 front-end web server configuration.
+
+Consult your operating system manual for fixing your problem.
 
 More info
 ----------
