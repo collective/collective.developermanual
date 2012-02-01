@@ -1,6 +1,6 @@
-----------
-Sandboxing
-----------
+=================================
+Sandboxing and RestrictedPython
+=================================
 
 .. admonition:: Description
 
@@ -25,7 +25,7 @@ Plone has two sandboxing modes
   This is what happens when you try to add Python code or customize 
   page templates through Zope Management Interface.
 
-Restricted execution is enabled only for **legacy code**:
+Restricted execution is enabled only for **through-the-web** scripts and **legacy code**:
 
 * Old style TAL page templates: everything you put inside page template 
   tal:content, tal:condition, etc. These templates are .pt templates
@@ -33,15 +33,19 @@ Restricted execution is enabled only for **legacy code**:
 
 * Script (Python) code is executed (plone_skins layer Python scripts and old style form management)
 
-Restricted execution has performance penalty.
-
 .. note ::
 
-        RestrictedPython was bad idea and mostly causes headache. Do not use it.
+        RestrictedPython was bad idea and mostly causes headache. Avoid through-the-web
+        Zope scripts if possible.
         
 For further information, read 
 
 * http://plone.293351.n2.nabble.com/Update-was-Plone-4-Chameleon-compatibility-tp5612838p5614466.html        
+
+Whitelisting modules for RestrictedPython import
+---------------------------------------------------
+
+* http://plone.org/documentation/kb/using-unauthorized-modules-in-scripts
 
 Travesing special cases
 -------------------------
