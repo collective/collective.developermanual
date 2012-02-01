@@ -16,8 +16,29 @@ Introduction
 Log file location
 ==================
 
-By default, logs go to ``var/log/instance.log``. If Zope instance is started in the foreground mode
-logs will be printed in the console (stdout) too.
+By default, logs go to ``var/log`` folder under buildout. 
+
+If Zope instance is started in the foreground mode
+logs will be printed in the console (stdout).
+
+Plone log filename varies depending on the installation mode (Zope, ZEO cluster).
+But for each instance there are two log files
+
+* Event logs (errors), normally called *instance.log*
+
+* HTTP request log (Apache compatible), normally called *Z2.log*
+
+Viewing logs in real time
+===========================
+
+UNIX'y way for your terminal.
+
+.. code-block:: console
+    
+     tail -f var/log/instance.log # errors
+
+
+Press CTRL+C to abort.
 
 Log level 
 =========
