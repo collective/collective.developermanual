@@ -773,54 +773,54 @@ theme/browser/configure.zcml
             name="plone.portalheader"
             provides=".interfaces.ISomethingHeader"
             permission="zope2.View"
-           	class=".header.HeaderViewlet"
-	          	layer=".interfaces.IThemeSpecific"
+            class=".header.HeaderViewlet"
+	    layer=".interfaces.IThemeSpecific"
             />
 
-         <!-- Site actions-->
-         <browser:viewlet
-             name="plonetheme.something.site_actions"
-             class=".common.SiteActionsViewlet"
-             permission="zope2.View"
-             template="templates/site_actions.pt"
-             layer=".interfaces.IThemeSpecific"
-             allowed_attributes="site_actions"
-             manager=".interfaces.ISomethingHeader"
-             />
+        <!-- Site actions-->
+        <browser:viewlet
+            name="plonetheme.something.site_actions"
+            class=".common.SiteActionsViewlet"
+            permission="zope2.View"
+            template="templates/site_actions.pt"
+            layer=".interfaces.IThemeSpecific"
+            allowed_attributes="site_actions"
+            manager=".interfaces.ISomethingHeader"
+            />
 
         <!-- The logo; even though we include the template attribute, it will be ignored.
              Needs to be set again in common.py -->
         <browser:viewlet
-             name="plonetheme.something.logo"
-             class=".common.SomethingLogoViewlet"
-             permission="zope2.View"
-             layer=".interfaces.IThemeSpecific"
-             template="templates/logo.pt"
-             manager=".interfaces.ISomethingHeader"
-             />
+            name="plonetheme.something.logo"
+            class=".common.SomethingLogoViewlet"
+            permission="zope2.View"
+            layer=".interfaces.IThemeSpecific"
+            template="templates/logo.pt"
+            manager=".interfaces.ISomethingHeader"
+            />
 
         <!-- Searchbox -->
-         <browser:viewlet
-             name="plone.searchbox"
-             for="*"
-             class="plone.app.layout.viewlets.common.SearchBoxViewlet"
-             permission="zope2.View"
-             template="templates/searchbox.pt"
-             layer=".interfaces.IThemeSpecific"
-             manager=".interfaces.ISomethingHeader"
-             />
+        <browser:viewlet
+            name="plone.searchbox"
+            for="*"
+            class="plone.app.layout.viewlets.common.SearchBoxViewlet"
+            permission="zope2.View"
+            template="templates/searchbox.pt"
+            layer=".interfaces.IThemeSpecific"
+            manager=".interfaces.ISomethingHeader"
+            />
 
         <!-- First level navigation; even though we include the template attribute, it will be ignored.
              Needs to be set again in common.py  -->
         <browser:viewlet
-             name="plonetheme.something.global_sections"
-             for="*"
-             class=".common.SomethingGlobalSectionsViewlet"
-             permission="zope2.View"
-             template="templates/sections.pt"
-             layer=".interfaces.IThemeSpecific"
-             manager=".interfaces.ISomethingHeader"
-             />
+            name="plonetheme.something.global_sections"
+            for="*"
+            class=".common.SomethingGlobalSectionsViewlet"
+            permission="zope2.View"
+            template="templates/sections.pt"
+            layer=".interfaces.IThemeSpecific"
+            manager=".interfaces.ISomethingHeader"
+            />
 
     </configure>
 
