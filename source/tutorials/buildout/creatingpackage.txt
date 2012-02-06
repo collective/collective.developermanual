@@ -95,7 +95,11 @@ signal that their ZCML should be included by adding:
 
 ::
 
-    setup(...entry_points="""...[z3c.autoinclude.plugin]target = plone...)"""
+    setup(...
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """
 
 to their *setup.py* file. For further information, see the
 `setuptools documentation about dynamic discovery of services and plugins <http://peak.telecommunity.com/DevCenter/setuptools#dynamic-discovery-of-services-and-plugins>`_.` <http://peak.telecommunity.com/DevCenter/setuptools#id19>`_
