@@ -656,9 +656,9 @@ Default viewlet managers render viewlets as HTML code string concatenation, in t
 This is unsuitable to build complex layouts.
 
 Below is an example which defines master viewlet *HeaderViewlet* which will place other viewlets
-into the manually tuned HTMLable.
+into the manually tuned HTML markup below.
 
-header.py::
+theme/browser/header.py::
 
     from Acquisition import aq_inner
 
@@ -669,7 +669,11 @@ header.py::
     from plone.app.layout.viewlets import common as base
 
     # Import our customized viewlet classes
-    import plonetheme.something.browser.viewlets.common as something
+    # This is important as the header.py file will ignore much of the settings
+    # inside the configure.zcml file describing the affected viewlets. Without
+    # creating this file, your viewlets will render with Plone's default settings,
+    # which will result in your custom changes being ignored.
+    import plonetheme.something.browser.common as something
 
     def render_viewlet(factory, context, request):
         """ Helper method to render a viewlet """
@@ -681,7 +685,7 @@ header.py::
 
 
     class HeaderViewlet(base.ViewletBase):
-        """ Render header with special     le layout.
+        """ Render header with special markup.
 
         Though we render viewlets internally we not inherit from the viewlet manager,
         since we do not offer the option for the site manager or integrator
@@ -709,11 +713,16 @@ header.py::
 
         def render(self):
 
-            self.subviewlets["logo"] = self.renderViewlet(something.SomethingLogoViewlet) # Customized viewlet
-            self.subviewlets["second_level_navigation"] = self.renderViewlet(something.SecondLevelSectionsViewlet)
+            # Customized viewlet
+            self.subviewlets["logo"] = self.renderViewlet(something.SomethingLogoViewlet)
+
+            # Customized viewlet
             self.subviewlets["sections"] = self.renderViewlet(something.SomethingGlobalSectionsViewlet)
-            self.subviewlets["search"] = self.renderViewlet(base.SearchBoxViewlet) # Default Plone viewlet
-            self.subviewlets["selector"] = self.renderViewlet(something.SomethingTransla    leLanguageSelector)
+
+            # Base Plone viewlet
+            self.subviewlets["search"] = self.renderViewlet(base.SearchBoxViewlet)
+
+            # Customized viewlet
             self.subviewlets["site_actions"] = self.renderViewlet(something.SiteActionsViewlet)
 
             # Call template to perform rendering
@@ -721,56 +730,28 @@ header.py::
 
 
 
-header_items.pt
+theme/browser/header_items.pt
 
 .. code-block:: html
 
-    <table class="something-header">
-        <tbody>
-            <tr class="upper">
-                <td class="left">
-                    <div tal:replace="structure view/subviewlets/logo" />
-                </td>
+    <header>
+        <div id="logo">
+            <div tal:replace="structure view/subviewlets/logo" />
+        </div>
 
-                <td>
-                    <    le class="right">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div tal:replace="structure view/subviewlets/search" />
-                                </td>
-                            </tr>
+        <nav>
+            <div tal:replace="structure view/subviewlets/sections" />
+        </nav>
 
-                            <tr>
+        <div id="search">
+            <div tal:replace="structure view/subviewlets/search" />
+            <div id="actions">
+                <div tal:replace="structure view/subviewlets/site_actions" />
+            </div>
+        </div>
+    </header>
 
-                                <td>
-                                    <a href="http://www.something.fi">
-                                        <img tal:attributes="src string:${view/site_url}/++resource++plonetheme.something/something_logo.gif" />
-                                    </a>
-                                </td>
-
-                                <td>
-                                    <div tal:replace="structure view/subviewlets/selector" />
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </    le>
-                </td>
-            </tr>
-
-            <tr class="lower">
-                <td class="left">
-                    <div tal:replace="structure view/subviewlets/sections" />
-                </td>
-                <td class="right">
-                    <div tal:replace="structure view/subviewlets/site_actions" />
-                </td>
-            </tr>
-        </tbody>
-    </    le>
-
-configure.zcml
+theme/browser/configure.zcml
 
 .. code-block:: xml
 
@@ -787,37 +768,36 @@ configure.zcml
             See viewlets.xml for order/hidden
         -->
 
-
-        <!-- Header viewlet which replaces the standard plone.header-->
-        <browser:viewlet
-            name="plone.header"
-            manager="plone.app.layout.viewlets.interfaces.IPortalTop"
-            class=".header.HeaderViewlet"
+        <!-- Changes class and provides attributes to work with our changes -->
+        <browser:viewletManager
+            name="plone.portalheader"
+            provides=".interfaces.ISomethingHeader"
             permission="zope2.View"
-            layer="..interfaces.IThemeSpecific"
+           	class=".header.HeaderViewlet"
+	          	layer=".interfaces.IThemeSpecific"
             />
-
 
          <!-- Site actions-->
          <browser:viewlet
              name="plonetheme.something.site_actions"
              class=".common.SiteActionsViewlet"
              permission="zope2.View"
-             template="site_actions.pt"
-             layer="..interfaces.IThemeSpecific"
+             template="templates/site_actions.pt"
+             layer=".interfaces.IThemeSpecific"
              allowed_attributes="site_actions"
-             manager="..interfaces.IHeader"
+             manager=".interfaces.ISomethingHeader"
              />
 
-        <!-- The logo -->
+        <!-- The logo; even though we include the template attribute, it will be ignored.
+             Needs to be set again in common.py -->
         <browser:viewlet
-            name="plonetheme.something.logo"
-            class=".common.SomethingLogoViewlet"
-            permission="zope2.View"
-            layer="..interfaces.IThemeSpecific"
-            template="logo.pt"
-            manager="..interfaces.IHeader"
-            />
+             name="plonetheme.something.logo"
+             class=".common.SomethingLogoViewlet"
+             permission="zope2.View"
+             layer=".interfaces.IThemeSpecific"
+             template="templates/logo.pt"
+             manager=".interfaces.ISomethingHeader"
+             />
 
         <!-- Searchbox -->
          <browser:viewlet
@@ -825,51 +805,71 @@ configure.zcml
              for="*"
              class="plone.app.layout.viewlets.common.SearchBoxViewlet"
              permission="zope2.View"
-             template="searchbox.pt"
-             layer="..interfaces.IThemeSpecific"
-             manager="..interfaces.IHeader"
+             template="templates/searchbox.pt"
+             layer=".interfaces.IThemeSpecific"
+             manager=".interfaces.ISomethingHeader"
              />
 
-         <!-- First level navigation -->
-         <browser:viewlet
+        <!-- First level navigation; even though we include the template attribute, it will be ignored.
+             Needs to be set again in common.py  -->
+        <browser:viewlet
              name="plonetheme.something.global_sections"
              for="*"
              class=".common.SomethingGlobalSectionsViewlet"
              permission="zope2.View"
-             template="sections.pt"
-             layer="..interfaces.IThemeSpecific"
-             manager="..interfaces.IHeader"
+             template="templates/sections.pt"
+             layer=".interfaces.IThemeSpecific"
+             manager=".interfaces.ISomethingHeader"
              />
 
-        <!-- Second level navigation -->
-         <browser:viewlet
-             name="plonetheme.something.second_level_sections"
-             class=".common.SecondLevelSectionsViewlet"
-             permission="zope2.View"
-             template="second_level_sections.pt"
-             layer="..interfaces.IThemeSpecific"
-             manager="..interfaces.IHeader"
-             />
-
-
-        <!-- Language selector-->
-            <browser:viewlet
-              name="something.languageselector"
-              class=".common.SomethingTransla    leLanguageSelector"
-              permission="zope2.View"
-              layer="..interfaces.IThemeSpecific"
-              manager="..interfaces.IHeader"
-             />
     </configure>
 
 
-portal_header.pt
+theme/browser/templates/portal_header.pt
 
 .. code-block:: html
 
     <div id="portal-header">
-        <div tal:replace="structure provider:something.header" />
+        <div tal:replace="structure provider:plone.portalheader" />
     </div>
+
+theme/browser/interfaces.py code::
+
+    from plone.theme.interfaces import IDefaultPloneLayer
+    from zope.viewlet.interfaces import IViewletManager
+
+
+    class IThemeSpecific(IDefaultPloneLayer):
+        """Marker interface that defines a Zope 3 browser layer.
+           If you need to register a viewlet only for the
+           "Something" theme, this interface must be its layer
+           (in theme/viewlets/configure.zcml).
+        """
+
+    class ISomethingHeader(IViewletManager):
+        """Creates fixed layout for Plone header elements.
+       	"""
+
+We need to create this common.py file so we can tell Plone to render our custom templates for these
+viewlets. Without this piece in place, our viewlets will render with Plone defaults.
+
+theme/browser/common.py code::
+
+    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    from plone.app.layout.viewlets import common
+
+    # You may also use index in place of render for these subclasses
+
+    class SomethingLogoViewlet(common.LogoViewlet):
+        render = ViewPageTemplateFile('templates/logo.pt')
+
+    class SomethingSiteActionsViewlet(common.SiteActionsViewlet):
+        render = ViewPageTemplateFile('templates/site_actions.pt')
+
+    class SomethingGlobalSectionsViewlet(common.GlobalSectionsViewlet):
+        render = ViewPageTemplateFile('templates/sections.pt')
+
+
 
 Viewlets for one page only
 --------------------------
