@@ -1,6 +1,6 @@
-============
+==================================
 Exceptions
-============
+==================================
 
 .. admonition:: Description
 
@@ -12,6 +12,8 @@ Introduction
 -------------
 
 This document contains a a ist of common developer errors you might encounter and possible solutions for them.
+
+Please see :doc:`this tutorial </troubleshooting/basic>` for extracting Python tracebacks from your Plone logs.
 
 AttributeError: 'str' object has no attribute 'other' (Mixed zope.viewpagetemplate and Five.viewpagetemplate)
 --------------------------------------------------------------------------------------------------------------
@@ -1938,3 +1940,24 @@ If it's working then it is wrong data in *portal_types*.
 
 Your content item might also be corrupted. It is trying to use dynamic view selector even if it's not supported. Try re-creating
 the particular content item. 
+
+
+Error: Incorrect padding
+--------------------------
+
+Traceback comes when you try to access any Plone site URL::
+
+	2012-02-06 16:52:25 ERROR Zope.SiteErrorLog 1328539945.430.234286547911 http://localhost:9888/index_html
+	Traceback (innermost last):
+	  Module ZPublisher.Publish, line 110, in publish
+	  Module ZPublisher.BaseRequest, line 588, in traverse
+	  Module Products.PluggableAuthService.PluggableAuthService, line 233, in validate
+	  Module Products.PluggableAuthService.PluggableAuthService, line 559, in _extractUserIds
+	  Module Products.PluggableAuthService.plugins.CookieAuthHelper, line 121, in extractCredentials
+	  Module base64, line 321, in decodestring
+	Error: Incorrect padding
+	
+It means that your browser most likely tries to serve bad cookies / auth info to Zope.
+Clear browser cache, cookies, etc.
+
+
