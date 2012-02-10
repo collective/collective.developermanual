@@ -46,28 +46,28 @@ Buildout examples
 Management console
 ==================
         
-``varnishadm`` (Ubuntu/Debian installation)
+``varnishadm`` 
 --------------------------------------------
 
-You can access Varnish admin console by::
+You can access Varnish admin console on your server by::
 
     # Your system uses a secret handshake file
     varnishadm -T localhost:6082 -S /etc/varnish/secret               
 
-    # Your system does not have a secret handshake file
-    telnet localhost 6082 
+(Ubuntu/Debian installation)
 
 Telnet console
 -----------------
 
-The telent management console can be enabled in the Varnish buildout 
-settings.
+The telent management console is available on some configurations
+where ``varnishadm`` cannot be used. The functionality is the same.
 
 Example::
 
     ssh yourhost
-    telnet localhost 8088
-        
+    # Your system does not have a secret handshake file
+    telnet localhost 6082 
+
 .. note ::
 
     Port number depends on your Varnish settings.
