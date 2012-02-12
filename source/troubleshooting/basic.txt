@@ -45,6 +45,17 @@ not just the last line.
 
 If there is no start up error you will see the line 
 
+No such file or directory: 'zope.conf'
++++++++++++++++++++++++++++++++++++++++++
+
+Example:
+
+    sudo /Applications/Plone/zinstance/bin/plonectl start
+    instance: Error: error opening file /Applications/Plone/zinstance/parts/instance/etc/zope.conf: [Errno 2] No such file or directory: '/Applications/Plone/zinstance/parts/instance/etc/zope.conf'
+
+This means that running ``bin/buildout`` script did not complete succesfully.
+Re-run buildout and see what's wrong.
+
 Check if Plone is up and responds to requests
 -----------------------------------------------
 
