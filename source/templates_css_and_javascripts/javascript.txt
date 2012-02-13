@@ -434,6 +434,7 @@ viewlet.py::
                 context = aq_inner(self.context)
                 portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
                 
+                # Create youroptions Javascript object and populate in these variables
                 return {
                     # Pass dynamically allocated site URL to the Javascripts (virtual host monster thing)         
                     "staticMediaURL" : portal_state.portal_url() + "/++resource++yourcompany.app",
