@@ -56,6 +56,19 @@ Example:
 This means that running ``bin/buildout`` script did not complete succesfully.
 Re-run buildout and see what's wrong.
 
+Dropping into pdb
++++++++++++++++++++++++
+
+If you need to inspect start-up errors in Python's :doc:`debugger </testing_and_debugging/pdb>`.
+
+Activate Python configuration associated with your `bin/instance` script::
+
+    source ~/code/collective.buildout.python/python-2.6/bin/activate
+
+Start Plone pdb enabled::
+
+    python -m pdb bin/instance fg              
+
 Check if Plone is up and responds to requests
 -----------------------------------------------
 
