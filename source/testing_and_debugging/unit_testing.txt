@@ -279,12 +279,11 @@ Setting a real HTTP request
 Grabbing emails
 ===============
 
+Test outgoing email messages with Plone 3
+-----------------------------------------
+
 To debug outgoing email traffic you can create a dummy mailhost.
 
-.. note ::
-
-    The ``MailHost`` code has changed in Plone 4. These instructions
-    apply only to Plone 3.
         
 Example::
 
@@ -342,6 +341,101 @@ Example::
                                 
         # Check that email has been sent
         self.assertEqual(len(self.dummyMailHost.sent), 1)
+
+
+Test outgoing email messages with Plone 4
+-----------------------------------------
+
+The ``MailHost`` code has changed in Plone 4. For more detail about the
+changes please read the relevant section in the `Plone Upgrade Guide`_.
+According to that guide we can reuse some of the test code in
+``Products.CMFPlone.tests``.
+
+.. _`Plone Upgrade Guide`: http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/mailhost.securesend-is-now-deprecated-use-send-instead
+
+Here's some example of a ``unittest.TestCase`` based on the excelent ``plone.app.testing``
+framework. Adapt it to your own needs.
+
+.. code-block:: python
+
+    #Pythonic libraries
+    import unittest2 as unittest
+    from email import message_from_string
+
+    #Plone
+    from plone.app.testing import TEST_USER_NAME, TEST_USER_ID
+    from plone.app.testing import login, logout
+    from plone.app.testing import setRoles
+    from plone.testing.z2 import Browser
+
+    from Acquisition import aq_base
+    from zope.component import getSiteManager
+    from Products.CMFPlone.tests.utils import MockMailHost
+    from Products.MailHost.interfaces import IMailHost
+    import transaction
+
+    #hkl namespace
+    from holokinesislibros.purchaseorder.testing import\
+        HKL_PURCHASEORDER_FUNCTIONAL_TESTING
+
+
+    class TestOrder(unittest.TestCase):
+
+        layer = HKL_PURCHASEORDER_FUNCTIONAL_TESTING
+        
+        def setUp(self):
+            self.app = self.layer['app']
+            self.portal = self.layer['portal']
+            self.portal._original_MailHost = self.portal.MailHost
+            self.portal.MailHost = mailhost = MockMailHost('MailHost')
+            sm = getSiteManager(context=self.portal)
+            sm.unregisterUtility(provided=IMailHost)
+            sm.registerUtility(mailhost, provided=IMailHost)
+
+            self.portal.email_from_address = 'noreply@holokinesislibros.com'
+            transaction.commit()
+        
+        def tearDown(self):
+            self.portal.MailHost = self.portal._original_MailHost
+            sm = getSiteManager(context=self.portal)
+            sm.unregisterUtility(provided=IMailHost)
+            sm.registerUtility(aq_base(self.portal._original_MailHost),
+                               provided=IMailHost)
+        
+        def test_mockmailhost_setting(self):
+            #open contact form
+            browser = Browser(self.app)
+            browser.open('http://nohost/plone/contact-info')
+            # Now fill in the form:
+
+            form = browser.getForm(name='feedback_form')
+            form.getControl(name='sender_fullname').value = 'T\xc3\xa4st user'
+            form.getControl(name='sender_from_address').value = 'test@plone.test'
+            form.getControl(name='subject').value = 'Saluton amiko to\xc3\xb1o'
+            form.getControl(name='message').value = 'Message with funny chars: \xc3\xa1\xc3\xa9\xc3\xad\xc3\xb3\xc3\xba\xc3\xb1.'
+
+            # And submit it:
+            form.submit()
+            self.assertEqual(browser.url, 'http://nohost/plone/contact-info')
+            self.assertIn('Mail sent', browser.contents)
+            
+            # As part of our test setup, we replaced the original MailHost with our
+            # own version.  Our version doesn't mail messages, it just collects them
+            # in a list called ``messages``:
+            mailhost = self.portal.MailHost
+            self.assertEqual(len(mailhost.messages), 1)
+            msg = message_from_string(mailhost.messages[0])
+            
+            self.assertEqual(msg['MIME-Version'], '1.0')
+            self.assertEqual(msg['Content-Type'], 'text/plain; charset="utf-8"')
+            self.assertEqual(msg['Content-Transfer-Encoding'], 'quoted-printable')
+            self.assertEqual(msg['Subject'], '=?utf-8?q?Saluton_amiko_to=C3=B1o?=')
+            self.assertEqual(msg['From'], 'noreply@holokinesislibros.com')
+            self.assertEqual(msg['To'], 'noreply@holokinesislibros.com')
+            msg_body = msg.get_payload()
+            self.assertIn(u'Message with funny chars: =C3=A1=C3=A9=C3=AD=C3=B3=C3=BA=C3=B1',
+                          msg_body)
+
 
 Unit testing and the Zope component architecture
 ==================================================
