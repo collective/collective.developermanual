@@ -180,7 +180,6 @@ copy-plone-site.sh
 	TFILE="/tmp/$(basename $0).$$.tmp"
 	rsync -av --compress-level=9 $SOURCE/var/filestorage/Data.fs $TFILE
 	mv $TFILE $TARGET/var/filestorage/Data.fs
-	rm $TFILE
 
 	# Copy blobstorage on rsync pass
 	rsync -av $SOURCE/var/blobstorage $TARGET/var/
