@@ -4,7 +4,7 @@ Vocabularies
 
 .. admonition:: Description
 
-        Vocabularies are lists of value -> human readable title pairs used
+        Vocabularies are lists of (value -> human readable title) pairs used
         by e.g. selection drop downs. zope.schema provides
         tools to programmatically construct there vocabularies. 
 
@@ -27,11 +27,13 @@ zope.schema defines different vocabulary term possibilities.
 
 A term is an entry in the vocabulary. The term has a value. Most terms are tokenised terms which also have a token, and some terms are titled, meaning they have a title that is different to the token.
 
-* The token must be an ASCII string. It is the value passed with the request when the form is submitted. A token must uniquely identify a term.
+In ``SimpleTerm`` instances
 
-* The value is the actual value stored on the object. This is not passed to the browser or used in the form. The value is often a unicode string, but can be any type of object.
+* ``SimpleTerm.token`` must be an ASCII string. It is the value passed with the request when the form is submitted. A token must uniquely identify a term.
 
-* The title is a unicode string or translatable message. It is used in the form.
+* ``SimpleTerm.value`` is the actual value stored on the object. This is not passed to the browser or used in the form. The value is often a unicode string, but can be any type of object.
+
+* ``SimpleTerm.title`` is a unicode string or translatable message. It is used in the form.
 
 Some info::
 
@@ -94,6 +96,13 @@ Example 2::
 
         contentMedias = schema.Choice(vocabulary=myVocabulary,
                                       title=u"Test choice")
+
+Creating vocabulary from list of objects
+------------------------------------------
+
+Here is one example where value = title in term::
+
+      SimpleVocabulary.fromValues('%s.%s.%s' % (at['package'],at['meta_type'],at['portal_type']) for at in list_of_ats)"
 
 Retrieving a vocabulary
 =========================
@@ -324,10 +333,11 @@ Complex example 2
 For another example, see `Dynamic sources <http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/vocabularies.html>`_
 chapter in Dexterity manual.
 
-<vocabularies> directive
-========================
+Registering a named vocabulary provider in ZCML
+===================================================
 
-On older Plones you can use <utility> in ZCML to register vocabularies
+You can use ``<utility>`` in ZCML to register vocabularies by name
+and then refer them by name via ``getUtility()`` or in zope.schema.Choice.
 
 .. code-block:: xml
 

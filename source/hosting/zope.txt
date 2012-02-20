@@ -129,5 +129,23 @@ More information
 
 * http://quintagroup.com/services/support/tutorials/import-export-plone/ 
 
+Pack and copy big Data.fs
+----------------------------
+
+Pack Data.fs using `pbzip2 <http://compression.ca/pbzip2/>`_, efficient multicore bzip2 compressor, before copying::
+
+
+   # Attach to a screen or create new one if not exist so that,
+   # the packing process is not interrupted even if you lose a terminal
+   screen -x 
+   
+   # the command won't abort in the middle of the run if terminal lost
+   cd /srv/plone/yoursite/zeocluster/var/filestorage
+   tar -c --ignore-failed-read Data.fs | pbzip2 -c > /tmp/Data.fs.tar.bz2
+
+
+Then copy to your own computer::
+
+   scp unixuser@server.com:/tmp/Data.fs.tar.bz2 .
 
   

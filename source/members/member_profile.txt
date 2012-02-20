@@ -136,7 +136,37 @@ Example how to set the user password::
     # Password is set in a special way
     # passwd is password as plain text
     member.setSecurityProfile(password=passwd)
+
+
+Increase minimum password size
+==============================
+
+To increase the minimum password size copy "validate_pwreset_password" to your custom folder and insert the following lines::
+
+   if len(password) < 8:
+    state.setError('password', 'ERROR') 
+
+This will increase the minimum password size for the password reset form to 8 characters. (This does not effect new user regsitration, that limit will still be 5)
+
+Don't forget to update your form templates to reflect your changes!
+
             
+
+Default password length - password reset form
+=============================================
+
+The password reset form's minimum password length is 5 characters, to increase this:
+
+Copy validate_pwreset_password into your custom folder and add the following lines:
+
+    if len(password) <8:
+    state.setError('password','ERROR')
+
+Before the "if state.getErrors():" method.
+
+This would increase the minimum password size to 8 characters. Remember to update your form templates accordingly.
+
+
 Setting visual editor
 ======================
 

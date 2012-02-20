@@ -1,14 +1,19 @@
-============
-Exceptions
-============
+==================================
+Exceptions: common tracebacks
+==================================
 
 .. admonition:: Description
 
-        Common exception traceback patterns developers might encounter with Plone.
-
-List of common developer errors you might encounter and solutions for them.
+        Common Python exception traceback patterns you may encounter when working with Plone.
 
 .. contents :: :local:
+
+Introduction
+-------------
+
+This document contains a a ist of common developer errors you might encounter and possible solutions for them.
+
+Please see :doc:`this tutorial </troubleshooting/basic>` for extracting Python tracebacks from your Plone logs.
 
 AttributeError: 'str' object has no attribute 'other' (Mixed zope.viewpagetemplate and Five.viewpagetemplate)
 --------------------------------------------------------------------------------------------------------------
@@ -1310,10 +1315,10 @@ Related
 
 * http://plone.org/products/linguaplone/issues/253	    
 
-TypeError: 'NoneType' object is not callable
----------------------------------------------
+TypeError: 'NoneType' object is not callable during upgrade
+-----------------------------------------------------------------
 
-Traceback during add-on install run::
+Traceback during add-on install run / site upgrade::
 
         Traceback (innermost last):
           Module ZPublisherEventsBackport.patch, line 77, in publish
@@ -1329,8 +1334,11 @@ Traceback during add-on install run::
            - __traceback_info__: toolset
           Module Products.GenericSetup.tool, line 128, in importToolset
         TypeError: 'NoneType' object is not callable
-        
-More pointers::
+
+This means that your site database contains installed add-on utility objects
+for which Python code is no longer present.
+
+More pointers for resolving the tool can be found using pdb::
 
         (Pdb) tool_id
         'portal_newsletters'        
@@ -1344,7 +1352,11 @@ is problematic and does not uninstall cleanly.
 
 * Hope your site works again
 
-Or try
+More info
+
+* http://plone.org/documentation/kb/manually-removing-local-persistent-utilities/
+
+* http://opensourcehacker.com/2011/06/01/plone-4-upgrade-results-and-steps/
 
 * http://pypi.python.org/pypi/wildcard.fixpersistentutilities
 
@@ -1928,3 +1940,24 @@ If it's working then it is wrong data in *portal_types*.
 
 Your content item might also be corrupted. It is trying to use dynamic view selector even if it's not supported. Try re-creating
 the particular content item. 
+
+
+Error: Incorrect padding
+--------------------------
+
+Traceback comes when you try to access any Plone site URL::
+
+	2012-02-06 16:52:25 ERROR Zope.SiteErrorLog 1328539945.430.234286547911 http://localhost:9888/index_html
+	Traceback (innermost last):
+	  Module ZPublisher.Publish, line 110, in publish
+	  Module ZPublisher.BaseRequest, line 588, in traverse
+	  Module Products.PluggableAuthService.PluggableAuthService, line 233, in validate
+	  Module Products.PluggableAuthService.PluggableAuthService, line 559, in _extractUserIds
+	  Module Products.PluggableAuthService.plugins.CookieAuthHelper, line 121, in extractCredentials
+	  Module base64, line 321, in decodestring
+	Error: Incorrect padding
+	
+It means that your browser most likely tries to serve bad cookies / auth info to Zope.
+Clear browser cache, cookies, etc.
+
+

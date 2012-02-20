@@ -2,9 +2,48 @@
  WebDAV
 ===========
 
-Plone supports WebDAV in the default configuration.
+.. admonition:: Description 
+
+    WebDAV is a protocol to manage your site directly from MS Windows Explorer and such.
+    Plone supports WebDAV without add-ons.
+
+.. contents:: :local:
+
+Introduction
+--------------
 
 `WebDAV port must be enabled in Zope configuration to use WebDAV facilities <http://plone.org/documentation/how-to/webdav>`_.
+
+
+Enabling WebDAV in Zope
+
+You must enable the WebDAV port in your Zope config to use it. Modify your buildout configuration's client setup to add a webdav address:
+
+Short *buildout.cfg* example::
+
+     [instance]
+     ...
+     recipe = plone.recipe.zope2instance
+     ...
+     webdav-address=1980
+     ...
+
+Alternative buildout.cfg configuration snippet which might be needed for some WebDAV clients
+
+::
+
+   [instance]
+   ... 
+   zope-conf-additional =
+       enable-ms-author-via on
+       <webdav-source-server>
+       address YOUR_SERVER_PUBLIC_IP_ADDRESS_HERE:1980
+       force-connection-close off
+       </webdav-source-server>
+
+There snippets will be in **generated** *parts/instance/zope.conf* when buildout has been re-run.
+
+This will enable the WebDAV server on http://www.mydomain.com:1980/. Note that you cannot use this URL in your web browser, just in WebDAV clients. Using the web browser will give you an error message AttributeError: manage_FTPget. You could also just run the WebDAV server on localhost with address 1980, forcing you to either use a WebDAV client locally or proxy WebDAV through Apache.
 
 Supporting WebDAV in your custom content
 ----------------------------------------

@@ -288,33 +288,27 @@ To make you look more pro when you update the server or Plone goes down
 
 * http://www.codestyle.org/sitemanager/apache/errors-500.shtml
 
-Complex Apache virtual host configuration
-------------------------------------------
+Load balanced Apache virtual host configuration
+-------------------------------------------------
 
-This config includes
+This complex config example includes
 
 * HTTPS and SSL certificate set-up
 
 * Load balancing using ZEO front-ends and Apache load balancer module
 
-* Apache disk cache
-
-* Static resource caching w/HTTPS support
+* Apache disk cache. This should provide static resource caching w/HTTPS support
+  if you are using plone.app.caching.
 
 * Server site https://production.yourorganization.org
-
-.. warning ::
-
-        When using Apache load balancing sticky sessions are must.
-        Otherwise you might encounter
         
 See 
 
 * http://stackoverflow.com/questions/5650716/are-sticky-sessions-needed-when-load-balancing-plone-3-3-5         
         
-More information about how to set a sticky session cookie
+More information about how to set a sticky session cookie if you need to support Zope sessions in your code
 
-* http://plone.org/documentation/kb/sticky-sessions-and-mod_proxy_balancer        
+* http://opensourcehacker.com/2011/04/15/sticky-session-load-balancing-with-apache-and-mod_balancer-on-ubuntu-linux/      
 
 Example::
 
@@ -363,28 +357,9 @@ Example::
         
           # Disk cache configuration
           CacheEnable disk /
+	  # Must point to www-data writable directly which depends on OS
           CacheRoot "/var/cache/yourorganization-production"
           CacheLastModifiedFactor 0.1
-          #CacheDefaultExpire 1
-          #CacheMaxExpire 7200
-          CacheDirLength 2
-          ExpiresActive On
-          ExpiresByType image/gif A3600
-          ExpiresByType image/png A3600
-          ExpiresByType image/jpeg A3600
-          ExpiresByType text/css A3600
-          ExpiresByType text/javascript A3600
-          ExpiresByType application/x-javascript A3600
-        
-          # Create cache headers for downstream caches and browsers
-          
-          # Set environment variable by guessing the content payload based on how URL ends  
-          SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js)$" cache-it
-        
-          # Force caching of HTTPS resources on the browser end
-          # http://blog.pluron.com/2008/07/why-you-should.html
-          Header append Cache-Control public env=cache-it
-          Header append X-Cache-Tagged yes env=cache-it
         
           # Debug header flags all requests coming from this server
           Header append X-YourOrganization-Production yes 

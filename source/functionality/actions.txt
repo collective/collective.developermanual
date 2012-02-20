@@ -356,4 +356,16 @@ Different tabs per section/folder
 
 You might want to have different actions for different site sections or folders.
 
-* http://plone.293351.n2.nabble.com/Custom-portal-tabs-per-subsection-tp5747768p5747768.html         
+* http://plone.293351.n2.nabble.com/Custom-portal-tabs-per-subsection-tp5747768p5747768.html
+
+Copy, cut and paste
+----------------------
+
+These action are based on ``OFS`` Zope 2 package SimpleItem mechanisms.
+Plone specific event handlers are used to update Plone related stuff like ``portal_catalog``
+on move.
+
+Plone internal clipboard relies on the presence of Zope 2 session (different from authentication session).
+Paste action fails silenlty (is missing) if ``_ZopeId`` session cookie does not work correctly on your 
+web server.
+

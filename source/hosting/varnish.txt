@@ -19,6 +19,12 @@ Plone.
 
 * http://varnish-cache.org/
 
+To use Varnish with Plone
+
+* Learn how to install and configure Varnish
+
+* Add Plone virtual hosting rule to the default varnish configuration 
+
 Installation
 ==========================
 
@@ -40,28 +46,28 @@ Buildout examples
 Management console
 ==================
         
-``varnishadm`` (Ubuntu/Debian installation)
+``varnishadm`` 
 --------------------------------------------
 
-You can access Varnish admin console by::
+You can access Varnish admin console on your server by::
 
     # Your system uses a secret handshake file
     varnishadm -T localhost:6082 -S /etc/varnish/secret               
 
-    # Your system does not have a secret handshake file
-    telnet localhost 6082 
+(Ubuntu/Debian installation)
 
 Telnet console
 -----------------
 
-The telent management console can be enabled in the Varnish buildout 
-settings.
+The telent management console is available on some configurations
+where ``varnishadm`` cannot be used. The functionality is the same.
 
 Example::
 
     ssh yourhost
-    telnet localhost 8088
-        
+    # Your system does not have a secret handshake file
+    telnet localhost 6082 
+
 .. note ::
 
     Port number depends on your Varnish settings.
@@ -185,8 +191,11 @@ Example::
     sudo kill `cat var/varnishncsa.pid`
     sudo parts/varnish-build/bin/varnishncsa -D -d -a -w var/log/varnish.log -P var/varnishncsa.pid
 
-Virtual hosting 
-==================
+Virtual hosting proxy rule
+=============================
+
+When Varnish has been set-up you need to include Plone virtual hosting
+rule in its configuration file.
 
 If you want to map Varnish backend directly to Plone-as-a-virtualhost (i.e.
 Zope's VirtualHostMonster is used to map site name to Plone site instance
@@ -208,10 +217,12 @@ Example::
 	            || req.http.host ~ "^plonecommunity.mfabrik.com(:[0-9]+)?$") {
 	
 	                set req.backend = plonecommunity 
-	                set req.url = "/VirtualHostBase/http/plonecommunity.mobi:80/plonecommunity/VirtualHostRoot" req.url;
+	                set req.url = "/VirtualHostBase/http/" req.http.host ":80/plonecommunity/VirtualHostRoot" req.url;
 	                set req.backend = plonecommunity;
 	        }
 	}
+
+
 	
 Varnishd port and IP address to listen
 ========================================
@@ -224,7 +235,6 @@ Edit ``/etc/default/varnish``::
                -T localhost:6082 \
                -f /etc/varnish/default.vcl \
                -s file,/var/lib/varnish/$INSTANCE/varnish_storage.bin,1G"
-
 
 	
 Cached and editor subdomains
@@ -266,7 +276,7 @@ Example how remove all Plone related cookies besides ones dealing with the logge
         # (logged in user, status message - NO session storage or language cookie)
         set req.http.Cookie = ";" req.http.Cookie;
         set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
-        set req.http.Cookie = regsuball(req.http.Cookie, ";(statusmessages|__ac)=", "; \1=");
+        set req.http.Cookie = regsuball(req.http.Cookie, ";(statusmessages|__ac|_ZopeId|__cp)=", "; \1=");
         set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
         set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
 
@@ -368,6 +378,24 @@ More info
 
 * http://blog.carumba.com/post/226455049/remove-google-analytics-cookies-in-varnish                  
 
+Do not cache error pages
+==========================
+
+You can make sure that Varnish does not accidentally cache error pages.
+E.g. it would cache front page when the site is down::
+
+	sub vcl_fetch {
+		if ( obj.status >= 500 ) {
+			set obj.ttl = 0s;
+			set obj.cacheable = false;
+		}
+		...
+	}
+
+More info
+
+* https://www.varnish-cache.org/lists/pipermail/varnish-misc/2010-February/003774.html
+
 Custom and full cache purges
 ======================================
 
@@ -408,71 +436,64 @@ and issue ``PURGE`` command. We do this using `Requests <http://pypi.python.org/
 Example view code::
         
                 
-        import requests
-        
-        from Products.CMFCore.interfaces import ISiteRoot
-        from five import grok
-        
-        # We need to monkey-patch requets.Request as it is happily unaware
-        # of PURGE and will throw an exception on your face so hard
-        # that you hope they would have this level of input validation in Joomla!
-        # requests 0.6.0
-        
-        from requests.models import Request
-        
-        if not "PURGE" in Request._METHODS:
-            lst = list(Request._METHODS)
-            lst.append("PURGE")
-            Request._METHODS = tuple(lst)
-                    
-        class Purge(grok.CodeView):
-            """
-            Purge upstream cache from all entries.
-            
-            This is ideal to hook up for admins e.g. through portal_actions menu.
-            
-            You can access it as admin::
-            
-                http://site.com/@@purge
-                
-            """
-            
-            grok.context(ISiteRoot)
-        
-            # Onlyl site admins can use this 
-            grok.require("cmf.ManagePortal")
-            
-            def render(self):
-                """
-                Call the parent cache using Requets Python library and issue PURGE command for all URLs. 
-                
-                Pipe through the response as is.
-                """
-                        
-                site_url = "http://www.site.com/"
-                  
-                headers = {
-                           # Match all pages
-                           "X-Purge-Regex" : ".*"
-                }
-                
-                resp = requests.request("PURGE", site_url + "*", headers=headers)
-        
-                self.request.response["Content-type"] = "text/plain"                 
-                text = []
-                
-                text.append("HTTP " + str(resp.status_code))
-                            
-                # Dump response headers as is to the Plone user,
-                # so he/she can diagnose the problem
-                for key, value in resp.headers.items():
-                    text.append(str(key) + ": " + str(value))
-                    
-                # Add payload message from the server (if any)
-            
-                text.append(str(resp.body))
-                    
-                return "\n".join(text)
+	import requests
+
+	from Products.CMFCore.interfaces import ISiteRoot
+	from five import grok
+
+	from requests.models import Request
+
+	class Purge(grok.CodeView):
+	    """
+	    Purge upstream cache from all entries.
+
+	    This is ideal to hook up for admins e.g. through portal_actions menu.
+
+	    You can access it as admin::
+
+	        http://site.com/@@purge
+
+	    """
+
+	    grok.context(ISiteRoot)
+
+	    # Onlyl site admins can use this
+	    grok.require("cmf.ManagePortal")
+
+	    def render(self):
+	        """
+	        Call the parent cache using Requets Python library and issue PURGE command for all URLs.
+
+	        Pipe through the response as is.
+	        """
+
+	        # This is the root URL which will be purged
+	        # - you might want to have different value here if 
+	        # your site has different URLs for manage and themed versions
+	        site_url = self.context.portal_url() + "/"
+
+	        headers = {
+	                   # Match all pages
+	                   "X-Purge-Regex" : ".*"
+	        }
+
+	        resp = requests.request("PURGE", site_url + "*", headers=headers)
+
+	        self.request.response["Content-type"] = "text/plain"
+	        text = []
+
+	        text.append("HTTP " + str(resp.status_code))
+
+	        # Dump response headers as is to the Plone user,
+	        # so he/she can diagnose the problem
+	        for key, value in resp.headers.items():
+	            text.append(str(key) + ": " + str(value))
+
+	        # Add payload message from the server (if any)
+
+	        if hasattr(resp, "body"):
+	        	text.append(str(resp.body))
+
             
         
 More info

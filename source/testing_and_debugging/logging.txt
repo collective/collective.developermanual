@@ -16,8 +16,31 @@ Introduction
 Log file location
 ==================
 
-By default, logs go to ``var/log/instance.log``. If Zope instance is started in the foreground mode
-logs will be printed in the console (stdout) too.
+By default, logs go to ``var/log`` folder under buildout. 
+
+If Zope instance is started in the foreground mode
+logs will be printed in the console (stdout).
+
+Plone log filename varies depending on the installation mode (Zope, ZEO cluster).
+But for each instance there are two log files
+
+* Event logs (errors), normally called *instance.log*
+
+* HTTP request log (Apache compatible), normally called *Z2.log*
+
+Viewing logs in real time
+===========================
+
+UNIX'y way for your terminal.
+
+Open error log viewer using ``tail`` command (print content from file end) and wait for further file writes 
+
+.. code-block:: console
+    
+     tail -f var/log/instance.log 
+
+
+Press CTRL+C to abort.
 
 Log level 
 =========
@@ -31,7 +54,7 @@ Change log level by editing ``[instance]`` section ``event-log-level``::
 
 More information 
 
-* http://pypi.python.org/pypi/plone.recipe.zope2instance>
+* http://pypi.python.org/pypi/plone.recipe.zope2instance
 
 Logging from Python code
 ------------------------
@@ -241,6 +264,13 @@ The related page template
             </div>
         </body>
         </html>
+
+transaction_note()
+-------------------
+
+Leave a note on Zope's *History* tab.
+
+* https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/utils.py#L382
 
 
 

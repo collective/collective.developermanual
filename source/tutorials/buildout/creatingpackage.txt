@@ -89,13 +89,17 @@ Automate ZCML loading for your package
 If you're not including your package from another one, you can
 still avoid having to include a ZCML slug in *buildout.cfg* for it.
 This is particulary useful to avoid unneccessary repetition of
-package names in *buildout.cfg*, which begginer integrators might
+package names in *buildout.cfg*, which beginner integrators might
 easily overlook. From Plone 3.3 on, you can make your packages
 signal that their ZCML should be included by adding:
 
 ::
 
-    setup(...entry_points="""...[z3c.autoinclude.plugin]target = plone...)"""
+    setup(...
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """
 
 to their *setup.py* file. For further information, see the
 `setuptools documentation about dynamic discovery of services and plugins <http://peak.telecommunity.com/DevCenter/setuptools#dynamic-discovery-of-services-and-plugins>`_.` <http://peak.telecommunity.com/DevCenter/setuptools#id19>`_
@@ -122,7 +126,7 @@ could amend this to read:
 Uploading your egg to the Cheese Shop
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to share your packge with the rest of the Python
+If you want to share your package with the rest of the Python
 community and make it easy to install using tools like buildout and
 *easy\_install*, you can upload the package to the Cheese Shop.
 
@@ -170,7 +174,7 @@ revision number::
 
    $ python setup.py sdist egg_info -r
 
-If you do nigthly releases, tagging with the date is a good option::
+If you do nightly releases, tagging with the date is a good option::
 
    $ python setup.py sdist egg_info -d
 

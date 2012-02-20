@@ -423,6 +423,7 @@ viewlet.py::
             Useful for settings.
             """
             
+            # This viewlet will be render()'ed in <head> section of Plone pages
             grok.viewletmanager(IHtmlHead)
             
             def getSettings(self):
@@ -433,6 +434,7 @@ viewlet.py::
                 context = aq_inner(self.context)
                 portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
                 
+                # Create youroptions Javascript object and populate in these variables
                 return {
                     # Pass dynamically allocated site URL to the Javascripts (virtual host monster thing)         
                     "staticMediaURL" : portal_state.portal_url() + "/++resource++yourcompany.app",
@@ -482,6 +484,11 @@ Conditional comments (IE)
 ------------------------------
 
 * http://plone.org/products/plone/roadmap/232a
+
+Having multiple jQuery versions (noConflict)
+-----------------------------------------------
+
+* http://noenieto.com/blog/having-two-jquery-versions-in-one-plone
 
 
 Loading Javascript files for certain edit views only (to be used with widgets)

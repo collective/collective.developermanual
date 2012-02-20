@@ -6,13 +6,13 @@
 
 .. admonition:: Description
 
-	How to change the active view of a Plone content item programmatically
+	How to programmatically change the active view of a Plone content item
 
 Introduction
 ------------
 
-Dynamic views are views which the content editor can choose for his/her content
-from *Display...* drop down menu in the green edit frame.
+Dynamic views are views which the content editor can choose for his or
+her content from the *Display...* drop down menu in the green edit frame.
 
 By default, Plone comes with dynamic views for
 
@@ -28,12 +28,12 @@ By default, Plone comes with dynamic views for
 Permission for changing the view template of an item
 -----------------------------------------------------
 
-An user needs the "Modify view template" permission to use the dynamic
+A user needs the "Modify view template" permission to use the dynamic
 view dropdown. If you want to restrict this ability, grant/revoke this
 permission adequately.
 
 This can be useful for some content-types like Dexterity ones, where
-dynamic views are enabled by default and the easiest way to disable
+dynamic views are enabled by default, and the easiest way to disable
 them is using this permission.
 
 Default dynamic views
@@ -51,8 +51,9 @@ Plone supports few dynamic views for folders out of the box
 
 * Full view (folder_full_view) 
 
-These are defined in :doc:`portal_types information </content/types>` for *Folder* content type
-and mapped to *Display* menu all over in ZCML using ``browser:menuItem`` as described below.
+These are defined in :doc:`portal_types information </content/types>`
+for the *Folder* content type and mapped to the *Display* menu all
+over in ZCML using ``browser:menuItem`` as described below.
 
 More info
 
@@ -61,17 +62,19 @@ More info
 Creating a dynamic view
 ------------------------
 
-Dynamic view can be skins template or BrowserView. Dynamic view machinery
-only cares about the path name coming after the context object.
+Dynamic views can be a 'skins template' or a BrowserView. The dynamic
+view machinery only cares about the path name coming after the context
+object.
 
-Register a dynamic view menu item
-==================================
+Registering a dynamic view menu item
+====================================
 
 Your content type must support dynamic views
 
-* Content type subclasses Products.CMFDynamicViewFTI.browserdefault.BrowserDefaultMixin
+* The content type subclasses Products.CMFDynamicViewFTI.browserdefault.BrowserDefaultMixin
 
-You need to register dynamic view menu item with the corresponding view in configure.zcml:
+You need to register a dynamic view menu item with the corresponding
+view in your configure.zcml:
 
 .. code-block:: xml
 
@@ -86,21 +89,21 @@ You need to register dynamic view menu item with the corresponding view in confi
 .. note ::
 
         Products.ATContentTypes uses non-standard name for "interfaces" package.
-        It is "interface" there, when all other packages use "interfaces".         
+        There, it is "interface", while all other packages use "interfaces".         
 
-The view must be listed in portal_types for the content type. In this case
-we should enable it for Archetypes folder using the following GenericSetup XML
-*profiles/default/types/Folder.xml*.
+The view must be listed in portal_types for the content type. In this
+case, we should enable it for Archetypes folders using the following
+GenericSetup XML *profiles/default/types/Folder.xml*.
 
 Note that you don't need to copy the whole Folder.xml / Topic.xml from
-Products/CMFPlone/profiles/default/types, but including the changed fields
-(view_methods) in XML code is enough.
+Products/CMFPlone/profiles/default/types. Including the changed fields
+(view_methods) in the XML code is enough.
 
-You can also change this through portal_types in ZMI.    
+You can also change this through portal_types in the ZMI.
     
 .. note::
 
-        view_methods must not have @@ view signature in the method name.
+        view_methods must not have the @@ view signature in their method name.
 
 .. code-block:: xml
 
@@ -120,7 +123,7 @@ You can also change this through portal_types in ZMI.
          </property>
     </object>
 
-Also if you want to Collections have this listing you need to add
+Also, if you want Collections to have this listing, you need to add
 the following *profiles/default/types/Topic.xml*.
 
 .. code-block:: xml
@@ -165,9 +168,11 @@ the list of known layouts like following::
 Getting active layout
 ---------------------
 
-.. note::
+.. code-block:: python
 
-        Need code example.
+    >>> self.portal.folder.getLayout()
+    'atct_album_view'
+
 
 Changing default view programmatically
 --------------------------------------
@@ -179,15 +184,15 @@ Changing default view programmatically
 Default page
 ------------
 
-Default page is the **content** chosen to display when the visitor arrives
-to URL without any subpages or views selected.
+The default page is the **content** chosen to display when the visitor
+arrives at a URL without any subpages or views selected.
 
-This is useful if you are doing folder listing manually
-and you want to filter out the default view.
+This is useful if you are doing the folder listing manually and want
+to filter out the default view.
 
-default_page helper view can be used to manipulate default pages.
+The default_page helper view can be used to manipulate default pages.
 
-Getting default page
+Getting the default page
 
 .. code-block:: python
 
@@ -226,8 +231,8 @@ Another example how to use this::
         return tabs
             
 
-Setting default page can be done as simple as setting default_page attribute
-of the folder to be the id of the default page:
+Setting the default page can be done as simple as setting default_page
+attribute of the folder to be the id of the default page:
 
 .. code-block:: python
 
@@ -239,17 +244,18 @@ More information can be found in
 
 * https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/navigation/defaultpage.py
 
-Setting view using marker interfaces
+Setting a view using marker interfaces
 --------------------------------------
 
-If you need to have a view for few individual content items only it is best
-to do using marker interfaces. 
+If you need to have a view for few individual content items only, it
+is best to do using marker interfaces.
 
 * Register a view against a marker interface
 
-* Assign this marker interface to a content item using Zope Management Interface
+* Assign this marker interface to a content item using the Zope
+  Management Interface (ZMI)
 
-For more info
+For more info, see
 
 * http://www.netsight.co.uk/blog/2010/5/21/setting-a-default-view-of-a-folder-in-plone
 
@@ -266,8 +272,9 @@ This is what Plone Folder content views out of the box
 Migration script from default view to another
 ----------------------------------------------
 
-The below is a script snippet which allows you to change all default views
-of folder to another type. You can execute script through ZMI as Python Script.
+Below is a script snippet which allows you to change the default view
+for all folders to another type. You can execute the script through
+the ZMI as a Python Script.
 
 Script code::
 
@@ -283,12 +290,13 @@ Script code::
                         obj.setLayout(target)
         return buf.getvalue()
 
-This will allow you to migrate to ``collective.fancyzoom`` to Plone 4 default album view / Products.PipBox.
+This will allow you to migrate from ``collective.fancyzoom`` to Plone
+4's default album view / Products.PipBox.
 
 Method aliases
 -----------------
 
-Method aliases allow you to redirect basic actions (view, edit) to content type specific view.
+Method aliases allow you to redirect basic actions (view, edit) to content type specific views.
 Aliases are configured in portal_types.
 
 Other resources
