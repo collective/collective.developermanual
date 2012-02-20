@@ -1,6 +1,6 @@
-===========================
+========================
 Buildout troubleshooting
-===========================
+========================
 
 .. admonition:: Description
 
@@ -15,7 +15,7 @@ Introduction
 This document tells how to resolve buildout problems.
 
 Network errors and timeouts
-----------------------------
+---------------------------
 
 The usual reason for download error or timeout is that either
 
@@ -34,14 +34,14 @@ Mirrors
 * http://pypi.appspot.com/
 
 Individual package failing outside PyPi
-========================================
+=======================================
 
 To figure out which file buildout tries to download, usually the only way
 is to use ``buildout -D`` pdb debug mode and step up in stack frames to see 
 what is going on.
 
 Buildout and SyntaxErrors
-----------------------------
+-------------------------
 
 You may see SyntaxError exceptions when running buildout::
 
@@ -61,7 +61,7 @@ tries to scan files (for what?) but still installs them correctly. No harm done.
 
 
 Version conflicts
--------------------
+-----------------
 
 Buildout gives you an error if there is a dependency shared by two components, and
 one of the components wants to have a different version of this dependency.
@@ -106,7 +106,7 @@ More information
 * `dumppickedversions <http://pypi.python.org/pypi/buildout.dumppickedversions>`_
 
 Good-py service
-==================
+===============
 
 Good-py contains some good known versions sets. These are most convenient to use if you are
 using complex configuration of add-ons and you don't know what you are doing. 
@@ -166,7 +166,7 @@ Here is the latest pindown example (02/2010)::
         Products.GenericSetup = 1.5.0
 
 Getting distribution for 'distribute'.
----------------------------------------
+--------------------------------------
 
 You try to run buildout, but it is stuck in a loop::
 
@@ -206,7 +206,7 @@ Fix: update Distribute in system-wide Python::
 
 
 UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
--------------------------------------------------------------
+------------------------------------------------------------
 
 You get the following traceback when running buildout::
 
@@ -233,7 +233,7 @@ More info
 
 
 We already have: zope.location 3.4.0
--------------------------------------
+------------------------------------
 
 When running buildout, Plone 3.3.5::
 
@@ -326,7 +326,7 @@ See Also: UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
 
 
 Can't run bootstrap.py - VersionConflict for zc.buildout
-------------------------------------------------------------
+--------------------------------------------------------
 
 Traceback when running ``python bootstrap.py``::
 
@@ -351,7 +351,7 @@ Solution: Update zc.buildout installed in your system Python::
         easy_install -U zc.buildout
         
 An error occured when trying to install lxml - error: Setup script exited with error: command 'gcc' failed with exit status 1
---------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
 
 Traceback when running buildout::
 
@@ -378,7 +378,7 @@ On Ubuntu/Debian
 
 
 VersionConflict: distribute 0.6.19
---------------------------------------
+----------------------------------
 
 When running buildout you see something like this
 
@@ -407,7 +407,7 @@ Update Distribute (OSX/Ubuntu/Linux)::
         easy_install -U Distribute      
 
 argparse 1.2.1
--------------------
+--------------
 
 If you get::
 
@@ -420,9 +420,8 @@ If you get::
 Rerun bootstrap.py (with correct Python interpreter).
 
 
-Could't load zc.buildout entry point default
-Error: Picked: ...
--------------------
+Error: Picked: <some.package> = <some.version>
+----------------------------------------------
 
 If you get something like this::
 
@@ -443,7 +442,3 @@ If you get something like this::
 
 This means that your buildout has "allow picked versions" set to false.
 You need to pin the version for the picked version (or turn on "allow picked versions")
-
-
-
-
