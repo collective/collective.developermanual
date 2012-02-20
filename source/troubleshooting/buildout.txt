@@ -418,3 +418,32 @@ If you get::
 	We already have: argparse 1.2.1
 
 Rerun bootstrap.py (with correct Python interpreter).
+
+
+Could't load zc.buildout entry point default
+Error: Picked: ...
+-------------------
+
+If you get something like this::
+
+	We have the distribution that satisfies 'zc.recipe.testrunner==1.2.1'.
+	Installing 'collective.recipe.backup'.
+	Picked: collective.recipe.backup = 2.4
+	Could't load zc.buildout entry point default
+	from collective.recipe.backup:
+	Picked: collective.recipe.backup = 2.4.
+	While:
+	  Installing.
+	  Getting section backup.
+	  Initializing section backup.
+	  Installing recipe collective.recipe.backup.
+	  Getting distribution for 'collective.recipe.backup'.
+	Error: Picked: collective.recipe.backup = 2.4
+
+
+This means that your buildout has "allow picked versions" set to false.
+You need to pin the version for the picked version (or turn on "allow picked versions")
+
+
+
+
