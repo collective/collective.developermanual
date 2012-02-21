@@ -139,7 +139,7 @@ development copy of a site from a live server.
 copy-plone-site.sh
 
 .. code-block:: console
-
+	
 	#!/bin/sh
 	#
 	# Copies a Plone site data from a remote computer to a local computer
@@ -153,36 +153,38 @@ copy-plone-site.sh
 	# Standard var/ folder structure is assumed in the destination
 	# and the source
 	#
-
-	if [ $# -ne 2 ]
-	then
-		echo "copy-plone-site.sh"
-		echo "Copy a remote Plone site database to local computer over SSH"
-	    echo "Error in $0 - Invalid Argument Count"
-	    echo "Syntax: $0 [SSH-source to buildout folder] [buildout target folder]"
-	    echo "Example: ./copy-plone-site.sh yourserver.com:/srv/plone/mysite ."
-	    exit
+	
+	if [ $# -ne 2 ] ; then
+	cat <<EOF
+	$0
+	Copy a remote Plone site database to local computer over SSH
+	Error in $0 - Invalid Argument Count
+	Syntax: $0 [SSH-source to buildout folder] [buildout target folder]
+	Example: ./copy-plone-site.sh yourserver.com:/srv/plone/mysite .
+	EOF
+	exit 64 # Command line usage error
 	fi
-
+	
 	SOURCE=$1
 	TARGET=$2
-
+	
 	STATUS=`$TARGET/bin/instance status`
-
-	if [ "$STATUS" != "daemon manager not running" ]
-	then
+	
+	if [ "$STATUS" != "daemon manager not running" ] ; then
 		echo "Please stop your Plone site first"
-		exit
+		exit 1
 	fi
-
+	
 	# Copy Data.fs first to temporary location so
 	# we don't break the site if the copy is aborted
-	TFILE="/tmp/$(basename $0).$$.tmp"
-	rsync -av --compress-level=9 $SOURCE/var/filestorage/Data.fs $TFILE
-	mv $TFILE $TARGET/var/filestorage/Data.fs
-
+	rsync -av --compress-level=9 "$SOURCE"/var/filestorage/Data.fs "$TARGET"/var/filestorage
+	
 	# Copy blobstorage on rsync pass
-	rsync -av $SOURCE/var/blobstorage $TARGET/var/
+	# (We don't need compression for blobs as they most likely are compressed images already)
+	rsync -av "$SOURCE"/var/blobstorage "$TARGET"/var/
+
+
+  
 
 	
 Pack and copy big Data.fs
