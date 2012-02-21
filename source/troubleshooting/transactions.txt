@@ -221,11 +221,18 @@ Transactions
 
 Transactions usually are problematic only when many 
 ZEO front-end clients are used.
+
+CoflictError
+---------------
+
 When the site gets more load, ConflictErrors
 start to occur. Zope tries to solve the situation
 by replaying HTTP requests for CoflictErrors and has a default threshold (3)
 how many times the request is replayed.
 
+More info
+
+* http://www.zopyx.com/blog/on-zodb-conflict-resolution
 
 How to debug which object causes ConflictErrors
 -------------------------------------------------
