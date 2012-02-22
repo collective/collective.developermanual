@@ -11,9 +11,20 @@ Cookies
 Introduction
 -----------------
 
+Setting and getting cookies
+
 * http://www.dieter.handshake.de/pyprojects/zope/book/chap3.html
 
 * http://stackoverflow.com/questions/1034252/how-do-you-get-and-set-cookies-in-zope-and-plone
+
+Reading cookies
+++++++++++++++++++
+
+Usually you want to read incoming cookies sent by the browser.
+
+Example:
+
+    self.request.cookies.get("cookie_name", "default_value_if_cookie_not_set")
 
 Default Plone cookies
 ----------------------
@@ -53,19 +64,8 @@ Language cookie
 ``I18N_LANGUAGE`` is set by ``portal_languages`` tool.
 Disable it by *Use cookie for manual override* setting in portal_languages.
 
-Reading cookies
----------------
-
-Usually you want to read incoming cookies sent by the browser.
-
-Example:
-
-    self.request.cookies.get("cookie_name", "default_value_if_cookie_not_set")
-
-It is also possible to read 
-
-Setting cookies
-----------------
+Session cookie lifetime
+-------------------------
 
 Setting session cookie lifetime
 
