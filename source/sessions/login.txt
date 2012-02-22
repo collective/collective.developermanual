@@ -79,6 +79,9 @@ Unit test example::
 Authenticating the user
 ------------------------
 
+Using username and password
+===============================
+
 Authenticating the user will check that username and password are correct.
 
 Pluggable Authentication Service (acl_users under site root)
@@ -98,6 +101,24 @@ Unit test example::
         user = self.portal.acl_users.authenticate(login, password, request)                        
         self.assertNotEqual(user, None)
 
+
+Using username only
+===============================
+
+Useful for sudo style logins.
+
+::
+
+    def loginUser(self, username):
+        """
+        Login Plone user (without password)
+        """
+        self.context.acl_users.session._setupSession(username, self.context.REQUEST.RESPONSE)
+        self.request.RESPONSE.redirect(self.portal_state.portal_url())
+                
+See also
+
+* http://svn.plone.org/svn/collective/niteoweb.loginas/trunk/niteoweb/loginas/browser/login_as.py
 
 Post-login actions
 -------------------
