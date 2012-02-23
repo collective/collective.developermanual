@@ -41,6 +41,22 @@ UIDs are available for Archetypes content and Dexterity content items since ``pl
 	If you have pre-Dexterity 1.1 content items you must run a migration step in portal_setup to 
 	give them UIDs.
 
+To get object UID you can use `plone.app.uuid <http://pypi.python.org/pypi/plone.app.uuid/>`_ package.
+
+Example code::
+
+    from plone.uuid.interfaces import IUUID
+
+    # BrowserView helper method
+    def getUID(self):
+        """ AT and Dexterity compatible way to extract UID from a content item """
+        # Make sure we don't get UID from parent folder accidentally
+        context = self.context.aq_base
+        # Returns UID of the context or None if not available
+        uuid = IUUID(context)
+        return uuid
+
+
 More info
 
 * http://stackoverflow.com/questions/8618917/portal-catalog-unique-ids-for-both-archetypes-and-dexterity-content
