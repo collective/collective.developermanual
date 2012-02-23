@@ -53,7 +53,9 @@ Example code::
         # Make sure we don't get UID from parent folder accidentally
         context = self.context.aq_base
         # Returns UID of the context or None if not available
-        uuid = IUUID(context)
+        # Note that UID is always available for all Dexterity 1.1+
+        # content and this only can fail if the content is old not migrated
+        uuid = IUUID(context, None)
         return uuid
 
 
