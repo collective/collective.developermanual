@@ -184,9 +184,6 @@ copy-plone-site.sh
 	rsync -av "$SOURCE"/var/blobstorage "$TARGET"/var/
 
 
-  
-
-	
 Pack and copy big Data.fs
 ----------------------------
 
@@ -205,5 +202,97 @@ Pack Data.fs using `pbzip2 <http://compression.ca/pbzip2/>`_, efficient multicor
 Then copy to your own computer::
 
    scp unixuser@server.com:/tmp/Data.fs.tar.bz2 .
+
+
+Log rotate
+------------
+
+Log rotation prevents log files filling up indefinitely by creating 
+a new file for a certain timespan and dropping too old files.
+
+Unix tool ``logrotate`` is used for log rotation.
+
+You need to rotatet Zope access and error logs,
+plus possible front-end web server logs. The latter
+is usually taken care of your operating system.
+
+To set-up log rotation for Plone
+
+* Install logrotate on the system (if you don't already have one)
+
+* You need to know effective UNIX user you run Plone processes
+
+* Edit log rotation configuration files to include Plone log directories
+
+* Do a test run
+
+To add a log rotation configuration file for Plone
+add a file ``/etc/logrotate.d/yoursite`` as root.
+
+.. note ::
+
+	This recipe applies only for single process Zope installs (instance).
+	If you use ZEO clustering you need to do this little bit different.
+
+The file contents::
+
+	# This is the path + selector for the log files
+	/srv/plone/yoursite/Plone/zinstance/var/log/instance*.log {
+	        daily
+	        missingok
+	        # How many weeks you keep logs
+	        # In our cases 60 days
+	        rotate 60
+	        compress
+	        delaycompress
+	        notifempty
+	        # File owner and permission for rotated files
+	        # For additional safety this can be a different
+	        # user so your Plone UNIX user cannot 
+	        # delete logs
+	        create 640 root root
+
+	        # This signal will tell Zope to open a new file-system inode for the log file
+	        # so it doesn't keep reserving the old log file handle for evenif the file is deleted
+			postrotate
+				[ ! -f /srv/plone/yoursite/Plone/zinstance/var/instance.pid ] || kill -USR2 `cat /srv/plone/yoursite/Plone/zinstance/var/instance.pid`
+			endscript
+	}
+
+Then do a test run of logrotate, as root
+
+.. code-block:: console
+
+	# -f = force rotate
+	# -d = debug mode
+	logrotate -f -d /etc/logrotate.conf
+
+And if you want to see the results right away:
+
+	# -f = force rotate
+	logrotate -f /etc/logrotate.conf
+
+In normal production, logrotate is installed to your operating system cron for daily runs automatically.
+
+More info
+
+* http://linuxers.org/howto/howto-use-logrotate-manage-log-files
+
+* http://docs.zope.org/zope2/zope2book/MaintainingZope.html
+
+* http://serverfault.com/questions/57993/how-to-use-wildcards-within-logrotate-configuration-files
+
+Log rotate and chroot
+=========================
+
+chroot'ed environments don't usually get their own cron.
+In this case you can trigger the log rotate from the parent system
+
+Add in the parent ``/etc/cron.daily/yourchrootname-logrotate``
+
+	#!/bin/sh
+	schroot -c yoursitenet -u root -r logrotate /etc/logrotate.conf
+
+
 
   
