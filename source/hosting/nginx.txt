@@ -534,3 +534,20 @@ Securing Plone-Sites with https and nginx
 For instructions how to use ssl for all authenticated traffic see this blog-post: 
 
 * http://www.starzel.de/blog/securing-plone-sites-with-https-and-nginx
+
+Setting log files
+-----------------------------
+	
+	nginx.conf example::
+	
+	worker_processes 2;
+	error_log /srv/site/Plone/zinstance/var/log/nginx-error.log warn;
+	
+	events {
+	    worker_connections  256;
+	}
+	
+	http {
+	    client_max_body_size 10M;
+	
+	    access_log /srv/site/Plone/zinstance/var/log/nginx-access.log;
