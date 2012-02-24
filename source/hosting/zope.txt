@@ -175,8 +175,6 @@ copy-plone-site.sh
 		exit 1
 	fi
 	
-	# Copy Data.fs first to temporary location so
-	# we don't break the site if the copy is aborted
 	rsync -av --compress-level=9 "$SOURCE"/var/filestorage/Data.fs "$TARGET"/var/filestorage
 	
 	# Copy blobstorage on rsync pass
