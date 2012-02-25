@@ -160,6 +160,19 @@ Checking for the existence of a particular object id
 
 If you want to know whether the folder has a certain item or not, you can use the following snippet.
 
+Plone 4
+========
+
+Use has_key::
+
+	if folder.has_key("my-object-id):
+		# Exists
+	else:
+		# Does not exist
+
+Plone 3
+========
+
 There is a special case for Large Plone Folders (BTree based).
 The following is optimal code, but you can simplify it if you don't need to check if the folder is BTreeFolder::
 
