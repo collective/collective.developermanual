@@ -291,6 +291,43 @@ Add in the parent ``/etc/cron.daily/yourchrootname-logrotate``
 	#!/bin/sh
 	schroot -c yoursitenet -u root -r logrotate /etc/logrotate.conf
 
+Log rotate generation via buildout using UNIX log rotate command
+==============================================================================
+
+``buildout.cfg``::
+
+	[logrotate]
+	recipe = collective.recipe.template
+	input =  ${buildout:directory}/templates/logrotate.conf
+	output = ${buildout:directory}/etc/logrotate.conf
+
+``templates/logrotate.conf``::
+
+	rotate 4
+	weekly
+	create
+	compress
+	delaycompress
+	missingok
+	
+	${buildout:directory}/var/log/instance1.log ${buildout:directory}/var/log/instance1-Z2.log {
+	    sharedscripts
+	    postrotate
+	        /bin/kill -USR2 $(cat ${buildout:directory}/var/instance1.pid)
+	    endscript
+	}
+	
+	${buildout:directory}/var/log/instance2.log ${buildout:directory}/var/log/instance2-Z2.log {
+	    sharedscripts
+	    postrotate
+	        /bin/kill -USR2 $(cat ${buildout:directory}/var/instance2.pid)
+	    endscript
+	}
+
+More info
+
+* http://stackoverflow.com/a/9437677/315168
+
 Log rotate on Windows
 ========================
 
@@ -298,4 +335,4 @@ Use ``iw.rotatezlogs``
 
 * http://stackoverflow.com/a/9434150/315168
 
-  
+ 
