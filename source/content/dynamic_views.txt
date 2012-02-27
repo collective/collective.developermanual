@@ -24,9 +24,16 @@ By default, Plone comes with dynamic views for
 
 * etc.
 
+The default view can be also a content item picked from the folder.
+Available content item types are controlled by 
+``portal_properties -> site_properties -> default_page_types``.
+
+More info
+
+* http://stackoverflow.com/questions/9432229/enabling-folder-as-one-of-default-content-item-views
 
 Permission for changing the view template of an item
------------------------------------------------------
+=======================================================
 
 A user needs the "Modify view template" permission to use the dynamic
 view dropdown. If you want to restrict this ability, grant/revoke this
@@ -35,6 +42,7 @@ permission adequately.
 This can be useful for some content-types like Dexterity ones, where
 dynamic views are enabled by default, and the easiest way to disable
 them is using this permission.
+
 
 Default dynamic views
 ---------------------
@@ -54,6 +62,11 @@ Plone supports few dynamic views for folders out of the box
 These are defined in :doc:`portal_types information </content/types>`
 for the *Folder* content type and mapped to the *Display* menu all
 over in ZCML using ``browser:menuItem`` as described below.
+
+Newly created folders have this dynamic view applied
+
+* ``Products.CMFPlone/skins/plone_content/folder_summary_view.pt``
+  (a non-view based old style Zope 2 page template)
 
 More info
 
@@ -261,14 +274,7 @@ For more info, see
 
 * ::doc::`marker interfaces </components/interfaces>`
 
-Default Folder dynamic view
-----------------------------
 
-This is what Plone Folder content views out of the box
-
-* ``Products.CMFPlone/skins/plone_content/folder_summary_view.pt``
-  (a non-view based old style Zope 2 page template)
-  
 Migration script from default view to another
 ----------------------------------------------
 
