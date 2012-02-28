@@ -215,6 +215,25 @@ Dumping all headers::
     for name, value in request.environ.items():
         print "%s: %s" % (name, value)
 
+A simple ZMI Python script to dump all HTTP request headers::
+
+    from StringIO import StringIO
+    
+    # Import a standard function, and get the HTML request and response objects.
+    from Products.PythonScripts.standard import html_quote
+    request = container.REQUEST
+    response =  request.response
+    
+    buffer = StringIO()
+    
+    response.setHeader("Content-type", "text/plain")
+    
+    for name, value in request.environ.items():
+        print >> buffer, "%s: %s" % (name, value)
+    
+    return buffer.getvalue()
+
+
 Query string
 ------------
 
