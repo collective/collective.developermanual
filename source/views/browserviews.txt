@@ -420,6 +420,26 @@ And then call in the template
         <script tal:replace="structure view/renderJavascript" />
     </metal:javascriptslot>
 
+View __init__() method special cases
++++++++++++++++++++++++++++++++++++++++
+
+View ``__init__()``, Python constructor, method is special.
+You should never try to put your code there. Instead,
+use helper method or lazy construction design pattern 
+if you need to set-up view variables.
+
+View ``__init__()`` might not have 
+:doc:`acquisition chain </serving/traversing>`
+available meaning that it does not the parent
+or hierarchy where the view is. This information
+is set after the constructor have been run.
+All Plone code which relies on acquistion chain,
+effective almost all Plone helper code, 
+does not work in ``__init__()``.
+Thus, the called Plone API methods return
+None or tend to throw exceptions.
+
+
 Layers
 ------
 
