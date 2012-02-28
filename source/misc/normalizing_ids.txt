@@ -66,8 +66,23 @@ More examples:
 Creating ids programmatically
 -----------------------------
 
-If you are creating content programmatically using invokeFactory() you need
-to provide the id yourself. Below is an example how to generate id from a title.
+If you are creating content programmatically using invokeFactory() or by
+calling the class constructor you need to provide the id yourself. 
+
+Below is an example how to generate id from a title. *container* is the
+folderish object that will contain our new object.::
+
+    from zope.container.interfaces import INameChooser
+
+    title = "My Little Pony"
+    id = INameChooser(container).chooseName(title, container)
+
+    # Create the object
+    args = dict(id=id)
+    container.invokeFactory(portal_type, **args)
+
+    # Get the object
+    obj = container[id]
 
 Other
 -----
