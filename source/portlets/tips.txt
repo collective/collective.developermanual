@@ -412,6 +412,35 @@ And this is how you do it from within a view::
 
 Source: http://stackoverflow.com/questions/5872306/how-can-i-remove-portlets-in-edit-mode-with-plone-4
 
+Disabling right or left columns on a context
+--------------------------------------------
+
+Sometimes you just want to turn off the portlets in a certain context that doesn't have 
+a template or fancy view.  To do this in code do this:
+
+    from zope.component import getMultiAdapter
+    from zope.component import getUtility
+
+    from plone.portlets.interfaces import IPortletManager
+    from plone.portlets.interfaces import ILocalPortletAssignmentManager
+    from plone.portlets.constants import CONTEXT_CATEGORY
+
+    # Get the proper portlet manager
+    manager = getUtility(IPortletManager, name=u"plone.leftcolumn")
+
+    # Get the current blacklist for the location
+    blacklist = getMultiAdapter((context, manager), ILocalPortletAssignmentManager)
+
+    # Turn off the manager
+    blacklist.setBlacklistStatus(CONTEXT_CATEGORY, True)
+
+
+Or just do it using GenericSetup like a sane person:
+
+* http://plone.org/documentation/manual/developer-manual/generic-setup/reference/portlets
+
+* http://plone.org/products/plone/roadmap/203
+
 
 Writing your own portlet manager
 ----------------------------------
