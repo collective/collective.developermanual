@@ -72,17 +72,20 @@ calling the class constructor you need to provide the id yourself.
 Below is an example how to generate id from a title. *container* is the
 folderish object that will contain our new object.::
 
+    import time
     from zope.container.interfaces import INameChooser
 
+    # For the NameChooser to work, it needs our object to already exist. 
+    # So we create our object with a temporary but unique id. Seconds since
+    # epoch will do.
+    oid = container.invokeFactory(portal_type, id=time.time())
+    new_obj = container._getOb(oid)
+
+    # Now we create and set a new user-friendly id from the object title
     title = "My Little Pony"
-    id = INameChooser(container).chooseName(title, container)
-
-    # Create the object
-    args = dict(id=id)
-    container.invokeFactory(portal_type, **args)
-
-    # Get the object
-    obj = container[id]
+    oid = INameChooser(container).chooseName(title, new_obj)
+    content.setId(oid)
+    content.reindexObject()
 
 Other
 -----
