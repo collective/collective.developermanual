@@ -175,11 +175,11 @@ copy-plone-site.sh
 		exit 1
 	fi
 	
-	rsync -av --compress-level=9 "$SOURCE"/var/filestorage/Data.fs "$TARGET"/var/filestorage
+	rsync -av --progress --compress-level=9 "$SOURCE"/var/filestorage/Data.fs "$TARGET"/var/filestorage
 	
 	# Copy blobstorage on rsync pass
 	# (We don't need compression for blobs as they most likely are compressed images already)
-	rsync -av "$SOURCE"/var/blobstorage "$TARGET"/var/
+	rsync -av --progress "$SOURCE"/var/blobstorage "$TARGET"/var/
 
 
 Pack and copy big Data.fs
