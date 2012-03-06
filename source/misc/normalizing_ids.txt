@@ -73,12 +73,16 @@ Below is an example how to generate id from a title. *container* is the
 folderish object that will contain our new object.::
 
     import time
+    import transaction
     from zope.container.interfaces import INameChooser
 
     # For the NameChooser to work, it needs our object to already exist. 
     # So we create our object with a temporary but unique id. Seconds since
     # epoch will do.
     oid = container.invokeFactory(portal_type, id=time.time())
+
+    # It's necessary to commmit the object creation before we can rename it 
+    transaction.commit(optimistic=True)
     new_obj = container._getOb(oid)
 
     # Now we create and set a new user-friendly id from the object title
