@@ -81,8 +81,8 @@ folderish object that will contain our new object.::
     # epoch will do.
     oid = container.invokeFactory(portal_type, id=time.time())
 
-    # It's necessary to commmit the object creation before we can rename it 
-    transaction.commit(optimistic=True)
+    # It's necessary to save the object creation before we can rename it 
+    transaction.savepoint(optimistic=True)
     new_obj = container._getOb(oid)
 
     # Now we create and set a new user-friendly id from the object title
