@@ -207,6 +207,236 @@ Then copy to your own computer::
 
    rsync -av --progress user@server.com:/tmp/Data.fs.tar.bz2 .    
 
+Creating a cleaned data drop
+------------------------------
+
+A cleaned data drop is a Plone site where
+
+* All user passwords have been reset to one known one
+
+* All history information deleted (packed), so that it does not contain anything sensitive
+
+* Other possible sensitive data removed
+
+It should safe to give a cleaned copy to third party. 
+
+Below is a sample script which will clean Plone site in place.
+
+.. note ::
+
+	Because sensitive data varies depending on your site
+	this script is just an example.
+
+How to use
+
+* Create a temporary copy of your Plone site on your server, running in a different port
+
+* Run the cleaner by entering the URL. It is useful to run the temporary copy
+  on foreground to follow the progress.
+
+* Give the cleaned copy away
+
+This script has two options for purging data
+
+* Safe purge using Plone API (slow, calls all event handlers)
+
+* Unsafe purge by directly pruning data, rebuilding the catalog without
+  triggering the event handlers
+
+The sample ``clean.py``::
+
+
+	"""
+
+	    Pack Plone database size and clean sensitive data.
+	    This makes output ideal as a developent drop.
+	    
+	    It also resets all kinds of users password to "admin".
+	    
+	    Limitations:
+	    
+	    1) Assumes only one site per Data.fs
+	    
+	    TODO: Remove users unless they are whitelisted.
+
+	"""
+
+	import logging
+
+	import transaction
+
+	logger = logging.getLogger("cleaner")
+
+	# Folders which entries are cleared
+	DELETE_POINTS = """
+	intranet/mydata
+
+	"""
+	# Save these folder entries as sampple
+	WHITELIST = """
+	intranet/mydata/sample-page
+	"""
+
+	# All users will receive this new password
+	PASSWORD="123123"
+
+	def is_white_listed(path):
+	    """    
+	    """
+	    paths = [ s.strip() for s in WHITELIST.split("\n") if s.strip() != ""]
+	    
+	    if path in paths:
+	        return True
+	    return False
+	    
+	def purge(site):
+	    """
+	    Purge the site using standard Plone deleting mechanism (slow)    
+	    """
+	    i = 0
+	    for dp in DELETE_POINTS.split("\n"):
+	    
+	        dp = dp.string()
+	        if dp == "":
+	            continue        
+	        
+	        folder = site.unrestrictedTraverse(dp)
+	        
+	        for id in folder.objectIds():
+	            full_path = dp + "/" + id
+	            if not is_white_listed(full_path):
+	                logger.info("Deleting path:" + full_path)
+	                try:
+	                    folder.manage_delObjects([id])         
+	                except Exception, e:
+	                    # Bad delete handling code - e.g. catalog indexes b0rk out 
+	                    logger.error("*** COULD NOT DELETE ***")               
+	                    logger.exception(e)
+	                i += 1
+	                if i % 100 == 0:       
+	                    transaction.commit()
+
+	def purge_harder(site):
+	    """    
+	    Purge using forced delete and then catalog rebuild.
+	    
+	    Might be faster if a lot of content.
+	    """
+	    i = 0
+	    
+	    logger.info("Kill it with fire")
+	    for dp in DELETE_POINTS.split("\n"):
+	    
+	        if dp.strip() == "":
+	            continue        
+	        folder = site.unrestrictedTraverse(dp)
+	        
+	        for id in folder.objectIds():
+	            full_path = dp + "/" + id
+	            if not is_white_listed(full_path):
+	                logger.info("Hard deleting path:" + full_path)           
+	                # http://collective-docs.readthedocs.org/en/latest/content/deleting.html#fail-safe-deleting     
+	                folder._delObject(id, suppress_events=True)         
+
+	                i += 1
+	                if i % 100 == 0:       
+	                    transaction.commit()
+	                    
+	    site.portal_catalog.clearFindAndRebuild()
+	            
+	            
+	def pack(app):
+	    """
+	    @param app Zope application server root
+	    """     
+	    logger.info("Packing database")
+	    cpanel = app.unrestrictedTraverse('/Control_Panel')
+	    cpanel.manage_pack(days=0, REQUEST=None)    
+	    
+	def change_zope_passwords(app):
+	    """
+	    """
+	    logger.info("Changing Zope passwords")
+	    # Products.PluggableAuthService.plugins.ZODBUserManager
+	    users = app.acl_users.users
+	    for id in users.listUserIds():
+	        users.updateUserPassword(id, PASSWORD)
+	            
+	def change_site_passwords(site):
+	    """
+	    """
+	    logger.info("Changing Plone instance passwords")
+	    # Products.PlonePAS.plugins.ufactory
+	    users = site.acl_users.source_users
+	    for id in users.getUserIds():
+	        users.doChangeUser(id, PASSWORD)    
+	        
+	def change_membrane_password(site):
+	    """
+	    Reset membrane passwords (if membrane installed)
+	    """        
+	    
+	    if not "membrane_users" in site.acl_users.objectIds():
+	        return
+	    
+	    logger.info("Changing membrane passwords")
+	    # Products.PlonePAS.plugins.ufactory
+	    users = site.acl_users.membrane_users
+	    for id in users.getUserNames():
+	        try:
+	            users.doChangeUser(id, PASSWORD)        
+	        except:
+	            # XXX: We should actually delete membrane users before content folders
+	            # or we will break here
+	            pass
+	        
+	class Cleaner(object):
+	    """
+	    Clean the current Plone site for sensitive data.
+	    
+	    Usage::
+	    
+	        http://localhost:8080/site/@@create-cleaned-copy
+
+	    or::
+	    
+	        http://localhost:8080/site/@@create-cleaned-copy?pack=false
+
+	    """
+	    
+	    def __init__(self, context, request):
+	        self.context = context
+	        self.request = request    
+	           
+	    def __call__(self):
+	        """
+	        """
+	        app = self.context.restrictedTraverse('/') # Zope application server root
+	        site = self.context.portal_url.getPortalObject()
+	        
+	        purge_harder(site)
+	        change_zope_passwords(app)
+	        change_site_passwords(site)
+	        change_membrane_password(site)
+	        
+	        if self.request.form.get("pack", None) != "false":
+	            pack(app)
+	        
+	        # Obligatory Die Hard quote
+	        return "Yippikayee m%&€/ f/€%&/€%&/ Remember to login again with new password."
+
+
+Example view registration in ZCML requiring admin privileges to run the cleaner
+
+.. code-block:: xml
+
+    <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="create-cleaned-copy"
+     class=".clean.Cleaner"
+     permission="cmf.ManagePortal"
+    />
+
 Log rotate
 ------------
 
