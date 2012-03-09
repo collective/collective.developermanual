@@ -196,11 +196,16 @@ Pack Data.fs using `pbzip2 <http://compression.ca/pbzip2/>`_, efficient multicor
    cd /srv/plone/yoursite/zeocluster/var/filestorage
    tar -c --ignore-failed-read Data.fs | pbzip2 -c > /tmp/Data.fs.tar.bz2
 
+   # Alternative version using standard bzip2
+   # tar -c --ignore-failed-read -jf /tmp/Data.fs.tar.bzip2 Data.fs
 
 Then copy to your own computer::
 
    scp unixuser@server.com:/tmp/Data.fs.tar.bz2 .
 
+... or using ``rsync`` which can resume::
+
+   rsync -av --progress user@server.com:/tmp/Data.fs.tar.bz2 .    
 
 Log rotate
 ------------
