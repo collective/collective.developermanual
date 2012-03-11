@@ -16,10 +16,9 @@ More about ZopeSkel
 
 * http://plone.org/products/zopeskel
 
-ZopeSkel is based on `paster command <http://pythonpaste.org/script/>`_.
+ZopeSkel provides templates to be used with 
+`paster command <http://pythonpaste.org/script/>`_.
 
-The ZopeSkel package provides a bunch of templates and the friendly ``zopeskel`` script
-which wraps the more error prone ``paster`` script.
 
 Zopeskel and buildout
 ----------------------
@@ -56,11 +55,18 @@ Add to your *buildout.cfg*::
 
 
 
-After rerunning buildout, buildout adds the *zopeskel* command to the *bin* folder.
+After rerunning buildout, buildout adds the *paster* command to the *bin* folder.
 
-Then you can run zopeskel from buildout folder::
+Then you can use ZopeSkel templates, through **paster** from buildout folder::
 
-        bin/zopeskel
+        bin/paster
+
+.. note ::
+    
+    This recipe will provide you with a **zopeskel** script under
+    bin folder. This script is a safer wrapper around paster, but
+    providing less features
+
 
 .. warning ::
 
@@ -76,15 +82,15 @@ you can create your first add-on.
 
 Create theme (applies for Plone 4 also)::
 
-	bin/zopeskel plone3_theme plonetheme.mythemeid
+	bin/paster create -t plone3_theme plonetheme.mythemeid
 
 Create Archetypes based content types package::
 
-	bin/zopeskel archetype mycompanyid.content
+	bin/paster create -t archetype mycompanyid.content
 
 Create other Plone customizations::
 
-	bin/zopeskel plone mycompanyid.mypackageid
+	bin/paster create -t plone mycompanyid.mypackageid
 
 Some questions are asked to fill in version information, etc.
 When ``plone`` template asks for *GenericSetup profile* answer ***yes**.
@@ -110,25 +116,6 @@ Besides generic project templates, ZopeSkel package provides local commands.
 Local commands are context aware commands to add more functionality to an existing ZopeSkel generated
 project.
 
-.. note ::
-
-	To use local commands you need to use the paster command directly - zopeskel does not support them yet.
-
-
-To add ``paster`` to your buildout's ``bin/`` folder include the following
-snippet in ``buildout.cfg``::
-
-        parts =
-            ...
-            paster
-
-        [paster]
-        recipe = zc.recipe.egg
-        eggs =
-                PasteScript
-                ZopeSkel
-                ${instance:eggs}
-
 Examples of the kind of Plone functionality you can add with local commands
 
 * Views
@@ -150,7 +137,7 @@ Example of creating a content type::
 
 		# First create an add-on skeleton if one does not exist
         cd src
-        ../bin/zopeskel archetype mycompanyid.mycustomcontenttypes
+        ../bin/paster create -t archetype mycompanyid.mycustomcontenttypes
 
         # Now new paster commands are available and listed when paster is run in this folder
         cd mycompanyid.mycustomcontenttypes
@@ -237,7 +224,7 @@ paster and install_requires
     commands. This is where things usually go haywire. Paster is not
     aware of this external Python package configuration set (paster
     cannot see them in its PYTHONPATH). Also don't try to execute
-    system-wide ``zopeskel`` or ``paster`` in a Python source code
+    system-wide ``paster`` in a Python source code
     folder containing ``setup.py``. Otherwise paster downloads all the
     dependencies mentioned in the ``setup.py`` into that folder even
     though they would be available in the ``eggs`` folder (which
