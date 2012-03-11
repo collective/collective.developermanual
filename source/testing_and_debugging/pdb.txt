@@ -143,21 +143,36 @@ Useful pdb snippets
 
 Output object's class::
 
-    print obj.__class__
+    (Pdb) print obj.__class__
 
 Output object attributes and methods::
 
-    for i in dir(obj): print i
+    (Pdb) for i in dir(obj): print i
 
 Print local variables in the current function::
 
-    print locals()
+    (Pdb) print locals()
 
 Dumping incoming HTTP GET or HTTP POST::
 
-    print "Got request:"
-    for i in self.request.form.items():
-        print i
+    (Pdb) print "Got request:"
+    (Pdb) for i in self.request.form.items(): print i
+
+Executing code on the context of the current stack frame::
+
+    (Pdb) pp my_tags
+    ['bar', 'barbar']
+
+    (Pdb) !my_tags = ['foo', 'foobar']
+    (Pdb) pp my_tags
+    ['foo', 'foobar']
+
+
+.. note::
+         
+         The example above will modify the previous value of the variable
+         my_tags in the current stack frame.
+
         
 Automatically start debugger when exceptions in raised (browser)
 ------------------------------------------------------------------
