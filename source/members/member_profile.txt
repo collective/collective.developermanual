@@ -167,36 +167,45 @@ Before the "if state.getErrors():" method.
 This would increase the minimum password size to 8 characters. Remember to update your form templates accordingly.
 
 
-Setting visual editor
-======================
+Setting visual editor for all users
+=======================================
 
-If you want to certain member to use TinyMCE instead of Kupu.
+Visual editor property is set on the member on the member creation.
+
+If you want to all site members to use TinyMCE instead of Kupu.
 Plone provides no means to do change other member properties through-the-web,
-but you can do it using the command-line scripting snippet below::
+but you can do it using the command-line scripting snippet below
 
-        # Traverse to your Plone site from Zope application root
-        context = app.mfabrik # site id is mfabrik
-        
-        users = context.acl_users.getUserNames()
-        
-        portal_membership = context.portal_membership
-        
-        for user in users:
-           member = portal_membership.getMemberById(user)
-           value = member.wysiwyg_editor
-         
-           # Show the existing editor choice before upgrading
-           print str(user) + ": " + str(value)
-           
-         
-           # Set WYSIWYG editor to all 
-         
-           member.wysiwyg_editor = "TinyMCE"
-           
-           # The following does not work from command-line (assumes HTTP request?)
-           #member.setMemberProperties({'wysiwyg_editor': 'TinyMCE'})
+migrate.py::
 
+    import transaction
+    
+    # Traverse to your Plone site from Zope application root
+    context = app.yoursiteid.sitsngta # site id is mfabrik
+    
+    users = context.acl_users.getUserNames()
+    
+    portal_membership = context.portal_membership
+    
+    i = 0
+    for user in users:
+     member = portal_membership.getMemberById(user)
+    	value = member.wysiwyg_editor
+    
+    	# Show the existing editor choice before upgrading
+    	print str(user) + ": " + str(value)
+    
+    	# Set WYSIWYG editor for the member
+    	member.wysiwyg_editor = "TinyMCE"
+    
+    	# Make sure transaction buffer does not grow too large
+    	i += 1
+    	if i % 25 == 0:
+    		transaction.commit()
 
+Run it::
+
+    bin/instance run migrate.py
 
 .. note::
 
