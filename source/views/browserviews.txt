@@ -241,6 +241,26 @@ More info
 
 * http://plone.org/documentation/kb/how-to-write-templates-for-plone-4
 
+Setting view permissions
+++++++++++++++++++++++++++
+
+Use `grok.require <http://grok.zope.org/doc/current/reference/directives.html#grok-require>`_
+
+Example::
+
+	from five import grok
+
+	class MyView(grok.View):
+
+		# Require admin to access this view
+		grok.require("cmf.ManagePortal")
+
+Use :doc:`available permissions in Zope 3 style strings </security/permissions_lists>`.
+
+More info
+
+* http://plone.org/products/dexterity/documentation/manual/five.grok/browser-components/views
+
 Creating a view using ZCML
 ==============================
 
