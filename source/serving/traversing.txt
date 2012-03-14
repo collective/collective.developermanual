@@ -145,6 +145,10 @@ Use getPhysicalPath(). Example::
 Getting virtual path
 ====================
 
+For content items you can use ``absolute_url_path()`` from `Traversable <http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=122638&view=auto>`_::
+
+    path = context.absolute_url_path()
+
 Map physical path to virtual path using HTTP request object physicalPathToVirtualPath(). Example::
 
     request = self.request # HTTPRequest object
