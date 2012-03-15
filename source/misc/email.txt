@@ -75,3 +75,11 @@ modules (particularly ``Products.remember.tools.registration``).
     If you don't need to have third parties to override your email templates
     it might be cleaned to use Python string templates, as XML based TAL
     templates are not designed for plain text templating.
+
+Graceful failing
+--------------------
+
+In the case SMTP server rejects the connection. etc. don't abort the current transaction (which is 
+the default behavior)
+
+* http://stackoverflow.com/questions/9013009/ploneformgen-and-fail-safe-email-send
