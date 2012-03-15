@@ -249,7 +249,7 @@ Varnish and I18N
 
 Please see :doc:`cache issues related to LinguaPlone </i18n/cache>`.
 
-Sanifying cookies 
+Sanitizing cookies 
 ===========================================
 
 Any cookie set on the server side (session cookie) or on the client-side 
@@ -294,16 +294,24 @@ Example how remove all Plone related cookies besides ones dealing with the logge
       # and no extra cookies fall through for HTTP responses we'd like to cache
       # (like images)
 
-      if (!obj.cacheable) {
+      if (!beresp.cacheable) {
           return (pass);
       }
-      if (obj.http.Set-Cookie) {
+      if (beresp.http.Set-Cookie) {
           return (pass);
       }
-      set obj.prefetch =  -30s;
+      set beresp.prefetch =  -30s;
       return (deliver);
   }        
 
+The snippet for stripping out non-Plone cookies comes from
+http://www.phase2technology.com/node/1218/
+
+That article notes that "this processing occurs only between Varnish and the
+backend [...]; the client, typically a user’s browser, still has all the
+cookies.  Nothing is happening to the client’s original request." While it's
+true that the browser still has the cookies, they never reach the backend
+and are therefor ignored.
 
 Another example how to purge Google cookies only and allow other cookies by default::
 
@@ -325,12 +333,12 @@ Another example how to purge Google cookies only and allow other cookies by defa
 Debugging cookie issues
 ------------------------------------
 
-Use the following snippet to set a HTTP response debug header to see what Varnish
-see as cookie after *vcl_recv* clean-up::
+Use the following snippet to set a HTTP response debug header to see what
+Varnish sees as cookie after *vcl_recv* clean-up::
 
   sub vcl_fetch {
 
-      set obj.http.X-Cookie-Debug = "Request cookie: " req.http.Cookie;
+      set beresp.http.X-Varnish-Cookie-Debug = "Request cookie: " req.http.Cookie;
 
       ...
   }
@@ -385,9 +393,9 @@ You can make sure that Varnish does not accidentally cache error pages.
 E.g. it would cache front page when the site is down::
 
 	sub vcl_fetch {
-		if ( obj.status >= 500 ) {
-			set obj.ttl = 0s;
-			set obj.cacheable = false;
+		if ( beresp.status >= 500 ) {
+			set beresp.ttl = 0s;
+			set beresp.cacheable = false;
 		}
 		...
 	}
@@ -504,10 +512,6 @@ More info
 
 * http://kristianlyng.wordpress.com/2010/02/02/varnish-purges/
 
-Session cookies
-==================
-
-* http://www.phase2technology.com/node/1218/
 
 Round robin balancing
 ========================
