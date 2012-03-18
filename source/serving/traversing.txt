@@ -298,10 +298,14 @@ Example::
     portal_url = getToolByName(context, "portal_url")
     portal = portal_url.getPortalObject()
 
-You can also do shortcut using acquisition (not recommended if you can avoid this)::
+You can also do shortcut using acquisition::
 
     portal = context.portal_url.getPortalObject()
 
+.. note :: 
+
+        Application code should use the getToolByName method, rather than simply
+        acquiring the tool by name, to ease forward migration (e.g., to Zope3).
 
 Using getSite()
 ==================== 
