@@ -441,13 +441,333 @@ Or just do it using GenericSetup like a sane person:
 
 * http://plone.org/products/plone/roadmap/203
 
-
-Writing your own portlet manager
+Creating a new portlet manager
 ----------------------------------
 
 If you need additional portlet slots at the site.
+In this example we use ``Products.ContentWellCode`` to provide us some 
+facilities as a dependency.
 
-* https://weblion.psu.edu/svn/weblion/weblion/Products.ContentWellPortlets/trunk/Products/ContentWellPortlets/tests/test_setup.py
+* Create a viewlet which will handle portlet rendering in a normal page mode.
+  Have several portlet slots, a.k.a. wells, where you can drop in portlets.
+  Wells are rendered horizontally side-by-side and portlets going in 
+  from top to bottom.
+
+* Register this viewlet in a viewlet manager where you wish to show your portlets
+  on the main template
+
+* Have a management view which allows you to shuffle portlets around. This
+  is borrowed from ``Products.ContentWellPortlets``. 
+
+* Register portlet wells in ``portlets.xml`` - note that one 
+  management view can handle several slots as in the example below
+
+The code skeleton works against `this Plone add-on template <https://github.com/miohtama/sane_plone_addon_template>`_.
+
+Example portlet manager viewlets.py::
+
+    """
+
+        For more information see
+
+        * http://collective-docs.readthedocs.org/en/latest/views/viewlets.html  
+
+    """
+
+    import logging
+    from fractions import Fraction
+
+    # Zope imports
+    from zope.interface import Interface
+    from zope.component import getMultiAdapter, getUtility, queryUtility
+    from five import grok
+
+    # Plone imports
+    from plone.portlets.interfaces import IPortletManager
+    from plone.app.layout.viewlets.interfaces import IPortalFooter
+    from Products.CMFCore.utils import getToolByName
+
+    # Local imports
+    from interfaces import IAddonSpecific, IThemeSpecific
+
+    grok.templatedir("templates")
+    grok.layer(IThemeSpecific)
+
+    # By default, set context to zope.interface.Interface
+    # which matches all the content items.
+    # You can register viewlets to be content item type specific
+    # by overriding grok.context() on class body level 
+    grok.context(Interface)
+
+    logger = logging.getLogger("PortletManager")
+
+
+    class CustomPortletViewlet(grok.Viewlet):
+        """ grok viewlet base class for a custom portlet renderer based on Products.ContentWellPortlets
+
+        Orignal code from Products.ContentWellPortlets
+        """
+        grok.baseclass()
+
+        # Id which we use to store portlets
+        name = ""
+
+        # Name of browser view which will render the management interface for portlets
+        # in this manager
+        manage_view = ""
+
+        # We have 5 portlet slots in this viewlet
+        portlet_count = 5
+
+        def update(self):
+            context_state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
+            self.manageUrl =  '%s/%s' % (context_state.view_url(), self.manage_view)
+
+            ## This is the way it's done in plone.app.portlets.manager, so we'll do the same
+            mt = getToolByName(self.context, 'portal_membership')
+            self.canManagePortlets = mt.checkPermission('Portlets: Manage portlets', self.context)
+
+        def showPortlets(self):
+            return '@@manage-portlets' not in self.request.get('URL')
+            
+        def portletManagersToShow(self):
+            visibleManagers = []
+            
+            for n in range(1,self.portlet_count):
+                name = '%s%s' % (self.name, n)
+
+                try:
+                    mgr = getUtility(IPortletManager, name=name, context=self.context)
+                except:
+                    # In the case we have problems to load portlet manager, do something about it
+                    # This is graceful fallback in a situation where 1) add-on is already installed
+                    # 2) new portlet code drops in and re-run add-on installer is                
+                    continue
+
+                if mgr(self.context, self.request, self).visible:
+                    visibleManagers.append(name)
+                            
+            import pdb ; pdb.set_trace()
+            
+            managers = []
+            numManagers = len(visibleManagers)
+            for counter, name in enumerate(visibleManagers):
+                pos = 'position-%s' % str(Fraction(counter, numManagers)).replace('/',':')
+                width = 'width-%s' % (str(Fraction(1, numManagers)).replace('/',':') if numManagers >1 else 'full')
+                managers.append((name, 'cell %s %s %s' % (name.split('.')[-1], width, pos)))
+            return managers
+
+
+    class ColophonPortlets(CustomPortletViewlet):
+        """
+        Render a new series of portlets in colophon.
+        """
+
+        # This name is used to store portlets,
+        # as referred in portlets.xml
+        name = 'PortletsColophon'
+
+        # This is custom management URL view for this,
+        # registered thru ZCML to point to Products.ContentWellContent manager view class.
+        manage_view = '@@manage-portlets-colophon'
+
+        grok.viewletmanager(IPortalFooter)
+        grok.template("portlets-colophon")
+
+    # Define a portlet manager declaration
+    from Products.ContentWellPortlets.browser.interfaces import IContentWellPortletManager
+
+    class IColphonPortlets(IContentWellPortletManager):
+         """
+         This viewlet is a place holder to match portlets.xml and portlet management view together.
+
+         * Manager is referred by name in manage page template
+         
+         * portlets.xml refers to this interface
+         
+         * provider:ColophonPortlets expression is also used in template to render the actual porlets  
+         """
+
+Example ZCML bit
+
+.. code-block:: xml
+
+  <!-- Register new portlet management view for our portlet manager -->
+
+  
+  <include package ="plone.app.portlets" />
+
+  <!-- 
+
+      The .pt file is customized for the portlet manager name (from portlets.xml)
+      and management link.
+
+    -->    
+  <browser:page
+     name="manage-portlets-colophon"
+     for="plone.portlets.interfaces.ILocalPortletAssignable"
+     class="plone.app.portlets.browser.manage.ManageContextualPortlets"
+     template="templates/manage-portlets-colophon.pt"
+     permission="plone.app.portlets.ManagePortlets"
+  />
+
+
+The page template for the manager ``manage-portlets-colophon.pt`` is the following
+
+.. code-block:: html
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          metal:use-macro="context/main_template/macros/master"
+          >
+
+        <head>
+            <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
+                <link type="text/css" rel="kinetic-stylesheet"
+                    tal:attributes="href string:${context/absolute_url}/++resource++manage-portlets.kss"/>
+            </div>
+        </head>
+        <body class="manage-portlet-well">
+
+            <metal:block fill-slot="top_slot"
+                             tal:define="disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                                         disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+
+            <div metal:fill-slot="main">
+
+                <tal:warning tal:condition="plone_view/isDefaultPageInFolder">
+                    <dl class="portalMessage warning">
+                        <dt i18n:translate="message_warning_above_content_area_dt">Is this really where you want to add portlets above the content?</dt>
+                        <dd i18n:translate="message_warning_above_content_area_dd">If you add portlets here, they will only appear on this item. If instead you want portlets to appear on all items in this folder, 
+                            <a href=""
+                               tal:attributes="href string:${plone_view/getCurrentFolderUrl}/@@manage-portlets-colophon"
+                               i18n:name="manage-portletsinheader_link">
+                                <span i18n:translate="add_them_to_the_folder_itself">add them to the folder itself</span>
+                            </a>
+                        </dd>
+                    <dl>
+                </tal:warning>  
+
+                <h1 class="documentFirstHeading"
+                    i18n:translate="manage_portlets_in_header">Manage portlets in colophon
+                </h1>
+                
+                <p>
+                     <a href=""
+                           class="link-parent"
+                           tal:attributes="href string:${context/absolute_url}"
+                           i18n:translate="return_to_view">
+                        Return
+                     </a>
+                </p>            
+
+                <div class="porlet-well_manager">
+                    <h2 i18n:translate="portlet-well-a">Colophon Portlet Well 1</h2>
+                    <span tal:replace="structure provider:PortletsColophon1" />
+                </div>
+
+                <div class="porlet-well_manager">
+                    <h2 i18n:translate="portlet-well-a">Colophon Portlet Well 2</h2>
+                    <span tal:replace="structure provider:PortletsColophon2" />
+                </div>
+
+                <div class="porlet-well_manager">
+                    <h2 i18n:translate="portlet-well-a">Colophon Portlet Well 3</h2>
+                    <span tal:replace="structure provider:PortletsColophon3" />
+                </div>
+
+                <div class="porlet-well_manager">
+                    <h2 i18n:translate="portlet-well-a">Colophon Portlet Well 4</h2>
+                    <span tal:replace="structure provider:PortletsColophon4" />
+                </div>
+
+                <div class="porlet-well_manager">
+                    <h2 i18n:translate="portlet-well-a">Colophon Portlet Well 5</h2>
+                    <span tal:replace="structure provider:PortletsColophon5" />
+                </div>
+
+
+            </div>
+
+        </body>
+    </html>
+            
+Then we have ``portlets-colophon.pt`` page template for the viewlet which renders
+the portlets and related management link
+
+.. code-block :: html
+
+    <div id="portlets-colophon"
+         class="row">
+
+        <tal:block tal:condition="viewlet/showPortlets">
+            <tal:portletmanagers tal:repeat="manager viewlet/portletManagersToShow">
+                <div tal:attributes="class python:manager[1]"
+                     tal:define="mgr python:manager[0]"
+                     tal:content="structure provider:${mgr}" /> 
+
+            </tal:portletmanagers>
+
+            <div style="clear:both"><!-- --></div>
+
+            <div class="manage-portlets-link"
+               tal:condition="viewlet/canManagePortlets">
+                <a href="" 
+                   class="managePortletsFallback"
+                   tal:attributes="href viewlet/manageUrl">
+                   Add, edit or remove a portlet in <b tal:content="viewlet/name" />
+                </a>
+            </div>
+
+        </tal:block>
+
+    </div>
+
+Finally there is ``portlets.xml`` which lists all the portlet managers
+and associates them with the used interface
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <!-- Set up all the new portlet managers we need above and below the content well -->
+    <portlets>
+
+        
+        <portletmanager 
+             name="PortletsColophon1"
+             type="youraddon.viewlets.IColphonPortlets"
+        />
+
+        <portletmanager 
+             name="PortletsColophon2"
+             type="youraddon.viewlets.IColphonPortlets"
+        />
+
+        <portletmanager 
+             name="PortletsColophon3"
+             type="youraddon.viewlets.IColphonPortlets"
+        />
+
+        <portletmanager 
+             name="PortletsColophon4"
+             type="youraddon.viewlets.IColphonPortlets"
+        />
+
+        <portletmanager 
+             name="PortletsColophon5"
+             type="youraddon.viewlets.IColphonPortlets"
+        />
+
+    </portlets>
+
+
+More info
+
+* https://weblion.psu.edu/svn/weblion/weblion/Products.ContentWellPortlets/trunk/Products/ContentWellPortlets/
+
+* http://stackoverflow.com/questions/9766744/dynamic-tal-provider-expressions
 
 Fixing relative links
 -------------------------
