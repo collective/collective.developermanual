@@ -19,30 +19,37 @@ Tune ``visible()`` function for further functionality.
 
 Python code to be dropped in ``viewlets.py``::
 
-        class Breadcrumbs(grok.Viewlet):
-            """ Breadcrumbs which are only displayed on 3rd level and forward
-            """
-            
-            grok.viewletmanager(IPortalHeader)   
-            
-            def visible(self):
-                """ Called by template condition. """
+     from plone.app.layout.viewlets.interfaces import IAboveContent
+     
+     
+     class Breadcrumbs(grok.Viewlet):
+         """ Breadcrumbs override which are only displayed on 2nd level and forward (not on Home screen)
+         """
+     
+         # Override standard Plone breadcrumbs
+         grok.name("plone.path_bar")
+         grok.viewletmanager(IAboveContent)
+     
+         def visible(self):
+             """ Called by template condition. """
+     
+             # Note that "Home" does not count as a crumb
+             return len(self.breadcrumbs) >= 1
+     
+         def update(self):
+             context= self.context.aq_inner
+     
+             self.portal_state = getMultiAdapter((context, self.request), name="plone_portal_state")
+             self.site_url = self.portal_state.portal_url()
+             self.navigation_root_url = self.portal_state.navigation_root_url()
+     
+             breadcrumbs_view = getMultiAdapter((context, self.request), name='breadcrumbs_view')
+             self.breadcrumbs = breadcrumbs_view.breadcrumbs()
+     
+             # right-to-left reading order
+             self.is_rtl = self.portal_state.is_rtl()
+             
                 
-                # Note that "Home" does not count as a crumb
-                return len(self.breadcrumbs) >= 2
-        
-            def update(self):
-                context= self.context.aq_inner
-                                
-                self.portal_state = getMultiAdapter((context, self.request), name="plone_portal_state")
-                self.site_url = self.portal_state.portal_url()
-                self.navigation_root_url = self.portal_state.navigation_root_url()             
-                
-                breadcrumbs_view = getMultiAdapter((context, self.request), name='breadcrumbs_view')
-                self.breadcrumbs = breadcrumbs_view.breadcrumbs()
-                        
-                # right-to-left reading order
-                self.is_rtl = self.portal_state.is_rtl()
 
 Template code ``templates/breadcrumbs.pt``::
 
