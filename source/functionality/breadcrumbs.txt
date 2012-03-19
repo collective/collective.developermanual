@@ -13,9 +13,11 @@
 Navigation level sensitive breadcrumbs
 ---------------------------------------
 
-Below is a breadscrumbs viewlet displayed only on 3th navigation level onwward.
+Below is a breadscrumbs viewlet displayed only on 3th navigation level onwards.
+Drop this to `your add-on <https://github.com/miohtama/sane_plone_addon_template>`_.
+Tune ``visible()`` function for further functionality.
 
-Python code::
+Python code to be dropped in ``viewlets.py``::
 
         class Breadcrumbs(grok.Viewlet):
             """ Breadcrumbs which are only displayed on 3rd level and forward
@@ -42,7 +44,7 @@ Python code::
                 # right-to-left reading order
                 self.is_rtl = self.portal_state.is_rtl()
 
-Template code
+Template code ``templates/breadcrumbs.pt``::
 
 .. code-block:: html
 
