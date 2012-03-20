@@ -66,3 +66,27 @@ When Plone is started all ZCML files are picked  up.
 * (old way) ZCML reference must be manually added to zcml = section in buildout.cfg
 
 If ZCML contains errors :doc:`Plone does not start up on foreground </troubleshooting/basic>`
+
+Overrides
+------------
+
+Besides :doc:`layers overrides <serving/layers>` ZCML provides more hardcore way to override things in buildout.
+These overrides can also override utilities etc. and overrides take effect during ZCML parsing, not when site is run.
+
+* Create ``overrides.zcml`` file in your egg to the same folder as ``configure.zcml``
+
+* Syntax is 100% same as in ``configure.zcml``
+
+* Add the line in buildout::
+
+     zcml =
+        ...
+        myegg-overrides
+
+* Rerun buildout
+
+* Restart Plone
+
+.. note ::
+
+    overrides.zcml must be explicitly specified in buildout.cfg and is never automatically included from eggs
