@@ -87,8 +87,24 @@ Views are resolved against different interfaces
 
 See also `related source code <http://svn.zope.org/zope.browserpage/trunk/src/zope/browserpage/metaconfigure.py?rev=103273&view=auto>`_.
 
-Finding a view to override
---------------------------
+Customizing views
+---------------------------
+
+To customize existing Plone core or add-on views you 
+
+* usually override the related page template file (.pt)
+
+* sometimes you need to change related Python view class code also and in this case
+  you override the Python class by using your own add-on which
+  installs a view class replacement using add-on layer
+
+Overriding view template
+==========================
+
+Follow instructions how to :doc:`use z3c.jbot <templates_css_and_javascripts/template_basics> to override templates`.
+
+Overriding view class
+========================
 
 Here is a short introduction on finding how existing views are
 defined.  First, you go to portal_types to see what views have been
