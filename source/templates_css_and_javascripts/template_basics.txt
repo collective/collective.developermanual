@@ -52,8 +52,8 @@ If you need to place your .pt in Plone to override Plone core or existing add-on
 * `z3c.jbot`` can override page templates (.pt files) for views, viewlets, old style page templates
   and portlets. In fact it can override any .pt file in Plone source tree.
 
-To override a template
------------------------
+Overriding a template using z3c.jbot
+------------------------------------------
 
 `First Make sure you have your customization add-on in place which supports z3c.jbot <https://github.com/miohtama/sane_plone_addon_template>`_.
 This has a templates folder where you can drop in your new .pt files.
@@ -89,8 +89,14 @@ Drop the file in templates folder you have registered for ``z3c.jbot`` in your a
 
 Make your changes in .pt file.
 
-If you run Plone in development mode and your add-on is installed for the site the changes are instant 
-if the filename is correct when you hit refresh in your web browser.
+.. warning ::
+
+	When overriding the template for the first time (adding the file on templates/ folder)
+	you need to restart Plone. z3c.jbot scans new overrides only during the restart.
+
+After the file is in place changes are instant in the file: the template code is re-read on every 
+HTTP request - hit enter on your browser location bar. Hitting enter on location is quicker
+than hitting Refresh which also reloads CSS and JS files. 
 
 More info
 
