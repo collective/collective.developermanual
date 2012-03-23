@@ -2,17 +2,17 @@
  Writing and updating the documentation
 ========================================
 
-.. contents:: :local:
-
 .. admonition:: Description
 
    How to write and submit content for the Plone Developer Documentation.
 
+.. contents:: :local:
+
 Introduction
 ============
 
-This chapter explains the basics of editing, updating and contributing to Plone
-Developer Documentation.
+This chapter explains the basics of editing, updating and contributing to
+the *Plone Developer Documentation*.
 
 Contributions needed
 ====================
@@ -25,14 +25,14 @@ Below is the list of documentation and references we'd like to see:
 - Links to blog posts talking about particular issues
 - Links to email list discussions
 - Links to source code (directly to the version control)
-- Clean up and restructuring
+- Clean up and restructuring (see the :doc:`todo list </todos>`)
 
 Committing changes to the documentation Github
 ==============================================
 
 * You can `commit file edits through GitHub web interface
   <https://github.com/collective/collective.developermanual>`_ using the
-  **Fork and Edit** button.
+  **Fork and Edit** button, followed by a pull request.
 
 * Alternatively, clone the repository using *git*, perform changes, and push
   them to your fork. Then submit a pull request.
@@ -123,7 +123,7 @@ option excludes the page itself and ToC title from the listing:
 
 .. code-block:: rst
 
-   .. contents :: :local:
+   .. contents:: :local:
 
 Introduction paragraph: A brief overview:
 
@@ -170,10 +170,11 @@ Each section (folder) must contain
 Headings style guide
 ====================
 
-ReStructured text and Sphinx enable any style you would prefer for the various
-heading level you would need. In example, underlining level 1 headings with
-``.``, level 2 headings with ``#`` and level 3 headings with ``|`` is perferct
-from ``docutils`` point of view. But not for a human documentation maintainer.
+ReStructured text and Sphinx enable any style you would prefer for the
+various heading level you would need. In example, underlining level 1
+headings with ``.``, level 2 headings with ``#`` and level 3 headings with
+``|`` is perfect as far as ``docutils`` is concerned. But not for a human
+documentation maintainer.
 
 In order to have consistent heading styles in all files that make this great
 document, it is recommended to follow strictly the rules stated in the Sphinx
@@ -194,16 +195,18 @@ would be underlined like this:
    ^^^^^^^^^
    ...
    Heading 4
-   """""""""
+   `````````
    ...
 
 
 Syntax highlighting
 ===================
 
-Sphinx does syntax highlighting using the `Pygments <http://pygments.org/>`_ library.
+Sphinx does syntax highlighting using the `Pygments <http://pygments.org/>`_
+library.
 
-You can specify different highlighting for a code block using the following syntax::
+You can specify different highlighting for a code block using the following
+syntax::
 
     With two colons you start a code block using the default highlighter::
 
@@ -214,7 +217,7 @@ You can specify different highlighting for a code block using the following synt
 
 
 You can specify the language used for syntax highlighting by using
-``code-block``:
+the ``code-block`` directive:
 
 .. code-block:: rst
 
@@ -279,8 +282,8 @@ Setting the highlighting mode for the whole document:
 
       some shell commands
 
-If syntax highlighting is not enabled for your code block, you probably have a
-syntax error and Pygments will fail silently.
+If syntax highlighting is not enabled for your code block, you probably have
+a syntax error and Pygments will fail silently.
 
 The full list of lexers and associated short names is here:
 http://pygments.org/docs/lexers/
@@ -304,13 +307,14 @@ Inline code highlighting:
 
 .. code-block:: rst
 
-   This is :func:`aFunction`, this is the :mod:`some.module` that contains the
-   :class:`some.module.MyClass`
+   This is :func:`aFunction`, this is the :mod:`some.module` that contains
+   the :class:`some.module.MyClass`
 
 .. note::
 
-   These Python objects are rendered as hyperlinks if the symbol is mentioned in
-   a relevant directive. See http://sphinx.pocoo.org/domains.html and
+   These Python objects are rendered as hyperlinks if the symbol is
+   mentioned in a relevant directive. See
+   http://sphinx.pocoo.org/domains.html and
    http://sphinx.pocoo.org/ext/autodoc.html
 
 Making an external link (note the underscore at the end):
@@ -326,10 +330,10 @@ Making an internal link:
    :doc:`This is a link to </introduction/writing.txt>`
    ...
    See also :ref:`somewhere` (assuming that a line containing only
-   ``.. _somewhere:`` exists above a heading in any file of this documentation)
-   ...
-   And a link to the term :term:`foo` assuming that ``foo`` is defined in the
-   glossary
+   ``.. _somewhere:`` exists above a heading in any file of this
+   documentation) ...
+   And a link to the term :term:`foo` assuming that ``foo`` is defined in
+   the glossary.
 
 Bullet list:
 
@@ -342,7 +346,7 @@ Warning:
 
 .. code-block:: rst
 
-   .. warning ::
+   .. warning::
 
       This is a warning box (red)
 
@@ -350,15 +354,24 @@ Note:
 
 .. code-block:: rst
 
-   .. note ::
+   .. note::
 
       This is a note box (yellow)
+
+TODO item (see :doc:`TODO list </todos>`:
+
+.. code-block:: rst
+
+   .. TODO::
+
+      This is a TODO item
 
 Code documentation
 ==================
 
-For certain kinds of documentation it is better to write the documentation in parts
-of the plone core code base. This can be done using the autodoc sphinx extension.
+For certain kinds of documentation it is better to write the documentation
+in parts of the Plone core code base. This can be done using the *autodoc*
+sphinx extension.
 
 ... to include a module docstring:
 
@@ -399,8 +412,11 @@ Some helper tools
 =================
 
 **Emacs** has a nice `rst-mode
-<http://docutils.sourceforge.net/docs/user/emacs.html>`_. This mode comes with
-some Emacs distros. Try ``M-x rst-mode`` in your Emacs and enjoy syntax
+<http://docutils.sourceforge.net/docs/user/emacs.html>`_. This mode comes
+with some Emacs distros. Try ``M-x rst-mode`` in your Emacs and enjoy syntax
 coloration, underlining a heading with ``^C ^A``
 
-**Eclipse** users can install **ReST Editor** through the Eclipse Market Place.
+**Eclipse** users can install **ReST Editor** through the Eclipse
+Marketplace.
+
+**Vim** does syntax highlighting for RST files.

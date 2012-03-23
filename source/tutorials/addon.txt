@@ -1,5 +1,5 @@
 ===================================
-  Introduction to extending Plone
+ Introduction to extending Plone
 ===================================
 
 .. contents:: :local:
@@ -11,10 +11,10 @@
    written with Plone 4 in mind and show you how to create
    a basic form and content types with Dexterity content subsystem.
 
-**TODO. PLEASE PLEAS PLEASE SOMEONE FINISH THIS**
+.. TODO:: PLEASE PLEAS PLEASE SOMEONE FINISH THIS
 
 Introduction
-------------
+============
 
 The goal of this tutorial is to make your first bits of code ("hello
 world") run through Plone and explain all the steps on the way. Note
@@ -26,10 +26,10 @@ might have been a good idea at the time, but those practices should be
 no longer be used.
 
 How to add code to Plone
--------------------------
+=========================
 
 Eggs
-====
+----
 
 First we need to know how the state-of-the-art Python software is
 being distributed.
@@ -82,7 +82,7 @@ and ``egg-info`` files or folders into your version control system as
 they are generated automatically every time ``setup.py`` is run.
 
 Laying your first egg
----------------------
+=====================
 
 Building an add-on (or any Python package) skeleton by hand is
 cumbersome. Even though setup.py gives you a lot of freedom in how
@@ -112,10 +112,10 @@ This includes
 
 
 MANIFEST problem
------------------
+=================
 
 Paste and buildout
--------------------
+===================
 
 If you are using buildout to manage your Python application
 deployment, you can integrate paster nicely with it.
@@ -148,82 +148,82 @@ Then you can run paster from the buildout folder::
 
 
 ZopeSkel templates
--------------------
+===================
 
 Pick plone.template
-===================
+-------------------
 
 archetypes template
-===================
+-------------------
 
 Running paster
-==============
+--------------
 
 Connecting new add-on to Plone
-===============================
+-------------------------------
 
 Add-on installer
-----------------
+================
 
 Relationship between site database and code
-===========================================
+-------------------------------------------
 
 * Layers
 
 Database changes
-================
+----------------
 
 Traversing
------------
-
-Big picture
 ===========
 
-HTTP request processing
-=======================
-
-View look-up
-============
-
-BrowserView
+Big picture
 -----------
 
+HTTP request processing
+-----------------------
+
+View look-up
+------------
+
+BrowserView
+===========
+
 Model-view-controller in Plone sense
-====================================
+------------------------------------
 
 Code entry points
-=================
-
-Adding a template
-==================
-
-main_template and rendering a Plone page
-========================================
-
-Viewlets
-========
-
-CSS and Javascript
-==================
-
-Forms (z3c.forms)
 -----------------
 
+Adding a template
+------------------
+
+main_template and rendering a Plone page
+----------------------------------------
+
+Viewlets
+--------
+
+CSS and Javascript
+------------------
+
+Forms (z3c.forms)
+=================
+
 Defining form fields
-=====================
+---------------------
 
 * zope.schema and available options explained
 
 Reading form input
-==================
+------------------
 
 Where to store data
-===================
+-------------------
 
 * Creating your custom content type? [leave for another tutorial]
 
 Transactions
-------------
+============
 
 Automatic persistency
-=====================
+---------------------

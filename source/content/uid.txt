@@ -1,16 +1,16 @@
-------------------------------
+==============================
 Content identification (ids)
-------------------------------
+==============================
 
-.. admonition :: Description
+.. admonition:: Description
 
-	Different ids, UIDs, integer ids or whatever can identify your Plone content
-	and give access to it.
+    Different ids, UIDs, integer ids or whatever can identify your Plone
+    content and give access to it.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
--------------
+=============
 
 Id
 ====
@@ -65,7 +65,7 @@ Getting object UUID::
 
 Looking up object by UUID:
 
-Use `plone.app.uuid.utils.uuidToObject <https://github.com/plone/plone.app.uuid/blob/master/plone/app/uuid/utils.py>`_
+Use `plone.app.uuid.utils.uuidToObject <https://github.com/plone/plone.app.uuid/blob/master/plone/app/uuid/utils.py>`_::
 
 	from plone.app.uuid.utils import uuidToObject
 
@@ -74,26 +74,26 @@ Use `plone.app.uuid.utils.uuidToObject <https://github.com/plone/plone.app.uuid/
 	if not obj:
 	    # Could not find object
 	    raise RuntimeError(u"Could not look-up UUID:", uuid)
-	
 
 
-More info
+More info:
 
 * http://stackoverflow.com/questions/8618917/portal-catalog-unique-ids-for-both-archetypes-and-dexterity-content
 
 intids
 ========
 
-Integer ids (int ids) are fast look-up ids provided by ``plone.app.intid`` and ``five.intid`` packages.
-Instead of relying global unique identifier strings (UIDs) they use 64-bit integers, making 
-low level resolving faster.
+Integer ids ("intids") are fast look-up ids provided by ``plone.app.intid``
+and ``five.intid`` packages.  Instead of relying on globally unique
+identifier strings (UIDs) they use 64-bit integers, making low-level
+resolution faster.
 
 * https://github.com/plone/plone.app.intid
 
 * http://stackoverflow.com/questions/8629390/how-to-use-intids
 
 Archetypes
------------
+===========
 
 This info only for Plone 3.x projects.
 

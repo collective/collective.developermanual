@@ -295,3 +295,52 @@ Plone site.
             class=".images.RescaleImages"
             />
     </configure>
+
+Automatic image scales on ReferenceFields
+--------------------------------------------
+
+Python code::
+
+     from zope.component import adapts
+     from zope.interface import implements, Interface
+     from plone.app.imaging.interfaces import IImageScaleHandler
+     
+     
+     def dereference(func_name):
+         def new_func(self, instance, *args, **kw):
+             if self.context is None:
+                 instance = self.reference_field.get(instance)
+                 self.context = instance.getPrimaryField()
+             handler = IImageScaleHandler(self.context)
+             func = getattr(handler, func_name)
+             return func(instance, *args, **kw)
+         return new_func
+     
+     
+     class IReferenceField(Interface):
+         """ marker """
+     
+     class ReferencedImageScaleHandler(object):
+         """ proxy the standard image scale handler so that it operates on a referenced image """
+         implements(IImageScaleHandler)
+         adapts(IReferenceField)
+     
+         def __init__(self, context):
+             self.reference_field = context
+             self.context = None
+     
+         getScale = dereference('getScale')
+         createScale = dereference('createScale')
+         retrieveScale = dereference('retrieveScale')
+    storeScale = dereference('storeScale')
+
+
+in configure.zcml::
+
+
+    <class class="Products.Archetypes.Field.ReferenceField">
+      <implements interface=".IReferenceField"/>
+    </class>
+
+    <adapter
+        factory=".ReferencedImageScaleHandler" />

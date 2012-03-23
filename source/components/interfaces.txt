@@ -215,13 +215,33 @@ so that Zope finds them::
 Setting dynamic marker interfaces programmatically
 ==================================================
 
-Use `mark()` function form Product.Five.
+Use `mark()` function from Products.Five.
 
 Example::
 
 	from Products.Five.utilities.marker import mark
 	
 	mark(portal.doc, interfaces.IBuyableMarker)
+
+.. note ::
+
+        This marking persists with the object, and is not temporary.  Under-the-hood:
+        
+        mark() fronts for zope.interface.directlyProvides() -- with a result that
+        a persistent object (e.g. content item) has a reference to the interface
+        class you mark it with in its __provides__ attribute; this attribute is 
+        serialized and loaded by ZODB like any other reference to a class, and
+        zope.interface uses object specification descriptor magic (just like it does
+        for any other object, persistent or not) to resolve provided interfaces.
+
+To remove a marker interface on an object, use `erase()` function from Products.Five.
+
+Example::
+
+	from Products.Five.utilities.marker import erase
+	
+	erase(portal.doc, interfaces.IBuyableMarker)
+
 
 Tagged values
 --------------

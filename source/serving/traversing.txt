@@ -145,7 +145,7 @@ Use getPhysicalPath(). Example::
 Getting virtual path
 ====================
 
-For content items you can use ``absolute_url_path()`` from `Traversable <http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=122638&view=auto>`_::
+For content items you can use ``absolute_url_path()`` from `OFS.Traversable <http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=122638&view=auto>`_::
 
     path = context.absolute_url_path()
 
@@ -157,10 +157,10 @@ Map physical path to virtual path using HTTP request object physicalPathToVirtua
 
     virtual_path = request.physicalPathToVirtualPath(path) # returns "document"
     
-.. note ::
+.. note::
 
-        Virtual path is not necessarily path relative to the site root, 
-        depending on the virtual host configuration.
+    Virtual path is not necessarily path relative to the site root, 
+    depending on the virtual host configuration.
         
 Getting item path relative to the site root
 =============================================
@@ -169,28 +169,28 @@ There is no a direct, easy, way to accomplish this.
 
 Example::
 
-        from zope.component import getMultiAdapter
+    from zope.component import getMultiAdapter
 
-        def getSiteRootRelativePath(context, request):
-            """ Get site root relative path to an item
-            
-            @param context: Content item which path is resolved
-            
-            @param request: HTTP request object
-            
-            @return: Path to the context object, relative to site root, prefixed with a slash.
-            """
-            
-            portal_state = getMultiAdapter((context, request), name=u'plone_portal_state')
-            site = portal_state.portal()
-            
-            # Both of these are tuples 
-            site_path = site.getPhysicalPath();
-            context_path = context.getPhysicalPath()
-            
-            relative_path = context_path[len(site_path):]
-            
-            return "/" + "/".join(relative_path)             
+    def getSiteRootRelativePath(context, request):
+        """ Get site root relative path to an item
+        
+        @param context: Content item which path is resolved
+        
+        @param request: HTTP request object
+        
+        @return: Path to the context object, relative to site root, prefixed with a slash.
+        """
+        
+        portal_state = getMultiAdapter((context, request), name=u'plone_portal_state')
+        site = portal_state.portal()
+        
+        # Both of these are tuples 
+        site_path = site.getPhysicalPath();
+        context_path = context.getPhysicalPath()
+        
+        relative_path = context_path[len(site_path):]
+        
+        return "/" + "/".join(relative_path)             
 
 Getting canonical object (breadcrumbs, visual path)
 ====================================================
@@ -298,10 +298,14 @@ Example::
     portal_url = getToolByName(context, "portal_url")
     portal = portal_url.getPortalObject()
 
-You can also do shortcut using acquisition (not recommended if you can avoid this)::
+You can also do shortcut using acquisition::
 
     portal = context.portal_url.getPortalObject()
 
+.. note :: 
+
+        Application code should use the getToolByName method, rather than simply
+        acquiring the tool by name, to ease forward migration (e.g., to Zope3).
 
 Using getSite()
 ==================== 
@@ -508,7 +512,7 @@ Example::
             
 Use ZPublisher.BeforeTraverse to register traverse hooks for any objects.
 
-TODO: Example - note sure if before travese hooks are persistent or not
+.. TODO:: Example - note sure if before travese hooks are persistent or not
 
 Advanced traversing with search conditions
 -------------------------------------------

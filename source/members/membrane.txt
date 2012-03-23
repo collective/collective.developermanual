@@ -4,40 +4,48 @@
 
 .. admonition:: Description
 
-	Products.membrane and Products.remember add-ons provide "member management as Plone content items".
-	Member-as-content paradigm will make member management radically flexible: members can be
-	in different folders, have different workflows and states and different profile fields.
+    The ``Products.membrane`` and ``Products.remember`` add-ons provide
+    member management where members are represented by Plone content items.
+    The member-as-content paradigm makes member management radically
+    flexible: members can be in different folders, have different workflows
+    and states and different profile fields.
 
 .. contents :: :local:
 
 Introduction
-------------
+============
 
-remember (small r) and membrane are framework add-on products for Plone which allows you to manipulate site members
-as they were normal content objects. The product also allows distributed user management and
-different user classes.
+*remember* (small r) and *membrane* are framework add-on products for Plone
+which allows you to manipulate site members as they were normal content
+objects. The product also allows distributed user management and different
+user classes.
 
-* Products.membrane provides framework of integrating acl_users access right to content-like members 
-  and perform tasks like login
+* ``Products.membrane`` provides a framework for integrating ``acl_users``,
+  which manages access rights, with content-like members and tasks like
+  login.
 
-* Products.remember is a basic implementation of this with two different user workflows and a normal user schema
+* ``Products.remember`` is a basic implementation of this with two different
+  user workflows and a normal user schema.
 
 Basics
-------
+======
 
 * Read the `membrane tutorial <http://plone.org/documentation/tutorial/borg/membrane>`_.
 
-* See the example code Products.membrane.example.
+* See the example code ``Products.membrane.example``.
 
-* Read the documents at Products.remember/docs/tutorial.
+* Read the documents at ``Products.remember/docs/tutorial``.
 
-* See `Weblion FacultyStaffDirectory product <https://weblion.psu.edu/trac/weblion/wiki/FacultyStaffDirectory>`_.
+* See the `Weblion FacultyStaffDirectory product
+  <https://weblion.psu.edu/trac/weblion/wiki/FacultyStaffDirectory>`_, which
+  is a sophisticated implementation of the framework.
 
-* It is recommended to enabled debug level logging output for membrane related unit tests,
-  as PlonePAS code swallows several exceptions and does not output them unless debug level is activated 
+* It is recommended to enable debug level logging output for membrane
+  related unit tests, as ``PlonePAS`` code swallows several exceptions and
+  does not output them unless debug level is activated.
 
 Getting member by username
---------------------------
+==========================
 
 Example::
 
@@ -45,15 +53,17 @@ Example::
 
     membrane = getToolByName(context, "membrane_tool")
 
-    # getUserAuthProvider returns None if there is no membrane based user match for username
+    # getUserAuthProvider returns None if there is no membrane-based user
+    # match for username
     # e.g. this will return None for Zope admin user
     sits_user = membrane.getUserAuthProvider(username)
     return sits_user
-    
-Getting member from MembraneUser or owner record
--------------------------------------------------
 
-Below is an example how to resolve member content object from MembraneUser record "owner" who is user "local_user"::
+Getting Plone member from ``MembraneUser`` or ``owner`` record
+===============================================================
+
+Below is an example of how to resolve member content object from
+``MembraneUser`` record "owner" who is user "local_user"::
 
         (Pdb) mbtool = self.portal.membrane_tool
         (Pdb) owner
@@ -62,40 +72,40 @@ Below is an example how to resolve member content object from MembraneUser recor
         <SitsLocalUser at /plone/country/hospital/local_users/local_user
 
 Creating a member
------------------
+=================
 
 The following snippet works in unit tests::
 
-        mem_password = 'secret'
+    mem_password = 'secret'
 
-        def_mem_data = {
-            'email': 'noreply@xxxxxxxxyyyyyy.com',
-            'password': mem_password,
-            'confirm_password': mem_password,
-             }
+    def_mem_data = {
+        'email': 'noreply@xxxxxxxxyyyyyy.com',
+        'password': mem_password,
+        'confirm_password': mem_password,
+         }
 
-        mem_data = {
-                'portal_member':
-                {
-                  'fullname': 'Portal Member',
-                  'mail_me': True,
-                },
-                'admin_member':
-                {
-                  'roles': ['Manager', 'Member']
-                },
-                'blank_member':
-                {},
-            }
+    mem_data = {
+            'portal_member':
+            {
+              'fullname': 'Portal Member',
+              'mail_me': True,
+            },
+            'admin_member':
+            {
+              'roles': ['Manager', 'Member']
+            },
+            'blank_member':
+            {},
+        }
 
-        mdata = getToolByName(self.portal, 'portal_memberdata')
+    mdata = getToolByName(self.portal, 'portal_memberdata')
 
-        mdata.invokeFactory("MyUserPortalType", name)
-        member = getattr(mdata, name) #
+    mdata.invokeFactory("MyUserPortalType", name)
+    member = getattr(mdata, name) #
 
 
 Populating member fields automatically
---------------------------------------
+======================================
 
 Use the following unit test snippet::
 
@@ -135,7 +145,7 @@ Use the following unit test snippet::
         member.update(**data)
 
 Checking member validy
-----------------------
+======================
 
 The following snippet is useful for unit testing::
 
@@ -150,9 +160,10 @@ The following snippet is useful for unit testing::
             raise AssertionError("Member contained errors:" + str(errors))
             
 Setting user password
----------------------
+=====================
 
-Passwords are stored hashed and can be set using BaseMember._setPassword() method.
+Passwords are stored hashed and can be set using
+``BaseMember._setPassword()`` method.
 
 ``_setPassword()`` takes the password as plain-text argument and hashes it
 before storing::
@@ -160,28 +171,31 @@ before storing::
     user_object._setPassword("secret")
     
 Accessing hashed password
-=========================
+-------------------------
 
-Use password attribute directly.
+Use password attribute directly::
 
     hashed = user_object.password
     
-Password hash should be unicode string.
+The password hash should be a unicode string.
 
-.. note ::
-
-        By default, Products.remember uses HMACHash hasher. As a salt, 
-        str(context) string is used. This means that it is not possible to move hashed
-        password from one context item to another. For more information see
-        Products.remember.content.password_hashers module.
+.. Note::
+    By default, ``Products.remember`` uses the ``HMACHash`` hasher. As a
+    salt, the ``str(context)`` string is used. This means that it is not
+    possible to move hashed password from one context item to another. For
+    more information, see the ``Products.remember.content.password_hashers``
+    module.
         
 Moving members
---------------
+==============
 
-Moving members is not straightforward as by default member password is hashed with the member location 
-- members need to reregister their password after being moved from a folder to another.
+Moving members is not straightforward, as by default member password is
+hashed with the member location 
+- members need to reregister their password after being moved from one
+  folder to another.
 
-Here is a complex function to perform moving by recreating the user and deleting the old object::
+Here is a complex function to perform moving by recreating the user and
+deleting the old object::
 
 	import logging
 

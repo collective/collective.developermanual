@@ -24,6 +24,7 @@ Downsides of ZCML are:
 * lack of end-user documentation.
 
 Plone uses ZCML to: 
+
 * register components with various places in the system, both core and
   add-ons.
 
@@ -69,3 +70,30 @@ When Plone is started all ZCML files are read.
 
 If ZCML contains errors 
 :doc:`Plone does not start up in the foreground </troubleshooting/basic>`
+
+Overrides
+==========
+
+Besides :doc:`layer overrides <serving/layers>`, ZCML provides more hardcore
+way to override things in buildout.
+These overrides can also override utilities etc. and overrides take effect during ZCML parsing, not when site is run.
+
+* Create ``overrides.zcml`` file in your egg to the same folder as ``configure.zcml``
+
+* Syntax is 100% same as in ``configure.zcml``
+
+* Add the line in buildout::
+
+     zcml =
+        ...
+        myegg-overrides
+
+* Rerun buildout
+
+* Restart Plone
+
+.. Note::
+
+    ``overrides.zcml`` must be explicitly specified in ``buildout.cfg`` and
+    is never automatically included from eggs.
+

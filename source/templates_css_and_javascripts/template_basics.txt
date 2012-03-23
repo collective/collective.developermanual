@@ -17,33 +17,15 @@ Plone uses `Zope Page Templates <http://docs.zope.org/zope2/zope2book/AppendixC.
 consisting of the three related standards: Template Attribute Language
 (TAL), TAL Expression Syntax (TALES), and Macro Expansion TAL (METAL).
 
-A templated Plone page consists of:
+A normal full Plone HTML page consists of:
 
 * the *master template*, defining the overall layout of the page,
 * *slots*, defined by the master template, and filled by the object being
   published,
 * :doc:`Viewlet managers </views/viewlets>` containing :doc:`viewlets </views/viewlets>`
 
-Templates can be associated with ``BrowserView`` code class (new style) or
-they can be standalone (old style).
-
-* View page templates (``BrowserView``, new style)
-
-        * These templates live under ``browser/<folder>`` in an add-on
-          product. 
-        * You can override them by using the ``<browser:page>`` ZCML
-          directive.
-        * You can customize them through-the-web using the
-          ``portal_view_customization`` tool in the ZMI.
-
-* Standalone page templates (old style) 
-
-        * They live under ``plone_skins`` structure 
-        * You can override them by 
-          :doc:`registering a new plone_skins layer </templates_css_and_javascripts/skin_layers>`. 
-        * You can customize them through-the-web using the
-          ``portal_skins/custom`` folder in the ZMI. Just copy the orignal
-          template through-the-web to the ``custom`` folder and edit it.
+Templates can be associated with Python view classes (also known as new style, circa 2008) or
+they can be standalone (old style, circa 2001).
 
 .. note ::
 
@@ -53,7 +35,75 @@ they can be standalone (old style).
         templates provide better separation with view logic (Python code)
         and HTML generation (page template).
 
-See `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_
+Overriding templates
+======================
+
+The recommended approach to customize .pt files for Plone 4 is to use a little helper
+called *z3c.jbot*.
+
+If you need to place your .pt in Plone to override Plone core or existing add-on functionality 
+
+* You `roll-out your own add-on <https://github.com/miohtama/sane_plone_addon_template>`_
+  where you can place your page templates on file system
+
+* You use `z3c.bot <http://pypi.python.org/pypi/z3c.jbot/>`_ Plone helper add-on to override 
+  page templates. This is provided in the add-on above, no separate set-up needed.
+
+* `z3c.jbot`` can override page templates (.pt files) for views, viewlets, old style page templates
+  and portlets. In fact it can override any .pt file in Plone source tree.
+
+Overriding a template using z3c.jbot
+------------------------------------------
+
+`First Make sure you have your customization add-on in place which supports z3c.jbot <https://github.com/miohtama/sane_plone_addon_template>`_.
+This has a templates folder where you can drop in your new .pt files.
+
+Locate the template you need to override in Plone source tree. You can do this by searching ``eggs/``
+folder of your Plone installation for .pt files. Usually this folder is (something)/buildout-cache/eggs.
+
+Below is an example UNIX find command to find .pt files. You can also use Windows Explorer file search or similar tools::
+	
+	[~/code/buildout-cache/eggs]% find . -iname "*.pt"
+	./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/edit_field_wrapper.pt
+	./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/view_field_wrapper.pt
+	./archetypes.kss-1.6.0-py2.6.egg/archetypes/kss/browser/edit_field_wrapper.pt
+	./archetypes.kss-1.6.0-py2.6.egg/archetypes/kss/browser/view_field_wrapper.pt
+
+.. note ::
+
+	Your eggs/ folder may contain several versions of the same egg
+	if you have re-run buildout or upgraded Plone. In this case the correct
+	action is usually to pick up the latest version.
+
+Get a copy of .pt file you are going to override.
+
+Rename the file ot its so called canonical name. Exclude .egg folder anme from the filename. Then replace all slashes / with dot .::
+
+	archetypes/kss/browser/edit_field_wrapper.pt
+
+to::
+
+	archetypes.kss.browser.edit_field_wrapper.pt
+
+Drop the file in templates folder you have registered for ``z3c.jbot`` in your add-on.
+
+Make your changes in .pt file.
+
+.. warning ::
+
+	When overriding the template for the first time (adding the file on templates/ folder)
+	you need to restart Plone. z3c.jbot scans new overrides only during the restart.
+
+After the file is in place changes are instant in the file: the template code is re-read on every 
+HTTP request - hit enter on your browser location bar. Hitting enter on location is quicker
+than hitting Refresh which also reloads CSS and JS files. 
+
+More info
+
+* http://pypi.python.org/pypi/z3c.jbot/
+
+* http://blog.keul.it/2011/06/z3cjbot-magical-with-your-skins.html
+
 
 Main template
 =============

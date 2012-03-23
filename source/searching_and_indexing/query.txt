@@ -214,30 +214,24 @@ Getting the underlying object, its path, and its URL from a brain
 
 As it was said earlier, searching inside the catalog returns
 catalog brains, not the object themselves. If you want to get the
-object associated with a brain, do:
-
-::
+object associated with a brain, do::
 
     brain.getObject()
 
-To get the path of the object without fetching it:
-
-::
+To get the path of the object without fetching it::
 
     brain.getPath()
 
 which is equivalent to ``obj.getPhysicalPath()``.
 
 And finally, to get the URL of the underlying object, usually to
-provide a link to it:
-
-::
+provide a link to it::
 
     brain.getURL()
 
 which is equivalent to ``obj.absolute_url()``.
 
-.. note::
+.. Note::
 
         Calling getObject() has performance implications. Waking up
         each object needs a separate query to the database.
@@ -252,9 +246,9 @@ Instead, you need to use::
 
         unrestrictedTraverse(brain.getPath())
 
-.. note:
+.. TODO::
 
-        TODO: HOW to call unrestrictedTraverse
+   How to call ``unrestrictedTraverse``
 
 For more information, see
 
@@ -822,7 +816,7 @@ of Plone search and indexing:
 Batching
 ==========
 
-TODO
+.. TODO:: Complete writeup
 
 Example::
 

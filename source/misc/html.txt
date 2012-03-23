@@ -2,36 +2,33 @@
  HTML manipulation
 ===============================================
 
-.. admonition::
+.. admonition:: Description
 
     How to programmatically rewrite HTML in Plone.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
-All HTML DOM manipulation is recommended to be done using `lxml <http://lxml.de/>`_
-library in Python.
+It is recommended to use the `lxml <http://lxml.de/>`_ library
+for all HTML DOM manipulation in Python.
 
 Plone is no exception.
 
 Rewriting relative links
---------------------------
+==========================
 
-Below is an example which 
+Below is an example which:
 
-* Rewrites all relative links of Page content as absolute
+* rewrites all relative links of Page content as absolute; 
+* removes some nasty tags from Page content; 
+* outputs the folder content and subcontent as one continuous page; 
+* is based on :doc:`Grok views </components/grok>`.
 
-* Removes some nasty tags from Page content 
+This is suitable for e.g. printing the whole folder in one pass.
 
-* Outputs the folder content and subcontent as one continuous page
-
-* Is based on :doc:`Grok views </components/grok>`
-
-This is e.g. suitable for printing the whole folder in one pass.
-
-help.py::
+``help.py``::
 
     from lxml import etree
     from StringIO import StringIO
@@ -141,7 +138,7 @@ help.py::
             
             self.objects = objects
             
-help.pt
+``help.pt``
 
 .. code-block:: html
 
