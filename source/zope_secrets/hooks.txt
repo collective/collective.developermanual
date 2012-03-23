@@ -4,7 +4,7 @@ Zope's many hooks
 
 .. admonition:: Description
 
-        What hooks does Zope provide for application code?
+    What hooks does Zope provide for application code?
 
 Zope provides many different hooks that can be used to execute code at various
 times during its lifecycle. The most important ones are outlined below.
@@ -17,22 +17,22 @@ Process lifecycle
 ``zope.processlifetime`` defines three events:
 
 ``IDatabaseOpened``
-  notified when the main ZODB has been opened, but before
-  the root application object is set.
+  notified when the main ZODB has been opened, but before the root
+  application object is set.
 ``IDatabaseOpenedWithRoot``
-  notified later in the startup cycle, when the
-  application root has been set and initalised.
+  notified later in the startup cycle, when the application root has been
+  set and initalised.
 ``IProcessStarting``
-  notified when the Zope startup process has completed,
-  but before the Zope server runs (and so can listen to requests).
+  notified when the Zope startup process has completed, but before the Zope
+  server runs (and so can listen to requests).
 
 ZODB connection lifecycle
 =========================
 
-The list ``App.ZApplication.connection_open_hooks`` can be used to hold
-functions that are called with a ZODB connection as their sole argument just
-after traversal over the ``ZApplicationWrapper`` as it opens a ZODB connection
-for the request.
+Functions that should be called just after traversal over the
+``ZApplicationWrapper`` as it opens a ZODB connection for the request should
+be added to the ``App.ZApplication.connection_open_hooks`` list. They are
+called with a ZODB connection as their sole argument.
 
 The ZODB transaction provides two methods to register hooks |---|
 ``addBeforeCommitHook()`` and ``addAfterCommitHook()``. These can be passed
@@ -46,7 +46,7 @@ Use ``transaction.get()`` to get hold of the transaction object. See
 Request lifecycle
 =================
 
-Request-scoped items may be held from garbage collection using
+Request-scoped items may be protected from garbage collection using
 ``request._hold()``. If applicable, the item held can implement ``__del__()``,
 which will be called when the request is destroyed.
 

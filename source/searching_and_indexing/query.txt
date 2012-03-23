@@ -4,87 +4,84 @@ Querying
 
 .. admonition:: Description
 
-        How to programmatically search and query content from a Plone site.
+    How to programmatically search and query content from a Plone site.
 
 .. contents :: :local:
 
 Introduction
-------------------------
+========================
 
-Quering is the action to retrieve data from search indexes.
-On Plone's case this usually means querying content items using ``portal_catalog`` tool. 
-Plone uses :doc:`portal_catalog </searching_and_indexing/catalog>` tool to perform most of content related
-queries. Special catalogs, like ``reference_catalog``, exists, for specialized and optimized queries.
+*Querying* is the action to retrieve data from search indexes.  In Plone's
+case this usually means querying content items using the ``portal_catalog``
+tool.  Plone uses the :doc:`portal_catalog </searching_and_indexing/catalog>`
+tool to perform most content-related queries. Special catalogs, like
+``reference_catalog``, exist, for specialized and optimized queries.
 
 
-Accesing the portal catalog tool
----------------------------------
+Accesing the ``portal_catalog`` tool
+====================================
 
-Plone queries are performed using ``portal_catalog`` persistent tool which is available as
-an persistent object at the site root.
+Plone queries are performed using ``portal_catalog`` persistent tool which
+is available as an persistent object at the site root.
 
 Example::
 
     # portal_catalog is defined in the site root
     portal_catalog = site.portal_catalog
         
-You can also use :doc:`ITools </misc/context>` tool to get access to portal_catalog
-if you do not have Plone site object directly available::
+You can also use :doc:`ITools </misc/context>` tool to get access to
+``portal_catalog`` if you do not have Plone site object directly available::
 
     context = aq_inner(self.context)
     tools = getMultiAdapter((context, self.request), name=u'plone_tools')
 
     portal_url = tools.catalog()
     
-There is also a third way, using traversing. This is discouraged,
-as this includes extra processing overhead::
+There is also a third way, using traversing. This is discouraged, as this
+includes extra processing overhead::
 
     # Use magical Zope acquisition mechanism 
     portal_catalog = context.portal_catalog
     
-...and the same in TAL template::
+... and the same in TAL template::
 
     <div tal:define="portal_catalog context/portal_catalog" />
  
 
-A safer method is to use the getToolByName helper function::
+A safer method is to use the ``getToolByName`` helper function::
 
     from Products.CMFCore.utils import getToolByName
     catalog = getToolByName(context, 'portal_catalog')
 
-Querying portal_catalog
-------------------------------------------------
+Querying ``portal_catalog``
+===========================
 
 
-To search for something and get the resulting brains, write:
-
-::
+To search for something and get the resulting brains, write::
 
     results = catalog.searchResults(**kwargs)
 
+.. Note:: The catalog returns "*brains*". A brain is a lightweight proxy
+   for a found object, which has attributes corresponding to the metadata
+   defined for the catalog.
 
-Where ``kwargs`` is a dictionary of index names and their
-associated query values. Only the indexes that you care about need
-to be included. This is really useful if you have variable
-searching criteria, for example, coming from a form where the users
-can select different fields to search for. For example:
-
-::
+Where ``kwargs`` is a dictionary of index names and their associated query
+values. Only the indexes that you care about need to be included. This is
+really useful if you have variable searching criteria, for example, coming
+from a form where the users can select different fields to search for. For
+example::
 
     results = catalog.searchResults({'portal_type': 'Event', 'review_state': 'pending'})
 
-It is worth pointing out at this point that the indexes that you
-include are treated as a logical AND, rather than OR. In other
-words, the query above will find all the items that are both an
-Event, AND in the review state of pending.
+It is worth pointing out at this point that the indexes that you include are
+treated as a logical AND, rather than OR. In other words, the query above
+will find all the items that are both an Event, AND in the review state of
+pending.
 
 Additionally, you can call the catalog tool directly, which is
-equivalent to calling ``catalog.searchResults()``:
-
-::
+equivalent to calling ``catalog.searchResults()``::
 
     results = catalog(portal_type='Event')
-
 
 If you call portal_catalog() without arguments it will return all indexed content objects::
 
@@ -103,7 +100,7 @@ the portal_catalog "Metadata" tab in ZMI. For more information, see :doc:`indexi
 
 
 Available indexes
-~~~~~~~~~~~~~~~~~
+-----------------
 
 To see the full list of available indexes in your catalog, open the
 ZMI (what usually means navigating to *http://yoursiteURL/manage*)
@@ -169,7 +166,7 @@ object\_provides
 
 
 Brain result id
-------------------------
+========================
 
 Result ID (RID) is given with the brain object and you can use this ID to query 
 further info about the object from the catalog.
@@ -180,7 +177,7 @@ Example::
         872272330
 
 Brain result path
-------------------------
+========================
 
 Brain result path can be extraced as string using ``getPath()`` method::
 
@@ -189,7 +186,7 @@ Brain result path can be extraced as string using ``getPath()`` method::
 
 
 Brain object schema
-------------------------
+========================
 
 To see what metadata columns a brain object contain, you can access
 this information from ``__record_schema__`` attribute which is a dict.
@@ -208,13 +205,12 @@ Example::
         ('id', 19)
         ('cmf_uid', 29)
 
-.. note::
-
-        TODO: What do those numbers represent?
+.. TODO::
+    What do those numbers represent?
 
 
 Getting the underlying object, its path, and its URL from a brain
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------------------------
 
 As it was said earlier, searching inside the catalog returns
 catalog brains, not the object themselves. If you want to get the
@@ -248,7 +244,7 @@ which is equivalent to ``obj.absolute_url()``.
 
 
 getObject() and unrestrictedSearchResults() permission checks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------------------
 
 You cannot call getObject() for a restricted result, even in trusted code.
 
@@ -266,7 +262,7 @@ For more information, see
 
 
 Counting value of an specific index
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 The efficient way of counting the number value of an index is to work directly in this index. For example we want to count the number of each portal_type. Quering via search results is a performance bootleneck for that. Iterating on all brains put those in zodb cache. This method is also a memory bottleneck.
 So the good way for do that
@@ -287,7 +283,7 @@ So the good way for do that
 
 
 Sorting and limiting the number of results
----------------------------------------------
+=============================================
 
 To sort the results, use the sort\_on and sort\_order arguments.
 The sort\_on argument accepts any available index, even if you're
@@ -337,7 +333,7 @@ Example how to sort by id::
 
 
 Text format
-------------------------
+========================
 
 Since most indexes use Archetypes accessors to index the field value,
 the returned text is UTF-8 encoded. This is a limitation
@@ -353,7 +349,7 @@ To get unicode value for e.g. title you need to do the following::
         pass
 
 Accessing indexed data
-------------------------
+========================
 
 Normally you don't get copy of indexed data with brains, only metadata.
 You can still access the raw indexed data if you know what you are doing 
@@ -411,7 +407,7 @@ You can also directly access a single index::
 
 
 Dumping portal catalog content
-------------------------------
+==============================
 
 Following is useful in unit test debugging::
 
@@ -424,7 +420,7 @@ Following is useful in unit test debugging::
         
                
 Bypassing query security check
-------------------------------
+==============================
 
 .. note ::
 
@@ -444,7 +440,7 @@ the objects without triggering a security exception::
     obj = brain._unrestrictedGetObject()
     
 Bypassing language check
-------------------------
+========================
 
 .. note::
 
@@ -466,7 +462,7 @@ More information
 * http://plone.293351.n2.nabble.com/Products-LinguaPlone-LanguageIndex-vs-FieldIndex-td5554729.html#a5747819
     
 Bypassing Expired content check
---------------------------------
+================================
 
 Plone and portal_catalog have a mechanism to list only 
 active (non-expired) content by default.
@@ -484,7 +480,7 @@ See also::
 
 
 None as query parameter
-------------------------
+========================
 
 .. warning ::
 
@@ -496,7 +492,7 @@ None as query parameter
 
 
 Query by path
-----------------
+================
 
 ExtendedPathIndex_ is the index used for content object paths.
 The *path* index stores the physical path of the objects.
@@ -509,7 +505,7 @@ Example::
     portal_catalog(path={ "query": "/myploneinstance/myfolder" }) # return myfolder and all child content
 
 Searching for content within a folder
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 
 Use the 'path' argument to specify the physical path to the folder
 you want to search into.
@@ -539,7 +535,7 @@ example:
 
 
 Query multiple values
----------------------
+=====================
 
 ``KeywordIndex`` index type indexes list of values. 
 It is used e.g. by Plone's categories (subject) feature
@@ -583,7 +579,7 @@ any of given dates::
                                         
 
 Querying by interface
----------------------
+=====================
 
 See `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.
 
@@ -593,7 +589,7 @@ See `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-f
     as this implementation information is not populated in portal_catalog. 
 
 Query by content type
----------------------
+=====================
 
 To get all catalog brains of certain content type on the whole site::
 
@@ -602,7 +598,7 @@ To get all catalog brains of certain content type on the whole site::
 To see available type names, visit in portal_types tool in ZMI.
 
 Query published items
----------------------
+=====================
 
 By default, the portal_catalog query does not care about the workflow state. 
 You might want to limit the query to published items.
@@ -616,7 +612,7 @@ review_state is a portal_catalog index which reads portal_workflow variable "rev
 For more information, see what portal_workflow tool *Content* tab in ZMI contains.        
 
 Getting a random item
----------------------
+=====================
 
 The following view snippet allows you to get one random item on the site::
 
@@ -649,7 +645,7 @@ The following view snippet allows you to get one random item on the site::
     
    
 Querying FieldIndexes by Range
-----------------------------------
+==================================
 The following examples demonstrate how to do range based queries.
 This is useful if you want to find the "minimum" or "maximum" values
 of something, the example assumes that there is an index called 'getPrice'.
@@ -667,7 +663,7 @@ Get a value that falls between 2 and 1000::
    items = portal_catalog({'getPrice':{'query':[2,1000],'range':'min:max'}})
 
 Querying by date
-----------------
+================
 
 See `DateIndex <http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/DateIndex/tests/test_DateIndex.py?rev=102443&view=auto>`_.
 
@@ -728,7 +724,7 @@ More info
 * http://www.ifpeople.net/fairsource/courses/material/apiPlone_en
 
 Query by language
------------------
+=================
 
 You can query by language::
 
@@ -739,7 +735,7 @@ You can query by language::
         Products.LinguaPlone must be installed.
 
 Boolean queries (AdvancedQuery)
------------------------------------------
+=========================================
 
 AdvancedQuery is an add-on product for Zope's ZCatalog providing queries
 using boolean logic. AdvancedQuery is developer level product,
@@ -799,7 +795,7 @@ More information
 * http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/removed-advanced-query
 
 Unique values
--------------
+=============
 
 ZCatalog has *uniqueValuesFor()* method to retrieve all unique values for a certain index.
 It is intended to work on FieldIndexes only.
@@ -816,7 +812,7 @@ Example::
 
 
 Performance
-------------------------
+========================
 
 The following community mailing list blog posts is very insightful about the performance characteristics
 of Plone search and indexing:
@@ -824,7 +820,7 @@ of Plone search and indexing:
 * http://plone.293351.n2.nabble.com/Advice-for-site-with-very-large-number-of-objects-millions-tp5513207p5529103.html
 
 Batching
-----------
+==========
 
 TODO
 
@@ -835,7 +831,7 @@ Example::
 * orphan - the next page will be combined with the current page if it does not contain more than orphan elements 
 
 Walking through all content
------------------------------
+=============================
 
 ``portal_catalog()`` call without search parameters will return all indexed
 site objects.
@@ -879,7 +875,7 @@ More info:
 * http://blog.mfabrik.com/2011/02/17/finding-arbitary-html-snippets-on-plone-content-pages/
 
 Other notes
-------------
+============
 
 * `Indexing tutorial <http://plone.org/documentation/tutorial/using-portal_catalog/tutorial-all-pages>`_ on plone.org
 

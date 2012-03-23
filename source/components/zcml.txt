@@ -4,65 +4,68 @@
 
 .. admonition:: Description
 
-        What Plone programmers should know about ZCML
+    What Plone programmers should know about ZCML.
    
 .. contents :: :local:
         
 Introduction
------------------
+=================
 
-ZCML stands for Zope Configuration Mark-up Language. 
-It is an XML based language to extend and plug into Zope 3 based systems.
+ZCML stands for the *Zope Configuration Mark-up Language*.  It is an
+XML-based language used to extend and plug into systems based on the Zope
+Component Architecture (ZCA).
 
-ZCML provides
+ZCML provides:
+* conflict resolution (e.g. two plug-ins cannot overlap);
+* extendable syntax based on namespaces.
 
-* Conflict resolution: e.g. two plug-ins cannot overlap
+Downsides of ZCML are: 
+* it is cumbersome to write by hand; 
+* lack of end-user documentation.
 
-* Extendable syntax based on namespaces
+Plone uses ZCML to: 
+* register components with various places in the system, both core and
+  add-ons.
 
-Downsides of ZCML are
+.. note::
 
-* Cumbersome to write by hand
+    Everything you can do in ZCML can also be done in Python code.
 
-* Lack of documentation
-
-Plone uses ZCML to
-
-* Plug-in components to various places in the system, both core and add-ons
-
-.. note ::
-
-        Everything you can do in ZCML can be done in Python code too.
+After developers found ZCML cumbersome, the 
+:doc:`Grok framework </components/grok>` was created. Grok makes it possible
+use the ZCA without writing XML by enabling Python directives and function
+decorators to be used instead.         
         
-After developers found ZCML cumbersome, :doc:`Grok framework </components/grok>` was
-created in order to avoid manual XML writing and using Python directives and function decorators 
-instead.         
-        
-More info
+More info:
 
 * `ZCML reference <http://apidoc.zope.org/++apidoc++/ZCML/staticmenu.html>`_ (does not include Plone specific directives)
 
 * http://docs.zope.org/zopetoolkit/codingstyle/zcml-style.html 
                 
 ZCML workflow
------------------------
+==============
 
-Each Plone component (core, add-on) has a base ``configure.zcml`` in the package root.
-This ZCML file can include additional nested configuration files using ``<include>`` directive.
+Each Plone component (core, add-on) has a base ``configure.zcml`` in the
+package root.  This ZCML file can include additional nested configuration
+files using the ``<include>`` directive.
 
-* ZCML is always executed during Plone start up
+* ZCML is always interpreted during Plone start-up.
 
-* Your :doc:`unit test </testing_and_debugging/unit_testing>` may need to manually include ZCML
+* Your :doc:`unit test </testing_and_debugging/unit_testing>` may need to
+  manually include ZCML.
 
-* :doc:`Funny exception error messages occur if Plone is started in the production mode and ZCML was
-  not properly read for all the packages </troubleshooting/exceptions>`
+* :doc:`Funny exception error messages occur if Plone is started in the
+  production mode and ZCML was not properly read for all the packages
+  </troubleshooting/exceptions>`
 
-When Plone is started all ZCML files are picked  up.
+When Plone is started all ZCML files are read.
 
-* (new way) Python egg setup.py file contains `autoinclude <http://plone.org/products/plone/roadmap/247>`_ 
-  hint and is picked up automatically when all the packages
-  are scanned
+* New way: Python egg ``setup.py`` file contains a
+  `autoinclude <http://plone.org/products/plone/roadmap/247>`_ 
+  hint and is picked up automatically when all the packages are scanned.
 
-* (old way) ZCML reference must be manually added to zcml = section in buildout.cfg
+* Old way: ZCML reference must be manually added to the ``zcml = section``
+  in ``buildout.cfg``
 
-If ZCML contains errors :doc:`Plone does not start up on foreground </troubleshooting/basic>`
+If ZCML contains errors 
+:doc:`Plone does not start up in the foreground </troubleshooting/basic>`
