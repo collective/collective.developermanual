@@ -243,3 +243,43 @@ isolated evnironment::
     
     Look recursively in <module_path> for Python modules and packages and create
     one reST file with automodule directives per package in the <output_path>...
+
+
+Section Variables and Part Options
+==================================
+
+So far, this buildout is just being used as an isolated distribution
+installer, but a reproducible deployment is more often much more than
+that.  Buildout is most useful for capturing and documenting the
+specific details required by the deployment.  Recipes are responsible
+for supporting those details and expect to be given options to that
+end.  In the configuration file, those options are just the section
+variables in the part that are recognized by the recipe.
+
+The `zc.recipe.egg` recipe, for example, has a `dependent-scripts
+<http://pypi.python.org/pypi/zc.recipe.egg/1.3.2#script-generation>`_
+option.  If `true`, this option causes the recipe to install the
+console scripts for any of the distribution's dependencies that define
+console scripts::
+
+    [buildout]
+    parts = sphinx
+
+    [sphinx]
+    recipe = zc.recipe.egg
+    dependent-scripts = true
+
+Now when `bin/buildout` is run, the `pygmentize` console script from
+the `Pygments` dependency of `sphinx` is also installed::
+
+    $ bin/buildout
+    Uninstalling sphinx.
+    Installing sphinx.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-apidoc'.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-build'.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-quickstart'.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-autogen'.
+    Generated script '/opt/src/buildout-tutorial/bin/pygmentize'.
+    $ bin/pygmentize --help
+    Usage: bin/pygmentize [-l <lexer> | -g] [-F <filter>[:<options>]] [-f <formatter>]
+              [-O <options>] [-P <option=value>] [-o <outfile>] [<infile>]...
