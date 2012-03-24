@@ -83,12 +83,10 @@ then contain named variables with values.
 
 The core configuration of any buildout deployment is described in the
 `[buildout]` section.  A buildout deployment consists of 'parts',
-which are special configuration sections.  While an arbitrary
-configuration file can be specified on the command line, the default
-configuration file is `buildout.cfg`.  As such, to create the simplest
-possible buildout, which is an empty deployment, create an empty
-directory and put the following into a `buildout.cfg` file in that
-directory::
+which are special configuration sections.  The default configuration
+file is `buildout.cfg`.  As such, to create the simplest possible
+buildout, which is an empty deployment, create an empty directory and
+put the following into a `buildout.cfg` file in that directory::
 
     [buildout]
     parts =
