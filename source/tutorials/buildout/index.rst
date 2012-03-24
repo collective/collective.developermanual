@@ -117,8 +117,9 @@ installation to use for that buildout and establishes the isolated
 Python environment described in `Why Buildout`_.  This step also gets
 the minimum requirements necessary to use the Buildout software
 itself.  This step is called bootstrapping and is only necessary the
-first time a given copy of a given buildout is set up, or if an
-existing buildout is moved.
+first time a given copy of a given buildout is set up, if an
+existing buildout is moved, or if a different Python installation is
+used.
 
 To bootstrap, copy into the buildout directory the `bootstrap.py`
 script from::
