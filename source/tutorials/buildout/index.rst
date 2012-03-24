@@ -34,15 +34,16 @@ Describing Deployments
     them all.
 
 Factoring Deployment Configuration
-    Another element of reproducible deployments is to allow sharing common
-    pieces of slightly different deployments.  For example, when building
-    a web application you often want to use tools for development that
-    should never be deployed to production, but you also need to be able
-    to trust that your development environment otherwise reflects what
-    will be deployed to production.  Buildout ways to factor deployment
-    configuration such that you can use the same buildout for development
-    and production but specify which variation of the buildout should be
-    used in each environment.
+    Another element of reproducible deployments is to allow sharing
+    common pieces of slightly different deployments.  For example,
+    when building a web application you often want to use tools for
+    development that should never be deployed to production, but you
+    also need to be able to trust that your development environment
+    otherwise reflects what will be deployed to production.  Buildout
+    provides ways to factor deployment configuration such that you can
+    use the same buildout for development and production but specify
+    which variation of the buildout should be used in each
+    environment.
 
 Deployment Isolation
     Another important element of reproducible deployments is isolation,
