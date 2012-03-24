@@ -8,7 +8,7 @@ it really is if you're new to it and are trying to understand an
 <https://github.com/plone/Installers-UnifiedInstaller/blob/master/buildout_templates/base.cfg>`_.
 A single buildout can grow to do quite a lot, but a buildout also need
 only be complex as what it's being used to do.  This document aims to
-help the reader understand the core concepts of buildout starting with
+help the reader understand the core concepts of Buildout starting with
 the simplest possible buildout and working through increasingly
 complex buildouts.  At the end, the reader should be able to walk up
 to an existing complex buildout and understand what it does.
@@ -17,11 +17,11 @@ to an existing complex buildout and understand what it does.
 Why Buildout?
 =============
 
-The primary purpose of buildout is reproducible deployments.  A
+The primary purpose of Buildout is reproducible deployments.  A
 deployment can be a number of things from as simple as installing a
 python script in an isolated directory and environment to a full web
 application deployment containing multiple pieces and a lot of
-configuration.  To that end buildout provides a number of services:
+configuration.  To that end Buildout provides a number of services:
 
 Describing Deployments
     Buildout is best used to define and describe what a given deployment
@@ -51,7 +51,7 @@ Deployment Isolation
     end, a buildout deployment `provides an isolated Python
     environment
     <http://pypi.python.org/pypi/zc.buildout/1.5.2#system-python-and-zc-buildout-1-5>`_
-    into which buildout can install Python distributions which won't
+    into which Buildout can install Python distributions which won't
     interfere with anything outside the buildout or be interfered with
     by things outside the buildout.
 
@@ -59,19 +59,36 @@ Installing Software
     Finally, a big part of any real-world deployment is retrieving,
     building and installing software.  Another important part of that
     is doing the same for any dependencies of that software.  As such,
-    buildout uses `distribute
+    Buildout uses `distribute
     <http://packages.python.org/distribute/>`_ and provides it's own
     version of `easy_install
     <http://packages.python.org/distribute/easy_install.html>`_ to do
     this for Python software.
 
-While built on Python, some of the core services buildout provides are
+While built on Python, some of the core services Buildout provides are
 Python specific, and Buildout is most useful on Python projects, there
 is nothing necessarily Python specific about using what a buildout
 deploys and it can be used for non-Python projects.
 
 
-A Simple Buildout
+'Buildout' as a Technical Term
+==============================
+
+A common source of confusion is the fact that 'buildout' as a term can
+apply to two things that a user of Buildout will frequently have to
+deal with.  The first meaning of 'Buildout' is to refer to
+`zc.buildout` the software.  This includes the `bin/buildout` script
+or when referring to running 'Buildout'.  The other meaning is to
+refer to the individual deployment directory as 'a buildout'.  IOW,
+when you checkout from version control into a working copy directory
+that uses 'Buildout' the software, that directory is 'a buildout'.  To
+limit confusion about this, this tutorial uses 'Buildout' with a
+capital 'B' to refer to the software and 'a buildout' with a lower
+case 'b' to refer to a specific copy of a buildout in a specific
+directory.
+
+
+A Simple buildout
 =================
 
 A buildout configuration describes a deployment.  This description is
@@ -94,11 +111,11 @@ put the following into a `buildout.cfg` file in that directory::
     parts =
 
 Now that the deployment is described in the configuration file we can
-use buildout to deploy the empty environment described.  Deploying a
+use Buildout to deploy the empty environment described.  Deploying a
 buildout has two steps.  The first step defines which Python
 installation to use for that buildout and establishes the isolated
 Python environment described in `Why Buildout`_.  This step also gets
-the minimum requirements necessary to use the buildout software
+the minimum requirements necessary to use the Buildout software
 itself.  This step is called bootstrapping and is only necessary the
 first time a given copy of a given buildout is set up, or if an
 existing buildout is moved.
@@ -110,8 +127,8 @@ script from::
 
 To establish the isolated Python environment, use the Python
 installation that should be used for the buildout to run the
-`bootstrap.py` script.  From that point on, buildout will use that
-Python installation for all subsequent buildout operations::
+`bootstrap.py` script.  From that point on, Buildout will use that
+Python installation for all subsequent Buildout operations::
 
     $ /path/to/python bootstrap.py -d
     Creating directory '/opt/src/buildout-tutorial/bin'.
@@ -121,6 +138,6 @@ Python installation for all subsequent buildout operations::
 
 Once the buildout is bootstrapped, use the `bin/buildout` script to
 deploy.  Since this buildout configuration describes an empty
-deployment, running buildout does nothing::
+deployment, running Buildout does nothing::
 
     $ bin/buildout
