@@ -136,8 +136,13 @@ Python installation for all subsequent Buildout operations::
     Creating directory '/opt/src/buildout-tutorial/develop-eggs'.
     Generated script '/opt/src/buildout-tutorial/bin/Buildout'.
 
-Once the buildout is bootstrapped, use the `bin/buildout` script to
-deploy.  Since this buildout configuration describes an empty
+Now the directory has three new directories, whose purposes will be
+come clear in the next chapter, and a `bin/buildout` script (or
+`bin\buildout.exe` on Windows) which is used to apply the deployment
+configuration.  Since this buildout configuration describes an empty
 deployment, running Buildout does nothing::
 
     $ bin/buildout
+
+Next, we'll move beyond an empty buildout to an example of the
+simplest possible buildout that actually deploys something.
