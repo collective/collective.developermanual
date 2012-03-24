@@ -72,12 +72,12 @@ deploys and it can be used for non-Python projects.
 A Simple Buildout
 =================
 
-A given buildout describes the desired deployment in configuration
-files, named with a `.cfg` extension by convention, which use an
-extended `ConfigParser
+A buildout configuration describes a deployment.  This description is
+written in configuration files, named with a `.cfg` extension by
+convention.  These files use an extended `ConfigParser
 <http://docs.python.org/library/configparser.html>`_ format from the
-Python standard library and is a very common configuration file
-format.  These configuration files consist of named 'sections',
+Python standard library.  You'll likely recognize this format as a
+very common configuration file format consisting of named 'sections',
 defined by a line with the section name in brackets.  These sections
 then contain named variables with values.
 
