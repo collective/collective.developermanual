@@ -60,7 +60,7 @@ Installing Software
     buildout uses `distribute
     <http://packages.python.org/distribute/>`_ and provides it's own
     version of `easy_install
-    <http://packages.python.org/distribute/easy_install.html>`_ to di
+    <http://packages.python.org/distribute/easy_install.html>`_ to do
     this for Python software.
 
 While built on Python, some of the core services buildout provides are
