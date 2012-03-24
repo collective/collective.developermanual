@@ -214,6 +214,15 @@ by re-running `bin/buildout`::
     Generated script '/opt/src/buildout-tutorial/bin/sphinx-quickstart'.
     Generated script '/opt/src/buildout-tutorial/bin/sphinx-autogen'.
 
+Buildout tells us a bit about what it did while updating the
+deployment to add the new part.  It retrieved, built, and installed
+the Python distributions for the recipe, the distribution required by
+the part, and all of their dependencies.  Note that it also reports
+the versions it chose for the distributions it retrieved.  We'll
+discuss how to specify and control those versions later.  Finally, it
+installs the `console_scripts` specified in the `setup.py` of the
+distribution specified in the part.
+
 We've omitted some of the output that comes from building the eggs.
 For context, that output most often occurs when building as
 `setuptools` eggs Python distributions which only use Python's
@@ -221,5 +230,14 @@ For context, that output most often occurs when building as
 important but do on occasion indicate a genuine problem.
 Unfortunately, there's no clear way for a user who isn't an expert in
 Buildout and distribute to interpret whether or not there is a
-problem.  So the best answer is to ignore such messages until you have
-reason to think there is a problem.
+problem.  With apologies, the best answer is to ignore such messages
+until you have reason to think there is a problem.
+
+At this point we can safely run the sphinx console scripts in an
+isolated evnironment::
+
+    $ bin/sphinx-apidoc --help
+    Usage: sphinx-apidoc [options] -o <output_path> <module_path> [exclude_paths, ...]
+    
+    Look recursively in <module_path> for Python modules and packages and create
+    one reST file with automodule directives per package in the <output_path>...
