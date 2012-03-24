@@ -45,13 +45,15 @@ Factoring Deployment Configuration
     environment.
 
 Deployment Isolation
-    Another important element of reproducible deployments is isolation,
-    ensuring that the deployment won't be interfered with or interfere
-    with other things in the same environment.  To that end, a buildout
-    deployment provides an isolated Python environment into which buildout
-    can install Python distributions which won't interfere with anything
-    outside the buildout or be interfered with by things outside the
-    buildout.
+    Another important element of reproducible deployments is
+    isolation, ensuring that the deployment won't be interfered with
+    or interfere with other things in the same environment.  To that
+    end, a buildout deployment `provides an isolated Python
+    environment
+    <http://pypi.python.org/pypi/zc.buildout/1.5.2#system-python-and-zc-buildout-1-5>`_
+    into which buildout can install Python distributions which won't
+    interfere with anything outside the buildout or be interfered with
+    by things outside the buildout.
 
 Installing Software
     Finally, a big part of any real-world deployment is retrieving,
