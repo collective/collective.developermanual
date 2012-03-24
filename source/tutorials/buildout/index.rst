@@ -128,8 +128,11 @@ script from::
 
 To establish the isolated Python environment, use the Python
 installation that should be used for the buildout to run the
-`bootstrap.py` script.  From that point on, Buildout will use that
-Python installation for all subsequent Buildout operations::
+`bootstrap.py` script.  In my opinion, it is best to use the `-d`
+option with the `bootstrap.py` script so that Buildout will use the
+more actively maintained `distribute` project.  From that point on,
+Buildout will use that Python installation for all subsequent Buildout
+operations::
 
     $ /path/to/python bootstrap.py -d
     Creating directory '/opt/src/buildout-tutorial/bin'.
