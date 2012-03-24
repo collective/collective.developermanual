@@ -94,16 +94,22 @@ put the following into a `buildout.cfg` file in that directory::
 Now that the deployment is described in the configuration file we can
 use buildout to deploy the empty environment described.  Deploying a
 buildout has two steps.  The first step defines which Python
-installation to use for that buildout and gets the minimum
-requirements necessary to use the buildout software itself.  This step
-is called bootstrapping and is only necessary the first time a given
-copy of a given buildout is set up, or if an existing buildout is
-moved.  To bootstrap, copy the `bootstrap.py
-<http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py>`_
-script into the buildout directory and run it with the Python
-installation which should be used.  From that point on, buildout will
-use that Python for all subsequent buildout operations and the Python
-installation used by for a deployment of a Python project::
+installation to use for that buildout and establishes the isolated
+Python environment described in `Why Buildout`_.  This step also gets
+the minimum requirements necessary to use the buildout software
+itself.  This step is called bootstrapping and is only necessary the
+first time a given copy of a given buildout is set up, or if an
+existing buildout is moved.
+
+To bootstrap, copy into the buildout directory the `bootstrap.py`
+script from::
+
+    http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py
+
+To establish the isolated Python environment, use the Python
+installation that should be used for the buildout to run the
+`bootstrap.py` script.  From that point on, buildout will use that
+Python installation for all subsequent buildout operations::
 
     $ /path/to/python bootstrap.py -d
     Creating directory '/opt/src/buildout-tutorial/bin'.
