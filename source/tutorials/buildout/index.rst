@@ -178,7 +178,7 @@ provides a `recipe` variable, and whose section name is listed in the
     parts = sphinx
 
     [sphinx]
-    recipe = zc.recipe.egg:scripts
+    recipe = zc.recipe.egg
 
 In this case, we use the `zc.recipe.egg` recipe which is a part of the
 Buildout project itself.  This recipe retrieves Python
