@@ -200,25 +200,12 @@ by re-running `bin/buildout`::
     Getting distribution for 'sphinx'.
     Got Sphinx 1.1.3.
     Getting distribution for 'docutils>=0.7'.
-    warning: no files found matching 'MANIFEST'
-    warning: no previously-included files matching '.cvsignore' found under directory '*'
-    warning: no previously-included files matching '*.pyc' found under directory '*'
-    warning: no previously-included files matching '*~' found under directory '*'
-    warning: no previously-included files matching '.DS_Store' found under directory '*'
+    warning: ...
     zip_safe flag not set; analyzing archive contents...
-    docutils.parsers.rst.directives.misc: module references __file__
-    docutils.writers.html4css1.__init__: module references __file__
-    docutils.writers.pep_html.__init__: module references __file__
-    docutils.writers.s5_html.__init__: module references __file__
-    docutils.writers.latex2e.__init__: module references __file__
-    docutils.writers.odf_odt.__init__: module references __file__
+    docutils.parsers.rst.directives.misc: module references __file__...
     Got docutils 0.8.1.
     Getting distribution for 'Jinja2>=2.3'.
-    warning: no previously-included files matching '*' found under directory 'docs/_build'
-    warning: no previously-included files matching '*.pyc' found under directory 'jinja2'
-    warning: no previously-included files matching '*.pyc' found under directory 'docs'
-    warning: no previously-included files matching '*.pyo' found under directory 'jinja2'
-    warning: no previously-included files matching '*.pyo' found under directory 'docs'
+    warning: ...
     Got Jinja2 2.6.
     Getting distribution for 'Pygments>=1.2'.
     Got Pygments 1.5.
@@ -226,3 +213,13 @@ by re-running `bin/buildout`::
     Generated script '/opt/src/buildout-tutorial/bin/sphinx-build'.
     Generated script '/opt/src/buildout-tutorial/bin/sphinx-quickstart'.
     Generated script '/opt/src/buildout-tutorial/bin/sphinx-autogen'.
+
+We've omitted some of the output that comes from building the eggs.
+For context, that output most often occurs when building as
+`setuptools` eggs Python distributions which only use Python's
+`distutils`.  The warnings come from distribute and are often not
+important but do on occasion indicate a genuine problem.
+Unfortunately, there's no clear way for a user who isn't an expert in
+Buildout and distribute to interpret whether or not there is a
+problem.  So the best answer is to ignore such messages until you have
+reason to think there is a problem.
