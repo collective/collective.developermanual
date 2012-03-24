@@ -23,7 +23,6 @@ python script in an isolated directory and environment to a full web
 application deployment containing multiple pieces and a lot of
 configuration.  To that end buildout provides a number of services:
 
-
 Describing Deployments
     Buildout is best used to define and describe what a given deployment
     needs to contain and how to configure it.  The buildout can then be
