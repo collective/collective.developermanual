@@ -147,3 +147,66 @@ deployment, running Buildout does nothing::
 
 Next, we'll move beyond an empty buildout to an example of the
 simplest possible buildout that actually deploys something.
+
+
+The Simplest buildout
+=====================
+
+The simplest buildout will deploy a Python distribution in an isolated
+environment.  In this case we'll add the `docutils` distribution to
+our empty buildout and Buildout will retrieve that distribution, build
+it, install it isolated in the buildout, and add any console scripts
+to the `bin` directory.
+
+We tell Buildout what the pieces of a deployment are by adding special
+sections to the configuration called 'parts'.  Since deployments often
+need to do many different kinds of things in the same deployment,
+different parts need to be able to use different variables as options
+and perform different logic and actions.  As such, Buildout uses
+different Python code for different kinds of parts to provide specific
+deployment behavior.  The Python code that handles a given buildout
+part is called a `recipe`.
+
+In the configuration file, a 'part' is just a named section that
+provides a `recipe` variable, and whose section name is listed in the
+`[buildout]` section's `parts` variable::
+
+    [buildout]
+    parts = docutils
+
+    [docutils]
+    recipe = zc.recipe.egg
+
+In this case, we use the `zc.recipe.egg` recipe which is a part of the
+Buildout project itself.  This recipe retrieves Python
+distributions, installs them isolated to the buildout, and also
+handles installing console scripts.  Later, we'll use part variables
+as options to control the behavior of the recipe, but for now we'll
+make use of the default behavior of `zc.recipe.egg` which is to get
+the name of a single distribution to install from the part name.
+
+Since we have already bootstrapped the buildout, haven't moved the
+buildout directory, and we're using the same python, we do not need to
+run the `bootstrap.py` script again.  We can just update our buildout
+by re-running `bin/buildout`::
+
+    $ bin/buildout 
+    Creating directory '/opt/src/buildout-tutorial/eggs'.
+    Getting distribution for 'zc.recipe.egg'.
+    Got zc.recipe.egg 1.3.2.
+    Installing docutils.
+    Getting distribution for 'docutils'.
+    warning: no files found matching 'MANIFEST'
+    warning: no previously-included files matching '.cvsignore' found under directory '*'
+    warning: no previously-included files matching '*.pyc' found under directory '*'
+    warning: no previously-included files matching '*~' found under directory '*'
+    warning: no previously-included files matching '.DS_Store' found under directory '*'
+    zip_safe flag not set; analyzing archive contents...
+    docutils.parsers.rst.directives.misc: module references __file__
+    docutils.writers.html4css1.__init__: module references __file__
+    docutils.writers.pep_html.__init__: module references __file__
+    docutils.writers.s5_html.__init__: module references __file__
+    docutils.writers.latex2e.__init__: module references __file__
+    docutils.writers.odf_odt.__init__: module references __file__
+    Got docutils 0.8.1.
+
