@@ -16,7 +16,7 @@ Introduction
 `Python <http://python.org>`_ is the programming language used by 
 `Plone <http://plone.org>`_ and `Zope <http://zope.org>`_.
 
-Tutorial and language learning
+Python Tutorials
 ===============================
 
 * Official Python tutorial: http://docs.python.org/tutorial/
