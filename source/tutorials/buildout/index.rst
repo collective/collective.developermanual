@@ -156,7 +156,7 @@ The Simplest buildout
 =====================
 
 The simplest buildout will deploy a Python distribution in an isolated
-environment.  In this case we'll add the `docutils` distribution to
+environment.  In this case we'll add the `sphinx` distribution to
 our empty buildout and Buildout will retrieve that distribution, build
 it, install it isolated in the buildout, and add any console scripts
 to the `bin` directory.
@@ -175,10 +175,10 @@ provides a `recipe` variable, and whose section name is listed in the
 `[buildout]` section's `parts` variable::
 
     [buildout]
-    parts = docutils
+    parts = sphinx
 
-    [docutils]
-    recipe = zc.recipe.egg
+    [sphinx]
+    recipe = zc.recipe.egg:scripts
 
 In this case, we use the `zc.recipe.egg` recipe which is a part of the
 Buildout project itself.  This recipe retrieves Python
@@ -194,11 +194,12 @@ run the `bootstrap.py` script again.  We can just update our buildout
 by re-running `bin/buildout`::
 
     $ bin/buildout 
-    Creating directory '/opt/src/buildout-tutorial/eggs'.
     Getting distribution for 'zc.recipe.egg'.
     Got zc.recipe.egg 1.3.2.
-    Installing docutils.
-    Getting distribution for 'docutils'.
+    Installing sphinx.
+    Getting distribution for 'sphinx'.
+    Got Sphinx 1.1.3.
+    Getting distribution for 'docutils>=0.7'.
     warning: no files found matching 'MANIFEST'
     warning: no previously-included files matching '.cvsignore' found under directory '*'
     warning: no previously-included files matching '*.pyc' found under directory '*'
@@ -212,4 +213,16 @@ by re-running `bin/buildout`::
     docutils.writers.latex2e.__init__: module references __file__
     docutils.writers.odf_odt.__init__: module references __file__
     Got docutils 0.8.1.
-
+    Getting distribution for 'Jinja2>=2.3'.
+    warning: no previously-included files matching '*' found under directory 'docs/_build'
+    warning: no previously-included files matching '*.pyc' found under directory 'jinja2'
+    warning: no previously-included files matching '*.pyc' found under directory 'docs'
+    warning: no previously-included files matching '*.pyo' found under directory 'jinja2'
+    warning: no previously-included files matching '*.pyo' found under directory 'docs'
+    Got Jinja2 2.6.
+    Getting distribution for 'Pygments>=1.2'.
+    Got Pygments 1.5.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-apidoc'.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-build'.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-quickstart'.
+    Generated script '/opt/src/buildout-tutorial/bin/sphinx-autogen'.
