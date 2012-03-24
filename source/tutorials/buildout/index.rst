@@ -13,6 +13,8 @@ the simplest possible buildout and working through increasingly
 complex buildouts.  At the end, the reader should be able to walk up
 to an existing complex buildout and understand what it does.
 
+.. toctree::
+
 
 Why Buildout?
 =============
