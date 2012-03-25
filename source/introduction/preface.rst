@@ -2,54 +2,60 @@
 Preface
 =======
 
-Plone and its accompanying technologies have been built over the course of many
-years. The codebase contains over 6000 modules. Even the masterminds don't get
-it always on the first try: over the years, generations of technologies for the
-same function have come and gone, leaving their mark on the code. There are
-technologies which were built when HTTP was just becoming mainstream. There are
-technologies which were built when the Python programming language was still
-young, lacking vast amounts of power and standard library functionality
-available nowadays. Then there are the new trends that influence how things
-should be done, which displace older approaches that may have hit limitations.
+Plone is an open source content management system that lets non-technical people 
+create and maintain web content from their broswer.  With a rich ecosystem of 
+add-on packages and a highly extensible layout system, Plone offers a robust platform
+for those wishing to enhance its core functionality.
 
-The results of hundreds of man-years of code evolution, to develop a
-comprehensive feature set, comes at a price. While Plone tends to cover even
-the most remote corner cases, this comprehensiveness brings complexity, which
-in turn can make simple things unnecessarily difficult.
+Plone has a number of strengths:
 
-Plone is easily one of the most complex Python projects, and no human person
-can master it perfectly. It is not always easy to figure out how everything is
-interacting, especially when there are several ways of doing the same thing.
-There may or may not be good documentation, but due to the vast number of
-possible needs, most of them are uncovered. The documentation itself is
-distributed to the separate domains of knowledge from different ages.
+* Plone enables complex workflows
+* Plone has rich support for internationalization
+* Plone provides clear upgrade paths
+* Plone integrates with Active Directory, Salesforce, LDAP, SQL, Web Services,
+  Oracle (By using Add-on products)
+* Plone scales well
+* Plone will grow with your expanding CMS needs. Many systems will be good
+  for simple sites, but will not be able to handle the expanding requirements 
+  you are likely to encounter over time.
+* Plone is Open Source!
+
+Plone and its accompanying technologies have evolved over the course of many
+years. The codebase contains over 6000 modules. Given the complexity of the
+overall system and large number of optional and included packages, very few
+Plone developers/users know how do everything.
+
+Due to Plone's longevity it has spanned and outlasted some technologies and
+Python practices.  Thus you will see some Python usage which may not match
+todays accepted code practices. You will also see use of Python libraries 
+which are deprecated, and/or implement code where today a standard or 
+optional Python package would be preferred.
+
+Due to Plone's complexity it's important to keep the following in mind:
+
+* Plone has a high level of complexity
+* Plone has more than one way to accomplish many tasks. (Some of which are deprecated)
+* Plone doesn't always have the most complete or up to date documention for all components
 
 When you encounter something you want to get accomplished, but you are unable
-to find direct examples of how to do it, you can resort to the two following
-methods:
+to find direct examples of how to do it, use the following procedure:
 
-* Ask for help. Try the ``#plone`` IRC channel on freenode [1]_ and the
-* product-developers email list [2]_. The help might not arrive instantly.
-  You'll increase chances to get a fellow giving you a helping hand if you can
-  provide very detailed descriptions of your problem. People are also
-  voluntarily helping you; it is not feasible to push them for more they can
-  give for you.
+#. Formulate your question to represent your issue in a way that makes it easy for others to answer [1]_
+#. Search via google and/or stackoverflow
+#. Try the ``#plone`` IRC channel on freenode [2]_ 
+#. Join and send email to the product-developers email list [3]_. 
+#. UTSL (Use The Source Luke). Plone is almost entirely Python code. You can always refer to the source to figure out anything about Plone. Plone source is made up of Python, ZCML, XML, Javascript and Page Template files.
 
-* Search through the codebase. Search references and clues from all the Python,
-  ZCML, XML, Javascript and Page Template files found in the codebase by task
-  keywords. After you find hits, read through the code until you have figured
-  out how all different subsystems interface.
+If you ask the community for help, it may not arrive instantly. Please remember 
+that People are voluntarily helping you. If you need help immediately your best 
+option may be to find paid support for your issues [4]_.
 
 Be patient. Be aware that you are dealing with a complex system and you need to
-reserve time to manage technology and minimize risks. The worst unknowns are
-unknowns you don't know are unknowns. But remember: there are never things you
-cannot do or things you cannot know. There is no black box |---| the codebase is
-all open. With enough patience, you can study it and find solutions to all
-problems. If the stock code does not do it, you can easily monkey-patch the
-existing modules to bend them to your will, or in the most extreme situations
-you can fork the entire project.
+reserve time to manage technology and minimize risks. The community is very supportive and will help you if you make an effort to make it easy for them to do so.
 
-.. [1] http://plone.org/support/chat
-.. [2] http://plone.org/support/forums/addons
+.. [1] http://plone.org/documentation/kb/ask-for-help
+.. [2] http://plone.org/support/chat
+.. [3] http://plone.org/support/forums/addons
+.. [4] http://plone.org/support/providers
 
 .. |---| unicode:: U+02014 .. em dash
