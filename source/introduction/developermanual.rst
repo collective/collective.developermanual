@@ -16,9 +16,9 @@ Introduction
 
 This document concerns those who:
 
-* wish to generate a HTML version of Plone Community Developer manual
+* Wish to generate a HTML version of Plone Community Developer manual
 
-* need to edit templates or styles of Plone Community Developer manual, or
+* Need to edit templates or styles of Plone Community Developer manual, or
   otherwise customize Sphinx process
 
 * Need to deal with readthedocs.org integration
@@ -68,6 +68,10 @@ or::
 Then clone ``collective.developermanual`` from GitHub::
 
     git clone git://github.com/collective/collective.developermanual.git
+
+See the
+`git website <http://git-scm.com/>`_ 
+for more information about git.
 
 Run buildout to install Sphinx.
 First step: bootstrap::
