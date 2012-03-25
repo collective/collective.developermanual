@@ -6,7 +6,7 @@ Files
 
     Using files with Archetype field
 
-.. contents :: local
+.. contents:: local
 
 Download URL for files for ATFile content
 =========================================
@@ -17,7 +17,7 @@ Append ``@@download`` view to URL.
 Checking whether a File field has uploaded content
 ====================================================
 
-Calling AT File field accessor will return a File object::
+Calling AT File field accessor will return a ``File`` object::
 
     (Pdb) self.context.getAttachment()
     <File at /mfabrik/success-stories/case-studies/finnish-national-broadcasting-company/attachment>
@@ -27,8 +27,8 @@ but the form has not been properly saved.
         
 If size is ``0`` file is not yet uploaded::
 
-        (Pdb) attach.getSize()
-        0
+    (Pdb) attach.getSize()
+    0
         
 Example how to check in a view whether AT context file size exists::
 
