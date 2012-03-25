@@ -5,44 +5,42 @@
 This is a glossary for some definitions used in this documentation and
 still heavily under construction.
 
-For a more complete glossary, please refer to the 
-`glossary on plone.org <http://plone.org/documentation/glossary>`_.
+It incorporates the original `glossary on plone.org
+<http://plone.org/documentation/glossary>`_.
 
 .. glossary:: :sorted:
 
     Egg
-        A widely used Python packaging format which consists of a zip or
-        ``.tar.gz`` archive with some metadata information, introduced by
-        `setuptools <http://peak.telecommunity.com/DevCenter/EasyInstall>`_
-        which has now been superseded by 
-        `Distribute <http://packages.python.org/distribute/>`_.
+        See :term:`Python egg`.
 
     reStructuredText
         The standard plaintext markup language used for Python
         documentation: http://docutils.sourceforge.net/rst.html
 
         `reStructuredText <http://docutils.sourceforge.net/rst.html>`_ is an
-        easy-to-read, what-you-see-is-what-you-get plaintext markup syntax
-        and parser system. It is useful for in-line program documentation
-        (such as Python docstrings), for quickly creating simple web pages,
-        and for standalone documents.  reStructuredText is designed for
-        extensibility for specific application domains. The reStructuredText
-        parser is a component of `Docutils
-        <http://docutils.sourceforge.net/index.html>`_.  reStructuredText is
-        a revision and reinterpretation of the `StructuredText
-        <http://plone.org/documentation/glossary/stx>`_ and `Setext
-        <http://docutils.sourceforge.net/mirror/setext.html>`_ lightweight
-        markup systems.
+        easy-to-read plaintext markup syntax and parser system. It is useful
+        for in-line program documentation (such as Python docstrings), for
+        quickly creating simple web pages, and for standalone documents.
+        reStructuredText is designed to be extensible for specific
+        application domains. The reStructuredText parser is a component of
+        `Docutils <http://docutils.sourceforge.net/index.html>`_.
+
+        reStructuredText is a revision and reinterpretation of the
+        `StructuredText <http://plone.org/documentation/glossary/stx>`_ and
+        `Setext <http://docutils.sourceforge.net/mirror/setext.html>`_
+        lightweight markup systems.
 
     slug
-        A ZCML *slug* is a one-liner created in the zope instance's
-        *etc/package-includes* directory, with a name like
-        *my.package-configure.zcml* which is the Zope 3 way to load a
-        particular package. e.g.
-        include package="my.package" file="configure.zcml" />``
+        A ZCML *slug* is a one-line file created in a Zope instance's
+        ``etc/package-includes`` directory, with a name like
+        ``my.package-configure.zcml``. The contents of the file would be
+        something like:
+        ``<include package="my.package" file="configure.zcml" />``
+
+        This is the Zope 3 way to load a particular package. 
 
     VirtualHostMonster
-        A Zope technology that supported virtual hosting. See
+        A Zope technology that supports virtual hosting. See
         `VirtualHostMonster URL rewriting mechanism
         <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_ 
 
@@ -51,31 +49,31 @@ For a more complete glossary, please refer to the
         is also the way security settings are handled in Plone. 
 
     ZODB
-        ZODB is the Zope Object Database, which is where your content is
-        normally stored when you are using Plone. On the file system, this
-        database is contained in the file "Data.fs", normally located in the
-        "var" directory.
+        The Zope Object Database is where your content is normally stored
+        when you are using Plone. The default storage backend of the ZODB is 
+        *filestorage*, which stores the database on the file system in the
+        file(s) such as ``Data.fs``, normally located in the ``var``
+        directory.
 
-    STX (Structured Text)
-        Structured Text (aka. STX) is a simple markup technique that is
-        useful when you don't want to resort to HTML for creating web
-        content. It uses indenting for structure, and other markup for
-        formatting. Has been superceded by :term:`reStructuredText`, but a
-        lot of people still prefer the old version, as it's easier to learn
-        and more suited to simple documents. More information in the 
+    STX 
+        Structured Text is a simple markup technique that is useful when you
+        don't want to resort to HTML for creating web content. It uses
+        indenting for structure, and other markup for formatting. It has
+        been superseded by :term:`reStructuredText`, but some people still
+        prefer the old version, as it's simpler. More information in the
         `How-to section of plone.org
         <http://plone.org/documentation/howto/structured-text-cheatsheet>`_.
 
     Catalog
         The catalog is an internal index of the content inside Plone so that
-        it can be searched. The catalog object is accessible through the ZMI
-        as the portal_catalog object.
+        it can be searched. The catalog object is accessible through the
+        :term:`ZMI` as the ``portal_catalog`` object.
 
     DTML
-        Document Template Markup Language. DTML is a server side templating
-        language earlier used to produce dynamic pieces of content, but is
-        now superceded by :term:`ZPT` for HTML and XML content. It is still
-        used sparingly for non-XML content like SQL and mail/CSS.
+        Document Template Markup Language. DTML is a server-side templating
+        language used to produce dynamic pieces of content, but is now
+        superseded by :term:`ZPT` for HTML and XML content. It is still used
+        sparingly for non-XML content like SQL and mail/CSS.
 
     Document
         A document is a page of content, usually a self-contained piece of
@@ -88,40 +86,49 @@ For a more complete glossary, please refer to the
         Please note that this doesn't actually remove or disable the item,
         it merely makes it not show up in searches.
 
+        This is part of the Dublin Core metadata that is present on all
+        Plone objects.
+
+    Dublin Core
+        Dublin Core is a standard set of metadata which enables the
+        description of resources for the purposes of discovery. See
+        https://en.wikipedia.org/wiki/Dublin_Core
+
     Layer
         A layer is a set of templates and scripts that get presented to the
         user. By combining these layers, you create what is referred to as a
-        skin. The order of layers is important, the topmost layers will be
-        examined first when rendering a page. Each layer is an entry in
-        'portal_skins' -> 'Contents', and is usually a Filesystem Directory
-        View or a Folder.
-        See http://plone.org/documentation/manual/theme-reference/buildingblocks/skin/layers
+        :term:`skin`. The order of layers is important, the topmost layers
+        will be examined first when rendering a page. Each layer is an entry
+        in ``portal_skins`` -> 'Contents', and is usually a Filesystem
+        Directory View or a Folder.  See
+        http://plone.org/documentation/manual/theme-reference/buildingblocks/skin/layers
 
     Skin
         A collection of template layers (see :term:`layer`) is used as the
         search path when a page is rendered and the different parts look up
-        template fragments.  Skins are defined in the ZMI in portal_skins
-        tool. Used for both presentation and code customizations.
+        template fragments.  Skins are defined in the :term:`ZMI` in
+        ``portal_skins`` tool. Used for both presentation and code
+        customizations.
 
     ZMI
-        Zope Management Interface Zope has a built in Management Interface
-        that is accessible through the web. Accessing is as simple as adding
-        /manage on to the end of your URL, for example:
-        http://localhost/manage - or visiting Plone Setup and clicking the
-        Zope Management Interface link (Click 'View' to go back to the Plone
-        site). Be careful in there, though - it's the "geek view" of things,
-        and is not straightforward, nor does it protect you from doing
-        stupid things. :)
+        The *Zope Management Interface*. Zope has a built in Management
+        Interface that is accessible through the web. Accessing is as simple
+        as appending ``/manage`` to your URL, for example:
+        ``http://localhost/manage`` - or visiting Plone Setup and clicking
+        the *Zope Management Interface* link (Click 'View' to go back to the
+        Plone site). Be careful in there, though - it's the "geek view" of
+        things, and is not straightforward, nor does it protect you from
+        doing stupid things. :)
 
     ZPL
         Zope Public License, a BSD-style license that Zope is licensed
         under.
 
     ZPT
-        Zope Page Templates is the templating language that is used to
-        render the Plone pages. It is implemented as an XML namespace, and
-        lives inside the attributes of a tag, making it possible to create
-        templates that look like normal HTML/XML to editors.
+        *Zope Page Templates* is the templating language that is used to
+        render the Plone pages. It is implemented as two XML namespaces,
+        making it possible to create templates that look like normal
+        HTML/XML to editors.
 
     i18n
         i18n is shorthand for "internationalization" (the letter I, 18
@@ -137,7 +144,7 @@ For a more complete glossary, please refer to the
 
     Request
         Each page view by a client generates a request to Plone. This
-        incoming request is encapsulated in a request object in Zope,
+        incoming request is encapsulated in a *request* object in Zope,
         usually called REQUEST (or lowercase "request" in the case of ZPT).
 
     CSS
@@ -165,7 +172,7 @@ For a more complete glossary, please refer to the
         systems.
 
     Syndication
-        Syndication shows you the ten most recently updated objects in a
+        Syndication shows you the several most recently updated objects in a
         folder in RSS format. This format is designed to be read by other
         programs.
 
@@ -180,62 +187,77 @@ For a more complete glossary, please refer to the
         from the ZMI, as is the case for adding content, for example.
 
     PAS
-        The Pluggable Authentication Service (PAS) is a new framework from
-        Zope Corp. for handling authentication in Zope 2. PAS is a Zope
-        acl_users folder object that uses "plugins" that can implement
-        various authentication interfaces that plug into the PAS framework.
-        Zope 3 also uses a design inspired by PAS. PAS was integrated into
-        Plone at the 2005 San Jose Sprint.
+        The Pluggable Authentication Service (PAS) is a framework for
+        handling authentication in Zope 2. PAS is a Zope ``acl_users``
+        folder object that uses "plugins" that can implement various
+        authentication interfaces (for example :term:`LDAP` and
+        :term:`OpenID`) that plug into the PAS framework .  Zope 3 also uses
+        a design inspired by PAS. PAS was integrated into Plone at the 2005
+        San Jose Sprint.
 
     Acquisition
         Simply put, any Zope object can acquire any object or property from
-        any of its parents. That is, if you have a folder called A,
-        containing two resources (a document called homepage and another
-        folder called B), then an URL pointing at http://.../A/B/homepage
-        would work even though B is empty. This is because Zope starts to
-        look for homepage in B, doesn't find it, and goes back up to A,
-        where it's found. The reality, inevitably, is more complex that
+        any of its parents. That is, if you have a folder called *A*,
+        containing two resources (a document called *homepage* and another
+        folder called *B*), then an URL pointing at http://.../A/B/homepage
+        would work even though *B* is empty. This is because Zope starts to
+        look for *homepage* in *B*, doesn't find it, and goes back up to
+        *A*, where it's found. The reality, inevitably, is more complex than
         this. For the whole story, see the `Acquisition chapter in the Zope
         Book <http://www.plope.com/Books/2_7Edition/Acquisition.stx>`_. 
 
     Kupu
-        Kupu is the user-friendly graphical HTML editor component that is
-        bundled with Plone, starting with version 2.1. 
+        Kupu is the user-friendly graphical HTML editor component that used
+        to be bundled with Plone, starting with version 2.1. It has since
+        been replaced by :term:`TinyMCE`.
+
+    TinyMCE
+        A graphical HTML editor bundled with Plone.
 
     UML
-        UML (Unified Modeling Language) is a general-purpose modeling
+        The *Unified Modeling Language* is a general-purpose modeling
         language that includes a standardized graphical notation used to
-        create an abstract model of a system, referred to as a UML model.
-        With the use of ArchGenXML, this can be used to generate code for
-        CMF/Plone applications (Products) based on the Archetypes framework. 
+        create an abstract model of a system, referred to as a *UML model*.
+        With the use of :term:`ArchGenXML`, this can be used to generate
+        code for CMF/Plone applications (a :term:`Product`) based on the
+        Archetypes framework. 
+
+    Product
+        A Plone-specific module that extends Plone functionality and can be
+        managed via the Plone Control Panel. Plone Products often integrate 
+        non-Plone-specific modules for use within the Plone context.
 
     Archetypes
         Archetypes is a framework designed to facilitate the building of
-        applications for Plone and CMF. Its main purpose is to provide a
-        common method for building content objects, based on schema
-        definitions. Fields can be grouped for editing, making it very
-        simple to create wizard-like forms. Archetypes is able to do all the
-        heavy lifting needed to bootstrap a content type, allowing the
-        developer to focus on other things such as business rules, planning,
-        scaling and designing. It provides features such as auto-generation
-        of editing and presentation views. Archetypes code can be generated
-        from UML using ArchGenXML.
+        applications for Plone and :term:`CMF`. Its main purpose is to
+        provide a common method for building content objects, based on
+        schema definitions. Fields can be grouped for editing, making it
+        very simple to create wizard-like forms. Archetypes is able to do
+        all the heavy lifting needed to bootstrap a content type, allowing
+        the developer to focus on other things such as business rules,
+        planning, scaling and designing. It provides features such as
+        auto-generation of editing and presentation views. Archetypes code
+        can be generated from :term:`UML` using :term:`ArchGenXML`.
+
+    CMF
+        The *Content Management Framework* is a framework for building
+        content-oriented applications within Zope. It as formed the basis
+        of Plone content from the start.
 
     OpenID
         A distributed identity system. Using a single URI provider an
         individual is able to login to any web site that accepts OpenID
-        using the URI and a password. Plone implements OpenID as a PAS
-        plug-in.
+        using the URI and a password. Plone implements OpenID as a
+        :term:`PAS` plug-in.
 
-    KSS - Kinetic Style Sheets
-        KSS, Kinetic Style Sheets, is a client side framework for
-        implementing rich user interfaces with AJAX funtionalities. AJAX
-        makes the pages in the browser behave more like an application:
-        instead of loading or reloading a web page, the client can contact
-        the server and recieve information from it, and can change the
-        content or lookout of the currently viewed page without leaving it.
-        KSS enables the building of such interfaces without knowing
-        Javascript.
+    KSS
+        *Kinetic Style Sheets* is a client-side framework for implementing
+        rich user interfaces with AJAX funtionalities. AJAX makes the pages
+        in the browser behave more like an application: instead of loading
+        or reloading an entire web page, the client can contact the server
+        and recieve information from it, and can change the content or
+        layout of the currently viewed page without leaving it.  KSS enables
+        the building of such interfaces without knowing Javascript.
 
     Traceback
         A Python "traceback" is a detailed error message generated when an
@@ -243,16 +265,20 @@ For a more complete glossary, please refer to the
         Zope, is a Python application, most Plone errors will generate a
         Python traceback. If you are filing an issue report regarding a
         Plone or Plone-product error, you should try to include a traceback
-        log entry with the report. To find the traceback, check your
-        event.log log file. Alternatively, use the ZMI to check the
-        error_log object in your Plone folder. A traceback will be included
-        with nearly all error entries. A traceback will look something like
-        this: "Traceback (innermost last): ... AttributeError: adapters"
-        They can be very long. The most useful information is generally at
-        the end.
+        log entry with the report.
+
+        To find the traceback, check your
+        ``event.log`` log file. Alternatively, use the ZMI to check the
+        ``error_log`` object in your Plone folder. Note that your Zope must
+        be running in *debug* mode in order to log tracebacks.
+
+        A traceback will be included with nearly all error entries. A
+        traceback will look something like this: "Traceback (innermost
+        last): ...  AttributeError: adapters" They can be very long. The
+        most useful information is generally at the end.
 
     PLIP
-        PLone Improvement Proposal (just like Python's PEPs: Python
+        *PLone Improvement Proposal* (just like Python's PEPs: Python
         Enhancement Proposals). These are documents written to structure and
         organise proposals for the improvement of Plone.
 
@@ -262,8 +288,8 @@ For a more complete glossary, please refer to the
         the proposal and decides if it's suitable to be included in the next
         Plone release or not.
 
-        See more info about how to write a `PLIP
-        <http://dev.plone.org/plone/wiki/PLIP>`_.
+        See more info about how to write a 
+        `PLIP <http://dev.plone.org/plone/wiki/PLIP>`_.
 
     ATCT
         ATContentTypes - the new content types written with Archetypes which
@@ -277,29 +303,30 @@ For a more complete glossary, please refer to the
         new CSS/Javascript without needing to touch Plone's templates, but
         also allows for selective inclusion of CSS/Javascript files and
         reduces page load by minimizing individual calls to seperate blocks
-        of CSS/Javascript files. Found in the ZMI under "portal_css" and
-        "portal_javascript".
+        of CSS/Javascript files. Found in the :term:`ZMI` under
+        ``portal_css`` and ``portal_javascript``.
 
     Collective
-        The Collective is a community code repository for Plone Products and
-        other add-ons, and is a useful place to find the very latest code
-        for hundreds of add-ons to Plone. Developers of new Plone Products
-        are encouraged to share their code via the Collective so that others
-        can easily find it, use it, and contribute fixes and improvements.
+        The *Collective* is a community code repository for Plone Products
+        and other add-ons, and is a useful place to find the very latest
+        code for hundreds of add-ons to Plone. Developers of new Plone
+        Products are encouraged to share their code via the Collective so
+        that others can easily find it, use it, and contribute fixes and
+        improvements.
 
     Sprint
         Based on ideas from the extreme programming (XP) community. A sprint
         is a three to five day focused development session, in which
         developers pair in a room and focus on building a particular
-        subsystem. see http://plone.org/events/sprints
+        subsystem. See http://plone.org/events/sprints
 
     RAD
         Rapid Application Development - A term applied to development tools
         to refer to any number of features that make programming easier.
-        Archetypes and ArchGenXML are examples of these from the Plone
-        universe.
+        :term:`Archetypes` and :term:`ArchGenXML` are examples of these from
+        the Plone universe.
 
-    XXX - code marker in source code
+    XXX 
         XXX is a marker in the comments of the source code that should only
         be used during development to note things that need to be taken care
         of before a final (trunk) commit. Ideally, one should not expect to
@@ -309,11 +336,11 @@ For a more complete glossary, please refer to the
         making a release shouldn't care about TODOs, but they ought to be
         annoyed to find XXXs.
 
-    BBB - code marker in source code
+    BBB
         When adding (or leaving) a piece of code for backward compatibility,
         we use a BBB comment marker with a date.
 
-    TODO - code marker in source code
+    TODO
         The TODO marker in source code record new features, non-critical
         optimization notes, design changes, etc.
 
@@ -321,95 +348,104 @@ For a more complete glossary, please refer to the
         A monkey patch is a way to modify the behaviour of Zope or a Product
         without altering the original code. Useful for fixes that have to
         live alongside the original code for a while, like security
-        hotfixes, behavioural changes, etc. The term "monkey patch" seems to
-        have originated as follows: First it was "guerilla patch", referring
-        to code that sneakily changes other code at runtime without any
-        rules. In Zope 2, sometimes these patches engage in battle with each
-        other. This term went around Zope Corporation for a while. People
-        heard it as "gorilla patch", though, since the two words sound very
-        much alike, and the word gorilla is heard more often. So, when
-        someone created a guerilla patch very carefully and tried to avoid
-        any battles, they tried to make it sound less forceful by calling it
-        a monkey patch. The term stuck.
+        hotfixes, behavioural changes, etc.
+
+        The term "monkey patch" seems to have originated as follows: First
+        it was "guerilla patch", referring to code that sneakily changes
+        other code at runtime without any rules. In Zope 2, sometimes these
+        patches conflict. This term went around Zope Corporation for a
+        while. People heard it as "gorilla patch", though, since the two
+        words sound very much alike, and the word gorilla is heard more
+        often. So, when someone created a guerilla patch very carefully and
+        tried to avoid any battles, they tried to make it sound less
+        forceful by calling it a monkey patch. The term stuck.
 
     ArchGenXML
-        ArchGenXML is a code-generator for CMF/Plone applications (Products)
-        based on the Archetypes framework. It parses UML models in
-        XMI-Format (.xmi, .zargo, .zuml), created with applications such as
-        ArgoUML, Poseidon or ObjectDomain. A brief tutorial for ArchGenXML
-        is present on the plone.org site.
+        ArchGenXML is a code-generator for CMF/Plone applications
+        (a :term:`Product`) based on the :term:`Archetypes` framework. It
+        parses UML models in XMI-Format (``.xmi``, ``.zargo``, ``.zuml``),
+        created with applications such as ArgoUML, Poseidon or ObjectDomain.
+        A brief tutorial for ArchGenXML is present on the plone.org site.
 
     AGX
-        AGX is short for ArchGenXML (see ArchGenXML's glossary entry).
+        AGX is short for :term:`ArchGenXML`.
 
     TAL
-        Template Attribute Language
+        Template Attribute Language. See :term:`ZPT`.
 
     METAL
-        Macro Expansion Template Attributes Language
+        Macro Expansion Template Attribute Language. See :term:`ZPT`.
 
     Software home
         The directory inside the Zope installation (on the filesystem) that
         contains all the Python code that makes up the core of the Zope
         application server. The various Zope packages are distributed here.
-        Also referred to as the $SOFTWARE_HOME environment variable. It
+        Also referred to as the ``SOFTWARE_HOME`` environment variable. It
         varies from one system to the next, depending where you or your
         packaging system installed Zope. You can find the value of this in
-        the ZMI > Control Panel.
+        the *ZMI > Control Panel*.
 
     Zope instance
         An operating system process that handles HTTP interaction with a
-        Zope database (ZODB). In other words, the Zope web server process.
-        Alternatively, the Python code and other configuration files
-        necessary for running this process.
+        Zope database (:term:`ZODB`). In other words, the Zope web server
+        process.  Alternatively, the Python code and other configuration
+        files necessary for running this process.
 
         One Zope installation can support multiple instances. Use the
-        buildout recipe plone.recipe.zope2instance to create new Zope
+        buildout recipe ``plone.recipe.zope2instance`` to create new Zope
         instances in a buildout environment.
 
-        Several Zope instances may serve data from a single Data.fs using a
+        Several Zope instances may serve data from a single ZODB using a
         ZEO server on the back-end.
 
     ZEO server
-        ZEO (Zope Enterprise Objects) is the load-balancing system used with
-        Zope. The ZEO server is an storage server that allows multiple Zope
-        instances, called ZEO clients, to connect to a single database. For
-        additional info, see `the related chapter in The Zope Book
+        ZEO (Zope Enterprise Objects) is a scaling solution used with Zope.
+        The ZEO server is a storage server that allows multiple Zope
+        instances, called ZEO clients, to connect to a single database.  ZEO
+        clients may be distributed across multiple machines.  For additional
+        info, see `the related chapter in The Zope Book
         <http://docs.zope.org/zope2/zope2book/ZEO.html>`_.
 
     Python path
         The order and location of folders in which the Python interpreter
-        will look for modules. It's available in python via sys.path. When
-        Zope is running, this typically includes the global Python modules
-        making up the standard library, the interpreter's site-packages
-        directory, where third party "global" modules and eggs are
-        installed, the Zope software home, and the lib/python directory
-        inside the instance home. It is possible for python scripts to
-        include additional paths in the Python path during runtime. This
-        ability is used by zc.buildout.
+        will look for modules. It's available in python via ``sys.path``.
+        When Zope is running, this typically includes the global Python
+        modules making up the standard library, the interpreter's
+        site-packages directory, where third party "global" modules and eggs
+        are installed, the Zope software home, and the ``lib/python``
+        directory inside the instance home. It is possible for python
+        scripts to include additional paths in the Python path during
+        runtime. This ability is used by ``zc.buildout``.
 
     Python package
         A general term describing a redistributable Python module. At the
-        most basic level, a package is a directory with an __init__.py file
-        and some Python code.
+        most basic level, a package is a directory with an ``__init__.py``
+        file, which can be blank.
 
     Zope product
         A special kind of Python package used to extend Zope. In old
         versions of Zope, all products were directories inside the special
-        Products directory of a Zope instance; these would have a Python
-        module name beginning with "Products". For example, the core of
-        Plone is a product called CMFPlone, known in Python as
-        Products.CMFPlone.
+        *Products* directory of a Zope instance; these would have a Python
+        module name beginning with ``Products``. For example, the core of
+        Plone is a product called *CMFPlone*, known in Python as
+        ``Products.CMFPlone``.
 
     Python egg
+        A widely used Python packaging format which consists of a zip or
+        ``.tar.gz`` archive with some metadata information. It was
+        introduced by 
+        `setuptools <http://peak.telecommunity.com/DevCenter/EasyInstall>`_
+        which has since been superseded by `Distribute
+        <http://packages.python.org/distribute/>`_.
+
         A way to package and distribute Python packages. Each egg contains a
-        setup.py file with metadata (such as the author's name and email
+        ``setup.py`` file with metadata (such as the author's name and email
         address and licensing information), as well as information about
-        dependencies. setuptools, the Python library that powers the egg
+        dependencies. ``setuptools``, the Python library that powers the egg
         mechanism, is able to automatically find and download dependencies
         for eggs that you install. It is even possible for two different
         eggs to concurrently use different versions of the same dependency.
-        Eggs also support a feature called entry points, a kind of generic
+        Eggs also support a feature called *entry points*, a kind of generic
         plug-in mechanism. Much more detail is available at the `PEAK
         website <http://peak.telecommunity.com/DevCenter/setuptools>`_.
 
@@ -417,31 +453,31 @@ For a more complete glossary, please refer to the
         The Python community's index of thousands of downloadable Python
         packages. It is available as a website to browse, with the ability
         to search for a particular package. More importantly,
-        setuptools-based packaging tools (most notably, buildout and
-        easy_install) can query this index to download and install eggs
+        setuptools-based packaging tools (most notably, ``buildout`` and
+        ``easy_install``) can query this index to download and install eggs
         automatically. Also known as the Cheese Shop or PyPI.
 
     easy_install
         A command-line tool for automatic discovery and installation of
-        packages into a Python environment. The easy_install script is part
-        of the setuptools package, which uses the Python Package Index as
-        its source for packages.
+        packages into a Python environment. The ``easy_install`` script is
+        part of the ``setuptools`` package, which uses the 
+        :term:`Python Package Index` as its source for packages.
 
     Namespace package
         A feature of setuptools which makes it possible to distribute
         multiple, separate packages sharing a single top-level namespace.
-        For example, the packages plone.theme and plone.portlets both share
-        the top-level "plone" namespace, but they are distributed as
-        separate eggs. When installed, each egg's source code has its own
-        directory (or possibly a compressed archive of that directory).
-        Namespace packages eliminate the need to distribute one giant plone
-        package, with a top-level plone directory containing all possible
-        children, e.g. plone/theme and plone/portlets. 
+        For example, the packages ``plone.theme`` and ``plone.portlets``
+        both share the top-level ``plone`` namespace, but they are
+        distributed as separate eggs. When installed, each egg's source code
+        has its own directory (or possibly a compressed archive of that
+        directory).  Namespace packages eliminate the need to distribute one
+        giant plone package, with a top-level plone directory containing all
+        possible children. 
 
     ZCML
         Zope Configuration Markup Language. Zope 3 separates policy from the
         actual code and moves it out to separate configuration files,
-        typically a 'configure.zcml' file in a buildout. This file
+        typically a ``configure.zcml`` file in a buildout. This file
         configures the Zope instance. 'Configuration' might be a bit
         misleading here and should be thought or more as wiring. ZCML, the
         XML-based configuration language that is used for this, is tailored
@@ -453,4 +489,23 @@ For a more complete glossary, please refer to the
         and loaded. This is not the case in Zope 3. If you don't enable it
         explicitly, it will not be found. 
 
+        The :term:`grok` project has taken a different approach to the same
+        problem, and allows component registration etc. to be done
+        declaratively from Python code. Both approaches are possible in
+        Plone.
+
+    grok
+        See the grok project documentation.
+
+    .po
+        The file format used by the :term:`gettext` translation system.
+        http://www.gnu.org/software/hello/manual/gettext/PO-Files.html
+
+    gettext
+        UNIX standard software translation tool. See
+        http://www.gnu.org/software/gettext/
+
+    i18ndude
+        Support tool to create and update message catalogs from instrumented
+        source code.
 

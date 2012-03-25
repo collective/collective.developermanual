@@ -2,12 +2,12 @@
 Translated content
 ====================
 
-.. contents :: :local:
-
 .. admonition:: Description
 
-        Translating content items in Plone, creating translations
-        programmatically and working with translators.
+    Translating content items in Plone, creating translations
+    programmatically and working with translators.
+
+.. contents:: :local:
 
 Introduction
 =============
@@ -15,7 +15,9 @@ Introduction
 Content translations usually are handled by the well-established
 `LinguaPlone add-on product <http://plone.org/products/linguaplone>`_.
 
-For an example of a content type using LinguaPlone, see the `LinguaItem example type <http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/examples/LinguaItem.py>`_.
+For an example of a content type using LinguaPlone, see the `LinguaItem
+example type
+<http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/examples/LinguaItem.py>`_.
 
 We also present ``raptus.multilanguageplone`` as an alternative approach.
 
@@ -25,7 +27,7 @@ Translation-aware content types (Archetypes)
 LinguaPlone makes it possible to mark fields *language independent* or
 *language dependent*.
 
-.. note ::
+.. note::
 
     To have language-aware behavior, you need to use the
     ``Products.LinguaPlone.public.*`` API, instead of
@@ -147,7 +149,7 @@ Example::
 
 See http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/tests/translate_edit.txt
 
-.. XXX: Why link to a particular (ancient) tag?
+.. todo:: Why link to a particular (ancient) tag?
 
 Serving translated content from a correct domain name
 =======================================================
@@ -284,8 +286,8 @@ proper domain for the language being served::
 
         # print "Done"
 
-Another approach (`raptus.multilanguageplone`)
-==============================================
+Another approach (``raptus.multilanguageplone``)
+==================================================
 
 Another extension for multilingual content in Plone is
 ``raptus.multilanguageplone``.  This is not meant to be a fully-fledged tool
@@ -321,7 +323,7 @@ aware that you will lose already translated content.
 1. Uninstall ``Products.Linguaplone``.
 2. Unfortunately Linguaplone does not uninstall cleanly. Two utilities
    remain in your database. You can remove them in an interactive session
-   from your site (in this example, the site has the id 'plone')::
+   from your site (in this example, the site has the id ``plone``)::
 
        (Pdb) site = plone.getSiteManager()
        (Pdb) from plone.i18n.locales.interfaces import IContentLanguageAvailability

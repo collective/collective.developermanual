@@ -1,21 +1,20 @@
-====================
+--------------------
 Language functions
-====================
+--------------------
 
 .. admonition:: Description
 
-        Acessing and changing the language state of Plone programmatically. 
+    Acessing and changing the language state of Plone programmatically. 
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
-Each session has a language associated with.
+Each session has a language associated with it.
 
-Active language is "negotiated" by plone.i18n.negotiator
-module. Several factors may involve determining what the
-language should be:
+The active language is negotiated by the ``plone.i18n.negotiator`` module.
+Several factors may involve determining what the language should be:
 
 * Cookies (setting from the language selector)
 
@@ -28,7 +27,7 @@ language should be:
 Language is negotiated at the beginning of the page view.
 
 Getting the current language
-----------------------------
+============================
 
 Example view/viewlet method of getting the current language.
 
@@ -41,22 +40,22 @@ Example view/viewlet method of getting the current language.
 
         ...
 
-            def language(self):
-                """
-                @return: Two letter string, the active language code
-                """
-                context = aq_inner(self.context)
-                portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-                current_language = portal_state.language()
-                return current_language
+        def language(self):
+            """
+            @return: Two-letter string, the active language code
+            """
+            context = aq_inner(self.context)
+            portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+            current_language = portal_state.language()
+            return current_language
 
 
 Getting language of content item
---------------------------------
+================================
 
-All content object don't necessarily support Language()
-look-up defined by IDublinCore interface. Below is the
-safe way to extract the served language on the content.
+All content objects don't necessarily support the ``Language()`` look-up
+defined by the ``IDublinCore`` interface. Below is the safe way to extract
+the served language on the content.
 
 Example BrowserView method::
 
@@ -76,9 +75,9 @@ Example BrowserView method::
         return aq_inner(self.context).Language() or portal_state.default_language()
 
 Simple language conditions in page templates
------------------------------------------------
+===============================================
 
-You can do this is full translation strings are not worth of the all troubles::
+You can do this if full translation strings are not worth the trouble::
 
    <div class="main-text">
      <a tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'fi'" href="http://www.saariselka.fi/sisalto?force-web">Siirry täydelle web-sivustolle</a>
@@ -87,31 +86,30 @@ You can do this is full translation strings are not worth of the all troubles::
 
 
 Set site language settings
---------------------------
+==========================
 
 Manually::
 
-        # Setup site langauge settings
-        portal = context.getSite()
-        ltool = portal.portal_languages
-        defaultLanguage = 'en'
-        supportedLanguages = ['en','es']
-        ltool.manage_setLanguageSettings(defaultLanguage, supportedLanguages,
-                                              setUseCombinedLanguageCodes=False)
+    # Setup site language settings
+    portal = context.getSite()
+    ltool = portal.portal_languages
+    defaultLanguage = 'en'
+    supportedLanguages = ['en','es']
+    ltool.manage_setLanguageSettings(defaultLanguage, supportedLanguages,
+                                          setUseCombinedLanguageCodes=False)
 
+For unit testing, you need to run this in ``afterSetUp()`` after setting up
+the languages::
 
-For unit testing, you need to run this in afterSetUp() after setting up the languages::
+    # THIS IS FOR UNIT TESTING ONLY
+    # Normally called by pretraverse hook,
+    # but must be called manually for the unit tests
+    # Goes only for the current request
+    ltool.setLanguageBindings()
 
-        # THIS IS FOR UNIT TESTING ONLY
-        # Normally called by pretraverse hook,
-        # but must be called manually for the unit tests
-        # Goes only for the current request
-        ltool.setLanguageBindings()
+Using ``GenericSetup`` and ``propertiestool.xml``
 
-
-Using GenericSetup and propertiestool.xml
-
-.. code-block: xml::
+.. code-block:: xml
 
     <object name="portal_properties" meta_type="Plone Properties Tool">
        <object name="site_properties" meta_type="Plone Property Sheet">
@@ -119,9 +117,10 @@ Using GenericSetup and propertiestool.xml
        </object>
     </object>
 
-On Linguaplone enabled sites, using GenericSetup XML portal_languages.xml
+On ``LinguaPlone``-enabled sites, using GenericSetup XML
+``portal_languages.xml``
 
-.. code-block: xml::
+.. code-block:: xml
 
     <?xml version="1.0"?>
     <object>
@@ -141,14 +140,14 @@ On Linguaplone enabled sites, using GenericSetup XML portal_languages.xml
 
 
 Customizing language selector
------------------------------
+=============================
 
-Multilingual Plone has two kinds of language selector viewlets
+Multilingual Plone has two kinds of language selector viewlets:
 
 * Plone vanilla
 
-* LinguaPlone -  LinguaPlone has its own language selector which replaces the default Plone selector if the add on
-  product is installed
+* LinguaPlone -  LinguaPlone has its own language selector which replaces
+  the default Plone selector if the add on product is installed.
 
 
 More information
@@ -160,15 +159,16 @@ More information
 * http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py
 
 Making language flags point to different top level domains
-==========================================================
+----------------------------------------------------------
 
-If you use multiple domain names for different language it is often desirable to make the language selector
-point to a different domain. Search engines do not really like the dynamic language switcher and will
-index switching links, messing up your site search results.
+If you use multiple domain names for different languages it is often
+desirable to make the language selector point to a different domain. Search
+engines do not really like the dynamic language switchers and will index
+switching links, messing up your site search results.
 
 Example
 
-.. code-block: html::
+.. code-block:: html
 
     <tal:language
         tal:define="available view/available;
@@ -228,18 +228,15 @@ Example
 
 
 Custom language negotiator
---------------------------
+==========================
 
 Below some example code.
 
-languages.py::
+``languages.py``::
 
+        """ Custom language negotiator based on hostname.  
         """
-        
-            Custom language negotiator based on hostname.
-        
-        """
-        
+
         from Products.PloneLanguageTool import LanguageTool
         
         # These are default languages available when hostname cannot be solved
@@ -325,7 +322,9 @@ languages.py::
         
         working_portal_state_language = memoize(working_portal_state_language)
 
-configure.zcml::
+``configure.zcml``
+
+.. code-block:: xml
 
   <!-- Use collective.monkeypatcher to introduce our custom language negotiation phase -->  
   <monkey:patch
@@ -344,7 +343,7 @@ configure.zcml::
   
 
 Other
------
+=====
 
 * http://reinout.vanrees.org/weblog/2007/12/14/translating-schemata-names.html
 

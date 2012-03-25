@@ -4,19 +4,19 @@ Internationalization and cache
 
 .. admonition:: Description
 
-        Translating Python and TAL template source code text strings using gettext
-        library and other Plone i18n facilities.
+    Using Plone translation facilities in the presence of caching.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
-You need to have the following monkey-patch in place if you indent to use LinguaPlone (translated content)
-with front-end caching servers. Otherwise CSS, JS and media files will have a language cookie
-set on them, preventing cache to work.
+You need to have the following monkey-patch in place if you intend to use
+LinguaPlone (translated content) with front-end caching servers. Otherwise
+CSS, JS and media files will have a language cookie set on them, preventing
+cache from working.
 
-.. note ::
+.. note::
 
     This is a well-known Plone issue.
 
