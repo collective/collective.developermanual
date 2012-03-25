@@ -986,7 +986,7 @@ Example::
 
         class Form(...):
 
-            button.buttonAndHandler(_('Add'), name='add')
+            @button.buttonAndHandler(_('Add'), name='add')
             def handle_add(self, action):
                 data, errors = self.extractData()
                 if errors:
