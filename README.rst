@@ -21,7 +21,7 @@ Some clarifications
 License
 -------
 
-Copyright © 2010-2011 Plone Foundation and individual contributors.
+Copyright © 2010-2012 Plone Foundation and individual contributors.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
