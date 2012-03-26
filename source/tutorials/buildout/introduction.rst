@@ -6,7 +6,7 @@ Introduction
 
    Or: "What's wrong with a plain old Zope instance"?
 
-This tutorial shows how to install Plone 3 into a *buildout*, and
+This tutorial shows how to install Plone into a *buildout*, and
 how to use that buildout when working on a software project that
 extends Plone. A buildout is a self-contained environment where you
 can manage the dependencies (including Zope and Plone and any
