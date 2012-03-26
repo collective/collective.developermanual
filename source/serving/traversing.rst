@@ -1,65 +1,78 @@
 ===============
-Traversing
+ Traversing
 ===============
 
 .. admonition:: Description
 
-        Plone content is organized to a tree. Traversing means looking up 
-        content from this tree by path. When HTTP request hits a Plone
-        server, Plone will traverse the corresponding content item
-        and its view function by URI. 
+    Plone content is organized to a tree. Traversing means looking up 
+    content from this tree by path. When HTTP request hits a Plone
+    server, Plone will traverse the corresponding content item
+    and its view function by URI. 
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
-In Plone, all content is mapped to a single tree: content objects, user objects, templates, etc.
-Even almost all object methods are directly mapped to HTTP visible URIs.
+In Plone, all content is mapped to a single tree: content objects, user
+objects, templates, etc.  Even most object methods are directly mapped to
+HTTP-accessible URIs.
 
-Each object has a path depending on its location.
-Traversing is a method of getting a handle of a persistent object in ZODB object graph by its path.
+Each object has a path depending on its location. :term:`Traversal` is a
+method of getting a handle on a persistent object in the ZODB object graph
+from its path.
 
-Traversing can happen in two places
+Traversal can happen in two places:
 
-* When a HTTP request hits the server the object method, which will generate the HTTP response,
-  is looked up using traversing
+* When an HTTP request hits the server, the method on the object which will
+  generate the HTTP response is looked up using traversal.
 
-* You can manually traverse the ZODB tree in your code to locate objects by their path
+* You can manually traverse the ZODB tree in your code to locate objects by
+  their path.
 
-When HTTP request is being published the traversing happens in ``ZPublisher.BaseRequest.traverse``
+When an HTTP request is being published the traversing happens in
+``ZPublisher.BaseRequest.traverse``
 
 * http://svn.zope.org/Zope/trunk/src/ZPublisher/BaseRequest.py?rev=122282&view=auto
 
-... but Zope includes other traversers, like ``unrestrictedTraverse()`` in OFS module.
-Different traversing methods behave differently and may fire different events.
+... but Zope includes other traversers, like ``unrestrictedTraverse()`` in
+the OFS module.  Different traversing methods behave differently and may
+fire different events.
 
 Object ids
-----------
+==========
 
-Each content object has an id string which identifies the object in the parent container.
-The id string is visible in the browser address bar when you view the object.
-Ids are also visible in the Zope Management interface.
+Each content object has an id string which identifies the object in the
+parent container.  The id string is visible in the browser address bar when
+you view the object.  Ids are also visible in the Zope Management interface.
 
-Besides id strings, the content objects have Unique Identifiers, or UID_, which
-does not change even if the object is moved or renamed.
+Besides id strings, the content objects have Unique Identifiers, or UID_,
+which do not change even if the object is moved or renamed.
 
-Id should not contain spaces or slashes.
+Though it's technically possible for ids to contain spaces or slashes, this
+is seldom a good idea, as it complicates working with ids in various
+situations.
 
 Path
 ----
 
-The Zope path is the location of the object in the object graph.
-It is a sequence of id components from the parent node(s) to the child separated by slashes.
+The Zope *path* is the location of the object in the object graph.
+It is a sequence of id components from the parent node(s) to the child
+separated by slashes.
+
+.. Note:: A path need not always be a sequence of object ids. During 
+   traversal, an object may consume subsequent path elements, interpreting
+   them however it likes. 
 
 Example::
 
     documentation/howTos/myHowTo
 
 Exploring Zope application server
----------------------------------
+=================================
 
-You can use the Zope Management interface to explore the content of your Zope application server:
+You can use the Zope Management interface to explore the content of your
+Zope application server:
 
 * Sites
 
@@ -67,10 +80,11 @@ You can use the Zope Management interface to explore the content of your Zope ap
 
 * ...and so on
 
-The ZMI does not expose individual attributes. It only exposes traversable content objects.
+The ZMI does not expose individual attributes. It only exposes traversable
+content objects.
 
 Attribute traversing
---------------------
+====================
 
 Zope exposes child objects as attributes.
 
@@ -84,7 +98,7 @@ Example::
     myHowTo = getattr(howTos, "manipulating-plone-objects-programmatically")
 
 Container traversing
---------------------
+====================
 
 Zope exposes child objects as container accessor.
 
@@ -99,14 +113,15 @@ Example::
 
 
 Traversing by full path
------------------------
+=======================
 
-Any content object provides the methods *restrictedTraverse()* and *unrestrictedTraverse()*.
-See Traversable_.
+Any content object provides the methods ``restrictedTraverse()`` and
+``unrestrictedTraverse()``.  See Traversable_.
 
-**Security warning**: restrictedTraverse() uses privileges of the currently logged in user.
-An Unauthorized_ exception is raised if the code tries to access an object for which the
-user lacks Access contents information and View permissions.
+**Security warning**: ``restrictedTraverse()`` executes with the privileges
+of the currently logged-in user.  An Unauthorized_ exception is raised if
+the code tries to access an object for which the user lacks the *Access
+contents information* and *View* permissions.
 
 Example::
 
@@ -115,41 +130,45 @@ Example::
     # Bypass security
     myHowTo = portal.unrestrictedTraverse("documentation/howTos/myHowTo")
 
-
 .. warning::
 
-    restrictedTraverse()/unrestrictedTraverse() does not honor IPublishTraverse
-    adapters. `Read more about the issue in this discussion <http://mail.zope.org/pipermail/zope-dev/2009-May/036665.html>`_.
+    ``restrictedTraverse()``/``unrestrictedTraverse()`` does not honor
+    ``IPublishTraverse`` adapters. `Read more about the issue in this
+    discussion
+    <http://mail.zope.org/pipermail/zope-dev/2009-May/036665.html>`_.
 
-Getting object path
--------------------
+Getting the object path
+=========================
 
 An object has two paths:
 
-- Physical path is the absolute location in the current ZODB object graph. This includes the site instance name as part of it.
+- The *physical path* is the absolute location in the current ZODB object
+  graph. This includes the site instance name as part of it.
 
-- Virtual path is the object location related to the Plone site root
+- The *virtual path* is the object location relative to the Plone site root.
 
-**Path mangling warning**: Always store paths as virtual paths or persistently stored paths will corrupt
-if you rename your site instance.
+**Path mangling warning**: Always store paths as virtual paths, or
+persistently stored paths will corrupt if you rename your site instance.
 
 See Traversable_.
 
 Getting physical path
-=====================
+---------------------
 
-Use getPhysicalPath(). Example::
+Use ``getPhysicalPath()``. Example::
 
     path = portal.getPhysicalPath() # returns "plone"
 
 Getting virtual path
-====================
+--------------------
 
-For content items you can use ``absolute_url_path()`` from `OFS.Traversable <http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=122638&view=auto>`_::
+For content items you can use ``absolute_url_path()`` from `OFS.Traversable
+<http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=122638&view=auto>`_::
 
     path = context.absolute_url_path()
 
-Map physical path to virtual path using HTTP request object physicalPathToVirtualPath(). Example::
+Map physical path to virtual path using HTTP request object
+``physicalPathToVirtualPath()``. Example::
 
     request = self.request # HTTPRequest object
 
@@ -159,13 +178,13 @@ Map physical path to virtual path using HTTP request object physicalPathToVirtua
     
 .. note::
 
-    Virtual path is not necessarily path relative to the site root, 
+    The virtual path is not necessarily the path relative to the site root,
     depending on the virtual host configuration.
-        
-Getting item path relative to the site root
-=============================================
 
-There is no a direct, easy, way to accomplish this.
+Getting item path relative to the site root
+---------------------------------------------
+
+There is no a direct, easy way to accomplish this.
 
 Example::
 
@@ -192,61 +211,63 @@ Example::
         
         return "/" + "/".join(relative_path)             
 
+
 Getting canonical object (breadcrumbs, visual path)
-====================================================
+----------------------------------------------------
 
-Visual path is presented in the breadcrumbs. It is how 
-the site visitor sees the object path.
+The visual path is presented in the breadcrumbs. It is how the site visitor
+sees the object path.
 
-It may differ from the physical path
+It may differ from the physical path:
 
-* Default content item is not shown in the visual path
+* The *default content item* is not shown in the visual path.
+* The *default view* is not shown in the visual path.
 
-* Default view is not shown in the visual path
-
-Canonical object is the context object which the user sees from 
-the request URL:
+The canonical object is the context object which the user sees from the
+request URL:
 
 Example::
 
-        context_helper = getMultiAdapter((context, self.request), name="plone_context_state")
-        canonical = context_helper.canonical_object()
+    context_helper = getMultiAdapter((context, self.request), name="plone_context_state")
+    canonical = context_helper.canonical_object()
 
 
 Getting object URL
-------------------
+==================
 
-Use absolute_url(). See Traversable_.
+Use ``absolute_url()``. See Traversable_.
 
-**URL mangling warning**: absolute_url() is sensitive to virtual host URL mappings. absolute_url()
-will return different results depending on if you access your site from URLs http://yourhost/ or http://yourhost:8080/Plone.
-Do not persistently store the result of absolute_url().
+**URL mangling warning**: ``absolute_url()`` is sensitive to virtual host
+URL mappings. ``absolute_url()`` will return different results depending on
+if you access your site from URLs http://yourhost/ or
+http://yourhost:8080/Plone.  Do not persistently store the result of
+``absolute_url()``.
 
 Example::
 
     url = portal.absolute_url() # http://nohost/plone in unit tests
 
 Getting the parent
-------------------
+==================
 
-Object parent is accessible is acquisition_ chain for the object is set.
+The object *parent* is accessible is acquisition_ chain for the object is
+set.
 
-Use aq_parent.
+Use ``aq_parent``::
 
     parent = object.aq_parent
 
-Parent is defined as __parent__ attribute of the object instance.
+The parent is defined as ``__parent__`` attribute of the object instance::
 
-    object.__parent__ = object.aq_parent.
+    object.__parent__ = object.aq_parent
 
-__parent__ is set when object's __of__() method is called.
+``__parent__`` is set when object's ``__of__()`` method is called::
 
     view = MyBrowserView(context, request)
-
     view = view.__of__(context) # Inserts view into acquisition chain and acquistion functions become available
 
 Getting all parents
-===================
+-------------------
 
 Example::
 
@@ -283,12 +304,12 @@ Example::
             iter = iter.aq_parent
 
 Getting the site root
----------------------
+=====================
 
 You can resolve the site root if you have the handle to any context object.
 
 Using portal_url tool
-=======================
+-----------------------
 
 Example::
 
@@ -302,19 +323,20 @@ You can also do shortcut using acquisition::
 
     portal = context.portal_url.getPortalObject()
 
-.. note :: 
+.. note:: Application code should use the ``getToolByName`` method, rather
+   than simply acquiring the tool by name, to ease forward migration (e.g.,
+   to Zope3).
 
-        Application code should use the getToolByName method, rather than simply
-        acquiring the tool by name, to ease forward migration (e.g., to Zope3).
+Using ``getSite()``
+-------------------- 
 
-Using getSite()
-==================== 
+Site is also stored as a thread-local variable. In Zope each request is
+processed in its own thread. Site thread local is set when the request
+processing starts.
 
-Site is also stored a thread local variable. In Zope each request is
-processed in its own thread. Site thread local is set when the request processing starts.
-
-You can use this method even if you do not have the context object available,
-assuming that your code is called after Zope has traversed the context object once.
+You can use this method even if you do not have the context object
+available, assuming that your code is called after Zope has traversed the
+context object once.
 
 Example::
 
@@ -322,76 +344,77 @@ Example::
 
     site = getSite() # returns portal root from thread local storage
     
-.. note :: 
+.. note:: Due to the fact that Plone does not show the default content item
+   as a separate object, the page you are viewing in the browser from the
+   site root URL is not necessary the root item itself. For example, in the
+   default Plone installation this URL internally maps to Page whose id is
+   ``front-page`` and you can still query the actual parent object which is
+   the site root.
 
-        Due to Plone's Display -> Default content item behavior the page 
-        you are viewing in the browser from the site root URL is not necessary
-        the root item itself. For example, in the default Plone installation
-        this URL internally maps to Page whose id is "front-page" and
-        you still can query the actual parent object which is the site root.    
-        If you need to traverse using user visible breadcrumbs, see 
-        how breadcrumbs viewlet code does it.
+   If you need to traverse using user visible breadcrumbs, see how
+   breadcrumbs viewlet code does it.
 
 Traversing back to the site root
-===================================
+-----------------------------------
 
 Sometimes ``getSite()`` or ``portal_url`` are not available, but you still
-have acquisition chain intact. In these cases you can simply traverse
+have the acquisition chain intact. In these cases you can simply traverse
 parent objects back to the site root using ``aq_parent`` accessor::
 
-        from Products.CMFCore.interfaces import ISiteRoot
+    from Products.CMFCore.interfaces import ISiteRoot
 
-        @@grok.provider(IContextSourceBinder)
-        def languages(context):
+    @@grok.provider(IContextSourceBinder)
+    def languages(context):
+        
+        # z3c.form KSS inline validation hack
+        if not ISiteRoot.providedBy(context):
+            for item in getSite().aq_chain:
+                if ISiteRoot.providedBy(item):
+                    context = item
             
-            # z3c.form KSS inline validation hack
-            if not ISiteRoot.providedBy(context):
-                for item in getSite().aq_chain:
-                    if ISiteRoot.providedBy(item):
-                        context = item
-                
-            ltool = getToolByName(context, 'portal_languages')
-            lang_items = ltool.listAvailableLanguageInformation()
-            return SimpleVocabulary(
-                [SimpleTerm(value=item['code'], token=item['code'], title=item[u'native']) for item in lang_items]
-            )
+        ltool = getToolByName(context, 'portal_languages')
+        lang_items = ltool.listAvailableLanguageInformation()
+        return SimpleVocabulary(
+            [SimpleTerm(value=item['code'], token=item['code'], title=item[u'native']) for item in lang_items]
+        )
 
     
 Checking for the site root
-===========================
+---------------------------
 
-You can check if the current context object is Plone site root::
+You can check if the current context object is Plone the site root::
 
-        from Products.CMFCore.interfaces import ISiteRoot
-        
-        if ISiteRoot.providedBy(context):
-                # Special case
-        else:
-                # Subfolder or or a page
+    from Products.CMFCore.interfaces import ISiteRoot
+    
+    if ISiteRoot.providedBy(context):
+        # Special case
+    else:
+        # Subfolder or or a page
                 
 Navigation root
-================
+----------------
 
-In Plone, the Plone site root is not necessarily the navigation root (one site can contain 
-many navigation trees for example for the nested subsites).
+In Plone, the Plone site root is not necessarily the navigation root (one
+site can contain many navigation trees for example for the nested subsites).
 
-The navigation root check has the same mechanism as the site root check.
+The navigation root check has the same mechanism as the site root check::
 
-        from plone.app.layout.navigation.interfaces import INavigationRoot
-        
-        if INavigationRoot.providedBy(context):
-                # Top level, no up navigation
-        else:
-                # Up navigation and breadcrumbs
+    from plone.app.layout.navigation.interfaces import INavigationRoot
+    
+    if INavigationRoot.providedBy(context):
+        # Top level, no up navigation
+    else:
+        # Up navigation and breadcrumbs
 
 More info
 
 * http://plone.org/products/plone/roadmap/234                                            
 
 Getting Zope application server handle
---------------------------------------
+======================================
 
-You can also access other sites within the same application server from your code.
+You can also access other sites within the same application server from your
+code.
 
 Example::
 
@@ -400,128 +423,131 @@ Example::
     site2 = app["mysiteid"] # another site
 
 Acquisition effect
-------------------
+==================
 
-Sometimes traversing can give you attributes which actually do not exist on the object, but are inherited from the parent objects
-in the persistent object graph. See acquisition_.
+Sometimes traversal can give you attributes which actually do not exist on
+the object, but are inherited from the parent objects in the persistent
+object graph. See :term:`acquisition`.
 
 Defaut content item
---------------------
+====================
 
 Default content item or view sets some challenges for the traversing, as the
 object published path and internal path differ. 
 
-Below is an example to get the folder of the published object (parent folder for the default item)
-in page template
+Below is an example to get the folder of the published object (parent folder
+for the default item) in page templates:
 
-.. code-block :: html
+.. code-block:: html
 
-    <div tal:define="folder context/@@plone_context_state/canonical_object" tal:condition="python:hasattr(folder, 'carousel') and hasattr(folder['carousel'], 'carouselText')">xxx</div>
+    <div tal:define="folder context/@@plone_context_state/canonical_object"
+         tal:condition="python:hasattr(folder, 'carousel') and 
+                               hasattr(folder['carousel'], 
+                               'carouselText')">xxx</div>
 
-
-
-
-More info
+More info:
 
 * See :doc:`plone_context_state helper </misc/context>` 
 
-Custom traversing
------------------
+Custom traversal
+=================
 
-There exist many ways to make your objects traversable
+There exist many ways to make your objects traversable:
 
-* ``__getitem__()`` which makes your objects act like Python dictionary. This is the simplest method and recommended.
+* ``__getitem__()`` which makes your objects act like Python dictionary.
+  This is the simplest method and recommended.
 
-* ``__bobo_traverse__()`` which is archaid way from early 00s
+* ``__bobo_traverse__()`` which is archaid way from early 00s. 
 
-* ``ITraversable`` interface. You can create your own traversing hooks. ``zope.traversing.interfaces.ITraversable``
-  provides an interface traversable objects must provider. You need to register ITraversable as adapter for your content types.
-  This is only for publishing methods for HTTP requests. 
+* ``ITraversable`` interface. You can create your own traversing hooks.
+  ``zope.traversing.interfaces.ITraversable``
+  provides an interface traversable objects must provider. You need to
+  register ``ITraversable`` as adapter for your content types.  This is only
+  for publishing methods for HTTP requests. 
 
-.. warning::
+.. warning:: Zope traversal is a minefield. There are different traversers.
+   One is the *ZPublisher traverser* which does HTTP request looks.  One is
+   ``OFS.Traversable.unrestrictedTraverse()`` which is used when you call
+   traverse from Python code. Then another case is
+   ``zope.tales.expression.PathExpr`` which uses a really simple traverser.
 
-        Zope traversing is a mine field. There are different traversers.
-        One is ZPublisher traverser which does HTTP request looks.
-        One is OFS.Traversable.unrestrictedTraverse() which happens
-        when you call traverse from Python code. Then another
-        case is zope.tales.expression.PathExpr which uses
-        really simple traverser.
-
-.. warning:: If AttributeError is risen inside traverse() function bad things happen,
-   as Zope publisher specially handles this and raises NotFound exception.
-
+.. warning:: If an ``AttributeError`` is risen inside a ``traverse()``
+   function bad things happen, as Zope publisher specially handles this and
+   raises a ``NotFound`` exception which will mask the actual problem.
 
 Example using ``__getitem__()``::
 
-        class Viewlets(BrowserView):
-            """ Expose arbitary viewlets to traversing by name.
+    class Viewlets(BrowserView):
+        """ Expose arbitary viewlets to traversing by name.  
+        Exposes viewlets to templates by names.  
+        Example how to render plone.logo viewlet in arbitary template
+        code point::
+    
+            <div tal:content="context/@@viewlets/plone.logo" />
+    
+        """
+    
+        ...
         
-            Exposes viewlets to templates by names.
-        
-            Example how to render plone.logo viewlet in arbitary template code point::
-        
-                <div tal:content="context/@@viewlets/plone.logo" />
-        
+        def __getitem__(self, name):
             """
-        
-            ...
-            
-            def __getitem__(self, name):
-                """
-                Allow travering intoviewlets by viewlet name.
-        
-                @return: Viewlet HTML output
-        
-                @raise: ViewletNotFoundException if viewlet is not found
-                """
-                viewlet = self.setupViewletByName(name)
-                if viewlet is None:
-                    active_layers = [ str(x) for x in self.request.__provides__.__iro__ ]
-                    active_layers = tuple(active_layers)
-                    raise ViewletNotFoundException("Viewlet does not exist by name %s for the active theme layer set %s. Probably theme interface not registered in plone.browserlayers. Try reinstalling the theme."  % (name, str(active_layers)))
-        
-                viewlet.update()
-                return viewlet.render()
+            Allow travering intoviewlets by viewlet name.
+    
+            @return: Viewlet HTML output
+    
+            @raise: ViewletNotFoundException if viewlet is not found
+            """
+            viewlet = self.setupViewletByName(name)
+            if viewlet is None:
+                active_layers = [ str(x) for x in self.request.__provides__.__iro__ ]
+                active_layers = tuple(active_layers)
+                raise ViewletNotFoundException("Viewlet does not exist by"
+                    "name %s for the active theme layer set %s."
+                    "Probably theme interface not registered in "
+                    "plone.browserlayers. Try reinstalling the theme."
+                    % (name, str(active_layers)))
+    
+            viewlet.update()
+            return viewlet.render()
 
-More information
+More information:
 
 * http://play.pixelblaster.ro/blog/archive/2006/10/21/custom-traversing-with-five-and-itraversable
 
 Traverse events
--------------------
+===================
 
-Use ``zope.traversing.interfaces.IBeforeTraverseEvent`` for register a traversing hook
-for Plone site object or such.
+Use ``zope.traversing.interfaces.IBeforeTraverseEvent`` for register a
+traversing hook for Plone site object or such.
 
 Example::
 
-        from Products.CMFCore.interfaces import ISiteRoot
+    from Products.CMFCore.interfaces import ISiteRoot 
+    from zope.traversing.interfaces import IBeforeTraverseEvent 
+    from five import grok 
+    
+    @grok.subscribe(ISiteRoot, IBeforeTraverseEvent)
+    def check_redirect(site, event):
+        """
+        """
+        request = event.request
         
-        from zope.traversing.interfaces import IBeforeTraverseEvent
-        
-        from five import grok
-                
-        
-        @grok.subscribe(ISiteRoot, IBeforeTraverseEvent)
-        def check_redirect(site, event):
-            """
-            """
-            request = event.request
+        # XXX: To something
             
-            # XXX: To something
-            
-Use ZPublisher.BeforeTraverse to register traverse hooks for any objects.
+Use ``ZPublisher.BeforeTraverse`` to register traverse hooks for any
+objects.
 
-.. TODO:: Example - note sure if before travese hooks are persistent or not
+.. TODO:: Example - not sure if before travese hooks are persistent or not
 
 Advanced traversing with search conditions
--------------------------------------------
+===========================================
 
-All Plone content should exist in :doc:`portal_catalog </searching_and_indexing/query>`.
-Catalog provides fast query access with various indexes to the Plone content.
+All Plone content should exist in the :doc:`portal_catalog
+</searching_and_indexing/query>`.  Catalog provides fast query access with
+various indexes to the Plone content.
 
 Other resources
----------------
+===============
 
 See object publishing_.
 

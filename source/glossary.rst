@@ -509,3 +509,10 @@ It incorporates the original `glossary on plone.org
         Support tool to create and update message catalogs from instrumented
         source code.
 
+    traversal
+        Publishing an object from the ZODB by traversing its parent objects,
+        resolving security and names in scope. See the `Acquisition chapter
+        in the Zope 2 book
+        <http://docs.zope.org/zope2/zope2book/ZEO.html>`_.
+        http://docs.zope.org/zope2/zope2book/Acquisition.html
+
