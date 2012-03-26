@@ -95,6 +95,16 @@ Conditional comments (IE)
 
 * http://plone.org/products/plone/roadmap/232a
 
+``cssregistry.xml`` example:
+
+.. code-block :: xml
+
+ <!-- Load IE6 - IE8 only stylsheet to fix layout problems -->
+ <stylesheet title="" applyPrefix="False" authenticated="False"
+    cacheable="True" compression="safe" conditionalcomment="lt IE 9"
+    cookable="True" enabled="1" expression="" id="++resource++plonetheme.xxx.stylesheets/ie.css"
+    media="screen" rel="stylesheet" rendering="link" insert-before="ploneCustom.css" />
+
 
 Generating CSS classes programmatically in templates
 ====================================================
