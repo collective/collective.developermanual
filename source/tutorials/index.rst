@@ -13,3 +13,4 @@ Hand-holding information on how to get started with Plone.
     archgenxml/index
     old-style-vs-new-style/index
     addon
+    views
