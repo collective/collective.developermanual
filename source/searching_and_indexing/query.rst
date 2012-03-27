@@ -822,12 +822,9 @@ Below is a fail-safe example for a metadata access::
         if not has_image:
             return None
         
-        # For lead image access we unfortunately need
-        # to wake up the real object
         context = brain.getObject()
 
         # AT inspection API
-        context = context.aq_base # Don't pick image from parent folder
         field = context.getField(IMAGE_FIELD_NAME)
         if not field:
             return None
@@ -837,6 +834,10 @@ Below is a fail-safe example for a metadata access::
             scale = "tile" # 64x64
             return field.tag(context, scale=scale)            
 
+.. note ::
+
+	This is for example purposes only - the code above is working, but not optimal,
+	and can be written up without waking up the object.
 
 Unique values
 =============
