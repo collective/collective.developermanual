@@ -4,10 +4,10 @@
 
 .. admonition:: Description
 
-    Plone content is organized to a tree. Traversing means looking up 
+    Plone content is organized to a tree. Traversing means looking up
     content from this tree by path. When HTTP request hits a Plone
     server, Plone will traverse the corresponding content item
-    and its view function by URI. 
+    and its view function by URI.
 
 .. contents:: :local:
 
@@ -60,9 +60,9 @@ The Zope *path* is the location of the object in the object graph.
 It is a sequence of id components from the parent node(s) to the child
 separated by slashes.
 
-.. Note:: A path need not always be a sequence of object ids. During 
+.. Note:: A path need not always be a sequence of object ids. During
    traversal, an object may consume subsequent path elements, interpreting
-   them however it likes. 
+   them however it likes.
 
 Example::
 
@@ -175,7 +175,7 @@ Map physical path to virtual path using HTTP request object
     path = portal.document.getPhysicalPath()
 
     virtual_path = request.physicalPathToVirtualPath(path) # returns "document"
-    
+
 .. note::
 
     The virtual path is not necessarily the path relative to the site root,
@@ -192,24 +192,24 @@ Example::
 
     def getSiteRootRelativePath(context, request):
         """ Get site root relative path to an item
-        
+
         @param context: Content item which path is resolved
-        
+
         @param request: HTTP request object
-        
+
         @return: Path to the context object, relative to site root, prefixed with a slash.
         """
-        
+
         portal_state = getMultiAdapter((context, request), name=u'plone_portal_state')
         site = portal_state.portal()
-        
-        # Both of these are tuples 
+
+        # Both of these are tuples
         site_path = site.getPhysicalPath();
         context_path = context.getPhysicalPath()
-        
+
         relative_path = context_path[len(site_path):]
-        
-        return "/" + "/".join(relative_path)             
+
+        return "/" + "/".join(relative_path)
 
 
 Getting canonical object (breadcrumbs, visual path)
@@ -328,7 +328,7 @@ You can also do shortcut using acquisition::
    to Zope3).
 
 Using ``getSite()``
--------------------- 
+--------------------
 
 Site is also stored as a thread-local variable. In Zope each request is
 processed in its own thread. Site thread local is set when the request
@@ -343,7 +343,7 @@ Example::
     from zope.app.component.hooks import getSite
 
     site = getSite() # returns portal root from thread local storage
-    
+
 .. note:: Due to the fact that Plone does not show the default content item
    as a separate object, the page you are viewing in the browser from the
    site root URL is not necessary the root item itself. For example, in the
@@ -365,32 +365,32 @@ parent objects back to the site root using ``aq_parent`` accessor::
 
     @@grok.provider(IContextSourceBinder)
     def languages(context):
-        
+
         # z3c.form KSS inline validation hack
         if not ISiteRoot.providedBy(context):
             for item in getSite().aq_chain:
                 if ISiteRoot.providedBy(item):
                     context = item
-            
+
         ltool = getToolByName(context, 'portal_languages')
         lang_items = ltool.listAvailableLanguageInformation()
         return SimpleVocabulary(
             [SimpleTerm(value=item['code'], token=item['code'], title=item[u'native']) for item in lang_items]
         )
 
-    
+
 Checking for the site root
 ---------------------------
 
 You can check if the current context object is Plone the site root::
 
     from Products.CMFCore.interfaces import ISiteRoot
-    
+
     if ISiteRoot.providedBy(context):
         # Special case
     else:
         # Subfolder or or a page
-                
+
 Navigation root
 ----------------
 
@@ -400,7 +400,7 @@ site can contain many navigation trees for example for the nested subsites).
 The navigation root check has the same mechanism as the site root check::
 
     from plone.app.layout.navigation.interfaces import INavigationRoot
-    
+
     if INavigationRoot.providedBy(context):
         # Top level, no up navigation
     else:
@@ -408,7 +408,7 @@ The navigation root check has the same mechanism as the site root check::
 
 More info
 
-* http://plone.org/products/plone/roadmap/234                                            
+* http://plone.org/products/plone/roadmap/234
 
 Getting Zope application server handle
 ======================================
@@ -433,7 +433,7 @@ Defaut content item
 ====================
 
 Default content item or view sets some challenges for the traversing, as the
-object published path and internal path differ. 
+object published path and internal path differ.
 
 Below is an example to get the folder of the published object (parent folder
 for the default item) in page templates:
@@ -441,13 +441,13 @@ for the default item) in page templates:
 .. code-block:: html
 
     <div tal:define="folder context/@@plone_context_state/canonical_object"
-         tal:condition="python:hasattr(folder, 'carousel') and 
-                               hasattr(folder['carousel'], 
+         tal:condition="python:hasattr(folder, 'carousel') and
+                               hasattr(folder['carousel'],
                                'carouselText')">xxx</div>
 
 More info:
 
-* See :doc:`plone_context_state helper </misc/context>` 
+* See :doc:`plone_context_state helper </misc/context>`
 
 Custom traversal
 =================
@@ -457,13 +457,13 @@ There exist many ways to make your objects traversable:
 * ``__getitem__()`` which makes your objects act like Python dictionary.
   This is the simplest method and recommended.
 
-* ``__bobo_traverse__()`` which is archaid way from early 00s. 
+* ``__bobo_traverse__()`` which is archaid way from early 00s.
 
 * ``ITraversable`` interface. You can create your own traversing hooks.
   ``zope.traversing.interfaces.ITraversable``
   provides an interface traversable objects must provider. You need to
   register ``ITraversable`` as adapter for your content types.  This is only
-  for publishing methods for HTTP requests. 
+  for publishing methods for HTTP requests.
 
 .. warning:: Zope traversal is a minefield. There are different traversers.
    One is the *ZPublisher traverser* which does HTTP request looks.  One is
@@ -478,23 +478,23 @@ There exist many ways to make your objects traversable:
 Example using ``__getitem__()``::
 
     class Viewlets(BrowserView):
-        """ Expose arbitary viewlets to traversing by name.  
-        Exposes viewlets to templates by names.  
+        """ Expose arbitary viewlets to traversing by name.
+        Exposes viewlets to templates by names.
         Example how to render plone.logo viewlet in arbitary template
         code point::
-    
+
             <div tal:content="context/@@viewlets/plone.logo" />
-    
+
         """
-    
+
         ...
-        
+
         def __getitem__(self, name):
             """
             Allow travering intoviewlets by viewlet name.
-    
+
             @return: Viewlet HTML output
-    
+
             @raise: ViewletNotFoundException if viewlet is not found
             """
             viewlet = self.setupViewletByName(name)
@@ -506,7 +506,7 @@ Example using ``__getitem__()``::
                     "Probably theme interface not registered in "
                     "plone.browserlayers. Try reinstalling the theme."
                     % (name, str(active_layers)))
-    
+
             viewlet.update()
             return viewlet.render()
 
@@ -522,18 +522,18 @@ traversing hook for Plone site object or such.
 
 Example::
 
-    from Products.CMFCore.interfaces import ISiteRoot 
-    from zope.traversing.interfaces import IBeforeTraverseEvent 
-    from five import grok 
-    
+    from Products.CMFCore.interfaces import ISiteRoot
+    from zope.traversing.interfaces import IBeforeTraverseEvent
+    from five import grok
+
     @grok.subscribe(ISiteRoot, IBeforeTraverseEvent)
     def check_redirect(site, event):
         """
         """
         request = event.request
-        
+
         # XXX: To something
-            
+
 Use ``ZPublisher.BeforeTraverse`` to register traverse hooks for any
 objects.
 

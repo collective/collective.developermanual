@@ -85,3 +85,14 @@ For further reading see:
 * http://bytes.com/topic/asp-classic/answers/596062-hyperlinks-microsoft-applications-access-word-excel-etc
 * https://community.jivesoftware.com/docs/DOC-32157
 
+Why does ``folder_listing`` not list my contents?
+====================================================
+
+The site search settings (*Site Setup*--> *Search*) modifies the way
+``folder_listing`` works.
+
+So for example, if you specifify that you do not want to search objects
+of type *Page*, they will not appear in ``folder_listing`` anymore.
+
+From `this thread <http://lists.plone.org/pipermail/plone-product-developers/2012-March/thread.html#11436>`_.
+
