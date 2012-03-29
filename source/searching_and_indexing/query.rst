@@ -788,6 +788,57 @@ More information
 
 * http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/removed-advanced-query
 
+Accessing metadata
+======================
+
+Metadata is collected from the object during cataloging and is copied to brain object
+for faster access (no need to wake up the actual object from the database).
+
+ZCatalog brain objects use Python dictionary-like API to access metadata.
+Below is a fail-safe example for a metadata access::
+
+    def getImageTag(self, brain):
+        """
+        Get lead image for ZCatalog brain in folder listing.
+
+        (Based on collective.contentleadimage add-on product)
+
+        @param brain: Products.ZCatalog.Catalog.mybrains object 
+
+        @return: HTML source code for content lead <img>
+        """
+
+        # First check if the index exist
+        if not brain.has_key("hasContentLeadImage"):
+            return None
+
+        # Index can have indexed value None or
+        # custom value Missing.Value if the indexer 
+        # for brain's object failed to run or returned Missing.
+        # Both of these values evaluate to False in Python 
+        has_image = brain["hasContentLeadImage"]
+
+        # The value was missing, None or False
+        if not has_image:
+            return None
+        
+        context = brain.getObject()
+
+        # AT inspection API
+        field = context.getField(IMAGE_FIELD_NAME)
+        if not field:
+            return None
+
+        # ImageField.tag() API
+        if field.get_size(context) != 0:
+            scale = "tile" # 64x64
+            return field.tag(context, scale=scale)            
+
+.. note ::
+
+	This is for example purposes only - the code above is working, but not optimal,
+	and can be written up without waking up the object.
+
 Unique values
 =============
 
