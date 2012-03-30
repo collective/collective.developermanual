@@ -201,6 +201,14 @@ Example::
     portal_groups = site.portal_groups
     portal_groups.addPrincipalToGroup(member.getUserName(), "companies")
 
+Removing a user from a group
+------------------------
+
+Example::
+
+    portal_groups = site.portal_groups
+    portal_groups.removePrincipalFromGroup(member.getUserName(), "companies")
+
 Getting groups for a certain user
 ---------------------------------
 
