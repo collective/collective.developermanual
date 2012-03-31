@@ -206,21 +206,21 @@ It adds a custom behavior to normal ``urlparse.urljoin()`` logic.
 Using XDV to theme and integrate a Wordpress site
 --------------------------------------------------
 
-Below are instructions how to integrate a Wordpress site to your CMS.
-In this example CMS is Plone, but it could be any other system.
+Below are instructions for how to integrate a Wordpress site to your CMS.
+In this example the CMS is Plone, but it could be any other system.
 
-We will create XDV theme which will theme Wordpress site
-to match our CMS site in the fly. 
+We will create an XDV theme which will theme a Wordpress site
+to match our CMS site on the fly. 
 
-Wordpress theme using built with XDV and using a live Plone web page
+The Wordpress theme is built with XDV, using a live Plone web page
 as a theme template.
 
-This way Wordpress theme inherits "live data" 
-from Plone site, like top tabs (portal sections), footer, CSS and 
-other stuff which can be changed in-the-fly and reflecting
-changes to two separaet theming products would be cumbersome.
+This way the Wordpress theme inherits "live data" 
+from the Plone site, like top tabs (portal sections), footer, CSS and 
+other stuff which can be changed on-the-fly and reflecting
+such changes to two separate theming products would be cumbersome.
 
-Benefits using Wordpress for blogging instead of main CMS
+Benefits of using Wordpress for blogging instead of the main CMS:
 
 * Wordpress post and comment management is easy
 
@@ -243,11 +243,11 @@ Benefits using Wordpress for blogging instead of main CMS
 
 * ..and so on...
 
-Benefits of using XDV theming instead of creating native Wordpress theme are
+Benefits of using XDV theming instead of creating a native Wordpress theme are
 
 * You need to maintain only one theming add-on product
-  e.g. one for your main CMS and Wordpress 
-  receives updates to this site and theme automatically
+  i.e. the one for your main CMS and Wordpress 
+  receives the updates to this site and the theme automatically
 
 * Wordpress does not need to be touched
   
@@ -258,27 +258,27 @@ Benefits of using XDV theming instead of creating native Wordpress theme are
   other external services: Bugzilla, Trac, Webmail, phpBB,
   you-name-it  
   
-* Even though Wordpress has slick UI, it is a well known fact that
+* Even though Wordpress has a slick UI, it is a well known fact that
   it is a can of worms internally.
   My developers do not like the idea of PHP development and would
-  spit on my face if I ask them to go a develop a Wordpress
+  spit on my face if I ask them to go develop a Wordpress
   theme for us 
 
 Theme elements
 ==================
 
-The theme will consist of following pieces
+The theme will consist of the following pieces
 
 * Deliverance rules XML file which defines how to combine Plone and Wordpress HTML
   (rules.xml)
   
 * Additional CSS definitions active only for Wordpress (wordpress.css).
-  Dependency to this CSS in injected to the <head> by rules XML
+  Dependency on this CSS in injected in the <head> by rules XML
 
 * Special Plone page template which will provide slots where Wordpress can drop in the content
   (wordpress_listing.pt)
 
-* A helper script which makes it easy for repeatable perform 
+* A helper script which makes it easy to perform repeatable  
   theming actions, like recompiling the theme
   (xdv.py)
   
@@ -287,9 +287,9 @@ CMS page template
 
 This explains how to create a Plone page template where Wordpress
 content will be dropped in. This step is not necessary,
-as we could do this without touching the Plone. However, it 
+as we could do this without touching Plone. However, it 
 makes things more straightforward and explicit when we known
-that Wordpress theme uses a certain template and we explicitly define slots 
+that the Wordpress theme uses a certain template and we explicitly define slots 
 for Wordpress content there.
 
 Example::
@@ -308,7 +308,7 @@ Example::
             <div metal:fill-slot="content">
                         
                 <div id="wordpress-content">
-                        <!-- Your Wordpress "left column" will go there -->                        
+                        <!-- Your Wordpress "left column" will go here -->                        
                 </div>
         
             </div>
@@ -319,7 +319,7 @@ Example::
 Theming rules
 ++++++++++++++++++++++
 
-Following are XDV rules (rules.xml) how we will fit Wordpress site to Plone frame.
+Following are the XDV rules (rules.xml) for how we will fit the Wordpress site to the Plone frame.
 
 It will integrate 
 
