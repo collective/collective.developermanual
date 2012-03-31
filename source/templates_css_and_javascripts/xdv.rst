@@ -351,7 +351,7 @@ rules.xml::
             <!-- Use blog title instead of Plone page title -->
             <replace css:content="title" css:theme="title" />
             
-            <!-- Put Wordpress sidebar to Plone's portlets section -->
+            <!-- Put Wordpress sidebar in Plone's portlets section -->
             <append css:content="#r_sidebar" css:theme="#portal-column-one .visualPadding" />
             
             <!-- Place wordpress content into our theme content area -->
@@ -404,7 +404,7 @@ This CSS has styles which are applied only to Wordpress pages.
 They are mainly corner case fixes where Wordpress and CMS styles
 must match.
 
-The CSS file is loaded when rules.xml injects it to <head> section.
+The CSS file is loaded when rules.xml injects it into the <head> section.
 
 wordpress.css::
 
@@ -495,7 +495,7 @@ wordpress.css::
 Helper script
 ++++++++++++++
 
-The following Python script (xdv.py) makes it easy for us 
+The following Python script (xdv.py) makes it easy for us to:
 
 * Recompile the theme
 
@@ -503,11 +503,11 @@ The following Python script (xdv.py) makes it easy for us
 
 * Preview the theme in our browser
 
-It is basically wrapped with default file locations around
+It is basically wrapped with default file locations around the
  *bin/xdvcompiler* and *bin/xdvrun* commands with some
  webbrowser opening magic.
  
-Drop the file to your Plone theme package and modify it for your needs.
+Drop the file into your Plone theme package and modify it to fit your needs.
 
 xdv.py::
 
@@ -517,7 +517,7 @@ xdv.py::
          
          Modify it for your own needs.
         
-         It assumes your buildout.cfg has xdv section and generated XDV 
+         It assumes your buildout.cfg has an xdv section and generates XDV 
          commands under bin/
         
          To compile, execute in the buildout folder::
@@ -529,7 +529,7 @@ xdv.py::
              python src/plonetheme.mfabrik/xdv.py --test
         
         
-         To build test HTML and preview it in browser, execute in buildout folder::
+         To build test HTML and preview it in a browser, execute in buildout folder::
         
              python src/plonetheme.mfabrik/xdv.py --preview
         
@@ -606,7 +606,7 @@ xdv.py::
             url = "file://" + os.path.abspath(TEST_HTML_FILE)
             print "Opening:" + url
             
-            # We prefer Firefox for preview for its superious
+            # We prefer Firefox for preview for its superior
             # Firebug HTML debugger and XPath rule generator 
             try:
                 browser = webbrowser.get("firefox")
@@ -619,8 +619,8 @@ xdv.py::
 Compiling the theme
 ======================
 
-This will generate XSL templates to do theming transform.
-It will compile rules XML with some boilerplate XSL.
+This will generate XSL templates to do the theming transform.
+It will compile the rules XML with some boilerplate XSL.
 
 Running our compile script::
 
@@ -638,36 +638,37 @@ For more information see
 Testing the theme
 ===================
 
-The following command will apply theme for an example external page::
+The following command will apply the theme to an example external page::
 
         bin/xdvrun -o theme.html theme.xsl http://blog.twinapex.fi 
         firefox theme.xhtml
         
-... or we can use shortcut provided by our script ... ::
+... or we can use the shortcut provided by our script ... ::
 
         python src/plonetheme.mfabrik/xdv.py --preview
         
-... alternative we can specify development server (localhost) from where the theme source is fetched::        
+... alternatively we can specify that the theme source should be fetched from the 
+development server (localhost)::        
 
         python src/plonetheme.mfabrik/xdv.py --preview --development
         
-Applying the theme in Apache production environment
+Applying the theme in an Apache production environment
 =====================================================
 
 These steps tell how to apply the integration
-theme for Wordpress when Wordpress is running under
+theme for Wordpress when Wordpress is running under an
 Apache virtualhost.
 
 Installing dependencies
 +++++++++++++++++++++++
 
 We use Apache and mod_transform.
-`Instructions how to set up modules for Apache <http://pypi.python.org/pypi/xdv#apache>`_
+`Instructions on how to set up modules for Apache <http://pypi.python.org/pypi/xdv#apache>`_
 are available on the XDV homepage. Some hand-built modules must be used,
 instructions to set them up for Ubuntu / Debian are available.
 
 Apache 2 supports `filter chains <http://httpd.apache.org/docs/2.2/mod/mod_filter.html>`_ which allow you to
-perform magic on HTTP response before sending it out.
+perform magic on the HTTP response before sending it out.
 This corresponds to Python's WSGI middleware.
 
 We will use special builds of mod_transform and mod_depends 
@@ -741,7 +742,7 @@ The example below shows a typical xdv setup
         RewriteRule ^/static(.*) /path/to/your/theme/static/$1 [L]
         RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/%{HTTP_HOST}:80/Plone/VirtualHostRoot/$1 [L,P]
 
-</VirtualHost>
+        </VirtualHost>
 
 Integrating with Wordpress
 -----------------------------
@@ -806,7 +807,7 @@ Running it
 ==========
 
 After Apache has all modules enabled and your virtualhost configuration is ok,
-you should see Wordpress through your new theme by visiting at the site
+you should see Wordpress through your new theme by visiting the site
 served through Apache:
 
 * http://blog.mfabrik.com
@@ -824,13 +825,13 @@ The theme should be recompiled every time
   (e.g. a new top level site section is being added)
 
 This is because the compilation will hard-link resources and template
-snippets to resulting the theme.xsl file. If hard-linked resources change
+snippets to the resulting theme.xsl file. If hard-linked resources change
 on the Plone site, the transformation XSL file does not automatically
 reflect back the changes.
 
 It could be possible to use Plone events automatically to rerun theme
 compilation when concerned resources change. However, 
-the would be quite complex.  For now, we are satisfied with a scheduled task 
+this would be quite complex.  For now, we are satisfied with a scheduled task 
 which will recompile the theme now and then.
 
 Alternatively, mod_transforms could be run in non-cached mode with
@@ -860,7 +861,7 @@ in /etc/cron.d/update-wordpress::
 
 .. warning ::
 
-        Looks like Varnish has issues with Apache 2 apache2ctl graceful 
+        It looks like Varnish has issues with Apache2 apache2ctl graceful 
         restart. Do only hard restarts when using Apache in conjuction
         with Varnish.
 
@@ -874,7 +875,7 @@ Site URL
 ++++++++
 
 Unlike Plone, Wordpress does not have decent virtual hosting machinery.
-It knowns only one URL which is uses to refer to the site in the external context
+It knowns only one URL which it uses to refer to the site in the external context
 (e.g. RSS feeds). 
 
 This setting can be overridden in
@@ -892,8 +893,8 @@ Here is an example how we override this in our wp-config.php::
 HTTP 404 Not Found special case
 ================================
 
-Http 404 Not Found responses are not themed by Apache filter chain. This
-is not possible due to order of pipeline in Apache. 
+Http 404 Not Found responses are not themed by the Apache filter chain. This
+is not possible due to the order of the pipeline in Apache. 
 
 As a workaround you can set up a custom HTTP 404 page in
 Wordpress which does not expose the old theme.
@@ -933,7 +934,7 @@ that the theme integration works on your production site
 
 * Wordpress administrative interface works
 
-* RSS feed from Wordpress works and contain correct URLs
+* RSS feed from Wordpress works and contains correct URLs
 
 * HTTP 404 not found is handled correctly
 
@@ -941,7 +942,7 @@ that the theme integration works on your production site
 
 * Changes on CMS site are reflected to Wordpress theme within the update delay
 
-* Old blog site is redirected to new site using HTTP 301 (if applies)
+* Old blog site is redirected to new site using HTTP 301 (if applicable)
 
 
 
@@ -960,7 +961,7 @@ stuff needed for XDV, and it does all the magic for me and I
 don’t need to think about configuration or compiling on each change. 
 This is a very nice thing when the Plone site is the main site and 
 only some elements are needed to be dropped in from another 
-location. As usually we need the opposite from this: the phpBB site 
+location. As usual, we need the opposite of this: the phpBB site 
 needs to be the main one, and drop in some minor content from the 
 Plone site. This means that we can’t use the magic of collective.xdv, 
 but we must set up everything by hand.
