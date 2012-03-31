@@ -34,7 +34,7 @@ Example backends to perform XDV transformation include
 * Nginx web server transform module
 
 XDV theming can be used together with Plone where enhanced support is provided
-by `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_ package.
+by `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_.
 Technically, collective.xdv adds Plone settings panel and does XSL transformation in Zope's
 post-publication hook using lxml library.
 
