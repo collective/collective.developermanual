@@ -12,20 +12,20 @@
 Introduction
 -------------
 
-XDV is an external HTML theming engine, a.k.a. theming proxy, which allows 
+XDV is an external HTML theming engine, a.k.a. a theming proxy, which allows 
 you to mix and match HTML and CSS from internal and external sites 
 by using simple XML rules. It separates the theme development from the site development, 
 so that people with little HTML and CSS knowledge can create themes
-without need to know underlying Python, PHP or whatever. It also enables
-integration of different services and sites to one, unified, user experience. 
-For example, XDV is used by `plone.org <http://plone.org>` to integrate
-Plone CMS and Trac issue tracker. 
+without the need to know the underlying Python, PHP or whatever. It also enables
+integration of different services and sites to one unified user experience. 
+For example, XDV is used by `plone.org <http://plone.org>`_ to integrate
+the Plone CMS and the Trac issue tracker. 
 
 XDV compiles theming rules to XSL templates, which has been a standard
-XML based templates language since 1999. XSL has good support
+XML based template language since 1999. XSL has good support
 in every programming language and web server out there.
 
-Example backends to perform XDV transformation include 
+Example backends to perform XDV transformation include: 
 
 * collective.xdv (as a normal Plone add-on, a post-process hook)
 
@@ -33,33 +33,33 @@ Example backends to perform XDV transformation include
 
 * Nginx web server transform module
 
-XDV theming can be used together with Plone where enhanced support is provided
-by `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_.
-Technically, collective.xdv adds Plone settings panel and does XSL transformation in Zope's
+XDV theming can be used together with Plone, where enhanced support is provided
+by the `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_.
+Technically, collective.xdv adds a Plone settings panel and does the XSL transformation in Zope's
 post-publication hook using lxml library.
 
-XDV can be used standalone with `XDV package <http://pypi.python.org/pypi/xdv/0.3a2>`_ to theme any web site, 
-let it be Wordpress, Joomla, Drupal or custom in-house PHP solution from year 2000.
+XDV can be used standalone with the `XDV package <http://pypi.python.org/pypi/xdv/0.3a2>`_ to theme any web site, 
+let it be Wordpress, Joomla, Drupal or a custom in-house PHP solution from year 2000.
 
-XDV is based on `Deliverance specification <http://deliverance.openplans.org/>`_ 
-The difference between XDV and Deliverance reference implementation 
-is that XDV internally compiles themes to XSL templates, when Deliverance relies
-on processing HTML in Python. Currently XDV approach seems to be
+XDV is based on the `Deliverance specification <http://deliverance.openplans.org/>`_ 
+The difference between XDV and the Deliverance reference implementation 
+is that XDV internally compiles themes to XSL templates, whereas Deliverance relies
+on processing HTML in Python. Currently the XDV approach seems to be
 working better, as we had many problems trying to apply Deliverance 
-for Wordpress site (redirects didn't work, HTTP posts didn't work, etc.).
+for Wordpress sites (redirects didn't work, HTTP posts didn't work, etc.).
 
 Theming editing interface (backend)
 =====================================
 
-Editing interface, backend, or admin site, however you wish to call it,
+The editing interface, backend, or admin site, however you wish to call it,
 can be themed with collective.xdv. However, it does not need to be
-and edit interface can fallback to the default Plone theme.
+and the edit interface can fallback to the default Plone theme.
 
-There are several reasons for this
+There are several reasons for this:
 
-* Plone editing interface is powerful and has very high
+* The Plone editing interface is powerful and has very high
   usability, which means that it is internally quite complex
-  (makes complex things to pose itself as a simple to the end user)
+  (it takes complex things to seem simple to the end user).
   
 * The public theme you are building would not fit to the 
   editing interface very well. E.g. no space for portlets.
@@ -67,8 +67,8 @@ There are several reasons for this
   artist has created the visuals without properly
   fitting them for Plone. 
   
-With XDV you can easily have separate admin.yoursite.com
-where Plone editing interface is ontouched.  
+With XDV you can easily have a separate admin.yoursite.com
+where the Plone editing interface is untouched.  
 
 Tutorials
 -----------
@@ -86,7 +86,7 @@ Tutorials
 Creating your first XDV project
 ----------------------------------
 
-:doc:`ZopeSkel package </tutorials/paste>` includes XDV theme skeleton
+The :doc:`ZopeSkel package </tutorials/paste>` includes an XDV theme skeleton
 since version 2.20.
 
 Example how to boostrap your theme.
@@ -98,14 +98,14 @@ Setting up XDV development tools
 ---------------------------------
 
 XDV tools are deployed as Python eggs.
-You can use tools like `buildout <http://www.buildout.org/>`
+You can use tools like the `buildout <http://www.buildout.org/>`_
 configuration and assembly tool or easy_install
 to get XDV on your development computer and the server.
 
 If you are working with Plone you can integrate XDV to your
-site existing buildout. If you are not working with Plone,
-`XDV home page <http://pypi.python.org/pypi/xdv#installation>`_ has instructions how to deploy
-XDV command standalone.
+existing site's buildout. If you are not working with Plone, the
+`XDV home page <http://pypi.python.org/pypi/xdv#installation>`_ has instructions 
+on how to deploy the XDV command standalone.
 
 XDV Rules 
 -----------
@@ -113,7 +113,7 @@ XDV Rules
 Rules (rules.xml) will tell how to fit content from external source to
 your theme HTML.
 
-It provides straightforward XML based syntax to manipulate HTML easily
+It provides a straightforward XML based syntax to manipulate HTML easily:
 
 * Append, replace and drop HTML pieces
 
@@ -125,24 +125,22 @@ It provides straightforward XML based syntax to manipulate HTML easily
 
 * etc.
 
-Rules XML syntax is documented at `XDV homepage <http://pypi.python.org/pypi/xdv>`_.
+The rules XML syntax is documented at `XDV homepage <http://pypi.python.org/pypi/xdv>`_.
 
-Rules will be compiled to XSL template (theme.xsl) by *xdvcompiler* command.
+Rules will be compiled to an XSL template (theme.xsl) by the *xdvcompiler* command.
 The actual theming is done by one of the XSL backends listed above,
 by taking HTML as input and applying XSL transformations on it.
 
 Note that currently rules without matching selectors are silently ignored
 and there is no bullet-proof way to debug what happens inside 
-XSL transformation, except by looking into compiled theme.xsl.
+XSL transformation, except by looking into the compiled theme.xsl.
 
 Dropping specific CSS files with XDV
 -------------------------------------
 
 For example if you wish to get rid of the base-cachekey????.css file that comes from
 a Plone site, but still want to keep the authoring CSS and any special CSS
-files that come from add-ons
-
-Example::
+files that come from add-ons, you can use the following rule::
 
     <drop content="/html/head[style *=
     'portal_css/Plone%20Default/base-cachekey']/style" />
