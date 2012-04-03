@@ -190,8 +190,9 @@ Moving members
 ==============
 
 Moving members is not straightforward, as by default member password is
-hashed with the member location 
-- members need to reregister their password after being moved from one
+hashed with the member location.
+
+- Members need to reregister their password after being moved from one
   folder to another.
 
 Here is a complex function to perform moving by recreating the user and
