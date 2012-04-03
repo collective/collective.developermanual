@@ -1,25 +1,28 @@
-===========
+-----------
  WebDAV
-===========
+-----------
 
 .. admonition:: Description 
 
-    WebDAV is a protocol to manage your site directly from MS Windows Explorer and such.
-    Plone supports WebDAV without add-ons.
+    WebDAV is a protocol to manage your site directly from MS Windows
+    Explorer and such.  Plone supports WebDAV without add-ons.
 
 .. contents:: :local:
 
 Introduction
---------------
+==============
 
-`WebDAV port must be enabled in Zope configuration to use WebDAV facilities <http://plone.org/documentation/how-to/webdav>`_.
-
+The WebDAV port must be enabled in Zope configuration to use WebDAV
+facilities. See the 
+`WebDAV howto <http://plone.org/documentation/how-to/webdav>`_.
 
 Enabling WebDAV in Zope
+-----------------------
 
-You must enable the WebDAV port in your Zope config to use it. Modify your buildout configuration's client setup to add a webdav address:
+You must enable the WebDAV port in your Zope config to use it. Modify your
+buildout configuration's client setup to add a webdav address:
 
-Short *buildout.cfg* example::
+Short ``buildout.cfg`` example::
 
      [instance]
      ...
@@ -28,9 +31,8 @@ Short *buildout.cfg* example::
      webdav-address=1980
      ...
 
-Alternative buildout.cfg configuration snippet which might be needed for some WebDAV clients
-
-::
+Alternative ``buildout.cfg`` configuration snippet which might be needed for
+some WebDAV clients::
 
    [instance]
    ... 
@@ -41,23 +43,30 @@ Alternative buildout.cfg configuration snippet which might be needed for some We
        force-connection-close off
        </webdav-source-server>
 
-There snippets will be in **generated** *parts/instance/zope.conf* when buildout has been re-run.
+These snippets will be in the **generated** ``parts/instance/zope.conf``
+after buildout has been re-run.
 
-This will enable the WebDAV server on http://www.mydomain.com:1980/. Note that you cannot use this URL in your web browser, just in WebDAV clients. Using the web browser will give you an error message AttributeError: manage_FTPget. You could also just run the WebDAV server on localhost with address 1980, forcing you to either use a WebDAV client locally or proxy WebDAV through Apache.
+This will enable the WebDAV server on http://www.mydomain.com:1980/. Note
+that you cannot use this URL in your web browser, just in WebDAV clients.
+Using the web browser will give you an error message ``AttributeError:
+manage_FTPget``. You could also just run the WebDAV server on ``localhost``
+with address 1980, forcing you to either use a WebDAV client locally or
+proxy WebDAV through Apache.
 
 Supporting WebDAV in your custom content
-----------------------------------------
+========================================
 
-`Please read more about it in Dexterity WebDAV manual <http://svn.plone.org/svn/plone/plone.dexterity/trunk/docs/WebDAV.txt>`_.
+Please read more about it in the 
+`Dexterity WebDAV manual <http://svn.plone.org/svn/plone/plone.dexterity/trunk/docs/WebDAV.txt>`_.
 
 WebDAV notes
---------------
+==============
 
 WebDAV uses a number of HTTP verbs to perform different operations. The
 following notes describe how they are implemented in Zope 2 and Dexterity.
 
 Background
-================
+----------------
 
 Basic WebDAV support can be found in the ``webdav`` package. This defines two
 base classes, ``webdav.Resource.Resource`` and
@@ -65,35 +74,35 @@ base classes, ``webdav.Resource.Resource`` and
 are mixed into item and container content objects, respectively.
 
 The webdav package also defines the ``NullResource`` object. A
-``NullResource`` is a kind of placeholder, which supports the HTTP verbs HEAD,
-PUT, and MKCOL.
+``NullResource`` is a kind of placeholder, which supports the HTTP verbs ``HEAD``,
+``PUT``, and ``MKCOL``.
 
-Contains based on ``ObjectManager`` (including those in Dexterity) will return
-a ``NullResource`` if they cannot find the requested object and the request is
-a WebDAV request.
+Containers based on ``ObjectManager`` (including those in Dexterity) will
+return a ``NullResource`` if they cannot find the requested object and the
+request is a WebDAV request.
 
 The ``zope.filerepresentation`` package defines a number of interfaces which
 are intended to help manage file representations of content objects. Dexterity
 uses these interfaces to allow the exact file read and write operations to
 be overridden without subclassing.
 
-HEAD
-================
+``HEAD``
+----------------
 
-A HEAD request retrieves headers only.
+A ``HEAD`` request retrieves headers only.
 
-``Resource.HEAD()`` sets Content-Type based on ``self.content_type()``,
+``Resource.HEAD()`` sets ``Content-Type`` based on ``self.content_type()``,
 ``Content-Length`` based on ``self.get_size()``, ``Last-Modified`` based on
 ``self._p_mtime``, and an ETag based on ``self.http__etag()``, if available.
 
 ``Collection.HEAD()`` looks for ``self.index_html.HEAD()`` and returns its
-value if that exists. Otherwise, it returns a 405 Method Not Allowed response.
-If there is no ``index_html`` object, it returns 404 Not Found.
+value if that exists. Otherwise, it returns a ``405 Method Not Allowed`` response.
+If there is no ``index_html`` object, it returns ``404 Not Found``.
 
 GET
-================
+----------------
 
-A GET request retrieves headers and body.
+A ``GET`` request retrieves headers and body.
 
 Zope calls ``manage_DAVget()`` to retrieve the body. The default
 implementation calls ``manage_FTPget()``.
@@ -113,7 +122,7 @@ returned as a string, by calling its ``read()`` method. Note that this loads
 the entire file contents into memory on the server.
 
 The default ``IRawReadFile`` implementation for Dexterity content returns an
-RFC 2822 style message document. Most fields on the object and any enabled
+:RFC:`2822` style message document. Most fields on the object and any enabled
 behaviours will be turned into UTF-8 encoded headers. The primary field, if
 any, will be returned in the body, also most likely encoded as an UTF-8
 encoded string. Binary data may be base64 encoded instead.
@@ -121,14 +130,14 @@ encoded string. Binary data may be base64 encoded instead.
 A type which wishes to override this behaviour can provide its own adapter.
 For example, an image type could return the raw image data.
 
-PUT
-================
+``PUT``
+----------------
 
-A PUT request reads the body of a request and uses it to update a resource
+A ``PUT`` request reads the body of a request and uses it to update a resource
 that already exists, or to create a new object.
 
-By default ``Resource.PUT()`` fails with 405 Method Not Allowed. That is, it
-is not by default possible to PUT to a resource that already exists. The same
+By default ``Resource.PUT()`` fails with ``405 Method Not Allowed``. That is, it
+is not by default possible to ``PUT`` to a resource that already exists. The same
 is true of ``Collection.PUT()``.
 
 In Dexterity, the ``PUT()`` method is overridden to adapt self to 
@@ -138,7 +147,7 @@ or more times, writing the contents of the request body, before calling
 based on the value of the ``Content-Type`` header, if available.
 
 The default implementation of ``IRawWriteFile`` for Dexterity objects assumes
-the input is an RFC 2822 style message document. It will read header values
+the input is an :RFC:`2822` style message document. It will read header values
 and use them to set fields on the object or in behaviours, and similarly read
 the body and update the corresponding primary field.
 
@@ -166,7 +175,7 @@ Here, only an ``IObjectCreatedEvent`` is fired, and only *after* the object
 has been fully initialised.
 
 DELETE
-================
+----------------
 
 A DELETE request instructs the WebDAV server to delete a resource.
 
@@ -177,7 +186,7 @@ an object.
 children of the collection, recursively, before allowing the delete.
 
 PROPFIND
-================
+----------------
 
 A PROPFIND request returns all or a set of WebDAV properties. WebDAV
 properties are metadata used to describe an object, such as the last modified
@@ -243,7 +252,7 @@ items returned by the ``listDAVObjects()`` methods, which by default returns
 all contained items via the ``objectValues()`` method.
 
 PROPPATCH
-================
+----------------
 
 A PROPPATCH request is used to update the properties on an existing object.
 
@@ -251,18 +260,18 @@ A PROPPATCH request is used to update the properties on an existing object.
 sheets as ``PROPFIND()``. It uses the ``PropertySheet`` API to add or update
 properties as appropriate.
 
-MKCOL
-================
+``MKCOL``
+----------------
 
-A MKCOL request is used to create a new collection resource, i.e. create a
+A ``MKCOL`` request is used to create a new collection resource, i.e. create a
 new folder.
 
 ``Resource.MKCOL()`` raises 405 Method Not Allowed, because the resource
-already exists (remember that in WebDAV, the MKCOL request, like a PUT for a
+already exists (remember that in WebDAV, the ``MKCOL`` request, like a ``PUT`` for a
 new resource, is sent with a location that specifies the desired new resource
 location, not the location of the parent object).
 
-``NullResource.MKCOL()`` handles the valid case where a MKCOL request has
+``NullResource.MKCOL()`` handles the valid case where a ``MKCOL`` request has
 been sent to a new resource. After checking that the resource does not already
 exist, that the parent is indeed a collection (folderish item), and that the
 parent is not locked, it calls the ``MKCOL_handler()`` method on the parent
@@ -274,7 +283,7 @@ a directory. The default implementation simply calls ``manage_addFolder()``
 on the parent. This will create an instance of the ``Folder`` type.
 
 COPY
-================
+----------------
 
 A COPY request is used to copy a resource.
 
@@ -282,7 +291,7 @@ A COPY request is used to copy a resource.
 object copy semantics.
 
 MOVE
-================
+----------------
 
 A MOVE request is used to relocate or rename a resource.
 
@@ -290,7 +299,7 @@ A MOVE request is used to relocate or rename a resource.
 object move semantics.
 
 LOCK
-================
+----------------
 
 A LOCK request is used to lock a content object.
 
@@ -311,7 +320,7 @@ parent (remember that a ``NullResource`` is a transient object returned
 when a child object cannot be found in a WebDAV request).
 
 UNLOCK
-================
+----------------
 
 An UNLOCK request is used to unlock a locked object.
 
@@ -321,7 +330,7 @@ An UNLOCK request is used to unlock a locked object.
 This deletes the ``LockNullResource`` object from the parent container.
 
 Fields on container objects
-================================
+--------------------------------
 
 When browsing content via WebDAV, a container object (folderish item) will
 appear as a folder. Most likely, this object will also have content in the
@@ -330,9 +339,10 @@ a pseudo-file with the name '_data', by injecting this into the return value
 of ``listDAVObjects()`` and adding a special traversal hook to allow its
 contents to be retrieved.
 
-This file supports HEAD, GET, PUT, LOCK, UNLOCK, PROPFIND and PROPPATCH
+This pseudo-file supports ``HEAD``, ``GET``, ``PUT``, ``LOCK``, ``UNLOCK``,
+``PROPFIND`` and ``PROPPATCH``
 requests (an error will be raised if the user attempts to rename, copy, move
 or delete it). These operate on the container object, obviously. For example,
-when the data object is updated via a PUT request, the ``PUT()`` method on
+when the data object is updated via a ``PUT`` request, the ``PUT()`` method on
 the container is called, by default delegating to an ``IRawWriteFile`` adapter
 on the container.
