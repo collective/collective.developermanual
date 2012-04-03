@@ -1,6 +1,6 @@
-======================
+----------------------
  Diazo / XDV theming
-======================
+----------------------
 
 .. admonition:: Description
 
@@ -10,7 +10,7 @@
 .. contents :: :local:
 
 Introduction
--------------
+=============
 
 XDV is an external HTML theming engine, a.k.a. a theming proxy, which allows 
 you to mix and match HTML and CSS from internal and external sites 
@@ -49,7 +49,7 @@ working better, as we had many problems trying to apply Deliverance
 for Wordpress sites (redirects didn't work, HTTP posts didn't work, etc.).
 
 Theming editing interface (backend)
-=====================================
+-------------------------------------
 
 The editing interface, backend, or admin site, however you wish to call it,
 can be themed with collective.xdv. However, it does not need to be
@@ -71,7 +71,7 @@ With XDV you can easily have a separate admin.yoursite.com
 where the Plone editing interface is untouched.  
 
 Tutorials
------------
+===========
 
 * http://reinout.vanrees.org/weblog/2010/12/29/xdv-setup.html
 
@@ -84,7 +84,7 @@ Tutorials
 * http://pypi.python.org/pypi/dv.xdvserver (with WSGI)
 
 Creating your first XDV project
-----------------------------------
+==================================
 
 The :doc:`ZopeSkel package </tutorials/paste>` includes an XDV theme skeleton
 since version 2.20.
@@ -95,7 +95,7 @@ Example how to boostrap your theme.
 
 
 Setting up XDV development tools
----------------------------------
+=================================
 
 XDV tools are deployed as Python eggs.
 You can use tools like the `buildout <http://www.buildout.org/>`_
@@ -108,7 +108,7 @@ existing site's buildout. If you are not working with Plone, the
 on how to deploy the XDV command standalone.
 
 XDV Rules 
------------
+===========
 
 Rules (rules.xml) will tell how to fit content from external source to
 your theme HTML.
@@ -136,7 +136,7 @@ and there is no bullet-proof way to debug what happens inside
 XSL transformation, except by looking into the compiled theme.xsl.
 
 Dropping specific CSS files with XDV
--------------------------------------
+=====================================
 
 For example if you wish to get rid of the base-cachekey????.css file that comes from
 a Plone site, but still want to keep the authoring CSS and any special CSS
@@ -150,7 +150,7 @@ More info
 * http://www.coactivate.org/projects/deliverance/lists/deliverance-discussion/archive/2010/09/1284795659190
 
 Handling .. relative URLs
----------------------------
+===========================
 
 Here is an example of :doc:`monkey-patch </misc/monkeypatch>`
 which you can use to override relative URLs in your theme using 
@@ -187,10 +187,10 @@ It adds a custom behavior to normal ``urlparse.urljoin()`` logic.
                 return
             if not absolute_prefix.endswith('/'):
                 absolute_prefix = absolute_prefix + '/'
-            for node in theme_doc.xpath('//*[@src]'):
+            for node in theme_doc.xpath('//*[@src]'): 
                 url = join(absolute_prefix, node.get('src'))
                 node.set('src', url)
-            for node in theme_doc.xpath('//*[@href]'):
+            for node in theme_doc.xpath('//*[@href]'): 
                 url = join(absolute_prefix, node.get('href'))
                 node.set('href', url)
             for node in theme_doc.xpath('//comment() | //style'):
@@ -204,7 +204,7 @@ It adds a custom behavior to normal ``urlparse.urljoin()`` logic.
 
 
 Using XDV to theme and integrate a Wordpress site
---------------------------------------------------
+==================================================
 
 Below are instructions for how to integrate a Wordpress site to your CMS.
 In this example the CMS is Plone, but it could be any other system.
@@ -265,7 +265,7 @@ Benefits of using XDV theming instead of creating a native Wordpress theme are
   theme for us 
 
 Theme elements
-==================
+------------------
 
 The theme will consist of the following pieces
 
@@ -283,7 +283,7 @@ The theme will consist of the following pieces
   (xdv.py)
   
 CMS page template
-++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^
 
 This explains how to create a Plone page template where Wordpress
 content will be dropped in. This step is not necessary,
@@ -317,7 +317,7 @@ Example::
         </html>
 
 Theming rules
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^
 
 Following are the XDV rules (rules.xml) for how we will fit the Wordpress site to the Plone frame.
 
@@ -398,7 +398,7 @@ rules.xml::
         </rules>
 
 Wordpress specific CSS
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^
 
 This CSS has styles which are applied only to Wordpress pages.
 They are mainly corner case fixes where Wordpress and CMS styles
@@ -493,7 +493,7 @@ wordpress.css::
         }
 
 Helper script
-++++++++++++++
+^^^^^^^^^^^^^^
 
 The following Python script (xdv.py) makes it easy for us to:
 
@@ -617,7 +617,7 @@ xdv.py::
             browser.open_new_tab(url)
             
 Compiling the theme
-======================
+----------------------
 
 This will generate XSL templates to do the theming transform.
 It will compile the rules XML with some boilerplate XSL.
@@ -636,7 +636,7 @@ For more information see
 * http://pypi.python.org/pypi/xdv/0.3a2#compilation
 
 Testing the theme
-===================
+-------------------
 
 The following command will apply the theme to an example external page::
 
@@ -653,14 +653,14 @@ development server (localhost)::
         python src/plonetheme.mfabrik/xdv.py --preview --development
         
 Applying the theme in an Apache production environment
-=====================================================
+------------------------------------------------------
 
 These steps tell how to apply the integration
 theme for Wordpress when Wordpress is running under an
 Apache virtualhost.
 
 Installing dependencies
-+++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^
 
 We use Apache and mod_transform.
 `Instructions on how to set up modules for Apache <http://pypi.python.org/pypi/xdv#apache>`_
@@ -709,10 +709,10 @@ You need to hard reset Apache to make the new modules effective::
         /etc/init.d/apache2 force-reload
         
 Virtual host configuration
-+++++++++++++++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Standard Configuration 
--------------------------
+=========================
 The example below shows a typical xdv setup 
 ::
 
@@ -745,7 +745,7 @@ The example below shows a typical xdv setup
         </VirtualHost>
 
 Integrating with Wordpress
------------------------------
+=============================
 Below is our virtualhost configuration which runs Wordpress and PHP.
 Transformation filter chain has been added in.
 
@@ -804,7 +804,7 @@ Transformation filter chain has been added in.
         </VirtualHost>
 
 Running it
-==========
+----------
 
 After Apache has all modules enabled and your virtualhost configuration is ok,
 you should see Wordpress through your new theme by visiting the site
@@ -813,7 +813,7 @@ served through Apache:
 * http://blog.mfabrik.com
 
 Automatically reflecting CMS changes back to XDV theme
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The theme should be recompiled every time
 
@@ -866,13 +866,13 @@ in /etc/cron.d/update-wordpress::
         with Varnish.
 
 Updating Wordpress settings
-============================
+----------------------------
 
 No changes on Wordpress needed if the domain name is not changed in the theme
 transformation process.
 
 Site URL
-++++++++
+^^^^^^^^
 
 Unlike Plone, Wordpress does not have decent virtual hosting machinery.
 It knowns only one URL which it uses to refer to the site in the external context
@@ -891,7 +891,7 @@ Here is an example how we override this in our wp-config.php::
         define('WP_SITEURL','http://blog.mfabrik.com');
 
 HTTP 404 Not Found special case
-================================
+--------------------------------
 
 Http 404 Not Found responses are not themed by the Apache filter chain. This
 is not possible due to the order of the pipeline in Apache. 
@@ -923,7 +923,7 @@ For more information see
 * http://codex.wordpress.org/Creating_an_Error_404_Page
 
 Roll-out checklist
-====================
+--------------------
 
 Below is a checklist you need to go to through to confirm 
 that the theme integration works on your production site
@@ -947,7 +947,7 @@ that the theme integration works on your production site
 
 
 Using XDV to theme and integrate a phpBB forum
---------------------------------------------------
+==================================================
 
 What we want to achieve is to have a regular Plone site for 
 the CMS pages, and a mix of Plone and phpBB for the forum part. 
