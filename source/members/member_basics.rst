@@ -202,7 +202,7 @@ Example::
     portal_groups.addPrincipalToGroup(member.getUserName(), "companies")
 
 Removing a user from a group
-------------------------
+------------------------------
 
 Example::
 
