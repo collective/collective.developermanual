@@ -635,10 +635,10 @@ Reusing view template snippets or embedding another view
 To use the same template code several times you can either
 
 * Create a separate ``BrowserView`` for it and then call this view (see
-  `Getting a view`_ below)
+  `Accessing a view instance in code`_ below)
 
 * Share a ``ViewPageTemplate`` instance between views and using it several
-times
+  times
 
 .. Note::
 
