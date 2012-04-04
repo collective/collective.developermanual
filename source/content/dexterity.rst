@@ -11,7 +11,7 @@
 Introduction
 -------------------
 
-Dexterity is a subsystem for content objects. It is indent to replace the default Archetypes system
+Dexterity is a subsystem for content objects. It is intended to replace the default Archetypes system
 from Plone 5 and onward and can be already used with Plone 4.
 
 
