@@ -120,7 +120,6 @@ Theme layers can be created with the following steps
         name="myproduct"
         interface="Products.myproduct.interfaces.IThemeSpecific"
         />
-    </layer>
    </layers>
 
 Add-on layer
