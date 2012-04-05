@@ -516,3 +516,15 @@ It incorporates the original `glossary on plone.org
         <http://docs.zope.org/zope2/zope2book/ZEO.html>`_.
         http://docs.zope.org/zope2/zope2book/Acquisition.html
 
+    GenericSetup 
+        An XML-based configuration system for Zope and Plone applications.
+
+        .. todo:: Add reference.
+
+    virtualenv
+        ``virtualenv`` is a tool for creating a project directory with a
+        Python interpreter that is isolated from the rest of the system.
+        Modules that you install in such an environment remain local to it,
+        and do not impact your system Python or other projects.
+
+        .. todo:: Add reference.
