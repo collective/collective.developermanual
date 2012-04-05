@@ -4,26 +4,24 @@ Buildout troubleshooting
 
 .. admonition:: Description
 
-        How to solve problems related to running buildout and some common
-        exceptions you might encounter when running buildout for Plone.
+    How to solve problems related to running buildout and some common
+    exceptions you might encounter when running buildout for Plone.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
 This document tells how to resolve buildout problems.
 
 Network errors and timeouts
----------------------------
+===========================
 
 The usual reason for download error or timeout is that either
 
-* pypi.python.org server is down
-
-* one of plone.org servers is down
-
-* other Python package source server is down
+* ``pypi.python.org`` server is down, or 
+* one of ``plone.org`` servers is down, or 
+* other Python package source server is down.
 
 Here are instructions how to deal with community servers down situations
 
@@ -34,34 +32,37 @@ Mirrors
 * http://pypi.appspot.com/
 
 Individual package failing outside PyPI
-=======================================
+---------------------------------------
 
 To figure out which file buildout tries to download, usually the only way
 is to use ``buildout -D`` pdb debug mode and step up in stack frames to see 
 what is going on.
 
 Buildout and SyntaxErrors
--------------------------
+=========================
 
-You may see SyntaxError exceptions when running buildout::
+You may see ``SyntaxError`` exceptions when running buildout::
 
 	SyntaxError: ("'return' outside function", ('/usr/local/Plone/buildout-cache/eggs/tmpzTKrEI/Products.ATExtensions-1.1a3-py2.6.egg/Products/ATExtensions/skins/at_extensions/getDisplayView.py', 11, None, 'return value\n'))
 
 They are harmless.
 
-The reason: Buildout uses internally a Python tool called ``setuptools`` to install the packages.
-setuptools scans all .py files inside the Python package and assumes they are Python modules.
-However, Plone has something called :doc:`RestrictedPython <security/sandboxing>`. RestrictedPython
-allows untrusted users to execute Python code in Plone (Python Scripts in Zope Management Interface).
-RestrictedPython scripts use slightly modified Python syntax compared to plain Python modules.
+The reason: Buildout uses a Python tool called ``setuptools`` internally to
+install the packages.  setuptools scans all ``.py`` files inside the Python
+package and assumes they are Python modules.  However, Plone has something
+called :doc:`RestrictedPython <security/sandboxing>`. RestrictedPython
+allows untrusted users to execute Python code in Plone (Python Scripts in
+the :term:`ZMI`).  RestrictedPython scripts use slightly modified Python
+syntax compared to plain Python modules.
 
-setuptools does not know which files are normal .py and which files are RestrictedPython and tries
-to interpret them all using standard Python syntax rules. Then it fails. However, setuptools only
-tries to scan files (for what?) but still installs them correctly. No harm done.
+setuptools does not know which files are normal ``.py`` and which files are
+RestrictedPython and tries to interpret them all using standard Python
+syntax rules. Then it fails. However, setuptools only tries to scan files
+(for what?) but still installs them correctly. No harm done.
 
 
 Version conflicts
------------------
+=================
 
 Buildout gives you an error if there is a dependency shared by two components, and
 one of the components wants to have a different version of this dependency.
@@ -75,57 +76,56 @@ Example::
     We already have: zope.component 3.8.0
     but five.localsitemanager 1.1 requires 'zope.component<3.6dev'.
 
-* If your buildout is fetching out strange versions
+If your buildout is fetching strange versions:
 
-	* try running buildout in verbose mode  bin/buildout vvv
-	
-	* Use dumppickedversions (below) 
-        
-* Manually pindown version in [versions]
+* try running buildout in verbose mode: ``bin/buildout -vvv``
+* Use dumppickedversions (below) 
+* Manually pin down version in the ``[versions]`` section of your buildout.
 
-Further reading
+Further reading:
 
 * http://maurits.vanrees.org/weblog/archive/2010/08/fake-version-pinning
 
 * http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-use-buildout-to-pin-product-versions
 
 Dump picked versions
-====================
+--------------------
 
-This buildout extension will dump automatically picked Python egg
-versions to a file.
+This buildout extension will automatically dump picked Python egg versions
+to a file.
 
-Add to your buildout.cfg::
+Add to your ``buildout.cfg``::
 
-        extensions = buildout.dumppickedversions
-        dump-picked-versions-file = versions.cfg        
+    extensions = buildout.dumppickedversions
+    dump-picked-versions-file = versions.cfg        
 
 More information
-++++++++++++++++
+^^^^^^^^^^^^^^^^
 
 * `dumppickedversions <http://pypi.python.org/pypi/buildout.dumppickedversions>`_
 
 Good-py service
-===============
+---------------
 
-Good-py contains some good known versions sets. These are most convenient to use if you are
-using complex configuration of add-ons and you don't know what you are doing. 
+Good-py contains some good known versions sets. These are most convenient to
+use if you are using complex configuration of add-ons that you are not
+familiar with. 
 
-Some good-py configurations take Plone version as a paremeter.
+Some good-py configurations take a Plone version as a paremeter.
 
 Example::
 
-        [buildout]
-        extends =
-            base.cfg
-            http://dist.plone.org/release/3.3.5/versions.cfg
-            http://good-py.appspot.com/release/dexterity/1.0-next?plone=3.3.5
+    [buildout]
+    extends =
+        base.cfg
+        http://dist.plone.org/release/3.3.5/versions.cfg
+        http://good-py.appspot.com/release/dexterity/1.0-next?plone=3.3.5
             
 Or::
 
-        extends =
-            http://dist.plone.org/release/4.0/versions.cfg           
-            http://good-py.appspot.com/release/dexterity/1.0b2?plone=4.0
+    extends =
+        http://dist.plone.org/release/4.0/versions.cfg           
+        http://good-py.appspot.com/release/dexterity/1.0b2?plone=4.0
             
 For more information, see
 
@@ -133,7 +133,7 @@ For more information, see
 
 
 Plone 3.1
----------
+=========
 
 Plone 3.1 and earlier are not eggified. 
 Below are links how to keep Plone 3.1 and earlier buildouts running .
@@ -146,27 +146,28 @@ See
 
 
 Common pindowns
----------------
+===============
 
-Here is the latest pindown example (02/2010)::
+Here is a latest pindown example from 2010/02::
 
-        [versions]
-        # zope.app.catalog 3.6.0 requires zope.index 3.5.0
-        # zope.index 3.5.0 requires 'ZODB3>=3.8.0b1'
-        # This will conflict with the fake ZODB egg.
-        zope.app.catalog = 3.5.2
-        zope.component = 3.5.1 
-        plone.app.z3cform=0.4.2
-        plone.recipe.zope2instance = 3.6
-        zope.sendmail = 3.6.0
-        Products.PluggableAuthService = 1.6.2
-        plone.z3cform = 0.5.8
-        five.intid=0.4.2
-        plone.reload = 0.11
-        Products.GenericSetup = 1.5.0
+    [versions]
+    # zope.app.catalog 3.6.0 requires zope.index 3.5.0
+    # zope.index 3.5.0 requires 'ZODB3>=3.8.0b1'
+    # This will conflict with the fake ZODB egg.
+    zope.app.catalog = 3.5.2
+    zope.component = 3.5.1 
+    plone.app.z3cform=0.4.2
+    plone.recipe.zope2instance = 3.6
+    zope.sendmail = 3.6.0
+    Products.PluggableAuthService = 1.6.2
+    plone.z3cform = 0.5.8
+    five.intid=0.4.2
+    plone.reload = 0.11
+    Products.GenericSetup = 1.5.0
 
-Getting distribution for 'distribute'.
---------------------------------------
+
+Getting distribution for ``distribute``
+========================================
 
 You try to run buildout, but it is stuck in a loop::
 
@@ -177,8 +178,9 @@ You try to run buildout, but it is stuck in a loop::
 	Getting distribution for 'distribute'.
 	Getting distribution for 'distribute'.
 	
-Your system-wide Distribute version is older than the latest release. Buildout tries to update it, but 
-since system wide site-packages version overrides anything buildout can do, it is stuck in a loop.
+Your system-wide Distribute version is older than the latest release.
+Buildout tries to update it, but since system wide site-packages version
+overrides anything buildout can do, it is stuck in a loop.
 
 Fix: update Distribute in system-wide Python::
 
@@ -206,173 +208,178 @@ Fix: update Distribute in system-wide Python::
 
 
 UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
-------------------------------------------------------------
+============================================================
 
 You get the following traceback when running buildout::
 
-          File "/home/moo/rtv/eggs/plone.recipe.zope2instance-2.7-py2.4.egg/plone/recipe/zope2instance/__init__.py", line 93, in update
-            requirements, ws = self.egg.working_set()
-          File "/home/moo/rtv/eggs/zc.recipe.egg-1.1.0-py2.4.egg/zc/recipe/egg/egg.py", line 93, in working_set
-            allow_hosts=self.allow_hosts,
-          File "/tmp/tmpGFbvPP/zc.buildout-1.5.0b2-py2.4.egg/zc/buildout/easy_install.py", line 800, in install
-          File "/tmp/tmpGFbvPP/zc.buildout-1.5.0b2-py2.4.egg/zc/buildout/easy_install.py", line 660, in install
-          File "/home/moo/py24/lib/python2.4/site-packages/distribute-0.6.10-py2.4.egg/pkg_resources.py", line 551, in resolve
-            requirements.extend(dist.requires(req.extras)[::-1])
-          File "/home/moo/py24/lib/python2.4/site-packages/distribute-0.6.10-py2.4.egg/pkg_resources.py", line 2164, in requires
-            raise UnknownExtra(
-        UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
+      File "/home/moo/rtv/eggs/plone.recipe.zope2instance-2.7-py2.4.egg/plone/recipe/zope2instance/__init__.py", line 93, in update
+        requirements, ws = self.egg.working_set()
+      File "/home/moo/rtv/eggs/zc.recipe.egg-1.1.0-py2.4.egg/zc/recipe/egg/egg.py", line 93, in working_set
+        allow_hosts=self.allow_hosts,
+      File "/tmp/tmpGFbvPP/zc.buildout-1.5.0b2-py2.4.egg/zc/buildout/easy_install.py", line 800, in install
+      File "/tmp/tmpGFbvPP/zc.buildout-1.5.0b2-py2.4.egg/zc/buildout/easy_install.py", line 660, in install
+      File "/home/moo/py24/lib/python2.4/site-packages/distribute-0.6.10-py2.4.egg/pkg_resources.py", line 551, in resolve
+        requirements.extend(dist.requires(req.extras)[::-1])
+      File "/home/moo/py24/lib/python2.4/site-packages/distribute-0.6.10-py2.4.egg/pkg_resources.py", line 2164, in requires
+        raise UnknownExtra(
+    UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
         
+You might be using an add-on meant for Plone 4 with Plone 3. Check if
+``setup.py`` contains *Zope2* as a dependency. If it does, then you need to
+use earlier version of the add-on for your Plone 3 site.        
 
-You might be using Plone 4 add-on for Plone 3. Check if setup.py contains
-*Zope2* as a dependency. If it does then it is the end of the story 
-and you need to use earlier add-on version for your Plone 3 site.        
-        
-More info
+More info:
 
 * http://groups.google.com/group/singing-dancing/browse_thread/thread/331cdfe78cf371ed        
 
 
 We already have: zope.location 3.4.0
-------------------------------------
+====================================
 
 When running buildout, Plone 3.3.5::
 
-        While:
-          Installing.
-          Getting section zopepy.
-          Initializing section zopepy.
-          Getting option zopepy:eggs.
-          Getting section client1.
-          Initializing section client1.
-          Getting option client1:zeo-address.
-          Getting section zeo.
-          Initializing part zeo.
-        Error: There is a version conflict.
-        We already have: zope.location 3.4.0
-        but zope.traversing 3.13 requires 'zope.location>=3.7.0'.
+    While:
+      Installing.
+      Getting section zopepy.
+      Initializing section zopepy.
+      Getting option zopepy:eggs.
+      Getting section client1.
+      Initializing section client1.
+      Getting option client1:zeo-address.
+      Getting section zeo.
+      Initializing part zeo.
+    Error: There is a version conflict.
+    We already have: zope.location 3.4.0
+    but zope.traversing 3.13 requires 'zope.location>=3.7.0'.
                 
-Solution::
-        
-        rm -rf fake-eggs/*
-        bin/buildout install zope2
-        bin/buildout            
-        
-ImportError: No module named lxml
----------------------------------
+Solution:
 
-lxml as a PyPi package dependency fails even though it is clearly installed.
+.. code-block:: console
+        
+    rm -rf fake-eggs/*
+    bin/buildout install zope2
+    bin/buildout            
+
+
+ImportError: No module named lxml
+=================================
+
+`lxml` as a PyPi package dependency fails even though it is clearly
+installed.
 
 Example traceback when running buildout::
 
-        ...
-        Processing openxmllib-1.0.6.tar.gz 
-        <snip Unpacking... > 
-        Running openxmllib-1.0.6/setup.py bdist_egg --dist-dir /tmp/easy_install-Urh6x4/openxmllib-1.0.6/egg-dist-tmp-ju0TuT 
-        Traceback (most recent call last): 
-        <snip Traceback... > 
-          File "setup.py", line 5, in <module> 
-          File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/__init__.py", line 17, in <module> 
-          File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/wordprocessing.py", line 5, in <module> 
-          File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/document.py", line 14, in <module>
-        ImportError: No module named lxml 
-        An error occured when trying to install openxmllib 1.0.6. Look above this message for any errors that were output by easy_install. 
-        While: 
-          Installing plone-core-addons. 
-          Getting distribution for 'openxmllib>=1.0.6'. 
-        Error: Couldn't install: openxmllib 1.0.6 
+    ...
+    Processing openxmllib-1.0.6.tar.gz 
+    <snip Unpacking... > 
+    Running openxmllib-1.0.6/setup.py bdist_egg --dist-dir /tmp/easy_install-Urh6x4/openxmllib-1.0.6/egg-dist-tmp-ju0TuT 
+    Traceback (most recent call last): 
+    <snip Traceback... > 
+      File "setup.py", line 5, in <module> 
+      File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/__init__.py", line 17, in <module> 
+      File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/wordprocessing.py", line 5, in <module> 
+      File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/document.py", line 14, in <module>
+    ImportError: No module named lxml 
+    An error occured when trying to install openxmllib 1.0.6. Look above this message for any errors that were output by easy_install. 
+    While: 
+      Installing plone-core-addons. 
+      Getting distribution for 'openxmllib>=1.0.6'. 
+    Error: Couldn't install: openxmllib 1.0.6 
 
-Solution: ensure lxml compilation happens before openxmllib is being compiled.
+Solution: ensure lxml compilation happens before openxmllib is being
+compiled.
 
-For instance, if you are installing something like `Products.OpenXml`, you
+For instance, if you are installing something like ``Products.OpenXml``, you
 will have likely included this egg under your Plone ``[instance]`` section
 of your buildout.  You should consider using something like
 ``collective.recipe.staticlxml`` to build lxml and to do this *before* this
 egg's installation is invoked. Like so in your ``buildout.cfg``::
 
-   [buildout]
-   parts =
-       lxml
-       ...
-       instance
-   ...
+    [buildout]
+    parts =
+        lxml
+        ...
+        instance
+    ...
 
-   [lxml]
-   recipe = z3c.recipe.staticlxml
-   egg = lxml
+    [lxml]
+    recipe = z3c.recipe.staticlxml
+    egg = lxml
 
-More information
+More information:
 
 * http://www.niteoweb.com/blog/order-of-parts-when-compiling-lxml
 
 * http://plone.293351.n2.nabble.com/lxml-installs-but-Products-OpenXml-openxmllib-can-t-see-it-tp5565184p5565184.html
 
 UnknownExtra: zope.i18n 3.4.0 has no such extra feature 'zcml'
---------------------------------------------------------------
+==============================================================
 
 Traceback::
 
-        An internal error occured due to a bug in either zc.buildout or in a
-        recipe being used:
-        Traceback (most recent call last):
-          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1660, in main
-            getattr(buildout, command)(args)
-          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 416, in install
-            [self[part]['recipe'] for part in install_parts]
-          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 964, in __getitem__
-            options._initialize()
-          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1048, in _initialize
-            recipe_class = _install_and_load(reqs, 'zc.buildout', entry, buildout)
-          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1004, in _install_and_load
-            allow_hosts=buildout._allow_hosts
-          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/easy_install.py", line 800, in install
-            return installer.install(specs, working_set)
-          File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/easy_install.py", line 660, in install
-            ws.resolve(requirements)
-          File "/Users/moo/code/gomobile/eggs/distribute-0.6.14-py2.6.egg/pkg_resources.py", line 557, in resolve
-            requirements.extend(dist.requires(req.extras)[::-1])
-          File "/Users/moo/code/gomobile/eggs/distribute-0.6.14-py2.6.egg/pkg_resources.py", line 2180, in requires
-            "%s has no such extra feature %r" % (self, ext)
-        UnknownExtra: zope.i18n 3.4.0 has no such extra feature 'zcml'
-                                   
-Solution: Check that you have correct Dexteriry or XDV pindowns / Known Good Set
-of versions or if your are using a Plone 4 extension in Plone 3.
-For example: plone.reload 2.0 will raise this with Plone 3.3 buildout and plone.reload 1.5 will work with Plone 3.3.
+    An internal error occured due to a bug in either zc.buildout or in a
+    recipe being used:
+    Traceback (most recent call last):
+      File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1660, in main
+        getattr(buildout, command)(args)
+      File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 416, in install
+        [self[part]['recipe'] for part in install_parts]
+      File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 964, in __getitem__
+        options._initialize()
+      File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1048, in _initialize
+        recipe_class = _install_and_load(reqs, 'zc.buildout', entry, buildout)
+      File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1004, in _install_and_load
+        allow_hosts=buildout._allow_hosts
+      File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/easy_install.py", line 800, in install
+        return installer.install(specs, working_set)
+      File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/easy_install.py", line 660, in install
+        ws.resolve(requirements)
+      File "/Users/moo/code/gomobile/eggs/distribute-0.6.14-py2.6.egg/pkg_resources.py", line 557, in resolve
+        requirements.extend(dist.requires(req.extras)[::-1])
+      File "/Users/moo/code/gomobile/eggs/distribute-0.6.14-py2.6.egg/pkg_resources.py", line 2180, in requires
+        "%s has no such extra feature %r" % (self, ext)
+    UnknownExtra: zope.i18n 3.4.0 has no such extra feature 'zcml'
 
-See Also: UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
+Solution: Check that you have the correct Dexteriry or XDV pindowns / Known
+Good Set of versions or whether you are using a Plone 4 extension in Plone
+3.  For example: ``plone.reload`` 2.0 will raise this with a Plone 3.3
+buildout, while ``plone.reload`` 1.5 will work with Plone 3.3.
+
+See Also: `UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'`_
 
 
-
-Can't run bootstrap.py - VersionConflict for zc.buildout
---------------------------------------------------------
+Can't run ``bootstrap.py`` - VersionConflict for ``zc.buildout``
+================================================================
 
 Traceback when running ``python bootstrap.py``::
 
-        Traceback (most recent call last):
-          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/pdb.py", line 1283, in main
-            pdb._runscript(mainpyfile)
-          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/pdb.py", line 1202, in _runscript
-            self.run(statement)
-          File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/bdb.py", line 368, in run
-            exec cmd in globals, locals
-          File "<string>", line 1, in <module>
-          File "bootstrap.py", line 256, in <module>
-            ws.require(requirement)
-          File "/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/distribute-0.6.8-py2.6.egg/pkg_resources.py", line 633, in require
-            needed = self.resolve(parse_requirements(requirements))
-          File "/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/distribute-0.6.8-py2.6.egg/pkg_resources.py", line 535, in resolve
-            raise VersionConflict(dist,req) # XXX put more info here
-        VersionConflict: (zc.buildout 1.5.0b2 (/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/zc.buildout-1.5.0b2-py2.6.egg), Requirement.parse('zc.buildout==1.5.2'))
+    Traceback (most recent call last):
+      File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/pdb.py", line 1283, in main
+        pdb._runscript(mainpyfile)
+      File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/pdb.py", line 1202, in _runscript
+        self.run(statement)
+      File "/Users/moo/code/collective.buildout.python/parts/opt/lib/python2.6/bdb.py", line 368, in run
+        exec cmd in globals, locals
+      File "<string>", line 1, in <module>
+      File "bootstrap.py", line 256, in <module>
+        ws.require(requirement)
+      File "/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/distribute-0.6.8-py2.6.egg/pkg_resources.py", line 633, in require
+        needed = self.resolve(parse_requirements(requirements))
+      File "/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/distribute-0.6.8-py2.6.egg/pkg_resources.py", line 535, in resolve
+        raise VersionConflict(dist,req) # XXX put more info here
+    VersionConflict: (zc.buildout 1.5.0b2 (/Users/moo/code/collective.buildout.python/python-2.6/lib/python2.6/site-packages/zc.buildout-1.5.0b2-py2.6.egg), Requirement.parse('zc.buildout==1.5.2'))
 
-Solution: Update zc.buildout installed in your system Python::
+Solution: update the ``zc.buildout`` installed in your system Python:
 
-        easy_install -U zc.buildout
+.. code-block:: console
+
+    easy_install -U zc.buildout
         
 An error occured when trying to install lxml - error: Setup script exited with error: command 'gcc' failed with exit status 1
------------------------------------------------------------------------------------------------------------------------------
+=============================================================================================================================
 
-Traceback when running buildout::
+Traceback when running buildout:: 
 
-    
     ...
     src/lxml/lxml.etree.c:143652: error: ‘__pyx_v_4lxml_5etree_XSLT_DOC_DEFAULT_LOADER’ undeclared (first use in this function)
     src/lxml/lxml.etree.c:143652: error: ‘xsltDocDefaultLoader’ undeclared (first use in this function)
@@ -383,11 +390,10 @@ Traceback when running buildout::
       Installing instance.
       Getting distribution for 'lxml==2.2.8'.
     Error: Couldn't install: lxml 2.2.8
-                          
-Solution: install libxml and libxslt development headers.
 
-On Ubuntu/Debian
+Solution: install the ``libxml`` and ``libxslt`` development headers.
 
+On Ubuntu/Debian you could do this as follows:
 
 .. code-block:: console
 
@@ -395,36 +401,39 @@ On Ubuntu/Debian
 
 
 VersionConflict: distribute 0.6.19
-----------------------------------
+==================================
 
-When running buildout you see something like this
-
-::        
+When running buildout you see something like this::        
         
-          File "/home/danieltordable.es/buildout-cache/eggs/zc.buildout-1.4.4-py2.6.egg/zc/buildout/easy_install.py", line 606, in _maybe_add_setuptools
-            if ws.find(requirement) is None:
-          File "/home/danieltordable.es/buildout-cache/eggs/distribute-0.6.19-py2.6.egg/pkg_resources.py", line 474, in find
-            raise VersionConflict(dist,req)     # XXX add more info
-        VersionConflict: (distribute 0.6.19 (/home/danieltordable.es/buildout-cache/eggs/distribute-0.6.19-py2.6.egg), Requirement.parse('distribute==0.6.15'))
-                              
-Buildout uses system-wide Distribute installation (python-distribute or similar package, depends on your OS).
-To fix this, you need to update system-wide distribution.
+      File "/home/danieltordable.es/buildout-cache/eggs/zc.buildout-1.4.4-py2.6.egg/zc/buildout/easy_install.py", line 606, in _maybe_add_setuptools
+        if ws.find(requirement) is None:
+      File "/home/danieltordable.es/buildout-cache/eggs/distribute-0.6.19-py2.6.egg/pkg_resources.py", line 474, in find
+        raise VersionConflict(dist,req)     # XXX add more info
+    VersionConflict: (distribute 0.6.19 (/home/danieltordable.es/buildout-cache/eggs/distribute-0.6.19-py2.6.egg), Requirement.parse('distribute==0.6.15'))
 
-.. note ::
+Buildout uses the system-wide Distribute installation (``python-distribute``
+or similar package, depends on your OS).  To fix this, you need to update
+system-wide distribution.
 
-        It is preferred you do virtualenv'd Python + buildout installation, just not to break
-        your OS
+.. note:: It is preferred to do your Python + buildout
+   installation in a :term:`virtualenv`, in order not to break your OS
 
-Update Distribute (Plone universal installer, using supplied easy_install script)::
+Update Distribute (Plone universal installer, using supplied
+``easy_install`` script):
+
+.. code-block:: console
 
         python/bin/easy_install -U Distribute                
         
-Update Distribute (OSX/Ubuntu/Linux)::
+Update Distribute (OSX/Ubuntu/Linux):
+
+.. code-block:: console
 
         easy_install -U Distribute      
 
+
 argparse 1.2.1
---------------
+==============
 
 If you get::
 
@@ -434,11 +443,11 @@ If you get::
 	Error: There is a version conflict.
 	We already have: argparse 1.2.1
 
-Rerun bootstrap.py (with correct Python interpreter).
+Rerun ``bootstrap.py`` with the correct Python interpreter.
 
 
 Error: Picked: <some.package> = <some.version>
-----------------------------------------------
+==============================================
 
 If you get something like this::
 
@@ -456,24 +465,24 @@ If you get something like this::
 	  Getting distribution for 'collective.recipe.backup'.
 	Error: Picked: collective.recipe.backup = 2.4
 
-
 This means that your buildout has "allow picked versions" set to false.
-You need to pin the version for the picked version (or turn on "allow picked versions")
+You need to pin the version for the picked version (or turn on "allow picked
+versions").
 
 Buildout error: Not a recognized archive type
----------------------------------------------
+=============================================
 
-If you run across an error like so when running buildout::
+If you run across an error like this when running buildout::
 
     ...
     Installing instance.
     Getting distribution for 'collective.spaces'.
     error: Not a recognized archive type: /home/plone/.buildout/downloads/dist/collective.spaces-1.0.zip
 
-The error is likely stemming from an incorrect download of this egg. Check
-the given file to ensure that the file is correct (for instance, actually
-is a non-zero length file or using something like ``md5sum``) before delving
-deep into your Python install's workings. This error appears like your Python
-install doesn't have support for this archive but in actuality, the error 
-can relate to the fact the download is corrupted.
+the error is likely stemming from an incorrect download of this egg. Check
+the given file to ensure that the file is correct (for instance, it is a
+non-zero length file or verifying the content using something like
+``md5sum``) before delving deep into your Python install's workings. This
+error makes it look as if your Python install doesn't have support for this
+type of archive, but in fact it can be caused by a corrupt download.
 
