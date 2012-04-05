@@ -281,7 +281,24 @@ Example traceback when running buildout::
           Getting distribution for 'openxmllib>=1.0.6'. 
         Error: Couldn't install: openxmllib 1.0.6 
 
-Solution: not known currently        
+Solution: ensure lxml compilation happens before openxmllib is being compiled.
+
+For instance, if you are installing something like `Products.OpenXml`, you
+will have likely included this egg under your Plone ``[instance]`` section
+of your buildout.  You should consider using something like
+``collective.recipe.staticlxml`` to build lxml and to do this *before* this
+egg's installation is invoked. Like so in your ``buildout.cfg``::
+
+   [buildout]
+   parts =
+       lxml
+       ...
+       instance
+   ...
+
+   [lxml]
+   recipe = z3c.recipe.staticlxml
+   egg = lxml
 
 More information
 
