@@ -459,3 +459,21 @@ If you get something like this::
 
 This means that your buildout has "allow picked versions" set to false.
 You need to pin the version for the picked version (or turn on "allow picked versions")
+
+Buildout error: Not a recognized archive type
+---------------------------------------------
+
+If you run across an error like so when running buildout::
+
+    ...
+    Installing instance.
+    Getting distribution for 'collective.spaces'.
+    error: Not a recognized archive type: /home/plone/.buildout/downloads/dist/collective.spaces-1.0.zip
+
+The error is likely stemming from an incorrect download of this egg. Check
+the given file to ensure that the file is correct (for instance, actually
+is a non-zero length file or using something like ``md5sum``) before delving
+deep into your Python install's workings. This error appears like your Python
+install doesn't have support for this archive but in actuality, the error 
+can relate to the fact the download is corrupted.
+
