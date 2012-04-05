@@ -33,7 +33,7 @@ Mirrors
 
 * http://pypi.appspot.com/
 
-Individual package failing outside PyPi
+Individual package failing outside PyPI
 =======================================
 
 To figure out which file buildout tries to download, usually the only way
