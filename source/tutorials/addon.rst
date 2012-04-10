@@ -1,229 +1,30 @@
-===================================
- Introduction to extending Plone
-===================================
+=====================================
+ Creating your first theme or add-on
+=====================================
 
 .. contents:: :local:
 
 .. admonition:: Description
 
-   This tutorial shows you how to modify and extend the Plone CMS
-   using the Python programming language. The tutorial has been
-   written with Plone 4 in mind and show you how to create
-   a basic form and content types with Dexterity content subsystem.
+   This tutorial shows you how to create your
+   first hello world Plone add-on.
 
-.. TODO:: PLEASE PLEAS PLEASE SOMEONE FINISH THIS
 
-Introduction
-============
+Creating a theme
+----------------------------
 
-The goal of this tutorial is to make your first bits of code ("hello
-world") run through Plone and explain all the steps on the way. Note
-that this tutorial supersedes all old tutorials, which have been
-written for Zope 2 and Plone 2 a long time ago. Because these
-tutorials have very high Google rankings, we have found a problem that
-novice developers start to follow these development practices which
-might have been a good idea at the time, but those practices should be
-no longer be used.
+For lightweight theming options please see `plone.app.theming <http://pypi.python.org/pypi/plone.app.theming>`_.
 
-How to add code to Plone
-=========================
+Creating a functional add-on
+----------------------------
 
-Eggs
-----
+Before trying to develop Plone please :doc:`learn Python </tutorials/python>`.
 
-First we need to know how the state-of-the-art Python software is
-being distributed.
+Plone add-ons
 
-Plone 4 consists of :doc:`Python eggs </tutorials/python>`.
-:term:`Egg` is a Python package format which is zip or tar.gz archive
-with some metadata information. An egg usually provides several Python
-modules and optionally launch scripts (shell scripts for
-Linux). Python native extensions (C modules) are also packageable as
-eggs in which case you need to have a C compiler to install these eggs
-from source code form.  For example, the ZODB database is not purely
-Python for performance reasons and contains C bits.
+* Can customize existing Plone behavior (viewlet, portlets, etc.)
 
-Open source Python eggs are published at `Pypi
-<http://pypi.python.org>`_ from where package installers will
-automatically look up the egg and install it for you. For example if
-you run::
+* Can add new functionality
 
-     easy_install pywrite
-
-The ``easy_install`` command will load the PyPi index page, look for
-``pywrite`` egg and install it on your system.
-
-``easy_install`` is now a part of the ``Distribute`` package, which
-supersedes the older and less maintained ``setuptools`` package.
-``easy_install`` is not the only way to install eggs. Alternatives are
-
-* buildout (contains recipes to install and configure many eggs, used
-  by Plone)
-
-* `pip <http://www.pip-installer.org>`_
-
-The egg package format consists of
-
-* ``setup.py`` file. This file imports code from the
-  Distribute/setuptools package and acts as an entry point for the
-  installation and distributable package creation for your egg.
-
-* Nothing else is needed - but usually you have at least one .py
-  source code file which you distribute
-
-When you run the command::
-
-	python setup.py sdist
-
-It will create a source code distribution (.tar.gz package) for your
-egg and generate an ``EGG-INFO`` folder with plain-text metafiles
-based on ``setup.py`` content. You should never check-in any ``egg``
-and ``egg-info`` files or folders into your version control system as
-they are generated automatically every time ``setup.py`` is run.
-
-Laying your first egg
-=====================
-
-Building an add-on (or any Python package) skeleton by hand is
-cumbersome. Even though setup.py gives you a lot of freedom in how
-minimalistic things could be, the open source community has
-established some best practices about what Python eggs should
-typically contain.
-
-This includes
-
-* README.txt in :term:`reStructuredText` format
-
-* HISTORY.txt a human readable changelog. This is not a big deal now
-  when you are starting your first project, but you will pat yourself
-  on the back later if you maintain this file as it provides a nice
-  overview. It typically contains an entry for each package release
-  which a short sentence for each significant change and the author of
-  the change at the end in
-  brackets. e.g. http://svn.plone.org/svn/plone/Products.CMFPlone/trunk/docs/HISTORY.txt
-
-
-.. note ::
-
-	The current stance of Plone Foundation is that all Plone add-ons
-	fall under GPL 2 license if they import code from Plone core. Thus
-	if you are building Plone add-on it will be automatically under
-	GPL 2 license.
-
-
-MANIFEST problem
-=================
-
-Paste and buildout
-===================
-
-If you are using buildout to manage your Python application
-deployment, you can integrate paster nicely with it.
-
-Add the following to your *buildout.cfg*::
-
-
-        parts =
-            ...
-            paster
-
-
-        [paster]
-        recipe = zc.recipe.egg
-        eggs =
-                PasteScript
-                ZopeSkel
-                ${instance:eggs}
-
-After rerunning buildout, buildout adds *paster* command to *bin*
-folder.
-
-Then you can run paster from the buildout folder::
-
-        bin/paster
-
-... or in a buildout managed project under src folder... ::
-
-        ../../bin/paster
-
-
-ZopeSkel templates
-===================
-
-Pick plone.template
--------------------
-
-archetypes template
--------------------
-
-Running paster
---------------
-
-Connecting new add-on to Plone
--------------------------------
-
-Add-on installer
-================
-
-Relationship between site database and code
--------------------------------------------
-
-* Layers
-
-Database changes
-----------------
-
-Traversing
-===========
-
-Big picture
------------
-
-HTTP request processing
------------------------
-
-View look-up
-------------
-
-BrowserView
-===========
-
-Model-view-controller in Plone sense
-------------------------------------
-
-Code entry points
------------------
-
-Adding a template
-------------------
-
-main_template and rendering a Plone page
-----------------------------------------
-
-Viewlets
---------
-
-CSS and Javascript
-------------------
-
-Forms (z3c.forms)
-=================
-
-Defining form fields
----------------------
-
-* zope.schema and available options explained
-
-Reading form input
-------------------
-
-Where to store data
--------------------
-
-* Creating your custom content type? [leave for another tutorial]
-
-Transactions
-============
-
-Automatic persistency
----------------------
+Please see this modern `Plone add-on template <https://github.com/miohtama/sane_plone_addon_template>`_ for Plone 4.1 and onward
+to start your add-on development.
