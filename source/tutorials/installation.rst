@@ -206,6 +206,13 @@ If you wish to develop Plone on Windows you need to set-up a working MingW envir
 OSX
 ====================================================
 
+Installing Plone using OSX binary installer
+--------------------------------------------------------
+
+This is the recommended method if you want to try Plone for the first time.
+
+Please use the installer from the download page `<http://plone.org/products/plone/releases>`_.
+
 Installing Plone using buildout 
 --------------------------------------------------------
 
