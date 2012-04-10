@@ -80,6 +80,84 @@ interpreter.
 If you are a developer, you might wish to use a custom-built Python
 interpreter, which gives you more control over the configuration.
 
+Installing Plone via Unified Installer
+==============================================================
+
+This is the recommended method if you are not familiar with Python development.
+
+Installing Plone under Ubuntu / Debian
+-------------------------------------------
+
+Below is a recommended method for installations for 
+
+* Lightweight production sites
+
+* Plone development and testing on Ubuntu / Debian  
+
+Instructions tested for Ubuntu 10.04 Long Term Support release.
+
+Create new UNIX user (e.g. user ``plone``)::
+
+     adduser plone
+
+.. note ::
+
+   It is not recommended to run Plone under root user.
+
+Install operating system prerequisitements::
+
+     sudo apt-get install python-dev build-essential libssl-dev
+
+Log-in as this user::
+
+     sudo -i -u plone
+
+Download Plone unified binary from `download page to your server <http://plone.org/download>`_
+
+     wget https://launchpad.net/plone/4.1/4.1.4/+download/Plone-4.1.4-UnifiedInstaller.tgz
+
+Run the installer as non-root standalone mode::
+   
+     ./install.sh standalone
+
+Admin username is printed in the console. You can change this password after logging
+into the Zope Management Interface. 
+
+.. note ::
+
+    The password is also written down in buildout.cfg file, but this setting is not 
+    effective after Plone has been started for the first time. Changing this setting
+    does not do any good.
+
+Start Plone in development mode for a test run (you'll see potential errors in the console)::
+
+     cd ~/Plone/
+     bin/instance fg
+
+By default, Plone will listen to all available network interfaces and port 8080.
+
+Now enter to Plone site by entering address 
+
+     http://yourserver:8080 
+
+... to your webbrowser.
+
+Zope, the application server under Plone, will ask you to create a new site.
+For this you need the login credentials outputted into your terminal earlier.
+
+If everything is ok press *CTRL + C* in the terminal to stop Plone in debug mode.
+
+Then start Plone in production mode. In the production mode 
+Plone does not reload file changes on the file system and also stays running even if you
+disconnect the terminal session::
+  
+    bin/instance start
+  
+If you have problems `please see help guidelines <http://plone.org/help>`_.
+
+For automatic start-ups on your server boots up, init scripts, etc.
+please see :doc:`hosting guide </hosting>`. 
+
 Installing Plone via buildout
 ===============================
 
