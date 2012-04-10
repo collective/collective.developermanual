@@ -44,6 +44,7 @@ There are two different subsystems to create content objects in Plone
     content_rules
     archetypes/index
     dexterity
+    archgenxml/index
 
 
 

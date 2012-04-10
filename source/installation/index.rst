@@ -1,6 +1,6 @@
-=========
-Tutorials
-=========
+=========================
+Installation and Buildout
+=========================
 
 Hand-holding information on how to get started with Plone.
 
@@ -11,7 +11,6 @@ Hand-holding information on how to get started with Plone.
     python    
     paste
     addon
-    views
     buildout/index
-    old-style-vs-new-style/index
-    archgenxml/index
+    
+
