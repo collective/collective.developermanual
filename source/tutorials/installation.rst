@@ -62,13 +62,16 @@ Installing Plone using Unified UNIX Installer
 
 .. note ::
 
-  This is the recommended installation method.
-
+  This is the recommended installation method
+  
 This recipe is good for
 
 * Lightweight production sites
 
 * Plone development and testing on Ubuntu / Debian  
+
+The resulting installation is self-contained, 
+does not touch system files and is safe to play with (no root/sudoing in needed).
 
 Instructions tested for Ubuntu 10.04 Long Term Support release.
 
