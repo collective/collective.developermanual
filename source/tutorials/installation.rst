@@ -18,19 +18,19 @@ Here we have collected best practices how to install Plone in various situations
 
 .. note ::
 
-  These instructions are not all include and may not cover all use cases. 
+  These instructions are not all-inclusive and may not cover all use cases. 
   Please feel free to edit this document to add more.
 
 How to host Plone
 --------------------------------------------------------
 
-* You need at least `virtual private server with 512 MB RAM, shared hosting is no go <http://plone.org/documentation/kb/plone-system-requirements>`_
+* You need at least `a virtual private server with 512 MB RAM, shared hosting is a no-go <http://plone.org/documentation/kb/plone-system-requirements>`_
 
-* Linux Server is the recommended option. Ubuntu / Debian 64-bit environment is the most popular and has most support
+* Linux Server is the recommended option. Ubuntu / Debian 64-bit environment is the most popular and has the most support
 
 * You also might want to configure :doc:`a front-end web server </hosting/index>` besides Plone. In most Linux environments
-  the distribution has out of the box configures for this front-end web server to handle port 80 HTTP traffic. This front 
-  end web server proxyes the traffic, inside the server, to Plone running in other port (port 8080 by default).
+  the distribution has an out of the box configuration for this front-end web server to handle port 80 HTTP traffic.
+  This front-end web server proxies the traffic, inside the server, to Plone listening on another port (port 8080 by default).
 
 .. note ::
 
@@ -42,12 +42,11 @@ How to develop Plone
 --------------------------------------------------------
 
 Plone development can be done on any modern desktop operating systems.
-The recommended Plone development method is to develop on your local computer
-and then push changes to the server as Plone add-on.
+The recommended method is to develop on your local computer and then push changes to the server as Plone add-on.
 
 * You install Plone on the server for production
 
-* You install Plone locally for the development
+* You install Plone locally for development
 
 * Then you push any required Plone customizations to the server using your
   own customization add-on
