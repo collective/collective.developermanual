@@ -1,0 +1,118 @@
+=============================================
+How to contribute to Plone core translations
+=============================================
+
+.. admonition:: Description
+
+    How to contribute to the Plone translations.
+
+.. contents:: :local:
+
+Introduction
+=============
+
+First you need `commit access to collective repository
+<http://dev.plone.org/plone.org/wiki/SubversionAccess>`_ if you want
+to commit your translation.
+
+Updating translations for Plone 4.0/4.1
+=========================================
+
+If you want to test your latest translation with unreleased packages
+containing i18n fixes for Plone 4, get the buildout like this:
+
+.. code-block:: console
+
+    svn co https://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/4.0 plone4
+    cd plone4
+    python2.6 bootstrap.py
+    bin/buildout -c experimental/i18n.cfg
+    bin/instance fg
+
+To update the buildout later:
+
+.. code-block:: console
+
+    svn up
+    rm .mr.developer.cfg
+    ln -s experimental/.mr.developer.cfg
+    bin/develop up -f
+
+To update your translation, you can go there:
+
+.. code-block:: console
+
+    cd src/plone.app.locales/plone/app/locales/
+
+Here you have the following directories:
+
+- ``i18n/kupu`` used only for ``Products.kupu``.
+  This directory is not included in ``plone.app.locales``, it's included in
+  ``Products.kupu``. It's only kept here for convenience.
+- ``locales`` used for core Plone translations.
+- ``locales-addons`` used for some addons packages.
+- ``locales-future`` used for Plone 5 packages. The po files can change
+  really often. The translations will normally be merge to the locales
+  directory when Plone 5 will be released. This directory is not included in
+  ``plone.app.locales`` 4.x releases. For developers: if you want to add a
+  Plone 5 package to this directory, you can add it to the ``plone5``
+  variable in ``experimental/i18n.cfg``, don't forget to add a line in
+  ``[sources]`` if it's missing.
+
+If you do ``svn info`` in the locales directory, you'll see it is actually a
+svn *external* reference to:
+https://svn.plone.org/svn/collective/PloneTranslations/trunk/locales
+
+Open the po file with poedit, kbabel or any other i18n tool. For example for
+French:
+
+.. code-block:: console
+
+    poedit locales/fr/LC_MESSAGES/plone.po
+
+You can commit your translation from this locales directory:
+
+.. code-block:: console
+
+    svn ci -m "Updated French translation"
+
+
+Updating translations for Plone 3.3
+=====================================
+
+Download the buildout:
+
+.. code-block:: console
+
+    svn co https://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/3.3 plone3
+    cd plone3
+    python2.4 bootstrap.py
+    bin/buildout -c i18n.cfg
+    bin/instance fg
+
+To update the buildout later:
+
+.. code-block:: console
+
+    svn up
+    bin/develop up -f
+
+To update your translation, you can go to
+``src/plone.app.locales/plone/app/locales/i18n`` and
+``src/plone.app.locales/plone/app/locales/locales``.
+
+If you do ``svn info`` in the ``i18n`` directory, you'll see it is actually
+an svn *external* reference to:
+https://svn.plone.org/svn/collective/PloneTranslations/branches/3.x/i18n
+
+
+Support
+=======
+
+Please ask questions on the `plone-i18n mailing-list <http://plone.org/support/forums/i18n>`_.
+
+
+Statistics for Plone 4
+======================
+
+http://www.transifex.net/projects/p/Plone/
