@@ -62,14 +62,14 @@ the time.
 * Bootstap with Python 2.5 or later. We use a version of Sphinx that has
   dropped Python 2.4 support.
 
-.. code-block:: sh
-
 .. note::
 
    You do not need to bootstrap and buildout if you simply want to
    make a quick edit the documentation. Go to the "source" directory
    to find the files. Continue reading if you want to run a complete
    local copy.
+
+.. code-block:: sh
 
    cd collective.developermanual
    python2.6 bootstrap.py
