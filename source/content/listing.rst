@@ -111,6 +111,18 @@ Example::
 	Performance warning: Slow for big folders. Preferably use portal_catalog and path based query
 	to query items in a big folder.
 
+Rules for filtering items
+=========================
+
+Plone applies some default rules for listFolderContents()
+
+* portal_properties.nav_tree_properties.metaTypesNotToQuery: folders (large folders) don't generate listing
+
+* :doc:`default_page </content/dynamic_views>` is not listed
+
+* portal_properties.nav_tree_properties.: meta types marked here do not appear in the listing
+
+
 Enforcing manual sort order
 ------------------------------
 
@@ -141,16 +153,6 @@ Below is an example how you sort content items by their manual sort order
 
         queried_objects = sorted(queried_objects, sort_by_position)
 
-Rules for filtering items
-=========================
-
-Plone applies some default rules for listFolderContents()
-
-* portal_properties.nav_tree_properties.metaTypesNotToQuery: folders (large folders) don't generate listing
-
-* :doc:`default_page </content/dynamic_views>` is not listed
-
-* portal_properties.nav_tree_properties.: meta types marked here do not appear in the listing
 
 Getting object ids
 -------------------
