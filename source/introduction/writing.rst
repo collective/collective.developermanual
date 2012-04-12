@@ -59,7 +59,7 @@ the time.
 
    git clone https://github.com/collective/collective.developermanual
 
-* Bootstap with Python 2.5 or later. We use a version of Sphinx that has
+* Bootstrap with Python 2.5 or later. We use a version of Sphinx that has
   dropped Python 2.4 support.
 
 .. note::
