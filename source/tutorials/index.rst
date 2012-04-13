@@ -12,6 +12,8 @@ Hand-holding information on how to get started with Plone.
     paste
     addon
     views
+    source
     buildout/index
     old-style-vs-new-style/index
     archgenxml/index
+
