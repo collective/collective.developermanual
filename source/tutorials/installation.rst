@@ -72,6 +72,9 @@ This recipe is good for
 The resulting installation is self-contained, 
 does not touch system files and is safe to play with (no root/sudoing in needed).
 
+For information on using this installation with more advanced production hosting environments and deployments, 
+see the :doc:`hosting guide </hosting/index>`.
+
 Instructions tested for Ubuntu 10.04 Long Term Support release.
 
 Create new UNIX user (e.g. user ``plone``)::
@@ -132,10 +135,10 @@ disconnect the terminal session::
   
     bin/instance start
   
-If you have problems `please see help guidelines <http://plone.org/help>`_.
+If you have problems and need help, `please see the help guidelines <http://plone.org/help>`_.
 
-For automatic start-ups on your server boots up, init scripts, etc.
-please see :doc:`hosting guide </hosting/index>`. 
+For automatic start-ups on server boot-up, init scripts, more advanced hosting, etc.
+please see the :doc:`hosting guide </hosting/index>`. 
 
 Installing Plone using buildout on Ubuntu / Debian
 --------------------------------------------------------
