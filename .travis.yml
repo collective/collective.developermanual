@@ -1,3 +1,4 @@
+# http://about.travis-ci.org/docs/user/build-configuration/
 language: python
 
 python:
@@ -12,5 +13,8 @@ script: bin/sphinx-build -W -b html source build/html
 notifications:
   email:
     - mikko@opensourcehacker.com
-    - other@example.com
-  irc: "irc.freenode.org#plone.org"    
+  irc: 
+    channels: 
+        - "irc.freenode.org#plone.org"
+    on_success: never
+    on_failure: change
