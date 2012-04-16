@@ -37,6 +37,7 @@ Table of Content
    performance/index
    troubleshooting/index
    zope_secrets/index
+   zcml/index
    glossary
    todos
 
