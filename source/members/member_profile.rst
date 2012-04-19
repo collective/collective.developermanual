@@ -1,0 +1,215 @@
+=================
+ Member profiles
+=================
+
+.. contents :: :local:
+
+.. admonition:: Description
+
+        How to manage Plone member propeties programmatically
+
+Introduction
+-------------
+
+Member profile fields are the fields which the logged in member
+can edit oneself on his user account page.
+ 
+For more info, see
+
+* MemberDataTool: http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
+
+* MemberData class: http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
+
+PlonePAS subclasses and extends MemberData and MemberDataTool
+
+* `See PlonePAS MemberDataTool <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L27>`_. 
+
+* `See PlonePAS MemberData class <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L220>`_. 
+
+Getting member profile properties
+---------------------------------
+
+.. note::
+
+        Following concerns vanilla Plone only. If you have customized membership behavior
+        it doesn't necessarily work.
+
+Member profile properties (title, address, biography, etc.) are stored in portal_membership tool.
+
+Available fields can be found in ZMI -> portal_membership -> Properties     .
+
+The script below is a simple example of how to list all member email addresses::
+
+   from Products.CMFCore.utils import getToolByName
+   memberinfo = []
+   membership = getToolByName(self.context, 'portal_membership')
+   for member in membership.listMembers():
+       memberinfo.append(member.getProperty('email'))
+   return memberinfo
+ 
+
+Accessing member data
+=====================
+
+.. TODO::
+
+    Get member data by username
+
+Furher reading
+==============
+
+* `ToolbarViewlet has some sample code <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py>`_ 
+   how to retrieve these properties.
+
+
+Getting member fullname
+=======================
+
+In Python code you can ask info from MemberData object::
+
+        fullname = member_data.getProperty("fullname")
+
+In template you can do something along the lines::
+
+    <tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/fullname">
+        You are are <span class="name" tal:content="fullname" />
+    </tal:with-fullname>
+
+Note that this code won't work for anonymous users.
+
+Setting member profile properties
+---------------------------------
+
+Use *setMemberProperties(mapping={})* to batch update properties.
+Old properties are not removed.
+
+Example::
+
+        member = portal_membership.getMemberById(user_id) 
+        member.setMemberProperties(mapping={"email":"aaa@aaa.com"})
+        
+New properties must be explicitly declared in portal_memberdata,
+before creation of the member,
+or setMemberProperties() will silently fail.
+
+.. TODO::
+
+    How to retrofit existing members with new properties?
+
+Example::
+
+        def prepareMemberProperties(site):
+            """ Adjust site for custom member properties """
+            
+            # Need to use ancient Z2 property sheet API here...
+            portal_memberdata = getToolByName(site, "portal_memberdata")
+        
+            # When new member is created, it's MemberData
+            # is populated with the values from portal_memberdata property sheet,
+            # so value="" will be the default value for users' home_folder_uid
+            # member property
+            if not portal_memberdata.hasProperty("home_folder_uid"):
+                portal_memberdata.manage_addProperty(id="home_folder_uid", value="", type="string")
+
+         ....
+         
+        def createMatchingHomeFolder(member):
+            """ """
+            
+            email = member.getProperty("email")
+            home_folder.setEmail(email)
+            
+            # Store UID of the created folder in memberdata so we can
+            # look it up later to e.g. generate the link to the member folder
+            member.setMemberProperties(mapping={"home_folder_uid": home_folder.UID()})
+            
+            
+            return home_folder
+            
+Setting password
+=====================
+
+Password is a special case.
+
+Example how to set the user password::
+
+    # Password is set in a special way
+    # passwd is password as plain text
+    member.setSecurityProfile(password=passwd)
+
+
+Increase minimum password size
+==============================
+
+To increase the minimum password size copy "validate_pwreset_password" to your custom folder and insert the following lines::
+
+   if len(password) < 8:
+    state.setError('password', 'ERROR') 
+
+This will increase the minimum password size for the password reset form to 8 characters. (This does not effect new user regsitration, that limit will still be 5)
+
+Don't forget to update your form templates to reflect your changes!
+
+            
+
+Default password length - password reset form
+=============================================
+
+The password reset form's minimum password length is 5 characters, to increase this:
+
+Copy validate_pwreset_password into your custom folder and add the following lines:
+
+    if len(password) <8:
+    state.setError('password','ERROR')
+
+Before the "if state.getErrors():" method.
+
+This would increase the minimum password size to 8 characters. Remember to update your form templates accordingly.
+
+
+Setting visual editor for all users
+=======================================
+
+Visual editor property is set on the member on the member creation.
+
+If you want to all site members to use TinyMCE instead of Kupu.
+Plone provides no means to do change other member properties through-the-web,
+but you can do it using the command-line scripting snippet below
+
+migrate.py::
+
+    import transaction
+    
+    # Traverse to your Plone site from Zope application root
+    context = app.yoursiteid.sitsngta # site id is mfabrik
+    
+    users = context.acl_users.getUserNames()
+    
+    portal_membership = context.portal_membership
+    
+    i = 0
+    for user in users:
+     member = portal_membership.getMemberById(user)
+    	value = member.wysiwyg_editor
+    
+    	# Show the existing editor choice before upgrading
+    	print str(user) + ": " + str(value)
+    
+    	# Set WYSIWYG editor for the member
+    	member.wysiwyg_editor = "TinyMCE"
+    
+    	# Make sure transaction buffer does not grow too large
+    	i += 1
+    	if i % 25 == 0:
+    		transaction.commit()
+
+Run it::
+
+    bin/instance run migrate.py
+
+.. note::
+
+        The script does not work through ZMI as member properties
+        do not have proper security declarations to set them as admin.
+        
+        

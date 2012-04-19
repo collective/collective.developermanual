@@ -18,10 +18,26 @@ Some clarifications
 
 * Uploading documentatin to plone.org is no longer supported - instead readthedocs.org is preferred method of distribution 
 
+Building and continous integration
+====================================
+
+This code base uses Travis CI continuous integration 
+to check the integrity of the source files.
+
+Failed manual complies will be reported 
+
+* plone-docs mailing list
+
+* #plone.org IRC channel
+
+See ``.travis.yml`` file for continuous integration settings.
+
+* `Travis build page <http://travis-ci.org/#!/collective/collective.developermanual>`_
+
 License
 -------
 
-Copyright © 2010-2011 Plone Foundation and individual contributors.
+Copyright © 2010-2012 Plone Foundation and individual contributors.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
