@@ -581,9 +581,14 @@ Overriding translations
 
 If you need to change a translation from a ``.po`` file, you could
 create a new python package and register your own ``.po`` files.  
-Look at the *Overriding Translations* section of my Maurits van Rees's 
-`blog entry on Plone i18n <http://maurits.vanrees.org/weblog/archive/2010/10/i18n-plone4>`_.
 
+To do this, create the package and add a ``locales`` directory in there, 
+along the lines of what `plone.app.locales`_ does.  
+Then you can add your own translations in the language that you need.  
+That should override the existing ones.
+See the *Overriding Translations* section of Maurits van Rees's 
+`blog entry on Plone i18n
+<http://maurits.vanrees.org/weblog/archive/2010/10/i18n-plone-4>`_.
 
 Other
 =====
@@ -604,3 +609,4 @@ Other
 .. _zope.i18nmessageid: http://pypi.python.org/pypi/zope.i18nmessageid
 .. _Products.LinguaPlone: http://pypi.python.org/pypi/Products.LinguaPlone
 .. _infrae.i18nextract: http://pypi.python.org/pypi/infrae.i18nextract
+.. _plone.app.locales: http://pypi.python.org/pypi/plone.app.locales
