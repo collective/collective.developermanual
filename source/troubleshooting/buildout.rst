@@ -38,6 +38,15 @@ To figure out which file buildout tries to download, usually the only way
 is to use ``buildout -D`` pdb debug mode and step up in stack frames to see 
 what is going on.
 
+parts/instance/etc/zope.conf: [Errno 2] No such file or directory
+===================================================================
+
+
+You see this error when trying to start Plone.
+This means that buildout did not complete correctly and did not generate configuration files.
+
+Rerun buildout and fix errors in ``buildout.cfg`` based on buildout command output.
+
 Buildout and SyntaxErrors
 =========================
 

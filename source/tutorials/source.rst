@@ -7,7 +7,7 @@
     Installation instructions for Plone for various
     operating systems and situations. 
 
-.. contents :: :local:
+.. contents:: :local:
 
 .. highlight:: console
 
@@ -85,7 +85,13 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-        adduser plone
+        # adduser plone
+
+For information on using this installation with more advanced production
+hosting environments and deployments, 
+see the :doc:`hosting guide </hosting/index>`.
+
+Instructions tested for Ubuntu 10.04 Long Term Support release.
 
 .. note::
 

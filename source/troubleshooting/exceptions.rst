@@ -1960,4 +1960,29 @@ Traceback comes when you try to access any Plone site URL::
 It means that your browser most likely tries to serve bad cookies / auth info to Zope.
 Clear browser cache, cookies, etc.
 
+ValueError: Non-zero version length. Versions aren't supported.
+------------------------------------------------------------------
 
+When trying to open any page::
+
+      File "/Users/moo/code/buildout-cache/eggs/zope.component-3.7.1-py2.6.egg/zope/component/registry.py", line 323, in subscribers
+        return self.adapters.subscribers(objects, provided)
+      File "/Users/moo/code/buildout-cache/eggs/ZODB3-3.9.5-py2.6-macosx-10.6-i386.egg/ZODB/Connection.py", line 838, in setstate
+        self._setstate(obj)
+      File "/Users/moo/code/buildout-cache/eggs/ZODB3-3.9.5-py2.6-macosx-10.6-i386.egg/ZODB/Connection.py", line 888, in _setstate
+        p, serial = self._storage.load(obj._p_oid, '')
+      File "/Users/moo/code/buildout-cache/eggs/ZODB3-3.9.5-py2.6-macosx-10.6-i386.egg/ZEO/ClientStorage.py", line 810, in load
+        data, tid = self._server.loadEx(oid)
+      File "/Users/moo/code/buildout-cache/eggs/ZODB3-3.9.5-py2.6-macosx-10.6-i386.egg/ZEO/ServerStub.py", line 176, in loadEx
+        return self.rpc.call("loadEx", oid)
+      File "/Users/moo/code/buildout-cache/eggs/ZODB3-3.9.5-py2.6-macosx-10.6-i386.egg/ZEO/zrpc/connection.py", line 703, in call
+        raise inst # error raised by server
+    ValueError: Non-zero version length. Versions aren't supported.
+
+Most likely a corrupted Data.fs. Stop zeoserver. Recopy Data.fs. Recopy blobs.
+
+More info
+
+* http://stackoverflow.com/questions/8387902/plone-upgrade-3-3-5-to-plone-4-1-2
+
+* https://mail.zope.org/pipermail/zodb-dev/2010-September/013620.html

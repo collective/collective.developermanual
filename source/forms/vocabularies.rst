@@ -6,7 +6,7 @@ Vocabularies
 
         Vocabularies are lists of (value -> human readable title) pairs used
         by e.g. selection drop downs. zope.schema provides
-        tools to programmatically construct there vocabularies. 
+        tools to programmatically construct their vocabularies. 
 
 .. contents :: :local:
 

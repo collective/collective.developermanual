@@ -122,6 +122,38 @@ Plone applies some default rules for listFolderContents()
 
 * portal_properties.nav_tree_properties.: meta types marked here do not appear in the listing
 
+
+Enforcing manual sort order
+------------------------------
+
+Below is an example how you sort content items by their manual sort order
+(one you create via drag and drop on contents tab)::
+
+        from OFS.interfaces import IOrderedContainer
+
+        queried_objects = list(folder.listFolderContents())
+
+        def get_position_in_parent(obj):
+            """ 
+            Use IOrderedContainer interface to extract the object's manual ordering position
+            """
+            parent = obj.aq_inner.aq_parent
+            ordered = IOrderedContainer(parent, None)
+            if ordered is not None:
+                return ordered.getObjectPosition(obj.getId())
+            return 0            
+
+        def sort_by_position(a, b):
+            """
+            Python list sorter cmp() using position in parent.
+
+            Descending order.
+            """
+            return get_position_in_parent(a) - get_position_in_parent(b)
+
+        queried_objects = sorted(queried_objects, sort_by_position)
+
+
 Getting object ids
 -------------------
 
