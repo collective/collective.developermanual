@@ -8,7 +8,7 @@ How to manage Plone hosting and deployments.
     :maxdepth: 2
 
     restarts
-    buildout    
+    buildout
     zope
     apache
     wsgi

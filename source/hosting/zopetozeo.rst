@@ -2,25 +2,24 @@
 Converting single process instance to ZEO cluster
 ====================================================
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 ------------
 
 See `ZEO <http://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer/to-zeo-or-not-to-zeo>`_.
 
-See `plone.app.blob product page <http://plone.org/products/plone.app.blob>` for good ZEO configuration example.
+See the `plone.app.blob product page <http://plone.org/products/plone.app.blob>`
+for good ZEO configuration examples.
 
 Steps
 -----
 
-Use link above for a buildout.cfg example.
+Use link above for a ``buildout.cfg`` example.
 
-Changes needed to single process buildout.cfg:
+Changes needed to single process ``buildout.cfg``:
 
-* Add [zeo] section
-
-::
+* Add ``[zeo]`` section::
 
     [zeo]
     recipe = plone.recipe.zope2zeoserver

@@ -1,10 +1,10 @@
---------------------
+====================
 Language functions
---------------------
+====================
 
 .. admonition:: Description
 
-    Acessing and changing the language state of Plone programmatically. 
+    Accessing and changing the language state of Plone programmatically. 
 
 .. contents:: :local:
 
@@ -18,7 +18,7 @@ Several factors may involve determining what the language should be:
 
 * Cookies (setting from the language selector)
 
-* Domain name (like .fi for Finnish, .se for Swedish)
+* Top-level domain name (like ``.fi`` for Finnish, ``.se`` for Swedish)
 
 * Context (current content) language
 

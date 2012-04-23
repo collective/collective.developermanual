@@ -1,11 +1,11 @@
-------------------------------------
+====================================
 Translating text strings
-------------------------------------
+====================================
 
 .. admonition:: Description
 
     Translating Python and TAL template source code text strings using
-    the ``gettext`` framework and other Plone/Zope i18n facilities.
+    the term:`gettext` framework and other Plone/Zope i18n facilities.
 
 .. contents:: :local:
 
@@ -22,18 +22,19 @@ There are two separate gettext systems. Both use the :term:`.po` file format
 to describe translations.
 
 Note that this chapter concerns only *code-level* translations. *Content*
-translations are managed by the ``Products.LinguaPlone`` add-on product.
+translations are managed by the `Products.LinguaPlone`_ add-on product.
 
-``zope.i18n``
+`zope.i18n`_
 ==============
 
-* Follows gettext best practices
+* Follows term:`gettext` best practices
 
-* Translations are stored in ``locales`` folder of your application.
+* Translations are stored in the ``locales`` folder of your application.
   Example: ``locales/fi/LC_MESSAGES/your.app.po``
 
-* Has ``zope.i18nmessageid`` package which is string-like class allowing
-  storing translation domain with translatable text strings easily.
+* Has `zope.i18nmessageid`_ package, which provides a string-like class
+  which allows storing the translation domain with translatable text strings
+  easily.
 
 * ``.po`` files must be manually converted to ``.mo`` binary files every
   time the translations are updated.  See :term:`i18ndude`.
@@ -44,7 +45,7 @@ files.  Information in the ``.po`` file headers is ignored.
 Generating a ``.pot`` template file for your package(s)
 --------------------------------------------------------
 
-``infrae.i18nextract`` can be used in your buildout to create a script which
+`infrae.i18nextract`_ can be used in your buildout to create a script which
 searches particular packages for translation strings. This can be
 particularly useful for creating a single *translations* package which
 contains the translations for the set of packages which make up your
@@ -292,12 +293,12 @@ For more information, see
 
 * http://wiki.zope.org/zope3/TurningMessageIDsIntoRocks
 
-PlacessTranslationService
-=========================
+PlacelessTranslationService
+============================
 
-* Historic, being phased out
+* Historic, being phased out.
 
-* Stores ``.po`` files in ``i18n`` folder of your add-on product
+* Stores ``.po`` files in ``i18n`` folder of your add-on product.
 
 * Used for main "plone" translation catalog (until Plone 3.3.x)
 
@@ -315,18 +316,18 @@ automate generation of ``.mo`` files of your product ``.po`` files.
 
 .. note::
 
-        Plone 3.3 and onwards do not need manual ``.po`` -> ``.mo``
-        compilation. It is done on start up. Plone 4 has a special switch
-        for this: in your ``buildout.cfg`` in the part using
-        ``plone.recipe.zope2instance`` you can set an environment variable
-        for this::
+    Plone 3.3 and onwards do not need manual ``.po`` -> ``.mo``
+    compilation. It is done on start up. Plone 4 has a special switch
+    for this: in your ``buildout.cfg`` in the part using
+    ``plone.recipe.zope2instance`` you can set an environment variable
+    for this::
 
-          environment-vars =
-              zope_i18n_compile_mo_files true
+      environment-vars =
+          zope_i18n_compile_mo_files true
 
-        Note that the value does not matter: the code in ``zope.i18n``
-        simply looks for the existence of the variable and does not
-        care what its value is.
+    Note that the value does not matter: the code in ``zope.i18n``
+    simply looks for the existence of the variable and does not
+    care what its value is.
         
 See:
 
@@ -343,7 +344,7 @@ Examples:
 Installing i18ndude
 -------------------
 
-The recommended method is to have ``i18ndude`` installed via your
+The recommended method is to have term:`i18ndude` installed via your
 :doc:`buildout </tutorials/buildout/index>`.
 
 Add the following to your buildout.cfg::
@@ -368,9 +369,9 @@ You can also call it relative to your current package source folder
 
 .. code-block:: console
 
-        huiske-imac:twinapex moo$  cd src/mfabrik.plonezohointegration/
-        huiske-imac:mfabrik.plonezohointegration moo$ ../../bin/i18ndude 
-        
+        server:home moo$  cd src/mfabrik.plonezohointegration/
+        server:mfabrik.plonezohointegration moo$ ../../bin/i18ndude 
+
 .. warning::
 
     Do not ``easy_install i18ndude``. ``i18ndude`` depends on various Zope
@@ -450,86 +451,86 @@ The script will:
 
 .. code-block:: sh
 
-        #!/bin/sh
-        #
-        # Shell script to manage .po files.
-        #
-        # Run this file in the folder main __init__.py of product
-        #
-        # E.g. if your product is yourproduct.name
-        # you run this file in yourproduct.name/yourproduct/name
-        #
-        #
-        # Copyright 2010 mFabrik http://mfabrik.com
-        #
-        # http://plone.org/documentation/manual/plone-community-developer-documentation/i18n/localization
-        #
+    #!/bin/sh
+    #
+    # Shell script to manage .po files.
+    #
+    # Run this file in the folder main __init__.py of product
+    #
+    # E.g. if your product is yourproduct.name
+    # you run this file in yourproduct.name/yourproduct/name
+    #
+    #
+    # Copyright 2010 mFabrik http://mfabrik.com
+    #
+    # http://plone.org/documentation/manual/plone-community-developer-documentation/i18n/localization
+    #
+    
+    # Assume the product name is the current folder name
+    CURRENT_PATH=`pwd`
+    CATALOGNAME="yourproduct.app"
+    
+    # List of languages
+    LANGUAGES="en fi de"
+    
+    # Create locales folder structure for languages
+    install -d locales
+    for lang in $LANGUAGES; do
+        install -d locales/$lang/LC_MESSAGES
+    done
+    
+    # Assume i18ndude is installed with buildout
+    # and this script is run under src/ folder with two nested namespaces in the package name (like mfabrik.plonezohointegration)
+    I18NDUDE=../../../../bin/i18ndude
+    
+    if test ! -e $I18NDUDE; then
+            echo "You must install i18ndude with buildout"
+            echo "See http://svn.plone.org/svn/collective/collective.developermanual/trunk/source/i18n/localization.txt"
+            exit
+    fi
+    
+    #
+    # Do we need to merge manual PO entries from a file called manual.pot.
+    # this option is later passed to i18ndude
+    # 
+    if test -e locales/manual.pot; then
+            echo "Manual PO entries detected"
+            MERGE="--merge locales/manual.pot"
+    else
+            echo "No manual PO entries detected"
+            MERGE=""
+    fi
+    
+    # Rebuild .pot
+    $I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot $MERGE --create $CATALOGNAME .
+    
+    
+    # Compile po files
+    for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
+    
+        if test -d $lang/LC_MESSAGES; then
+    
+            PO=$lang/LC_MESSAGES/${CATALOGNAME}.po
+    
+            # Create po file if not exists
+            touch $PO
+    
+            # Sync po file
+            echo "Syncing $PO"
+            $I18NDUDE sync --pot locales/$CATALOGNAME.pot $PO
+    
+    
+            # Plone 3.3 and onwards do not need manual .po -> .mo compilation,
+            # but it will happen on start up if you have
+            # registered the locales directory in ZCML
+            # For more info see http://vincentfretin.ecreall.com/articles/my-translation-doesnt-show-up-in-plone-4
         
-        # Assume the product name is the current folder name
-        CURRENT_PATH=`pwd`
-        CATALOGNAME="yourproduct.app"
-        
-        # List of languages
-        LANGUAGES="en fi de"
-        
-        # Create locales folder structure for languages
-        install -d locales
-        for lang in $LANGUAGES; do
-            install -d locales/$lang/LC_MESSAGES
-        done
-        
-        # Assume i18ndude is installed with buildout
-        # and this script is run under src/ folder with two nested namespaces in the package name (like mfabrik.plonezohointegration)
-        I18NDUDE=../../../../bin/i18ndude
-        
-        if test ! -e $I18NDUDE; then
-                echo "You must install i18ndude with buildout"
-                echo "See http://svn.plone.org/svn/collective/collective.developermanual/trunk/source/i18n/localization.txt"
-                exit
+            # Compile .po to .mo
+            # MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
+            # echo "Compiling $MO"
+            # msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
         fi
-        
-        #
-        # Do we need to merge manual PO entries from a file called manual.pot.
-        # this option is later passed to i18ndude
-        # 
-        if test -e locales/manual.pot; then
-                echo "Manual PO entries detected"
-                MERGE="--merge locales/manual.pot"
-        else
-                echo "No manual PO entries detected"
-                MERGE=""
-        fi
-        
-        # Rebuild .pot
-        $I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot $MERGE --create $CATALOGNAME .
-        
-        
-        # Compile po files
-        for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
-        
-            if test -d $lang/LC_MESSAGES; then
-        
-                PO=$lang/LC_MESSAGES/${CATALOGNAME}.po
-        
-                # Create po file if not exists
-                touch $PO
-        
-                # Sync po file
-                echo "Syncing $PO"
-                $I18NDUDE sync --pot locales/$CATALOGNAME.pot $PO
-        
-        
-                # Plone 3.3 and onwards do not need manual .po -> .mo compilation,
-                # but it will happen on start up if you have
-                # registered the locales directory in ZCML
-                # For more info see http://vincentfretin.ecreall.com/articles/my-translation-doesnt-show-up-in-plone-4
-            
-                # Compile .po to .mo
-                # MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
-                # echo "Compiling $MO"
-                # msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
-            fi
-        done
+    done
 
 .. note::
 
@@ -575,6 +576,15 @@ More info
 
 * http://permalink.gmane.org/gmane.comp.web.zope.plone.collective.cvs/111531
 
+Overriding translations
+========================
+
+If you need to change a translation from a ``.po`` file, you could
+create a new python package and register your own ``.po`` files.  
+Look at the *Overriding Translations* section of my Maurits van Rees's 
+`blog entry on Plone i18n <http://maurits.vanrees.org/weblog/archive/2010/10/i18n-plone4>`_.
+
+
 Other
 =====
 
@@ -590,3 +600,7 @@ Other
 
 
 
+.. _zope.i18n: http://pypi.python.org/pypi/zope.i18n
+.. _zope.i18nmessageid: http://pypi.python.org/pypi/zope.i18nmessageid
+.. _Products.LinguaPlone: http://pypi.python.org/pypi/Products.LinguaPlone
+.. _infrae.i18nextract: http://pypi.python.org/pypi/infrae.i18nextract
