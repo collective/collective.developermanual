@@ -71,7 +71,7 @@ Parsing both US and European dates
 Example::
 
             # Lazy ass way to parse both formats
-            # 2010/31/12
+            # 2010/12/31
             # 31.12.2010
             try:
                 if "." in rendDate:
