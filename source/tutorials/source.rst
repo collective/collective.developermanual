@@ -102,7 +102,7 @@ Instructions tested for Ubuntu 10.04 Long Term Support release.
 
    .. code-block:: console
 
-        sudo apt-get install python-dev build-essential libssl-dev
+        sudo apt-get install python-dev build-essential libssl-dev wget
 
 3. Log-in as this user:
 
