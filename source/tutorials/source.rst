@@ -104,6 +104,12 @@ Instructions tested for Ubuntu 10.04 Long Term Support release.
 
         sudo apt-get install python-dev build-essential libssl-dev wget
 
+.. note ::
+
+    If sudo command is not recognized or does not work you don't have administrator rights to 
+    Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
+    system support forum.
+
 3. Log-in as plone user under which the installed software will run. Note that you need to rerun this command later
 if you want to adjust Plone settings or run start or stop commands for Plone:
 
