@@ -46,7 +46,7 @@ How to host Plone
   Other operating system production installations are possible, but rarer.
 
 
-How to develop Plone
+How to install Plone for testing or developmenet
 ========================================================
 
 Plone development can be done on any modern desktop operating system.
@@ -91,7 +91,7 @@ first.
 
 Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
-1. Create new UNIX user (e.g. user ``plone``):
+1. Create new UNIX user called ``plone``. This user will be the user who has the rights to Plone code and database files and will run Plone processes. You can use any normal UNIX user here as long as you have sudo rights to install necessary software to install and run Plone:
 
    .. code-block:: console
 
