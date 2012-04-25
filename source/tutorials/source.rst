@@ -115,12 +115,17 @@ Instructions tested for Ubuntu 10.04 Long Term Support release.
 
    .. code-block:: console
 
-        wget https://launchpad.net/plone/4.1/4.1.4/+download/Plone-4.1.4-UnifiedInstaller.tgz
-
-5. Run the installer as non-root standalone mode:
+        wget --no-check-certificate https://launchpad.net/plone/4.1/4.1.4/+download/Plone-4.1.4-UnifiedInstaller.tgz
+       
+5. Run the installer as non-root standalone mode.:
 
    .. code-block:: console
    
+        # Extract the downloaded file 
+        tar -xf Plone-4.1.4-UnifiedInstaller.tgz
+        # Go the folder containing installer script
+        cd Plone-4.1.4-UnifiedInstaller
+        # Run script
         ./install.sh standalone
 
    The default admin credentials will be printed to the console.
