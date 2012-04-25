@@ -72,8 +72,14 @@ Installing Plone using the Unified UNIX Installer
   
 This recipe is good for:
 
-* lightweight production sites;
-* Plone development and testing on Ubuntu / Debian.
+* Lightweight production sites
+
+* Plone development and testing on Ubuntu / Debian
+
+* Operating system installations where you have administrator (root) access. Note that  
+  root access is not strictly necessary as long as you have required software installed
+  beforehand on the server, but this tutorial assumes you need to install the software 
+  yourself and you are the admin.
 
 The resulting installation is self-contained, 
 does not touch system files, 
