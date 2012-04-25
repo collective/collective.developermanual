@@ -98,26 +98,27 @@ Instructions tested for Ubuntu 10.04 Long Term Support release.
    It is not recommended to run or install Plone as the root user.
    There is nothing in Plone requiring root privileges.
 
-2. Install operating system prerequisites:
+2. Install operating system software needed to run Plone:
 
    .. code-block:: console
 
         sudo apt-get install python-dev build-essential libssl-dev wget
 
-3. Log-in as this user:
+3. Log-in as plone user under which the installed software will run. Note that you need to rerun this command later
+if you want to adjust Plone settings or run start or stop commands for Plone:
 
    .. code-block:: console
 
         sudo -i -u plone
 
-4. Download the unified Plone binary 
-   from the `download page <http://plone.org/download>`_ to your server.
+4. Download the Plone binary installer
+   from the `download page <http://plone.org/download>`_ to your server using wget command.
 
    .. code-block:: console
 
         wget --no-check-certificate https://launchpad.net/plone/4.1/4.1.4/+download/Plone-4.1.4-UnifiedInstaller.tgz
        
-5. Run the installer as non-root standalone mode.:
+5. Run the Plone installer as non-root-userd, standalone‚ mode.:
 
    .. code-block:: console
    
