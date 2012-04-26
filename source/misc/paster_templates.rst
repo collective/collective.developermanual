@@ -10,7 +10,7 @@
 Introduction
 ------------
 
-Plone CMS and Python extensively use :doc:`paster code templating system </tutorials/paste>`
+Plone CMS and Python extensively use :doc:`paster code templating system </plugins/paste>`
 to aid add-on product development.
 
 Paster allows you to create code from code skeleton templates,
@@ -20,7 +20,7 @@ Default Plone templates are in `ZopeSkel <http://plone.org/products/zopeskel>`_ 
 
 * This document tells how to create your own paster templates
 
-* For information how to use paster please refer to :doc:`paster section in tutorials </tutorials/paste>`
+* For information how to use paster please refer to :doc:`paster section in tutorials </plugins/paste>`
 
 More information
 
@@ -279,7 +279,7 @@ Developing template egg with paster and buildout.cfg
 ----------------------------------------------------
 
 The preferred method to run paster with Plone is to have it 
-automatically pulled in and configured for you by :doc:`buildout </tutorials/buildout/index>`.
+automatically pulled in and configured for you by :doc:`buildout </installation/buildout/index>`.
 
 develop-eggs
 ============

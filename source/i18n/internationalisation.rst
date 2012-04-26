@@ -345,7 +345,7 @@ Installing i18ndude
 -------------------
 
 The recommended method is to have term:`i18ndude` installed via your
-:doc:`buildout </tutorials/buildout/index>`.
+:doc:`buildout </installation/buildout/index>`.
 
 Add the following to your buildout.cfg::
 

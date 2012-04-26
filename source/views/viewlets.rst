@@ -84,7 +84,7 @@ Creating a viewlet using Grok
 
 :doc:`Grok framework </components/grok>` allows you to register a viewlet easily using Python directives.
 
-It is recommended that you use :doc:`Dexterity ZopeSkel add-on product code skeleton </tutorials/paste>`
+It is recommended that you use :doc:`Dexterity ZopeSkel add-on product code skeleton </plugins/paste>`
 where you add this code. 
 
 Create *yourcomponent.app/yourcomponent/app/browser/viewlets.py*::

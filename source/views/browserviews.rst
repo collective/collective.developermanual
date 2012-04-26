@@ -140,7 +140,7 @@ Creating a view using Grok
 
 This is the simplest method and recommended for Plone 4.1+ onwards.
 
-First, create your add-on product using :doc:`Dexterity project template </tutorials/paste>`.
+First, create your add-on product using :doc:`Dexterity project template </plugins/paste>`.
 
 Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
 

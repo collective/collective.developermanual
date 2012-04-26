@@ -260,7 +260,7 @@ needed to establish a Plone site is
 
 Below is an example process.
 
-Activate Python 2.6 for Plone (see :doc:`how to use virtualenv controlled non-system wide Python </tutorials/python>`::
+Activate Python 2.6 for Plone (see :doc:`how to use virtualenv controlled non-system wide Python </architecture/python>`::
 
         source ~/code/python/python-2.6/bin/activate
 

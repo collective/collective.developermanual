@@ -169,7 +169,7 @@ It is included after toc.js so that the file ends up as the last script
 of the compressed JS bundle which served for all users.
 
 The Javascript file itself is usually *yourcompany/app/static/yourjsfile.js*
-folder in your :doc:`add-on product </tutorials/paste>`. 
+folder in your :doc:`add-on product </plugins/paste>`.
 
 It is mapped to URI like::
 

@@ -15,7 +15,9 @@ Table of Content
    :maxdepth: 2
 
    introduction/index
-   tutorials/index
+   architecture/index
+   installation/index
+   plugins/index
    serving/index
    views/index
    content/index

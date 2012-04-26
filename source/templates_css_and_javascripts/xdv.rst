@@ -86,7 +86,7 @@ Tutorials
 Creating your first XDV project
 ==================================
 
-The :doc:`ZopeSkel package </tutorials/paste>` includes an XDV theme skeleton
+The :doc:`ZopeSkel package </plugins/paste>` includes an XDV theme skeleton
 since version 2.20.
 
 Example how to boostrap your theme.
