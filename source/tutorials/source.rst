@@ -89,6 +89,8 @@ If you are not familiar with UNIX operating system commad line
 you might want to study this `Linux shell tutorial <http://linuxcommand.org/learning_the_shell.php>`_
 first.
 
+For further info see also `Plone manual for installing on UNIX <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/>`_.
+
 Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
 1. Create new UNIX user called ``plone``. This user will be the user who has the rights to Plone code and database files and will run Plone processes. You can use any normal UNIX user here as long as you have sudo rights to install necessary software to install and run Plone:
@@ -112,7 +114,7 @@ Instructions tested for Ubuntu 10.04 Long Term Support release.
 
    .. code-block:: console
 
-        sudo apt-get install python-dev build-essential libssl-dev wget
+        sudo apt-get install python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
 .. note ::
 
