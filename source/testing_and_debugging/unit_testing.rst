@@ -112,6 +112,13 @@ tests:
 
 * http://plone.org/documentation/kb/testing/code-coverage
 
+Running tests against Python egg
+===================================
+
+You might need to add additional setup.py options to get your tests work
+
+* http://rpatterson.net/blog/running-tests-in-egg-buildouts
+
 Creating unit tests
 ====================
 

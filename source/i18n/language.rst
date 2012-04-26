@@ -1,10 +1,10 @@
---------------------
+====================
 Language functions
---------------------
+====================
 
 .. admonition:: Description
 
-    Acessing and changing the language state of Plone programmatically. 
+    Accessing and changing the language state of Plone programmatically. 
 
 .. contents:: :local:
 
@@ -18,7 +18,7 @@ Several factors may involve determining what the language should be:
 
 * Cookies (setting from the language selector)
 
-* Domain name (like .fi for Finnish, .se for Swedish)
+* Top-level domain name (like ``.fi`` for Finnish, ``.se`` for Swedish)
 
 * Context (current content) language
 
@@ -341,6 +341,60 @@ Below some example code.
         replacement=".languages.working_portal_state_language"
         />
   
+Login aware language negotiation
+==========================================
+
+Because language negotiation happens before the authentication by default
+and if you wish to use authenticated credentials in the negotiation you 
+can do the following.
+
+This can be done by hooking to after traversal event.
+
+Example event registration
+
+.. code-block:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        xmlns:zcml="http://namespaces.zope.org/zcml"
+        >
+        <subscriber handler=".language_negotiation.Negotiator"/>
+    </configure>
+
+Related event handler::
+
+    ################################################################
+    # weishaupt.policy
+    # (C) 2012, ZOPYX Ltd.
+    ################################################################
+    
+    from zope.interface import Interface
+    from zope.component import adapter
+    from ZPublisher.interfaces import IPubEvent,IPubAfterTraversal
+    from Products.CMFCore.utils import getToolByName
+    from AccessControl import getSecurityManager
+    from zope.app.component.hooks import getSite
+    
+    @adapter(IPubAfterTraversal)
+    def Negotiator(event):
+    
+        # Keep the current request language (negotiated on portal_languages)
+        # untouched
+    
+        site = getSite()
+        ms = getToolByName(site, 'portal_membership')
+        member = ms.getAuthenticatedMember()
+        if member.getUserName() == 'Anonymous User':
+            return
+    
+        language = member.language
+        if language:
+            # Fake new language for all authenticated users
+            event.request['LANGUAGE'] = language
+        else:
+            lt = getToolByName(site, 'portal_languages')
+            event.request['LANGUAGE'] = lt.getDefaultLanguage()
 
 Other
 =====

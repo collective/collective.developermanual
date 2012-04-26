@@ -59,8 +59,15 @@ the time.
 
    git clone https://github.com/collective/collective.developermanual
 
-* Bootstap with Python 2.5 or later. We use a version of Sphinx that has
+* Bootstrap with Python 2.5 or later. We use a version of Sphinx that has
   dropped Python 2.4 support.
+
+.. note::
+
+   You do not need to bootstrap and buildout if you simply want to
+   make a quick edit the documentation. Go to the "source" directory
+   to find the files. Continue reading if you want to run a complete
+   local copy.
 
 .. code-block:: sh
 

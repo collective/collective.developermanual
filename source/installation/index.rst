@@ -12,5 +12,4 @@ Hand-holding information on how to get started with Plone.
     paste
     addon
     buildout/index
-    
 

@@ -37,6 +37,16 @@ Start on boot
 It is best practice to start Plone service if the server is rebooted.
 This way your site will automatically recover from power loss etc. 
 
+
+crontab
+=======
+
+There instructions apply for Debian based Linuxes.
+
+Example crontab of yourploneuser::
+
+        @reboot /srv/plone/yoursite/bin/instance start
+
 rc.local script
 ===============
 
