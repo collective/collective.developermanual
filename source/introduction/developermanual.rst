@@ -41,7 +41,7 @@ documentation, written by Georg Brandl and licensed under the BSD license.
 .. _Sphinx: http://sphinx.pocoo.org/
 
 The ``collective.developermanual`` checkout contains 
-:doc:`buildout.cfg recipes </tutorials/buildout/index>` to:
+:doc:`buildout.cfg recipes </installation/buildout/index>` to:
 
 * install Sphinx;
 * compile the manual to HTML;

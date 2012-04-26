@@ -58,7 +58,7 @@ To get the Plone site to a working state all content having bad BLOB data must b
 (usually meaning losing some of site images and uploaded files).
 
 Below is Python code for `Grok view <http://collective-docs.readthedocs.org/en/latest/views/browserviews.html#creating-a-view-using-grok>`_
-which you can drop in to your own `Plone add-on product <http://collective-docs.readthedocs.org/en/latest/tutorials/paste.html#creating-an-add-on-product-skeleton>`_.
+which you can drop in to your own `Plone add-on product <http://collective-docs.readthedocs.org/en/latest/plugins/paste.html#creating-an-add-on-product-skeleton>`_.
 It creates an admin view which you can call directly thru URL. This code will walk thru all the content on your Plone site and tries to 
 delete bad content items with BLOBs missing.
 

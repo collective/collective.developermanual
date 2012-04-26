@@ -99,7 +99,7 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity
 
 * Include Dexterity in your buildout as instructed by Dexterity manual
 
-* Create Plone add-on product using :doc`Paster </tutorials/paste>` 
+* Create Plone add-on product using :doc`Paster </plugins/paste>`
 
 * Include :doc:`five.grok support in your add-on </components/grok>`
 

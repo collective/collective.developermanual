@@ -18,7 +18,7 @@ For lightweight theming options please see `plone.app.theming <http://pypi.pytho
 Creating a functional add-on
 ----------------------------
 
-Before trying to develop Plone please :doc:`learn Python </tutorials/python>`.
+Before trying to develop Plone please :doc:`learn Python </architecture/python>`.
 
 Plone add-ons
 

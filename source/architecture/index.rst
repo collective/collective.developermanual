@@ -8,11 +8,12 @@ Overview of Plone's Architecture
     :maxdepth: 2
 
 
-    whentousecms
+    whentousecmc
+    python
     objectdatabase
     traversal
     components
-    contenttypes
+    old-style-vs-new-style/index.rst
     
 
 

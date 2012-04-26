@@ -238,7 +238,7 @@ This will:
 
 More info:
 
-* :doc:`ZopeSkel </tutorials/paste>` 
+* :doc:`ZopeSkel </plugins/paste>`
 * `virtualenv <http://pypi.python.org/pypi/virtualenv>`_ 
 * `Pillow <http://pypi.python.org/pypi/Pillow/>`_ 
 * `lxml <http://lxml.de/>`_

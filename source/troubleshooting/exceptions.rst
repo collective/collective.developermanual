@@ -1286,7 +1286,7 @@ Python has not been compiled with HTTPS support.
 
 Try installing your Python, for example, using minitage.
 
-See :doc:`Python basics </tutorials/python>`.
+See :doc:`Python basics </architecture/python>`.
 
  
 LinguaPlone: ImportError: cannot import name permissions

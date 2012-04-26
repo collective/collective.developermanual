@@ -52,7 +52,7 @@ and then push changes to the server as Plone add-on.
 * Then you push any required Plone customizations to the server using your
   own customization add-on
 
-Please see :doc:`Creating your first theme / add-on </tutorials/addon>`.
+Please see :doc:`Creating your first theme / add-on </plugins/addon>`.
 
 Ubuntu / Debian
 ====================================================
@@ -177,7 +177,7 @@ Run buildout (use Python 2.6 for Plone 4.1)::
 
 More info:
 
-* :doc:`ZopeSkel </tutorials/paste>` 
+* :doc:`ZopeSkel </plugins/paste>`
 * `virtualenv <http://pypi.python.org/pypi/virtualenv>`_ 
 * `Pillow <http://pypi.python.org/pypi/Pillow/>`_ 
 * `lxml <http://lxml.de/>`_
