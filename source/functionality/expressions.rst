@@ -34,14 +34,22 @@ There are three main categories of expressions.
 
 Expression can contain optional protocol: prefix to determine the expression type.
 
-Default TALES expression
-========================
+path expression (default)
+==========================
+
+Unless you specify expression type using ``python:`` or ``string`` notation
+a `path expression <http://docs.zope.org/zope2/zope2book/AppendixC.html#tales-path-expressions>`_
+is assumed.
 
 Do :doc:`traversing </serving/traversing>` using slashes.
 
-Example::
+Example -  Call Title() function of context object and return its value::
+ 
+        context/Title        
 
-        context/getTitle        
+Variables can be used with ``?`` - enter folder subject by its id and get its title::
+
+        context/?myItemId/Title
 
 string: expression
 ==================
