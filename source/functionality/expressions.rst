@@ -51,6 +51,12 @@ Variables can be used with ``?`` - enter folder subject by its id and get its ti
 
         context/?myItemId/Title
 
+.. note ::
+
+	With this kind of usage, if the variable you're dereferencing isn't sanitized, 
+        there could be security ramifications. Use python: restrictedTraverse() traversing instead
+        if you need to use variables in your path parts.
+
 string: expression
 ==================
 
