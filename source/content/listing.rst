@@ -104,7 +104,7 @@ Example::
 
 .. warning::
 
-	Security warning: listFolderContens() honors the currently logged in user roles.
+	Security warning: listFolderContents() honors the currently logged in user roles.
 
 .. warning::
 
