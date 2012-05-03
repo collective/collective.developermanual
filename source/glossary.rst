@@ -376,6 +376,10 @@ It incorporates the original `glossary on plone.org
     METAL
         Macro Expansion Template Attribute Language. See :term:`ZPT`.
 
+    TALES
+        :term:`TAL` Expression Syntax. The syntax of the expressions used in
+        TAL attributes.
+
     Software home
         The directory inside the Zope installation (on the filesystem) that
         contains all the Python code that makes up the core of the Zope
@@ -528,3 +532,9 @@ It incorporates the original `glossary on plone.org
         and do not impact your system Python or other projects.
 
         .. todo:: Add reference.
+
+    JSON
+        JavaScript Object Notation. JSON is a lightweight text-based open
+        standard designed for human-readable data interchange. In short,
+        it's a string that looks like a JavaScript array, but is constrained
+        to 6 simple data types. It can be parsed by many languages.
