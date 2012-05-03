@@ -31,7 +31,7 @@ It incorporates the original `glossary on plone.org
         lightweight markup systems.
 
     slug
-        A ZCML *slug* is a one-line file created in a Zope instance's
+        A :term:`ZCML` *slug* is a one-line file created in a Zope instance's
         ``etc/package-includes`` directory, with a name like
         ``my.package-configure.zcml``. The contents of the file would be
         something like:
@@ -128,7 +128,8 @@ It incorporates the original `glossary on plone.org
         *Zope Page Templates* is the templating language that is used to
         render the Plone pages. It is implemented as two XML namespaces,
         making it possible to create templates that look like normal
-        HTML/XML to editors.
+        HTML/XML to editors. See
+        http://docs.zope.org/zope2/zope2book/AppendixC.html
 
     i18n
         i18n is shorthand for "internationalization" (the letter I, 18
