@@ -5,7 +5,7 @@ Translating text strings
 .. admonition:: Description
 
     Translating Python and TAL template source code text strings using
-    the term:`gettext` framework and other Plone/Zope i18n facilities.
+    the term:`gettext` framework and other Plone/Zope term:`i18n` facilities.
 
 .. contents:: :local:
 
@@ -16,7 +16,8 @@ Internationalization is a process to make your code locale- and
 language-aware.  Usually this means supplying translation files for text
 strings used in the code.
 
-Plone internally uses the UNIX standard term:`gettext` tool to perform i18n.
+Plone internally uses the UNIX standard term:`gettext` tool to perform
+term:`i18n`.
 
 There are two separate gettext systems. Both use the :term:`.po` file format
 to describe translations.
@@ -36,11 +37,14 @@ translations are managed by the `Products.LinguaPlone`_ add-on product.
   which allows storing the translation domain with translatable text strings
   easily.
 
-* ``.po`` files must be manually converted to ``.mo`` binary files every
-  time the translations are updated.  See :term:`i18ndude`.
+* ``.po`` files must usually be manually converted to ``.mo`` binary files
+  every time the translations are updated.  See :term:`i18ndude`. (It is
+  also possible to set an environment variable to trigger recompilation of
+  ``.mo`` files; see below.)
 
-Plone (at least 3.3) uses only filename and path to search the translation
-files.  Information in the ``.po`` file headers is ignored.
+Plone (at least 3.3) uses only filename and path to search for the
+translation files.
+Information in the ``.po`` file headers is ignored.
 
 Generating a ``.pot`` template file for your package(s)
 --------------------------------------------------------
@@ -107,8 +111,8 @@ You also need to have the following ZCML entry:
 
 After the setup above you can use message factory to mark strings with
 translation domains.  ``i18ndude`` translation utilities use underscore
-``_`` to mark translatable strings (gettext message ids).  Message ids must
-be unicode strings.
+``_`` to mark translatable strings (term:`gettext` message ids).
+Message ids must be unicode strings.
 
 .. code-block:: python
 
@@ -151,10 +155,11 @@ language activated for the current page.
 
     <span tal:content="view/my_translateable_text">
 
-Note that since ``my_translateable_text`` is a
-``zope.i18nmessageid.message.Message`` instance containing its own gettext
-domain information, the ``i18n:domain`` attribute in page templates does not
-affect message ids declared through message factories.
+.. Note:: Since ``my_translateable_text`` is a
+    ``zope.i18nmessageid.message.Message`` instance containing its own
+    gettext domain information, the ``i18n:domain`` attribute in page
+    templates does not affect message ids declared through message
+    factories.
 
 Manually translated message ids
 -------------------------------
@@ -584,11 +589,46 @@ create a new python package and register your own ``.po`` files.
 
 To do this, create the package and add a ``locales`` directory in there, 
 along the lines of what `plone.app.locales`_ does.  
-Then you can add your own translations in the language that you need.  
-That should override the existing ones.
+Then you can add your own translations in the language that you need;
+for example ``locales/fr/LC_MESSAGES/plone.po`` to override French messages
+in the ``plone`` domain.
+
+Reference the translation in ``configure.zcml`` of your package:
+
+.. code-block:: xml
+
+    <configure xmlns:i18n="http://namespaces.zope.org/i18n"
+               i18n_domain="my.package">
+        <i18n:registerTranslations directory="locales" />
+    </configure>
+
+Your ZCML needs to be included *before* the one from `plone.app.locales`_:
+the first translation of a msgid wins.
+To manage this, you can include the ZCML in the buildout:
+
+.. code-block:: ini
+
+    [instance]
+    recipe = plone.recipe.zope2instance
+    user = admin:admin
+    http-address = 8280
+    eggs =
+        Plone
+        my.package
+        ${buildout:eggs}
+    environment-vars =
+        zope_i18n_compile_mo_files true
+    # my.package is needed here so its configure.zcml
+    # is loaded before plone.app.locales
+    zcml = my.package
+
 See the *Overriding Translations* section of Maurits van Rees's 
 `blog entry on Plone i18n
-<http://maurits.vanrees.org/weblog/archive/2010/10/i18n-plone-4>`_.
+<http://maurits.vanrees.org/weblog/archive/2010/10/i18n-plone-4>`_, 
+and Vincent Fretin's `posting
+<http://article.gmane.org/gmane.comp.web.zope.plone.user/109580>`_ on the
+Plone-Users mailing list.
+
 
 Other
 =====
