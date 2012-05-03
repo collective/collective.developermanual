@@ -538,3 +538,12 @@ It incorporates the original `glossary on plone.org
         standard designed for human-readable data interchange. In short,
         it's a string that looks like a JavaScript array, but is constrained
         to 6 simple data types. It can be parsed by many languages.
+
+    ZCA
+        The Zope Component Architecture (ZCA) is a Python framework for
+        supporting component based design and programming. It is very well
+        suited to developing large Python software systems. The ZCA is not
+        specific to the Zope web application server: it can be used for
+        developing any Python application. 
+        From `A Comprehensive Guide to Zope Component Architecture
+        <http://www.muthukadan.net/docs/zca.html>`_.
