@@ -46,7 +46,7 @@ How to host Plone
   Other operating system production installations are possible, but rarer.
 
 
-How to develop Plone
+How to install Plone for testing or developmenet
 ========================================================
 
 Plone development can be done on any modern desktop operating system.
@@ -72,16 +72,28 @@ Installing Plone using the Unified UNIX Installer
   
 This recipe is good for:
 
-* lightweight production sites;
-* Plone development and testing on Ubuntu / Debian.
+* Lightweight production sites
+
+* Plone development and testing on Ubuntu / Debian
+
+* Operating system installations where you have administrator (root) access. Note that  
+  root access is not strictly necessary as long as you have required software installed
+  beforehand on the server, but this tutorial assumes you need to install the software 
+  yourself and you are the admin.
 
 The resulting installation is self-contained, 
 does not touch system files, 
 and is safe to play with (no root/sudoing is needed).
 
+If you are not familiar with UNIX operating system commad line
+you might want to study this `Linux shell tutorial <http://linuxcommand.org/learning_the_shell.php>`_
+first.
+
+For further info see also `Plone manual for installing on UNIX <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/>`_.
+
 Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
-1. Create new UNIX user (e.g. user ``plone``):
+1. Create new UNIX user called ``plone``. This user will be the user who has the rights to Plone code and database files and will run Plone processes. You can use any normal UNIX user here as long as you have sudo rights to install necessary software to install and run Plone:
 
    .. code-block:: console
 
@@ -98,29 +110,41 @@ Instructions tested for Ubuntu 10.04 Long Term Support release.
    It is not recommended to run or install Plone as the root user.
    There is nothing in Plone requiring root privileges.
 
-2. Install operating system prerequisites:
+2. Install operating system software needed to run Plone:
 
    .. code-block:: console
 
-        sudo apt-get install python-dev build-essential libssl-dev
+        sudo apt-get install python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
-3. Log-in as this user:
+.. note ::
+
+    If sudo command is not recognized or does not work you don't have administrator rights to 
+    Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
+    system support forum.
+
+3. Log-in as plone user under which the installed software will run. Note that you need to rerun this command later
+if you want to adjust Plone settings or run start or stop commands for Plone:
 
    .. code-block:: console
 
         sudo -i -u plone
 
-4. Download the unified Plone binary 
-   from the `download page <http://plone.org/download>`_ to your server.
+4. Download the Plone binary installer
+   from the `download page <http://plone.org/download>`_ to your server using wget command.
 
    .. code-block:: console
 
-        wget https://launchpad.net/plone/4.1/4.1.4/+download/Plone-4.1.4-UnifiedInstaller.tgz
-
-5. Run the installer as non-root standalone mode:
+        wget --no-check-certificate https://launchpad.net/plone/4.1/4.1.4/+download/Plone-4.1.4-UnifiedInstaller.tgz
+       
+5. Run the Plone installer as non-root-userd, standalone‚ mode.:
 
    .. code-block:: console
    
+        # Extract the downloaded file 
+        tar -xf Plone-4.1.4-UnifiedInstaller.tgz
+        # Go the folder containing installer script
+        cd Plone-4.1.4-UnifiedInstaller
+        # Run script
         ./install.sh standalone
 
    The default admin credentials will be printed to the console.
