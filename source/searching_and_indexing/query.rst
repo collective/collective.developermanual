@@ -575,7 +575,52 @@ any of given dates::
 Querying by interface
 =====================
 
-See `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.
+Suppose you have several content types (for example, event types like
+'Birthday','Wedding','Graduation') in your portal which implement the same
+interface (for example, `IIsCauseForCelebration`). Suppose you want to get
+items of these types from the catalog by their interface. This is more exact
+than naming the types explicitly (like `portal_type=['Birthday', 'Wedding',
+'Graduation' ]`), because you don't really care what the types' names really
+are: all you really care for is the interface.
+
+This has the additional advantage that if products added or modified later add
+types which implement the interface, these new types will also show up in your
+query.
+
+Import the interface::
+
+    from Products.MyProduct.interfaces import IIsCauseForCelebration
+    catalog(object_provides=IIsCauseForCelebration.__identifier__)
+
+In a script, where you can't import the interface due to restricted Python, 
+you might do this::
+
+    object_provides='Products.MyProduct.interfaces.IIsCauseForCelebration'
+
+The advantage of using `.__identifier__` instead instead of a dotted
+name-string is that you will get errors at startup time if the interface cannot
+be found. This will catch typos and missing imports.
+
+Caveats
+-------
+
+* `object_provides` is a KeywordIndex which indexes absolute
+  Python class names. A string matching is performed for the dotted name. Thus,
+  you will have zero results for this::
+
+      catalog(object_provides="Products.ATContentTypes.interface.IATDocument")
+
+  , because Products.ATContentTypes.interface imports everything from
+  `document.py`. But this will work::
+
+      catalog(object_provides="Products.ATContentTypes.interface.document.IATDocument")
+      # products.atcontenttypes.document.iatdocument declares the interfacea
+
+* As with all catalog queries, if you pass an empty value for search parameter,
+  it will return all results. so if the interface you defined would yield a none
+  type object, the search would return all values of object_provides.
+
+(Originally from `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.)
 
 .. note ::
 
