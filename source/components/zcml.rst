@@ -1,6 +1,6 @@
-===============
+======
  ZCML
-===============
+======
 
 .. admonition:: Description
 
@@ -11,13 +11,13 @@
 Introduction
 =================
 
-ZCML stands for the *Zope Configuration Mark-up Language*.  It is an
+:term:`ZCML` stands for the *Zope Configuration Mark-up Language*.  It is an
 XML-based language used to extend and plug into systems based on the Zope
-Component Architecture (ZCA).
+Component Architecture (:term:`ZCA`).
 
-ZCML provides:
+It provides:
 * conflict resolution (e.g. two plug-ins cannot overlap);
-* extendable syntax based on namespaces.
+* extensible syntax based on namespaces.
 
 Downsides of ZCML are: 
 * it is cumbersome to write by hand; 
@@ -47,8 +47,8 @@ ZCML workflow
 ==============
 
 Each Plone component (core, add-on) has a base ``configure.zcml`` in the
-package root.  This ZCML file can include additional nested configuration
-files using the ``<include>`` directive.
+package root.  This :term:`ZCML` file can include additional nested
+configuration files using the ``<include>`` directive.
 
 * ZCML is always interpreted during Plone start-up.
 
@@ -74,9 +74,10 @@ If ZCML contains errors
 Overrides
 ==========
 
-Besides :doc:`layer overrides <serving/layers>`, ZCML provides more hardcore
-way to override things in buildout.
-These overrides can also override utilities etc. and overrides take effect during ZCML parsing, not when site is run.
+Besides layer overrides, ZCML provides more hardcore
+ways to override things in buildout.
+These overrides can also override utilities etc. and overrides take effect
+during ZCML parsing, not when site is run.
 
 * Create ``overrides.zcml`` file in your egg to the same folder as ``configure.zcml``
 
@@ -88,9 +89,9 @@ These overrides can also override utilities etc. and overrides take effect durin
         ...
         myegg-overrides
 
-* Rerun buildout
+* Rerun buildout.
 
-* Restart Plone
+* Restart Plone.
 
 .. Note::
 
