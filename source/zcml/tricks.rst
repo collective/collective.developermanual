@@ -4,7 +4,9 @@ Tricks
 
 .. admonition:: Description
 
-.. contents :: :local:
+   Some shortcuts and useful conventions.
+
+.. contents:: :local:
 
 
 Specify files and code from another package
@@ -12,7 +14,7 @@ Specify files and code from another package
 
 If you ever find yourself needing to use a template
 from another package, you can do so with using the
-configure tag which will then run the block of zcml
+configure tag which will then run the block of :term:`ZCML`
 in the context of that package.
 
 Here is an example of defining portlet manager to be
@@ -38,12 +40,13 @@ defined in another manager::
     </configure>
 
 
-Conditionally run zcml
-======================
+Conditionally run :term:`ZCML`
+===============================
 
-You can conditionally run zcml if a certain package or feature is installed.
+You can conditionally run :term:`ZCML` if a certain package or feature is
+installed.
 
-First, include the namespace at the top of the zcml file::
+First, include the namespace at the top of the :term:`ZCML` file::
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
