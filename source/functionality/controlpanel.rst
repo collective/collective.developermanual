@@ -19,25 +19,14 @@ Configlets can be created
 
 * manualy (you write form by hand)
 
-* using ``plone.registry`` configuration framework for Plone
+* using ``plone.app.registry`` configuration framework for Plone
 
-plone.registry
---------------
+plone.app.registry
+-------------------
 
-Information
+``plone.app.registry`` is the state of the art way to add settings for your Plone 4.x+ add-ons.
 
-* http://dev.plone.org/plone/browser/plone.app.registry/trunk/README.txt
-
-* http://pypi.python.org/pypi/plone.registry
-
-* http://pypi.python.org/pypi/plone.app.registry
-
-* http://plone.org/documentation/kb/create-different-restricted-areas-in-the-control-panel
-
-.. TODO::
-
-    Remove pointer to better trunk version README after
-    ``plone.app.registry`` is properly released.
+For tutorial and more information please see `PyPi page <http://pypi.python.org/pypi/plone.app.registry>`_.
 
 Example products 
 
