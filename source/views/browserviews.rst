@@ -101,7 +101,8 @@ To customize existing Plone core or add-on views you have different options.
 Overriding view template
 --------------------------
 
-Follow instructions how to :doc:`use z3c.jbot <templates_css_and_javascripts/template_basics> to override templates`.
+Follow instructions how to :doc:`use z3c.jbot
+</templates_css_and_javascripts/template_basics>` to override templates.
 
 Overriding view class
 ------------------------
@@ -281,7 +282,7 @@ Example::
 		# Require admin to access this view
 		grok.require("cmf.ManagePortal")
 
-Use :doc:`available permissions in Zope 3 style strings </security/permissions_lists>`.
+Use :doc:`available permissions in Zope 3 style strings </security/permission_lists>`.
 
 More info:
 
@@ -364,7 +365,7 @@ The following example registers a new view (see below for comments):
     is the permission needed to access the view.
     When an HTTP request comes in, the currently logged in user's access
     rights in the current context are checked against this permission.  
-    See :doc:`Security chapter </security/permission_lists.txt>` for Plone's
+    See :doc:`Security chapter </security/permission_lists>` for Plone's
     out-of-the-box permissions. Usually you want have ``zope2.View``,
     ``cmf.ModifyPortalContent``, ``cmf.ManagePortal`` or ``zope2.Public``
     here.
