@@ -4,30 +4,34 @@
 
 .. admonition:: Description
 
-    Plone uses Zope Page Templates. This document contains references to
-    this template language and generally available templates, macros and
-    views you can use to build your Plone add-on product.
+    Plone uses Zope Page Templates (:term:`ZPT`). This document contains
+    references to this template language and generally available templates,
+    macros and views you can use to build your Plone add-on product.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 =============
 
 Plone uses `Zope Page Templates <http://docs.zope.org/zope2/zope2book/AppendixC.html>`_, 
-consisting of the three related standards: Template Attribute Language
-(TAL), TAL Expression Syntax (TALES), and Macro Expansion TAL (METAL).
+consisting of the three related standards:
+Template Attribute Language (:term:`TAL`),
+TAL Expression Syntax (:term:`TALES`),
+and Macro Expansion TAL (:term:`METAL`).
 
 A normal full Plone HTML page consists of:
 
 * the *master template*, defining the overall layout of the page,
 * *slots*, defined by the master template, and filled by the object being
   published,
-* :doc:`Viewlet managers </views/viewlets>` containing :doc:`viewlets </views/viewlets>`
+* :doc:`Viewlet managers </views/viewlets>` containing 
+  :doc:`viewlets </views/viewlets>`.
 
-Templates can be associated with Python view classes (also known as new style, circa 2008) or
-they can be standalone (old style, circa 2001).
+Templates can be associated with Python view classes 
+(also known as "new style", circa 2008) or
+they can be standalone ("old style", circa 2001).
 
-.. note ::
+.. note::
 
         The rationale for moving away from standalone page templates is that
         the page template code becomes easily cluttered with inline Python
@@ -38,67 +42,85 @@ they can be standalone (old style, circa 2001).
 Overriding templates
 ======================
 
-The recommended approach to customize .pt files for Plone 4 is to use a little helper
-called *z3c.jbot*.
+The recommended approach to customize ``.pt`` files for Plone 4 is to use a
+little helper called `z3c.jbot`_.
 
-If you need to place your .pt in Plone to override Plone core or existing add-on functionality 
+If you need to override templates in core Plone or in an existing add-on,
+you can do the following:
 
-* You `roll-out your own add-on <https://github.com/miohtama/sane_plone_addon_template>`_
-  where you can place your page templates on file system
+* `Roll out your own add-on`_
+  which you can use to contain your page templates on the file system.
 
-* You use `z3c.bot <http://pypi.python.org/pypi/z3c.jbot/>`_ Plone helper add-on to override 
-  page templates. This is provided in the add-on above, no separate set-up needed.
+* Use the `z3c.jbot`_ Plone helper add-on to override existing page
+  templates.
+  This is provided in the `sane_plone_addon_template`_ add-in, no separate set-up needed.
 
-* `z3c.jbot`` can override page templates (.pt files) for views, viewlets, old style page templates
-  and portlets. In fact it can override any .pt file in Plone source tree.
+* `z3c.jbot`_ can override page templates (``.pt`` files) for views,
+  viewlets, old style page templates and portlets.
+  In fact it can override any ``.pt`` file in the Plone source tree.
 
 Overriding a template using z3c.jbot
 ------------------------------------------
 
-`First Make sure you have your customization add-on in place which supports z3c.jbot <https://github.com/miohtama/sane_plone_addon_template>`_.
-This has a templates folder where you can drop in your new .pt files.
+1. First of all, make sure that your customization add-on supports
+   `z3c.jbot`_.
+   `sane_plone_addon_template`_ has a ``templates`` folder where you can
+   drop in your new ``.pt`` files.
 
-Locate the template you need to override in Plone source tree. You can do this by searching ``eggs/``
-folder of your Plone installation for .pt files. Usually this folder is (something)/buildout-cache/eggs.
+2. Locate the template you need to override in Plone source tree.
+   You can do this by searching the ``eggs/`` folder of your Plone
+   installation for ``.pt`` files. Usually this folder is
+   ``.../buildout-cache/eggs``.
 
-Below is an example UNIX find command to find .pt files. You can also use Windows Explorer file search or similar tools::
-	
-	[~/code/buildout-cache/eggs]% find . -iname "*.pt"
-	./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/edit_field_wrapper.pt
-	./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/view_field_wrapper.pt
-	./archetypes.kss-1.6.0-py2.6.egg/archetypes/kss/browser/edit_field_wrapper.pt
-	./archetypes.kss-1.6.0-py2.6.egg/archetypes/kss/browser/view_field_wrapper.pt
+Below is an example UNIX ``find`` command to find ``.pt`` files. 
+You can also use Windows Explorer file search or similar tools:
 
-.. note ::
+.. code-block:: console
 
-	Your eggs/ folder may contain several versions of the same egg
-	if you have re-run buildout or upgraded Plone. In this case the correct
-	action is usually to pick up the latest version.
+    $ find ~/code/buildout-cache/eggs -name "\*.pt"
+    ./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/edit_field_wrapper.pt
+    ./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/view_field_wrapper.pt
+    ./archetypes.kss-1.6.0-py2.6.egg/archetypes/kss/browser/edit_field_wrapper.pt
+    ./archetypes.kss-1.6.0-py2.6.egg/archetypes/kss/browser/view_field_wrapper.pt
+    ...
 
-Get a copy of .pt file you are going to override.
+.. Note::
 
-Rename the file ot its so called canonical name. Exclude .egg folder anme from the filename. Then replace all slashes / with dot .::
+    Your ``eggs/`` folder may contain several versions of the same egg
+    if you have re-run buildout or upgraded Plone.
+    In this case the correct action is usually to pick the latest
+    version.
 
-	archetypes/kss/browser/edit_field_wrapper.pt
+3. Make a copy of ``.pt`` file you are going to override.
+
+Rename the file to its so-called *canonical* name: to do this,
+exclude the ``.egg`` folder name from the filename, and 
+then replace all slashes ``/`` with dot ``.``::
+
+    archetypes/kss/browser/edit_field_wrapper.pt
 
 to::
 
-	archetypes.kss.browser.edit_field_wrapper.pt
+    archetypes.kss.browser.edit_field_wrapper.pt
 
-Drop the file in templates folder you have registered for ``z3c.jbot`` in your add-on.
+Drop the file in the templates folder you have registered for ``z3c.jbot``
+in your add-on.
 
-Make your changes in .pt file.
+Make your changes in the new ``.pt`` file.
 
-.. warning ::
+.. warning::
 
-	When overriding the template for the first time (adding the file on templates/ folder)
-	you need to restart Plone. z3c.jbot scans new overrides only during the restart.
+    After overriding the template for the first time 
+    (adding the file to the ``templates/`` folder)
+    you need to restart Plone.
+    `z3c.jbot`_ scans new overrides only during the restart.
 
-After the file is in place changes are instant in the file: the template code is re-read on every 
-HTTP request - hit enter on your browser location bar. Hitting enter on location is quicker
-than hitting Refresh which also reloads CSS and JS files. 
+After the file is in place, changes to the file are instantly picked up: 
+the template code is re-read on every HTTP request |---| just hit enter in
+your browser location bar. (Hitting enter in the location bar is quicker
+than hitting :guilabel:`Refresh`, which also reloads CSS and JS files.)
 
-More info
+More info:
 
 * http://pypi.python.org/pypi/z3c.jbot/
 
@@ -122,33 +144,30 @@ Plone 4 ships with the *Sunburst* theme. Its viewlets and viewlets managers
 are described 
 `here <http://plone.org/documentation/manual/theme-reference/elements/elementsindexsunburst4>`_. 
 
-.. note ::
-
-        Plone 3 viewlets differ.
+.. note:: Plone 3 viewlets differ from Plone 4 viewlets.
 
 Zope Page Templates
 ===================
 
-Zope Page Templates, or ZPT for short, is an XML-based templating language,
-consisting of the Template Attribute Language (TAL), TAL Expression Syntax
-(TALES), and Macro Expansion TAL (METAL).
+Zope Page Templates, or :term:`ZPT` for short, is an XML-based templating
+language, consisting of the Template Attribute Language (:term:`TAL`), TAL
+Expression Syntax (:term:`TALES`), and Macro Expansion TAL (:term:`METAL`).
 
 It operates using two XML namespaces (``tal:`` and ``metal:``) that can
 occur either on attributes of elements in another namespace (e.g. you will
-often have TAL attributes on HTML elements) or on elements (in which case
-the element itself will be ignored, but all its attributes will be
-recognized as TAL statements).
+often have :term:`TAL` attributes on HTML elements) or on elements (in which
+case the element itself will be ignored, but all its attributes will be
+recognized as :term:`TAL` or :term:`METAL` statements).
 
 A statement in the ``tal:`` namespace will modify the element on which it
 occurs and/or its child elements.
 
-A statement in the ``metal::`` namespace defines how a template interacts
+A statement in the ``metal:`` namespace defines how a template interacts
 with other templates (defining or using macros and slots to be filled by
 macros).
 
 The value of an attribute in the ``tal:`` namespace is an expression. The 
-format of this expression is defined by the TALES standard.
-
+syntax of this expression is defined by the :term:`TALES` standard.
 
 TAL
 ===
@@ -162,36 +181,38 @@ Attribute Language used in Plone.
 Escaped and unescaped content
 =============================
 
-By default, all TAL output is escaped for security reasons.
+By default, all :term:`TAL` output is escaped for security reasons::
 
-.. code-block:: python
-
-	view.text = "<b>Test</b>"
+    view.text = "<b>Test</b>"
 
 .. code-block:: html
 
-	<div tal:content="view/text" />
+    <div tal:content="view/text" />
 
-Will output escaped HTML source code::
+Will output escaped HTML source code:
 
-	&lt;b&gt;Testlt;/b&gt;
+.. code-block:: html
 
-Unescaped content can be outputted using the TALES ``structure`` keyword
+    &lt;b&gt;Testlt;/b&gt;
+
+Unescaped content can be output using the TALES ``structure`` keyword
 in the expression for the ``tal:replace`` and ``tal:content`` statements:
 
 .. code-block:: html
 
-	<div tal:replace="structure view/text" />
+    <div tal:replace="structure view/text" />
 
-Will output unescaped HTML source code::
+Will output unescaped HTML source code:
 
-	<b>Test</b>
+.. code-block:: html
+
+    <b>Test</b>
 
 METAL
 ======
 
-The METAL (Macro Expansion TAL) standard provides macros and slots to the
-template language.
+The :term:`METAL` (Macro Expansion TAL) standard provides *macros* and
+*slots* to the template language.
 
 Using METAL macros is no longer recommended, since they couple programming
 logic too tightly with the template language.  You should use views instead.
@@ -210,7 +231,8 @@ default is assumed. Three types are standard:
 * ``python:`` expressions,
 * ``string:`` expressions.
 
-They are generally usefull, and not limited to use in Page Templates. For example, they are widely used in various other parts of Plone:
+They are generally useful, and not limited to use in Page Templates.
+For example, they are widely used in various other parts of Plone:
 
 * CSS, Javascript and KSS registries, to decide whether to include a
   particular file;
@@ -221,7 +243,7 @@ They are generally usefull, and not limited to use in Page Templates. For exampl
 
 Read more about expressions in `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_.
 
-See :doc:`Expressions chapter </functionality/expressions>` for more information.
+See the :doc:`Expressions chapter </functionality/expressions>` for more information.
 
 Omitting tags
 =================
@@ -229,13 +251,13 @@ Omitting tags
 Sometimes you need to create XML control structures which should not end up
 to the output page.
 
-You can use ``tal:omit-tag=""``
+You can use ``tal:omit-tag=""``:
 
-.. code-block:: xml
+.. code-block:: html
 
-	<div tal:omit-tag="">
-  		Only the content of the tag is rendered, not the DIV tag itself.
-	</div>
+    <div tal:omit-tag="">
+          Only the content of the tag is rendered, not the DIV tag itself.
+    </div>
 
 Images
 ======
@@ -295,17 +317,17 @@ This blanks out the ``column_one_slot`` and ``column_two_slot`` slots.
 Head slots
 ================
 
-You can easily include per-template CSS and Javscripts in ``<head>`` using
-extra slots defined in Plone's ``main_template.pt``.
+You can easily include per-template CSS and JavaScript in the ``<head>``
+element using extra slots defined in Plone's ``main_template.pt``.
 
 Note that these media files do not participate in 
 :doc:`portal_css </templates_css_and_javascripts/css>` or
 :doc:`portal_javascript </templates_css_and_javascripts/javascript>`
 resource compression. 
 
-Extra slots are
+Extra slots are:
 
-.. code-block:: xml
+.. code-block:: html
 
     <tal:comment replace="nothing"> A slot where you can insert elements in the header from a template </tal:comment>
     <metal:headslot define-slot="head_slot" />
@@ -319,7 +341,7 @@ Extra slots are
     <tal:comment replace="nothing"> A slot where you can insert javascript in the header from a template </tal:comment>
     <metal:javascriptslot define-slot="javascript_head_slot" />
 
-Example use
+Example use:
 
 .. code-block:: html
 
@@ -381,9 +403,9 @@ your Zope 2-style page template::
 
 Examples of this usage:
 
-* Contact info page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/contact-info.cpt
+* The `Contact info page <http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/contact-info.cpt>`_.
 
-* Recently modified page - http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/recently_modified.pt
+* The `Recently modified page <http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/recently_modified.pt>`_.
 
 Special style on individual pages
 ===================================
@@ -397,3 +419,8 @@ More information:
 
 * http://starzel.de/blog/how-to-get-a-different-look-for-some-pages-of-a-plone-site
 
+.. _z3c.jbot: http://pypi.python.org/pypi/z3c.jbot
+.. _Roll out your own add-on:
+.. _sane_plone_addon_template:
+   https://github.com/miohtama/sane_plone_addon_template
+.. |---| unicode:: U+02014 .. em dash
