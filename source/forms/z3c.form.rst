@@ -219,10 +219,10 @@ Customizing form template
 If you want to change the page template producing ``<form>...</form>``
 part of the HTML code, follow the instructions below.
 
-.. note ::
-
-        Generally, when you have a template which extends Plone main_template
-        you need to use class from Products.Five.browser.pagetemplatefile.ViewPageTemplateFile.
+.. note:: Generally, when you have a template which extends Plone
+   main_template you need to use the
+   ``Products.Five.browser.pagetemplatefile.ViewPageTemplateFile``
+   class.
 
 Example::
 
@@ -315,10 +315,10 @@ And corresponding template edit_header.pt::
         </tal:main-macro>
     </metal:main>
 
-.. note ::
-
-        Generally, when you have a template which extends Plone main_template
-        you need to use class from Products.Five.browser.pagetemplatefile.ViewPageTemplateFile.
+.. note:: Generally, when you have a template which extends Plone
+   main_template you need to use the 
+   ``Products.Five.browser.pagetemplatefile.ViewPageTemplateFile``
+   class.
 
 Fields
 ------
