@@ -33,11 +33,11 @@ they can be standalone ("old style", circa 2001).
 
 .. note::
 
-        The rationale for moving away from standalone page templates is that
-        the page template code becomes easily cluttered with inline Python
-        code. This makes templates hard to customize or override.  New style
-        templates provide better separation with view logic (Python code)
-        and HTML generation (page template).
+    The rationale for moving away from standalone page templates is that
+    the page template code becomes easily cluttered with inline Python
+    code. This makes templates hard to customize or override.  New style
+    templates provide better separation with view logic (Python code)
+    and HTML generation (page template).
 
 Overriding templates
 ======================
@@ -53,7 +53,8 @@ you can do the following:
 
 * Use the `z3c.jbot`_ Plone helper add-on to override existing page
   templates.
-  This is provided in the `sane_plone_addon_template`_ add-in, no separate set-up needed.
+  This is provided in the `sane_plone_addon_template`_ add-in, no separate
+  set-up needed.
 
 * `z3c.jbot`_ can override page templates (``.pt`` files) for views,
   viewlets, old style page templates and portlets.

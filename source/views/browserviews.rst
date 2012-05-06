@@ -75,14 +75,17 @@ instead of traversing, if the name to be traversed is prefixed with ``@@``.
 
 Views are resolved against different interfaces:
 
-* *context*: Any class/interface. If not given, ``zope.interface.Interface``
-  is used (corresponds to a registration ``for="*"``).
+*context*
+    Any class/interface. If not given, ``zope.interface.Interface``
+    is used (corresponds to a registration ``for="*"``).
 
-* *request*: The current HTTP request. Interface
-  ``zope.publisher.interfaces.browser.IBrowserRequest`` is used.
+*request*
+    The current HTTP request. Interface
+    ``zope.publisher.interfaces.browser.IBrowserRequest`` is used.
 
-* *layer*: Theme layer interface. If not given,
-  ``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is used.
+*layer*
+    Theme layer interface. If not given,
+    ``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is used.
 
 See also `related source code
 <http://svn.zope.org/zope.browserpage/trunk/src/zope/browserpage/metaconfigure.py?rev=103273&view=auto>`_.
@@ -116,7 +119,7 @@ For example, if you want to override the *Tabular* view of a *Folder*,
 you find out that it is registered as the handler for
 ``/folder_tabular_view``.
 
-So you look for both ``folder_tabular_view`` old style page templates and
+So you look for both ``folder_tabular_view`` old-style page templates and
 ``@@folder_tabular_view`` BrowserView ZCML registrations in the Plone
 source tree |---| it can be either.
 
@@ -316,13 +319,13 @@ Example::
 
 .. warning::
 
-        Do not attempt to run any code in the ``__init__()`` method of a
-        view.  If this code fails and an exception is raised, the
-        ``zope.component`` machinery remaps this to a "View not found"
-        exception or traversal error.
+    Do not attempt to run any code in the ``__init__()`` method of a
+    view.  If this code fails and an exception is raised, the
+    ``zope.component`` machinery remaps this to a "View not found"
+    exception or traversal error.
 
-        Instead, use a pattern where you have a ``setup()`` or similar
-        method which ``__call__()`` or view users can explicitly call.
+    Instead, use a pattern where you have a ``setup()`` or similar
+    method which ``__call__()`` or view users can explicitly call.
 
 Registering a view
 `````````````````````

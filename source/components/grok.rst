@@ -45,17 +45,23 @@ Tutorial
 Using Grok in your package
 ---------------------------
 
-To enabled grok'ing for your package
+To enable grok'ing for your package:
 
-* Top level *configure.zcml* must include grok namespace and five.grok directive. You do not need to put
-  this directive subpackages. This directive scans your package source tree recursively for grok'ed files.
-  
-* The package must be loaded using setup.py auto include, NOT using *zcml =* section in buildout.cfg. Otherwise
-  templates are not loaded.
+* The top-level ``configure.zcml`` must include the ``grok`` namespace and
+  the ``grok:grok`` directive. You do not need to put
+  this directive subpackages. This directive scans your package source tree
+  recursively for grok'ed files.
 
-* Optionally, add *templates* and *static* folders to your package root. 
+.. TODO: What does "You do not need to put this directive subpackages." mean?
 
-* You still need to include subpackages for old-fashioned zcml configurations
+* The package must be loaded using ``setup.py`` auto-include, NOT using a
+  ``zcml =`` section in ``buildout.cfg``.
+  Otherwise templates are not loaded.
+
+* Optionally, add ``templates`` and ``static`` folders to your package root. 
+
+* You still need to include subpackages for old-fashioned :term:`ZCML`
+  configurations.
 
 Example::
 
