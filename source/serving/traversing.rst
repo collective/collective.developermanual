@@ -455,6 +455,7 @@ Checking if an item is the site front page
 Example code below::
 
     from zope.component import getMultiAdapter
+    from plone.app.layout.navigation.interfaces import INavigationRoot
 
     def isFrontPage(self):
         """
@@ -468,7 +469,7 @@ Example code below::
 
         path = canonical.absolute_url_path()
 
-        return path == "/"     
+        return INavigationRoot.providedBy(canonical)    
 
 Custom traversal
 =================
