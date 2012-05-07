@@ -449,6 +449,27 @@ More info:
 
 * See :doc:`plone_context_state helper </misc/context>`
 
+Checking if an item is the site front page
+--------------------------------------------
+
+Example code below::
+
+    from zope.component import getMultiAdapter
+
+    def isFrontPage(self):
+        """
+        Check if the viewlet is on a front page.
+
+        Handle canonical paths correctly.
+        """
+        # Get path with "Default content item" wrapping applied
+        context_helper = getMultiAdapter((self.context, self.request), name="plone_context_state")
+        canonical = context_helper.canonical_object()
+
+        path = canonical.absolute_url_path()
+
+        return path == "/"     
+
 Custom traversal
 =================
 
