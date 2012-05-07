@@ -121,7 +121,9 @@ In buildout.cfg make sure you have `Dexterity extends line <http://plone.org/pro
 
     </object>
 
-``profiles/default/registry.xml``::
+``profiles/default/registry.xml``
+
+.. code-block:: xml
 
     <registry>
         <records interface="silvuple.settings.ISettings" prefix="silvuple">
