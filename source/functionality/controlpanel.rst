@@ -17,9 +17,10 @@ Plone site setup control panel.
 
 Configlets can be created 
 
-* manualy (you write form by hand)
+* Using ``plone.app.registry`` configuration framework for Plone (recommended)
 
-* using ``plone.app.registry`` configuration framework for Plone
+* Using any :doc:`view code </views/browserviews>`
+
 
 plone.app.registry
 -------------------
@@ -36,12 +37,100 @@ Example products
 
 * http://pypi.python.org/pypi/collective.xdv
 
-Dependencies
-=============
+Minimal example using five.grok
+===================================
 
-Both ``plone.app.z3cform`` and ``plone.app.registry`` must have
-been quick installed at Plone site before you can use any 
-control panel configlets using plone.app.registry framework.
+Below is a minimal example for creating a configlet using
+
+* `grok </components/grok>`
+
+* ``plone.app.registry``
+
+It is based on `youraddon template <https://github.com/miohtama/sane_plone_addon_template/tree/master>`_.
+The add-on package in this case is called `silvuple <https://github.com/miohtama/silvuple>`_.
+
+In buildout.cfg make sure you have `Dexterity extends line <http://plone.org/products/dexterity/documentation/how-to/install>´.
+
+``setup.py``::
+
+    install_requires = [..."plone.app.dexterity", "plone.app.registry"],
+
+``settings.py``::
+
+    """
+
+        Define add-on settings.
+
+    """
+
+    from zope.interface import Interface
+    from zope import schema
+    from five import grok
+    from Products.CMFCore.interfaces import ISiteRoot
+
+    from plone.z3cform import layout
+    from plone.directives import form
+    from plone.app.registry.browser.controlpanel import RegistryEditForm
+    from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+
+    class ISettings(form.Schema):
+        """ Define settings data structure """
+        
+        adminLanguage = schema.TextLine(title=u"Admin language", description=u"Type two letter language code and admins always use this language")
+
+    class SettingsEditForm(RegistryEditForm):
+        """
+        Define form logic
+        """
+        schema = ISettings
+        label = u"Silvuple settings"
+
+    class SettingsView(grok.CodeView):
+        """
+        View which wrap the settings form using ControlPanelFormWrapper to a HTML boilerplate frame.
+        """
+        grok.name("silvuple-settings")
+        grok.context(ISiteRoot)
+        def render(self):
+            view_factor = layout.wrap_form(SettingsEditForm, ControlPanelFormWrapper)
+            view = view_factor(self.context, self.request)
+            return view()
+
+``profiles/default/contropanel.xml``
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object
+        name="portal_controlpanel"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="silvuple">
+
+        <configlet
+            title="Silvuple Settings"
+            action_id="silvuple.settings"
+            appId="silvuple"
+            category="Products"
+            condition_expr=""
+            url_expr="string:${portal_url}/@@silvuple-settings"
+            icon_expr=""
+            visible="True"
+            i18n:attributes="title">
+                <permission>Manage portal</permission>
+        </configlet>
+
+    </object>
+
+``profiles/default/registry.xml``::
+
+    <registry>
+        <records interface="silvuple.settings.ISettings" prefix="silvuple">
+            <!-- Set default values -->
+
+            <!-- Leave to empty string -->
+            <value key="adminLanguage"></value>
+        </records>
+    </registry>
 
 Control panel widget settings
 ===================================
