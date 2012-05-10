@@ -364,10 +364,6 @@ Example event registration
 
 Related event handler::
 
-    ################################################################
-    # weishaupt.policy
-    # (C) 2012, ZOPYX Ltd.
-    ################################################################
     
     from zope.interface import Interface
     from zope.component import adapter
@@ -392,9 +388,11 @@ Related event handler::
         if language:
             # Fake new language for all authenticated users
             event.request['LANGUAGE'] = language
+            event.request.LANGUAGE_TOOL.LANGUAGE = language
         else:
             lt = getToolByName(site, 'portal_languages')
             event.request['LANGUAGE'] = lt.getDefaultLanguage()
+            event.request.LANGUAGE_TOOL.LANGUAGE = lt.getDefaultLanguage()
 
 Other
 =====
