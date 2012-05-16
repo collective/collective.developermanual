@@ -101,7 +101,7 @@ counter on a content object.
        def __init__(self):
            self.reset()
 
-       def reset(self)
+       def reset(self):
            self._likes = set()
            self._dislikes = set()
 
@@ -176,6 +176,9 @@ function.
    import zope.component
    import zope.annotation
 
+   from zope.interface import implements
+   from zope.annotation import factory
+
    from some.contenttype.interfaces import ISomeContent
 
    KEY = 'content.like.dislike'  # It's best place is config.py in a real app
@@ -205,7 +208,7 @@ function.
            # You can access annotated object through ``self.__parent__``
            self.reset()
 
-       def reset(self)
+       def reset(self):
            self._likes = set()
            self._dislikes = set()
 
@@ -234,7 +237,7 @@ function.
    like_dislike.likedBy('joe')
    like_dislike.dislikedBy('jane')
 
-   assert like_dislike.status == (1, 1)
+   assert like_dislike.status() == (1, 1)
    assert like_dislike.__parent__ is item
    assert like_dislike.__name__ == KEY
 
