@@ -14,7 +14,7 @@
 Introduction
 =============
 
-Here we have collected best practices how to install Plone in various situations.
+Here we have collected best practices on how to install Plone in various situations.
 
 .. note::
 
@@ -25,7 +25,7 @@ Here we have collected best practices how to install Plone in various situations
 How to host Plone
 ========================================================
 
-* You need at a least virtual private server with 512 MB RAM. 
+* You need at a least a virtual private server with 512 MB RAM. 
   Shared hosting is a no go.
   See the reference on 
   `Plone system requirements <http://plone.org/documentation/kb/plone-system-requirements>`_.
@@ -46,12 +46,12 @@ How to host Plone
   Other operating system production installations are possible, but rarer.
 
 
-How to install Plone for testing or developmenet
+How to install Plone for testing or development
 ========================================================
 
 Plone development can be done on any modern desktop operating system.
 The recommended Plone development method is to develop on your local computer
-and then push changes to the server as Plone add-on.
+and then push changes to the server as a Plone add-on.
 
 * You install Plone on the server for production.
 * You install Plone locally for the development.
