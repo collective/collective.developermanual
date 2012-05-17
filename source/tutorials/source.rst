@@ -18,9 +18,9 @@ Here we have collected best practices on how to install Plone in various situati
 
 .. note::
 
-  These instructions do not cover all possibilities, 
-  and may not cover all use cases. 
-  Please feel free to edit this document to add more.
+   These instructions do not cover all possibilities, 
+   and may not cover all use cases. 
+   Please feel free to edit this document to add more.
 
 How to host Plone
 ========================================================
@@ -105,8 +105,8 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. note::
     
-   It is not recommended to run or install Plone as the root user.
-   There is nothing in Plone requiring root privileges.
+      It is not recommended to run or install Plone as the root user.
+      There is nothing in Plone requiring root privileges.
 
 2. Install operating system software needed to run Plone:
 
@@ -123,9 +123,9 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. note::
 
-   If sudo command is not recognized or does not work you don't have administrator rights to 
-   Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
-   system support forum.
+      If sudo command is not recognized or does not work you don't have administrator rights to 
+      Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
+      system support forum.
 
 3. Log-in as plone user under which the installed software will run. Note that you need to rerun this command later
    if you want to adjust Plone settings or run start or stop commands for Plone:

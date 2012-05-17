@@ -567,6 +567,8 @@ If the users can access the content items they can usually also list them.
 
 Here is a no-warranty hack how to prevent folder_listing in the case if needed.
 
+.. code-block:: python
+
 	from zope.interface import Interface
 	from zope.component import adapter
 	from ZPublisher.interfaces import IPubEvent,IPubAfterTraversal

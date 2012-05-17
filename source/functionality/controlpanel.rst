@@ -49,7 +49,8 @@ Below is a minimal example for creating a configlet using
 It is based on `youraddon template <https://github.com/miohtama/sane_plone_addon_template/tree/master>`_.
 The add-on package in this case is called `silvuple <https://github.com/miohtama/silvuple>`_.
 
-In buildout.cfg make sure you have `Dexterity extends line <http://plone.org/products/dexterity/documentation/how-to/install>´.
+In buildout.cfg make sure you have `Dexterity extends line
+<http://plone.org/products/dexterity/documentation/how-to/install>`_.
 
 ``setup.py``::
 
