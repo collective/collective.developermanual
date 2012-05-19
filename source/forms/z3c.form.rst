@@ -1190,17 +1190,17 @@ CRUD (Create, read, update, delete) forms manage list of objects.
 
 CRUD form elements
 
-* Add form creates new objects and renders the form below the     le
+* Add form creates new objects and renders the form below the table
 
-* Edit sub-form edits existing object and renders one     le row
+* Edit sub-form edits existing object and renders one table row
 
-* Edit form lists all objects and allows deleting them (    le master)
+* Edit form lists all objects and allows deleting them (table master)
 
 * CRUD form orchestrates the whole thing and renders add and edit forms
 
-* view_schema outputs read-only fields in CRUD     le
+* view_schema outputs read-only fields in CRUD table
 
-* update_schema outputs edi    le fields in CRUD     le. Usually you want either view_schema or update_schema
+* update_schema outputs editable fields in CRUD table. Usually you want either view_schema or update_schema
 
 * add_schema outputs add form
 

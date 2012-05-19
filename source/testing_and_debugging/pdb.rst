@@ -53,10 +53,10 @@ Using pdb
 Example::
 
     class AREditForm(crud.EditForm):
-        """ Present edit     le containing rows per each item added and delete controls """
+        """ Present edit table containing rows per each item added and delete controls """
         editsubform_factory = AREditSubForm
 
-        template = viewpagetemplatefile.ViewPageTemplateFile('ar-crud-    le.pt')
+        template = viewpagetemplatefile.ViewPageTemplateFile('ar-crud-table.pt')
 
         @property
         def fields(self):

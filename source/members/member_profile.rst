@@ -36,7 +36,7 @@ Getting member profile properties
 
 Member profile properties (title, address, biography, etc.) are stored in portal_membership tool.
 
-Available fields can be found in ZMI -> portal_membership -> Properties     .
+Available fields can be found in ZMI -> portal_membership -> Properties tab.
 
 The script below is a simple example of how to list all member email addresses::
 

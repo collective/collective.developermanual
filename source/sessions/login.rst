@@ -28,7 +28,7 @@ Extracting credentials
 Extracting credentials try to extract log-in (username, password) from HTTP request.
 
 Below is an example how to extract and authenticate the user manually. 
-It is mostly sui    le for unit testing.
+It is mostly suitable for unit testing.
 Note that given login field isn't necessarily the username. For example,
 `betahaus.emaillogin <http://pypi.python.org/pypi/betahaus.emaillogin>`_ add-on authenticates users by their email addresses.
 

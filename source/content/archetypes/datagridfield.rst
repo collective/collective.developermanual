@@ -4,7 +4,7 @@
 
 This document contains miscellaneous notes about DataGridField_ field and DataGridWiget widget.
 
-DataGridField is an Archetypes field and widget to add     ular structures to your custom content types.
+DataGridField is an Archetypes field and widget to add tabular structures to your custom content types.
 
 Basics
 ------

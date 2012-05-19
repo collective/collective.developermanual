@@ -24,7 +24,7 @@ Minor configuration changes can be done through the web. Through the web
 changes are effective immediately and don't require you to write
 any code or restart Zope application server. The downsite is that
 since through-the-web changes don't have source code "recipe" how you did
-the changes they are not repea    le. If you need to do the same changes
+the changes they are not repeatable. If you need to do the same changes
 for another site again, or you need heavily modify your site, you
 need go through manual steps to achieve the same customization.
 
