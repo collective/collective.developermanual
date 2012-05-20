@@ -76,6 +76,58 @@ Example BrowserView method::
 
         return aq_inner(self.context).Language() or portal_state.default_language()
 
+Getting available site languages
+===================================
+
+Example below:
+
+    # Python 2.6 compatible ordered dict
+    # NOTE: API is not 1:1, but for normal dict access of
+    # set member, iterate keys and values this is enough
+    try:
+        from collections import OrderedDict
+    except ImportError:    
+        from odict import odict as OrderedDict
+
+    def getLanguages(self):
+        """
+        Return list of active langauges as ordered dictionary, the preferred first language as the first.
+
+        Example output::
+
+             {
+                u'fi': {u'id' : u'fi', u'flag': u'/++resource++country-flags/fi.gif', u'name': u'Finnish', u'native': u'Suomi'}, 
+                u'de': {u'id' : u'de', u'flag': u'/++resource++country-flags/de.gif', u'name': u'German', u'native': u'Deutsch'}, 
+                u'en': {u'id' : u'en', u'flag': u'/++resource++country-flags/gb.gif', u'name': u'English', u'native': u'English'}, 
+                u'ru': {u'id' : u'ru', u'flag': u'/++resource++country-flags/ru.gif', u'name': u'Russian', u'native': u'\u0420\u0443\u0441\u0441\u043a\u0438\u0439'}
+              }
+        """
+        result = OrderedDict()
+
+        portal_languages = self.context.portal_languages
+        
+        # Get barebone language listing from portal_languages tool
+        langs = portal_languages.getAvailableLanguages()
+
+        preferred = portal_languages.getPreferredLanguage()
+
+        # Preferred first
+        for lang, data in langs.items():
+            if lang == preferred:
+                result[lang] = data
+
+        # Then other languages
+        for lang, data in langs.items():
+            if lang != preferred:
+                result[lang] = data
+
+        # For the convenience, export language ISO code also inside data,
+        # so it easier to iterate data in the templates
+        for lang, data in result.items():
+            data["id"] = lang
+
+        return result
+
 Simple language conditions in page templates
 ===============================================
 
