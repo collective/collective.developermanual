@@ -11,7 +11,7 @@ Language functions
 Introduction
 ============
 
-Each session has a language associated with it.
+Each page view a has a language associated with it.
 
 The active language is negotiated by the ``plone.i18n.negotiator`` module.
 Several factors may involve determining what the language should be:
@@ -25,6 +25,8 @@ Several factors may involve determining what the language should be:
 * Browser language headers
 
 Language is negotiated at the beginning of the page view.
+
+Languages are managed by `portal_languagetool <https://github.com/plone/Products.PloneLanguageTool/blob/master/Products/PloneLanguageTool/LanguageTool.py>`_.
 
 Getting the current language
 ============================
