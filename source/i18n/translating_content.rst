@@ -21,6 +21,9 @@ example type
 
 We also present ``raptus.multilanguageplone`` as an alternative approach.
 
+Most translation-aware content functions are handled through
+`ITranslateable interface <https://github.com/plone/Products.LinguaPlone/blob/master/Products/LinguaPlone/interfaces.py>`_.
+
 Translation-aware content types (Archetypes)
 =============================================
 
