@@ -36,45 +36,22 @@ portal_factory is a tool responsible for creating the persistent object represen
 Listing available content types
 ================================
 
-Below is an example Zope 3 vocabulary factory which will return 
-all the available content types to be used with multi-selection field.
+Many times you need to ask the user to choose specific Plone content types.
 
-Define vocabulary in ZCML::
+Plone offers two Zope 3 vocabularies for this purpose
 
-  <utility
-      provides="zope.schema.interfaces.IVocabularyFactory"
-      component=".vocabularies.content_types_vocabulary"
-      name="mfabrik.like.content_types"
-      />
+* *plone.app.vocabularies.PortalTypes*, a list of types installed in portal_types
+
+* *plone.app.vocabularies.ReallyUserFriendlyTypes*, a list of those types that are likely to mean something to users
       
-Then have the factory code for it in vocabularies.py::
+Below is how to do ask vocabularie with raw Python code::
 
-        """
-        
-            Zope 3 schema vocabulary factory for making multiple choices between installed content types of Plone site.
-        
-            http://mfabrik.com
-        
-        """
-        
-        __license__ = "GPL 2"
-        __copyright__ = "2010 mFabrik Research Oy"
-        __author__ = "Mikko Ohtamaa <mikko@mfabrik.com>"
-        __docformat__ = "epytext"
         
         from Acquisition import aq_inner
         from zope.app.component.hooks import getSite
         from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
         from Products.CMFCore.utils import getToolByName
-        
-        def make_terms(items):
-            """ Create zope.schema terms for vocab from tuples,
-            
-            @return: Generator of SimpleTerm objects
-            """
-            terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
-            return terms
-        
+
         def friendly_types(site):
             """ List user selectable content types.
             
@@ -99,31 +76,6 @@ Then have the factory code for it in vocabularies.py::
             # Return (id, title) pairs
             return [ (id, portal_types[id].title) for id in prepared_types ]
         
-        def content_types_vocabulary(context):
-            """
-            A vocabulary factory for making a choice of a portal type.
-        
-            @param context: Assume Plone site.
-        
-            @return: SimpleVocabulary containing (portal type id, portal type title) pairs.
-            """
-            
-            # This special case must be handled by plone.app.registry quick installing registry.xml
-            # which refers to zope.schema refering to this vocabulary
-            # site information is *not* available
-                
-            try:
-                import plone.registry.record
-                import plone.registry.recordsproxy
-                if isinstance(context, plone.registry.record.Record) or isinstance(context, plone.registry.recordsproxy.RecordsProxy):
-                    context = getSite()
-            except ImportError:
-                pass
-            
-            items = friendly_types(context)
-            
-            return SimpleVocabulary(make_terms(items))
-
 Creating a new content type
 ----------------------------
 
