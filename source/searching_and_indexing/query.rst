@@ -712,8 +712,7 @@ Example::
                                             DateTime('2062-05-08 15:16:17')),
                                    'range': 'min:max'})
 
-Example 2::
-
+Example 2 - how to get items one day old of FeedFeederItem content type::
         
         # DateTime deltas are days as floating points
         end = DateTime.DateTime() + 0.1 # If we have some clock skew peek a little to the future
@@ -729,7 +728,9 @@ Example 2::
                                              "review_state":"published"})
         
 
-Another example how to get news items for a particular year in the template code::
+Example 3: how to get news items for a particular year in the template code
+
+.. code-block:: html
 
     <div metal:fill-slot="main" id="content-news"
      tal:define="boundLanguages here/portal_languages/getLanguageBindings;
@@ -757,7 +758,31 @@ Another example how to get news items for a particular year in the template code
                  localized_time python: modules['Products.CMFPlone.PloneUtilities'].localized_time;">
         ...
     </div>
+
+Example 4 - how to get upcoming events of next two months::
+
+    def formatDate(self, event):
+        """
+        """
+        dt = event["start"]
+        return  dt.strftime("%d.%m.%Y")
     
+    def update(self):
+        portal_catalog = self.context.portal_catalog
+
+        start = DateTime.DateTime() - 1  # yesterday
+        end = DateTime.DateTime() + 60   # Two months future
+        date_range_query = {'query': (start, end), 'range': 'min:max'}
+
+        count = 5
+
+        self.events = portal_catalog.queryCatalog({"portal_type": "Event",
+                                     "start": date_range_query,
+                                     "sort_on": "start",
+                                     "sort_order": "reverse",
+                                     "sort_limit": count,
+                                     "review_state": "published"})
+
 More info 
 
 * http://www.ifpeople.net/fairsource/courses/material/apiPlone_en
