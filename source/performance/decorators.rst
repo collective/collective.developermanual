@@ -120,6 +120,48 @@ Example::
 
         return data
 
+Caching using global HTTP request
+----------------------------------
+
+This example uses `five.globalrequest package <http://pypi.python.org/pypi/five.globalrequest>´_ 
+for caching. Values are stored on thread-local HTTPRequest object which lasts
+the transaction lifecycle.
+
+::
+
+
+     from zope.globalrequest import getRequest
+     from zope.annotation.interfaces import IAnnotations
+
+
+        def _getProductList(self, type, language):
+            """
+
+            """
+
+            logger.info("Getting product list %s %s" % (type, language))
+            ...
+            return result
+
+
+        def getProductListCached(self, type, language):
+            """
+
+            """
+
+            request = getRequest()
+
+            key = "cache-%s-%s" % (type, language)
+
+            cache = IAnnotations(request)
+            data = cache.get(key, None)
+            if not data:
+                data = self._getProductList(type, language)
+                cache[key] = data
+
+            return data
+
+
 
 Other resources
 ===============
