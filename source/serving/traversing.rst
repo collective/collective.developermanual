@@ -429,7 +429,7 @@ Sometimes traversal can give you attributes which actually do not exist on
 the object, but are inherited from the parent objects in the persistent
 object graph. See :term:`acquisition`.
 
-Defaut content item
+Default content item
 ====================
 
 Default content item or view sets some challenges for the traversing, as the
