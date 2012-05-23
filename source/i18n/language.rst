@@ -79,7 +79,7 @@ Example BrowserView method::
 Getting available site languages
 ===================================
 
-Example below:
+Example below::
 
     # Python 2.6 compatible ordered dict
     # NOTE: API is not 1:1, but for normal dict access of
@@ -131,7 +131,9 @@ Example below:
 Simple language conditions in page templates
 ===============================================
 
-You can do this if full translation strings are not worth the trouble::
+You can do this if full translation strings are not worth the trouble:
+
+.. code-block:: xml
 
    <div class="main-text">
      <a tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'fi'" href="http://www.saariselka.fi/sisalto?force-web">Siirry täydelle web-sivustolle</a>
