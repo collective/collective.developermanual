@@ -219,7 +219,7 @@ next to view, edit, sharing, etc. File is located in profiles/default/types/Prod
 
     </object>
 
-The corresponding BrowserView is registered as any other view in *browse/configure.zcml*::
+The corresponding BrowserView is registered as any other view in *browser/configure.zcml*:
 
 .. code-block:: xml
 
