@@ -15,7 +15,7 @@ Base buildout and Zope
 
 Grab your own buildout copy from
 
-* http://svn.plone.org/svn/plone/Products.PloneOrg/trunk
+* https://github.com/plone/Products.PloneOrg
 
 * buildout it
 
