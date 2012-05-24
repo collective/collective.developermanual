@@ -124,7 +124,7 @@ You can refer to ATImage object's content data download by adding /image to URL:
         
 The magic is done in __bobo_traverse__ of ATImage by providing traversable hooks to access image download:
 
-* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+* https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
 
 Rendering ImageField 
 -----------------------
@@ -139,7 +139,7 @@ to perform the ImageField manipulation.
 
 See ImageField for more information
 
-* http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/Field.py         
+* https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/Field.py
 
 tag() method
 -------------
@@ -190,5 +190,5 @@ In order to simplify the accessing of these image scales, use `archetypes.fieldt
 This package allows you to traverse to the stored image scales while still using AnnotationStorage and is a lot simpler to get going (in the author's humble opinion :).
 
 Default scale names and sizes are defined in ImageField declaration for custom ImageFields.
-For ATImage those are in `Products.ATContentTypes.content.image <http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py>`_.
+For ATImage those are in `Products.ATContentTypes.content.image <https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py>`_.
 

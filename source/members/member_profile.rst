@@ -58,7 +58,7 @@ Accessing member data
 Furher reading
 ==============
 
-* `ToolbarViewlet has some sample code <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py>`_ 
+* `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_ 
    how to retrieve these properties.
 
 

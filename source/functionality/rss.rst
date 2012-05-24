@@ -104,7 +104,7 @@ portal_syndication
 ``portal_syndication`` is a persistent utility  managing RSS settings. 
 It provides settings to for formatting RSS feeds (update frequence, number of items).
 
-* http://svn.plone.org/svn/plone/Plone/trunk/Products/CMFPlone/SyndicationTool.py
+* https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/SyndicationTool.py
 
 Publishing content through RSS in Plone 4
 -----------------------------------------

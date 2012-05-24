@@ -30,7 +30,7 @@ content type:
 * Inherit from the content class ``Products.ATContentType.content.image.ATImage``
   and use the schema from that class.
 
-* When writing the ``GenericSetup`` XML of your type, follow the example of `Image.xml <http://svn.plone.org/svn/plone/Plone/branches/3.3/Products/CMFPlone/profiles/default/types/Image.xml>`_.
+* When writing the ``GenericSetup`` XML of your type, follow the example of `Image.xml <https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/profiles/default/types/Image.xml>`_.
 
 * Do not set workflow for your type in ``profiles/default/workflows.xml``
 
@@ -58,11 +58,11 @@ versions from it by default.
 These are configured using the ``ImageField`` *``sizes``* parameter. See the
 ``ImageField`` class notes here:
 
-*  http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/Field.py
+* https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/Field.py
 
 The default image scales for ``Image`` content are configured in:
 
-* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+* https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
 
 Configuration::
 
@@ -87,7 +87,7 @@ the image based on the ``sizes`` configuration key.
 
 See example in ``__bobo_traverse__``:
 
-* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+* https://github.com/plone//Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
 
 
 Accessing images
@@ -115,7 +115,7 @@ In **Plone 4** this behavior comes from the monkey-patch applied by the
 `plone.app.imaging <http://plone.org/products/plone.app.imaging>`_ package.
 
 In **Plone 3** this hook is defined in ``__bobo_traverse__`` in ``ATImage`` class:
-* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+* https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
 
 
 ``portal_catalog`` and images

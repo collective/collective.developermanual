@@ -208,11 +208,11 @@ Multilingual Plone has two kinds of language selector viewlets:
 
 More information
 
-* https://svn.plone.org/svn/plone/plone.app.i18n/trunk/plone/app/i18n/locales/browser/selector.py
+* https://github.com/plone/plone.app.i18n/tree/master/plone/app/i18n/locales/browser/selector.py
 
-* https://svn.plone.org/svn/plone/plone.app.i18n/trunk/plone/app/i18n/locales/browser/languageselector.pt
+* https://github.com/plone/plone.app.i18n/tree/master/plone/app/i18n/locales/browser/languageselector.pt
 
-* http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py
+* https://github.com/plone/Products.LinguaPlone/tree/master/Products/LinguaPlone/browser/selector.py
 
 Making language flags point to different top level domains
 ----------------------------------------------------------

@@ -132,7 +132,7 @@ Main template
 
 The master page template in Plone is called ``main_template.pt`` and it is
 provided by the
-`Products.CMFPlone package <http://svn.plone.org/svn/plone/Plone/trunk/Products/CMFPlone/skins/plone_templates/main_template.pt>`_.
+`Products.CMFPlone package <https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_templates/main_template.pt>`_.
 
 This template provides the visual frame for Plone themes. The template is
 an old-style page template living in ``plone_skins/plone_templates``.
@@ -403,9 +403,9 @@ your Zope 2-style page template::
 
 Examples of this usage:
 
-* The `Contact info page <http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/contact-info.cpt>`_.
+* The `Contact info page <https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_templates/contact-info.cpt>`_.
 
-* The `Recently modified page <http://svn.plone.org/svn/plone/CMFPlone/tags/3.1.4/skins/plone_templates/recently_modified.pt>`_.
+* The `Recently modified page <https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_templates/recently_modified.pt>`_.
 
 Special style on individual pages
 ===================================

@@ -20,7 +20,7 @@ Creating content items from form submission
 Integrating custom field types
 ------------------------------
 
-* http://svn.plone.org/svn/collective/Products.PloneFormGen/fields/PFGDataGrid/trunk/        
+* http://svn.plone.org/svn/collective/Products.PloneFormGen/fields/PFGDataGrid/trunk/
 
 Fail-safe email sending
 -------------------------

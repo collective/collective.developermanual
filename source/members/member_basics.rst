@@ -141,9 +141,9 @@ Example::
 
 For more information, see:
 
-* http://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/tests/test_groupstool.py
+* https://github.com/plone/Products.PlonePAS/tree/master/Products/PlonePAS/tests/test_groupstool.py
 
-* http://svn.plone.org/svn/collective/Products.PlonePAS/trunk/Products/PlonePAS/plugins/group.py
+* https://github.com/plone/Products.PlonePAS/tree/master/Products/PlonePAS/plugins/group.py
 
 Add local roles to a group
 --------------------------

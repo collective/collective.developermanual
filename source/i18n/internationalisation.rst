@@ -490,7 +490,7 @@ The script will:
     
     if test ! -e $I18NDUDE; then
             echo "You must install i18ndude with buildout"
-            echo "See http://svn.plone.org/svn/collective/collective.developermanual/trunk/source/i18n/localization.txt"
+            echo "See https://github.com/collective/collective.developermanual/tree/master/source/i18n/localization.txt"
             exit
     fi
     

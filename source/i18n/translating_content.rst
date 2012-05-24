@@ -17,7 +17,7 @@ Content translations usually are handled by the well-established
 
 For an example of a content type using LinguaPlone, see the `LinguaItem
 example type
-<http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/examples/LinguaItem.py>`_.
+<https://github.com/plone/Products.LinguaPlone/blob/07c754012e942fe5e12834b51af06246932ce420/Products/LinguaPlone/examples/LinguaItem.py>`_.
 
 We also present ``raptus.multilanguageplone`` as an alternative approach.
 
@@ -150,7 +150,7 @@ Example::
     translated = object.getTranslation(lang)
 
 
-See http://svn.plone.org/svn/plone/LinguaPlone/tags/2.1.1/Products/LinguaPlone/tests/translate_edit.txt
+See https://github.com/plone/Products.LinguaPlone/blob/07c754012e942fe5e12834b51af06246932ce420/Products/LinguaPlone/tests/translate_edit.txt
 
 .. todo:: Why link to a particular (ancient) tag?
 

@@ -39,7 +39,7 @@ Plone resources
   code and commits. Useful when you encounter a new exception or you are
   looking for a reference how to use the API.
 
-* `Plone source code in version control system <http://svn.plone.org/svn/plone>`_.
+* `Plone source code in version control system <https://github.com/plone>`_.
 
 Zope resources
 ----------------
