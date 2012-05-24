@@ -69,7 +69,7 @@ Caching on BrowserViews
 This is useful if the same view/utility is going to be called many times
 from different places for the same HTTP request.
 
-The `plone.memoize.view <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/view.txt>`_
+The `plone.memoize.view <https://github.com/plone/plone.memoize/tree/master/plone/memoize/view.txt>`_
 package provides necessary decorators for BrowserView based classes.
 
 
@@ -166,7 +166,7 @@ the transaction lifecycle.
 Other resources
 ===============
 
-* `plone.memoize source code <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/>`_
+* `plone.memoize source code <https://github.com/plone/plone.memoize/tree/master/plone/memoize/>`_
 
 * `zope.app.cache source code <http://svn.zope.org/zope.app.cache/trunk/src/zope/app/cache/>`_
 

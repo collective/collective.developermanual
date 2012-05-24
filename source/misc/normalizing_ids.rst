@@ -61,7 +61,7 @@ To see available language specific localizers, see the source code of plone.i18n
 
 More examples:
 
-* `Static text portlets normalizes portlet title for CSS class <https://svn.plone.org/svn/plone/plone.portlet.static/trunk/plone/portlet/static/static.py>`_.
+* `Static text portlets normalizes portlet title for CSS class <https://github.com/plone/plone.portlet.static/tree/master/plone/portlet/static/static.py>`_.
 
 Creating ids programmatically
 -----------------------------

@@ -59,7 +59,7 @@ Below is how to do ask vocabularie with raw Python code::
             use it, because vocabulary factory must be available in contexts where there is
             no HTTP request (e.g. installing add-on product).
              
-            This code is copy-pasted from https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/portal.py
+            This code is copy-pasted from https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/portal.py
             
             @return: Generator for (id, type_info title) tuples
             """

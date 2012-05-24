@@ -601,7 +601,7 @@ Other
 
 
 
-.. _ExtendedPathIndex: https://svn.plone.org/svn/plone/Products.ExtendedPathIndex/trunk/README.txt
+.. _ExtendedPathIndex: https://github.com/plone/Products.ExtendedPathIndex/tree/master/README.txt
 
 .. _PluginxIndexes: http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/
 

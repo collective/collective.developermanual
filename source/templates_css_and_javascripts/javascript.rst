@@ -141,7 +141,7 @@ The following options are available
 * *insert-before* and *insert-after* control the position of the Javascript file
   in relation to other served Javascript files
 
-`Full description in the source code <https://svn.plone.org/svn/plone/ResourceRegistries/trunk/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
+`Full description in the source code <https://github.com/plone/Products.ResourceRegistries/tree/master/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
 
 Bundles
 =======

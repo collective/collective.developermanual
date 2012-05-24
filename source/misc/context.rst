@@ -139,7 +139,7 @@ information or configuration here. Tools include e.g.:
 ITools interface
 ----------------
 
-`plone.app.layout.globals.interfaces.ITools interface <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
+`plone.app.layout.globals.interfaces.ITools interface <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/interfaces.py>`_
 and Tools BrowserView provide cached access for the most commonly
 needed tools.
 

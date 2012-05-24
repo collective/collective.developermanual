@@ -818,7 +818,7 @@ Example (in progress)::
 Other resources and examples
 -----------------------------
 
-* `Static text portlet <https://svn.plone.org/svn/plone/plone.portlet.static/trunk/plone/portlet/static/>`_.
+* `Static text portlet <https://github.com/plone/plone.portlet.static/tree/master/plone/portlet/static/>`_.
 
 * `Templated portlet <https://svn.plone.org/svn/collective/collective.easytemplate/trunk/collective/easytemplate/browser/portlets/templated.py>`_
                                      
