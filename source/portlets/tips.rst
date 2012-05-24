@@ -197,13 +197,13 @@ Example code::
                     
 For more information about portlet assignments and managers, see
 
-* http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_mapping.py
+* https://github.com/plone/plone.app.portlets/tree/master/plone/app/portlets/tests/test_mapping.py
 
-* http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/tests/test_traversal.py
+* https://github.com/plone/plone.app.portlets/tree/master/plone/app/portlets/tests/test_traversal.py
 
-* http://svn.plone.org/svn/plone/plone.app.portlets/trunk/plone/app/portlets/configure.zcml
+* https://github.com/plone/plone.app.portlets/tree/master/plone/app/portlets/configure.zcml
 
-* http://svn.plone.org/svn/plone/plone.portlets/trunk/plone/portlets/interfaces.py
+* https://github.com/plone/plone.portlets/tree/master/plone/portlets/interfaces.py
 
 * http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto (for portlet renderers)
 

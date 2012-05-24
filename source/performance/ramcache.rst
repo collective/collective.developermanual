@@ -29,7 +29,7 @@ following snippet.
 
 See the set-up for the http://plone.org/ site as an example:
 
-* http://svn.plone.org/svn/plone/plone.org/Products.PloneOrg/trunk/Products/PloneOrg/caching.py
+* https://github.com/plone/Products.PloneOrg/tree/master/Products/PloneOrg/caching.py
 
 RAM Cache
 ---------
@@ -216,13 +216,11 @@ More info:
 
 * http://wiki.zope.org/CacheManager/Architecture
 
-* http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py
+* https://github.com/plone/plone.app.ldap/tree/master/plone/app/ldap/ploneldap/util.py
 
 Other resources
 ===============
 
-* `plone.memoize source code <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/>`_.
+* `plone.memoize source code <https://github.com//plone/plone.memoize/tree/master/plone/memoize/>`_.
 
 * `zope.app.cache source code <http://svn.zope.org/zope.app.cache/trunk/src/zope/app/cache/>`_
-
-

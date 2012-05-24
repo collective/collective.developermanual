@@ -34,13 +34,13 @@ programming level ZCML directives to create your cache rules.
 ``plone.app.caching`` also defines default rules for various Plone
 out-of-the-box content views and item. See:
 
-* http://svn.plone.org/svn/plone/plone.app.caching/trunk/plone/app/caching/caching.zcml
+* https://github.com/plone/plone.app.caching/tree/master/plone/app/caching/caching.zcml
 
 The caching operations (strong, moderate, weak) are defined in Python code
 itself, as they have quite tricky conditions. You can find the default
 operations here:
 
-* http://svn.plone.org/svn/plone/plone.app.caching/trunk/plone/app/caching/operations/default.py
+* https://github.com/plone/plone.app.caching/tree/master/plone/app/caching/operations/default.py
 
 .. note ::
 
