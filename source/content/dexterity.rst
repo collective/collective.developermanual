@@ -176,7 +176,7 @@ Please tune the versions according the latest available releases.
     # Put your mr.developer managed source code repositories here, see
     # http://pypi.python.org/pypi/mr.developer for details on format for this part
     [sources]
-    collective.developermanual = svn http://svn.plone.org/svn/collective/collective.developermanual
+    collective.developermanual = git git://github.com/collective/collective.developermanual.git
 
     # Version pindowns for new style products go here - this section extends one provided in http://dist.plone.org/release/
     [versions]

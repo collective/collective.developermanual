@@ -16,7 +16,7 @@ Here are some useful timestamps you can extract from content objects
 and examples how to use them.
 
 Timestamps are part of metadata. For Archetypes, metadata is defined
-in `ExtensibleMetadata <http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/ExtensibleMetadata.py>`_.
+in `ExtensibleMetadata <https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/ExtensibleMetadata.py>`_.
 
 :doc:`Zope 2 DateTime </misc/datetime>` date objects are used.
 
@@ -72,7 +72,7 @@ Viewlet code::
             def modified(self):
                 """
                 
-                http://svn.plone.org/svn/plone/Plone/trunk/Products/CMFPlone/browser/ploneview.py
+                https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/browser/ploneview.py
                 
                 @return: Last modified as a string, local time format
                 """

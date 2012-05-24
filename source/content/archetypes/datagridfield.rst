@@ -66,11 +66,11 @@ Checkbox column values are handled specially::
 Other resources
 ---------------
 
-Please enable DEBUG in http://svn.plone.org/svn/archetypes/Products.DataGridField/trunk/Products/DataGridField/config.py
+Please enable DEBUG in https://github.com/collective/Products.DataGridField/blob/master/Products/DataGridField/config.py
 on your local computer. After this setting has been changed, you can run unit tests
 and install example types on your computer.
 
-Refer `unit tests <http://svn.plone.org/svn/archetypes/Products.DataGridField/trunk/Products/DataGridField/tests/test_columns.py>`_ for more code examples.
+Refer `unit tests <https://github.com/collective/Products.DataGridField/blob/master/Products/DataGridField/tests/test_columns.py>`_ for more code examples.
 
 Refer `Archetypes manual <http://plone.org/documentation/manual/archetypes-developer-manual>`_ for basics Archetypes developer information.
 
