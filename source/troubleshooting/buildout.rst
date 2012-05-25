@@ -103,7 +103,9 @@ Dump picked versions
 This buildout extension will automatically dump picked Python egg versions
 to a file.
 
-Add to your ``buildout.cfg``::
+Add to your ``buildout.cfg``:
+
+.. code-block:: cfg
 
     extensions = buildout.dumppickedversions
     dump-picked-versions-file = versions.cfg        
@@ -122,7 +124,9 @@ familiar with.
 
 Some good-py configurations take a Plone version as a paremeter.
 
-Example::
+Example:
+
+.. code-block:: cfg
 
     [buildout]
     extends =
@@ -130,7 +134,9 @@ Example::
         http://dist.plone.org/release/3.3.5/versions.cfg
         http://good-py.appspot.com/release/dexterity/1.0-next?plone=3.3.5
             
-Or::
+Or:
+
+.. code-block:: cfg
 
     extends =
         http://dist.plone.org/release/4.0/versions.cfg           
@@ -145,9 +151,9 @@ Plone 3.1
 =========
 
 Plone 3.1 and earlier are not eggified. 
-Below are links how to keep Plone 3.1 and earlier buildouts running .
+Below are links how to keep Plone 3.1 and earlier buildouts running.
 
-See 
+See:
 
 * http://maurits.vanrees.org/weblog/archive/2010/04/nonewplone
 
@@ -157,7 +163,9 @@ See
 Common pindowns
 ===============
 
-Here is a latest pindown example from 2010/02::
+Here is a latest pindown example from 2010/02:
+
+.. code-block:: cfg
 
     [versions]
     # zope.app.catalog 3.6.0 requires zope.index 3.5.0
@@ -302,7 +310,9 @@ For instance, if you are installing something like ``Products.OpenXml``, you
 will have likely included this egg under your Plone ``[instance]`` section
 of your buildout.  You should consider using something like
 ``collective.recipe.staticlxml`` to build lxml and to do this *before* this
-egg's installation is invoked. Like so in your ``buildout.cfg``::
+egg's installation is invoked. Like so in your ``buildout.cfg``:
+
+.. code-block:: cfg
 
     [buildout]
     parts =
@@ -455,8 +465,8 @@ If you get::
 Rerun ``bootstrap.py`` with the correct Python interpreter.
 
 
-Error: Picked: <some.package> = <some.version>
-==============================================
+``Error: Picked: <some.package> = <some.version>``
+===================================================
 
 If you get something like this::
 
@@ -478,8 +488,8 @@ This means that your buildout has "allow picked versions" set to false.
 You need to pin the version for the picked version (or turn on "allow picked
 versions").
 
-Buildout error: Not a recognized archive type
-=============================================
+Buildout error: ``Not a recognized archive type``
+=================================================
 
 If you run across an error like this when running buildout::
 

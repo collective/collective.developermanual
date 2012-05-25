@@ -2,37 +2,40 @@
  Automatic Plone (re)starts
 ============================
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
 Tips how to (re)start Plone sites.
 
 Restart script
---------------
+==============
 
-Restart command for Plone installations is *yourbuildoutfolder/bin/instance restart*.
+Restart command for Plone installations is 
+``yourbuildoutfolder/bin/instance restart``.
 
-It is best practice to run Plone under non-root user.
-Thus you need a special restart script which will sudo to this user
-to perform the restart command. Due to egg cache problems,
-HOME environment variable must be considered when switching users.
+It is best practice to run Plone as a non-root user.
+Thus you need a special restart script which will ``sudo`` to this user
+to perform the restart command. Due to egg cache problems, the 
+``HOME`` environment variable must be considered when switching users.
 
-Example /srv/plone/yoursite/restart-all.sh::
+Example ``/srv/plone/yoursite/restart-all.sh``:
 
-        #!/bin/sh        
-        echo Going to user yourploneuser
-        cd /srv/plone/yoursite        
-        sudo -H -u yourploneuser bin/instance restart
+.. code-block:: sh
+
+    #!/bin/sh        
+    echo Going to user yourploneuser
+    cd /srv/plone/yoursite        
+    sudo -H -u yourploneuser bin/instance restart
         
-.. note ::
+.. note::
 
-        restart-all.sh must be modded chmod u+x.
-        
+    ``restart-all.sh`` must be made executable: ``chmod u+x``.
+
 
 Start on boot
--------------
+=============
 
 It is best practice to start Plone service if the server is rebooted.
 This way your site will automatically recover from power loss etc. 
@@ -41,22 +44,22 @@ This way your site will automatically recover from power loss etc.
 crontab
 =======
 
-There instructions apply for Debian based Linuxes.
+These instructions apply for Debian-based Linuxes.
 
 Example crontab of yourploneuser::
 
-        @reboot /srv/plone/yoursite/bin/instance start
+    @reboot /srv/plone/yoursite/bin/instance start
 
 rc.local script
-===============
+---------------
 
-For Debian based Linuxes, put the following line to /etc/rc.local script::
+For Debian-based Linuxes, add the following line to the ``/etc/rc.local`` script::
 
-        /srv/plone/yoursite/restart-all.sh
+    /srv/plone/yoursite/restart-all.sh
 
 
 Nightly restart
----------------
+===============
 
 Plone 3 leaks memory. It is best practice to restart the instance nightly,
 or eventually you will run out of swap space.
@@ -67,18 +70,18 @@ consider using ZEO clustering and
 restart instances one-by-one with certain intervals.
 
 Cron restart script
-===================
+-------------------
 
-Cron is UNIX scheduled task daemon, 
+Cron is a scheduled task daemon for Unix.
 
-There instructions apply for Debian based Linuxes.
+These instructions apply for Debian-based Linuxes.
 
-Example /etc/cron.d/site script::
+Example ``/etc/cron.d/site`` script::
 
-        # Restart varnish + deliverance + plone
-        
-        # run every night
-        0 22 * * *     root     /srv/plone/yoursite/restart-all.sh
+    # Restart varnish + deliverance + plone
+    
+    # run every night
+    0 22 * * *     root     /srv/plone/yoursite/restart-all.sh
         
 
 
