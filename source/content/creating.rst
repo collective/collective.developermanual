@@ -141,7 +141,7 @@ Manual friendly id generation
 If you are creating Plone objects by hand e.g. in a batch
 job and Plone automatic id generation does not kick in,
 you can use the following example to see how to create friendly
-object ids manually:
+object ids manually::
 
         from zope.component import getUtility
         from plone.i18n.normalizer.interfaces import IIDNormalizer
