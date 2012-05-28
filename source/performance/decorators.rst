@@ -114,7 +114,7 @@ Example::
 
         cache = IAnnotations(self.REQUEST)
         data = cache.get(key, None)
-        if not data:
+        if data is not None:
             data = self.getParsedORAData()
             cache[key] = data 
 
