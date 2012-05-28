@@ -75,9 +75,10 @@ More info
 Creating a dynamic view
 ------------------------
 
-Dynamic views can be a 'skins template' or a BrowserView. The dynamic
-view machinery only cares about the path name coming after the context
-object.
+Here are instructions how to create your own dynamic view.
+
+There is also an example product `Listless view <https://github.com/miohtama/listlessview>`_,
+which provides "no content listing" view for Folder content types.
 
 Registering a dynamic view menu item
 ====================================
