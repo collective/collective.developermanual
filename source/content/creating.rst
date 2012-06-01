@@ -382,8 +382,7 @@ The consequence is that you don't see your content type in the :guilabel:`Add`
 drop-down menu.  Here are some tips for debugging.
 
 * Is your product broken due to Python import time errors? Check 
-  :term:`Zope Management Interface`: :guilabel:`Control panel` -> 
-  :guilabel:`Products`. 
+  :term:`ZMI`: :guilabel:`Control panel` -> :guilabel:`Products`. 
   Turn on Zope debugging mode to trace import errors.
 
 * Have you rerun the quick installer (``GenericSetup``) after
