@@ -4,13 +4,13 @@
 
 .. admonition:: Description
 
-        How to create settings for your add-on product and how to programmatically
-        add new Plone control panel entries.
+    How to create settings for your add-on product and how to
+    programmatically add new Plone control panel entries.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
--------------
+=============
 
 This documentation tells you how to create new "configlets" to 
 Plone site setup control panel.
@@ -23,7 +23,7 @@ Configlets can be created
 
 
 plone.app.registry
--------------------
+===================
 
 ``plone.app.registry`` is the state of the art way to add settings for your Plone 4.x+ add-ons.
 
@@ -38,7 +38,7 @@ Example products
 * http://pypi.python.org/pypi/collective.xdv
 
 Minimal example using five.grok
-===================================
+-----------------------------------
 
 Below is a minimal example for creating a configlet using
 
@@ -136,7 +136,7 @@ In buildout.cfg make sure you have `Dexterity extends line
     </registry>
 
 Control panel widget settings
-===================================
+-----------------------------------
 
 plone.app.registry provides `RegistryEditForm`
 class which is a subclass of z3c.form.form.Form.
@@ -169,7 +169,7 @@ Example (*collective.gtags* project controlpanel.py)::
                 self.widgets['tags'].style = u'width: 30%;'
 
 plone.app.registry imports - backwards compatibilty
-===================================================
+---------------------------------------------------
 
 You need this if you have started using plone.app.registry before 2010-04.
 
@@ -187,13 +187,13 @@ There is a change considering the 1.0b1 codebase::
             
 
 Configlets without plone.registry
---------------------------------------------
+============================================
 
 Just add ``controlpanel.xml`` pointing to your custom form.
 
 
 Content type choice setting
--------------------------------------
+=====================================
 
 Often you need to have a setting whether a certain functionality is enabled on particular content types.
 
@@ -275,13 +275,13 @@ profiles/default/registry.xml:
 
 
 Configuring plone products from buildout
-----------------------------------------
+========================================
 
 See a section in the :ref:`Buildout chapter <configuring-products-from-buildout>`
 
 
 Configuration using environment variables
------------------------------------------
+=========================================
 
 If your add-on requires "setting file" 
 for few simple settings you can change for each
