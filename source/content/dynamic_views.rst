@@ -75,9 +75,10 @@ More info
 Creating a dynamic view
 ------------------------
 
-Dynamic views can be a 'skins template' or a BrowserView. The dynamic
-view machinery only cares about the path name coming after the context
-object.
+Here are instructions how to create your own dynamic view.
+
+There is also an example product `Listless view <https://github.com/miohtama/listlessview>`_,
+which provides "no content listing" view for Folder content types.
 
 Registering a dynamic view menu item
 ====================================
@@ -109,8 +110,8 @@ case, we should enable it for Archetypes folders using the following
 GenericSetup XML *profiles/default/types/Folder.xml*.
 
 Note that you don't need to copy the whole Folder.xml / Topic.xml from
-Products/CMFPlone/profiles/default/types. Including the changed fields
-(view_methods) in the XML code is enough.
+Products/CMFPlone/profiles/default/types. Including the changed 
+``view_methods`` in the XML code is enough.
 
 You can also change this through portal_types in the ZMI.
     
@@ -124,14 +125,9 @@ You can also change this through portal_types in the ZMI.
     <object name="Folder"
        meta_type="Factory-based Type Information with dynamic views"
        i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-         <property name="view_methods">
-          <element value="folder_summary_view"/>
-          <element value="folder_tabular_view"/>
-          <element value="atct_album_view"/>
-          <element value="folder_listing"/>
-
-          <!-- We retrofit these new views for Folders in portal_types info -->
-          <element value="product_listing"/>
+         <property name="view_methods" purge="False">
+           <!-- We retrofit these new views for Folders in portal_types info -->
+           <element value="product_listing"/>
 
          </property>
     </object>
@@ -272,7 +268,7 @@ For more info, see
 
 * http://www.netsight.co.uk/blog/2010/5/21/setting-a-default-view-of-a-folder-in-plone
 
-* ::doc::`marker interfaces </components/interfaces>`
+* :doc:`marker interfaces </components/interfaces>`
 
 
 Migration script from default view to another

@@ -8,10 +8,10 @@
         provides  Dont-Repeat-Yourself API to create
         Zope 3 components easier.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
--------------
+=============
 
 Grok is a project to give sane, easy to use, API to Zope 3 systems. 
 It exists as standalone, but Plone compatible port five.grok is available for Plone 3.3 and onwards.
@@ -36,14 +36,14 @@ More info
 * http://pypi.python.org/pypi/five.grok
 
 Tutorial
---------
+========
 
 * http://plone.org/products/dexterity/documentation/manual/five.grok
 
 * http://www.martinaspeli.net/articles/using-grok-techniques-in-plone
 
 Using Grok in your package
----------------------------
+===========================
 
 To enable grok'ing for your package:
 
@@ -51,9 +51,7 @@ To enable grok'ing for your package:
   the ``grok:grok`` directive. You do not need to put
   this directive subpackages. This directive scans your package source tree
   recursively for grok'ed files.
-
-.. TODO: What does "You do not need to put this directive subpackages." mean?
-
+  
 * The package must be loaded using ``setup.py`` auto-include, NOT using a
   ``zcml =`` section in ``buildout.cfg``.
   Otherwise templates are not loaded.
@@ -92,11 +90,11 @@ Tutorials
 
 * http://plone.org/products/dexterity/documentation/manual/five.grok/background/adding-five.grok-as-a-dependency
 
-Steps
+Steps:
 
-* Add dependency in your setup.py
+* Add dependencies to your ``setup.py``.
 
-* Edit buildout.cfg to include good known version set 
+* Edit ``buildout.cfg`` to include the good known version set.
 
-* Add grok ZCML directive to configure.zcml
+* Add the ``grok`` :term:`ZCML` directive to ``configure.zcml``.
 

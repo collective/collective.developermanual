@@ -128,7 +128,7 @@ The following options are available
   see :doc:`expressions documentation </functionality/expressions>`.
 
 * *authenticated* (Plone 4+) is expression override, which tells
-  the load the script for authenticated users only
+  to load the script for authenticated users only
 
 * *cookable* is merging of Javascript files allowed during the compression
 
@@ -166,10 +166,10 @@ Include Javascript on every page
 
 The following example includes Javascript file intended for anonymous site users.
 It is included after toc.js so that the file ends up as the last script
-of the compressed JS bundle which served for all users.
+of the compressed JS bundle which is served for all users.
 
 The Javascript file itself is usually *yourcompany/app/static/yourjsfile.js*
-folder in your :doc:`add-on product </tutorials/paste>`. 
+in your :doc:`add-on product </tutorials/paste>`. 
 
 It is mapped to URI like::
 
@@ -258,7 +258,7 @@ if the following conditions are met
 
 .. note ::
 
-        There is no easy way currently directly check whether a certain 
+        There is no easy way to currently directly check whether a certain 
         widget and widget mode is active on a particular view. Thus,
         we do some assumptions and checks manually.
         
@@ -323,7 +323,7 @@ We create special conditions using :doc:`Grok </components/grok>` views.
                 Alternative, just check for a marker interface here.
                 """
                 
-                # render() methot is a the only traversable 
+                # The render() method is the only traversable 
                 # Grok CodeView method. It can be used for rendering
                 # HTML code, but also for utility views
                 # to return raw Python data

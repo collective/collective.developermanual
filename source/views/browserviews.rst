@@ -195,52 +195,22 @@ the related template:
 
 .. code-block:: xml
 
-    <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:metal="http://xml.zope.org/namespaces/metal"
-          xmlns:tal="http://xml.zope.org/namespaces/tal"
-          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-          i18n:domain="example.dexterityforms"
-          metal:use-macro="context/main_template/macros/master">
-
-        <metal:block fill-slot="main">
-
-            <h1 class="documentFirstHeading" tal:content="context/Title | string:'No title'" />
-
-            <p>This is an example view.</p>
-
-            <div id="content-core">
-                XXX - render content using content widgets
-            </div>
-
-        </metal:block>
-
-    </html>
-
-Another example (``empty.pt``), which renders only the title and description
-fields in the Plone 3 way:
-
-.. code-block:: xml
-
-    <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:metal="http://xml.zope.org/namespaces/metal"
-          xmlns:tal="http://xml.zope.org/namespaces/tal"
-          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-          i18n:domain="example.dexterityforms"
-          metal:use-macro="context/main_template/macros/master">
-
-        <metal:block fill-slot="main">
-
-            <h1 class="documentFirstHeading" tal:content="context/pretty_title_or_id" />
-
-            <p class="documentDescription" tal:content="context/Description|nothing" />
-
-        </metal:block>
-
-    </html>
+	<html xmlns="http://www.w3.org/1999/xhtml"
+	      xmlns:metal="http://xml.zope.org/namespaces/metal"
+	      xmlns:tal="http://xml.zope.org/namespaces/tal"
+	      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	      metal:use-macro="context/main_template/macros/master">
+	
+	    <metal:block fill-slot="content-core">
+	            XXX - this text comes below title and description
+	    </metal:block>
+	
+	</html>
 
 
 Available :doc:`slot </templates_css_and_javascripts/template_basics>`
-options you can use in the template:
+options you can use for ``<metal fill-slot="">`` in your template which
+inherits from ``<html metal:use-macro="context/main_template/macros/master">``:
 
 ``main`` 
     render edit border yourself
