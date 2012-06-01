@@ -4,160 +4,173 @@
 
 .. admonition:: Description
 
-        How to programmatically generate folder listings in Plone.
+    How to programmatically generate folder listings in Plone.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
-Plone has several methods of getting the list of folder items depending on whether
+Plone has several methods of getting the list of folder items, depending on whether:
 
-* You want to get all items or items visible for the currently logged in user
+* you want to get all items, or only items visible for the currently logged in user;
 
-* You want to get hold of the item objects themselves or just indexed search information is enough
-  (the latter is faster)
+* you want to get hold of the item objects themselves or just indexed metadata
+  (the latter is faster);
   
-* You want to get Plone's contentish items only (contentItems) or Zope 2 management objects too (objectIds),
-  the latter covers various site utilities found in the portal root and otherwise hidden magical items
-    
-Special attentation must be paid also on object ids. Zope looks all objects by traversing site graph
-using ids. The id mapping is usually the property of a parent object, not child. Thus most of the listing 
-methods tend to return (id, object) tuples instead of plain objects.   
+* you want to get Plone's contentish items only (``contentItems``)
+  or Zope 2 management objects too (``objectIds``),
+  the latter covers various site utilities found in the portal root and
+  otherwise hidden magical items.
+
+Special attention must be paid also to object ids.
+Zope locates all objects by traversing the site graph using ids.
+The id mapping is usually a property of a *parent* object, not the child.
+Thus most of the listing methods tend to return ``(id, object)`` tuples instead
+of plain objects.   
 
 Ensuring content item is a folder
----------------------------------
+=================================
 
-All Plone folderish content types provide ``IFolderish`` interface.
-Check that this is present to make sure a content item is a 
-folder and you can call ``contentItems()`` and other methods::
+All Plone folderish content types provide the ``IFolderish`` interface.
+Check that this is present to make sure that a content item is a 
+folder, and that ``contentItems()`` and the other methods are available::
 
-
-        from Products.CMFCore.interfaces import IFolderish
+    from Products.CMFCore.interfaces import IFolderish
+    
+    def recurse_all_content(portal):
         
-        def recurse_all_content(portal):
+        output = StringIO()
+        
+        def recurse(context):
+            """ Recurse through all content on Plone site """
+                          
+            print  >> output, "Recusring to item:" + str(context)
             
-            output = StringIO()
+            # Make sure that we recurse to real folders only,
+            # otherwise contentItems() might be acquired from higher level
+            if IFolderish.providedBy(context):
+                for id, item in context.contentItems():
+                    recurse(item)
             
-            def recurse(context):
-                """ Recurse through all content on Plone site """
-                              
-                print  >> output, "Recusring to item:" + str(context)
-                
-                # Make sure that we recurse to real folders only,
-                # otherwise contentItems() might be acquired from higher level
-                if IFolderish.providedBy(context):
-                    for id, item in context.contentItems():
-                        recurse(item)
-                
-            recurse(portal)
-            
-            return output
+        recurse(portal)
+        
+        return output
                
 
 Getting all content objects inside a folder
--------------------------------------------
+===========================================
 
-The method contentItems is defined in CMFCore/PortalFolder.py. From
-Plone 4 onwards, you can also use folder.items() instead (this applies
-to the whole section below).
-See source code for details, e.g. filtering and other forms of listing
+The ``contentItems`` method is defined in ``CMFCore/PortalFolder.py``.
+From Plone 4 and later, you can also use ``folder.items()`` instead 
+(this applies to the whole section below).
+See source code for details, e.g. filtering and other forms of listing.
 
 Querying folder through catalog
--------------------------------
+===============================
 
 These methods apply for real folders, and not for collections.
 
 Getting indexed objects
-========================
+------------------------
 
-This is a faster method. You must have portal_catalog up-to-date for the folder.
-This will return :doc:`brain objects </searching_and_indexing/query>`.
+This is a faster method. ``portal_catalog`` must be up-to-date for the folder.
+This will return :doc:`brain objects </searching_and_indexing/query>`::
 
     brains = folder.getFolderContents()
 
 Getting full objects
-=====================
+---------------------
+
+.. code-block:: python
 
     items = folder.contentItems() # return Python list of children object tuples (id, object)
 
 .. warning::
 
-        contentItems() call may be costly, since it will return the actual content objects,
-        not their indexed metadata from portal_catalog. You should avoid this method
-        if possible.
+    The ``contentItems()`` call may be costly, since it will return the actual content objects,
+    not their indexed metadata from the ``portal_catalog``. You should avoid this method
+    if possible.
 
 .. warning::
 
-        folder.contentItems() returns all items regardless of the user security context.
+    ``folder.contentItems()`` returns all items regardless of the user security context.
 
 Getting folder objects filtered
--------------------------------
+===============================
 
-listFolderContents() method retrieves the full objects in the folder. It takes *contentFilter* as an argument which can be used to filter the results.  contentFilter uses the same syntax as portal_catalog queries but does not support all the same parameters e.g. "object_provides" is not supported. See the `ContentFilter class <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/PortalFolder.py?view=markup>`_ for details.
+The ``listFolderContents()`` method retrieves the full objects in the folder.
+It takes ``contentFilter`` as an argument to specify filtering of the results.
+``contentFilter`` uses the same syntax as ``portal_catalog`` queries, but does not
+support all the same parameters; e.g. ``object_provides`` is not supported.
+See the `ContentFilter class
+<http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/PortalFolder.py?view=markup>`_
+for details.
 
 Example::
 
-        # List all types in this folder whose portal_type is "CourseModulePage"
+    # List all types in this folder whose portal_type is "CourseModulePage"
 
-        return self.listFolderContents(contentFilter={"portal_type" : "CourseModulePage"})
-
-.. warning::
-
-	Security warning: listFolderContents() honors the currently logged in user roles.
+    return self.listFolderContents(contentFilter={"portal_type" : "CourseModulePage"})
 
 .. warning::
 
-	Performance warning: Slow for big folders. Preferably use portal_catalog and path based query
-	to query items in a big folder.
+	Security warning: ``listFolderContents()`` honors the currently logged-in user roles.
+
+.. warning::
+
+    Performance warning: slow for large folders. Rather use ``portal_catalog``
+    and path-based queries to query items in a large folder.
 
 Rules for filtering items
-=========================
+-------------------------
 
-Plone applies some default rules for listFolderContents()
+Plone applies some default rules for ``listFolderContents()``
 
-* portal_properties.nav_tree_properties.metaTypesNotToQuery: folders (large folders) don't generate listing
+* ``portal_properties.nav_tree_properties.metaTypesNotToQuery``: folders (large
+  folders) don't generate listing.
 
-* :doc:`default_page </content/dynamic_views>` is not listed
+* :doc:`default_page </content/dynamic_views>` are not listed.
 
-* portal_properties.nav_tree_properties.: meta types marked here do not appear in the listing
+* ``portal_properties.nav_tree_properties``: meta types marked here do not
+  appear in the listing.
 
 
 Enforcing manual sort order
-------------------------------
+==============================
 
-Below is an example how you sort content items by their manual sort order
-(one you create via drag and drop on contents tab)::
+Below is an example of how to order content items by their manual sort order
+(the one you create via drag and drop on the contents tab)::
 
-        from OFS.interfaces import IOrderedContainer
+    from OFS.interfaces import IOrderedContainer
 
-        queried_objects = list(folder.listFolderContents())
+    queried_objects = list(folder.listFolderContents())
 
-        def get_position_in_parent(obj):
-            """ 
-            Use IOrderedContainer interface to extract the object's manual ordering position
-            """
-            parent = obj.aq_inner.aq_parent
-            ordered = IOrderedContainer(parent, None)
-            if ordered is not None:
-                return ordered.getObjectPosition(obj.getId())
-            return 0            
+    def get_position_in_parent(obj):
+        """ 
+        Use IOrderedContainer interface to extract the object's manual ordering position
+        """
+        parent = obj.aq_inner.aq_parent
+        ordered = IOrderedContainer(parent, None)
+        if ordered is not None:
+            return ordered.getObjectPosition(obj.getId())
+        return 0            
 
-        def sort_by_position(a, b):
-            """
-            Python list sorter cmp() using position in parent.
+    def sort_by_position(a, b):
+        """
+        Python list sorter cmp() using position in parent.
 
-            Descending order.
-            """
-            return get_position_in_parent(a) - get_position_in_parent(b)
+        Descending order.
+        """
+        return get_position_in_parent(a) - get_position_in_parent(b)
 
-        queried_objects = sorted(queried_objects, sort_by_position)
+    queried_objects = sorted(queried_objects, sort_by_position)
 
 
 Getting object ids
--------------------
+===================
 
-If you need to get ids only, use objectIds() method, or keys() in
+If you need to get ids only, use the ``objectIds()`` method, or ``keys()`` in
 Plone 4. This is a fast method::
 
     # Return a list of object ids in the folder
@@ -167,17 +180,18 @@ Plone 4. This is a fast method::
     
 .. warning::
 
-        objectIds() and keys() will return ids for raw Zope 2 objects too, not just Plone content.
-        If you run objectIds() in portal root, you will get objects like acl_users,
-        portal_workflow and so on...
+    ``objectIds()`` and ``keys()`` will return ids for raw Zope 2 objects too,
+    not just Plone content.  If you call ``objectIds()`` on the portal root
+    object, you will get objects like ``acl_users``, ``portal_workflow`` and so
+    on...
 
 Getting non-contentish Zope objects
--------------------------------------
+=====================================
 
-Manipulating non-contentish Zope objects 
-are needed in some special cases. 
+In some special cases, it is necessary to manipulate non-contentish Zope objects.
 
-This listing method applies to all `OFS.Folder.Folder objects <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_, 
+This listing method applies to all `OFS.Folder.Folder objects
+<http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_, 
 not just Plone content objects.
 
 Example::
@@ -187,15 +201,16 @@ Example::
         # item is the object itself
         pass
 
+
 Checking for the existence of a particular object id
------------------------------------------------------
+=====================================================
 
 If you want to know whether the folder has a certain item or not, you can use the following snippet.
 
 Plone 4
-========
+--------
 
-Use has_key::
+Use ``has_key``::
 
 	if folder.has_key("my-object-id"):
 		# Exists
@@ -203,10 +218,11 @@ Use has_key::
 		# Does not exist
 
 Plone 3
-========
+--------
 
-There is a special case for Large Plone Folders (BTree based).
-The following is optimal code, but you can simplify it if you don't need to check if the folder is BTreeFolder::
+There is a special case for Large Plone Folders (BTree-based).
+The following is optimal code, but you can simplify it if you don't need to
+check if the folder is a ``BTreeFolder``::
 
     # Use the BTreeFolder API if possible
     myid = "index_html"
@@ -221,17 +237,18 @@ The following is optimal code, but you can simplify it if you don't need to chec
         return False
         
        
-Listing the folder items using portal_catalog
----------------------------------------------
+Listing the folder items using ``portal_catalog``
+==================================================
 
-This should be your preferred method for querying folder items. portal_catalog searches are fast,
-because they return catalog brain objects of real content objects (less database look ups).
+This should be your preferred method for querying folder items.
+``portal_catalog`` searches are fast, because they return catalog brain objects
+instead of the real content objects (less database look ups).
 
 .. warning::
 
-        Returned catalog brain data, like Title, will be UTF-8 encoded.
-        You need to call brain["title"].decode("utf-8") or similar
-        to all strings you want to extract from the data.
+    Returned catalog brain data, such as ``Title``, will be UTF-8 encoded.
+    You need to call ``brain["title"].decode("utf-8")`` or similar
+    to all strings you want to extract from the data.
 
 Simple example how to get all items in a folder::
 
@@ -250,8 +267,9 @@ Simple example how to get all items in a folder::
     brains = context.portal_catalog(path={"query" : path, "depth" : 1})
 
 
-Complex example how to perform various filtering and honour some default
-Plone filtering rules. This example is taken from Products.CMFPlone/skins/plone_scripts/getFolderContents::
+Here's a complex example of how to perform various filtering operations, honouring some default
+Plone filtering rules. This example is taken from
+``Products.CMFPlone/skins/plone_scripts/getFolderContents``::
 
     mtool = context.portal_membership
     cur_path = '/'.join(context.getPhysicalPath())
@@ -291,25 +309,27 @@ Plone filtering rules. This example is taken from Products.CMFPlone/skins/plone_
     return contents
 
 Count of content items
------------------------
+=======================
 
-Counting items using getFolderContents
-======================================
+Counting items using ``getFolderContents``
+-------------------------------------------
 
-The least expensive call for this for tens of items is to call len() for getFolderContents() which is portal_catalog based query::
+The least expensive call for this, if you have tens of items, is to call
+``len()`` on the result of calling ``getFolderContents()``, which is a
+``portal_catalog`` based query::
 
-        items = len(self.getFolderContents())
+    items = len(self.getFolderContents())
 
-Counting items using contentItems
-======================================
+Counting items using ``contentItems``
+--------------------------------------
 
-Alternative, if you know there are not many objects in in the folder,
-you can call contentItems() (or simply items() in Plone 4 or newer) as this
-will potentially wake less items than complex catalog query. 
+Alternatively, if you know there are not many objects in in the folder,
+you can call ``contentItems()`` (or simply ``items()`` in Plone 4 or newer), as
+this will potentially wake fewer items than a complex catalog query. 
 
 .. warning:: 
 
-        Security: This method does not consider access rights.  
+    Security: This method does not consider access rights.  
 
 Example (AT content class method)::
 
@@ -321,26 +341,30 @@ Example (AT content class method)::
         
 
 Custom folder listing
----------------------
+=====================
 
-Here is an example how to create a view which will render custom listing for a folder or a collection (ATTopic).
+Here is an example how to create a view which will render a custom listing for a
+folder or a collection (``ATTopic``).
 
-The view is called ProductSummaryView and it is registered with name *productsummary*. This example
-is not suitable for your add-on product as is, but you need to tailor it for your specific needs.
+The view is called ``ProductSummaryView`` and it is registered with the name
+``productsummary``.
+This example is not suitable for your add-on product as is: you need to tailor
+it for your specific needs.
 
 .. warning::
 
-    If you are going to call item/getObject for a catalog brain it might cause
-    excessive database load as it causes a new database query per object.
+    If you are going to call ``item/getObject`` on a catalog brain, it might
+    cause excessive database load as it causes a new database query per object.
     Try use information available in the catalog
     or add more catalog indexes. To know more about the
     issue read about waking up database objects.
 
 
-* First let's register our view
-
-    We could limit content types for which view is enabled by putting *Products.ATContentTypes.interface.IATFolder*
-    or *Products.ATContentTypes.interface.IATTopic* into for attribute. The *configure.zcml* snippet below.
+* First, let's register our view.  
+  We could limit content types for which the view is enabled by specifying
+  ``Products.ATContentTypes.interface.IATFolder`` or
+  ``Products.ATContentTypes.interface.IATTopic`` in the ``for`` attribute. 
+  Cf. the ``configure.zcml`` snippet below:
 
 .. code-block:: xml
 
@@ -353,7 +377,7 @@ is not suitable for your add-on product as is, but you need to tailor it for you
       permission="zope2.View"
       />
 
-* Below is the example view code, named as *productcardsummaryview.py*.
+* Below is the example view code, named as ``productcardsummaryview.py``.
 
 .. code-block:: python
 
@@ -437,7 +461,7 @@ is not suitable for your add-on product as is, but you need to tailor it for you
             # Return the rendered template (productcardsummaryview.pt), with content listing information filled in
             return self.index()
 
-* Below is the corresponding page template skeleton productcardsummaryview.pt
+* Below is the corresponding page template skeleton ``productcardsummaryview.pt``:
 
 .. code-block:: html
 
@@ -544,28 +568,31 @@ is not suitable for your add-on product as is, but you need to tailor it for you
     </body>
     </html>
 
-* Go to view page by adding /@@productsummary to your folder URL.
+* Go to view page by adding ``/@@productsummary`` to your folder URL.
 
-Making view to be available in Display... menu
-==============================================
+Making view available in the :guilabel:`Display...` menu
+--------------------------------------------------------------
 
-You need to add browser:menuItem entry to make your view appear in the Display... menu
-where folders and topics can choose the style of the display.
+You need to add the ``browser:menuItem`` entry to make your view appear in the
+:guilabel:`Display...` menu
+from which folders and topics can choose the style of the display.
 
 See :doc:`dynamic views </content/dynamic_views>`.
 
-You need to add
+You need to add:
 
-* <browser:menuItem> configuration directive with view id (e.g. @@productsummary)
+* ``<browser:menuItem>`` configuration directive with view id (e.g.
+  ``@@productsummary``)
 
-* New properties to Folder.xml or Topic.xml so that view becomes available
+* New properties to ``Folder.xml`` or ``Topic.xml`` so that the view becomes
+  available
 
 Preventing folder listing
--------------------------------------
+=====================================
 
 If the users can access the content items they can usually also list them.
 
-Here is a no-warranty hack how to prevent folder_listing in the case if needed.
+Here is a no-warranty hack how to prevent ``folder_listing`` if needed:
 
 .. code-block:: python
 
@@ -593,187 +620,182 @@ Here is a no-warranty hack how to prevent folder_listing in the case if needed.
 	    if '/folder_' in URL:
 	        raise Unauthorized('unable to access folder listing')
 
+
 Complex folder listings and filtering
---------------------------------------
+======================================
 
 The following example is for a very complex folder listing view.
 You can call view methods to returns the listed items themselves and render 
-the HTML in another view - this allows you to recycle this listing code easily.
+the HTML in another view --- this allows you to recycle this listing code
+easily.
 
-The view does the various sanity checks what normal Plone item listings have
+The view does the various sanity checks that normal Plone item listings do:
 
-* No meta items
+* no meta items,
+* no large folders,
+* no default views,
+* filter by active language,
+* do not list items where you do not have the ``View`` permission,
+* perform the listing on the parent container if the context itself
+  is not folderish.
 
-* No large folders
+Example code::
 
-* No default views
-
-* Filter by active language
-
-* Do not list items where you do not have View permission
-
-* The view also performs the listing on the parent container if the context itself
-  is not folderish
-
-Example code
-
-.. code-block:: python
-
-        class FolderListingView(BrowserView):
-            """ Mobile folder listing helper view
-        
-            Use getItems() to get list of mobile folder listable items for automatically generated
-            mobile folder listings (touch button list).
+    class FolderListingView(BrowserView):
+        """ Mobile folder listing helper view
+    
+        Use getItems() to get list of mobile folder listable items for automatically generated
+        mobile folder listings (touch button list).
+        """
+    
+        def getListingContainer(self):
+            """ Get the item for which we perform the listing
             """
-        
-            def getListingContainer(self):
-                """ Get the item for which we perform the listing
-                """
-                context = self.context.aq_inner
-                if IFolderish.providedBy(context):
-                    return context
-                else:
-                    return context.aq_parent
-        
-            def getActiveTemplate(self):
-                state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
-                return state.view_template_id()
-        
-            def getTemplateIdsNoListing(self):
-                """
-                @return: List of mobile-specific ids found from portal_properties where not to show folder listing
-                """
-        
-                try:
-                    from gomobile.mobile.utilities import getCachedMobileProperties
-                    context = aq_inner(self.context)
-                    mobile_properties = getCachedMobileProperties(context, self.request)
-                except:
-                    mobile_properties = None
-        
-                return getattr(mobile_properties, "no_folder_listing_view_ids", [])
-        
-        
-            def filterItems(self, container, items):
-                """ Apply mobile specific filtering rules
-        
-                @param items: List of context brains
-                """
-        
-                # Filter out default content
-                default_page_helper = getMultiAdapter((container, self.request), name='default_page')
-        
-                portal_state = getMultiAdapter((container, self.request), name='plone_portal_state')
-        
-                # Active language
-                language = portal_state.language()
-        
-                # Return  the default page id or None if not set
-                default_page = default_page_helper.getDefaultPage(container)
+            context = self.context.aq_inner
+            if IFolderish.providedBy(context):
+                return context
+            else:
+                return context.aq_parent
+    
+        def getActiveTemplate(self):
+            state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
+            return state.view_template_id()
+    
+        def getTemplateIdsNoListing(self):
+            """
+            @return: List of mobile-specific ids found from portal_properties where not to show folder listing
+            """
+    
+            try:
+                from gomobile.mobile.utilities import getCachedMobileProperties
+                context = aq_inner(self.context)
+                mobile_properties = getCachedMobileProperties(context, self.request)
+            except:
+                mobile_properties = None
+    
+            return getattr(mobile_properties, "no_folder_listing_view_ids", [])
+    
+    
+        def filterItems(self, container, items):
+            """ Apply mobile specific filtering rules
+    
+            @param items: List of context brains
+            """
+    
+            # Filter out default content
+            default_page_helper = getMultiAdapter((container, self.request), name='default_page')
+    
+            portal_state = getMultiAdapter((container, self.request), name='plone_portal_state')
+    
+            # Active language
+            language = portal_state.language()
+    
+            # Return  the default page id or None if not set
+            default_page = default_page_helper.getDefaultPage(container)
+            
+            security_manager = getSecurityManager()
+            
+            meta_types_not_to_list = container.portal_properties.navtree_properties.metaTypesNotToList
+            
+    
+            def show(item):
+                """ Filter whether the user can view a mobile item.
                 
-                security_manager = getSecurityManager()
-                
-                meta_types_not_to_list = container.portal_properties.navtree_properties.metaTypesNotToList
-                
-        
-                def show(item):
-                    """ Filter whether the user can view a mobile item.
-                    
-                    @param item: Real content object (not brain)
-        
-                    @return: True if item should be visible in the listing
-                    """
-                
-        
-                    # Check from mobile behavior should we do the listing
-                    try:
-                        behavior = IMobileBehavior(item)
-                        appearInFolderListing = behavior.appearInFolderListing
-                    except TypeError:
-                        # Site root or some weird object, give up
-                        appearInFolderListing = True
-        
-                    if not appearInFolderListing:
-                        # Default to appearing
-                        return False
-        
-                    # Default page should not appear in the quick listing
-                    if item.getId() == default_page:
-                        return False
-                    
-                    if item.meta_type in meta_types_not_to_list:
-                        return False
-                    
-                    # Two letter language code
-                    item_lang = item.Language()
-                    
-                    # Empty string makes language netral content
-                    if item_lang not in ["", None]:
-                        if item_lang != language:
-                            return False
-        
-                    # Note: getExcludeFromNav not necessarily exist on all content types 
-                    if hasattr(item, "getExcludeFromNav"):                
-                        if item.getExcludeFromNav():
-                            return False
-                        
-                    # Does the user have a permission to view this object
-                    if not security_manager.checkPermission(permissions.View, item):
-                        return False
-        
-                    return True
-        
-                return [ i for i in items if show(i) == True ]
-        
-        
-            def constructListing(self):
-        
-                # Iterable of content items for the item listing
-                items = []
-        
+                @param item: Real content object (not brain)
+    
+                @return: True if item should be visible in the listing
+                """
+            
+    
                 # Check from mobile behavior should we do the listing
                 try:
-                    behavior = IMobileBehavior(self.context)
-                    do_listing = behavior.mobileFolderListing
+                    behavior = IMobileBehavior(item)
+                    appearInFolderListing = behavior.appearInFolderListing
                 except TypeError:
                     # Site root or some weird object, give up
-                    do_listing = False
-        
-                # Do listing by default, must be explictly disabledc
-                if not do_listing:
-                    # No mobile behavior -> no mobile listing
-                    return None
-        
-                container = self.getListingContainer()
-        
-                # Do not list if already doing folder listing
-                template = self.getActiveTemplate()
-                print "Active template id:" + template
-                if template in self.getTemplateIdsNoListing():
-                    # Listing forbidden by mobile rules
-                    return None
-        
-        
-                portal_properties = getToolByName(container, "portal_properties")
-                navtree_properties = portal_properties.navtree_properties
-                if container.meta_type in navtree_properties.parentMetaTypesNotToQuery:
-                    # Big folder... listing forbidden
-                    return None
+                    appearInFolderListing = True
+    
+                if not appearInFolderListing:
+                    # Default to appearing
+                    return False
+    
+                # Default page should not appear in the quick listing
+                if item.getId() == default_page:
+                    return False
                 
-                state = container.restrictedTraverse('@@plone_portal_state')
-                        
-                items = container.listFolderContents()
-        
-                items = self.filterItems(container, items)
-        
-                return items
-        
-            def getItems(self):
-                """
-                @return: Iterable of content objects. Never return None.
-                """
-                items = self.constructListing()
-                if items == None:
-                    return []
-                return items
+                if item.meta_type in meta_types_not_to_list:
+                    return False
+                
+                # Two letter language code
+                item_lang = item.Language()
+                
+                # Empty string makes language netral content
+                if item_lang not in ["", None]:
+                    if item_lang != language:
+                        return False
+    
+                # Note: getExcludeFromNav not necessarily exist on all content types 
+                if hasattr(item, "getExcludeFromNav"):                
+                    if item.getExcludeFromNav():
+                        return False
+                    
+                # Does the user have a permission to view this object
+                if not security_manager.checkPermission(permissions.View, item):
+                    return False
+    
+                return True
+    
+            return [ i for i in items if show(i) == True ]
+    
+    
+        def constructListing(self):
+    
+            # Iterable of content items for the item listing
+            items = []
+    
+            # Check from mobile behavior should we do the listing
+            try:
+                behavior = IMobileBehavior(self.context)
+                do_listing = behavior.mobileFolderListing
+            except TypeError:
+                # Site root or some weird object, give up
+                do_listing = False
+    
+            # Do listing by default, must be explictly disabledc
+            if not do_listing:
+                # No mobile behavior -> no mobile listing
+                return None
+    
+            container = self.getListingContainer()
+    
+            # Do not list if already doing folder listing
+            template = self.getActiveTemplate()
+            print "Active template id:" + template
+            if template in self.getTemplateIdsNoListing():
+                # Listing forbidden by mobile rules
+                return None
+    
+    
+            portal_properties = getToolByName(container, "portal_properties")
+            navtree_properties = portal_properties.navtree_properties
+            if container.meta_type in navtree_properties.parentMetaTypesNotToQuery:
+                # Big folder... listing forbidden
+                return None
+            
+            state = container.restrictedTraverse('@@plone_portal_state')
+                    
+            items = container.listFolderContents()
+    
+            items = self.filterItems(container, items)
+    
+            return items
+    
+        def getItems(self):
+            """
+            @return: Iterable of content objects. Never return None.
+            """
+            items = self.constructListing()
+            if items == None:
+                return []
+            return items
 

@@ -15,21 +15,23 @@ Introduction
 This documentation tells you how to create new "configlets" to 
 Plone site setup control panel.
 
-Configlets can be created 
+Configlets can be created in two ways:
 
-* Using ``plone.app.registry`` configuration framework for Plone (recommended)
+* Using the ``plone.app.registry`` configuration framework for Plone
+  (recommended);
+* Using any :doc:`view code </views/browserviews>`.
 
-* Using any :doc:`view code </views/browserviews>`
 
+``plone.app.registry``
+=======================
 
-plone.app.registry
-===================
+``plone.app.registry`` is the state of the art way to add settings for your
+Plone 4.x+ add-ons.
 
-``plone.app.registry`` is the state of the art way to add settings for your Plone 4.x+ add-ons.
+For tutorial and more information please see the
+`PyPi page <http://pypi.python.org/pypi/plone.app.registry>`_.
 
-For tutorial and more information please see `PyPi page <http://pypi.python.org/pypi/plone.app.registry>`_.
-
-Example products 
+Example products:
 
 * http://pypi.python.org/pypi/collective.gtags
 
@@ -37,19 +39,23 @@ Example products
 
 * http://pypi.python.org/pypi/collective.xdv
 
-Minimal example using five.grok
------------------------------------
+Minimal example using ``five.grok``
+------------------------------------
 
-Below is a minimal example for creating a configlet using
+Below is a minimal example for creating a configlet using:
 
 * `grok </components/grok>`
 
 * ``plone.app.registry``
 
-It is based on `youraddon template <https://github.com/miohtama/sane_plone_addon_template/tree/master>`_.
-The add-on package in this case is called `silvuple <https://github.com/miohtama/silvuple>`_.
+It is based on the 
+`youraddon template <https://github.com/miohtama/sane_plone_addon_template/tree/master>`_.
+The add-on package in this case is called 
+`silvuple <https://github.com/miohtama/silvuple>`_.
 
-In buildout.cfg make sure you have `Dexterity extends line
+In ``buildout.cfg``, make sure you have the ``extends`` line for
+Dexterity (see the 
+`Dexterity installation guide
 <http://plone.org/products/dexterity/documentation/how-to/install>`_.
 
 ``setup.py``::
@@ -77,7 +83,8 @@ In buildout.cfg make sure you have `Dexterity extends line
     class ISettings(form.Schema):
         """ Define settings data structure """
         
-        adminLanguage = schema.TextLine(title=u"Admin language", description=u"Type two letter language code and admins always use this language")
+        adminLanguage = schema.TextLine(title=u"Admin language",
+                description=u"Type two letter language code (admins always use this language)")
 
     class SettingsEditForm(RegistryEditForm):
         """
@@ -97,7 +104,7 @@ In buildout.cfg make sure you have `Dexterity extends line
             view = view_factor(self.context, self.request)
             return view()
 
-``profiles/default/contropanel.xml``
+``profiles/default/controlpanel.xml``
 
 .. code-block:: xml
 
@@ -138,55 +145,54 @@ In buildout.cfg make sure you have `Dexterity extends line
 Control panel widget settings
 -----------------------------------
 
-plone.app.registry provides `RegistryEditForm`
-class which is a subclass of z3c.form.form.Form.
+``plone.app.registry`` provides the ``RegistryEditForm``
+class, which is a subclass of ``z3c.form.form.Form``.
 
-It has two phases to override which widgets
-are going to be used for a which field.
+It has two places to override which widgets
+will be used for which field:
 
-* updateFields() may set widget factories i.e. widget type to be used
+* ``updateFields()`` may set widget factories, i.e. widget type, to be used;
 
-* updateWidgets() may play with widget properties and widget value
-  shown to the user 
-  
-Example (*collective.gtags* project controlpanel.py)::
+* ``updateWidgets()`` may play with widget properties and widget values
+  shown to the user.
+
+Example (``collective.gtags`` project, ``controlpanel.py``)::
         
-        class TagSettingsEditForm(controlpanel.RegistryEditForm):
-            
-            schema = ITagSettings
-            label = _(u"Tagging settings") 
-            description = _(u"Please enter details of available tags")
-            
-            def updateFields(self):
-                super(TagSettingsEditForm, self).updateFields()
-                self.fields['tags'].widgetFactory = TextLinesFieldWidget
-                self.fields['unique_categories'].widgetFactory = TextLinesFieldWidget
-                self.fields['required_categories'].widgetFactory = TextLinesFieldWidget
-            
-            def updateWidgets(self):
-                super(TagSettingsEditForm, self).updateWidgets()
-                self.widgets['tags'].rows = 8
-                self.widgets['tags'].style = u'width: 30%;'
-
-plone.app.registry imports - backwards compatibilty
----------------------------------------------------
-
-You need this if you have started using plone.app.registry before 2010-04.
-
-There is a change considering the 1.0b1 codebase::
-
+    class TagSettingsEditForm(controlpanel.RegistryEditForm):
         
-        try:
-            # plone.app.registry 1.0b1
-            from plone.app.registry.browser.form import RegistryEditForm
-            from plone.app.registry.browser.form import ControlPanelFormWrapper
-        except ImportError:
-            # plone.app.registry 1.0b2+
-            from plone.app.registry.browser.controlpanel import RegistryEditForm
-            from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+        schema = ITagSettings
+        label = _(u"Tagging settings") 
+        description = _(u"Please enter details of available tags")
+        
+        def updateFields(self):
+            super(TagSettingsEditForm, self).updateFields()
+            self.fields['tags'].widgetFactory = TextLinesFieldWidget
+            self.fields['unique_categories'].widgetFactory = TextLinesFieldWidget
+            self.fields['required_categories'].widgetFactory = TextLinesFieldWidget
+        
+        def updateWidgets(self):
+            super(TagSettingsEditForm, self).updateWidgets()
+            self.widgets['tags'].rows = 8
+            self.widgets['tags'].style = u'width: 30%;'
+
+``plone.app.registry`` imports --- backwards compatibilty
+-----------------------------------------------------------
+
+You need this if you started using ``plone.app.registry`` before April 2010.
+
+There is a change concerning the 1.0b1 codebase::
+
+    try:
+        # plone.app.registry 1.0b1
+        from plone.app.registry.browser.form import RegistryEditForm
+        from plone.app.registry.browser.form import ControlPanelFormWrapper
+    except ImportError:
+        # plone.app.registry 1.0b2+
+        from plone.app.registry.browser.controlpanel import RegistryEditForm
+        from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
             
 
-Configlets without plone.registry
+Configlets without ``plone.registry``
 ============================================
 
 Just add ``controlpanel.xml`` pointing to your custom form.
@@ -195,15 +201,17 @@ Just add ``controlpanel.xml`` pointing to your custom form.
 Content type choice setting
 =====================================
 
-Often you need to have a setting whether a certain functionality is enabled on particular content types.
+Often you need to have a setting whether a certain functionality is enabled
+on particular content types.
 
-Here are the ingredients
+Here are the ingredients:
 
-* Custom schema defined interface for settings (registry.xml schemas don't support multiple choice widgets in plone.app.registry 1.0b2)
+* A custom schema-defined interface for settings (``registry.xml`` schemas
+  don't support multiple-choice widgets in ``plone.app.registry`` 1.0b2);
 
-* Vocabulary factory to pull friendly type information out of portal_types 
-    
-settings.py::
+* a vocabulary factory to pull friendly type information out of ``portal_types`` .
+
+``settings.py``::
 
     """
 
@@ -255,7 +263,7 @@ settings.py::
             view = view_factor(self.context, self.request)
             return view()
  
-profiles/default/registry.xml:
+``profiles/default/registry.xml``:
 
 .. code-block:: xml
 
@@ -274,10 +282,11 @@ profiles/default/registry.xml:
     </registry>
 
 
-Configuring plone products from buildout
+Configuring Plone products from buildout
 ========================================
 
-See a section in the :ref:`Buildout chapter <configuring-products-from-buildout>`
+See a section in the 
+:ref:`Buildout chapter <configuring-products-from-buildout>`
 
 
 Configuration using environment variables
@@ -287,6 +296,6 @@ If your add-on requires "setting file"
 for few simple settings you can change for each
 buildout you can use operating system environment variables.
 
-For example, see
+For example, see:
 
 * http://pypi.python.org/pypi/Products.LongRequestLogger
