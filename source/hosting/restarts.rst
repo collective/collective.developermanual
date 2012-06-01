@@ -7,7 +7,7 @@
 Introduction
 ============
 
-Tips how to (re)start Plone sites.
+Tips on how to (re)start Plone sites.
 
 Restart script
 ==============
@@ -15,12 +15,20 @@ Restart script
 Restart command for Plone installations is 
 ``yourbuildoutfolder/bin/instance restart``.
 
+
 It is best practice to run Plone as a non-root user.
 Thus you need a special restart script which will ``sudo`` to this user
 to perform the restart command. Due to egg cache problems, the 
 ``HOME`` environment variable must be considered when switching users.
 
-Example ``/srv/plone/yoursite/restart-all.sh``:
+.. note::
+
+    These instructions apply when you have *not* installed Plone to run as root
+    and you have installed Plone using Unified installer or from scratch
+    using buildout.
+
+Here's an example ``/srv/plone/yoursite/restart-all.sh`` which assumes Plone is
+installed in the folder ``/srv/plone/yoursite``:
 
 .. code-block:: sh
 
@@ -46,14 +54,16 @@ crontab
 
 These instructions apply for Debian-based Linuxes.
 
-Example crontab of yourploneuser::
+Example crontab of *yourploneuser*::
 
     @reboot /srv/plone/yoursite/bin/instance start
 
-rc.local script
----------------
+``rc.local`` script
+--------------------
 
-For Debian-based Linuxes, add the following line to the ``/etc/rc.local`` script::
+For Debian-based Linuxes, add the following line to the ``/etc/rc.local`` script:
+
+.. code-block:: sh
 
     /srv/plone/yoursite/restart-all.sh
 
@@ -63,9 +73,9 @@ Nightly restart
 
 Plone 3 leaks memory. It is best practice to restart the instance nightly,
 or eventually you will run out of swap space.
-Before running out of swap space, everything will come to grinding halt.
+Before running out of swap space, everything will come to a grinding halt.
 
-If nightly restart is not an option and you need high-availability instance, 
+If nightly restart is not an option and you need a high-availability instance,
 consider using ZEO clustering and
 restart instances one-by-one with certain intervals.
 
@@ -76,7 +86,9 @@ Cron is a scheduled task daemon for Unix.
 
 These instructions apply for Debian-based Linuxes.
 
-Example ``/etc/cron.d/site`` script::
+Example ``/etc/cron.d/site`` script:
+
+.. code-block:: sh
 
     # Restart varnish + deliverance + plone
     
