@@ -7,7 +7,7 @@
     Creating and controlling creation of Plone content items
     programmatically.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Creating content objects
 ========================
@@ -36,34 +36,34 @@ create content item.
 
 Example::
         
-        def createResearcherById(folder, id):
-            """ Create one researcher in a folder based on its X id.
-            
-            @param id: X id of the researcher
+    def createResearcherById(folder, id):
+        """ Create one researcher in a folder based on its X id.
         
-            @returns: Newly created researcher
-            """
+        @param id: X id of the researcher
+    
+        @returns: Newly created researcher
+        """
+        
+        # Call X REST service to get JSON blob for this researcher
+        # Note: queryById parses JSON back to Python to do some sanity checks for it
+        index = XPeopleIndex()
+        oraData = index.queryById(id)
             
-            # Call X REST service to get JSON blob for this researcher
-            # Note: queryById parses JSON back to Python to do some sanity checks for it
-            index = XPeopleIndex()
-            oraData = index.queryById(id)
-                
-            # Need to have temporary id
-            id = str(random.randint(0, 99999999))
-            
-            folder.invokeFactory("XResearcher", id)
-            content = folder[id]
-            
-            # XResearcher stores its internal data as JSON
-            json_data = json.dumps(oraData)    
-            content.setXData(json_data)
-            
-            # Will finish Archetypes content item creation process,
-            # rename-after-creation and such
-            content.processForm()
-            
-            return content
+        # Need to have temporary id
+        id = str(random.randint(0, 99999999))
+        
+        folder.invokeFactory("XResearcher", id)
+        content = folder[id]
+        
+        # XResearcher stores its internal data as JSON
+        json_data = json.dumps(oraData)    
+        content.setXData(json_data)
+        
+        # Will finish Archetypes content item creation process,
+        # rename-after-creation and such
+        content.processForm()
+        
+        return content
     
 
 Example (from unit tests)::
@@ -80,7 +80,7 @@ permissions).  This exception can be imported as follows::
 
 	from Products.Archetypes.exceptions import AccessControl_Unauthorized
 
-.. note ::
+.. note::
 
     If the content class has  ``_at_rename_after_creation = True``
     (Archetypes-based content) the next call to ``obj.update()`` (edit form
@@ -97,17 +97,11 @@ logged in users when creating the content item, do as follows::
 	def construct_without_permission_check(folder, type_name, id, *args, **kwargs):
 	    """ Construct a new content item bypassing creation and content add permissios checks.
 
-
-	    @param folder: Folderish content item where to place the new content item
-
-	    @param type_name: Content type id in portal_types
-
-	    @param id: Traversing id for the new content
-
-	    @param args: Optional arguments for the construction (will be passed to the creation method if the type has one)
-
-	    @param kwargs: Optional arguments for the construction (will be passed to the creation method if the type has one)
-
+	    @param folder: Folderish content item where to place the new content item 
+	    @param type_name: Content type id in portal_types 
+	    @param id: Traversing id for the new content 
+	    @param args: Optional arguments for the construction (will be passed to the creation method if the type has one) 
+	    @param kwargs: Optional arguments for the construction (will be passed to the creation method if the type has one) 
 	    @return: Reference to newly created content item
 	    """
 
@@ -122,7 +116,7 @@ logged in users when creating the content item, do as follows::
 	    # Return reference to justly created content
 	    return new_content_item
 
-.. note ::
+.. note::
 
     The function above only bypasses the content item contruction permission
     check.  It does not bypass checks for setting field values for initially
@@ -135,57 +129,58 @@ There is also an alternative way::
     from Products.CMFPlone.utils import _createObjectByType
     _createObjectByType("YourContentType", folder, id)
 
+
 Manual friendly id generation
 ==============================
 
 If you are creating Plone objects by hand e.g. in a batch
 job and Plone automatic id generation does not kick in,
 you can use the following example to see how to create friendly
-object ids manually:
+object ids manually::
 
-        from zope.component import getUtility
-        from plone.i18n.normalizer.interfaces import IIDNormalizer
-            
-        import transaction
-            
-        def createResearcherById(folder, id):
-            """ Create one researcher in a folder based on its ORA id.
-            
-            @param id: X id of the researcher
+    from zope.component import getUtility
+    from plone.i18n.normalizer.interfaces import IIDNormalizer
         
-            @returns: Newly created researcher
-            """
+    import transaction
+        
+    def createResearcherById(folder, id):
+        """ Create one researcher in a folder based on its ORA id.
+        
+        @param id: X id of the researcher
+    
+        @returns: Newly created researcher
+        """
+        
+        # Call X REST service to get JSON blob for this researcher
+        # Note: queryById parses JSON back to Python to do some sanity checks for it
+        index = XPeopleIndex()
             
-            # Call X REST service to get JSON blob for this researcher
-            # Note: queryById parses JSON back to Python to do some sanity checks for it
-            index = XPeopleIndex()
-                
-            # Need to have temporary id
-            id = str(random.randint(0, 99999999))
-            
-            folder.invokeFactory("XResearcher", id)
-            content = folder[id]
+        # Need to have temporary id
+        id = str(random.randint(0, 99999999))
+        
+        folder.invokeFactory("XResearcher", id)
+        content = folder[id]
 
-            # XXX: set up content item data            
+        # XXX: set up content item data            
+        
+        # Will finish Archetypes content item creation process,
+        # rename-after-creation and such
+        content.processForm()
             
-            # Will finish Archetypes content item creation process,
-            # rename-after-creation and such
-            content.processForm()
+        # make _p_jar on content
+        transaction.savepoint(optimistic=True)
+        
+        # Need to perform manual normalization for id,
+        # as we don't have title available during the creation time
+        normalizer = getUtility(IIDNormalizer)
+        new_id = normalizer.normalize(content.Title())
+        
+        if new_id in folder.objectIds():
+            raise RuntimeError("Item already exists:" + new_id + " in " + folder.absolute_url())
+        
+        content.aq_parent.manage_renameObject(id, new_id)
                 
-            # make _p_jar on content
-            transaction.savepoint(optimistic=True)
-            
-            # Need to perform manual normalization for id,
-            # as we don't have title available during the creation time
-            normalizer = getUtility(IIDNormalizer)
-            new_id = normalizer.normalize(content.Title())
-            
-            if new_id in folder.objectIds():
-                raise RuntimeError("Item already exists:" + new_id + " in " + folder.absolute_url())
-            
-            content.aq_parent.manage_renameObject(id, new_id)
-                    
-            return content
+        return content
                         
 
 PortalFactory
@@ -194,7 +189,7 @@ PortalFactory
 ``PortalFactory`` (only for Archetypes) creates the object in a temporary
 folder and only moves it to the real folder when it is first saved.
 
-.. note ::
+.. note::
 
     To see if content is still temporary, use
     ``portal_factory.isTemporary(obj)``.
@@ -203,7 +198,7 @@ Restricting creating on content types
 ======================================
 
 Plone can restrict which content types are available for creation in a
-folder via the *Add...* menu.
+folder via the :guilabel:`Add...` menu.
 
 Restricting available types per content type
 -----------------------------------------------
@@ -214,10 +209,10 @@ folderish content type.  By default, all content types which have the
 
 The behavior can be controlled with ``allowed_content_types`` setting.
 
-* You can change it through the ``portal_types`` management interface
+* You can change it through the ``portal_types`` management interface.
 
 * You can change it in your add-on installer :doc:`GenericSetup
-  </components/genericsetup>` profile
+  </components/genericsetup>` profile.
 
 Example for :doc:`Dexterity content type </content/dexterity>`. The file
 would be something like
@@ -246,8 +241,8 @@ would be something like ``profiles/default/types/YourType.xml``::
 Restricting available types per folder instance
 -----------------------------------------------
 
-In the UI, you can access this feature via the *Add...* menu *Restrict*
-option.
+In the UI, you can access this feature via the :guilabel:`Add...` menu
+:guilabel:`Restrict` option.
 
 Type contraining is managed by the ``ATContentTypes`` product:
 
@@ -298,7 +293,7 @@ More examples in:
 Oject construction life cycle
 ==========================================
 
-.. note ::
+.. note::
 
     The following applies to Archetypes-based objects only. The process
     might be different for Dexterity-based content.
@@ -337,7 +332,7 @@ Rename after creation
 To prevent the automatic rename on the first through-the-web save, add the
 following attribute to your class::
 
- _at_rename_after_creation = False
+    _at_rename_after_creation = False
 
 See:
 
@@ -347,7 +342,7 @@ Factory type information
 ========================
 
 Factory type information (FTI) is responsible for content creation in the
-portal.  It is independend from content type (Archetypes, Dexteriry)
+portal.  It is independent from content type (Archetypes, Dexterity)
 subsystems.
 
 .. warning::
@@ -375,39 +370,44 @@ See:
 
 * `Notes Zope types mechanism <http://www.zope.org/Products/CMF/docs/devel/taming_types_tool/view>`_
 
-Content does not show in *Add* menu, or ``Unauthorized`` errors
-=================================================================
+Content does not show in :guilabel:`Add` menu, or ``Unauthorized`` errors
+==============================================================================
 
 These instructions are for Archetypes content to debug issues
 when creating custom content types which somehow fail to become creatable.
 
 When creating new content types, many things can silently fail due to human
 errors in the complex content type setup chain and security limitations.
-The consequence is that you don't see your content type in the *Add*
+The consequence is that you don't see your content type in the :guilabel:`Add`
 drop-down menu.  Here are some tips for debugging.
 
-* Is your product broken due to Python import time errors? Check *Zope
-  Management Interface -> Control panel -> Products*. Turn on Zope debugging
-  mode to trace import errors.
+* Is your product broken due to Python import time errors? Check 
+  :term:`Zope Management Interface`: :guilabel:`Control panel` -> 
+  :guilabel:`Products`. 
+  Turn on Zope debugging mode to trace import errors.
 
 * Have you rerun the quick installer (``GenericSetup``) after
   creating/modifying the content type?
 
-* Do you have a correct *Add* permission for the product? Check
+* Do you have a correct :guilabel:`Add` permission for the product? Check
   ``__init__.py`` ``ContentInit()`` call.
 
-* Does it show up in the portal factory? Check *ZMI -> portal_factory* and
-  ``factorytool.xml``.
+* Does it show up in the portal factory? 
+  Check :term:`ZMI`: :guilabel:`portal_factory` and ``factorytool.xml``.
 
 * Is it corretly registered as a portal type and implictly addable? Check
-  *ZMI -> portal_types*. Check ``default/profiles/type/yourtype.xml``
+  :term:`ZMI`: :guilabel:`portal_types`.
+  Check ``default/profiles/type/yourtype.xml``.
 
-* Does it have correct product name defined? Check *ZMI -> portal_types*.
+* Does it have correct product name defined? Check :term:`ZMI`:
+  :guilabel:`portal_types`.
 
-* Does it have a proper factory method? Check *ZMI -> types_tool*. Check
-  Zope logs for ``_queryFactory`` and import errors.
+* Does it have a proper factory method? Check :term:`ZMI`:
+  :guilabel:`types_tool`. 
+  Check Zope logs for ``_queryFactory`` and import errors.
 
-* Does it register itself with Archetypes? Check *ZMI -> archetypes_tool*.
+* Does it register itself with Archetypes? Check :term:`ZMI`:
+  :guilabel:`archetypes_tool`.
   Make sure that you have ``ContentInit`` properly run in your
   ``__init__.py``. Make sure that all modules having Archetypes content
   types defined and ``registerType()`` call are imported in ``__init__py``.
@@ -415,7 +415,7 @@ drop-down menu.  Here are some tips for debugging.
 Link to creation page
 =========================
 
-* The *Add...* menu contains links for creating individual content types.
+* The :guilabel:`Add...` menu contains links for creating individual content types.
   Copy the URLs that you see there.
 
 * If you want to the user to have a choice about which content type to
