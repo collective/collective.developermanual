@@ -28,6 +28,14 @@ Let's break this down:
   Alternatively we could use e.g. the ``python:`` :term:`TALES` expression
   type and embed one line python of code to generate the attribute value.
 
+* Obviously we are rendering an ``<img>`` tag.
+
+* The ``src`` attribute is dynamically generated using a :term:`TALES` expression.
+
+* We use a *string comprehension* to create the ``src`` attribute. 
+  Alternatively, we could for example use the ``python:`` protocol
+  and embed one line of python code to generate the attribute value.
+  
 * We look up a helper view called :doc:`plone_portal_state </misc/context>`.
   This is a ``BrowserView`` shipped with Plone. Its purpose is to expose
   different helper methods to page templates and Python code.
@@ -143,10 +151,10 @@ You can refer to ``ATImage`` object's content data download by adding
 The magic is done in the ``__bobo_traverse__`` method of ``ATImage`` by
 providing traversable hooks to access image download:
 
-* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py
+* https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
 
 Rendering ``ImageField`` 
-=======================
+=========================
 
 Archetypes's ``ImageField`` maps its data to the content object at attribute
 which is the field's name.
@@ -163,7 +171,7 @@ to perform the ``ImageField`` manipulation.
 
 See ``ImageField`` for more information:
 
-* http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/Field.py         
+* https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/Field.py
 
 ``tag()`` method
 ==================

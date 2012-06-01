@@ -14,18 +14,18 @@
 Introduction
 =============
 
-Here we have collected best practices how to install Plone in various situations.
+Here we have collected best practices on how to install Plone in various situations.
 
 .. note::
 
-  These instructions do not cover all possibilities, 
-  and may not cover all use cases. 
-  Please feel free to edit this document to add more.
+   These instructions do not cover all possibilities, 
+   and may not cover all use cases. 
+   Please feel free to edit this document to add more.
 
 How to host Plone
 ========================================================
 
-* You need at a least virtual private server with 512 MB RAM. 
+* You need at a least a virtual private server with 512 MB RAM. 
   Shared hosting is a no go.
   See the reference on 
   `Plone system requirements <http://plone.org/documentation/kb/plone-system-requirements>`_.
@@ -46,12 +46,12 @@ How to host Plone
   Other operating system production installations are possible, but rarer.
 
 
-How to install Plone for testing or developmenet
+How to install Plone for testing or development
 ========================================================
 
 Plone development can be done on any modern desktop operating system.
 The recommended Plone development method is to develop on your local computer
-and then push changes to the server as Plone add-on.
+and then push changes to the server as a Plone add-on.
 
 * You install Plone on the server for production.
 * You install Plone locally for the development.
@@ -91,6 +91,10 @@ first.
 
 For further info see also `Plone manual for installing on UNIX <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/>`_.
 
+For information on using this installation with more advanced production
+hosting environments and deployments, 
+see the :doc:`hosting guide </hosting/index>`.
+
 Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
 1. Create new UNIX user called ``plone``. This user will be the user who has the rights to Plone code and database files and will run Plone processes. You can use any normal UNIX user here as long as you have sudo rights to install necessary software to install and run Plone:
@@ -99,16 +103,10 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
         # adduser plone
 
-For information on using this installation with more advanced production
-hosting environments and deployments, 
-see the :doc:`hosting guide </hosting/index>`.
-
-Instructions tested for Ubuntu 10.04 Long Term Support release.
-
-.. note::
-
-   It is not recommended to run or install Plone as the root user.
-   There is nothing in Plone requiring root privileges.
+   .. note::
+    
+      It is not recommended to run or install Plone as the root user.
+      There is nothing in Plone requiring root privileges.
 
 2. Install operating system software needed to run Plone:
 
@@ -116,14 +114,21 @@ Instructions tested for Ubuntu 10.04 Long Term Support release.
 
         sudo apt-get install python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
-.. note ::
+   You will probably also want these optional system packages (see `Plone manual
+   <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
+ 
+   .. code-block:: console
 
-    If sudo command is not recognized or does not work you don't have administrator rights to 
-    Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
-    system support forum.
+        sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils
+
+   .. note::
+
+      If sudo command is not recognized or does not work you don't have administrator rights to 
+      Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
+      system support forum.
 
 3. Log-in as plone user under which the installed software will run. Note that you need to rerun this command later
-if you want to adjust Plone settings or run start or stop commands for Plone:
+   if you want to adjust Plone settings or run start or stop commands for Plone:
 
    .. code-block:: console
 
@@ -163,10 +168,10 @@ if you want to adjust Plone settings or run start or stop commands for Plone:
         cd ~/Plone/
         bin/instance fg
 
-When you start Plone in the foreground, it runs in debug mode: 
-somewhat slower and a lot more informative than production mode.
-
-By default, Plone will listen to port 8080 on available network interfaces.
+   When you start Plone in the foreground, it runs in debug mode: 
+   somewhat slower and a lot more informative than production mode.
+    
+   By default, Plone will listen to port 8080 on available network interfaces.
 
 7. Now enter the Plone site by visiting the following address in your webbrowser::
 
@@ -185,10 +190,10 @@ By default, Plone will listen to port 8080 on available network interfaces.
   
         bin/instance start
   
-If you have problems, please see the `help guidelines <http://plone.org/help>`_.
-
-For automatic start-up when your server boots up, init scripts, etc.
-please see the :doc:`hosting guide </hosting/index>`. 
+   If you have problems, please see the `help guidelines <http://plone.org/help>`_.
+    
+   For automatic start-up when your server boots up, init scripts, etc.
+   please see the :doc:`hosting guide </hosting/index>`. 
 
 Installing Plone using buildout on Ubuntu / Debian
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

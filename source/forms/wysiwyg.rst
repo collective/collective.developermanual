@@ -55,8 +55,8 @@ Text format selector
 The format selector itself is rendered by ``wysiwyg_support.pt`` macros
 which is Plone core
 
-* https://svn.plone.org/svn/plone/Products.CMFPlone/trunk/Products/CMFPlone/skins/plone_wysiwyg/wysiwyg_support.pt
- 
+* https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_wysiwyg/wysiwyg_support.pt
+
 Applying styles only edit view
 --------------------------------
 

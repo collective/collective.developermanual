@@ -16,7 +16,7 @@ Plone sitemap
 
 Plone supports basic sitemap out of the box.
 
-* https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/sitemap/sitemap.py
+* https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/sitemap/sitemap.py
 
 Customized sitemap
 -------------------

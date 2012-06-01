@@ -560,6 +560,39 @@ You need to add
 
 * New properties to Folder.xml or Topic.xml so that view becomes available
 
+Preventing folder listing
+-------------------------------------
+
+If the users can access the content items they can usually also list them.
+
+Here is a no-warranty hack how to prevent folder_listing in the case if needed.
+
+.. code-block:: python
+
+	from zope.interface import Interface
+	from zope.component import adapter
+	from ZPublisher.interfaces import IPubEvent,IPubAfterTraversal
+	from Products.CMFCore.utils import getToolByName
+	from AccessControl import getSecurityManager
+	from AccessControl.unauthorized import Unauthorized
+	from zope.app.component.hooks import getSite
+	
+	@adapter(IPubAfterTraversal)
+	def Protector(event):
+	    """ Protect anonymous users from access to folder_listing etc. """
+	
+	    site = getSite()
+	    if not site:
+	        return
+	    ms = getToolByName(site, 'portal_membership')
+	    member = ms.getAuthenticatedMember()
+	    if not member.getUserName() == 'Anonymous User':
+	        return
+	
+	    URL = event.request.URL
+	    if '/folder_' in URL:
+	        raise Unauthorized('unable to access folder listing')
+
 Complex folder listings and filtering
 --------------------------------------
 

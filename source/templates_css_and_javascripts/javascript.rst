@@ -141,7 +141,7 @@ The following options are available
 * *insert-before* and *insert-after* control the position of the Javascript file
   in relation to other served Javascript files
 
-`Full description in the source code <https://svn.plone.org/svn/plone/ResourceRegistries/trunk/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
+`Full description in the source code <https://github.com/plone/Products.ResourceRegistries/tree/master/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
 
 Bundles
 =======
@@ -372,6 +372,9 @@ We create special conditions using :doc:`Grok </components/grok>` views.
 Passing dynamic settings to Javascripts
 ------------------------------------------
 
+Passing settings on every page
+================================
+
 Here is described a way to pass data from site or context object to a Javascripts easily.
 For each page, we create a ``<script>`` section which will include all the options
 filled in by Python code.
@@ -455,7 +458,68 @@ viewlet.py::
                 html = TEMPLATE % { "name" : "youroptions", "json" : json_snippet }
              
                 return html
-                            
+
+
+Passing settings on one page only
+==================================
+
+Here is an example like above, but is
+
+* Specific to one view and this view provides the JSON code to populate the settings
+
+* Settings are included using METAL slots instead of viewlets
+
+.. code-block:: html
+
+     <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          metal:use-macro="context/main_template/macros/master">
+
+
+        <metal:block fill-slot="javascript_head_slot">
+            <script tal:replace="structure view/getSetupJavascript" />
+        </metal:block>
+
+.. code-block:: python
+
+    class TranslatorMaster(grok.View):
+        """ 
+        Translate content to multiple languages on a single view.
+        """
+
+        def getJavascriptContextVars(self):
+            """
+            @return: Python dictionary of settings
+            """
+
+            state = getMultiAdapter((self.context, self.request), name="plone_portal_state")
+
+
+            # Create youroptions Javascript object and populate in these variables
+            return {
+                # Javascript AJAX will call this view to populate the listing
+                "jsonContentLister" : "%s/%s" % (state.portal_url(), getattr(JSONContentListing, "grokcore.component.directive.name"))
+            }
+
+
+        def getSetupJavascript(self):
+            """
+            Set some global helpers
+
+            Generate Javascript code to set ``windows.silvupleOptions`` object from ``getJavascriptContextVars()``
+            method output.
+            """
+            settings = self.getJavascriptContextVars()
+            json_snippet = json.dumps(settings)
+
+            # Use Python string template facility to produce the code
+            html = SETTINGS_TEMPLATE % { "name" : "silvupleOptions", "json" : json_snippet }
+
+            return html        
+
+
 
 Useful out of the box Javascripts
 ----------------------------------

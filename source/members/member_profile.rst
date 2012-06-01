@@ -36,7 +36,7 @@ Getting member profile properties
 
 Member profile properties (title, address, biography, etc.) are stored in portal_membership tool.
 
-Available fields can be found in ZMI -> portal_membership -> Properties     .
+Available fields can be found in ZMI -> portal_membership -> Properties tab.
 
 The script below is a simple example of how to list all member email addresses::
 
@@ -58,7 +58,7 @@ Accessing member data
 Furher reading
 ==============
 
-* `ToolbarViewlet has some sample code <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py>`_ 
+* `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_ 
    how to retrieve these properties.
 
 

@@ -7,24 +7,25 @@ Cache decorators
     How to use the Python decorator pattern to cache the result values of
     your computationally expensive method calls.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 ============
 
 Cache decorators are convenient methods caching of function return values.
 
-They work like this::
+Use them like this::
 
-   @cache_this_function
-   def my_slow_function():
+    @cache_this_function
+    def my_slow_function():
         # This is run only once and all subsequent calls get value from the cache
         return  
 
-.. warning ::
+.. warning::
 
-    Cache decorators do not work with methods or functions using generators
-    (``yield``). The cache stores empty value.
+    Cache decorators do not work with methods or functions that use
+    generators (``yield``).
+    The cache will end up storing an empty value.
 
 The `plone.memoize <http://pypi.python.org/pypi/plone.memoize>`_ package
 offers helpful function decorators to cache return values.
@@ -61,17 +62,16 @@ Caching per request
 ===================
 
 This pattern shows how to avoid recalculating the same value repeatedly
-during the lifecycle of an HTTP request object.
+during the lifecycle of an HTTP request.
 
 Caching on BrowserViews
 ------------------------
 
 This is useful if the same view/utility is going to be called many times
-from different places for the same HTTP request.
+from different places during the same HTTP request.
 
-The `plone.memoize.view <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/view.txt>`_
-package provides necessary decorators for BrowserView based classes.
-
+The `plone.memoize.view <https://github.com/plone/plone.memoize/tree/master/plone/memoize/view.txt>`_
+package provides necessary decorators for ``BrowserView``-based classes.
 
 .. code-block:: python
 
@@ -82,14 +82,14 @@ package provides necessary decorators for BrowserView based classes.
         @memoize
         def getValue():
             """ This value is recalculated for every new BrowserView context
-                per request 
+                per request.
             """
             return "something"
 
         @memoize_contextless
         def getValueNoContext():
             """ This value is recalculated for all context objects once per
-                request
+                request.
             """
             return "something"
 
@@ -106,10 +106,9 @@ Example::
         """ Same as above, but does not run through JSON reader every time.
         """
 
-        # Manually store the result on HTTP request
-        # object annotations 
+        # Manually store the result on HTTP request object annotations 
 
-        # Use function name + Archetypes unique identified as the key
+        # Use informative string + Archetypes unique identified as the key
         key = "parsed-ora-data-" + self.UID()
 
         cache = IAnnotations(self.REQUEST)
@@ -120,11 +119,47 @@ Example::
 
         return data
 
+Caching using global HTTP request
+----------------------------------
+
+This example uses the 
+`five.globalrequest package <http://pypi.python.org/pypi/five.globalrequest>`_ 
+for caching. Values are stored on the thread-local ``HTTPRequest`` object
+which lasts for the transaction lifecycle::
+
+    from zope.globalrequest import getRequest
+    from zope.annotation.interfaces import IAnnotations
+
+        def _getProductList(self, type, language):
+            """ Private implementation, builds list of products.
+            """
+
+            logger.info("Getting product list %s %s" % (type, language))
+            ...
+            return result
+
+
+        def getProductListCached(self, type, language):
+            """ Public cached method, delegates to _getProductList.
+            """
+
+            request = getRequest()
+
+            key = "cache-%s-%s" % (type, language)
+
+            cache = IAnnotations(request)
+            data = cache.get(key, None)
+            if not data:
+                data = self._getProductList(type, language)
+                cache[key] = data
+
+            return data
+
 
 Other resources
 ===============
 
-* `plone.memoize source code <https://svn.plone.org/svn/plone/plone.memoize/trunk/plone/memoize/>`_
+* `plone.memoize source code <https://github.com/plone/plone.memoize/tree/master/plone/memoize/>`_
 
 * `zope.app.cache source code <http://svn.zope.org/zope.app.cache/trunk/src/zope/app/cache/>`_
 

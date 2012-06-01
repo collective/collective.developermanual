@@ -16,9 +16,9 @@ Introduction
 
 * http://encolpe.wordpress.com/2010/02/08/add-a-new-role-in-the-sharing-tab-for-plone-3/
 
-* `Sharing tab source code <http://svn.plone.org/svn/plone/plone.app.workflow/trunk/plone/app/workflow/browser/sharing.py>`_
+* `Sharing tab source code <https://github.com/plone/plone.app.workflow/tree/master/plone/app/workflow/browser/sharing.py>`_
 
-* `Default sharing tab role translations <http://svn.plone.org/svn/plone/plone.app.workflow/trunk/plone/app/workflow/configure.zcml>`_
+* `Default sharing tab role translations <https://github.com/plone/plone.app.workflow/tree/master/plone/app/workflow/configure.zcml>`_
 
 Setting sharing rights programmatically
 ----------------------------------------

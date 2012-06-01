@@ -23,7 +23,7 @@ The ``reference_catalog`` is a catalog just like the
 :doc:`portal_catalog </searching_and_indexing/catalog>` |---| it just uses
 different indexes and metadata.
 
-The ``reference_catalog`` is defined in `ReferenceEngine.py <http://svn.plone.org/svn/archetypes/Products.Archetypes/trunk/Products/Archetypes/ReferenceEngine.py>`_.
+The ``reference_catalog`` is defined in `ReferenceEngine.py <https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/ReferenceEngine.py>`_.
 
 Using references
 =================

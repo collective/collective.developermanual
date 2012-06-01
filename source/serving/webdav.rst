@@ -57,7 +57,7 @@ Supporting WebDAV in your custom content
 ========================================
 
 Please read more about it in the 
-`Dexterity WebDAV manual <http://svn.plone.org/svn/plone/plone.dexterity/trunk/docs/WebDAV.txt>`_.
+`Dexterity WebDAV manual <https://github.com/plone/plone.dexterity/tree/master/docs/WebDAV.txt>`_.
 
 WebDAV notes
 ==============

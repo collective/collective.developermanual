@@ -28,12 +28,12 @@ Extracting credentials
 Extracting credentials try to extract log-in (username, password) from HTTP request.
 
 Below is an example how to extract and authenticate the user manually. 
-It is mostly sui    le for unit testing.
+It is mostly suitable for unit testing.
 Note that given login field isn't necessarily the username. For example,
 `betahaus.emaillogin <http://pypi.python.org/pypi/betahaus.emaillogin>`_ add-on authenticates users by their email addresses.
 
 Credential extraction will go through all plug-ins registered for 
-`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_ system.
+`PlonePAS <https://github.com/plone/Products.PlonePAS/tree/master/README.txt>`_ system.
 
 The first found login/password pair attempt will be used for user authentication.  
 
@@ -89,7 +89,7 @@ will go through all authentication plug-ins and return the first succesful
 authenticated users.
 
 Read more in 
-`PlonePAS <http://svn.plone.org/svn/collective/Products.PlonePAS/branches/3.x/README.txt>`_.
+`PlonePAS <https://github.com/plone/Products.PlonePAS/tree/master/README.txt>`_.
 
 Unit test example::
 
@@ -216,7 +216,7 @@ but installing LDAP sets it to RAM cache.
 
 More info
 
-* http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py
+* https://github.com/plone/plone.app.ldap/tree/master/plone/app/ldap/ploneldap/util.py
 
 PAS cache settings
 =====================
@@ -251,7 +251,7 @@ Here is a short view snippet to set PAS cache state::
             
             More info
             
-            * http://svn.plone.org/svn/plone/plone.app.ldap/trunk/plone/app/ldap/ploneldap/util.py 
+            * https://github.com/plone/plone.app.ldap/tree/master/plone/app/ldap/ploneldap/util.py
             
             """
             

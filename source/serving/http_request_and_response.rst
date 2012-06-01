@@ -309,6 +309,31 @@ and you want to identify them easily::
 
     This port number is not the one visible to the external traffic (port 80, HTTP)
 
+Published object
+--------------------
+
+``request["PUBLISHED"]`` points to a view, method or template which was the last item in the 
+traversing chain to be called to render the actual page.
+
+To extract the relevant content item from this information you can do e.g. in the after publication hook::
+
+    def find_context(request):
+        """Find the context from the request
+
+        http://stackoverflow.com/questions/10489544/getting-published-content-item-out-of-requestpublished-in-plone
+        """
+        published = request.get('PUBLISHED', None)
+        context = getattr(published, '__parent__', None)
+        if context is None:
+            context = request.PARENTS[0]
+        return context
+
+* You might also want to filter out CSS etc. requests
+
+* Please note that ``request[PUBLISHED]`` is set after language negotiation and authentication
+
+* `More complete example <https://github.com/miohtama/silvuple/blob/master/silvuple/negotiator.py>`_
+
 Flat access
 -----------
 

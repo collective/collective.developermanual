@@ -5,7 +5,7 @@ Deleting
 .. admonition:: Description
 
         Deleting content items in Plone programmatically.
-        How link integrity checks works and how to avoid it.
+        How link integrity checks work and how to avoid them.
 
 .. contents :: :local:
 
@@ -53,7 +53,7 @@ Example how to check for this permission::
         else:
             pass
 
-Bypassing permissios
+Bypassing permissions
 =========================
 
 This is handy if you work e.g. in a :doc:`debug shell </misc/commandline>`
@@ -92,8 +92,8 @@ delete objects which themselves are link targets or their children
 are link targets.
 
 Instead, a LinkIntegrityException is raised. The LinkIntegrityException
-constains information about objects referring to the content
-which is not allowed to delete.
+contains information about objects referring to the content which could not
+be deleted.
 
 ``plone.app.linkintegrity.browser.remote`` module contains
 code which allows you to delete the object in any case. 
@@ -102,12 +102,12 @@ to contain a marker interface allowing delete to happen
 and then replays the transaction.
 
 In the case the link integrity check fails for manage_delObjects(),
-you will be shown a confirmation dialog. The orignal request payload
-gots pickled and is stored in HTML form as an encoded.
+you will be shown a confirmation dialog. The original request payload
+gets pickled and is stored encoded in the HTML form.
 
-When the user presses confirm, the orignal request gets unpickled
+When the user presses confirm, the original request gets unpickled
 from HTTP POST payload. Then the view modifies Zope publisher 
-so that it will play the orignal unpickled HTTP POST with the marker interface
+so that it will play the original unpickled HTTP POST with the marker interface
 "Do not care about link integrity breaches" turned on.
 
 Here is an sample batch delete code which tries to work around the link integrity check::
@@ -201,8 +201,8 @@ This ZMI script allows you to find content items of certain type and delete if t
         return buf.getvalue()
         
 Below is an advanced version for old item date based deletion code
-which issuitable for huge sites.
-This snippet is from ``Products.feedfeeder`` package.
+which is suitable for huge sites.
+This snippet is from the ``Products.feedfeeder`` package.
 It will look for Feedfeeder items (automatically generated from RSS) which 
 are older than X days and delete them.
 

@@ -310,7 +310,7 @@ See
 
 * http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto
 
-* http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/viewlets/common.py
+* https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py
 
 
 Creating a viewlet using Python code and ZCML 

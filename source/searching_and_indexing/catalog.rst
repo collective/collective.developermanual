@@ -138,9 +138,9 @@ Sometimes is usefull to uncatalog object.
 code ::
 
     ### uncatalog object name id
-    >>> brs = catalog(getId=id)
-    >>> for br in brs:
-    ...     catalog.uncatalog_object(br.getPath())
+    >>> brains = catalog(getId=id)
+    >>> for brain in brains:
+    ...     catalog.uncatalog_object(brain.getPath())
 
 
 Rebuilding a catalog

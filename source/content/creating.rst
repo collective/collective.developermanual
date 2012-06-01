@@ -251,7 +251,7 @@ option.
 
 Type contraining is managed by the ``ATContentTypes`` product:
 
-* http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/lib/constraintypes.py
+* https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/lib/constraintypes.py
 
 
 Example::

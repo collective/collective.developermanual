@@ -25,7 +25,7 @@ so they should access the information quite effectively.
 
 To see what's available through the interface,
 read the documentation in the 
-`plone.app.layout.globals.interfaces <http://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
+`plone.app.layout.globals.interfaces <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/interfaces.py>`_
 module.
 
 Example showing how to get the portal root URL::
@@ -48,19 +48,18 @@ Example showing how to get the portal root URL::
 
 Example showing how to get the current language::
 
-    from Acquisition import aq_inner
     from zope.component import getMultiAdapter
 
     ...
 
-    context = aq_inner(self.context)
-    portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-
+    portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
     current_language = portal_state.language()
 
-Example showing how to expose ``portal_state`` to a template:
+Example showing how to expose ``portal_state`` helper to a template:
 
-1. ZCML includes ``portal_state`` in ``allowed_attributes``::
+1. ZCML includes ``portal_state`` in ``allowed_attributes``
+
+.. code-block:: xml
 
     <browser:page
         for="*"
@@ -77,7 +76,6 @@ A Python class exposes the variable::
 
     class MyView(BrowserView):
 
-        @property
         def portal_state(self):
             context = aq_inner(self.context)
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
@@ -141,7 +139,7 @@ information or configuration here. Tools include e.g.:
 ITools interface
 ----------------
 
-`plone.app.layout.globals.interfaces.ITools interface <https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/interfaces.py>`_
+`plone.app.layout.globals.interfaces.ITools interface <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/interfaces.py>`_
 and Tools BrowserView provide cached access for the most commonly
 needed tools.
 

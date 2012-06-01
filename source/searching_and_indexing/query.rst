@@ -575,7 +575,52 @@ any of given dates::
 Querying by interface
 =====================
 
-See `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.
+Suppose you have several content types (for example, event types like
+'Birthday','Wedding','Graduation') in your portal which implement the same
+interface (for example, `IIsCauseForCelebration`). Suppose you want to get
+items of these types from the catalog by their interface. This is more exact
+than naming the types explicitly (like `portal_type=['Birthday', 'Wedding',
+'Graduation' ]`), because you don't really care what the types' names really
+are: all you really care for is the interface.
+
+This has the additional advantage that if products added or modified later add
+types which implement the interface, these new types will also show up in your
+query.
+
+Import the interface::
+
+    from Products.MyProduct.interfaces import IIsCauseForCelebration
+    catalog(object_provides=IIsCauseForCelebration.__identifier__)
+
+In a script, where you can't import the interface due to restricted Python, 
+you might do this::
+
+    object_provides='Products.MyProduct.interfaces.IIsCauseForCelebration'
+
+The advantage of using `.__identifier__` instead instead of a dotted
+name-string is that you will get errors at startup time if the interface cannot
+be found. This will catch typos and missing imports.
+
+Caveats
+-------
+
+* `object_provides` is a KeywordIndex which indexes absolute
+  Python class names. A string matching is performed for the dotted name. Thus,
+  you will have zero results for this::
+
+      catalog(object_provides="Products.ATContentTypes.interface.IATDocument")
+
+  , because Products.ATContentTypes.interface imports everything from
+  `document.py`. But this will work::
+
+      catalog(object_provides="Products.ATContentTypes.interface.document.IATDocument")
+      # products.atcontenttypes.document.iatdocument declares the interfacea
+
+* As with all catalog queries, if you pass an empty value for search parameter,
+  it will return all results. so if the interface you defined would yield a none
+  type object, the search would return all values of object_provides.
+
+(Originally from `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.)
 
 .. note ::
 
@@ -667,8 +712,7 @@ Example::
                                             DateTime('2062-05-08 15:16:17')),
                                    'range': 'min:max'})
 
-Example 2::
-
+Example 2 - how to get items one day old of FeedFeederItem content type::
         
         # DateTime deltas are days as floating points
         end = DateTime.DateTime() + 0.1 # If we have some clock skew peek a little to the future
@@ -684,7 +728,9 @@ Example 2::
                                              "review_state":"published"})
         
 
-Another example how to get news items for a particular year in the template code::
+Example 3: how to get news items for a particular year in the template code
+
+.. code-block:: html
 
     <div metal:fill-slot="main" id="content-news"
      tal:define="boundLanguages here/portal_languages/getLanguageBindings;
@@ -712,7 +758,31 @@ Another example how to get news items for a particular year in the template code
                  localized_time python: modules['Products.CMFPlone.PloneUtilities'].localized_time;">
         ...
     </div>
+
+Example 4 - how to get upcoming events of next two months::
+
+    def formatDate(self, event):
+        """
+        """
+        dt = event["start"]
+        return  dt.strftime("%d.%m.%Y")
     
+    def update(self):
+        portal_catalog = self.context.portal_catalog
+
+        start = DateTime.DateTime() - 1  # yesterday
+        end = DateTime.DateTime() + 60   # Two months future
+        date_range_query = {'query': (start, end), 'range': 'min:max'}
+
+        count = 5
+
+        self.events = portal_catalog.queryCatalog({"portal_type": "Event",
+                                     "start": date_range_query,
+                                     "sort_on": "start",
+                                     "sort_order": "reverse",
+                                     "sort_limit": count,
+                                     "review_state": "published"})
+
 More info 
 
 * http://www.ifpeople.net/fairsource/courses/material/apiPlone_en
@@ -928,7 +998,7 @@ Other notes
 
 .. _AdvancedQuery: http://www.dieter.handshake.de/pyprojects/zope/AdvancedQuery.html
 
-.. _ExtendedPathIndex: https://svn.plone.org/svn/plone/Products.ExtendedPathIndex/trunk/README.txt
+.. _ExtendedPathIndex: https://github.com/plone/Products.ExtendedPathIndex/tree/master/README.txt
 
 .. _PluginxIndexes: http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/
 

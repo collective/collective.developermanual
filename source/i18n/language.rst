@@ -11,7 +11,7 @@ Language functions
 Introduction
 ============
 
-Each session has a language associated with it.
+Each page view a has a language associated with it.
 
 The active language is negotiated by the ``plone.i18n.negotiator`` module.
 Several factors may involve determining what the language should be:
@@ -25,6 +25,8 @@ Several factors may involve determining what the language should be:
 * Browser language headers
 
 Language is negotiated at the beginning of the page view.
+
+Languages are managed by `portal_languagetool <https://github.com/plone/Products.PloneLanguageTool/blob/master/Products/PloneLanguageTool/LanguageTool.py>`_.
 
 Getting the current language
 ============================
@@ -74,10 +76,64 @@ Example BrowserView method::
 
         return aq_inner(self.context).Language() or portal_state.default_language()
 
+Getting available site languages
+===================================
+
+Example below::
+
+    # Python 2.6 compatible ordered dict
+    # NOTE: API is not 1:1, but for normal dict access of
+    # set member, iterate keys and values this is enough
+    try:
+        from collections import OrderedDict
+    except ImportError:    
+        from odict import odict as OrderedDict
+
+    def getLanguages(self):
+        """
+        Return list of active langauges as ordered dictionary, the preferred first language as the first.
+
+        Example output::
+
+             {
+                u'fi': {u'id' : u'fi', u'flag': u'/++resource++country-flags/fi.gif', u'name': u'Finnish', u'native': u'Suomi'}, 
+                u'de': {u'id' : u'de', u'flag': u'/++resource++country-flags/de.gif', u'name': u'German', u'native': u'Deutsch'}, 
+                u'en': {u'id' : u'en', u'flag': u'/++resource++country-flags/gb.gif', u'name': u'English', u'native': u'English'}, 
+                u'ru': {u'id' : u'ru', u'flag': u'/++resource++country-flags/ru.gif', u'name': u'Russian', u'native': u'\u0420\u0443\u0441\u0441\u043a\u0438\u0439'}
+              }
+        """
+        result = OrderedDict()
+
+        portal_languages = self.context.portal_languages
+        
+        # Get barebone language listing from portal_languages tool
+        langs = portal_languages.getAvailableLanguages()
+
+        preferred = portal_languages.getPreferredLanguage()
+
+        # Preferred first
+        for lang, data in langs.items():
+            if lang == preferred:
+                result[lang] = data
+
+        # Then other languages
+        for lang, data in langs.items():
+            if lang != preferred:
+                result[lang] = data
+
+        # For the convenience, export language ISO code also inside data,
+        # so it easier to iterate data in the templates
+        for lang, data in result.items():
+            data["id"] = lang
+
+        return result
+
 Simple language conditions in page templates
 ===============================================
 
-You can do this if full translation strings are not worth the trouble::
+You can do this if full translation strings are not worth the trouble:
+
+.. code-block:: xml
 
    <div class="main-text">
      <a tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'fi'" href="http://www.saariselka.fi/sisalto?force-web">Siirry täydelle web-sivustolle</a>
@@ -152,11 +208,11 @@ Multilingual Plone has two kinds of language selector viewlets:
 
 More information
 
-* https://svn.plone.org/svn/plone/plone.app.i18n/trunk/plone/app/i18n/locales/browser/selector.py
+* https://github.com/plone/plone.app.i18n/tree/master/plone/app/i18n/locales/browser/selector.py
 
-* https://svn.plone.org/svn/plone/plone.app.i18n/trunk/plone/app/i18n/locales/browser/languageselector.pt
+* https://github.com/plone/plone.app.i18n/tree/master/plone/app/i18n/locales/browser/languageselector.pt
 
-* http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/browser/selector.py
+* https://github.com/plone/Products.LinguaPlone/tree/master/Products/LinguaPlone/browser/selector.py
 
 Making language flags point to different top level domains
 ----------------------------------------------------------
@@ -364,10 +420,6 @@ Example event registration
 
 Related event handler::
 
-    ################################################################
-    # weishaupt.policy
-    # (C) 2012, ZOPYX Ltd.
-    ################################################################
     
     from zope.interface import Interface
     from zope.component import adapter
@@ -392,9 +444,11 @@ Related event handler::
         if language:
             # Fake new language for all authenticated users
             event.request['LANGUAGE'] = language
+            event.request.LANGUAGE_TOOL.LANGUAGE = language
         else:
             lt = getToolByName(site, 'portal_languages')
             event.request['LANGUAGE'] = lt.getDefaultLanguage()
+            event.request.LANGUAGE_TOOL.LANGUAGE = lt.getDefaultLanguage()
 
 Other
 =====

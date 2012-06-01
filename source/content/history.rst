@@ -85,7 +85,7 @@ Below are some notes how to enable it.
       
 * If you have customized the edit process of your content type, 
   make sure that your edit action traverses to update_version_before_edit.cpt. For hints how to do this,
-  see portal_form_controller actions     . Example::
+  see portal_form_controller actions tab. Example::
   
   
     ## Script (Python) "diagnose_content_edit"

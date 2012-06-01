@@ -429,7 +429,7 @@ Sometimes traversal can give you attributes which actually do not exist on
 the object, but are inherited from the parent objects in the persistent
 object graph. See :term:`acquisition`.
 
-Defaut content item
+Default content item
 ====================
 
 Default content item or view sets some challenges for the traversing, as the
@@ -448,6 +448,28 @@ for the default item) in page templates:
 More info:
 
 * See :doc:`plone_context_state helper </misc/context>`
+
+Checking if an item is the site front page
+--------------------------------------------
+
+Example code below::
+
+    from zope.component import getMultiAdapter
+    from plone.app.layout.navigation.interfaces import INavigationRoot
+
+    def isFrontPage(self):
+        """
+        Check if the viewlet is on a front page.
+
+        Handle canonical paths correctly.
+        """
+        # Get path with "Default content item" wrapping applied
+        context_helper = getMultiAdapter((self.context, self.request), name="plone_context_state")
+        canonical = context_helper.canonical_object()
+
+        path = canonical.absolute_url_path()
+
+        return INavigationRoot.providedBy(canonical)    
 
 Custom traversal
 =================

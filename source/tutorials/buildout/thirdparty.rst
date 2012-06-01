@@ -67,7 +67,7 @@ example, to get the *plone.portlets* trunk development, egg do:
 ::
 
     $ cd src
-    $ svn co https://svn.plone.org/svn/plone/plone.portlets/trunk plone.portlets
+    $ git clone git://github.com/plone/plone.portlets.git
 
 Then, add the following to *buildout.cfg*:
 

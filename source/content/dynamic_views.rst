@@ -253,9 +253,9 @@ attribute of the folder to be the id of the default page:
 
 More information can be found in
 
-* https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/globals/context.py
+* https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/context.py
 
-* https://svn.plone.org/svn/plone/plone.app.layout/trunk/plone/app/layout/navigation/defaultpage.py
+* https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/navigation/defaultpage.py
 
 Setting a view using marker interfaces
 --------------------------------------

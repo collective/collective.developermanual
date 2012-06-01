@@ -80,47 +80,47 @@ Theme layers can be created with the following steps
 
 1. Subclass an interface from IDefaultPloneLayer
 
-.. code-block:: python
-
-    from plone.theme.interfaces import IDefaultPloneLayer
-
-    class IThemeSpecific(IDefaultPloneLayer):
-        """Marker interface that defines a Zope 3 skin layer bound to a Skin
-           Selection in portal_skins.
-           If you need to register a viewlet only for the "YourSkin"
-           skin, this is the interface that must be used for the layer attribute
-           in YourSkin/browser/configure.zcml.
-        """
+   .. code-block:: python
+    
+       from plone.theme.interfaces import IDefaultPloneLayer
+    
+       class IThemeSpecific(IDefaultPloneLayer):
+           """Marker interface that defines a Zope 3 skin layer bound to a Skin
+              Selection in portal_skins.
+              If you need to register a viewlet only for the "YourSkin"
+              skin, this is the interface that must be used for the layer attribute
+              in YourSkin/browser/configure.zcml.
+           """
 
 2. Register in in ZCML. Name must match the theme name.
 
-.. code-block:: xml
-
-    <interface
-        interface=".interfaces.IThemeSpecific"
-        type="zope.publisher.interfaces.browser.IBrowserSkinType"
-        name="SitsSkin"
-        />
+   .. code-block:: xml
+    
+       <interface
+           interface=".interfaces.IThemeSpecific"
+           type="zope.publisher.interfaces.browser.IBrowserSkinType"
+           name="SitsSkin"
+           />
 
 3. Declare your theme in profiles/default/skins.xml. Example.
 
-.. code-block:: xml
-
-    <skin-path name="SitsSkin" based-on="Plone Default">
-      <layer name="plone_skins_style_folder_name"
-         insert-before="*"/>
-    </skin-path>
+   .. code-block:: xml
+    
+       <skin-path name="SitsSkin" based-on="Plone Default">
+         <layer name="plone_skins_style_folder_name"
+            insert-before="*"/>
+       </skin-path>
 
 4. Create profiles/default/browserlayer.xml.
 
-.. code-block:: xml
-
-   <layers>
-    <layer
-        name="myproduct"
-        interface="Products.myproduct.interfaces.IThemeSpecific"
-        />
-   </layers>
+   .. code-block:: xml
+    
+      <layers>
+       <layer
+           name="myproduct"
+           interface="Products.myproduct.interfaces.IThemeSpecific"
+           />
+      </layers>
 
 Add-on layer
 =============
@@ -176,7 +176,7 @@ More information
 
 * http://pypi.python.org/pypi/plone.browserlayer
 
-* See example in `LinguaPlone <http://svn.plone.org/svn/plone/Products.LinguaPlone/tags/2.4/Products/LinguaPlone/profiles/default/browserlayer.xml>`_.
+* See example in `LinguaPlone <https://github.com/plone/Products.LinguaPlone/tree/master/Products/LinguaPlone/profiles/default/browserlayer.xml>`_.
 
 Using layers (for customization)
 ================================

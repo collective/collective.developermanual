@@ -74,11 +74,10 @@ Grok static media folder
 Learn more about :doc:`Grok and Plone integration </components/grok>`.
 
 The easiest way to manage static resources is to make use of the static resource directory feature in five.grok.
-Simply add a directory called static in the package and make sure that the <grok:grok package="." />
+Simply add a directory called static in the package and make sure that the ``<grok:grok package="." />``
 line appears in configure.zcml.
 
-Example how to include yourproduct.app/static folder as ++resource++yourproduct.app
-URL.
+Example how to include ``yourproduct.app/static`` folder as ``++resource++yourproduct.app`` URL.
 
 .. code-block:: xml
 
@@ -90,6 +89,6 @@ URL.
            
         </configure>
         
-If a static resource directory in the example.conference package contains a file called conference.css,
-it will be accessible on a URL like http://<server>/site/++resource++example.conference/conference.css.
+If a ``static`` resource directory in the ``example.conference`` package contains a file called ``conference.css``,
+it will be accessible on a URL like ``http://<server>/site/++resource++example.conference/conference.css``.
 The resource name is the same as the package name wherein the static directory appears.

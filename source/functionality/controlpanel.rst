@@ -17,27 +17,17 @@ Plone site setup control panel.
 
 Configlets can be created 
 
-* manualy (you write form by hand)
+* Using ``plone.app.registry`` configuration framework for Plone (recommended)
 
-* using ``plone.registry`` configuration framework for Plone
+* Using any :doc:`view code </views/browserviews>`
 
-plone.registry
---------------
 
-Information
+plone.app.registry
+-------------------
 
-* http://dev.plone.org/plone/browser/plone.app.registry/trunk/README.txt
+``plone.app.registry`` is the state of the art way to add settings for your Plone 4.x+ add-ons.
 
-* http://pypi.python.org/pypi/plone.registry
-
-* http://pypi.python.org/pypi/plone.app.registry
-
-* http://plone.org/documentation/kb/create-different-restricted-areas-in-the-control-panel
-
-.. TODO::
-
-    Remove pointer to better trunk version README after
-    ``plone.app.registry`` is properly released.
+For tutorial and more information please see `PyPi page <http://pypi.python.org/pypi/plone.app.registry>`_.
 
 Example products 
 
@@ -47,12 +37,103 @@ Example products
 
 * http://pypi.python.org/pypi/collective.xdv
 
-Dependencies
-=============
+Minimal example using five.grok
+===================================
 
-Both ``plone.app.z3cform`` and ``plone.app.registry`` must have
-been quick installed at Plone site before you can use any 
-control panel configlets using plone.app.registry framework.
+Below is a minimal example for creating a configlet using
+
+* `grok </components/grok>`
+
+* ``plone.app.registry``
+
+It is based on `youraddon template <https://github.com/miohtama/sane_plone_addon_template/tree/master>`_.
+The add-on package in this case is called `silvuple <https://github.com/miohtama/silvuple>`_.
+
+In buildout.cfg make sure you have `Dexterity extends line
+<http://plone.org/products/dexterity/documentation/how-to/install>`_.
+
+``setup.py``::
+
+    install_requires = [..."plone.app.dexterity", "plone.app.registry"],
+
+``settings.py``::
+
+    """
+
+        Define add-on settings.
+
+    """
+
+    from zope.interface import Interface
+    from zope import schema
+    from five import grok
+    from Products.CMFCore.interfaces import ISiteRoot
+
+    from plone.z3cform import layout
+    from plone.directives import form
+    from plone.app.registry.browser.controlpanel import RegistryEditForm
+    from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+
+    class ISettings(form.Schema):
+        """ Define settings data structure """
+        
+        adminLanguage = schema.TextLine(title=u"Admin language", description=u"Type two letter language code and admins always use this language")
+
+    class SettingsEditForm(RegistryEditForm):
+        """
+        Define form logic
+        """
+        schema = ISettings
+        label = u"Silvuple settings"
+
+    class SettingsView(grok.CodeView):
+        """
+        View which wrap the settings form using ControlPanelFormWrapper to a HTML boilerplate frame.
+        """
+        grok.name("silvuple-settings")
+        grok.context(ISiteRoot)
+        def render(self):
+            view_factor = layout.wrap_form(SettingsEditForm, ControlPanelFormWrapper)
+            view = view_factor(self.context, self.request)
+            return view()
+
+``profiles/default/contropanel.xml``
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object
+        name="portal_controlpanel"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="silvuple">
+
+        <configlet
+            title="Silvuple Settings"
+            action_id="silvuple.settings"
+            appId="silvuple"
+            category="Products"
+            condition_expr=""
+            url_expr="string:${portal_url}/@@silvuple-settings"
+            icon_expr=""
+            visible="True"
+            i18n:attributes="title">
+                <permission>Manage portal</permission>
+        </configlet>
+
+    </object>
+
+``profiles/default/registry.xml``
+
+.. code-block:: xml
+
+    <registry>
+        <records interface="silvuple.settings.ISettings" prefix="silvuple">
+            <!-- Set default values -->
+
+            <!-- Leave to empty string -->
+            <value key="adminLanguage"></value>
+        </records>
+    </registry>
 
 Control panel widget settings
 ===================================
@@ -120,145 +201,77 @@ Here are the ingredients
 
 * Custom schema defined interface for settings (registry.xml schemas don't support multiple choice widgets in plone.app.registry 1.0b2)
 
-* :doc:`Vocabulary factory to pull type information out of portal_types </content/types>`
+* Vocabulary factory to pull friendly type information out of portal_types 
+    
+settings.py::
 
-* Configlet
+    """
 
-interfaces.py::
+        Define add-on settings.
 
-        from zope import schema
-        
-        from plone.directives import form
-        from z3c.form.browser.checkbox import CheckBoxFieldWidget
-        
-        class ISettings(form.Schema):
-            """ Define schema for settings of the add-on product """
-        
-        
-            form.widget(enabled_overrides=CheckBoxFieldWidget)
-            content_types = schema.List(title=u"Enabled content types",
-                                       description=u"On which content types Facebook Like-button should appear",
-                                       required=False, default=["Document"],
-                                       value_type=schema.Choice(source="mfabrik.like.content_types"),
-                                       )
+    """
 
-configure.zcml
+    from zope import schema
+    from five import grok
+    from Products.CMFCore.interfaces import ISiteRoot
+    from zope.schema.interfaces import IVocabularyFactory
+
+    from z3c.form.browser.checkbox import CheckBoxFieldWidget
+
+
+    from plone.z3cform import layout
+    from plone.directives import form
+    from plone.app.registry.browser.controlpanel import RegistryEditForm
+    from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+
+    class ISettings(form.Schema):
+        """ Define settings data structure """
+
+        adminLanguage = schema.TextLine(title=u"Admin language", description=u"Type two letter language code and admins always use this language")
+
+        form.widget(contentTypes=CheckBoxFieldWidget)
+        contentTypes = schema.List(title=u"Enabled content types",
+                                   description=u"Which content types appear on translation master page",
+                                   required=False, 
+                                   value_type=schema.Choice(source="plone.app.vocabularies.ReallyUserFriendlyTypes"),
+                                   )
+
+
+    class SettingsEditForm(RegistryEditForm):
+        """
+        Define form logic
+        """
+        schema = ISettings
+        label = u"Silvuple settings"
+
+    class SettingsView(grok.CodeView):
+        """
+
+        """
+        grok.name("silvuple-settings")
+        grok.context(ISiteRoot)
+        def render(self):
+            view_factor = layout.wrap_form(SettingsEditForm, ControlPanelFormWrapper)
+            view = view_factor(self.context, self.request)
+            return view()
+ 
+profiles/default/registry.xml:
 
 .. code-block:: xml
 
-  <!-- make sure that plone.app.registry is loaded -->
-  <includeDependencies package="." />
+    <registry>
+        <records interface="silvuple.settings.ISettings" prefix="silvuple.settings.ISettings">
+            <!-- Set default values -->
 
-  <utility
-      provides="zope.schema.interfaces.IVocabularyFactory"
-      component=".vocabularies.content_types_vocabulary"
-      name="mfabrik.like.content_types"
-      />
-      
-  <browser:page
-    name="like-controlpanel"
-    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    permission="cmf.ManagePortal"
-    class=".views.ControlPanelView"
-    />
-    
-views.py::
 
-        
-        try:
-            # plone.app.registry 1.0b1
-            from plone.app.registry.browser.form import RegistryEditForm
-            from plone.app.registry.browser.form import ControlPanelFormWrapper
-        except ImportError:
-            # plone.app.registry 1.0b2+
-            from plone.app.registry.browser.controlpanel import RegistryEditForm
-            from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
-            
-            
-        from mfabrik.like.interfaces import ISettings
-        from plone.z3cform import layout
-        
-        class ControlPanelForm(RegistryEditForm):
-            schema = ISettings
-        
-        ControlPanelView = layout.wrap_form(ControlPanelForm, ControlPanelFormWrapper)
+            <value key="contentTypes" purge="false">
+                <element>Document</element>
+                <element>News Item</element>
+                <element>Folder</element>
+            </value>
+        </records>
 
-profiles/default/registry.xml::
-
-        <registry>
-        
-            <records prefix="mfabrik.like" interface="mfabrik.like.interfaces.ISettings">
-                
-                <!-- Enable on normal pages by default --> 
-                <value key="content_types" purge="false">
-                       <element>Document</element>
-                </value>
-            </records>
-        
-        </registry>
-
-profiles/default/controlpanel.xml::
-
-        <?xml version="1.0"?>
-        <object
-            name="portal_controlpanel"
-            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-            i18n:domain="mfabrik.like">
-        
-            <configlet
-                title="Facbook Like-button settings"
-                action_id="mfbarik.like.settings"
-                appId="mfabrik.like"
-                category="Products"
-                condition_expr=""
-                url_expr="string:${portal_url}/@@like-controlpanel"
-                icon_expr="string:"
-                visible="True"
-                i18n:attributes="title">
-                    <permission>Manage portal</permission>
-            </configlet>
-        
-        </object>
-
-Then you can simply check whether a particular portal type is enabled
-in your settings::
-
-    
-    from zope.component import getUtility
-    from zope.component.interfaces import ComponentLookupError 
-    
-    from plone.registry.interfaces import IRegistry
-    from mfabrik.like.interfaces import ISettings
-    
-
-    def isEnabledOnContent(self):
-        """
-        @return: True if the current content type supports Like-button
-        """
-    
-
-    
-        try:
-
-            # Will raise an exception if plone.app.registry is not quick installed
-            registry = getUtility(IRegistry)
-            
-            # Will raise exception if your product add-on installer has not been run
-            settings = registry.forInterface(ISettings)
-        except (KeyError, ComponentLookupError), e:
-            # Registry schema and actual values do not match
-            # Quick installer has not been run or need to rerun 
-            # to update registry.xml values to database
-            # http://svn.plone.org/svn/plone/plone.registry/trunk/plone/registry/registry.py
-            return False
-        
-        content_types = settings.content_types
-            
-        # Don't assume that all content items would have portal_type attribute
-        # available (might be changed in the future / very specialized content)
-        current_content_type =  portal_type = getattr(Acquisition.aq_base(self.context), 'portal_type', None)
-        
-        return current_content_type in content_types
+    </registry>
 
 
 Configuring plone products from buildout
