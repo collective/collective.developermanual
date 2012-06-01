@@ -17,9 +17,15 @@ Restart command for Plone installations is *yourbuildoutfolder/bin/instance rest
 It is best practice to run Plone under non-root user.
 Thus you need a special restart script which will sudo to this user
 to perform the restart command. Due to egg cache problems,
-HOME environment variable must be considered when switching users.
+HOME environment variable (-H) must be included for ``sudo`` command.
 
-Example /srv/plone/yoursite/restart-all.sh::
+.. note ::
+
+     These instructions apply when you have *not* installed Plone to run as root
+     and you have installed Plone using Unified installer or from the scratch using
+     buildout.
+
+Example /srv/plone/yoursite/restart-all.sh which assumes Plone is installed in folder ``/srv/plone/yoursite``::
 
         #!/bin/sh        
         echo Going to user yourploneuser
