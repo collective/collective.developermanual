@@ -205,3 +205,11 @@ Check if the object is certain content type
 Example::
 
         python:getattr(object, "portal_type", "") == "Custom GeoLocation"
+
+
+Get portal description
+======================
+
+Example::
+
+        tal:define="portal context/portal_url/getPortalObject; portal_description portal/Description"
