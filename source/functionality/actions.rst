@@ -329,10 +329,10 @@ Example how to generate tabs list::
         
         return (portal_tabs, selected_portal_tab)
 
- Custom action listings
- ----------------------
+Custom action listings
+----------------------
  
- Example::
+Example::
 
         import Acquisition        
         from zope.component import getMultiAdapter
