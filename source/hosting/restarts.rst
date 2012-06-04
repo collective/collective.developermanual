@@ -48,6 +48,45 @@ Start on boot
 It is best practice to start Plone service if the server is rebooted.
 This way your site will automatically recover from power loss etc. 
 
+LSBInitScripts [starting with Debian 6.0]
+=========================================
+
+These instructions apply for Debian.
+Short documentation about how to make an Init Script LSB
+
+This example will start a plone site on boot::
+
+   #!/bin/sh
+   ### BEGIN INIT INFO
+   # Provides:          start_plone.sh
+   # Required-Start:    $remote_fs $syslog
+   # Required-Stop:     $remote_fs $syslog
+   # Should-Start:      my plone site
+   # Default-Start:     2 3 4 5
+   # Default-Stop:      0 1 6
+   # Short-Description: Start plone at boot time
+   # Description:       Start my plone site at boot time
+   #                    
+   #                    
+   #                    
+   #                    
+   ### END INIT INFO
+
+   su - *yourploneuser* -c "/srv/plone/yoursite/bin/instance start"
+
+Save this script as ``start_plone.sh`` in /etc/init.d and make it executable.
+
+add the script to dependency-based booting::
+    
+    insserv start_plone.sh
+
+Where ``start_plone.sh`` is an executable init script placed in /etc/init.d, 
+insserv will produce no output if everything went OK. Examine the error code in $? if you want to be sure.
+
+Make sure to read:
+
+http://wiki.debian.org/LSBInitScripts
+
 
 crontab
 =======
