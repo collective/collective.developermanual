@@ -68,67 +68,45 @@ Possible use cases:
 - Displaying content in many languages simultaneously.
 
 To show some content translated into the chosen language of the current
-user, you can use ``ITranslatable.getTranslation()``::
-
-    def getTranslation(language='language'):
-        """
-        Return the object corresponding to a translated version or None.
-        If called without arguments it returns the translation in the currently
-        selected language, or self.
-        """
+user, you can use ``ITranslatable.getTranslation(language='language')``:
+Return the object corresponding to a translated version or None.
+If called without arguments it returns the translation in the currently
+selected language, or self.
 
 Example::
 
-    class Footer(BaseViewlet):
-        """ A footer viewlet which will gather editable and translated footer text.
+    from zope.app.hooks import getSite
 
-        The localized text is available as an Archetypes Page object
-        with the id "footer-text" in the site root. LinguaPlone
-        translation look-up is performed.
+    from Products.LinguaPlone.interfaces import ITranslatable
 
-        1. Create the footer in the main language of your site as a
-           hidden Page, with the id "footer-text".
 
-        2. Use the "Translate to..." action to create localized versions
-           of this footer.
+    def get_root_relative_item_in_current_language(path):
+        """
+        Traverses to a site item from the portal root
+        and then returns a translated copy of it in the current language.
 
-        3. Leave the footer in the *private* workflow state, so that it
-           does not appear in the search results, etc.
+        Returns None if the item does not exist.
 
-        Note that the workflow state of the footer content is not
-        considered.
+        Example::
 
-        Note that the id "footer" is reserved in Plone, thus we use
-        "footer-text".
+            get_root_relative_item_in_current_language(self.context, "subfolder/item")
+
         """
 
-        grok.name("plone.footer")
-        grok.viewletmanager(IPortalFooter)
+        site = getSite()
 
-        def getFooterText(self):
-            """ Call this from your viewlet template.
+        try:
+            obj = site.restrictedTraverse("path")
+        except:
+            return None
 
-            Example::
+        if ITranslatable.providedBy(obj):
+            translated = obj.getTranslation()
+            if translated:
+                return translated
 
-                <div id="portal-footer">
-                  <div tal:replace="structure viewlet/getFooterText" />
-                </div>
-            """
+        return obj
 
-            from Products.LinguaPlone.interfaces import ITranslatable
-
-            portal = self.portal_state().portal()
-
-            if "footer-text" in portal.objectIds(): # Note that you can use has_key() for BTree based folders
-                footer = portal["footer-text"]
-                if ITranslatable.providedBy(footer):
-                    translated = footer.getTranslation()
-                    if translated:
-                        return translated.getText()
-
-                return footer.getText()
-
-            return ""
 
 Translating content
 ===================
@@ -222,7 +200,7 @@ proper domain for the language being served::
         parts = list(parts)
         netloc = parts[1]
 
-        # TODO: Handle @ and HTTP Basic auth here
+        # TODO: Handle @ and HTTP Basic auth here
         if ":" in netloc:
             domain, port = netloc.split(":")
             netloc = new_domain + ":" + port
