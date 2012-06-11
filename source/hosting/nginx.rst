@@ -70,7 +70,7 @@ Create file ``/etc/nginx/sites-available/yoursite.conf`` with contents::
     server {
 
         listen 80;
-        server_name yoursite.com;
+        server_name www.yoursite.com;
         access_log /var/log/nginx/yoursite.com.access.log;
         error_log /var/log/nginx/yoursite.com.error.log;
 
