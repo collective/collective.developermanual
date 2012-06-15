@@ -16,6 +16,14 @@ for all HTML DOM manipulation in Python.
 
 Plone is no exception.
 
+Converting HTML to plain text
+===============================
+
+The most common use case is to overridde ``SearchableText()`` to return
+HTML content for portal_catalog for indexing.
+
+* http://stackoverflow.com/questions/6956326/custom-searchabletext-and-html-fields-in-plone
+
 Rewriting relative links
 ==========================
 
