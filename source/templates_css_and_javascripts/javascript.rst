@@ -813,7 +813,7 @@ Javascript example
                         
                 // We use jQuery API to detect whether a browser supports cross domain AJAX calls
                 // http://api.jquery.com/jQuery.support/
-                if(!jQuery.support.cors ||_debug) {
+                if(!jQuery.support.cors || debug) {
                         // http://alexn.org/blog/2011/03/24/cross-domain-requests.html
                         // Opera 10 doesn't have this feature, neither do IExplorer < 8, Firefox < 3.5 
                         

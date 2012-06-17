@@ -88,7 +88,7 @@ If you call portal_catalog() without arguments it will return all indexed conten
         # Print all content on the site
         all_brains = catalog()
         for brain in all_brains:
-                print "Name:" + brain["Title"] + " URL:" + brain.getURL()
+                print "Name:" + brain["Title"] + " URL:" + brain.getURL()
 
 
 The catalog tool queries return an iterable of catalog brain objects.
@@ -510,7 +510,7 @@ dictionary with the keys 'query' and 'depth' to the 'path'
 argument, where
 
 
--  'query' is the physical path, and 
+-  'query' is the physical path, and
 -  'depth' can be either 0, which will return only the brain for
    the path queried against, or some number greater, which will query
    all items down to that depth (eg, 1 means searching just inside the

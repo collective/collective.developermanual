@@ -21,7 +21,7 @@ manager (left or right column by default).
 The configuration data
 ~~~~~~~~~~~~~~~~~~~~~~
 
-When a portlet is first created,  there are often customizations
+When a portlet is first created, there are often customizations
 which can be made which tailor the portlet's behaviour to meet the
 user's needs: eg. which content type to display, how many items to
 list, etc... In our example, we want the person configuring the
@@ -88,7 +88,7 @@ together with some base form classes to save us from designing the
 forms template and logic ourselves. If the portlet is not
 configurable, this can use the special ``base.NullAddForm``, which
 is just a view that creates the portlet and then redirects back to
-the portlet management screen. 
+the portlet management screen.
 
 For more information about *zope.formlib*, check
 `this tutorial <../../../tutorial/writing-forms-easily-with-zope-formlib>`_.
@@ -129,10 +129,10 @@ It's a multi-adapter that takes a number of parameters which makes
 it possible to vary the rendering of the portlet:
 
 context 
-     The current content object. Mind the type of content object that's
+    The current content object. Mind the type of content object that's
     being shown.
 request 
-     The current request. Mind the current theme/browser layer.
+    The current request. Mind the current theme/browser layer.
 view 
     The current (full page) view. Mind the current view, and whether or
     not this is the canonical view of the object (as indicated by the

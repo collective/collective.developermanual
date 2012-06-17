@@ -89,7 +89,7 @@ Note that:
    egg is installed. Buildout will expect to find a suitable
    *setup.py* in this directory.
 -  Development eggs always take precedence over regular eggs.
--  You still need to list the egg name  in the *eggs* option for it
+-  You still need to list the egg name in the *eggs* option for it
    to be installed.
 -  If you are overriding an egg that ships with Plone, you may need
    to list it in the eggs section of the *[plone]* part instead:

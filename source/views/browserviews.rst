@@ -339,7 +339,7 @@ The following example registers a new view (see below for comments):
     When an HTTP request comes in, the currently logged in user's access
     rights in the current context are checked against this permission.  
     See :doc:`Security chapter </security/permission_lists>` for Plone's
-    out-of-the-box permissions. Usually you want have ``zope2.View``,
+    out-of-the-box permissions. Usually you want have ``zope2.View``,
     ``cmf.ModifyPortalContent``, ``cmf.ManagePortal`` or ``zope2.Public``
     here.
 

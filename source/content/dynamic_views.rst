@@ -117,7 +117,7 @@ You can also change this through portal_types in the ZMI.
     
 .. note::
 
-        view_methods must not have the @@ view signature in their method name.
+        view_methods must not have the @@view signature in their method name.
 
 .. code-block:: xml
 

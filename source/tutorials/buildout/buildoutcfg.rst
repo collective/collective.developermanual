@@ -128,12 +128,12 @@ looking for eggs to download. In addition, it will always search
 the Cheese Shop.
 
 Note that configuration entries are commonly split into multiple
-lines.  For this to work, all lines after the first must begin with
+lines. For this to work, all lines after the first must begin with
 **at least 4 spaces**.
 
 Next, we can list any eggs that buildout should download and
 install for us. This may include version specifications. For
-example, if you want sqlalchemy 0.3,  but not 0.4, you could list;
+example, if you want sqlalchemy 0.3, but not 0.4, you could list;
 
 .. code-block:: cfg
 
@@ -355,7 +355,7 @@ the *zcml* option:
 
 This assumes that *my.package* was previously referenced in the
 buildout. This would load both the main *configure.zcml*and the
-*overrides.zcml* file from this package.  Over time, the need for
+*overrides.zcml* file from this package. Over time, the need for
 these entries should diminish, as *z3c.autoinclude* support becomes
 widespread.
 

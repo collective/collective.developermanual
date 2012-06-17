@@ -140,7 +140,7 @@ Before doing so, you should:
    of version 1.0, or "2.1.3rc1" for the first release candidate of
    version 2.1.3.
 -  If you are using Mac OS X, run
-   export COPY\_EXTENDED\_ATTRIBUTES\_DISABLE=true on the shell first
+   export COPY\_EXTENDED\_ATTRIBUTES\_DISABLE=true on the shell first
    - otherwise, the egg will contain Mac OS X resource forks which
    cause problems if your egg is used on Windows.
 

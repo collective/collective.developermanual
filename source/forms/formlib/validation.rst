@@ -70,7 +70,7 @@ click *send*, a kind and colorful error message will be displayed:
 
 .. image:: validation_error_pretty.png
 
-That was too easy, wasn't it? 
+That was too easy, wasn't it?
 
 Invariants validation
 ~~~~~~~~~~~~~~~~~~~~~

@@ -178,7 +178,7 @@ Example logged_in.cpy::
     # Special login code specific login code
     #
     
-    # Debug log output about the user we are dealing with 
+    # Debug log output about the user we are dealing with 
     context.plone_log("Got member:" + str(member))
     
     # Check that if the user has a custom method which marks our special members
