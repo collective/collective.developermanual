@@ -593,8 +593,9 @@ The code is a :doc:`view page template </views/browserviews>` code which include
                <div tal:replace="structure here/productappreciation_view" />
        </tal:finnish>
        
-To make it load the view asynchronous, to be loaded with AJAX call when the page loading has been completed, you can do::
+To make it load the view asynchronous, to be loaded with AJAX call when the page loading has been completed, you can do:
 
+.. code-block:: html
        
          <tal:finnish condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'fi'">
                 
@@ -670,7 +671,9 @@ WYSIWYG editor (TinyMCE) is loaded in its own <iframe>.
 Your UI related Javascript mode might want to do some special checks 
 for running different code paths when the text is being edited.
 
-Example::
+Example:
+
+.. code-block:: javascript
 
                 // Check if we are in edit or view mode
                 if(document.designMode.toLowerCase() == "on") {
@@ -784,7 +787,6 @@ Javascript example
 
 .. code-block:: javascript
 
-
         /**
          * Call a RESTful service vie AJAX
          * 
@@ -811,7 +813,7 @@ Javascript example
                         
                 // We use jQuery API to detect whether a browser supports cross domain AJAX calls
                 // http://api.jquery.com/jQuery.support/
-                if(!jQuery.support.cors || debug) {
+                if(!jQuery.support.cors ||_debug) {
                         // http://alexn.org/blog/2011/03/24/cross-domain-requests.html
                         // Opera 10 doesn't have this feature, neither do IExplorer < 8, Firefox < 3.5 
                         
