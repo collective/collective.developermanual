@@ -24,21 +24,19 @@ In Plone, there are two loosely coupled member related subsystems:
 Getting the logged-in member
 ============================
 
-The following view-method code will get the username for the logged-in user::
+Anonymous and logged-in member are exposed via :doc:`IPortalState context helper </misc/context>`.
 
-    from Products.CMFCore.utils  import getToolByName
+Example::
 
-    def getActiveUserName(self):
-        """ Return the username of the current user, or None.
-        """
+    from zope.component import getMultiAdapter
 
-        mt = getToolByName(self.context, 'portal_membership')
-        if mt.isAnonymousUser(): # the user has not logged in
-            return None
-        else:
-            member = mt.getAuthenticatedMember()
-            username = member.getUserName()
-            return username
+    portal_state = getMultiAdapter((self.context, self.request), name="plone_portal_state")
+    if portal_state.anonymous():
+        # Return target URL for the site anonymous visitors
+        return self.product.getHomepageLink()
+    else:
+        # Return edit URL for the site members
+        return product.absolute_url()
 
 or from a template
 
