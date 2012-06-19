@@ -97,6 +97,15 @@ Example 2::
         contentMedias = schema.Choice(vocabulary=myVocabulary,
                                       title=u"Test choice")
 
+Stock vocabularies
+-----------------------
+
+Some vocabularies Plone provides out of the box
+
+* `Some common named vocabularies <http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/vocabularies.html#some-common-vocabularies>`_ 
+
+* `Thumbnail size vocabulary (TinyMCE) <https://github.com/plone/Products.TinyMCE/blob/master/Products/TinyMCE/vocabularies.py>`_
+
 Creating vocabulary from list of objects
 ------------------------------------------
 
