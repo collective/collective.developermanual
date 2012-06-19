@@ -769,10 +769,15 @@ More info
 
 * http://stackoverflow.com/questions/9766744/dynamic-tal-provider-expressions
 
-Fixing relative links
--------------------------
+Fixing relative links for static text portlets
+-------------------------------------------------
 
-Example (in progress)::
+.. note ::
+
+    This should be no longer issue with Plone 4.1 and TinyMCE 1.3+ when using UID
+    links.
+
+Example how to convert links in all static text portlets::
 
     from lxml import etree
     from StringIO import StringIO
