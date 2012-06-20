@@ -267,8 +267,191 @@ proper domain for the language being served::
 
         # print "Done"
 
-Another approach (``raptus.multilanguageplone``)
-==================================================
+Translated navigation tabs
+=============================
+
+Below is an example code which allows you to translate
+portal_tabs to the current langauge.
+
+* All translatable navigation tabs must be explicitly declared in portal_actions / portal_tabs
+  using site root relative paths
+
+* You must set ``disable_folder_sections`` to ``False`` in navtree_properties
+
+* Source is modified from `The default sections viewlet <https://github.com/plone/plone.app.layout/blob/master/plone/app/layout/viewlets/common.py#L151>`_
+
+* The viewlet is created using :doc:`Grok </components/grok>` framework
+
+Viewlet code::
+
+    """
+
+        For more information see
+
+        * http://collective-docs.readthedocs.org/en/latest/views/viewlets.html
+
+    """
+
+    import logging
+
+    # Zope imports
+    from zope.component import getMultiAdapter, getUtility, queryMultiAdapter
+    from five import grok
+    from AccessControl import getSecurityManager
+    from AccessControl import Unauthorized
+
+    # Plone imports
+    from plone.app.layout.viewlets.interfaces import IPortalHeader
+
+    # Add-ons
+    from Products.LinguaPlone.interfaces import ITranslatable
+
+    grok.templatedir("templates")
+    grok.layer(IThemeSpecific)
+
+    # By default, set context to zope.interface.Interface
+    # which matches all the content items.
+    # You can register viewlets to be content item type specific
+    # by overriding grok.context() on class body level
+    grok.context(Interface)
+
+    logger = logging.getLogger("Sections")
+
+
+    class Sections(grok.Viewlet):
+        """
+        Override tabs navigation to support multilingual items.
+
+        - All items in portal_actions / portal_tabs are mapped to their native langauge version
+          thru LinguaPlone translation linking
+
+        - To skip the generatd default top level navigation content (automatically generated from the site root)
+          set disable_folder_sections to False in navtree_properties
+
+        """
+
+        # Override existing plone.global_sections
+        grok.name("plone.global_sections")
+        grok.viewletmanager(IPortalHeader)
+
+        def translateTabs(self, tabs):
+            """
+            Check with LinguaPlone to get the tab item in the target language
+            """
+
+            portal_state = getMultiAdapter((self.context, self.request), name="plone_portal_state")
+
+            portal = portal_state.portal()
+
+            new_tabs = []
+
+            for action in tabs:
+                url = action["url"]
+
+                if url.startswith("/"):
+                    # Assume site root relative link
+                    url = url[1:]
+                    try:
+                        context = portal.restrictedTraverse(url)
+                    except Unauthorized:
+                        # No permission - filter out
+                        logger.warn("Unauthorized item:" + url)
+                        pass
+                    except AttributeError:
+                        # Item does not exist
+                        logger.warn("Navigation item does not exist:" + url)
+                        continue
+
+                    translatable = ITranslatable(context)
+
+                    # Get item in the current language
+                    translation = translatable.getTranslation()
+                    if translation:
+                        # Override menu item with translatd version URL
+                        action["url"] = translation.absolute_url()
+                        # Get the translated title directly from the content
+                        action["title"] = translation.Title()
+                    else:
+                        # No translation - filter out
+                        continue
+
+                new_tabs.append(action)
+
+            return new_tabs
+
+        def update(self):
+            context = self.context.aq_inner
+            portal_tabs_view = getMultiAdapter((context, self.request),
+                                               name='portal_tabs_view')
+            self.portal_tabs = portal_tabs_view.topLevelTabs()
+
+            self.portal_tabs = self.translateTabs(self.portal_tabs)
+
+            self.selected_tabs = self.selectedTabs(portal_tabs=self.portal_tabs)
+            self.selected_portal_tab = self.selected_tabs['portal']
+
+        def selectedTabs(self, default_tab='index_html', portal_tabs=()):
+            """
+            """
+
+            portal_state = getMultiAdapter((self.context, self.request), name="plone_portal_state")
+
+            plone_url = portal_state.portal_url()
+            plone_url_len = len(plone_url)
+            request = self.request
+            valid_actions = []
+
+            url = request['URL']
+            path = url[plone_url_len:]
+
+            for action in portal_tabs:
+                if not action['url'].startswith(plone_url):
+                    # In this case the action url is an external link. Then, we
+                    # avoid issues (bad portal_tab selection) continuing with next
+                    # action.
+                    continue
+                action_path = action['url'][plone_url_len:]
+                if not action_path.startswith('/'):
+                    action_path = '/' + action_path
+                if path.startswith(action_path + '/'):
+                    # Make a list of the action ids, along with the path length
+                    # for choosing the longest (most relevant) path.
+                    valid_actions.append((len(action_path), action['id']))
+
+            # Sort by path length, the longest matching path wins
+            valid_actions.sort()
+            if valid_actions:
+                return {'portal': valid_actions[-1][1]}
+
+        return {'portal': default_tab}
+
+
+Page template code
+
+.. code-block:: html
+
+    <tal:sections tal:define="portal_tabs viewlet/portal_tabs"
+         tal:condition="portal_tabs"
+         i18n:domain="plone">
+        <h5 class="hiddenStructure" i18n:translate="heading_sections">Sections</h5>
+
+        <ul id="portal-globalnav"
+            tal:define="selected_tab python:viewlet.selected_portal_tab"
+            ><tal:tabs tal:repeat="tab portal_tabs"
+            ><li tal:define="tid tab/id"
+                 tal:attributes="id string:portaltab-${tid};
+                                class python:selected_tab==tid and 'selected' or 'plain'"
+                ><a href=""
+                   tal:content="tab/name"
+                   tal:attributes="href tab/url;
+                                   title tab/description|nothing;">
+                Tab Name
+                </a></li></tal:tabs></ul>
+    </tal:sections>
+
+
+raptus.multilanguageplone: another translation add-on
+=======================================================
 
 Another extension for multilingual content in Plone is
 ``raptus.multilanguageplone``.  This is not meant to be a fully-fledged tool
@@ -287,7 +470,7 @@ If you have non-default content types, you have to provide your own
 See https://svn.plone.org/svn/collective/raptus.multilanguagefields/trunk/raptus/multilanguagefields/samples/
 
 Installation
-============
+----------------------------
 
 Installation of ``raptus.multilanguageplone`` is straight-forward with
 buildout. If the site already contains articles then you have to migrate
@@ -296,7 +479,7 @@ them.
 See http://pypi.python.org/pypi/raptus.multilanguagefields
 
 Switching from Linguaplone
-==========================
+----------------------------
 
 If you want to switch from Linguaplone to ``raptus.multilanguageplone`` be
 aware that you will lose already translated content.
@@ -332,4 +515,5 @@ aware that you will lose already translated content.
 5. Install ``raptus.multilanguageplone`` using buildout and
    ``portal_quickinstaller``.
 6. Migrate the content.
+
 
