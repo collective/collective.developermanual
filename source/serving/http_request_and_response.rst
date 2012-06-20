@@ -130,7 +130,7 @@ Other possible headers::
 .. TODO:: What's the difference?
 
 ``REQUEST_URI``
-----------------
+---------------
 
 To get the variable which corresponds to ``REQUEST_URI`` in e.g. PHP the
 following helps::
@@ -152,7 +152,7 @@ For more information, see:
 * http://www.doughellmann.com/PyMOTW/urlparse/index.html
 
 Request client IP
--------------------
+-----------------
 
 Example::
 
@@ -178,7 +178,7 @@ For more information, see:
 * http://wiki.zope.org/zope2/ZopeAndApache#setting-remote-addr-to-the-client-ip
 
 ``GET`` variables
--------------------
+-----------------
 
 HTTP ``GET`` variables are available in ``request.form`` if the ``REQUEST_METHOD`` was ``GET``.
 
@@ -189,7 +189,7 @@ Example::
     print self.request.form["my_param_id"]
 
 ``POST`` variables
----------------------
+------------------
 
 HTTP ``POST`` varibles are available in ``request.form``::
 
@@ -255,7 +255,7 @@ The web server exposes its own environment variables in ``request.other``
     user_agent = request.environ["HTTP_USER_AGENT"] # WSGI or Repoze server
 
 Hostname
----------
+--------
 
 Below is an example to get the HTTP server name in a safe manner, taking
 virtual hosting into account::
@@ -310,7 +310,7 @@ and you want to identify them easily::
     This port number is not the one visible to the external traffic (port 80, HTTP)
 
 Published object
---------------------
+----------------
 
 ``request["PUBLISHED"]`` points to a view, method or template which was the last item in the 
 traversing chain to be called to render the actual page.
@@ -357,7 +357,7 @@ lifecycle use annotations_.
 
 
 Accessing HTTP request outside context
-=======================================
+======================================
 
 There are often cases where you would like to get hold of the HTTP request
 object, but the underlying framework does not pass it to you.  In these cases
@@ -386,7 +386,7 @@ Example of getting the request using acquisition::
         ...
 
 zope.globalrequest.getRequest
----------------------------------
+-----------------------------
 
 See 
 
@@ -462,7 +462,7 @@ If ``lock=True``, no further modification of the HTTPResponse are allowed,
 and will fail silently.
 
 Response body
---------------
+-------------
 
 You might want to read or manipulate the response body in the post-publication
 hook.
@@ -473,14 +473,14 @@ or iterable for blob data.
 The body is avaialble as the ``response.body`` attribute.
 
 Redirects
-----------
+---------
 
 Use the ``response.redirect()`` method::
 
     # This will send a "302 Temporary Redirect" notification to the browser
     response.redirect(new_url)
 
-    # This will send a "301 Permantent Redirect" notification to the browser
+    # This will send a "301 Permanent Redirect" notification to the browser
     response.redirect(new_url, status=301)
 
 
@@ -513,7 +513,7 @@ Examples:
 * Redirector: https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.mobile/gomobile/mobile/postpublication.py
 
 Transform chain
-=====================
+===============
 
 Transform chain is a hook into repoze.zope2 that allows third party packages to register a sequence of hooks 
 that will be allowed to modify the response before it is returned to the browser.
@@ -541,7 +541,7 @@ Read more at the `plone.postpublicationhook package page
 <http://pypi.python.org/pypi/plone.postpublicationhook/>`_.
 
 Custom redirect mappings
-===========================
+========================
 
 Below is an example how you use :doc:`five.grok </components/grok>`
 to install an event handler which checks in the site root for a TTW Python
@@ -660,7 +660,7 @@ Or more complex example::
 
 
 Extracting useful information in the post-publication hook
---------------------------------------------------------------
+----------------------------------------------------------
 
 Example::
 
@@ -699,7 +699,7 @@ Example::
         context = get_contentish(object)
 
 Cross-origin resource sharing (CORS)
-=======================================
+====================================
 
 .. TODO:: Complete.
 
