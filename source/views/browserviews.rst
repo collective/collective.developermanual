@@ -207,17 +207,24 @@ the related template:
 	
 	</html>
 
+Content slots
+------------------
 
 Available :doc:`slot </templates_css_and_javascripts/template_basics>`
 options you can use for ``<metal fill-slot="">`` in your template which
 inherits from ``<html metal:use-macro="context/main_template/macros/master">``:
 
-``main`` 
+``content``
     render edit border yourself
-``content`` 
-    render title yourself
+
+``main`` 
+    render title and description yourself
+    
 ``content-core`` 
-    title prerendered, Plone version > 4.x
+    title and description prerendered, Plone version > 4.x
+
+Accessing your newly created view
+-----------------------------------
 
 Now you can access your view within the news folder::
 
