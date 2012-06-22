@@ -11,7 +11,7 @@ Collections
 Introduction
 ------------
 
-.. Note:: In Plone 4.2, old style collections have been replaced with new style collections, featuring a vastly improved user interface and de-coupling from the ATTopic content type (i.e. they no longer use ATTopic).
+.. Note:: In Plone 4.2, old style collections have been replaced with new style collections, featuring a vastly improved user interface and a de-coupling from the ATTopic content type (i.e. they no longer use ATTopic).
 
 They are useful to generate different listings.
 
