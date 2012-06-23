@@ -19,7 +19,7 @@ Collections are internally called "topics" and the corresponding content type is
 
 Collection searches are driven by two factors:
 
-* User visible "criteria" which is mapped to portal_catalog quries
+* User visible "criteria" which is mapped to portal_catalog queries
 
 * portal_catalog() indexes which you need to add yourself for custom content types. Read more about them in :doc:`Searching and Indexing chapter </searching_and_indexing/index>`
 
