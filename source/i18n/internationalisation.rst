@@ -548,6 +548,19 @@ More information
 
 * http://encolpe.wordpress.com/2008/04/28/manage-your-internationalization-with-i18ndude/
 
+Distributing compiled translations
+=====================================
+
+The rule for compiled .mo files is that
+
+* Source code repositories (SVN, Git) must not contain compiled .mo files
+
+* Released eggs on PyPi, however, **must** contain compiled .mo files
+
+The easiest way to manage this is to use `zest.releaser <http://pypi.python.org/pypi/zest.releaser>`_
+tool together with `zest.pocompile package <http://pypi.python.org/pypi/zest.pocompile>`_
+to release your eggs.
+
 Dynamic content
 ===============
 
