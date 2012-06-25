@@ -24,6 +24,11 @@ HTML content for portal_catalog for indexing.
 
 * http://stackoverflow.com/questions/6956326/custom-searchabletext-and-html-fields-in-plone
 
+Converting plain text to HTML
+==============================
+
+* http://svn.plone.org/svn/collective/intelligenttext/trunk/README.txt
+
 Rewriting relative links
 ==========================
 
