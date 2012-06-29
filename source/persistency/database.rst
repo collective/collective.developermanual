@@ -117,6 +117,17 @@ Read about :doc:`zope.schema </forms/schemas>`
 how to define a model for the data to be stored 
 in ZODB database.
 
+Transactions and committing 
+--------------------------------------
+
+`This in-depth SO answer <http://stackoverflow.com/questions/11254384/when-to-commit-data-in-zodb/>`_
+explains how committing works in ZODB.
+
+* Savepoints and optimism regarding them 
+
+* PersistentList and list differences when saving data
+
+
 Browsing
 ========
 
@@ -128,6 +139,8 @@ Packing database
 As ZODB is append-only database it remembers all its history unless packed. Packing will erase undo history.
 
 * `Why you need to regularly pack ZODB database to keep the performance up <http://www.sixfeetup.com/blog/optimize-your-plone-development-by-packing-the-zodb>`_
+
+* `Packing is similar to VACUUM in PostgreSQL <http://stackoverflow.com/questions/11254384/when-to-commit-data-in-zodb/>`_
 
 Packing throught-the-web
 ----------------------------
