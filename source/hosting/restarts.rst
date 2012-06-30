@@ -118,6 +118,10 @@ If nightly restart is not an option and you need a high-availability instance,
 consider using ZEO clustering and
 restart instances one-by-one with certain intervals.
 
+.. note ::
+
+    The related leak fix is in zope.i18nmessageid 3.5.1
+
 Cron restart script
 -------------------
 
