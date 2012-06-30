@@ -2,8 +2,19 @@
  Dynamic roles
 ===============
 
-borg.localrole package allows you to hook into role-resolving code
-and add roles dynamically.
+.. contents :: :local:
+
+Introduction
+---------------
+
+Plone core's borg.localrole package allows you to hook into role-resolving code
+and add roles dynamically. I.e. the role on the user depends on HTTP request / environment
+conditions and is not something set in the site database.
+
+Creating a dynamic role
+------------------------------
+
+First :doc:`create an Ploneadd-on for your coding needs </tutorials/paste>`_.
 
 getRoles() function is called several times per request so
 you might want to cache the result.
@@ -21,7 +32,7 @@ There is a complex example below.
 - An example code checks whether the context object implements
   a marker interface and gives the user a role based on that
 
-Example::
+Example ``localroles.py``::
 
 
     from zope.interface import Interface, implements
@@ -76,7 +87,7 @@ Example::
             (principal_id, [role1, role2])"""
             return [ ("dummy_id", ["Dummy Member"]) ]
 
-Custom local role implementation is made effective using::
+Custom local role implementation is made effective using ZCML adapter directive in your add-ons ``configure.zcml``::
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
@@ -85,8 +96,12 @@ Custom local role implementation is made effective using::
       <include package="borg.localrole" />
 
       <adapter
-          factory=".adapter.DummyLocalRoleAdapter"
+          factory=".localroles.DummyLocalRoleAdapter"
           name="dummy_local_role"
           />
 
     </configure>
+
+If your dynamic role is not any of Plone's existing roles you need to
+:doc:`declare it with rolemap.xml </security/local_roles>`.
+
