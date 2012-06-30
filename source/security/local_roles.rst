@@ -35,6 +35,12 @@ Example ``profiles/default/rolemap.xml``
       </permissions>
     </rolemap>
 
+
+.. note ::
+
+    Role will only appear in ZMI by default. If you want it to appear on the Sharing
+    tab please see the links below.
+
 More info
 
 * http://encolpe.wordpress.com/2010/02/08/add-a-new-role-in-the-sharing-tab-for-plone-3/
