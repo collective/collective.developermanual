@@ -12,13 +12,37 @@
 Introduction
 ------------
 
+ZopeSkel is a Python packake providing code skeleton templates for Plone add-ons and themes
+for bootstrapping your Plone customization add-on work.
+
 More about ZopeSkel
 
 * http://plone.org/products/zopeskel
 
-ZopeSkel provides templates to be used with 
-`paster command <http://pythonpaste.org/script/>`_.
+Add-on creation and installation steps
+--------------------------------------
 
+There are three steps in your add-on creation and installation procedure
+
+* Create add-on code skeleton using ZopeSkel as instructed below.
+  If you are unsure answer *yes* to all questions.
+
+* Make it's code available in buildout as described in the installation instructions below.
+  Adding code to buildout must be done only once. After this you see your 
+  add-on's Python egg registered in ``bin/instance`` script when you open the file.
+
+* After this Zope loads your add Python and ZCML code on every Zope restart
+  with ``bin/instance`` command.
+
+* Your add-on might need to provide :doc:`GenericSetup profile </components/genericsetup>`
+  which does site database modifies **every time you run Add-on installer your site setup**.
+  GenericSetup profile is just a bunch of 
+  XML files are just database snippets written to database
+  when the add-on installs. This is independent of register Python and ZCML code and GenericSetup XML can be updated
+  without site restart.
+
+All add-ons do not provide GenericSetup profile if they do not modify the site database
+in any way e.g. they provide only new :doc:`views </views/browserviews>`.
 
 Zopeskel and buildout
 ----------------------
