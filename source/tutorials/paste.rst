@@ -1,6 +1,6 @@
-====================
- Zopeskel templates
-====================
+========================================
+ Bootstrapping Plone add-on development
+=========================================
 
 .. contents :: :local:
 
@@ -32,7 +32,9 @@ There are three steps in your add-on creation and installation procedure
   add-on's Python egg registered in ``bin/instance`` script when you open the file.
 
 * After this Zope loads your add Python and ZCML code on every Zope restart
-  with ``bin/instance`` command.
+  with ``bin/instance`` command. Because manual Plone restarts may 
+  be time-consuming use `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package to make it happen fast 
+  and automatically every time you change Python code.
 
 * Your add-on might need to provide :doc:`GenericSetup profile </components/genericsetup>`
   which does site database modifies **every time you run Add-on installer your site setup**.
