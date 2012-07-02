@@ -218,10 +218,18 @@ inherits from ``<html metal:use-macro="context/main_template/macros/master">``:
     render edit border yourself
 
 ``main`` 
-    render title and description yourself
+    overrides main slot in main template; you must render title and description yourself
     
-``content-core`` 
+``content-title``
     title and description prerendered, Plone version > 4.x
+
+``content-core`` 
+    content body specific to your view, Plone version > 4.x
+
+``header`` 
+    A slot for inserting content above the title; may be useful in conjunction wtih
+    content-core slot if you wish to use the stock content-title provided by the
+    main template.
 
 Accessing your newly created view
 -----------------------------------
