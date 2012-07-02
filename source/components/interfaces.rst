@@ -7,10 +7,10 @@ Interfaces
 Introduction
 =============
 
-Interfaces define what methods an object provides. 
-Plone extensively uses interfaces to define APIs between 
+Interfaces define what methods an object provides.
+Plone extensively uses interfaces to define APIs between
 different subsystems. They provide a more consistent and declarative
-way to define bridges between two different things, when duck-typing 
+way to define bridges between two different things, when duck-typing
 is not enough.
 
 An Interface defines the shape of a hole where different pieces fit.
@@ -18,6 +18,28 @@ The shape of the piece is defined by the interface, but the implementation
 details like color, material, etc. can vary.
 
 See `zope.interface package README <http://pypi.python.org/pypi/zope.interface>`.
+
+Common interfaces
+==================
+
+When programming Plone, the following interfaces are often used.
+The usual use case is :doc:`context directive for view </views/browserviews>`
+telling on what kind of content items the view is available.
+
+* ``zope.interface.Interface`` - base class of all interfaces. Also used as a ``*`` wildcard
+  when registering views meaning that the view applies on every object.
+
+* ``Products.CMFCore.interfaces.IContentish`` - all content items on the site. In the site root,
+  this interface excludes Zope objects like ``acl_users`` user folder and ``portal_skins`` which
+  might otherwise appear in the item listing when you iterate through the root content.
+
+* ``Products.CMFCore.interfaces.IFolderish`` - all content folders on the site
+
+* ``Products.CMFCore.interfaces.ISiteRoot`` - Plone site root object
+
+* ``plone.app.layout.navigation.interfaces import INavigationRoot` - Navigation top object -
+  where the breadcrumbs being. On multilingual site this is the language folder.
+
 
 Implementing one or multiple interfaces
 =======================================
@@ -34,19 +56,19 @@ Example::
     class MyContent(folder.ATFolder):
         """A Researcher synchronized from ORA"""
         implements(IORAResearcher, ILocalSyncedContent)
-            
-            
+
+
 Removing parent class interface implementations
 ---------------------------------------------------
 
-``implementsOnly()`` redeclares all inherited interface implementations. 
-This is useful if you, for example, want to make 
+``implementsOnly()`` redeclares all inherited interface implementations.
+This is useful if you, for example, want to make
 :doc:`z3c.form </forms/z3c.form>`
-widget bindings more accurate. 
+widget bindings more accurate.
 
-Example:: 
+Example::
 
-    zope.interface.implementsOnly(IAddressWidget)            
+    zope.interface.implementsOnly(IAddressWidget)
 
 Checking whether object provides an interface
 =============================================
@@ -57,15 +79,15 @@ Checking whether object provides an interface
 In Python you can use code::
 
     from yourpackage.interfaces import IMyInterface
-    
+
     if IMyInterface.providedBy(object):
         # do stuff
     else:
         # was not the kind of object we wanted
-                
+
 ``plone_interface_info``
 -------------------------
-                
+
 In page templates you can use ``plone_interface_info`` helper view::
 
     <div tal:define="iinfo context/@@plone_interface_info">
@@ -94,7 +116,7 @@ a magical attribute::
     object.__provides__.__iro__.
 
 .. note::
-        
+
     Since adapter factories are *dynamic* (adapter interfaces not hardcoded
     on the object), the object can still adapt to interfaces which are not
     listed in ``__iro__``.
@@ -122,7 +144,7 @@ Example::
 
     Products.ATContentTypes.interfaces.IATDocument.__identifier__ is
     Products.ATContentTypes.interfaces.document.IATDocument
-    
+
 Getting interface class by its string id
 ========================================
 
@@ -137,8 +159,8 @@ Example::
         pass
 
     # id is yourpackage.interfaces.IFoo
-    id = IFoo.__identifier__ 
-    interface_class == resolve(id) 
+    id = IFoo.__identifier__
+    interface_class == resolve(id)
     assert IFoo == interface_class
 
 Applying interfaces for several content types
@@ -159,7 +181,7 @@ Example use cases:
     You can use one existing class or interface as a context without
     explicitly creating a marker interface.
     Places accepting ``zope.interface.Interface`` as a context
-    usually accept a normal Python class as well (``isinstance`` behavior).  
+    usually accept a normal Python class as well (``isinstance`` behavior).
 
 You can assign the marker interface for several classes in ZCML using
 a ``<class>`` declaration::
@@ -178,7 +200,7 @@ a ``<class>`` declaration::
    </class>
 
 
-Then we can have a viewlet for these content types only using the following 
+Then we can have a viewlet for these content types only using the following
 (grok example)::
 
 
@@ -198,26 +220,26 @@ Then we can have a viewlet for these content types only using the following
 Related:
 
 * `zope.dottedname`_ allows you to resolve dotted names to Python objects
-  manually    
+  manually
 
 Dynamic marker interfaces
 ==========================
 
 Zope allows to you to dynamically turn on and off interfaces on any content
 objects through the :term:`ZMI`.
-Browse to any object and visit the :guilabel:`Interfaces` tab. 
+Browse to any object and visit the :guilabel:`Interfaces` tab.
 
 Marker interfaces might need to be explicitly declared using the
 :term:`ZCML` ``<interface>`` directive, so that Zope finds them::
 
     <!-- Declare marker interface, so that it is available in ZMI -->
     <interface interface="mfabrik.app.interfaces.promotion.IPromotionsPage" />
-  
+
 .. note::
 
     Interface dotted name must be directly to the interface class and not an
     import from other module, like ``__init__.py``.
-    
+
 Setting dynamic marker interfaces programmatically
 --------------------------------------------------
 
@@ -233,12 +255,12 @@ Example::
 
     This marking persists with the object, and is not temporary.
     Under-the-hood:
-    
+
     ``mark()`` delegates to ``zope.interface.directlyProvides()`` |---| with
     the result that
     a persistent object (e.g. content item) has a reference to the interface
     class you mark it with in its ``__provides__`` attribute; this attribute
-    is 
+    is
     serialized and loaded by ZODB like any other reference to a class, and
     `zope.interface`_ uses object specification descriptor magic (just like
     it does
@@ -264,7 +286,7 @@ hints for `zope.schema`_ data model declarations.
 
 .. _zope.schema: http://pypi.python.org/pypi/zope.schema
 .. _plone.autoform: http://pypi.python.org/pypi/plone.autoform
-.. _zope.dottedname: http://pypi.python.org/pypi/zope.dottedname 
-.. _zope.interface: http://pypi.python.org/pypi/zope.interfaces 
+.. _zope.dottedname: http://pypi.python.org/pypi/zope.dottedname
+.. _zope.interface: http://pypi.python.org/pypi/zope.interfaces
 .. _Products.Five: http://svn.zope.org/Zope/trunk/src/Products/Five/README.txt?view=markup
 .. |---| unicode:: U+02014 .. em dash
