@@ -14,9 +14,6 @@ Doing HTML in Plone.
     skin_layers
     xdv
     dtml
-
-
-
-
+    redirects
 
 
