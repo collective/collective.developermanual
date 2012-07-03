@@ -4,7 +4,7 @@
 
 .. admonition:: Description
 
-    How to debug and fix ZODB database problems in Plone 
+    How to debug and fix ZODB database problems in Plone
 
 .. contents :: :local:
 
@@ -16,7 +16,7 @@ This document contains information to fix and debug ZODB databases with Plone.
 BLOBs and POSKeyErrors
 ========================
 
-`Plone CMS <http://plone.org>`_ 4.x onwards stores uploaded files and images in `ZODB <http://www.zodb.org/>`_ 
+`Plone CMS <http://plone.org>`_ 4.x onwards stores uploaded files and images in `ZODB <http://www.zodb.org/>`_
 as `BLOBs <http://www.zodb.org/zodbbook/introduction.html?highlight=blob#blobs>`_.
 They exist in ``var/blobstorage`` folder structure on the file system,
 files being named after persistent object ids (non-human-readable).
@@ -25,7 +25,7 @@ The objects themselves, without file payload, are stored in an append-only datab
 
 If you copy Plone site database object data (Data.fs) and
 forget to copy ``blobstorage`` folder, or data gets out of the sync during the copy,
-various problems appear on the Plone site 
+various problems appear on the Plone site
 
 * You cannot access a content item which has a corresponding blob file missing on the file system
 
@@ -44,7 +44,7 @@ Instead, you'll see something like this - an evil ``POSKeyError`` exception (Per
         raise POSKeyError("No blob file", oid, serial)
     POSKeyError: 'No blob file'
 
-The proper solution is to fix this problem is to 
+The proper solution is to fix this problem is to
 
 * Re-copy ``blobstorage`` folder
 
@@ -59,38 +59,37 @@ To get the Plone site to a working state all content having bad BLOB data must b
 
 Below is Python code for `Grok view <http://collective-docs.readthedocs.org/en/latest/views/browserviews.html#creating-a-view-using-grok>`_
 which you can drop in to your own `Plone add-on product <http://collective-docs.readthedocs.org/en/latest/tutorials/paste.html#creating-an-add-on-product-skeleton>`_.
-It creates an admin view which you can call directly thru URL. This code will walk thru all the content on your Plone site and tries to 
+It creates an admin view which you can call directly thru URL. This code will walk thru all the content on your Plone site and tries to
 delete bad content items with BLOBs missing.
 
 The code handles both Archetypes and Dexterity subsystems' content types.
 
 .. note ::
 
-    Fixing Dexterity blobs with this code have never been tested - 
+    Fixing Dexterity blobs with this code have never been tested -
     please feel free to update the code in collective.developermanual
     on GitHub if you find it not working properly.
 
 
 The code, ``fixblobs.py``::
 
-    """
+     """
 
         A Zope command line script to delete content with missing BLOB in Plone, causing
         POSKeyErrors when content is being accessed or during portal_catalog rebuild.
-        
+
         Tested on Plone 4.1 + Dexterity 1.1.
-        
+
         http://stackoverflow.com/questions/8655675/cleaning-up-poskeyerror-no-blob-file-content-from-plone-site
-        
+
         Also see:
-        
+
         http://pypi.python.org/pypi/experimental.gracefulblobmissing/
 
     """
 
     # Zope imports
     from ZODB.POSException import POSKeyError
-    from zope.component import getMultiAdapter
     from zope.component import queryUtility
     from Products.CMFCore.interfaces import IPropertiesTool
     from Products.CMFCore.interfaces import IFolderish, ISiteRoot
@@ -100,83 +99,87 @@ The code, ``fixblobs.py``::
     from Products.Archetypes.Field import FileField
     from Products.Archetypes.interfaces import IBaseContent
     from plone.namedfile.interfaces import INamedFile
-    from plone.dexterity.content import DexterityContent 
+    from plone.dexterity.content import DexterityContent
+
 
     def check_at_blobs(context):
         """ Archetypes content checker.
-        
-        Return True if purge needed 
+
+        Return True if purge needed
         """
-        
+
         if IBaseContent.providedBy(context):
-            
-            schema = context.Schema()   
+
+            schema = context.Schema()
             for field in schema.fields():
                 id = field.getName()
                 if isinstance(field, FileField):
                     try:
                         field.get_size(context)
                     except POSKeyError:
-                        print "Found damaged AT FileField %s on %s" % (id, context.absolute_url())     
-                        return True           
-                        
+                        print "Found damaged AT FileField %s on %s" % (id, context.absolute_url())
+                        return True
+
         return False
-            
+
+
     def check_dexterity_blobs(context):
         """ Check Dexterity content for damaged blob fields
-        
+
         XXX: NOT TESTED - THEORETICAL, GUIDELINING, IMPLEMENTATION
-        
-        Return True if purge needed 
+
+        Return True if purge needed
         """
-        
-        # Assume dexterity contennt inherits from Item 
+
+        # Assume dexterity contennt inherits from Item
         if isinstance(context, DexterityContent):
-            
-            # Iterate through all Python object attributes 
+
+            # Iterate through all Python object attributes
             # XXX: Might be smarter to use zope.schema introspection here?
-            for key, value in context.__dict__.items():            
+            for key, value in context.__dict__.items():
                 # Ignore non-contentish attributes to speed up us a bit
                 if not key.startswith("_"):
-                    if INamedFile.providedBy(value):                    
+                    if INamedFile.providedBy(value):
                         try:
                             value.getSize()
                         except POSKeyError:
-                            print "Found damaged Dexterity plone.app.NamedFile %s on %s" % (key, context.absolute_url())     
+                            print "Found damaged Dexterity plone.app.NamedFile %s on %s" % (key, context.absolute_url())
                             return True
         return False
 
+
     def fix_blobs(context):
         """
-        Iterate through the object variables and see if they are blob fields 
+        Iterate through the object variables and see if they are blob fields
         and if the field loading fails then poof
         """
-        
+
         if check_at_blobs(context) or check_dexterity_blobs(context):
             print "Bad blobs found on %s" % context.absolute_url() + " -> deleting"
             parent = context.aq_parent
             parent.manage_delObjects([context.getId()])
 
-                    
+
     def recurse(tree):
         """ Walk through all the content on a Plone site """
         for id, child in tree.contentItems():
-        
+
             fix_blobs(child)
-        
+
             if IFolderish.providedBy(child):
                 recurse(child)
-                                
+
+
     class FixBlobs(grok.CodeView):
         """
-        A management view to clean up content with damaged BLOB files 
-        
-        You can call this view by 
-        
+        A management view to clean up content with damaged BLOB files
+
+        You can call this view by
+
         1) Starting Plone in debug mode (console output available)
-        
+
         2) Visit site.com/@@fix-blobs URL
-        
+
         """
         grok.name("fix-blobs")
         grok.context(ISiteRoot)
@@ -185,20 +188,20 @@ The code, ``fixblobs.py``::
         def disable_integrity_check(self):
             """  Content HTML may have references to this broken image - we cannot fix that HTML
             but link integriry check will yell if we try to delete the bad image.
-            
+
             http://collective-docs.readthedocs.org/en/latest/content/deleting.html#bypassing-link-integrity-check "
             """
             ptool = queryUtility(IPropertiesTool)
             props = getattr(ptool, 'site_properties', None)
             self.old_check = props.getProperty('enable_link_integrity_checks', False)
             props.enable_link_integrity_checks = False
-            
+
         def enable_integrity_check(self):
             """ """
             ptool = queryUtility(IPropertiesTool)
-            props = getattr(ptool, 'site_properties', None)        
+            props = getattr(ptool, 'site_properties', None)
             props.enable_link_integrity_checks = self.old_check
-        
+
         def render(self):
             #plone = getMultiAdapter((self.context, self.request), name="plone_portal_state")
             print "Checking blobs"
@@ -209,17 +212,18 @@ The code, ``fixblobs.py``::
             print "All done"
             return "OK - check console for status messages"
 
+
 More info
 
 * http://stackoverflow.com/questions/8655675/cleaning-up-poskeyerror-no-blob-file-content-from-plone-site
-    
+
 * http://pypi.python.org/pypi/experimental.gracefulblobmissing/
 
 
 Transactions
 ================
 
-Transactions usually are problematic only when many 
+Transactions usually are problematic only when many
 ZEO front-end clients are used.
 
 CoflictError
@@ -237,16 +241,16 @@ More info
 How to debug which object causes ConflictErrors
 -------------------------------------------------
 
-ConflictErrors are caused by concurrent transactions trying to write to the same object(s) - 
+ConflictErrors are caused by concurrent transactions trying to write to the same object(s) -
 usually portal_catalog. They are harmless, but slow down badly coded site.
 Plone will retry the HTTP request and transaction five times before giving up.
 
 OID is visible in the ConflictError traceback.
- 
+
 You can turn OID back to Python object, as mentioned by A. Jung::
-        
+
         from ZODB.utils import p64
-        app._p_jar[p64(oid)] 
+        app._p_jar[p64(oid)]
 
 If every transaction appears as write transaction
 --------------------------------------------------
