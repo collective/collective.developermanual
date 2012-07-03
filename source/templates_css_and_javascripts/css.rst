@@ -81,7 +81,7 @@ Inserting CSS as last into anonymous bundles
 Plone compresses and merges CSS files to *bundles*.
 
 For Plone 3.x, the optimal place to put CSS file available to all users is
-after ``ploneKss.css``, as in the example above, to override rules in 
+after ``ploneKss.css``, as in the example above, to override rules in
 earlier files.
 
 .. TODO:: Also for Plone 4.x?
@@ -174,7 +174,7 @@ Calling the view in ``main_template.pt``:
 
 .. code-block:: html
 
-    <body 
+    <body
         tal:define="css_class_helper nocall:here/@@css_class_helper"
         tal:attributes="class string:${here/getSectionFromURL} template-${template/id} ${css_class_helper/logged_in_class};
                         dir python:test(isRTL, 'rtl', 'ltr')">
@@ -288,13 +288,16 @@ class which is registered as the ``plone_layout`` view.
     """
 
     from zope.component import queryUtility
-    from zope.component import queryMultiAdapter
+    from zope.component import getMultiAdapter
 
     from plone.i18n.normalizer.interfaces import IIDNormalizer
     from plone.app.layout.globals import layout as base
+    from plone.app.layout.navigation.interfaces import INavigationRoot
+
 
     class LayoutPolicy(base.LayoutPolicy):
-        """ Enhanced layout policy helper.
+        """
+        Enhanched layout policy helper.
 
         Extend the Plone standard class to have some more <body> CSS classes
         based on the current context.
@@ -304,10 +307,10 @@ class which is registered as the ``plone_layout`` view.
             """Returns the CSS class to be used on the body tag.
             """
 
-            # Call parent
+            # Get contet parent
             body_class = base.LayoutPolicy.bodyClass(self, template, view)
 
-            # Include context and parent classes
+            # Include context and parent ids as CSS classes on <body>
             normalizer = queryUtility(IIDNormalizer)
 
             body_class += " context-" + normalizer.normalize(self.context.getId())
@@ -317,6 +320,16 @@ class which is registered as the ``plone_layout`` view.
             # Check that we have a valid parent
             if hasattr(parent, "getId"):
                 body_class += " parent-" + normalizer.normalize(parent.getId())
+
+            # Get path with "Default content item" wrapping applied
+            context_helper = getMultiAdapter((self.context, self.request), name="plone_context_state")
+            canonical = context_helper.canonical_object()
+
+            # Mark site front page with special CSS class
+            if INavigationRoot.providedBy(canonical):
+
+                if "template-document_view" in body_class:
+                    body_class += " front-page"
 
             return body_class
 
