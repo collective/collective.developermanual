@@ -16,10 +16,12 @@ XML-based language used to extend and plug into systems based on the Zope
 Component Architecture (:term:`ZCA`).
 
 It provides:
+
 * conflict resolution (e.g. two plug-ins cannot overlap);
 * extensible syntax based on namespaces.
 
 Downsides of ZCML are: 
+    
 * it is cumbersome to write by hand; 
 * lack of end-user documentation.
 
