@@ -14,14 +14,14 @@ z3c.form
 .. contents :: :local:
 
 
-Introduction
+介绍
 -------------
 
 This document gives you 
 
-* Learning resources for creating Python driven z3c.forms with Plone
+* 提供Z3c.form集成Plone的相关学习资源
 
-* Additional insight how to accomplish specific tasks with z3c.form and Plone
+* 介绍用z3c.form完成一些特别的任务
 
 ``z3c.form`` uses :doc:`zope.schema <schemas>` package to define form data model. Then it applies 
 its own form specific data extraction (HTTP request processing), field, widget and form button logic on the
@@ -35,7 +35,7 @@ top of this.
 Read more about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_ 
 
 
-Related documentation
+相关文档
 ---------------------
 
 - `z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is generic, very flexible and very complex form library for Python.
@@ -44,12 +44,12 @@ Related documentation
 - `z3c.form tutorial by garbas <http://garbas.github.com/plone-z3c.form-tutorial/>`_
 
 
-z3c.form big picture
+z3c.form 总览
 ---------------------
 
-Form model consist of 
+表单模型的构成： 
 
-* self.request - HTTP request coming in
+* self.request - 进来的HTTP request
 
 * self.context - The Plone content item which was associated with the form view when URL traversing was done
 
