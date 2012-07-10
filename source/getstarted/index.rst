@@ -10,6 +10,14 @@ Introduction
 Plone is developed in :doc:`Python </getstarted/python>` programming language. You should master Python basics
 before you can efficiently customize Plone.
 
+Plone runs on the top of `Zope 2 application server <zope2.zope.org/>`_ meaning that one Zope 2 server process
+can contain and host several Plone sites. Plone also uses Zope 3 components. Zope 3 is not upgrade for Zope 2,
+but a separate project.
+
+Internally Plone uses objected-oriented :doc:`ZODB </persistency/index>` database and the development
+mindset greatly differs from SQL based system. SQL backends can be still integrated to Plone,
+like to any Python applications.
+
 Installing Plone
 ------------------
 
@@ -41,10 +49,6 @@ Plone add-ons usually
 * Theme your site
 
 * etc.
-
-Internally Plone uses objected-oriented :doc:`ZODB </persistency/index>` database and the development
-mindset greatly differs from SQL based system. SQL backends can be still integrated to Plone,
-like to any Python applications.
 
 A lot of Plone functionality extensivility is built on :doc:`Zope 3 development patterns </components/index>`
 like adapters and interfaces. This design patters take some time to learn, but they are crucial in complex
@@ -91,4 +95,24 @@ More info
     paste
     helloworld
 
+Plone resources
+=================
+
+* `Plone Trac <http://dev.plone.org/plone>`_ contains bug reports, Plone source
+  code and commits. Useful when you encounter a new exception or you are
+  looking for a reference how to use the API.
+
+* `Plone source code in version control system <https://github.com/plone>`_.
+
+Zope resources
+==================
+
+* `Zope source code in version control system <http://svn.zope.org/>`_.
+
+* `Zope 2 book <http://docs.zope.org/zope2/zope2book/>`_. This describes old
+  Zope 2 technologies. The book is mostly good for explaining some old things,
+  but '''do not''' use it as a reference for building new things.
+
+  The chapters on Zope Page Templates however are still the best reference
+  on the topic.
 
