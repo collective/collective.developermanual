@@ -35,6 +35,7 @@ Table of Content
    testing_and_debugging/index
    hosting/index
    performance/index
+   buildout/index
    troubleshooting/index
    zope_secrets/index
    zcml/index
