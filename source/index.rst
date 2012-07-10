@@ -32,7 +32,6 @@ Creating Plone add-ons and fuctionality
    images/index
    misc/index
    zope_secrets/index
-   zcml/index
 
 Maintaining Plone sites
 -------------------------------------------

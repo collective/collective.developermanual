@@ -5,9 +5,9 @@
 .. admonition:: Description
 
     What Plone programmers should know about ZCML.
-   
+
 .. contents :: :local:
-        
+
 Introduction
 =================
 
@@ -20,12 +20,12 @@ It provides:
 * conflict resolution (e.g. two plug-ins cannot overlap);
 * extensible syntax based on namespaces.
 
-Downsides of ZCML are: 
-    
-* it is cumbersome to write by hand; 
+Downsides of ZCML are:
+
+* it is cumbersome to write by hand;
 * lack of end-user documentation.
 
-Plone uses ZCML to: 
+Plone uses ZCML to:
 
 * register components with various places in the system, both core and
   add-ons.
@@ -34,17 +34,17 @@ Plone uses ZCML to:
 
     Everything you can do in ZCML can also be done in Python code.
 
-After developers found ZCML cumbersome, the 
+After developers found ZCML cumbersome, the
 :doc:`Grok framework </components/grok>` was created. Grok makes it possible
 use the ZCA without writing XML by enabling Python directives and function
-decorators to be used instead.         
-        
+decorators to be used instead.
+
 More info:
 
 * `ZCML reference <http://apidoc.zope.org/++apidoc++/ZCML/staticmenu.html>`_ (does not include Plone specific directives)
 
-* http://docs.zope.org/zopetoolkit/codingstyle/zcml-style.html 
-                
+* http://docs.zope.org/zopetoolkit/codingstyle/zcml-style.html
+
 ZCML workflow
 ==============
 
@@ -64,13 +64,13 @@ configuration files using the ``<include>`` directive.
 When Plone is started all ZCML files are read.
 
 * New way: Python egg ``setup.py`` file contains a
-  `autoinclude <http://plone.org/products/plone/roadmap/247>`_ 
+  `autoinclude <http://plone.org/products/plone/roadmap/247>`_
   hint and is picked up automatically when all the packages are scanned.
 
 * Old way: ZCML reference must be manually added to the ``zcml = section``
   in ``buildout.cfg``
 
-If ZCML contains errors 
+If ZCML contains errors
 :doc:`Plone does not start up in the foreground </troubleshooting/basic>`
 
 Overrides
@@ -99,4 +99,63 @@ during ZCML parsing, not when site is run.
 
     ``overrides.zcml`` must be explicitly specified in ``buildout.cfg`` and
     is never automatically included from eggs.
+
+Specify files and code from another package
+===========================================
+
+If you ever find yourself needing to use a template
+from another package, you can do so with using the
+configure tag which will then run the block of :term:`ZCML`
+in the context of that package.
+
+Here is an example of defining portlet manager to be
+defined in another manager::
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        i18n_domain="my.package">
+
+        <!-- Moved viewlet registration -->
+        <configure package="Products.ContentWellPortlets">
+            <browser:viewlet
+                name="contentwellportlets.portletsabovecontent"
+                class="Products.ContentWellPortlets.browser.viewlets.PortletsAboveViewlet"
+                manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+                layer="Products.ContentWellPortlets.browser.interfaces.IContentWellPortlets"
+                permission="zope2.View"
+                template="browser/templates/portletsabovecontent.pt"
+            />
+        </configure>
+
+    </configure>
+
+
+Conditionally run :term:`ZCML`
+===============================
+
+You can conditionally run :term:`ZCML` if a certain package or feature is
+installed.
+
+First, include the namespace at the top of the :term:`ZCML` file::
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:zcml="http://namespaces.zope.org/zcml"
+        i18n_domain="my.package">
+    ....
+
+Examples
+--------
+
+conditionally run for package::
+
+    <include zcml:condition="installed some.package" package=".package" />
+    <include zcml:condition="not-installed some.package" package=".otherpackage" />
+
+conditionally run for feature::
+
+    <include zcml:condition="have plone-4" package=".package" />
+    <include zcml:condition="not-have plone-4" package=".otherpackage" />
+
 
