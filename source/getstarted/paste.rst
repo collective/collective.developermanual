@@ -75,7 +75,6 @@ Add to your ``buildout.cfg``::
         Paste
         templer.plone
         templer.plone.localcommands
-        zopeskel.dexterity
 
 The following templer packages are available
 
