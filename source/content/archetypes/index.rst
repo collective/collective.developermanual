@@ -19,6 +19,6 @@ Archetypes is a subsystem to create content types in Plone 2.x and Plone 3.x.
     converting-content-types
     templates
     references
-    archegenxml
+    archgenxml/index
 
 

@@ -1,21 +1,20 @@
 Plone Developer Documentation
 =======================================================
 
-This document contains API descriptions, code snippets and links to further
-references on how to program the `Plone <http://plone.org>`_ content management
-system to fit your specific needs. It is intended for Python developers who
+This document is community maintained manual for `Plone <http://plone.org>`_ content management
+system customization. It is intended for Python developers who
 want to write their own add-ons, integration code, and other customizations.
-
-Basic Python and Plone knowledge is a prerequisite for understanding this documentation.
 
 Table of Content
 ================
 
-.. toctree::
-   :maxdepth: 2
+Creating Plone add-ons and fuctionality
+-------------------------------------------
 
-   introduction/index
-   tutorials/index
+.. toctree::
+   :maxdepth: 1
+
+   getstarted/index
    serving/index
    views/index
    content/index
@@ -32,14 +31,46 @@ Table of Content
    sessions/index
    images/index
    misc/index
-   testing_and_debugging/index
-   hosting/index
-   performance/index
-   buildout/index
-   troubleshooting/index
    zope_secrets/index
    zcml/index
+
+Maintaining Plone sites
+-------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   getstarted/installation
+   buildout/index
+   hosting/index
+
+Testing and tuning Plone
+-------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   testing_and_debugging/index
+   performance/index
+
+Troubleshooting
+-------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   troubleshooting/index
+
+Other
+------------
+
+.. toctree::
+   :maxdepth: 1
+
+   writing/index
    glossary
    todos
+   old-style-vs-new-style/index
+
 
 

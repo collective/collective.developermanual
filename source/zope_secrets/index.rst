@@ -1,6 +1,6 @@
-============
-Zope secrets
-============
+============================
+Zope 2 process internals
+============================
 
 This documentation will attempt to explain some of Zope's internals. It may be
 useful for debugging purposes, or simply to better understand how Zope works.
