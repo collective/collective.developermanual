@@ -15,14 +15,10 @@ Introduction
 Templer is a Python helper and package colllection providing code skeleton templates for Plone add-ons and themes
 for bootstrapping your Plone customization add-on work.
 
-More about Templer
-
-* http://pypi.python.org/pypi/templer.plone/
-
 .. note ::
 
-  In the past this package was known as Templer. The same templates could be triggered
-  using *paster* and *templer* commands.
+  In the past this package was known as ZopeSkel. The same templates could be triggered
+  using *paster* and *zopeskel* commands.
 
 Further reading
 ================
