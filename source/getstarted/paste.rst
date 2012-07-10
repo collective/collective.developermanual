@@ -163,9 +163,9 @@ project.
 
 Examples of the kind of Plone functionality you can add with local commands
 
-* Content types
+* Content types inside your add-on
 
-* Portlets
+* Portlets inside your add-on
 
 * etc.
 
@@ -185,13 +185,21 @@ development and add our first Archetypes based content type.
 Example of creating a content type::
 
         # First create an add-on skeleton if one does not exist
-        cd src/yourcompany.productname
+        cd src/yourcompany.productname/src
+
+.. note ::
+
+    You must enter *src* folder **inside** your package. Otherwise paster add command does not work.
+
+To list available local commands templates type::
+
+    ../../../bin/paster add -a
 
 Now you can use ``paster`` ``addcontent`` local command to contribute to the existing project
 
 Example of how to create a special content type for managing lectures::
 
-        ../../bin/paster addcontent contenttype Customer
+        ../../../bin/paster add contenttype
 
 .. note ::
 
