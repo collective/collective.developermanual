@@ -24,6 +24,11 @@ More about Templer
   In the past this package was known as Templer. The same templates could be triggered
   using *paster* and *templer* commands.
 
+Further reading
+================
+
+`For more in-depth information visit Templer manual <http://templer-manual.readthedocs.org/en/latest/index.html>`_
+
 Add-on creation and installation steps
 --------------------------------------
 
@@ -143,6 +148,12 @@ with a :doc:`Python traceback </troubleshooting/exceptions>`.
 
 Now you should see your add-on in *Add/remove add-ons* in *Site setup* after logging into your local Plone site as admin.
 
+.. note ::
+
+    If you are migrating from old ZopeSkel templates you need to remove ZopeSkel frmo buildout first.
+
+`Get rid of old ZopeSkel before starting using Templer <https://github.com/collective/templer.plone/blob/master/README.txt>`_.
+
 Local commands
 ---------------------------------
 
@@ -157,6 +168,13 @@ Examples of the kind of Plone functionality you can add with local commands
 * Portlets
 
 * etc.
+
+
+.. note ::
+
+    Local commands are not available until your egg is correctly
+    registered as development egg in buildout (this causes setup.py develop command
+    run, creating necessary Paster hooks).
 
 Creating a content type
 ===========================
