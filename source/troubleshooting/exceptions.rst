@@ -55,10 +55,10 @@ Another reason is that acquisition chain is not properly set-up in your custom v
 Difference::
 
         from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-        
+
 vs.
 
-        
+
 
 Iteration over non-sequence in _normalizeargs
 ----------------------------------------------
@@ -156,13 +156,13 @@ Example traceback::
           File "/home/moo/twinapex/parts/zope2/lib/python/zope/interface/declarations.py", line 1371, in _normalizeargs
             for v in sequence:
         TypeError: iteration over non-sequence
-        
+
 Reason: You are trying to use Plone 4 (Zope 2.12) add-on on Plone 3 (Zope 2.10). Zope interface declarations have been changed.
 
-**Solution 1**: Pick the older version for the add-on which is known to work with Plone 3. Make sure that you 
+**Solution 1**: Pick the older version for the add-on which is known to work with Plone 3. Make sure that you
 delete all "too eggs" from ``eggs/`` and ``src/`` folders.
 
-**Solution 2**: Upgrade your site to Plone.        
+**Solution 2**: Upgrade your site to Plone.
 
 TraversalError with lots of tuples and lists (METAL problem)
 ------------------------------------------------------------
@@ -315,7 +315,7 @@ In order to be sure that those modules are properly included, you can add the fo
         <include package="plone.app.z3cform" />
         <include package="plone.z3cform" />
         <include package="z3c.form" />
-        
+
 ...or you can use autoinclude feature for Plone 3.3+
 
 in configure.zcml
@@ -323,7 +323,7 @@ in configure.zcml
 .. code-block:: xml
 
         <includeDependencies package="." />
-        
+
 and then your add-on product setup.py file::
 
 
@@ -331,9 +331,9 @@ and then your add-on product setup.py file::
           'setuptools',
           'plone.app.z3cform',
           # -*- Extra requirements: -*-
-      ],        
-      
-Also remember to run Plone add-on installer for plone.app.z3cform (though it is unrelated to this error).      
+      ],
+
+Also remember to run Plone add-on installer for plone.app.z3cform (though it is unrelated to this error).
 
 NotFound error (Page not found) when accessing @@manage-portlets
 --------------------------------------------------------------------
@@ -455,7 +455,7 @@ It usually means that there is a portlet in your content which product code has 
 Reinstall the add-on providing the portlet, remove the portlet and then uninstall the add-on again.
 
 AttributeError: getPhysicalPath()
----------------------------------- 
+----------------------------------
 
 ::
 
@@ -488,7 +488,7 @@ AttributeError: getPhysicalPath()
 	  Module OFS.Traversable, line 64, in absolute_url
 	  Module OFS.Traversable, line 117, in getPhysicalPath
 	AttributeError: getPhysicalPath
-	
+
 Another possibility::
 
 	AttributeError: absolute_url
@@ -498,10 +498,10 @@ absolute_url() tries to get the path to the object, but object parent is set to 
 instead of real container object (context.aq_inner.aq_parent).
 
 .. warning::
-	
+
 	When setting a member attribute in BrowserView, the acquisition parent of objec changes to BrowserView instance.
 	All member attributes receive ImplicitAcquisitionWrapper automatically.
-	
+
 Demostration
 ============
 
@@ -523,61 +523,61 @@ We try to set BrowserView member attribute defining_context to be some context o
 
 To get the real object (as it was before set was called) you can create a helper getter::
 
-    def getDefiningContext(self):        
-        """        
+    def getDefiningContext(self):
+        """
         Un-fuse automatically injected view from the acquisition chain
-        
-        @return: Real defining context object without bad acquistion 
+
+        @return: Real defining context object without bad acquistion
         """
         if self.defining_context is not None:
             return self.defining_context.aq_parent.aq_inner.aq_parent
         return None
 
-        
+
 RuntimeError: maximum recursion depth exceeded (Archetypes field problem)
 --------------------------------------------------------------------------
 
 Example::
 
-           atapi.ImageField( 
-                'memberimage', 
-                # storage=atapi.AnnotationStorage(), # paster version 
-                storage=atapi.AttributeStorage(), # results in "max recursion depth exceeded" error 
-                widget=atapi.ImageWidget( 
-                    label=_(u"New Field"), 
-                    description=_(u"Field description"), 
-                ), 
-                validators=('isNonEmptyFile'), 
-                original_size=(600,600), 
-                sizes={ 'mini' : (80,80), 
-                        'normal' : (200,200), 
-                        'big' : (300,300), 
-                        'maxi' : (500,500)}, 
-            ), 
-        
-        
-        This results in an exception when I try to access the object: 
-        
-           - __traceback_info__: ('memberimage', <TTMemberImage at tt_member_image.2010-01-23.8138248069>, {'field': <Field memberimage(image:rw)>}) 
-          Module Products.Archetypes.Storage, line 96, in get 
-          Module Products.Archetypes.utils, line 808, in shasattr 
-          Module Products.Archetypes.fieldproperty, line 101, in __get__ 
-          Module Products.Archetypes.Field, line 997, in get 
-          Module Products.Archetypes.Field, line 709, in get 
-           - __traceback_info__: ('memberimage', <TTMemberImage at tt_member_image.2010-01-23.8138248069>, {'field': <Field memberimage(image:rw)>}) 
-        RuntimeError: maximum recursion depth exceeded 
-       
+           atapi.ImageField(
+                'memberimage',
+                # storage=atapi.AnnotationStorage(), # paster version
+                storage=atapi.AttributeStorage(), # results in "max recursion depth exceeded" error
+                widget=atapi.ImageWidget(
+                    label=_(u"New Field"),
+                    description=_(u"Field description"),
+                ),
+                validators=('isNonEmptyFile'),
+                original_size=(600,600),
+                sizes={ 'mini' : (80,80),
+                        'normal' : (200,200),
+                        'big' : (300,300),
+                        'maxi' : (500,500)},
+            ),
+
+
+        This results in an exception when I try to access the object:
+
+           - __traceback_info__: ('memberimage', <TTMemberImage at tt_member_image.2010-01-23.8138248069>, {'field': <Field memberimage(image:rw)>})
+          Module Products.Archetypes.Storage, line 96, in get
+          Module Products.Archetypes.utils, line 808, in shasattr
+          Module Products.Archetypes.fieldproperty, line 101, in __get__
+          Module Products.Archetypes.Field, line 997, in get
+          Module Products.Archetypes.Field, line 709, in get
+           - __traceback_info__: ('memberimage', <TTMemberImage at tt_member_image.2010-01-23.8138248069>, {'field': <Field memberimage(image:rw)>})
+        RuntimeError: maximum recursion depth exceeded
+
 Reason: Schema fields using AttributeStorage (usually images, files) **cannot** have ATFieldProperty in the class::
 
         class Sample(base.ATCTContent):
-               
+
             # This does not work with AttributeStorage
             memberimage = atapi.ATFieldProperty('memberimage')
-            
-To fix this simply remobe ATFieldProperty() declaration for the problematic field. You cannot 
+
+To fix this simply remobe ATFieldProperty() declaration for the problematic field. You cannot
 access the field value anymore by calling *object.memberimage* but you need to call *object.getMemberimage()* instead.
-                         
-         
+
+
 Invalid or Duplicate property id
 --------------------------------
 
@@ -640,7 +640,7 @@ The following exception may appear during Plone migration to the newer version::
             * The upgrade path did NOT reach current version
             * Migration has failed
             * Dry run selected, transaction aborted
-            
+
 It is caused by a property (site setting) which already exists and migration tries to create it.
 The usual reason is that one has edited site settings in new Plone version before running the migration.
 
@@ -654,7 +654,7 @@ Potential candidates to be removed:
 
 Potential candidates which need to be added manually:
 
-* redirect_links (boolean) 
+* redirect_links (boolean)
 
 More info:
 
@@ -681,10 +681,10 @@ Traceback (innermost last):
     * Module zope.pagetemplate.pagetemplate, line 117, in pt_render
       Warning: Macro expansion failed
       Warning: zope.traversing.interfaces.TraversalError: ('No traversable adapter found',
- 
- 
+
+
 This traceback is followed by long dump of template code internals.
-      
+
 Usual cause: Some add-on product fails to initialize.
 
 Start Zope in foreground mode (bin/instance fg) to see which product fails.
@@ -705,14 +705,14 @@ Exception when starting Zope::
           File "/Users/moo/twinapex/twinapex/eggs/ZODB3-3.8.2-py2.4-macosx-10.6-i386.egg/persistent/__init__.py", line 19, in ?
             from cPersistence import Persistent, GHOST, UPTODATE, CHANGED, STICKY
         ImportError: Inappropriate file type for dynamic loading
-        
+
 You probably have files lying over from wrong CPU architecture
 
 * Hand copied eggs between servers
 
 * Migrated OS to new version
 
-* You have several Python interpreters installed and you try to run Zope using 
+* You have several Python interpreters installed and you try to run Zope using
   the wrong interpreter (the one which the code is not compiled for)
 
 How to solve problem
@@ -751,10 +751,10 @@ Traceback example::
         Module Products.CMFCore.PortalFolder, line 333, in _checkId
         Module OFS.ObjectManager, line 102, in checkValidId
         BadRequest: The id "holidayservice.2010-03-18.4474765045" is invalid - it is already in use.
-        
+
 .. TODO:: Not really sure why this happens.
 
-Try portal_catalog rebuild as a fix.        
+Try portal_catalog rebuild as a fix.
 
 Exception: Type name not specified in createObject
 ------------------------------------------------------
@@ -774,10 +774,10 @@ Example traceback::
         <FSControllerPythonScript at /xxx/createObject used for /xxx/sisalto/lomapalvelut>
         Line 11
         Exception: Type name not specified
-        
+
 .. TODO:: Complete
 
-Unauthorized: The object is marked as private 
+Unauthorized: The object is marked as private
 ----------------------------------------------
 
 This error is raised when you try to access view functions or objects
@@ -875,8 +875,8 @@ Example::
           File "/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/utils.py", line 6, in ?
             from PIL import Image
         ImportError: No module named PIL
-        
-Python Imaging Library is not properly installed. The default PIL package does not work nicely as egg. 
+
+Python Imaging Library is not properly installed. The default PIL package does not work nicely as egg.
 
 Remove all existing PIL eggs from buildout/eggs folder.
 
@@ -901,7 +901,7 @@ Example traceback::
           Module ZPublisher.BaseRequest, line 506, in traverse
           Module ZPublisher.HTTPResponse, line 686, in debugError
         NotFound:   <h2>Site Error</h2>
-        
+
 This is because there is an exception raised in your view's __init__()
 method. Views are Zope multi-adapters. Exception in multi-adapter factory
 method causes ComponentLookUpError. Zope 2 publisher translates
@@ -909,17 +909,17 @@ this to NotFound error.
 
 How to fix
 
-* Put :doc:`pdb break statement </testing_and_debugging/pdb>` to the beginning of the __init__() 
+* Put :doc:`pdb break statement </testing_and_debugging/pdb>` to the beginning of the __init__()
   method of your view. Then step through view code to see where the exception is raisen.
-  
-* If your view does not have __init__() method, then copy the source code __init__() method 
+
+* If your view does not have __init__() method, then copy the source code __init__() method
   to your view class from the first parent class which has a view
 
 ContentProviderLookupError: plone.htmlhead
 ------------------------------------------
 
-Example traceback::  
-  
+Example traceback::
+
           Module zope.tales.tales, line 696, in evaluate
            - URL: file:/home/moo/isleofback/eggs/Plone-3.3.5-py2.4.egg/Products/CMFPlone/skins/plone_templates/main_template.pt
            - Line 39, Column 4
@@ -942,7 +942,7 @@ Example traceback::
                'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0xea62d2c>}
           Module Products.Five.browser.providerexpression, line 25, in __call__
         ContentProviderLookupError: plone.htmlhead
-         
+
 This is not a bug in Zope. It is caused by trying to render a Plone page frame in an context
 which has not acquisition chain properly set up. Plone ``main_template.pt``
 tries to look up viewlet managers by
@@ -962,14 +962,14 @@ Some possible causes
 See
 
 * https://bugs.launchpad.net/zope2/+bug/176566
-           
 
-           
+
+
 Error while installing a new portlet portlets.xml: unbound prefix
 --------------------------------------------------------------------
 
 Example traceback::
-        
+
         Traceback (innermost last):
           Module plone.postpublicationhook.hook, line 74, in publish
           Module ZPublisher.mapply, line 88, in mapply
@@ -984,11 +984,11 @@ Example traceback::
            - __traceback_info__: portlets
           Module plone.app.portlets.exportimport.portlets, line 707, in importPortlets
           Module Products.GenericSetup.utils, line 543, in _importBody
-        ExpatError: portlets.xml: unbound prefix: line 15, column 1           
-        
+        ExpatError: portlets.xml: unbound prefix: line 15, column 1
+
 Answer:
 
-You have ``i18n:attributes="title; description"`` in your portlets.xml. Remove it or declare i18n namespace in XML.         
+You have ``i18n:attributes="title; description"`` in your portlets.xml. Remove it or declare i18n namespace in XML.
 
 ImportError: Couldn't import ZPublisherEventsBackport
 -----------------------------------------------------
@@ -1040,8 +1040,8 @@ The following traceback pops up when you try to start Zope::
 	POSKeyError: 0x01
 
 Data.fs might have been damaged. You might be using blobs with Plone 3 and they don't work perfectly.
-. . . or a bunch other issues which generally mean that your day is screwed.  
-	
+. . . or a bunch other issues which generally mean that your day is screwed.
+
 See also
 
 * http://plonechix.blogspot.com/2009/12/definitive-guide-to-poskeyerror.html
@@ -1064,12 +1064,12 @@ dies before being able to raise stack size limit exception.
 **Workaround**
 
 Edit ``python-2.4/lib/python2.4/site.py`` or corresponding Python interpreter ``site.py``
-file (Python site installation customization file). 
+file (Python site installation customization file).
 
 Put in to the first code line::
 
          sys.setrecursionlimit(800)
-                  
+
 This will force smaller Python stack not exceeding native OSX C stack.
 You might want to test other values and report back the findings.
 
@@ -1080,8 +1080,8 @@ More Information
 IOError: [Errno url error] unknown url type: 'https'
 -----------------------------------------------------
 
-Example traceback::                 
-                 
+Example traceback::
+
           File "/home/moo/code/python/parts/opt/lib/python2.4/urllib.py", line 89, in urlretrieve
             return _urlopener.retrieve(url, filename, reporthook, data)
           File "/home/moo/code/python/parts/opt/lib/python2.4/urllib.py", line 222, in retrieve
@@ -1105,26 +1105,26 @@ Make sure that Python is built with SSL support
 .. code-block:: console
 
         ./configure --with-package=_ssl
-        
+
 You can test Python after compilation::
 
         moo@murskaamo:~/code/python$ source python-2.4/bin/activate
         (python-2.4)moo@murskaamo:~/code/python$ python
-        Python 2.4.6 (#1, Jul 16 2010, 10:31:46) 
+        Python 2.4.6 (#1, Jul 16 2010, 10:31:46)
         [GCC 4.4.3] on linux2
         Type "help", "copyright", "credits" or "license" for more information.
         >>> import _ssl
-        >>> 
+        >>>
 
 Also you might want try
 
 .. code-block:: console
 
-        easy_install pyopenssl                         
+        easy_install pyopenssl
 
 TypeError: len() of unsized object in smtplib
 ----------------------------------------------
-        
+
 Traceback::
 
         Traceback (innermost last):
@@ -1158,8 +1158,8 @@ Cause: Your SMTP password has been set empty. Please reset your SMTP password in
 
 More information
 
-* http://plone.293351.n2.nabble.com/Plone-3-3-5-sending-emails-len-of-unsized-object-error-NO-ESMTP-PASSWORD-tp5415484p5415484.html 
-        
+* http://plone.293351.n2.nabble.com/Plone-3-3-5-sending-emails-len-of-unsized-object-error-NO-ESMTP-PASSWORD-tp5415484p5415484.html
+
 
 NameError: name 'test' is not defined
 -------------------------------------
@@ -1173,7 +1173,7 @@ Solution: replace test() with common Python expression in your customized templa
 For example the orignal::
 
         tal:attributes="class python:test(here.Format() in ('text/structured', 'text/x-rst', ), 'stx' + kss_class, 'plain', + kss_class)"
-        
+
 would need to be written as:
 
         tal:attributes="class python:here.Format() in ('text/structured', 'text/x-rst', ) 'stx' + kss_class and 'plain' or kss_class"
@@ -1208,9 +1208,9 @@ You have traceback like::
 	  File "/home/moo/sits/parts/zope2/lib/python/zope/tal/talinterpreter.py", line 891, in do_useMacro
 	    self.interpret(macro)
 	    handlers[opcode](self, args)
-	   
+
 	  ...
-	    
+
 	  File "/home/moo/sits/parts/zope2/lib/python/zope/tal/talinterpreter.py", line 586, in do_setLocal_tal
 	    self.engine.setLocal(name, self.engine.evaluateValue(expr))
 	  File "/home/moo/sits/parts/zope2/lib/python/zope/tales/tales.py", line 696, in evaluate
@@ -1227,7 +1227,7 @@ You have traceback like::
 	    return traversable.traverse(nm, further_path)
 	  File "/home/moo/sits/parts/zope2/lib/python/zope/traversing/adapters.py", line 52, in traverse
 	    raise TraversalError(subject, name)
-	        
+
 From line ``Products/PageTemplates/Expressions.py`` you can see the error comes from TAL templates.
 TAL templates are trying to execute path based expressions.
 
@@ -1237,10 +1237,10 @@ what expression causes the exception. However if this only happens with unit tes
     def __call__(self, econtext):
         if self._name == 'exists':
             return self._exists(econtext)
-        print "Evaluating expression:" + self._s 
+        print "Evaluating expression:" + self._s
         return self._eval(econtext)
 
-manually injected to ``zope.tales.expression`` module.        
+manually injected to ``zope.tales.expression`` module.
 
 Content status history won't render - traceback is content path reversed
 --------------------------------------------------------------------------
@@ -1276,8 +1276,8 @@ Traceback::
 	  Module OFS.Traversable, line 284, in unrestrictedTraverse
 	   - __traceback_info__: ([u's', u'a', u'n', u'u', u'o', u'l', u'/', u'a', u'm', u'l', u'i', u'a', u'a', u'm', u'a', u'l', u'o', u't', u'n', u'i', u'v', u'a', u'r', u'/', u'i', u'f', u'/', u'i', u'r', u'u', u't', u'n', u'u', u't', u'i', u'v', u'e', u'l', u'i', u'l', u'l', u'e', u't', u'o', u'h'], u'/')
 	KeyError: u'/'
-	
-.. TODO:: No solution	
+
+.. TODO:: No solution
 
 AttributeError: 'module' object has no attribute 'HTTPSConnection'
 --------------------------------------------------------------------
@@ -1286,9 +1286,9 @@ Python has not been compiled with HTTPS support.
 
 Try installing your Python, for example, using minitage.
 
-See :doc:`Python basics </tutorials/python>`.
+See :doc:`Python basics </getstarted/python>`.
 
- 
+
 LinguaPlone: ImportError: cannot import name permissions
 ----------------------------------------------------------
 
@@ -1305,15 +1305,15 @@ Traceback::
 	    ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/src/abita.theme/abita/theme/browser/configure.zcml", line 10.2-10.33
 	    ZopeXMLConfigurationError: File "/home/moo/code/finnmall/finnmall/src/abita.theme/abita/theme/browser/viewlets/configure.zcml", line 6.2-11.6
 	    ImportError: cannot import name permissions
-	    
+
 This seems to be Plone 4 issue of some sort.
 Import Products.ATContentTypes before importing LinguagePlone.
 
-* http://plone.org/products/linguaplone/issues/253	    
-	    
-Related 
+* http://plone.org/products/linguaplone/issues/253
 
-* http://plone.org/products/linguaplone/issues/253	    
+Related
+
+* http://plone.org/products/linguaplone/issues/253
 
 TypeError: 'NoneType' object is not callable during upgrade
 -----------------------------------------------------------------
@@ -1341,10 +1341,10 @@ for which Python code is no longer present.
 More pointers for resolving the tool can be found using pdb::
 
         (Pdb) tool_id
-        'portal_newsletters'        
+        'portal_newsletters'
 
 This happens when you have used Singing and Dancing news letter product. This add-on
-is problematic and does not uninstall cleanly.         
+is problematic and does not uninstall cleanly.
 
 * Reinstall Singing & Dancing
 
@@ -1364,7 +1364,7 @@ ImportError: No module named pkgutil
 ------------------------------------
 
 Example::
-        
+
         Traceback (most recent call last):
           File "/Users/moo/plonecommunity/bin/idelauncher.py", line 101, in <module>
             exec(data, globals())
@@ -1381,37 +1381,37 @@ If you are using Eclipse, ``idelauncher.py`` has been updated for Plone 4.
 
 * ...or of you are using *collective.eclipsescripts* rerun command *Scripts -> Plone -> Import src folder as workspace*
 
-"PicklingError: Can't pickle <class 'collective.singing.async.IQueue'>: import of module collective.singing.async" 
+"PicklingError: Can't pickle <class 'collective.singing.async.IQueue'>: import of module collective.singing.async"
 --------------------------------------------------------------------------------------------------------------------
 
 Singing & Dancing add-on does not uninstall cleanly. Try this command-line script to get it fixed (not tested).
 Some parts may work, some not, depending on how messed up your site is.
 
-Note that you need to have S & D present in the buildout when running this and 
+Note that you need to have S & D present in the buildout when running this and
 then you can remove it afterwards::
- 
- 
+
+
         import transaction
         from collective.singing.interfaces import ISalt
         from collective.singing.async import IQueue
-        
-        # Your site here        
+
+        # Your site here
         portal = app.mfabrik
         sm = portal.getSiteManager()
-        
+
         util_obj = sm.getUtility(ISalt)
         sm.unregisterUtility(provided=ISalt)
         del util_obj
-        
+
         sm.utilities.unsubscribe((), ISalt)
         del sm.utilities.__dict__['_provided'][ISalt]
         del sm.utilities._subscribers[0][ISalt]
-        
+
         util = sm.queryUtility(IQueue, name='collective.dancing.jobs')
         sm.unregisterUtility(util, IQueue, name='collective.dancing.jobs')
         del util
         del sm.utilities._subscribers[0][IQueue]
-        
+
         transaction.commit()
 
 System lxml too old
@@ -1433,7 +1433,7 @@ Let's see if we are getting too old system wide lxml installation::
 
 
         plone@mansikki:/srv/plone/yourinstance$ python2.4
-        Python 2.4.5 (#2, Jan 21 2010, 20:05:55) 
+        Python 2.4.5 (#2, Jan 21 2010, 20:05:55)
         [GCC 4.2.4 (Ubuntu 4.2.4-1ubuntu3)] on linux2
         Type "help", "copyright", "credits" or "license" for more information.
         >>> import lxml
@@ -1456,7 +1456,7 @@ Example::
 
 Include standalone lxml + libxml compilation in your ``buildout.cfg``::
 
-        parts = 
+        parts =
                 ...
                 lxml
 
@@ -1468,7 +1468,7 @@ Include standalone lxml + libxml compilation in your ``buildout.cfg``::
 If there are exiting lxml builds in buildout be sure they are removed::
 
         rm -rf eggs/lxml*
-        
+
 Then as the non-root re-bootstrap the buildout using non-system wide Python::
 
         plone@mansikki:/srv/plone/yourinstance-2010/yourinstance$ source /srv/plone/py24/bin/activate
@@ -1477,8 +1477,8 @@ Then as the non-root re-bootstrap the buildout using non-system wide Python::
         (py24)plone@mansikki:/srv/plone/yourinstance-2010/yourinstance$ bin/buildout
         ...
 
-... and after this it should no longer pull the bad system lxml.         
-                
+... and after this it should no longer pull the bad system lxml.
+
 TraversalError: @@standard_macros
 -----------------------------------
 
@@ -1517,8 +1517,8 @@ Traceback::
            - __traceback_info__: (<plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>, '@@standard_macros')
           Module zope.traversing.namespace, line 107, in namespaceLookup
         TraversalError: (<plone.app.headeranimation.browser.forms.HeaderCRUDForm object at 0x110289590>, '++view++standard_macros')
-         
-:doc`Wrapping is missing from your form object </forms/z3c.form.txt>`. 
+
+:doc`Wrapping is missing from your form object </forms/z3c.form.txt>`.
 In this case the following helped::
 
     def update(self):
@@ -1530,12 +1530,12 @@ In this case the following helped::
         import zope.interface
         from plone.z3cform.interfaces import IWrappedForm
 
-        zope.interface.alsoProvides(addform, IWrappedForm)        
+        zope.interface.alsoProvides(addform, IWrappedForm)
         addform.update()
         editform.update()
         self.subforms = [editform, addform]
-                        
-                        
+
+
 AttributeError: 'wrapper_descriptor' object has no attribute 'im_func'
 ------------------------------------------------------------------------
 
@@ -1549,7 +1549,7 @@ Traceback when starting Plone::
             nasty_exception_str = Exception.__str__.im_func
         AttributeError: 'wrapper_descriptor' object has no attribute 'im_func'
 
-Cause: Trying to use Python 2.6 with Plone 3 - you need to use Python 2.4.                        
+Cause: Trying to use Python 2.6 with Plone 3 - you need to use Python 2.4.
 
 getUtility() fails: ComponentLookupError
 ----------------------------------------
@@ -1559,18 +1559,18 @@ Example exception::
         -> filter = getUtility(IConvergenceMediaFilter)
         (Pdb) n
         ComponentLookupError: <zope.component.interfaces.ComponentLookupError instance at 0x1038166c>
-        
+
 Make sure that your class object implements in the utility interface in the question::
 
         class ConvergedMediaFilter(object):
-            zope.interface.implements(IConvergenceMediaFilter)        
-            
-            
+            zope.interface.implements(IConvergenceMediaFilter)
+
+
 AttributeError: REQUEST in getObject
 ------------------------------------
 
-Traceback::            
-            
+Traceback::
+
           import ZPublisher, Zope
         Traceback (most recent call last):
           File "<string>", line 1, in ?
@@ -1589,8 +1589,8 @@ Traceback::
           File "/srv/plone/saariselka/parts/zope2/lib/python/OFS/Traversable.py", line 259, in unrestrictedTraverse
             next = queryMultiAdapter((obj, self.REQUEST),
         AttributeError: REQUEST
-        
-Reason: You are using command line script. getObject() fails for a catalog brain, because the actual object 
+
+Reason: You are using command line script. getObject() fails for a catalog brain, because the actual object
 is gone. However, unrestrictedTraverse() does not handle this case gracefully.
 
 
@@ -1598,9 +1598,9 @@ get_language: 'NoneType' object has no attribute 'getLocaleID'
 ------------------------------------------------------------------------------------
 
 Example traceback::
-       
+
         Traceback (innermost last):
-        
+
             Module ZPublisher.Publish, line 202, in publish_module_standard
             Module ZPublisherEventsBackport.patch, line 115, in publish
             Module plone.app.linkintegrity.monkey, line 21, in zpublisher_exception_hook_wrapper
@@ -1633,7 +1633,7 @@ Example traceback::
             Line 58, Column 4
             Expression: <StringExpr u'plone.htmlhead.links'>
             Names:
-        
+
             {'container': <IsleofbackFrontpage at /isleofback/sisalto/etusivu>,
              'context': <IsleofbackFrontpage at /isleofback/sisalto/etusivu>,
              'default': <object object at 0x7fd445785220>,
@@ -1649,17 +1649,17 @@ Example traceback::
              'user': <SpecialUser 'Anonymous User'>,
              'view': <Products.Five.metaclass.SimpleViewClass from /srv/plone/saariselka.fi/src/isleofback.app/isleofback/app/browser/isleofbacknewfrontpageview.pt object at 0xbaa9910>,
              'views': <zope.app.pagetemplate.viewpagetemplatefile.ViewMapper object at 0xcd20d90>}
-        
+
             Module Products.Five.browser.providerexpression, line 37, in __call__
             Module plone.app.viewletmanager.manager, line 83, in render
             Module plone.memoize.volatile, line 265, in replacement
             Module plone.app.layout.links.viewlets, line 28, in render_cachekey
             Module plone.app.layout.links.viewlets, line 19, in get_language
-        
-        AttributeError: <exceptions.AttributeError instance at 0xcd1bb48> (Also, the following error occurred while attempting to render the standard error message, please see the event log for full details: 'NoneType' object has no attribute 'getLocaleID')             
-        
+
+        AttributeError: <exceptions.AttributeError instance at 0xcd1bb48> (Also, the following error occurred while attempting to render the standard error message, please see the event log for full details: 'NoneType' object has no attribute 'getLocaleID')
+
 Some sort of Products.CacheSetup related problem on Plone 3.3.x, hiding the real error.
-Zope component architecture loading has failed (you are missing critical bits). This is 
+Zope component architecture loading has failed (you are missing critical bits). This is
 just the first entry where it tries to use an unloaded code.
 
 Start your instance on the foreground and you should see the actual error.
@@ -1732,7 +1732,7 @@ Traceback::
    - __traceback_info__: toolset
   Module Products.GenericSetup.tool, line 123, in importToolset
 
-You have leftovers from some old add-on installation (persistent tool) 
+You have leftovers from some old add-on installation (persistent tool)
 and Python egg code is no longer present for this tool.
 
 You should see a warning in logs giving you a hint when running add-on installer::
@@ -1751,7 +1751,7 @@ Then run the script for your site id and problem tool id::
 
         bad_tool = 'notifica_tool'
         site = app.yoursiteid
-        
+
         setup_tool = site.portal_setup
         toolset = setup_tool.getToolsetRegistry()
         if bad_tool in toolset._required.keys():
@@ -1759,48 +1759,60 @@ Then run the script for your site id and problem tool id::
             setup_tool._toolset_registry = toolset
         else:
             print "Tool not found:" + bad_tool
-        
+
         import transaction ; transaction.commit()
         app._p_jar.sync()
 
 In debug shell you can also check what all leftoverts toolset contains::
 
         >>> toolset._required.keys()
-        ['portal_historyidhandler', 'portal_actions', 'portal_skins', 'portal_form_controller', 
-        'portal_workflow', 'portal_catalog', 'portal_languages', 'kupu_library_tool', 'portal_diff', 
-        'portal_repository', 'reference_catalog', 'portal_groupdata', 'portal_search_and_replace', 
-        'portal_atct', 'mimetypes_registry', 'portal_purgepolicy', 'formgen_tool', 'uid_catalog', 
-        'error_log', 'portal_modifier', 'portal_discussion', 'portal_actionicons', 'portal_calendar', 'portal_metadata', 'portal_url', 
-        'portal_kss', 'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel', 
-        'portal_uidannotation', 'portal_transforms', 'portal_memberdata', 'portal_javascripts', 'portal_registration', 'portal_css', 
-        'portal_facets_catalog', 'portal_password_reset', 'plone_utils', 'caching_policy_manager', 
-        'portal_historiesstorage', 'portal_undo', 'portal_placeful_workflow', 'translation_service', 
+        ['portal_historyidhandler', 'portal_actions', 'portal_skins', 'portal_form_controller',
+        'portal_workflow', 'portal_catalog', 'portal_languages', 'kupu_library_tool', 'portal_diff',
+        'portal_repository', 'reference_catalog', 'portal_groupdata', 'portal_search_and_replace',
+        'portal_atct', 'mimetypes_registry', 'portal_purgepolicy', 'formgen_tool', 'uid_catalog',
+        'error_log', 'portal_modifier', 'portal_discussion', 'portal_actionicons', 'portal_calendar', 'portal_metadata', 'portal_url',
+        'portal_kss', 'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel',
+        'portal_uidannotation', 'portal_transforms', 'portal_memberdata', 'portal_javascripts', 'portal_registration', 'portal_css',
+        'portal_facets_catalog', 'portal_password_reset', 'plone_utils', 'caching_policy_manager',
+        'portal_historiesstorage', 'portal_undo', 'portal_placeful_workflow', 'translation_service',
         'archetype_tool', 'portal_view_customizations', 'portal_syndication', 'portal_quickinstaller', 'portal_uidhandler',
-        'portal_referencefactories', 'portal_interface', 'portal_facetednavigation', 'portal_membership', 
+        'portal_referencefactories', 'portal_interface', 'portal_facetednavigation', 'portal_membership',
         'MailHost', 'portal_properties', 'portal_migration', 'portal_types', 'portal_uidgenerator']
 
-        
+
 More info
 
 * http://plone.293351.n2.nabble.com/importToolset-NoneType-object-is-not-callable-upon-product-install-td5553065.html
-    
-    
+
+
 from zopeskel.basic_namespace import BasicNamespace
 ---------------------------------------------------------
 
-When starting ZopeSkel::       
+When starting ZopeSkel::
 
   File "/home/moo/code/python2/parts/opt/lib/python2.6/pkgutil.py", line 238, in load_module
     mod = imp.load_module(fullname, self.file, self.filename, self.etc)
   File "/home/moo/code/plonecommunity/eggs/ZopeSkel-2.19-py2.6.egg/zopeskel/__init__.py", line 2, in <module>
     from zopeskel.basic_namespace import BasicNamespace
-       
-You were not lucky today::
 
-        rm -rf /home/moo/code/python2/python-2.6/lib/python2.6/site-packages/ZopeSkel-2.19-py2.6.egg/
-        
-        
-      
+Or on paster with local commands::
+
+  File "/fast/buildout-cache/eggs/templer.core-1.0b4-py2.6.egg/templer/core/basic_namespace.py", line 3, in <module>
+    from templer.core.base import BaseTemplate
+  File "/fast/buildout-cache/eggs/templer.core-1.0b4-py2.6.egg/templer/core/base.py", line 8, in <module>
+    from paste.script import command
+  ImportError: cannot import name command
+
+System-wide templer / paster / zopeskel installation is affecting your buildout installation.
+
+Remove system-wide installation::
+
+    rm -rf /home/moo/code/python2/python-2.6/lib/python2.6/site-packages/ZopeSkel-2.19-py2.6.egg/
+
+Re-run buildout.
+
+Enjoy.
+
 'ExtensionClass.ExtensionClass' object is not iterable
 -----------------------------------------------------------
 
@@ -1831,8 +1843,8 @@ Traceback::
 
 In this example traceback the missing add-on is Products.Carousel which provides the marker interface Products.Carousel.interfaces.ICarousel
 
-Solution: Install the missing add-on(s) 
- 
+Solution: Install the missing add-on(s)
+
 
 AttributeError: type object 'IRAMCache' has no attribute '__iro__'
 --------------------------------------------------------------------------
@@ -1853,9 +1865,9 @@ Traceback when trying to open any page::
   Module zope.interface.adapter, line 389, in __init__
   Module zope.interface.adapter, line 426, in init_extendors
   Module zope.interface.adapter, line 430, in add_extendor
-  AttributeError: type object 'IRAMCache' has no attribute '__iro__'       
-  
-You have probably imported a Data.fs using newer Plone/Zope version to old Plone, or 
+  AttributeError: type object 'IRAMCache' has no attribute '__iro__'
+
+You have probably imported a Data.fs using newer Plone/Zope version to old Plone, or
 package pindowns are incorrect. If you are copying a site try re-checking that
 source and target buildouts and package versions match.
 
@@ -1885,16 +1897,16 @@ ComponentLookupError: cmf.ManagePortal
 ----------------------------------------
 
 When starting Plone you'll get::
-	
+
 	zope.configuration.config.ConfigurationExecutionError: <class 'zope.component.interfaces.ComponentLookupError'>: (<InterfaceClass zope.security.interfaces.IPermission>, u'cmf.ManagePortal')
 	  in:
-	  File "/fast/x/src/collective.portletcollection/collective/portletcollection/portlets/configure.zcml", line 11.2-20.8 
+	  File "/fast/x/src/collective.portletcollection/collective/portletcollection/portlets/configure.zcml", line 11.2-20.8
 
-This is a sign of changed loading order, starting from Plone 4.1. 
+This is a sign of changed loading order, starting from Plone 4.1.
 You need to explicitly include *CMFCore/permissions.zcml* in your *configuration.zcml*.
 
 Example::
-	
+
 	<include package="Products.CMFCore" file="permissions.zcml" />
 
 More info
@@ -1939,7 +1951,7 @@ Try if you can access your view by a directly calling it to by its name. E.g.::
 If it's working then it is wrong data in *portal_types*.
 
 Your content item might also be corrupted. It is trying to use dynamic view selector even if it's not supported. Try re-creating
-the particular content item. 
+the particular content item.
 
 
 Error: Incorrect padding
@@ -1956,7 +1968,7 @@ Traceback comes when you try to access any Plone site URL::
 	  Module Products.PluggableAuthService.plugins.CookieAuthHelper, line 121, in extractCredentials
 	  Module base64, line 321, in decodestring
 	Error: Incorrect padding
-	
+
 It means that your browser most likely tries to serve bad cookies / auth info to Zope.
 Clear browser cache, cookies, etc.
 

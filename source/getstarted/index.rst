@@ -26,6 +26,25 @@ but you need to have much more experience dealing with Python and Windows relate
 
 See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation suitable for development.
 
+Plone development workflow
+----------------------------
+
+You never edit Plone files directly. Everything under ``parts`` and `eggs``
+folders in your Plone installation are downloaded from internet and dynamically generated
+based by ``buildout.cfg``. Plone is free to override these files on any update.
+Instead you overlay changes to existing Plone code through extension mechanisms provided by Plone
+
+* :doc:`Layers </views/layers>`
+
+* :doc:`Adapters </components/adapters>`
+
+* :doc:`Installation profiles </components/genericsetup>`
+
+Plone development always happens on your local computer or the development server.
+The changes are moved to the production through version control system like Git or Subversion.
+
+**The best practice is that you install Plone on your local computer for the development**.
+
 Plone add-ons as Python packages
 -----------------------------------
 
@@ -73,6 +92,23 @@ you create a skeleton for its using :doc:`Plone templer templates </getstarted/p
 See `Hello World </getstarted/helloworld>`_ for example how to create your first Hello World application.
 
 There are some alternative ways for add-on creation.
+
+Development mode restarts
+---------------------------
+
+Plone must be started in the development mode using ``bin/instance fg`` command. Then
+
+* Javascript files are in debug mode and automatically loaded when you hit refresh
+
+* CSS files are in debug mode and automatically loaded when you hit refresh
+
+* TAL page templates (.pt files) are automatically reloaded on every request
+
+* :doc:`GenericSetup XML files are reloaded </components/genericsetup>`
+
+Please note that Plone development mode does not reload ``.py`` or ``.zcml`` files by default.
+This is possible, however.  Yse `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package
+to make Plone reload your Python code.
 
 Through-the-web customizations
 --------------------------------
