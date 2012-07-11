@@ -519,6 +519,15 @@ Here is an example like above, but is
 
             return html
 
+JSON generating views
+----------------------
+
+The best way to output JSON for AJAX call endpoints is to use Python's dict structure and convert
+it to JSON using Python ``json.dumps()`` call.
+
+Examples
+
+* https://github.com/miohtama/silvuple/blob/master/silvuple/views.py#L342
 
 
 Useful out of the box Javascripts
