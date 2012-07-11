@@ -525,6 +525,8 @@ JSON generating views
 The best way to output JSON for AJAX call endpoints is to use Python's dict structure and convert
 it to JSON using Python ``json.dumps()`` call.
 
+You should pass the AJAX target URLs to your Javascript using the settings passing pattern explained above.
+
 Examples
 
 * https://github.com/miohtama/silvuple/blob/master/silvuple/views.py#L342
