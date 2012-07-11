@@ -313,3 +313,8 @@ This is a good method for doing Plone development on OSX.
      bin/python bootstrap.py
      bin/buildout
 
+Installer source code
+======================
+
+* https://github.com/plone/Installers-UnifiedInstaller
+
