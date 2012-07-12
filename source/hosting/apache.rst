@@ -13,8 +13,48 @@ Introduction
 
 Here are useful information and snippets when hosting Plone behind Apache.
 
-Apache + Plone guide
-----------------------
+Installing Apache front-end for Plone
+---------------------------------------
+
+Apache runs on port 80. Plone runs on port 8080. Apache accepts all HTTP
+traffic to your internet domain.
+
+Here are quick instructions for Ubuntu / Debian.
+
+Install required software::
+
+	sudo apt-get install apache2
+	sudo a2enmod rewrite
+	sudo a2enmod proxy
+
+Add virtual host config file ``/etc/apache2/sites-enabled/yoursite.conf``.
+Assuming *Plone* is your site id in Zope Management Interface (capital lettering do matter)::
+
+	NameVirtualHost *
+	<VirtualHost *>
+	    ServerAlias yoursite.com
+	    ServerSignature On
+	
+	    ProxyVia On
+	
+	    # prevent your web server from being used as global HTTP proxy
+	    <LocationMatch "^[^/]">
+	      Deny from all
+	    </LocationMatch>
+		
+	    <Proxy *>
+	        Order deny,allow
+	        Allow from all
+	    </Proxy>
+
+            RewriteEngine on
+	    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/yoursite.com:80/Plone/VirtualHostRoot/$1 [P,L]
+
+	</VirtualHost>
+
+
+Apache and Plone guide (old)
+==============================
 
 Basic tutorials are available 
 
