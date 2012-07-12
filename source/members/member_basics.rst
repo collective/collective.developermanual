@@ -178,7 +178,7 @@ Plone groups.
 Example to get only ids::
 
     acl_users = getToolByName(self, 'acl_users')
-    groups = acl.source_groups.getGroupIds() # Iterable returning id strings
+    groups = acl_users.source_groups.getGroupIds() # Iterable returning id strings
 
 Example to get full group information::
 
