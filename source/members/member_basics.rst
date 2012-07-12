@@ -182,9 +182,8 @@ Example to get only ids::
 
 Example to get full group information::
 
-    site = context.portal_url.getPortalObject()
-    users = site.acl_users
-    group_list = users.source_groups.getGroups()
+    acl_users = getToolByName(self, 'acl_users')
+    group_list = acl_users.source_groups.getGroups()
 
     for group in group_list:
         # group is PloneGroup object
