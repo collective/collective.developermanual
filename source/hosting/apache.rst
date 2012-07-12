@@ -28,7 +28,8 @@ Install required software::
 	sudo a2enmod proxy
 
 Add virtual host config file ``/etc/apache2/sites-enabled/yoursite.conf``.
-Assuming *Plone* is your site id in Zope Management Interface (capital lettering do matter)::
+Assuming *Plone* is your site id in Zope Management Interface (capital lettering do matter) and your 
+domain name is ``yoursite.com`` (note with or without www matters, see below)::
 
 	NameVirtualHost *
 	<VirtualHost *>
