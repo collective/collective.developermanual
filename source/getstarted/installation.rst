@@ -46,10 +46,11 @@ Plone hosting requirements
   Other operating system production installations are possible, but rarer.
 
 
-How to install Plone for testing or development
+How to install Plone
 ========================================================
 
-Plone can run  on any modern desktop or server operating system.
+Plone can run  on any modern desktop or server operating system:
+Linux, OSX, BSD and Microsoft Windows.
 
 * You can install Plone on the server for production usage
 
