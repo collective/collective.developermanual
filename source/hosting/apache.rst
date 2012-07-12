@@ -54,10 +54,22 @@ domain name is ``yoursite.com`` (note with or without www matters, see below)::
 
 	</VirtualHost>
 
+Eventually you have one virtual host configuration file per one domain on your server.
+
 Restart apache::
 
       sudo apache2ctl configtest
       sudo apache2ctl restart
+
+Check that Plone respondes::
+  
+      http://yoursite.com:8080/Plone
+
+Check that Apache responds::
+
+      http://yoursite.com
+
+If everything is good then your Plone site properly configured using Apache front-end.
 
 Apache and Plone guide (old)
 ==============================
