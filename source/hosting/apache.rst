@@ -26,6 +26,7 @@ Install required software::
 	sudo apt-get install apache2
 	sudo a2enmod rewrite
 	sudo a2enmod proxy
+        sudo /etc/init.d/apache2 restart
 
 Add virtual host config file ``/etc/apache2/sites-enabled/yoursite.conf``.
 Assuming *Plone* is your site id in Zope Management Interface (capital lettering do matter) and your 
@@ -53,6 +54,10 @@ domain name is ``yoursite.com`` (note with or without www matters, see below)::
 
 	</VirtualHost>
 
+Restart apache::
+
+      sudo apache2ctl configtest
+      sudo apache2ctl restart
 
 Apache and Plone guide (old)
 ==============================
