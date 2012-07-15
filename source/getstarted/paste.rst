@@ -6,24 +6,28 @@
 
 .. admonition:: Description
 
-        templer.plone package provides product scaffolding code for Plone to
-        bootstrap your add-on development.
+        ZopeSkel is a tool that helps you to rapidly generate skeleton code useful in development for Plone.
 
 Introduction
 ------------
 
-Templer is a Python helper and package colllection providing code skeleton templates for Plone add-ons and themes
-for bootstrapping your Plone customization add-on work.
+ZopeSkel provides a command-line utility and a number of templates that help you to generate skeleton code 
+for a Plone project.  Using ZopeSkl you can create Plone buildouts, add-on packages and themes.  The skeleton
+code created by ZopeSkel follows generally accepted best practices, and will get you started developing for 
+the Plone CMS.
 
 .. note ::
 
-  In the past this package was known as ZopeSkel. The same templates could be triggered
-  using *paster* and *zopeskel* commands.
+  In the past, ZopeSkel was a single, large package.  It has been broken into a number of smaller packages to 
+  help make it more flexible and easy to work with.  These packages are in the templer namespace (templer.core,
+  templer.plone, etc.)  If you are interested in Plone development, simply install ZopeSkel.  It will include
+  everything you need.
 
 Further reading
 ================
 
-`For more in-depth information visit Templer manual <http://templer-manual.readthedocs.org/en/latest/index.html>`_
+`For more in-depth information about the templer system which underlies ZopeSkel, visit the Templer Manual 
+<http://templer-manual.readthedocs.org/en/latest/index.html>`_
 
 Add-on creation and installation steps
 --------------------------------------
