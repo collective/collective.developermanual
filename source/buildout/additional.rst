@@ -22,6 +22,19 @@ Buildout consists of recipes. A recipe consists of
 
 Recipes are automatically downloaded from pypi as Python eggs.
 
+Making buildout faster
+------------------------
+
+``easy_install`` craws unnecessary web pages when trying to install Python eggs.
+You can limit this craw by having an allow-hosts whitelist::
+
+    allow-hosts =
+        github.com
+        *.python.org
+        *.plone.org
+        *.zope.org
+        launchpad.net
+
 Buildout folder structure
 --------------------------
 
@@ -260,7 +273,7 @@ needed to establish a Plone site is
 
 Below is an example process.
 
-Activate Python 2.6 for Plone (see :doc:`how to use virtualenv controlled non-system wide Python </tutorials/python>`::
+Activate Python 2.6 for Plone (see :doc:`how to use virtualenv controlled non-system wide Python </getstarted/python>`)::
 
         source ~/code/python/python-2.6/bin/activate
 
@@ -337,7 +350,7 @@ You can configure add-on products with the zope-conf-additional section of the p
 This adds the configuration sections to your zope.conf file.
 
 Any named product-config section is then available as a simple dictionary to any python product that cares to look for it.
-The above example creates a 'foobar' entry which is a dict with a 'spam': 'eggs' mapping. 
+The above example creates a 'foobar' entry which is a dict with a 'spam': 'eggs' mapping.
 
 Here is how you then access that from your code::
 

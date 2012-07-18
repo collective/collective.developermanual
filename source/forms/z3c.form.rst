@@ -6,7 +6,7 @@ z3c.form
 
 .. admonition:: Description
 
-    z3c.form is flexible, powerful and complex form library for Zope 3. 
+    z3c.form is flexible, powerful and complex form library for Zope 3.
     It is recommended way to create complex, Python driven, forms
     for Plone 4 onwards.
 
@@ -17,22 +17,22 @@ z3c.form
 Introduction
 -------------
 
-This document gives you 
+This document gives you
 
 * Learning resources for creating Python driven z3c.forms with Plone
 
 * Additional insight how to accomplish specific tasks with z3c.form and Plone
 
-``z3c.form`` uses :doc:`zope.schema <schemas>` package to define form data model. Then it applies 
+``z3c.form`` uses :doc:`zope.schema <schemas>` package to define form data model. Then it applies
 its own form specific data extraction (HTTP request processing), field, widget and form button logic on the
-top of this.  
+top of this.
 
 .. note ::
 
     You can use z3c.form as standalone package. But if you want to make the development more easier for you
     you'd probably prefer shortcut bindings and directives provided with Dexterity subsystem
 
-Read more about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_ 
+Read more about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_
 
 
 Related documentation
@@ -47,7 +47,7 @@ Related documentation
 z3c.form big picture
 ---------------------
 
-Form model consist of 
+Form model consist of
 
 * self.request - HTTP request coming in
 
@@ -65,23 +65,23 @@ Form call chain goes like
           Calls Form.updateFields() - this will set widget factory
           methods for fields. If you want to customize the type
           of the widget associated with the field do it here. If
-          your form is not plone.autoform based you need to 
-          edit form.schema widget factories on the module level code 
+          your form is not plone.autoform based you need to
+          edit form.schema widget factories on the module level code
           after the class has been constructed. The logic
           mapping widget hints to widgets is in ``plone.autoform.utils``.
 
 	* Calls Form.updateWidgets() - you can customize widgets in this
 	  point if you override this method. self.widgets instance
 	  is created based on self.fields property.
-	 
+
 	* Calls Form.updateActions()
-	
+
 		* Calls the action handler (button handler which was pressed)
-		
+
 		* If it's edit form, action handler calls applyChanges()
 		  to store new values on the object and return True
 		  if any value was changed.
-	
+
 * Form.render() is called
 
 	* Outputs form HTML based on widgets and their templates
@@ -99,7 +99,7 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity
 
 * Include Dexterity in your buildout as instructed by Dexterity manual
 
-* Create Plone add-on product using :doc`Paster </tutorials/paste>` 
+* Create Plone add-on product using :doc`Paster </getstarted/paste>`
 
 * Include :doc:`five.grok support in your add-on </components/grok>`
 
@@ -125,21 +125,21 @@ form.py::
 
     class IMyForm(form.Schema):
         """ Define form fiels """
-        
+
         name = schema.TextLine(
                 title=u"Your name",
             )
 
     class MyForm(form.SchemaForm):
-        """ Define Form handling 
-        
+        """ Define Form handling
+
         This form can be accessed as http://yoursite/@@my-form
-        
+
         """
         grok.name('my-form')
         grok.require('zope2.View')
         grok.context(ISiteRoot)
-        
+
         schema = IMyForm
         ignoreContext = True
 
@@ -151,19 +151,19 @@ form.py::
                 return
 
             # Do something with valid data here
-            
-            # Set status on this form page 
-            # (this status message is not bind to the session and does not go thru redirects) 
+
+            # Set status on this form page
+            # (this status message is not bind to the session and does not go thru redirects)
             self.status = "Thank you very much!"
-            
+
         @button.buttonAndHandler(u"Cancel")
         def handleCancel(self, action):
             """User cancelled. Redirect back to the front page.
             """
 
-        
 
-    
+
+
 
 
 Setting form status message
@@ -226,12 +226,12 @@ part of the HTML code, follow the instructions below.
 
 Example::
 
-        # Do not mix with Products.Five.browser.pagetemplatefile.ViewPageTemplateFile 
+        # Do not mix with Products.Five.browser.pagetemplatefile.ViewPageTemplateFile
         from zope.app.pagetemplate import ViewPageTemplateFile as Zope3PageTemplateFile
-        
+
         class AddHeaderAnimationForm(crud.AddForm):
             """ Present form for adding a header animation """
-        
+
             template = Zope3PageTemplateFile("custom-form-template.pt")
 
 
@@ -316,7 +316,7 @@ And corresponding template edit_header.pt::
     </metal:main>
 
 .. note:: Generally, when you have a template which extends Plone
-   main_template you need to use the 
+   main_template you need to use the
    ``Products.Five.browser.pagetemplatefile.ViewPageTemplateFile``
    class.
 
@@ -343,29 +343,29 @@ Example of creating one field::
 
      # This is a reference to newly created z3c.form.field.Field object
      one_form_field = zfields.values()[0]
-        
+
 Another example::
 
     import zope.schema
     import z3c.form.field
-    
+
     ...
-    
-    field = zope.schema.Bool(__name__ = "death_autofill", 
-                             title=_(u"Fill missing timepoints"), 
+
+    field = zope.schema.Bool(__name__ = "death_autofill",
+                             title=_(u"Fill missing timepoints"),
                              description=_(u"Automatically fill information in missing timepoints if they occur after the death time"),
                              required=False,
                              default=True)
     # Construct z3c.form field
     fields_objects = z3c.form.field.Fields(field)
-    
+
     # We can perform autofill only if we know the treatment time
-    form.fields += fields_objects        
+    form.fields += fields_objects
 
 Adding a field to a form
 ========================
 
-Use overridden += operator of Fields instance. 
+Use overridden += operator of Fields instance.
 Fields instances can be added to the existing Fields instances.
 
 Example::
@@ -386,7 +386,7 @@ zope.schema Field is stored as a *field* attribute of a field. Example::
 
     textline = self.form.fields["myfieldname"].field # zope.schema.TextLine
 
-.. note: 
+.. note:
 
 	There exist only one sigleton instance of schema during run-time.
 	If you modify the schema fields the changes are reflected to
@@ -402,41 +402,41 @@ Example code::
 
         class AREditForm(crud.EditForm):
             """ Form whose fields are dynamically constructed """
-             
+
             def ar_editable(self):
-                """ Arbitary condition deciding whether fields on this form are 
+                """ Arbitary condition deciding whether fields on this form are
                 patient=self.__parent__.__parent__
                 if patient.getConfirmedAR()  in (None,'','EDITABLE_AR'):
                     return True
                 return False
-        
-       
+
+
             @property
             def fields(self):
-                """ 
-                Dynamically create field data based on run-time constructed schema.
-                
-                Instead using static ``fields`` attribute, we use Python property
-                which allows us to generate z3c.form.fields.Fields instance for the 
-                for run-time. 
                 """
-                
-        
+                Dynamically create field data based on run-time constructed schema.
+
+                Instead using static ``fields`` attribute, we use Python property
+                which allows us to generate z3c.form.fields.Fields instance for the
+                for run-time.
+                """
+
+
                 constructor = ARFormConstructor(self.context, self.context.context, self.request)
-        
-                # Create z3c.form.field.Fields object instance        
+
+                # Create z3c.form.field.Fields object instance
                 fields = constructor.getFields()
-              
+
                 if not self.ar_editable():
                     # Disable all fields in edit mode if this form is locked out
                     for f in fields.values():
                         f.mode = z3c.form.interfaces.DISPLAY_MODE
-                            
+
                 return fields
 
 You might also want to disable edit button if none if the fields are editable:
 
-        # Make edit button conditional            
+        # Make edit button conditional
         AREditSubForm.buttons["apply"].condition = lambda form: form.has_edit_button()
 
 .. note ::
@@ -447,7 +447,7 @@ You might also want to disable edit button if none if the fields are editable:
 .. warning ::
 
         Do not modify fields on singleton instances (form or fields objects are shared between all forms).
-        This causes problems on concurrent access. 
+        This causes problems on concurrent access.
 
 .. note ::
 
@@ -460,40 +460,40 @@ Dynamic schemas
 Below is an example how to include new schemas in fly::
 
     class EditForm(dexterity.EditForm, Helper):
-    
+
         grok.context(IFlexibleContent)
-        
+
         def updateFields(self):
-            
+
             super(dexterity.EditForm, self).updateFields()
             sections = self.getSections()
-            
+
             # See plone.app.z3cform.fieldsets.extensible for more examples
             for s in sections:
-                
+
                 # s = {'schema': <InterfaceClass your.app.content.flexiblecontent.IBodyText>, 'id': u'title', 'name': u'Title'}
                 if s == None:
                     # This section has been removed from available flexi_blocks
-                    continue 
-                
+                    continue
+
                 # convert zope schema interface to z3c.form.Fields instance
                 schema = s["schema"]
-                                            
+
                 if not schema.providedBy(self.context):
                     # We need to force the content item to provide
                     # custom for interfaces or datamanger is not happy
                     #   Module z3c.form.datamanager, line 51, in adapted_context
                     #   TypeError: ('Could not adapt', <Item at /xxx/tydryd>, <InterfaceClass xxx.app.content.flexiblecontent.IColumns>)
                     alsoProvides(self.context, schema) # XXX: This is persistent change?
-                            
-                # We need to manually apply hints from plone.directives.form, as 
+
+                # We need to manually apply hints from plone.directives.form, as
                 # updateFields() does it for base schema earlier
                 processFields(self, schema, permissionChecks=True)
-               
+
             print "Final results"
             for name, field in self.fields.items():
                 print str(name) + " " + str(field)
-        
+
 Date and time
 ===============
 
@@ -503,10 +503,10 @@ Example::
             """
             Deals and discounts item
             """
-            
+
             validUntil = schema.Datetime(title=u"Valid until")
 
-See 
+See
 
 * http://stackoverflow.com/questions/5776498/specify-datetime-format-on-zope-schema-date-on-plone
 
@@ -578,20 +578,20 @@ Reordering and hiding widgets
 With Dexterity forms you can use `plone.directives.fotm <http://pypi.python.org/pypi/plone.directives.form>`_::
 
     from z3c.form.interfaces import IAddForm, IEditForm
-    
+
     class IFlexibleContent(form.Schema):
         """
         Description of the Example Type
         """
-        
+
         # -*- Your Zope schema definitions here ... -*-
         form.order_before(sections='title')
         form.mode(sections='hidden')
         form.mode(IEditForm, sections='input')
         form.mode(IAddForm, sections='input')
         sections = schema.TextLine(title=u"Sections")
-        
-         
+
+
 
 Modifying a widget
 ==================
@@ -611,13 +611,13 @@ Example::
             self.widgets["myfield"].label = u"Foobar"
 
 If you want to have a complete different Python class
-for widget you need to override field's widget factory in 
+for widget you need to override field's widget factory in
 module body code after fields have been constructed in the class
 or in update() for dynamically constructed fields::
 
    def update(self):
-     
-        self.fields["animation"].widgetFactory = HeaderFileFieldWidget 
+
+        self.fields["animation"].widgetFactory = HeaderFileFieldWidget
 
 Reorder form widgets
 ====================
@@ -629,15 +629,15 @@ Example::
 
     from z3c.form import form
     from plone.z3cform.fieldsets.utils import move
-    
+
     class MyForm(form.Form):
-    
+
         def update(self):
         super(MyForm, self).update()
         move(self, 'fullname', before='*')
         move(self, 'username', after='fullname')
         super(ProfileRegistrationForm, self).update()
-        
+
 For more information about how to reorder fields see the plone.z3cform pypi
 page:
 
@@ -655,35 +655,35 @@ dynamically modified schema field to
 Example::
 
 	class ShippingAddressForm(CheckoutSubform):
-	    ignoreContext = True    
+	    ignoreContext = True
 	    label = _(u"Shipping address")
-	    
+
 	    # Distinct fields on same <form> HTML element
 	    prefix = "shipping"
-	    
+
 	    def __init__(self, optional, content, request, parentForm):
 	        """
 	        @param optional: Whether shipping address should be validated or not.
 	        """
 	        subform.EditSubForm.__init__(self, content, request, parentForm)
 	        self.optional = optional
-	        
+
 	    @property
 	    def fields(self):
 	        """ Get the field definition for this form.
-	        
+
 	        Form class's fields attribute does not have to
 	        be fixed, it can be property also.
 	        """
-	        
+
 	        # Construct the Fields instance as we would
-	        # normally do in more static way 
+	        # normally do in more static way
 	        fields = z3c.form.field.Fields(ICheckoutAddress)
 
 	        # We need to override the actual required from the
 	        # schema field which is litte tricky.
 	        # Schema fields are shared between instances
-	        # by default, so we need to create a copy of it 
+	        # by default, so we need to create a copy of it
 	        if self.optional:
 	            for f in fields.values():
 	                # Create copy of a schema field
@@ -691,9 +691,9 @@ Example::
 	                schema_field = copy.copy(f.field) # shallow copy of an instance
 	                schema_field.required = False
 	                f.field = schema_field
-	        
+
 	        return fields
-	                
+
 Setting widget types
 =======================
 
@@ -821,9 +821,9 @@ For basic widgets you can find the template in the `z3c.form source tree
     <html xmlns="http://www.w3.org/1999/xhtml"
           xmlns:tal="http://xml.zope.org/namespaces/tal"
           tal:omit-tag="">
-    
+
     <!-- Sections widget custom templates -->
-    
+
     <textarea
        id="" name="" class="" cols="" rows=""
        tabindex="" disabled="" readonly="" accesskey=""
@@ -862,22 +862,22 @@ For basic widgets you can find the template in the `z3c.form source tree
 
     from z3c.form.ptcompat import ViewPageTemplateFile
     from z3c.form.interfaces import INPUT_MODE
-    
+
     class AddForm(DefaultAddForm):
-        
+
         def updateWidgets(self):
             """ """
             # Call parent to set-up initial widget data
             DefaultAddForm.updateWidgets(self)
-        
+
             # Note we need to be discreet to different form modes (view, edit, hidden)
             if self.fields["sections"].mode == INPUT_MODE:
-            
+
                 # Modify a widget with certain name for our purposes
                 widget = self.widgets["sections"]
-                            
+
                 # widget.template is a template factory -
-                # Widget.render() will associate later this factory with the widget         
+                # Widget.render() will associate later this factory with the widget
                 widget.template = ViewPageTemplateFile("templates/sections.pt")
 
 You can also interact with your ``form`` class instance from the widget template
@@ -970,10 +970,10 @@ More information in z3c.form documentation
 
 * http://packages.python.org/z3c.form/button.html
 
-Adding a button to form 
+Adding a button to form
 ========================
 
-The easiest way to add buttons their handlers is to use 
+The easiest way to add buttons their handlers is to use
 a function decorator ``z3c.form.button.buttonAndHandler()``.
 
 The first parameter is user visible label and
@@ -992,7 +992,7 @@ Example::
                 if errors:
                     self.status = "Please correct errors"
                     return
-                    
+
                 self.applyChanges(data)
                 self.status = _(u"Item added successfully.")
 
@@ -1012,7 +1012,7 @@ Buttons are stored in ``buttons`` class attribute.
 
 .. warning::
 
-        Button storage is shared between all form instances, 
+        Button storage is shared between all form instances,
         so do not mutate its content. Instead create a copy
         of it if you wish to have form specific changes.
 
@@ -1033,34 +1033,34 @@ Removing or hiding buttons
 Here is an example how to hide all buttons from a certain form instance.
 
 Example::
-        
+
         import copy
-        
-        
+
+
         def update(self):
                 # Hide form buttons
-                
+
                 # Create immutable copy which you can manipulate
                 self.mobile_form_instance.buttons = copy.deepcopy(self.mobile_form_instance.buttons)
-                
+
                 # Remove button using dictionary style delete
                 for button_id in self.mobile_form_instance.buttons.keys():
                     del self.mobile_form_instance.buttons[button_id]
-        
+
 
 Adding buttons dynamically
-+++++++++++++++++++++++++++        
++++++++++++++++++++++++++++
 
 In the example below Buttons array is already constructed dynamically
 and we can manipulate it::
-        
+
     def setActions(self):
         """ Add button to the form based on dynamic conditions. """
 
 
         if self.isSaveEnabled():
 
-            but = button.Button("save", title=u"Save") 
+            but = button.Button("save", title=u"Save")
             self.form.buttons += button.Buttons(but)
 
             self.form.buttons._data_keys.reverse() # Fix Save button to left
@@ -1072,10 +1072,10 @@ and we can manipulate it::
 Subforms
 ---------
 
-Subforms are embedded z3c forms inside a master form. 
+Subforms are embedded z3c forms inside a master form.
 
-Subforms may have their own 
-buttons or use the controls from the maste form. 
+Subforms may have their own
+buttons or use the controls from the maste form.
 You need to call update() manually for subforms.
 
 More info
@@ -1090,99 +1090,99 @@ Parent and subform actions must be linked.
 Example::
 
 	class CheckoutForm(z3c.form.form.EditForm):
-	        
-	        
+
+
 	    @button.buttonAndHandler(_('Continue'), name='continue')
 	    def handleContinue(self, action):
 	        """ Extract the checkout data to session and redirect to payment processer checkout screen.
-	        
-	        Note: 
-	        
+
+	        Note:
+
 	        """
-	        
+
 	        # Following has been copied from z3c.form.form.EditForm
 	        data, errors = self.extractData()
 	        if errors:
 	            self.status = self.formErrorsMessage
 	            return
-	        
+
 	        changes = self.applyChanges(data)
-	        
+
 	        if changes:
 	            self.status = self.successMessage
 	        else:
 	            self.status = self.noChangesMessage
-	
-	
+
+
 	class CheckoutSubform(subform.EditSubForm):
 	    """ Add support for continue action. """
-	   
-    
+
+
             def execute(self):
                 """
                 Make sure that the form is refreshed when parent
                 form Continue is pressed.
                 """
-        
+
                 data, errors = self.extractData()
                 if errors:
                     self.errors = errors
                     self.status = self.formErrorsMessage
                     return errors
-                
+
                 content = self.getContent()
                 z3c.form.form.applyChanges(self, content, data)
-             
+
                 return None
-                
+
             @button.handler(CheckoutForm.buttons['continue'])
             def handleContinue(self, action):
                 """ What happens when the parent form button is pressed """
                 self.execute()
-                
+
 Creating subforms run-time
 --------------------------
 
-Below is an example how to convert existing form instance to 
+Below is an example how to convert existing form instance to
 be used as an subform in another form::
 
 
     def convertToSubForm(self, form_instance):
         """
         Make existing form object behave like subform object.
-        
+
         * Do not render <form> frame
-            
+
         * Do not render actions
-    
+
         @param form_instance: Constructed z3c.form.form.Form object
         """
 
         # Create mutable copy which you can manipulate
         form_instance.buttons = copy.deepcopy(form_instance.buttons)
-        
+
         # Remove subform action buttons using dictionary style delete
         for button_id in form_instance.buttons.keys():
             del form_instance.buttons[button_id]
 
         if HAS_WRAPPER_FORM:
             # Plone 4 / Plone 3 compatibility
-            zope.interface.alsoProvides(form_instance, IWrappedForm)        
+            zope.interface.alsoProvides(form_instance, IWrappedForm)
 
         # Use subform template - this prevents getting embedded <form>
         # elements inside the master <form>
         import plone.z3cform
-        #from zope.pagetemplatefile import ViewPageTemplateFile as Zope3PageTemplateFile 
+        #from zope.pagetemplatefile import ViewPageTemplateFile as Zope3PageTemplateFile
         from zope.app.pagetemplate import ViewPageTemplateFile as Zope3PageTemplateFile
         from zope.app.pagetemplate.viewpagetemplatefile import BoundPageTemplate
-        template = Zope3PageTemplateFile('subform.pt', os.path.join(os.path.dirname(plone.z3cform.__file__), "templates"))        
+        template = Zope3PageTemplateFile('subform.pt', os.path.join(os.path.dirname(plone.z3cform.__file__), "templates"))
         form_instance.template = BoundPageTemplate(template, form_instance)
-        
+
 .. note ::
 
         If it's possible try to base class your form class hiearchy so that
-        you can use the same class mix-in for normal forms and subforms.                        
-                
+        you can use the same class mix-in for normal forms and subforms.
+
 CRUD form
 -----------
 
@@ -1220,7 +1220,7 @@ Displaying the status message in a non-standard location
 By default, the status message is rendered inside plone.app.z3cform ``macros.pt`` above the form::
 
             <metal:define define-macro="titlelessform">
-            
+
                 <tal:status define="status view/status" condition="status">
                     <dl class="portalMessage error" tal:condition="view/widgets/errors">
                         <dt i18n:domain="plone" i18n:translate="">
@@ -1235,19 +1235,19 @@ By default, the status message is rendered inside plone.app.z3cform ``macros.pt`
                         <dd tal:content="status" />
                     </dl>
                 </tal:status>
-                
+
 We can decouple the status message from the form, without overriding all the templates,
-by copying status message variable to another variable and then playing around with it in our 
+by copying status message variable to another variable and then playing around with it in our
 wrapper view template.
 
 Form class::
 
         class HolidayServiceSearchForm(form.Form):
             """
-            
+
             """
-            
-            
+
+
             @button.buttonAndHandler(_(u"Search"))
             def searchHandler(self, action):
                 """ Search form submit handler for product card search.
@@ -1259,35 +1259,35 @@ Form class::
                 else:
                     msgid = _("found_results", default=u"Found ${results} holiday services.", mapping={u"results" : len(self.search_results)})
                     self.status = self.context.translate(msgid)
-                            
+
                 ...
-                                    
+
                 # Use non-standard location to display the status
                 # for success messages
                 if len(self.widgets.errors) == 0:
                     self.result_message = self.status
                     self.status = None
-        
+
         class HolidayServiceSearchView(FormWrapper):
             """
             HolidayService browser view
             """
-        
+
             form = HolidayServiceSearchForm
-            
-        
+
+
             def result_message(self):
                 """ Display result message in non-standard location """
-        
+
                 if len(self.form_instance.widgets.errors) == 0:
-                    # Do not display form highlight errors here 
+                    # Do not display form highlight errors here
                     return self.form_instance.result_message
-                                            
+
 ... and then we can use a special result_message view accessor in our view template code
 
 .. code-block::xml
 
-        <tal:comment replace="nothing">Form submit anchor</tal:comment> 
+        <tal:comment replace="nothing">Form submit anchor</tal:comment>
         <a name="searched" />
 
         <tal:status define="status view/result_message" condition="python:status != None">
@@ -1308,55 +1308,55 @@ This behavior can be customized using data managers.
 
 You can, for example, use Python dictionaries to read and store form data.
 
-* http://packages.python.org/z3c.form/datamanager.html  
+* http://packages.python.org/z3c.form/datamanager.html
 
 Custom content objects
 ======================
 
 The following hack can be used if you have an object which does not conform your form
-interface and you want to explose only certain object attribute to the form to be edited. 
+interface and you want to explose only certain object attribute to the form to be edited.
 
 Example::
 
 
         class ISettings(zope.interface.Interface):
-            
+
             # This maps to Archetypes field confirmedAR on SitsPatient
-            confirmedAR = zope.schema.Choice(title=_(u"Confirm adherse reactions"), 
-                                               description=_(u"Confirm that all adherse reactions regarding the patient life cycle have been entered here and there will be no longer adherse reaction data"), 
+            confirmedAR = zope.schema.Choice(title=_(u"Confirm adherse reactions"),
+                                               description=_(u"Confirm that all adherse reactions regarding the patient life cycle have been entered here and there will be no longer adherse reaction data"),
                                                vocabulary=make_zope_schema_vocabulary(ADVERSE_STATUS_VOCABULARY))
-        
-        
+
+
         class ARSettingsForm(form.Form):
             """ General settings for all adherse reactions """
-            
+
             fields = Fields(ISettings)
-            
+
             def getContent(self):
                 """ """
-        
+
                 # Create a temporary object holding the settings values out of the patient
-                
+
                 class TemporarySettingsContext(object):
                     zope.interface.implements(ISettings)
-        
+
                 obj = TemporarySettingsContext()
-                
+
                 # Copy values we want to expose to the form from Plone context item to the temporary object
                 obj.confirmedAR = self.context.confirmedAR
-                
-                return obj 
+
+                return obj
 
 
 .. note ::
 
         Since getContent() is also used in applyChanges() you need to override applyChanges()
         too to save values correctly back to non-temporary object.
-        
+
 Custom change applying
 ======================
 
-The default behavior of z3c.form edit form is to write incoming 
+The default behavior of z3c.form edit form is to write incoming
 data as the attributes of the object returned by ``getContent()``.
 
 You can override this behavior by overriding ``applyChanges()`` method.
@@ -1366,39 +1366,39 @@ Example::
     def applyChanges(self, data):
         """
         Reflect confirmed status to Archetypes schema.
-        
+
         @param data: Dictionary of cleaned form data, keyed by field
         """
-        
-        
+
+
         # This is the context given to the form when the form object was constructed
         patient = self.context
-        
+
         assert ISitsPatient.providedBy(patient) # safety check
-        
+
         # Call archetypes field mutator to store the value on the patient object
         patient.setConfirmedAR(data["confirmedAR"])
-        
+
 WYSIWYG widgets
 ----------------
 
-By using `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_ 
+By using `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_
 and `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ packages you can do::
 
         from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-        
+
         from mfabrik.plonezohointegration import _
-        
+
         class ISettings(form.Schema):
             """ Define schema for settings of the add-on product """
 
             form.widget(contact_form_prefix=WysiwygFieldWidget)
-            contact_form_prefix = schema.Text(title=_(u"Contact form top text"), 
+            contact_form_prefix = schema.Text(title=_(u"Contact form top text"),
                                               description=_(u"Custom text for the long contact form upper part"),
                                               required=False,
                                               default=u"")
-                                              
-                                             
+
+
 More information
 
 * http://pypi.python.org/pypi/plone.directives.form
@@ -1406,9 +1406,9 @@ More information
 Wrapped and non-wrapped forms
 -----------------------------
 
-``z3c.form.form.Form`` object is "wrapped" when it is 
-rendered inside Plone page frame and having 
-acquisition chain in intact. 
+``z3c.form.form.Form`` object is "wrapped" when it is
+rendered inside Plone page frame and having
+acquisition chain in intact.
 
 Since ``plone.app.z3cform`` 0.5.0 the behavior goes like this
 
@@ -1416,40 +1416,40 @@ Since ``plone.app.z3cform`` 0.5.0 the behavior goes like this
 
 * Plone 4 forms are unwrapped
 
-Wrapper is a ``plone.z3cform.interfaces.IWrappedForm`` :doc:`marker interface </components/interfaces>` 
-on the form object, applied it after the form instance has been constructed. 
+Wrapper is a ``plone.z3cform.interfaces.IWrappedForm`` :doc:`marker interface </components/interfaces>`
+on the form object, applied it after the form instance has been constructed.
 If this marker interface is not applied, ``plone.z3cform.ZopeTwoFormTemplateFactory``
 tries to embed form into Plone page frame. If the form is indended not be rendered
 as full page form, this usually leads to the following exception::
 
         *** ContentProviderLookupError: plone.htmlhead
-        
+
 The form tries to render the full Plone page. Rendering this page needs an acquisition
 chain set-up for the view and the template. Embedded forms do not have this,
-or it would lead to recursion error.                     
+or it would lead to recursion error.
 
 If you are constructing form instances manually and want to render them
-without Plone page decoration, you must make sure that automatic form wrapping does not take place:: 
+without Plone page decoration, you must make sure that automatic form wrapping does not take place::
 
         import zope.interface
         from plone.z3cform.interfaces import IWrappedForm
-        
+
         class SomeView(BrowserView):
-        
+
             def init(self):
                 """ Constructor embedded sub forms """
-        
-        
+
+
                 # Construct few embedded forms
                 self.mobile_form_instance = MobileForm(self.context, self.request)
                 zope.interface.alsoProvides(self.mobile_form_instance, IWrappedForm)
-                
-                self.publishing_form_instance = PublishingForm(self.context, self.request)        
+
+                self.publishing_form_instance = PublishingForm(self.context, self.request)
                 zope.interface.alsoProvides(self.publishing_form_instance, IWrappedForm)
-                
+
                 self.override_form_instance = getMultiAdapter((self.context, self.request), IOverrideForm)
                 zope.interface.alsoProvides(self.override_form_instance, IWrappedForm)
-                
+
 Embedding z3c.form forms in portlets, viewlets and views
 ---------------------------------------------------------
 
@@ -1465,7 +1465,7 @@ Below is an example how to put z3c.form based form into a portlet.
         plone.app.z3cform version 0.5.1 or later is needed,
         as older versions do not support overriding form.action
         property.
-        
+
 You need following
 
 * z3c.form class
@@ -1474,30 +1474,30 @@ You need following
 
 * A form wrapper template which renders the frame around the form. The default version renders the whole Plone page frame -
   you don't want this when the form is embedded, otherwise you get infinite recursion (plone page having a form having a plone page...)
-  
-* Portlet/viewlet template which refers to the form      
+
+* Portlet/viewlet template which refers to the form
 
 * ZCML to register all components
 
 Portlet code::
 
-        
+
         from plone.z3cform.layout import FormWrapper
-        
+
         class PortletFormView(FormWrapper):
              """ Form view which renders z3c.forms embedded in a portlet.
-             
+
              Subclass FormWrapper so that we can use custom frame template. """
-             
-             index = ViewPageTemplateFile("formwrapper.pt")   
-             
+
+             index = ViewPageTemplateFile("formwrapper.pt")
+
         class Renderer(base.Renderer):
             """ z3c.form portlet renderer.
-        
-            Instiate form and wrap it to a special layout template 
+
+            Instiate form and wrap it to a special layout template
             which will give the form suitable frame to be used in the portlet.
-            
-            We also set a form action attribute, so that 
+
+            We also set a form action attribute, so that
             the browser goes to another page after the form has been submitted
             (we really don't know what kind of page the portlet is displayed
             and is it safe to submit forms there, so we do this to make sure).
@@ -1505,37 +1505,37 @@ Portlet code::
             form is displayed as full-page form, giving the user to better
             user experience to fix validation errors.
             """
-        
+
             render = ViewPageTemplateFile('zohocrmcontact.pt')
-        
+
             def __init__(self, context, request, view, manager, data):
                 base.Renderer.__init__(self, context, request, view, manager, data)
                 self.form_wrapper = self.createForm()
-                
+
             def createForm(self):
-                """ Create a form instance. 
-                
+                """ Create a form instance.
+
                 @return: z3c.form wrapped for Plone 3 view
                 """
-                
+
                 context = self.context.aq_inner
-                
+
                 returnURL = self.context.absolute_url()
-                
-                # Create a compact version of the contact form 
+
+                # Create a compact version of the contact form
                 # (not all fields visible)
                 form = ZohoContactForm(context, self.request, returnURLHint=returnURL, full=False)
-                
+
                 # Wrap a form in Plone view
                 view = PortletFormView(context, self.request)
                 view = view.__of__(context) # Make sure acquisition chain is respected
                 view.form_instance = form
-                
+
                 return view
-            
+
             def getContactFormURL(self):
                 """ For rendering the form link at the bottom of the portlet.
-                
+
                 @return: URL leading to the full contact form
                 """
                 return self.form_wrapper.form_instance.action
@@ -1549,16 +1549,16 @@ main layout around the form.
         <div class="portlet-form">
            <div tal:replace="structure view/contents" />
         </div>
-        
-Then the portlet template itself (zohoportlet.pt) 
-renders the portlet. Form is referred by 
+
+Then the portlet template itself (zohoportlet.pt)
+renders the portlet. Form is referred by
 syntax ``<form tal:replace="structure view/form_wrapper" />``.
 
 .. code-block:: html
 
         <dl class="portlet portletZohoCRMContact"
             i18n:domain="mfabrik.plonezohointegration">
-        
+
             <dt class="portletHeader">
                 <span class="portletTopLeft"></span>
                 <span i18n:translate="portlet_title">
@@ -1566,11 +1566,11 @@ syntax ``<form tal:replace="structure view/form_wrapper" />``.
                 </span>
                 <span class="portletTopRight"></span>
             </dt>
-        
+
             <dd class="portletItem odd">
                 <form tal:replace="structure view/form_wrapper" />
             </dd>
-        
+
             <dd class="portletFooter">
                 <span class="portletBottomLeft"></span>
                 <a href=""
@@ -1580,15 +1580,15 @@ syntax ``<form tal:replace="structure view/form_wrapper" />``.
                 </a>
                 <span class="portletBottomRight"></span>
             </dd>
-            
+
         </dl>
-        
+
 .. note ::
 
-        Viewlet behave little different, since they do automatically some acquisition 
+        Viewlet behave little different, since they do automatically some acquisition
         chain mangling when you assign variables to self. Thus you should
         never have self.view = view or self.form = form in viewlet.
-        
+
 Template example for viewlet (don't do sel.form_wrapper)
 
 .. code-block:: html
@@ -1597,95 +1597,95 @@ Template example for viewlet (don't do sel.form_wrapper)
         <div id="my-viewlet">
           <form tal:replace="structure python:view.createForm()()" />
         </div>
-                
+
 
 Then the necessary parts of form itself::
 
         class IZohoContactForm(zope.interface.Interface):
             """ Form field definitions for Zoho contact forms """
-            
+
             first_name = schema.TextLine(title=_(u"First name"))
-            
+
             last_name = schema.TextLine(title=_(u"Last name"))
-            
+
             company = schema.TextLine(title=_(u"Company / organization"), description=_(u"The organization which you represent"))
-        
+
             email = schema.TextLine(title=_(u"Email address"), description=_(u"Email address we will use to contact you"))
-            
-            phone_number = schema.TextLine(title=_(u"Phone number"), 
+
+            phone_number = schema.TextLine(title=_(u"Phone number"),
                                            description=_(u"Your phone number in international format. E.g. +44 12 123 1234"),
                                            required=False,
                                            default=u"")
-        
-            
-            returnURL = schema.TextLine(title=_(u"Return URL"), 
+
+
+            returnURL = schema.TextLine(title=_(u"Return URL"),
                                         description=_(u"Where the user is taken after the form is succesfully submitted"),
                                         required=False,
                                         default=u"")
-        
+
         class ZohoContactForm(Form):
             """ z3c.form used to handle the new lead submission.
-            
-            This form can be rendered  
-            
+
+            This form can be rendered
+
             * standalone (@@zoho-contact-form view)
-           
+
             * embedded into the portlet
-            
-            ..note:: 
-                
+
+            ..note::
+
                 It is recommended to use a CSS rule
                 to hide form descriptions when rendered in the portlet to save
-                some screen estate. 
-            
+                some screen estate.
+
             Example CSS::
-            
+
                 .portletZohoCRMContact .formHelp {
                    display: none;
-                } 
+                }
             """
-            
-            fields = Fields(IZohoContactForm) 
-            
+
+            fields = Fields(IZohoContactForm)
+
             label = _(u"Contact Us")
-            
+
             description = _(u"If you are interested our services leave your contact information below and our sales representatives will contact you.")
-            
+
             ignoreContext = True
-            
+
             def __init__(self, context, request, returnURLHint=None, full=True):
                 """
-                
+
                 @param returnURLHint: Should we enforce return URL for this form
-                
+
                 @param full: Show all available fields or just required ones.
                 """
                 Form.__init__(self, context, request)
                 self.all_fields = full
-                
+
                 self.returnURLHint = returnURLHint
-                
+
             @property
             def action(self):
                 """ Rewrite HTTP POST action.
-                
-                If the form is rendered embedded on the others pages we 
+
+                If the form is rendered embedded on the others pages we
                 make sure the form is posted through the same view always,
                 instead of making HTTP POST to the page where the form was rendered.
                 """
                 return self.context.portal_url() + "/@@zoho-contact-form"
-              
+
             def updateWidgets(self):
                 """ Make sure that return URL is not visible to the user.
                 """
                 Form.updateWidgets(self)
-                
+
                 # Use the return URL suggested by the creator of this form
                 # (if not acting standalone)
                 self.widgets["returnURL"].mode = z3c.form.interfaces.HIDDEN_MODE
                 if self.returnURLHint:
                     self.widgets["returnURL"].value = self.returnURLHint
-        
+
                 # Prepare compact version of this formw
                 if not self.all_fields:
                     # Hide fields which we don't want to bother user with
@@ -1695,40 +1695,40 @@ Then the necessary parts of form itself::
             @button.buttonAndHandler(_('Send contact request'), name='ok')
             def send(self, action):
                 """ Form button hander. """
-                
+
                 data, errors = self.extractData()
-                
+
                 if not errors:
-                
+
                     settings = self.getZohoSettings()
                     if settings is None:
                         self.status = _(u"Zoho is not configured in Site Setup. Please contact the site administration.")
-                        return 
-                        
+                        return
+
                     crm = CRM(settings.username, settings.password, settings.apikey)
-                
+
                     # Fill in data going to Zoho CRM
                     lead = {
                         "First Name" : data["first_name"],
                         "Last Name" : data["last_name"],
                         "Company" : data["company"],
-                        "Email" : data["email"],   
+                        "Email" : data["email"],
                     }
-                    
+
                     phone = data.get("phone_number", "")
                     if phone != "":
                         # Only pass phone number to Zoho if it's set
                         lead["Phone"] = phone
-                    
+
                     # Pass in all prefilled lead fields configured in the site setup
                     lead.update(self.parseExtraFields(settings.crm_lead_extra_data))
-                    
+
                     # Open Zoho API connection
                     try:
                         # This will raise ZohoException and nuke the request
                         # if Zoho credentials are wrong
                         crm.open()
-                        
+
                         # Make sure that wfTrigger is true
                         # and Zoho does workflow actions for the new leads
                         # (like informing sales about the availability of the lead)
@@ -1737,15 +1737,15 @@ Then the necessary parts of form itself::
                         # Network down?
                         self.status = _(u"Cannot connect to Zoho servers. Please contact web site administration")
                         return
-                        
+
                     ok_message = _(u"Thank you for contacting us. Our sales representatives will come back to you in few days")
-                
-        
+
+
                     # Check whether this form was submitted from another page
                     returnURL = data.get("returnURL", "")
-        
+
                     if returnURL != "" and returnURL is not None:
-                        
+
                         # Go to page where we were sent and
                         # pass the confirmation message as status message (in session)
                         # as we are not in the control of the destination page
@@ -1766,7 +1766,7 @@ Further reading
 This example code was taken from *mfabrik.plonezohointegration*
 product which is in Plone collective SVN.
 
-Another tutorial 
+Another tutorial
 
 * http://plone.org/documentation/kb/using-z3c.form-forms-in-plone
 
@@ -1775,11 +1775,11 @@ Validators
 Adding validators
 ===================
 
-Validators are best to be added in the schema itself. 
+Validators are best to be added in the schema itself.
 
 * If you are using plain ``z3c.form``, you can check the `validators documentation <http://packages.python.org/z3c.form/validator.html>`_.
 
-* `plone.form.directives <http://pypi.python.org/pypi/plone.directives.form#validators>`_ package provides 
+* `plone.form.directives <http://pypi.python.org/pypi/plone.directives.form#validators>`_ package provides
   convenient decorators for form validators. If you use ``plone.form.directives`` validators make sure your package
   is :doc:`grokked </components/grok>` (otherwise validators are not registered).
 
@@ -1790,40 +1790,40 @@ How to use widget specific validators with z3c.form example::
 
     class IZohoContactForm(form.Schema):
         """ Form field definitions for Zoho contact forms """
-        
-        phone_number = schema.TextLine(title=_(u"Phone number"), 
+
+        phone_number = schema.TextLine(title=_(u"Phone number"),
                                        description=_(u"Your phone number in international format. E.g. +44 12 123 1234"),
                                        required=False,
                                        default=u"")
-             
+
     class PhoneNumberValidator(validator.SimpleFieldValidator):
         """ z3c.form validator class for international phone numbers """
-        
+
         def validate(self, value):
             """ Validate international phone number on input """
             allowed_characters = "+- () / 0123456789"
-                            
+
             if value != None:
-                
+
                 value = value.strip()
-                
+
                 if value == "":
                     # Assume empty string = no input
                     return
-                
+
                 # The value is not required
                 for c in value:
-                    if c not in allowed_characters:    
+                    if c not in allowed_characters:
                         raise zope.interface.Invalid(_(u"Phone number contains bad characters"))
-        
+
                 if len(value) < 7:
                     raise zope.interface.Invalid(_(u"Phone number is too short"))
-    
+
     # Set conditions for which fields the validator class applies
     validator.WidgetValidatorDiscriminators(PhoneNumberValidator, field=IZohoContactForm['phone_number'])
-    
+
     # Register the validator so it will be looked up by z3c.form machinery
-    
+
     zope.component.provideAdapter(PhoneNumberValidator)
 
 More info
@@ -1838,8 +1838,8 @@ If you want to custom error messages on per field level::
 	from zope.schema._bootstrapinterfaces import RequiredMissing
 	RequiredMissingErrorMessage = error.ErrorViewMessage(_(u'Required value is missing.'), error=RequiredMissing, field=IEmailFormSchema['email'])
 	zope.component.provideAdapter(RequiredMissingErrorMessage, name='message')
-	
-Leave ``field`` parameter away if you want the new error message apply to all fields. 
+
+Leave ``field`` parameter away if you want the new error message apply to all fields.
 
 
 Read-only and disabled fields
@@ -1847,15 +1847,15 @@ Read-only and disabled fields
 
 Read-only fields are not rendered in form edit mode::
 
-    courseModeAccordion = schema.TextLine(title=u"Courses by mode accordion", 
+    courseModeAccordion = schema.TextLine(title=u"Courses by mode accordion",
                                       default=u"Automatically from database",
                                       readonly=True
                                       )
-                                      
+
 If widget mode is display then it is rendered, but user cannot edit (the output as in form view mode)::
 
     form.mode(courseModeAccordion="display")
-    courseModeAccordion = schema.TextLine(title=u"Courses by mode accordion", 
+    courseModeAccordion = schema.TextLine(title=u"Courses by mode accordion",
                                       default=u"Automatically from database",
                                       )
-                                      
+

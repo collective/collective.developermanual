@@ -34,9 +34,9 @@ What viewlets do
 
 * Viewlets should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
 
-Viewlets can be discriminated to 
+Viewlets can be discriminated to
 
-* certain content type (``for=`` in ZCML) 
+* certain content type (``for=`` in ZCML)
 
 * certain view (``view=`` in ZCML)
 
@@ -52,9 +52,9 @@ Finding viewlets
 ----------------
 
 There are two through-the-web tools to start looking what viewlets are available on your installation. The
-available viewlets may depend on installed Plone version and installed add-ons.  
+available viewlets may depend on installed Plone version and installed add-ons.
 
-* The ``portal_view_customizations`` tool in ZMI will show you viewlet registrations (and the viewlet managers they are registered for). As with views, you can hover over the viewlet name to see where it is registered in a tool tip. 
+* The ``portal_view_customizations`` tool in ZMI will show you viewlet registrations (and the viewlet managers they are registered for). As with views, you can hover over the viewlet name to see where it is registered in a tool tip.
 
 * To discover the name of a particular viewlet, you can use the @@manage-viewlets view, e.g. as http://localhost:8080/plone/@@manage-viewlets.
 
@@ -69,7 +69,7 @@ Viewlet consists of
 
 * A :doc:`browser layer </views/layers>` defining which add-on product must be installed, so that the viewlet is rendered
 
-* A related Grok or ZCML directives to register the viewlet to a correct viewlet manager with a correct layer 
+* A related Grok or ZCML directives to register the viewlet to a correct viewlet manager with a correct layer
 
 Stock viewlets
 ===================
@@ -84,15 +84,15 @@ Creating a viewlet using Grok
 
 :doc:`Grok framework </components/grok>` allows you to register a viewlet easily using Python directives.
 
-It is recommended that you use :doc:`Dexterity ZopeSkel add-on product code skeleton </tutorials/paste>`
-where you add this code. 
+It is recommended that you use :doc:`Dexterity ZopeSkel add-on product code skeleton </getstarted/paste>`
+where you add this code.
 
 Create *yourcomponent.app/yourcomponent/app/browser/viewlets.py*::
 
         """
-            
+
             Viewlets related to application logic.
-        
+
         """
 
         # Zope imports
@@ -100,44 +100,44 @@ Create *yourcomponent.app/yourcomponent/app/browser/viewlets.py*::
         from zope.interface import Interface
         from five import grok
         from zope.component import getMultiAdapter
-        
+
         # Plone imports
         from plone.app.layout.viewlets.interfaces import IHtmlHead
-        
+
         from yourcompany.app.behavior.lsmintegration import ISomeDexterityBehavior
-        
+
         # The viewlets in this file are rendered on every content item type
         grok.context(Interface)
-        
+
         # Use templates directory to search for templates.
         grok.templatedir('templates')
-        
+
         class JavascriptSnippet(grok.Viewlet):
             """ A viewlet which will include some custom code in <head> if the condition is met """
-            
+
             grok.viewletmanager(IHtmlHead)
-            
+
             def available(self):
                 """ Check if we are in a specific content type.
-                
+
                 Check that the Dexerity content type has a certain
-                behavior set on it through Dexterity settings panel. 
+                behavior set on it through Dexterity settings panel.
                 """
                 try:
                     avail = ISomeDexterityBehavior(self.context)
                 except TypeError:
-                    return False 
-                
+                    return False
+
                 return True
-            
+
 
 Then create folder ``yourcomponent.app/yourcomponent/app/browser/templates`` where you add the related ``javascripthead.pt``:
 
 .. code-block:: html
 
-        <tal:extra-head omit-tag="" condition="viewlet/available">                
-                <meta name="something" content="your custom meta">        
-        </tal:extra-head>      
+        <tal:extra-head omit-tag="" condition="viewlet/available">
+                <meta name="something" content="your custom meta">
+        </tal:extra-head>
 
 More info
 
@@ -146,7 +146,7 @@ More info
 Creating a viewlet manager
 -----------------------------
 
-Viewlet managers contains viewlets. Viewlet manager itself 
+Viewlet managers contains viewlets. Viewlet manager itself
 is a Zope 3 interface which contains an OrdereredViewletManager implementation.
 OrderedViewletManager handles saving the order of the viewlets in the site database
 and provides the fancy /@@manage-viewlets output.
@@ -196,7 +196,7 @@ Creating a viewlet manager: ZCML way
 
 For those who want to write XML.
 
-Usually viewlet managers are dummy interfaces and the actual implementation 
+Usually viewlet managers are dummy interfaces and the actual implementation
 comes from ``plone.app.viewletmanager.manager.OrderedViewletManager``.
 
 In this example we put two viewlets in a new viewlet manager so that we can
@@ -208,7 +208,7 @@ properly CSS float then and close this float.
     You really don't need to do some many levels,
     but the orignal plone3_theme paster templates do it in bad way. One of Python golden
     rules is that flat is better than nested. You can just dump everything to the
-    root of your plonetheme.yourtheme package.    
+    root of your plonetheme.yourtheme package.
 
 In your ``browser/viewlets/manager.py`` or similar file add::
 
@@ -231,28 +231,28 @@ Then in ``browser/viewlets/configure.zcml``::
      permission="zope2.View"
      />
 
-Optionally you can include a template which renders some wrapping HTML around viewlets. *browser/viewlets/headerbottomviewletmanager.pt*::     
+Optionally you can include a template which renders some wrapping HTML around viewlets. *browser/viewlets/headerbottomviewletmanager.pt*::
 
     <div id="header-bottom">
         <tal:comment replace="nothing">
             <!-- Rendeder all viewlets inside this manager.
-            
+
                  Pull viewlets out of the manager and render then one-by-one
              -->
         </tal:comment>
-        
+
         <tal:viewlets repeat="viewlet view/viewlets">
                <tal:viewlet replace="structure python:viewlet.render()" />
         </tal:viewlets>
-        
+
         <div style="clear:both"><!-- --></div>
-    </div>  
+    </div>
 
 
 And then re-register some stock viewlets against your new viewlet manager in *browser/viewlets/configure.zcml*::
 
-   <!-- Re-register two stock viewlets to the new manager --> 
-    
+   <!-- Re-register two stock viewlets to the new manager -->
+
    <browser:viewlet
      name="plone.path_bar"
      for="*"
@@ -260,10 +260,10 @@ And then re-register some stock viewlets against your new viewlet manager in *br
      layer="plonetheme.yourtheme.browser.interfaces.IThemeSpecific"
      class="plone.app.layout.viewlets.common.PathBarViewlet"
      permission="zope2.View"
-     />     
+     />
 
 
-  <!-- This is a customization for rendering the a bit different language selector -->     
+  <!-- This is a customization for rendering the a bit different language selector -->
   <browser:viewlet
      name="plone.app.i18n.locales.languageselector"
      for="*"
@@ -271,7 +271,7 @@ And then re-register some stock viewlets against your new viewlet manager in *br
      layer="plonetheme.yourtheme.browser.interfaces.IThemeSpecific"
      class=".selector.LanguageSelector"
      permission="zope2.View"
-    />    
+    />
 
 
 Now, we need to render our viewlet manager somehow. One place to do it is in a ``main_template.pt``,
@@ -283,7 +283,7 @@ Yo dawg - we put viewlets in your viewlets so you can render viewlets!
 
     <tal:comment replace="nothing">
         <!-- Render our precious viewlet manager -->
-    </tal:comment>  
+    </tal:comment>
     <tal:render-manager replace="structure provider:plonetheme.yourtheme.headerbottommanager" />
 
 Only six files needed to change a bit of HTML code - welcome to the land of productivity!
@@ -306,14 +306,14 @@ Viewlets have two important methods
 
 These methods should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
 
-See 
+See
 
 * http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto
 
 * https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py
 
 
-Creating a viewlet using Python code and ZCML 
+Creating a viewlet using Python code and ZCML
 ===============================================
 
 Here is an example code which extends an existing Plone base viewlet (found from plone.app.layout.viewlets.base package)
@@ -322,33 +322,33 @@ and then puts this viewlet to a one of viewlet managers using :doc:`ZCML </compo
 Example Python code for viewlets.py::
 
         """
-        
+
             Facebook like viewlet for Plone.
-        
+
             http://mfabrik.com
-        
+
         """
-                
+
         import urllib
-        
+
         from plone.app.layout.viewlets import common as base
-        
+
         class LikeViewlet(base.ViewletBase):
             """ Add a Like button
-            
+
             http://developers.facebook.com/docs/reference/plugins/like
             """
-            
+
             def contructParameters(self):
                 """ Create HTTP GET query parameters send to Facebook used to render the button.
-                
+
                 href=http%253A%252F%252Fexample.com%252Fpage%252Fto%252Flike&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font&amp;colorscheme=light&amp;height=80
                 """
-                
-               
+
+
                 context = self.context.aq_inner
                 href = context.absolute_url()
-                
+
                 params = {
                           "href" : href,
                           "layout" : "standard",
@@ -356,35 +356,35 @@ Example Python code for viewlets.py::
                           "width" : "450",
                           "height" : "40",
                           "action" : "like",
-                          "colorscheme" : "light",                
+                          "colorscheme" : "light",
                 }
-                
+
                 return params
-            
+
             def getIFrameSource(self):
                 """
                 @return: <iframe src=""> string
                 """
                 params = self.contructParameters()
-                return "http://www.facebook.com/plugins/like.php" + "?" + urllib.urlencode(params)  
-        
-        
+                return "http://www.facebook.com/plugins/like.php" + "?" + urllib.urlencode(params)
+
+
             def getStyle(self):
                 """ Construct CSS style for Like-button IFRAME.
-                
+
                 Use width and height from contstructParameters()
-                
-                style="border:none; overflow:hidden; width:450px; height:80px;" 
-                
+
+                style="border:none; overflow:hidden; width:450px; height:80px;"
+
                 @return: style="" for <iframe>
                 """
                 params = self.contructParameters()
-                return "margin-left: 10px; border:none; overflow:hidden; width:%spx; height:%spx;" % (params["width"], params["height"]) 
-                
+                return "margin-left: 10px; border:none; overflow:hidden; width:%spx; height:%spx;" % (params["width"], params["height"])
+
 Then a sample page template (like.pt). You can use TAL template variable *view* to refer to your viewlet class instance::
 
-        <iframe scrolling="no" 
-                frameborder="0" 
+        <iframe scrolling="no"
+                frameborder="0"
                 allowTransparency="true"
                 tal:attributes="src view/getIFrameSource; style view/getStyle"
                 >
@@ -403,7 +403,7 @@ Example configuration ZCML snippets below. You usually <viewlet> to *browser/con
             xmlns:browser="http://namespaces.zope.org/browser"
             xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
             i18n_domain="mfabrik.like">
-         
+
             <browser:viewlet
               name="mfabrik.like"
               manager="Plone.App.Layout.Viewlets.Interfaces.IBelowContent"
@@ -411,7 +411,7 @@ Example configuration ZCML snippets below. You usually <viewlet> to *browser/con
               layer="mfabrik.like.interfaces.IAddOnInstalled"
               permission="zope2.View"
               />
-        
+
         </configure>
 
 Conditionally rendering viewlets
@@ -423,7 +423,7 @@ There are two primary methods to render viewlets only on some pages
   the viewlet is rendered on this content type only. You can
   use :doc:`dynamic marker interfaces </components/interfaces>`
   to toggle interface on some individual pages through ZMI
-  
+
 * Hard-code a condition to your viewlet in Python code.
 
 Below is an example of overriding a render() method to conditionally render your viewlet using Grok viewlets.
@@ -437,51 +437,51 @@ Viewlet code::
 
     class TopTabNavigation(grok.Viewlet):
         """
-        
+
         """
         grok.context(Interface)
         grok.viewletmanager(IAboveContentTitle)
-    
+
         def getTabSources(self):
             """ List content items in the folder of this item.
-            
+
             """
             parent = self.context.aq_parent
             for obj in parent.objectValues():
                 if IContentish.providedBy(obj):
                     yield obj
-        
-            
+
+
         def getTabData(self):
             """
             Generate dict of data needed to render navigation tabs.
             """
-            
+
             self.tabs = self.getTabSources()
-            
+
             published = self.request.get("PUBLISHED", None)
-            
+
             if hasattr(published, "context"):
                 published = published.context
-            
+
             for t in self.tabs:
-                                        
-                active = (t == published)                
-                
+
+                active = (t == published)
+
                 data = {
                         "url" : t.absolute_url(),
                         "class" : "navbar_selected" if active else "navbar_normal",
                         "title" : t.Title(),
-                        "id" : t.getId() 
+                        "id" : t.getId()
                 }
                 yield data
-    
+
         def hasTabs(self):
             """
             Defined in dynamicpage.py
             """
             return getattr(self.context, "showTabs", False)
-            
+
 Page template code
 
 .. code-block:: html
@@ -491,52 +491,52 @@ Page template code
                 <tal:tab repeat="tab viewlet/getTabData">
                 <li tal:attributes="class tab/class; id tab/id">
                         <a tal:attributes="href tab/url" tal:content="tab/title" />
-                
+
                 </tal:tab>
-        
+
                 <li class="visualClear"><!-- --></li>
         </ul>
-    </div>            
+    </div>
 
 Below is an example of overriding a render() method to conditionally render your viewlet using Zope 3 viewlets::
 
 
         import Acquisition
         from zope.component import getUtility
-        
+
         from plone.app.layout.viewlets import common as base
         from plone.registry.interfaces import IRegistry
-        
-        
+
+
         class LikeViewlet(base.ViewletBase):
             """ Add a Like button
-            
+
             http://developers.facebook.com/docs/reference/plugins/like
             """
-        
+
             def isEnabledOnContent(self):
                 """
                 @return: True if the current content type supports Like-button
                 """
                 registry = getUtility(IRegistry)
                 content_types = registry['mfabrik.like.content_types']
-                        
+
                 # Don't assume that all content items would have portal_type attribute
                 # available (might be changed in the future / very specialized content)
                 current_content_type =  portal_type = getattr(Acquisition.aq_base(self.context), 'portal_type', None)
-            
+
                 # Note that plone.registry keeps values as unicode strings
                 # make sure that we have one also
                 current_content_type = unicode(current_content_type)
-            
+
                 return current_content_type in content_types
-   
-        
+
+
             def render(self):
                 """ Render viewlet only if it is enabled.
-                
+
                 """
-        
+
                 # Perform some condition check
                 if self.isEnabledOnContent():
                     # Call parent method which performs the actual rendering
@@ -544,7 +544,7 @@ Below is an example of overriding a render() method to conditionally render your
                 else:
                     # No output when the viewlet is disabled
                     return ""
-            
+
 
 
 Rendering viewlet by name
@@ -905,21 +905,21 @@ Then you register it against viewlewt manager ``plone.app.layout.viewlets.interf
       template="facebook-connect-head.pt"
       layer="mfabrik.like.interfaces.IAddOnInstalled"
       permission="zope2.View"
-      />      
- 
+      />
+
 viewlet.py code::
 
         class FacebookConnectJavascriptViewlet(LikeButtonOnConnectFacebookBaseViewlet):
             """ This will render Facebook Javascript load in <head>.
-            
+
             <head> section is retrofitted only if the viewlet is enabled.
-            
+
             """
-            
+
             def getConnectScriptSource(self):
-                base = "http://static.ak.connect.facebook.com/connect.php/"        
+                base = "http://static.ak.connect.facebook.com/connect.php/"
                 return base + self.getLocale()
-            
+
             def getInitScriptTag(self):
                 """ Get <script> which boostraps Facebook stuff.
                 """
@@ -931,13 +931,13 @@ viewlet.py code::
                 """
                 # Some logic based self.context here whether Javascript should be included on this page or not
                 return True
-                   
-        
+
+
             def render(self):
                 """ Render viewlet only if it is enabled.
-                
+
                 """
-                
+
                 # Perform some condition check
                 if self.isEnabled():
                     # Call parent method which performs the actual rendering
@@ -973,7 +973,7 @@ Occasionaly, you may need to get hold of your viewlets in python code, perhaps i
 
             # viewlet managers also require a view object for adaptation
             view = View(context, request)
-            
+
             # finally, you need the name of the manager you want to find
             manager_name = 'plone.portalfooter'
 
@@ -992,7 +992,7 @@ Occasionaly, you may need to get hold of your viewlets in python code, perhaps i
             self.failUnlessEqual(len(my_viewlet), 1)
 
 Since it is possible to register a viewlet for a specific content type and for
-a browser layer, you may also need to use these elements in looking up your 
+a browser layer, you may also need to use these elements in looking up your
 viewlet
 
 .. code-block:: python
@@ -1017,7 +1017,7 @@ viewlet
             """ looking up and updating the manager should list our viewlet
             """
             # our viewlet is registered for a browser layer.  Browser layers
-            # are applied to the request during traversal in the publisher.  We 
+            # are applied to the request during traversal in the publisher.  We
             # need to do the same thing manually here
             request = self.app.REQUEST
             alsoProvides(request, IMyBrowserLayer)
@@ -1027,4 +1027,4 @@ viewlet
             context = self.folder[content_id]
 
             # and that's it.  Everything else from here out is identical to the
-            # example above.  
+            # example above.

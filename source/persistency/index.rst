@@ -1,6 +1,6 @@
-============================
-Persistency and transactions
-============================
+=====================================
+ZODB, persistency and transactions
+=====================================
 
 .. toctree::
     :maxdepth: 2
@@ -8,6 +8,6 @@ Persistency and transactions
     database
     persistent
     transactions
-    lifecycle    
+    lifecycle
     storage
     migrations

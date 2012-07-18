@@ -284,7 +284,7 @@ Also you need to register this custom import step in ``configure.zcml``
             name="your.package"
             title="your.package special import handlers"
             description=""
-            handler="your.package.setuphandlers.setupVarious" />
+            handler="your.package.setuphandlers.setupVarious"
             />
     
     </configure>

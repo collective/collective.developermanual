@@ -10,6 +10,8 @@ View and viewlet patterns used to create dynamic pages in plone.
     browserviews
     viewlets
     layers
+    more_view_examples
+
 
 
 

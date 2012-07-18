@@ -16,14 +16,14 @@ default Archetypes system from Plone 5 and onward and can be already used
 with Plone 4.
 
 
-* `Dexterity Developer Manual <http://dexterity-developer-manual.readthedocs.org/en/latest/>`_. 
+* `Dexterity Developer Manual <http://dexterity-developer-manual.readthedocs.org/en/latest/>`_.
 
 * `How Dexterity is related to Archetypes <http://plone.org/products/dexterity/documentation/faq/how-is-dexterity-related-to-archetypes/view>`_
 
 ZopeSkel templates
 ====================
 
-Please see :doc:`ZopeSkel page </tutorials/paste>` for project skeleton
+Please see :doc:`ZopeSkel page </getstarted/paste>` for project skeleton
 templates for Dexterity.
 
 Here is an example how to create your own add-on using the buildout below
@@ -32,13 +32,13 @@ Here is an example how to create your own add-on using the buildout below
 
     cd src
     ../bin/paster create -t dexterity yourcompany.app
-        
-Edit ``buildout.cfg`` and add:: 
+
+Edit ``buildout.cfg`` and add::
 
     eggs =
         yourcompany.app
 
-    develop = 
+    develop =
         src/yourcompany.app
 
 Then rerun buildout to get your new add-on skeleton included in the
@@ -48,7 +48,7 @@ configuration
 
     cd ..
     bin/buildout
-        
+
 Now you can start adding content into your add-on
 
 .. code-block:: console
@@ -63,16 +63,16 @@ Buildout example
 
 Below is a sample example which will install
 
-* Plone 4.1 beta 1 
-* Dexterity 1.0 beta 7 
-* Paster command + Dexterity templates 
+* Plone 4.1 beta 1
+* Dexterity 1.0 beta 7
+* Paster command + Dexterity templates
 
 Please tune the versions according the latest available releases.
 
 ``buildout.cfg``::
 
     [buildout]
-    parts =  
+    parts =
         instance
         zopepy
         i18ndude
@@ -81,7 +81,7 @@ Please tune the versions according the latest available releases.
         paster
         omelette
 
-    extends = 
+    extends =
         http://dist.plone.org/release/4.1b1/versions.cfg
         http://good-py.appspot.com/release/dexterity/1.0b7?plone=4.1b1
 
@@ -91,7 +91,7 @@ Please tune the versions according the latest available releases.
         http://dist.plone.org/release/4.1b1
         http://dist.plone.org/thirdparty
 
-    extensions = 
+    extensions =
         mr.developer
         buildout.dumppickedversions
         buildout.threatlevel
@@ -100,9 +100,9 @@ Please tune the versions according the latest available releases.
 
     versions = versions
 
-    # Reference any folders where you have Python egg source code under development here 
+    # Reference any folders where you have Python egg source code under development here
     # e.g.: develop = src/my.package
-    # If you are using the mr.developer extension and have the source code in a 
+    # If you are using the mr.developer extension and have the source code in a
     # repository mr.developer will handle this automatically for you
     develop =
 
@@ -120,13 +120,13 @@ Please tune the versions according the latest available releases.
             Plone
             plone.app.dexterity
 
-    # Some pre-Plone 3.3 packages may need you to register the package name here in 
+    # Some pre-Plone 3.3 packages may need you to register the package name here in
     # order their configure.zcml to be run (http://plone.org/products/plone/roadmap/247)
     # - this is never required for packages in the Products namespace (Products.*)
     zcml =
 
 
-    # zopepy commands allows you to execute Python scripts using a PYTHONPATH 
+    # zopepy commands allows you to execute Python scripts using a PYTHONPATH
     # including all the configured eggs
     [zopepy]
     recipe = zc.recipe.egg
@@ -166,7 +166,7 @@ Please tune the versions according the latest available releases.
         ${instance:eggs}
 
     # symlinks all Python source code to parts/omelette folder when buildout is run
-    # windows users will need to install additional software for this part to build 
+    # windows users will need to install additional software for this part to build
     # correctly.  See http://pypi.python.org/pypi/collective.recipe.omelette for
     # relevant details.
     [omelette]
@@ -195,7 +195,7 @@ members are allowed to create certain content types.
    type was automatically assigned a permission for controlling its
    creation.
 
-Create a permission with 
+Create a permission with
 :doc:`collective.autopermission </security/permissions>` in
 ``configure.zcml``
 
@@ -224,9 +224,9 @@ Add in your content type GenericSetup XML
 .. code-block:: xml
 
     <!-- add permission -->
-    <property name="add_permission">yourcompany.app.AddSuperContent</property> 
+    <property name="add_permission">yourcompany.app.AddSuperContent</property>
 
-Reinstall your add-on.        
+Reinstall your add-on.
 
 Confirm that the new permission appears on the :guilabel:`Security` tab in
 the :term:`ZMI` root.
@@ -243,7 +243,7 @@ This must be enabled separately for Dexterity content types with a behavior.
         <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
         <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
     </property>
-        
+
 Then you can manually also check this property::
 
     for t in self.tabs:
@@ -292,7 +292,7 @@ You can register such an adapter in ``configure.zcml``
             name="your.app.flexiblecontent"
             />
 
-    </configure>        
+    </configure>
 
 .. warning::
 
@@ -306,21 +306,21 @@ Then you can inherit from the proper ``plone.dexterity`` base classes::
 
     from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 
-    class AddForm(DefaultAddForm): 
-      
+    class AddForm(DefaultAddForm):
+
         def update(self):
             DefaultAddForm.update(self)
-                    
+
         def updateWidgets(self):
             """ """
             # Some custom code here
-    
+
         def getBlockPlanJSON():
             return getBlockPlanJSON()
-        
+
     class AddView(DefaultAddView):
-        form = AddForm    
-        
+        form = AddForm
+
 See also:
 
 * :doc:`FTI </content/types>`

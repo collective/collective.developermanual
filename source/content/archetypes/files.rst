@@ -13,7 +13,6 @@ Download URL for files for ATFile content
 
 Append ``@@download`` view to URL.
 
-
 Checking whether a File field has uploaded content
 ====================================================
 
@@ -47,4 +46,14 @@ Example how to check in a view whether AT context file size exists::
                 
         return False 
 
-        
+Setting max file size to FileField and ImageField
+=====================================================
+
+TODO
+
+http://stackoverflow.com/questions/11347200/setting-max-upload-size-for-archetypes-filefield
+
+
+Old, deprecated, info
+
+* http://keeshink.blogspot.fi/2009/09/how-to-limit-file-upload-size.html

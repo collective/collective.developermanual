@@ -25,4 +25,3 @@ Buildout
     additional
 
 
-.. contents :: :local:

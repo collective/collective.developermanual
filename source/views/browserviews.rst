@@ -15,7 +15,7 @@ Plone/Zope uses a *view* pattern to output dynamically generated HTML pages.
 
 *Views* are the basic elements of modern Python web frameworks. A view runs
 code to setup Python variables for a rendering template. Output is not
-limited to HTML pages and snippets, but may contain :term:`JSON`, 
+limited to HTML pages and snippets, but may contain :term:`JSON`,
 file download payloads, or other data formats.
 
 Views are usually a combination of:
@@ -31,7 +31,7 @@ or the template file, or both.
 When you are working with Plone, the most usual view type is ``BrowserView``
 from the `Products.Five`_ package, but there are others.
 
-Each ``BrowserView`` class is a Python callable. 
+Each ``BrowserView`` class is a Python callable.
 The ``BrowserView.__call__()`` method acts as an entry point to executing
 the view code. From Zope's point of view, even a function would be
 sufficient, as it is a callable.
@@ -97,7 +97,7 @@ To customize existing Plone core or add-on views you have different options.
 
 * Usually you can simply override the related page template file (``.pt``).
 
-* Sometimes you need to change the related Python view class code also. 
+* Sometimes you need to change the related Python view class code also.
   In this case, you override the Python class by using your own add-on which
   installs a view class replacement using add-on layer.
 
@@ -115,7 +115,7 @@ Here is a short introduction on finding how existing views are defined.
 First, you go to ``portal_types`` to see what views have been registered for
 a particular content type.
 
-For example, if you want to override the *Tabular* view of a *Folder*, 
+For example, if you want to override the *Tabular* view of a *Folder*,
 you find out that it is registered as the handler for
 ``/folder_tabular_view``.
 
@@ -123,17 +123,17 @@ So you look for both ``folder_tabular_view`` old-style page templates and
 ``@@folder_tabular_view`` BrowserView ZCML registrations in the Plone
 source tree |---| it can be either.
 
-Example of how to search for this using UNIX tools (assuming that 
+Example of how to search for this using UNIX tools (assuming that
 `collective.recipe.omelette`_ is in use, to keep included code together):
 
 .. code-block:: console
 
     # find old style .pt files:
-    find parts/omelette -follow -name "folder_tabular_view*" 
+    find parts/omelette -follow -name "folder_tabular_view*"
     # find new style view registrations in ZCML files:
-    grep -ri --include="\*.zcml" folder_tabular_view parts/omelette 
+    grep -ri --include="\*.zcml" folder_tabular_view parts/omelette
 
-The ``folder_tabular_view`` is found in 
+The ``folder_tabular_view`` is found in
 the :doc:`skin layer </templates_css_and_javascripts/skin_layers>`
 called ``plone_content`` in the CMFPlone product.
 
@@ -151,8 +151,8 @@ Creating a view using Grok
 
 This is the simplest method and recommended for Plone 4.1+ onwards.
 
-First, create your add-on product using 
-:doc:`Dexterity project template </tutorials/paste>`.
+First, create your add-on product using
+:doc:`Dexterity project template </getstarted/paste>`.
 
 Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
 
@@ -174,7 +174,7 @@ Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
         grok.context(Interface)
         ...
 
-The view in question is not registered against any 
+The view in question is not registered against any
 :doc:`layer </views/layers>`, so it is always available.
 The view becomes available upon Zope start-up, and is available even if you
 don't run an add-on installer.  This is the suggested approach for logic
@@ -200,11 +200,11 @@ the related template:
 	      xmlns:tal="http://xml.zope.org/namespaces/tal"
 	      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 	      metal:use-macro="context/main_template/macros/master">
-	
+
 	    <metal:block fill-slot="content-core">
 	            XXX - this text comes below title and description
 	    </metal:block>
-	
+
 	</html>
 
 Content slots
@@ -217,16 +217,16 @@ inherits from ``<html metal:use-macro="context/main_template/macros/master">``:
 ``content``
     render edit border yourself
 
-``main`` 
+``main``
     overrides main slot in main template; you must render title and description yourself
-    
+
 ``content-title``
     title and description prerendered, Plone version > 4.x
 
-``content-core`` 
+``content-core``
     content body specific to your view, Plone version > 4.x
 
-``header`` 
+``header``
     A slot for inserting content above the title; may be useful in conjunction wtih
     content-core slot if you wish to use the stock content-title provided by the
     main template.
@@ -245,7 +245,7 @@ Now you can access your view within the news folder::
 ... or on any other content item.
 
 You can also use the ``@@`` notation at the front of the view name to make
-sure that you are looking up a *view*, and not a content item that happens 
+sure that you are looking up a *view*, and not a content item that happens
 to have the same id as a view::
 
         http://localhost:8080/Plone/news/@@myview
@@ -289,7 +289,7 @@ Example::
         def __init__(self, context, request):
             """ Initialize context and request as view multiadaption parameters.
 
-            Note that the BrowserView constructor does this for you. 
+            Note that the BrowserView constructor does this for you.
             This step here is just to show how view receives its context and
             request parameter. You do not need to write __init__() for your
             views.
@@ -352,7 +352,7 @@ The following example registers a new view (see below for comments):
 ``permission``
     is the permission needed to access the view.
     When an HTTP request comes in, the currently logged in user's access
-    rights in the current context are checked against this permission.  
+    rights in the current context are checked against this permission.
     See :doc:`Security chapter </security/permission_lists>` for Plone's
     out-of-the-box permissions. Usually you want have ``zope2.View``,
     ``cmf.ModifyPortalContent``, ``cmf.ManagePortal`` or ``zope2.Public``
@@ -441,7 +441,7 @@ constructed ``ViewPageTemplateFile`` with a chosen file at run-time::
                     os.path.dirname(plone.z3cform.__file__),
                     "templates"))
 
-    # Bind template to context: 
+    # Bind template to context:
     # make the template callable with template() syntax and context
     form_instance.template = BoundPageTemplate(template, form_instance)
 
@@ -521,7 +521,7 @@ Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile
 
 * Zope  `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_.
 
-* `Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_. 
+* `Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_.
   `Products.Five`_ is a way to access some Zope 3 technologies from the Zope
   2 codebase, which is used by Plone.
 
@@ -627,7 +627,7 @@ functionality which can be plugged in as one-line code around the system.
 Helper views also get around the following limitations:
 
 * TAL security.
-* Limiting Python expression to one line.  
+* Limiting Python expression to one line.
 * Not being able to import Python modules.
 
 .. Note::
@@ -758,7 +758,7 @@ Example::
 
         @param context: Any Plone content object.
         @param name: Attribute name holding the view name.
-        """ 
+        """
 
         try:
             view = context.unrestrictedTraverse("@@" + name)

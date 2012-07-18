@@ -14,7 +14,7 @@ conditions and is not something set in the site database.
 Creating a dynamic role
 ------------------------------
 
-First :doc:`create an Ploneadd-on for your coding needs </tutorials/paste>`.
+First :doc:`create an Ploneadd-on for your coding needs </getstarted/paste>`.
 
 getRoles() function is called several times per request so
 you might want to cache the result.

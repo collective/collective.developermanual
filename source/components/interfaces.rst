@@ -37,7 +37,7 @@ telling on what kind of content items the view is available.
 
 * ``Products.CMFCore.interfaces.ISiteRoot`` - Plone site root object
 
-* ``plone.app.layout.navigation.interfaces import INavigationRoot` - Navigation top object -
+* ``plone.app.layout.navigation.interfaces import INavigationRoot`` - Navigation top object -
   where the breadcrumbs being. On multilingual site this is the language folder.
 
 
