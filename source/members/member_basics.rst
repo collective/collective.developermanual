@@ -78,6 +78,10 @@ Get the user's password (Only hash is available and only for standard plone user
     passwdlist = acl_users.source_users._user_passwords
     userpassword = passwdlist.get(member.id, '')
 
+You can use this hash directly when importing your user data, because the 
+acl_users implementation automatically recognises that the value is a hash,
+and will not attempt to encrypt it again.
+
 Also, take a look at a script for exporting Plone 3.0 's memberdata and passwords:
 
 * http://blog.kagesenshi.org/2008/05/exporting-plone30-memberdata-and.html
