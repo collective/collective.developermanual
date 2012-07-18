@@ -4,22 +4,25 @@
 
 .. admonition:: Description
 
-        Creating and setting roles of the Plone members programmatically
+    Creating and setting local roles of Plone members programmatically.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
--------------
+=============
 
-Local roles allows user accounts to have special priviledges for a folder and its children.
+Local roles allows user accounts to have special privileges
+for a folder and its children.
 
-By default Plone has roles like Contributor, Reader, Editor.... and you can view
-these on Sharing tab and in ZMI Security tab.
+By default Plone has roles like ``Contributor``, ``Reader``, ``Editor``, etc.
+and you can view these on the :guilabel:`Sharing` tab
+and in :term:`ZMI` :guilabel:`Security` tab.
 
 Creating a new role
------------------------
+=======================
 
-New Plone roles can be created through :doc:`GenericSetup rolemap.xml </components/genericsetup>` file.
+New Plone roles can be created through the 
+:doc:`GenericSetup rolemap.xml </components/genericsetup>` file.
 
 Example ``profiles/default/rolemap.xml``
 
@@ -36,10 +39,11 @@ Example ``profiles/default/rolemap.xml``
     </rolemap>
 
 
-.. note ::
+.. Note::
 
-    Role will only appear in ZMI by default. If you want it to appear on the Sharing
-    tab please see the links below.
+    By default, user-defined roles will appear only in the ZMI.
+    If you want them to appear on the Sharing tab
+    please see the links below.
 
 More info
 
@@ -50,19 +54,21 @@ More info
 * http://pypi.python.org/pypi/collective.sharingroles
 
 Setting local role
--------------------
+===================
 
-manage_setLocalRoles is defined by `AccessControl.Role.RoleManager <http://svn.zope.org/Zope/trunk/src/AccessControl/Role.py?rev=96262&view=markup>`_.
+``manage_setLocalRoles`` is defined in `AccessControl.Role.RoleManager <http://svn.zope.org/Zope/trunk/src/AccessControl/Role.py?rev=96262&view=markup>`_.
 
 Example::
 
     context.manage_setLocalRoles(userid, ["Local roles as a list"])
 
 Getting local roles
--------------------
+===================
 
-get_local_roles() return currently set local roles. This does not return effective roles (acquired from parent hiercarchy).
-get_local_roles_for_userid() returns roles for a particular user as a tuple.
+The ``get_local_roles()`` method returns currently-set local roles.
+This does not return all the *effective* roles 
+(which may include roles acquired from the parent hierarchy).
+``get_local_roles_for_userid()`` returns roles for a particular user as a tuple.
 
 Example::
 
@@ -70,12 +76,13 @@ Example::
     roles = context.get_local_roles()
 
 Deleting local roles
---------------------
+====================
 
-manage_delLocalRoles(userids) takes *a list* of usernames as argument. All local roles
-for these users will be cleared.
+``manage_delLocalRoles(userids)`` takes a *list of usernames* as argument.
+All local roles for these users will be cleared.
 
-The following example will reset local roles based on external input (membrane specific)::
+The following example (``membrane``-specific)
+will reset local roles based on external input ::
 
     def _updateLocalRoles(self):
         """ Resets Local Coordinator roles for associated users.
@@ -112,12 +119,14 @@ The following example will reset local roles based on external input (membrane s
                 self.manage_delLocalRoles([username])
 
 Local role caching
-------------------
+==================
 
 Resolving effective local roles is a cumbersome operation, so the result is cached.
 
-**Unit test warning**: Local roles are cached per request basis. You need to clear this cache after
-modifying object's local roles or switching user if you want to get proper readings.
+.. warning::
+    **Unit testers**: Local roles are cached per request.
+    You need to clear this cache after modifying an object's local roles
+    or switching user if you want to get proper readings.
 
 Unit test example method::
 
@@ -133,15 +142,15 @@ Unit test example method::
             del ann[key]
 
 Debugging
----------
+=========
 
 Set your breakpoint in ``Products.PlonePAS.plugins.local_role.LocalRolesManager.getRolesInContext()``
 and ``Products.PlonePAS.plugins.role.GroupAwareRoleManager.getRolesForPrincipal()``.
-There you see  how roles for a given context are being resolved.
+There you see how roles for a given context are being resolved.
 
-Check *acl_users.portal_role_manager* thru ZMI.
+Check the ``acl_users.portal_role_manager`` tool via the :term:`ZMI`.
 
-Please see `zopyx.plone.cassandra <http://pypi.python.org/pypi/zopyx.plone.cassandra>`_ add-on product.
+Please see the `zopyx.plone.cassandra <http://pypi.python.org/pypi/zopyx.plone.cassandra>`_ add-on product.
 
 Other
 -----
