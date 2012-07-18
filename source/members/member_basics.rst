@@ -2,35 +2,41 @@
  Member manipulation
 =============================
 
-.. admonition :: Description
+.. admonition:: Description
 
-        How to programmatically create, read, edit and delete 
-        site members.
+    How to programmatically create, read, edit and delete site members.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 ============
 
-In Plone, there are two loosely coupled member related subsystems:
+In Plone, there are two loosely-coupled subsystems relating to members:
 
-* *Authentication and permission* information (``acl_users`` under site
-  root), managed by the Pluggable Authentication System (PAS).
+*Authentication and permission* information
+    (``acl_users`` under site root), managed by the :term:`PAS`.
+    In a default installation, this corresponds to Zope user objects.
+    PAS is *pluggable*, though, so it may also be authenticating against
+    an LDAP server, Plone content objects, or other sources.
 
-* *Member profile* information, accessible through the ``portal_membership``
-  tool.
+*Member profile* information
+    accessible through the ``portal_membership`` tool.
+    These represent Plone members. PAS authenticates,
+    and the Plone member object provides metadata about the member.
 
 
 Getting the logged-in member
 ============================
 
-Anonymous and logged-in member are exposed via :doc:`IPortalState context helper </misc/context>`.
+Anonymous and logged-in members are exposed via the
+:doc:`IPortalState context helper </misc/context>`.
 
 Example::
 
     from zope.component import getMultiAdapter
 
-    portal_state = getMultiAdapter((self.context, self.request), name="plone_portal_state")
+    portal_state = getMultiAdapter(
+            (self.context, self.request), name="plone_portal_state")
     if portal_state.anonymous():
         # Return target URL for the site anonymous visitors
         return self.product.getHomepageLink()
@@ -38,7 +44,7 @@ Example::
         # Return edit URL for the site members
         return product.absolute_url()
 
-or from a template
+or from a template:
 
 .. code-block:: html
 
@@ -60,21 +66,22 @@ To get all usernames::
 Getting member information
 ==========================
 
-Once you have acces to the member object, you can grab basic information about it.
+Once you have access to the member object,
+you can grab basic information about it.
 
-Get the user's name:
-
-.. code-block:: python
+Get the user's name::
 
     member.getName()
     
-Get the user's password (Only hash is available and only for standard plone user objects).
+You can also get at the hash of the user's password 
+(only the hash is available, and only for standard Plone user objects)::
 
-.. code-block:: python
-    
     acl_users = getToolByName(context, 'acl_users')
     passwdlist = acl_users.source_users._user_passwords
     userpassword = passwdlist.get(member.id, '')
+
+Note that this is a private data structure.
+Depending on the Plone version an add-ons in use, it may not be available.
 
 Also, take a look at a script for exporting Plone 3.0 's memberdata and passwords:
 
@@ -87,26 +94,26 @@ Iterating all site users
 
 Example::
 
-        buffer = ""
+    buffer = ""
 
-        # Returns list of site usernames
-        users = context.acl_users.getUserNames()
-        # alternative: get user objects
-        #users = context.acl_users.getUsers()
+    # Returns list of site usernames
+    users = context.acl_users.getUserNames()
+    # alternative: get user objects
+    #users = context.acl_users.getUsers()
 
-        for user in users:
-           print "Got username:" + user
+    for user in users:
+       print "Got username:" + user
 
 .. note::
 
-        Zope users, such as *admin*, are not included in this list.
+    Zope users, such as *admin*, are not included in this list.
 
 
 Getting all *Members* for a given *Role*
 ========================================
 
 In this example we use the ``portal_membership`` tool.
-We assume that a role called 'Agent' exists and that we already
+We assume that a role called ``Agent`` exists and that we already
 have the context::
 
     from Products.CMFCore.utils import getToolByName
@@ -152,7 +159,7 @@ Example::
    if IRoleManager.providedBy(context):
        context.manage_addLocalRoles(groupid, ['Manager',])
 
-.. Note: This is an example of code in a *view*, where ``context`` is
+.. Note:: This is an example of code in a *view*, where ``context`` is
    available.
 
 Update properties for a group
@@ -178,13 +185,13 @@ Plone groups.
 Example to get only ids::
 
     acl_users = getToolByName(self, 'acl_users')
-    groups = acl.source_groups.getGroupIds() # Iterable returning id strings
+    # Iterable returning id strings:
+    groups = acl_users.source_groups.getGroupIds()
 
 Example to get full group information::
 
-    site = context.portal_url.getPortalObject()
-    users = site.acl_users
-    group_list = users.source_groups.getGroups()
+    acl_users = getToolByName(self, 'acl_users')
+    group_list = acl_users.source_groups.getGroups()
 
     for group in group_list:
         # group is PloneGroup object
@@ -196,7 +203,7 @@ Adding a user to a group
 Example::
 
     # Add user to group "companies"
-    portal_groups = site.portal_groups
+    portal_groups = getToolByName(self, 'portal_groups')
     portal_groups.addPrincipalToGroup(member.getUserName(), "companies")
 
 Removing a user from a group
@@ -204,7 +211,6 @@ Removing a user from a group
 
 Example::
 
-    portal_groups = site.portal_groups
     portal_groups.removePrincipalFromGroup(member.getUserName(), "companies")
 
 Getting groups for a certain user
@@ -226,8 +232,8 @@ Checking whether a user exists
 
 Example::
 
-        membership = getToolByName(self, 'portal_membership')
-        return membership.getMemberById(id) is None
+    membership = getToolByName(self, 'portal_membership')
+    return membership.getMemberById(id) is None
 
 See also:
 
