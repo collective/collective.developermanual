@@ -83,6 +83,10 @@ You can also get at the hash of the user's password
 Note that this is a private data structure.
 Depending on the Plone version an add-ons in use, it may not be available.
 
+You can use this hash directly when importing your user data, because the 
+acl_users implementation automatically recognizes that the value is a hash,
+and will not attempt to encrypt it again.
+
 Also, take a look at a script for exporting Plone 3.0 's memberdata and passwords:
 
 * http://blog.kagesenshi.org/2008/05/exporting-plone30-memberdata-and.html
