@@ -19,6 +19,15 @@ In Plone, most CSS files are managed by the ``portal_css`` tool via the
 but ``portal_css`` does CSS file compression and merging automatically if
 used.
 
+View all Plone HTML elements
+==============================
+
+To test Plone HTML element rendering go to ``test_rendering`` page on your site::
+
+    http://localhost:8080/Plone/test_rendering
+
+It will output a styled list of all commonly used Plone user interface elements.
+
 Registering a new CSS file
 ==========================
 
