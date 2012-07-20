@@ -1,6 +1,6 @@
------------
+===========
  WebDAV
------------
+===========
 
 .. admonition:: Description 
 
@@ -99,7 +99,7 @@ A ``HEAD`` request retrieves headers only.
 value if that exists. Otherwise, it returns a ``405 Method Not Allowed`` response.
 If there is no ``index_html`` object, it returns ``404 Not Found``.
 
-GET
+``GET``
 ----------------
 
 A ``GET`` request retrieves headers and body.
@@ -174,10 +174,10 @@ This differs from the event sequence of an object created through the web.
 Here, only an ``IObjectCreatedEvent`` is fired, and only *after* the object
 has been fully initialised.
 
-DELETE
+``DELETE``
 ----------------
 
-A DELETE request instructs the WebDAV server to delete a resource.
+A ``DELETE`` request instructs the WebDAV server to delete a resource.
 
 ``Resource.DELETE()`` calls ``manage_delObjects()`` on the parent folder to delete
 an object.
@@ -185,25 +185,25 @@ an object.
 ``Collection.DELETE()`` does the same, but checks for write locks of all
 children of the collection, recursively, before allowing the delete.
 
-PROPFIND
+``PROPFIND``
 ----------------
 
-A PROPFIND request returns all or a set of WebDAV properties. WebDAV
+A ``PROPFIND`` request returns all or a set of WebDAV properties. WebDAV
 properties are metadata used to describe an object, such as the last modified
 time or the author.
 
 ``Resource.PROPFIND()`` parses the request and then looks for a
 ``propertysheets`` attribute on self.
 
-If an 'allprop' request is received, it calls ``dav__allprop()``, if
+If an ``allprop`` request is received, it calls ``dav__allprop()``, if
 available, on each property sheet. This method returns a list of name/value
 pairs in the correct WebDAV XML encoding, plus a status.
 
-If a 'propnames' request is received, it calls ``dav__propnames()``, if
+If a ``propnames`` request is received, it calls ``dav__propnames()``, if
 available, on each property sheet. This method returns a list of property
 names in the correct WebDAV XML encoding, plus a status.
 
-If a 'propstat' request is received, it calls ``dav__propstats()``, if
+If a ``propstat`` request is received, it calls ``dav__propstats()``, if
 available, on each property sheet, for each requested property. This method
 returns a property name/value pair in the correct WebDAV XML encoding, plus a
 status.
@@ -222,39 +222,49 @@ number of read-only properties: ``creationdate``, ``displayname``,
 ``supportedlock``, and ``lockdiscovery``. These in turn are delegated to
 methods prefixed with ``dav__``, so e.g. reading the ``creationdate`` property
 calls ``dav__creationdate()`` on the property sheet instance. These methods
-in turn return values based on the the property manager instance (i.e. the
+in turn return values based on the property manager instance (i.e. the
 content object). In particular:
 
-* ``creationdate`` returns a fixed date (January 1st, 1970).
-* ``displayname`` returns the value of the ``title_or_id()`` method
-* ``resourcetype`` returns an empty string or <n:collection/>
-* ``getlastmodified`` returns the ZODB modification time
-* ``getcontenttype`` delegates to the ``content_type()`` method, falling
-  back on the ``default_content_type()`` method. In Dexterity,
-  ``content_type()`` is implemented to look up the ``IRawReadFile`` adapter
-  on the context and return the value of its ``mimeType`` property.
-* ``getcontentlength`` delegates to the ``get_size()`` method (which is also
-  used for the "size" column in Plone folder listings). In Dexterity,
-  this looks up a ``zope.size.interfaces.ISized`` adapter on the object and
-  calls ``sizeForSorting()``. If this returns a unit of ``'bytes'``, the
-  value portion is used. Otherwise, a size of 0 is returned.
-* ``source`` returns a link to ``/document_src``, if that attribute exists
-* ``supportedlock`` indicates whether ``IWriteLock`` is supported by the
-  content item
-* ``lockdiscovery`` returns information about any active locks
+``creationdate``
+    returns a fixed date (January 1st, 1970).
+``displayname``
+    returns the value of the ``title_or_id()`` method
+``resourcetype``
+    returns an empty string or <n:collection/>
+``getlastmodified``
+    returns the ZODB modification time
+``getcontenttype``
+    delegates to the ``content_type()`` method, falling
+    back on the ``default_content_type()`` method. In Dexterity,
+    ``content_type()`` is implemented to look up the ``IRawReadFile`` adapter
+    on the context and return the value of its ``mimeType`` property.
+``getcontentlength``
+    delegates to the ``get_size()`` method (which is also
+    used for the "size" column in Plone folder listings). In Dexterity,
+    this looks up a ``zope.size.interfaces.ISized`` adapter on the object and
+    calls ``sizeForSorting()``. If this returns a unit of ``'bytes'``, the
+    value portion is used. Otherwise, a size of 0 is returned.
+``source``
+    returns a link to ``/document_src``, if that attribute exists
+``supportedlock``
+    indicates whether ``IWriteLock`` is supported by the content item
+``lockdiscovery``
+    returns information about any active locks
 
 Other properties in this and any other property sheets are returned as stored
 when requested.
 
-If the PROPFIND request specifies a depth of 1 or infinity (i.e. the client
-wants properties for items in a collection), the process is repeated for all
-items returned by the ``listDAVObjects()`` methods, which by default returns
+If the ``PROPFIND`` request specifies a depth of 1 or infinity 
+(i.e. the client wants properties for items in a collection),
+the process is repeated for all
+items returned by the ``listDAVObjects()`` methods,
+which by default returns
 all contained items via the ``objectValues()`` method.
 
-PROPPATCH
+``PROPPATCH``
 ----------------
 
-A PROPPATCH request is used to update the properties on an existing object.
+A ``PROPPATCH`` request is used to update the properties on an existing object.
 
 ``Resource.PROPPATCH()`` deals with the same types of properties from property
 sheets as ``PROPFIND()``. It uses the ``PropertySheet`` API to add or update
@@ -282,28 +292,29 @@ In Dexterity, ``MKCOL()_handler`` is overridden to adapt self to an
 a directory. The default implementation simply calls ``manage_addFolder()``
 on the parent. This will create an instance of the ``Folder`` type.
 
-COPY
+``COPY``
 ----------------
 
-A COPY request is used to copy a resource.
+A ``COPY`` request is used to copy a resource.
 
 ``Resource.COPY()`` implements this operation using the standard Zope content
 object copy semantics.
 
-MOVE
+``MOVE``
 ----------------
 
-A MOVE request is used to relocate or rename a resource.
+A ``MOVE`` request is used to relocate or rename a resource.
 
 ``Resource.MOVE()`` implements this operation using the standard Zope content
 object move semantics.
 
-LOCK
+``LOCK``
 ----------------
 
-A LOCK request is used to lock a content object.
+A ``LOCK`` request is used to lock a content object.
 
-All relevant WebDAV methods in the ``webdav`` package are lock aware. That is,
+All relevant WebDAV methods in the ``webdav`` package are lock aware.
+That is,
 they check for locks before attempting any operation that would violate a
 lock.
 
@@ -319,10 +330,10 @@ this means locking the name of the non-existent resource. When a
 parent (remember that a ``NullResource`` is a transient object returned
 when a child object cannot be found in a WebDAV request).
 
-UNLOCK
+``UNLOCK``
 ----------------
 
-An UNLOCK request is used to unlock a locked object.
+An ``UNLOCK`` request is used to unlock a locked object.
 
 ``Resource.UNLOCK()`` handles unlock requests.
 
@@ -339,10 +350,10 @@ a pseudo-file with the name '_data', by injecting this into the return value
 of ``listDAVObjects()`` and adding a special traversal hook to allow its
 contents to be retrieved.
 
-This pseudo-file supports ``HEAD``, ``GET``, ``PUT``, ``LOCK``, ``UNLOCK``,
-``PROPFIND`` and ``PROPPATCH``
-requests (an error will be raised if the user attempts to rename, copy, move
-or delete it). These operate on the container object, obviously. For example,
-when the data object is updated via a ``PUT`` request, the ``PUT()`` method on
-the container is called, by default delegating to an ``IRawWriteFile`` adapter
-on the container.
+This pseudo-file supports ``HEAD``, ``GET``, ``PUT``, ``LOCK``,
+``UNLOCK``, ``PROPFIND`` and ``PROPPATCH`` requests 
+(an error will be raised if the user attempts to rename, copy, move
+or delete it). These operate on the container object, obviously.
+For example, when the data object is updated via a ``PUT`` request,
+the ``PUT()`` method on the container is called,
+by default delegating to an ``IRawWriteFile`` adapter on the container.
