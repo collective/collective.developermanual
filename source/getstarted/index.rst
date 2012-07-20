@@ -10,7 +10,9 @@ Introduction
 --------------
 
 Plone is developed in :doc:`Python </getstarted/python>` programming language. You should master Python basics
-before you can efficiently customize Plone.
+before you can efficiently customize Plone. If you are very new to Python, Plone or software development
+generally it is suggested that you read `Professional Plone 4 Development book <https://plone.org/documentation>`_ 
+before you attempt to develop your own solutions.
 
 Plone runs on the top of `Zope 2 application server <zope2.zope.org/>`_ meaning that one Zope 2 server process
 can contain and host several Plone sites. Plone also uses Zope 3 components. Zope 3 is not upgrade for Zope 2,
