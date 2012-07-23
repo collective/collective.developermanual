@@ -863,30 +863,28 @@ More info:
 
 * http://plone.293351.n2.nabble.com/URL-to-content-view-tp6028204p6028204.html
 
-Views and magical acquisition
-==================================
+Views and automatic member variable acquisition wrapping
+==========================================================
 
-.. warning::
-
-    This is really nasty stuff. If this were not be a public document
-    I'd use more harsh words here.
-
-In Plone 3, the following will lead to errors which are very hard to debug.
-
-Views will automatically assign themselves as a parent for all member
-variables.
+View class instances will automatically assign themselves as a parent for all member
+variables. This is because ``five`` package based views inherit from ``Acquisition.Implicit`` base class.
 
 E.g. you have a ``Basket`` content item with ``absolute_url()`` of::
 
     http://localhost:9666/isleofback/sisalto/matkasuunnitelmat/d59ca034c50995d6a77cacbe03e718de
 
-Then if you use this object in a view code's member variable assignment::
+Then if you use this object in a view code's member variable assignment in e.g. ``Viewlet.update() method``::
 
     self.basket = my_basket
 
 ... this will mess up the Basket content item's acquisition chain::
 
     <Basket at /isleofback/sisalto/yritykset/katajamaan_taksi/d59ca034c50995d6a77cacbe03e718de>
+
+This concerns views, viewlets and portlet renderers. It will, for example, make the following code to fail::
+
+            self.obj = self.context.reference_catalog.lookupObject(value)
+            return self.obj.absolute_url() # Acquistion chain messed up, getPhysicalPath() fails
 
 One workaround to avoid this mess is to put a member variable inside a
 Python array and create an accessor method to read it when needed::
