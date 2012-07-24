@@ -232,7 +232,7 @@ For ``ATImage``, those are in
 <http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py>`_.
 
 Lightbox style image pop-ups
-------------------------------
+====================================
 
 Plone comes with `plone.app.jquerytools <http://pypi.python.org/pypi/plone.app.jquerytools>`_ which offers easy integration
 for lightbox style image pop-ups.
