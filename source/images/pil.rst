@@ -37,3 +37,26 @@ Get http://www.ijg.org/files/jpegsrc.v7.tar.gz, and then::
     sudo make
 
 Then you can install PIL with JPEG support.
+
+Pillow
+------
+
+In late 2010, a packaging fork called `Pillow`_ was created to offer better multi-OS installation support. Specifically it offers:
+
+- Setuptools compatibility
+- Hosting (and mirroring) by PyPI (vs. off site)
+- Windows eggs
+- Bug fixes (many of which simply add vendor-specific library directories to the compiler's search path.)
+
+As a result, PIL can now be installed on many more systems simply by using the "Pillow" package name. E.g.::
+
+  $ easy_install Pillow
+
+Or::
+
+  $ pip install Pillow
+
+Or add to the list of eggs in your Buildout.
+
+.. _`Pillow`: http://pypi.python.org/pypi/Pillow
+
