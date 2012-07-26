@@ -8,7 +8,7 @@ want to write their own add-ons, integration code, and other customizations.
 Table of Content
 ================
 
-Creating Plone add-ons and fuctionality
+Creating Plone add-ons and functionality
 -------------------------------------------
 
 .. toctree::
