@@ -107,6 +107,15 @@ If you want to load the CSS in the same bundle as Plone's default
 the file will be one of the first CSS files to be loaded and cannot override
 values from other files unless the CSS directive ``!important`` is used.
 
+Condition for Diazo themed sites
+--------------------------------
+
+To check if theming is active, will return true if Diazo is enabled.
+
+.. code-block:: diazo:
+
+    request/HTTP_X_THEME_ENABLED | nothing
+
 Conditional comments (IE)
 ==============================
 
