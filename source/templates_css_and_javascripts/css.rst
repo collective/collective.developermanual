@@ -112,7 +112,7 @@ Condition for Diazo themed sites
 
 To check if theming is active, will return true if Diazo is enabled.
 
-.. code-block:: xml:
+.. code-block:: diazo:
 
     request/HTTP_X_THEME_ENABLED | nothing
 
