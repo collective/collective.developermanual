@@ -158,6 +158,9 @@ which allows Plone to scan all Python files for ``grok()`` directives and
 furter automatically pick up your views (as opposite using old Zope 3 method
 where you manually register views by typing them in to ZCML in ZCML).
 
+configure.zcml
+`````````````````````
+
 First make sure the file ``configure.zcml`` in your add-on root folder 
 contains the following lines. These lines are needed only once, in the root
 configuration ZCML file::
@@ -179,11 +182,16 @@ configuration ZCML file::
 
 	</configure>
 
-Also either you need to have ``five.grok`` 
+setup.py and buildot
+`````````````````````
+
+Either you need to have ``five.grok`` 
 `registered in your buildout <http://plone.org/documentation/kb/installing-add-ons-quick-how-to>`_ 
 or have :doc:`five.grok in your setup.py </components/grok>`. If you didn't add it in this 
 point and run buildout again to download and install ``five.grok`` package.
 
+Python logic code
+`````````````````````
 
 Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
 
@@ -235,6 +243,9 @@ docs to make the view available only for certain content types. Example
 	from Products.ATContentTypes.interface import IATDocument
 
 	grok.context(IATDocument)
+
+Page template
+`````````````````````
 
 Then create a :doc:`page template for your view. </templates_css_and_javascripts/template_basics>`.
 Create ``yourcompany.app/yourcompany/app/browser/templates`` and add
