@@ -179,6 +179,11 @@ configuration ZCML file::
 
 	</configure>
 
+Also either you need to have ``five.grok`` 
+`registered in your buildout <http://plone.org/documentation/kb/installing-add-ons-quick-how-to>`_ 
+or have :doc:`five.grok in your setup.py </components/grok>`. If you didn't add it in this 
+point and run buildout again to download and install ``five.grok`` package.
+
 
 Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
 
