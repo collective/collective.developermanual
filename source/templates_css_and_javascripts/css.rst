@@ -110,7 +110,7 @@ values from other files unless the CSS directive ``!important`` is used.
 Condition for Diazo themed sites
 --------------------------------
 
-To check if theming is active, will return true if Diazo is enabled
+To check if theming is active, will return true if Diazo is enabled.
 
 .. code-block:: xml:
 
