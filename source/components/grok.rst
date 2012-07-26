@@ -45,6 +45,9 @@ Tutorial
 Using Grok in your package
 ===========================
 
+configure.zcml - register your package for grokking
+------------------------------------------------------
+
 To enable grok'ing for your package:
 
 * The top-level ``configure.zcml`` must include the ``grok`` namespace and
@@ -82,6 +85,19 @@ Example::
    
    </configure>
 
+setup.py - include five.grok package dependency for download
+--------------------------------------------------------------
+
+You still need to get ``five.grok`` package to your buildout.
+
+Edit your Python egg ``setup.py`` file and list ``five.grok`` as dependency::
+
+    install_requires = ["five.grok", ...],
+
+Re-run buildout. Now buildout should download ``five.grok`` for PyPi and activate it for you.
+
+If you are using Plone 4.1 or older you also need `Dexterity extends = line pindowns in your buildout <http://plone.org/products/dexterity/documentation/how-to/install>`_.
+Otherwise you may get *Version Conflict* errors when running buildout.
 
 More info
 ===========
