@@ -42,8 +42,9 @@ Enter the following values:
 
  **Read network** should be checked, then click 'save'
 
- Visit your Plone site, the result will be a themed version of the plone site based on http://pigeonflight.github.com/diazodemo.
+Visit your Plone site, the result will be a themed version of the plone site based on http://pigeonflight.github.com/diazodemo.
 
- It should look similar to this screenshot:
+It should look similar to this screenshot:
 
- .. image:: ../images/theming-test-screenshot.png
+ .. image:: ../images/plone_theme_dev_theming-test-screenshot.png
+ 
