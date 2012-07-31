@@ -1,5 +1,5 @@
 ===============================
-Basic Setup Recipe
+Quick Test Recipe
 ===============================
 
 .. admonition:: Description
@@ -7,23 +7,19 @@ Basic Setup Recipe
     Diazo is the system used to implement Plone themes.
     As of Plone 4.2, Plone ships with all the 'machinery'
     required to get started with Diazo based theme creation.
-    In this tutorial we will create a very basic theme. In the 
-    process you will gain experience with simple procedure for
-    creating a Diazo theme.
+    This recipe is designed to get you started quickly. 
 
 .. contents:: :local:
 
-Checklist
+Ingredients
 ============
 
 You will need to have the following:
 
-* Your preferred text editor
 * Access to working copy Plone 4.2 or Plone 4.1 with plone.app.theming 
-* A File server (Can be a Dropbox Account or Github Page)
 
-Step 1 - Quick Test
-==============================================================
+Procedure
+==================================
 
 Start by testing that everything is working. For this test our theme resources are hosted on a github page (http://pigeonflight.github.com).
 
