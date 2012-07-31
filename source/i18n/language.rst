@@ -61,6 +61,7 @@ the served language on the content.
 
 Example BrowserView method::
 
+    from Products.Five.browser import BrowserView
     from Acquisition import aq_inner
 
     def language(self):
