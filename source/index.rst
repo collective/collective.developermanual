@@ -36,6 +36,9 @@ Creating Plone add-ons and functionality
 Plone Theme Development 
 -------------------------------------------
 
+.. toctree::
+   :maxdepth: 1
+
    plone_theme_development/index
 
 Maintaining Plone sites
