@@ -4,8 +4,9 @@
 
 .. admonition:: Description
 
-        Pluggable authentication service (PAS) provides easy way to customize your user, permission
-        authentication behavior.
+    The Pluggable authentication service (PAS) 
+    provides an easy way to customize the way your users are 
+    authenticated and assigned roles.
 
 .. toctree::
    :maxdepth: 2
