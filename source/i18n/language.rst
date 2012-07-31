@@ -36,6 +36,7 @@ Example view/viewlet method of getting the current language.
 .. code-block:: python
 
     from Acquisition import aq_inner
+    from Products.Five.browser import BrowserView
     from zope.component import getMultiAdapter
     
     class MyView(BrowserView):
@@ -61,7 +62,7 @@ the served language on the content.
 
 Example BrowserView method::
 
-    from Products.Five.browser import BrowserView
+
     from Acquisition import aq_inner
 
     def language(self):
