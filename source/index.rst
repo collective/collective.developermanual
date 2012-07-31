@@ -33,6 +33,11 @@ Creating Plone add-ons and functionality
    misc/index
    zope_secrets/index
 
+Plone Theme Development 
+-------------------------------------------
+
+   diazo_theme_recipes/index
+
 Maintaining Plone sites
 -------------------------------------------
 
