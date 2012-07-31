@@ -41,9 +41,9 @@ Enter the following values:
 
  **Read network** should be checked, then click 'save'
 
-.. note:: The rule file and resources in this example are hosted online, we assume this may be a problem if your Plone site is behind a firewall or otherwise not connected to the internet.
+.. note:: The rule file and resources in this example are hosted online, this will be a problem if your Plone site is behind a firewall or otherwise not connected to the internet.
 
-Visit your Plone site, the result will be a themed version of the plone site based on http://pigeonflight.github.com/diazodemo.
+When you visit your Plone site you will see a the main content displayed inside of the custom theme provided by http://pigeonflight.github.com/diazodemo.
 
 It should look similar to this screenshot:
 
