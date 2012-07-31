@@ -32,12 +32,18 @@ In your Plone Site go to 'Site Setup' > 'Diazo theme'.
 
 Then click on the 'Advanced Settings' tab.
 
-Enter the following values::
+.. image:: ../images/theming-cp-test.png
 
- For Rules file: http://pigeonflight.github.com/diazodemo/rules.xml
+Enter the following values:
 
- For Absolute path prefix: http://pigeonflight.github.com/diazodemo/
+ **Rules file:** http://pigeonflight.github.com/diazodemo/rules.xml
 
- Make sure that 'Read network' is checked and then click 'save'
+ **Absolute path prefix:** http://pigeonflight.github.com/diazodemo/
 
- Visit your site homepage, the result will be a themed version of the plone site based on http://pigeonflight.github.com/diazodemo.
+ **Read network** should be checked, then click 'save'
+
+ Visit your Plone site, the result will be a themed version of the plone site based on http://pigeonflight.github.com/diazodemo.
+
+ It should look similar to this screenshot:
+
+ .. image:: ../images/theming-test-screenshot.png
