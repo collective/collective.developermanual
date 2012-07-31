@@ -9,6 +9,8 @@ Quick Test Recipe
     required to get started with Diazo based theme creation.
     This recipe is designed to get you started quickly. 
 
+    The goal of this recipe is to help you confirm that everything is working. The theme resources for this recipe are hosted on a github page (http://pigeonflight.github.com).
+
 .. contents:: :local:
 
 Ingredients
@@ -16,12 +18,10 @@ Ingredients
 
 You will need to have the following:
 
-* Access to working copy Plone 4.2 or Plone 4.1 with plone.app.theming 
+* Administrative access to a working copy of Plone 4.2 or (Plone 4.1 with plone.app.theming installed)
 
 Procedure
-==================================
-
-Start by testing that everything is working. For this test our theme resources are hosted on a github page (http://pigeonflight.github.com).
+===========
 
 In your Plone Site go to 'Site Setup' > 'Diazo theme'.
 
