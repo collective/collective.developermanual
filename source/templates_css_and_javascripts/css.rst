@@ -19,6 +19,15 @@ In Plone, most CSS files are managed by the ``portal_css`` tool via the
 but ``portal_css`` does CSS file compression and merging automatically if
 used.
 
+View all Plone HTML elements
+==============================
+
+To test Plone HTML element rendering go to ``test_rendering`` page on your site::
+
+    http://localhost:8080/Plone/test_rendering
+
+It will output a styled list of all commonly used Plone user interface elements.
+
 Registering a new CSS file
 ==========================
 
@@ -97,6 +106,15 @@ If you want to load the CSS in the same bundle as Plone's default
 ``member.css``, use ``insert-after="member.css"``. In this case, however,
 the file will be one of the first CSS files to be loaded and cannot override
 values from other files unless the CSS directive ``!important`` is used.
+
+Condition for Diazo themed sites
+--------------------------------
+
+To check if theming is active, will return true if Diazo is enabled.
+
+.. code-block:: diazo:
+
+    request/HTTP_X_THEME_ENABLED | nothing
 
 Conditional comments (IE)
 ==============================

@@ -712,6 +712,13 @@ Example::
                                             DateTime('2062-05-08 15:16:17')),
                                    'range': 'min:max'})
 
+Note that `effectiveRange` may be a lot more efficient. This will return only
+objects whose `effective_date` is in the past, ie. objects that are not
+unpublished::
+
+    items = portal_catalog(effectiveRange=DateTime())
+
+
 Example 2 - how to get items one day old of FeedFeederItem content type::
         
         # DateTime deltas are days as floating points

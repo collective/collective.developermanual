@@ -8,7 +8,7 @@ want to write their own add-ons, integration code, and other customizations.
 Table of Content
 ================
 
-Creating Plone add-ons and fuctionality
+Creating Plone add-ons and functionality
 -------------------------------------------
 
 .. toctree::
@@ -32,6 +32,14 @@ Creating Plone add-ons and fuctionality
    images/index
    misc/index
    zope_secrets/index
+
+Plone Theme Development 
+-------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   plone_theme_development/index
 
 Maintaining Plone sites
 -------------------------------------------

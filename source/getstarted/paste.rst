@@ -6,129 +6,145 @@
 
 .. admonition:: Description
 
-        templer.plone package provides product scaffolding code for Plone to
-        bootstrap your add-on development.
+        ZopeSkel is a tool that helps you to rapidly generate skeleton code useful in development for Plone.
 
 Introduction
 ------------
 
-Templer is a Python helper and package colllection providing code skeleton templates for Plone add-ons and themes
-for bootstrapping your Plone customization add-on work.
+ZopeSkel provides a command-line utility and a number of templates that help you to generate skeleton code 
+for a Plone project.  Using ZopeSkl you can create Plone buildouts, add-on packages and themes.  The skeleton
+code created by ZopeSkel follows generally accepted best practices, and will get you started developing for 
+the Plone CMS.
 
 .. note ::
 
-  In the past this package was known as ZopeSkel. The same templates could be triggered
-  using *paster* and *zopeskel* commands.
+  In the past, ZopeSkel was a single, large package.  It has been broken into a number of smaller packages to 
+  help make it more flexible and easy to work with.  These packages are in the templer namespace (templer.core,
+  templer.plone, etc.)  If you are interested in Plone development, you should simply install ZopeSkel.  
+  It will include everything you need.
 
 Further reading
 ================
 
-`For more in-depth information visit Templer manual <http://templer-manual.readthedocs.org/en/latest/index.html>`_
+`For more in-depth information about the templer system which underlies ZopeSkel, visit the Templer Manual 
+<http://templer-manual.readthedocs.org/en/latest/index.html>`_
 
 Add-on creation and installation steps
 --------------------------------------
 
 There are three steps in your add-on creation and installation procedure
 
-* Create add-on code skeleton using Templer as instructed below.
-  If you are unsure answer *yes* to all questions.
+* Create add-on code skeleton using ZopeSkel as instructed below. The tool will provide sensible 
+  defaults for all options, so if you unsure about an answer, simple accept the default.
 
-* Make it's code available in buildout as described in the installation instructions below.
-  Adding code to buildout must be done only once. After this you see your
-  add-on's Python egg registered in ``bin/instance`` script when you open the file.
+* Make your new add-on available in buildout as described in the installation instructions below.
+  Adding code to buildout is done only once. After this you can see your package listed in the 
+  ``bin/instance`` script when you open the file.
 
-* After this Zope loads your add Python and ZCML code on every Zope restart
-  with ``bin/instance`` command. Because manual Plone restarts may
-  be time-consuming use `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package to make it happen fast
-  and automatically every time you change Python code.
+* After this Zope will load your Python and ZCML code every time Zope is restarted with the 
+  ``bin/instance`` command. Because manual restarts can be time-consuming you may use the
+  `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package to make it happen fast
+  and automatically every time you change Python code in your package.
 
-* Your add-on might need to provide :doc:`GenericSetup profile </components/genericsetup>`
-  which does site database modifies **every time you run Add-on installer your site setup**.
-  GenericSetup profile is just a bunch of
-  XML files are just database snippets written to database
-  when the add-on installs. This is independent of register Python and ZCML code and GenericSetup XML can be updated
-  without site restart.
+If you want your add-on to be 'activated' by going to the Plone Add-on control panel, you will
+need to have a :doc:`GenericSetup profile </components/genericsetup>`.  ZopeSkel can set
+this up for you, just say 'Yes' if you are asked.  Some templates require a profile, and will not ask.
+This profile modifies the site database **every time you run Add-on installer your site setup**.  
+If you make changes to your profile, you need to **re-run the installation of your package** to pick
+up those changes.
 
-All add-ons do not provide GenericSetup profile if they do not modify the site database
-in any way e.g. they provide only new :doc:`views </views/browserviews>`.
+A GenericSetup profile is just a bunch of XML files with information that is written to the database
+when the add-on is installed. This is independent of Python and ZCML code and GenericSetup XML can be 
+updated without restarting the site.
 
-Enabling templer command via buildout
----------------------------------------
+All add-ons do not provide GenericSetup profile.  If an add-on does not modify the site database
+in any way e.g. they provide only new :doc:`views </views/browserviews>`, it may not require one. But
+a GenericSetup profile is required in order to have the add-on appear in the list of 'available add-ons'
+in the Plone Add-ons control panel.
 
-Add to your ``buildout.cfg``::
+Adding ZopeSkel to your buildout
+--------------------------------
 
+To install ZopeSkel in your buildout, add the following to your ``buildout.cfg`` in the appropriate places::
+
+    # add a 'zopeskel' part to the list of parts in the [buildout] section.
     parts =
         ...
-        templer
+        zopeskel
 
-    # create templer command in bin/
+    # create zopeskel command in bin/
     # with Plone templates
     [templer]
-    unzip = true
     recipe = zc.recipe.egg
-    dependent-scripts = true
+    unzip = true
     eggs =
         Paste
-        templer.plone
-        templer.plone.localcommands
+        ZopeSkel
 
-The following templer packages are available
+After adding this, run buildout and it will install ZopeSkel and all the templer and Paste packages
+that it requires. After buildout completes, you will find the ``zopeskel`` command in the ``bin`` 
+directory of your buildout.  You can use this command to list template, run them, and build the
+skeleton code you need to get started.
 
-* `templer.plone and templer.plone.localcommands <http://pypi.python.org/pypi/templer.plone/>`_ for basic Plone add-ons.
-  This includes Archetypes content types.
+To find out what templates are available, run::
 
-* **TODO: templer templates for themes**
+    bin/zopeskel --list
 
-* **TODO: templer templates for Dexterity**
+To get extensive documentation on the abilities of ZopeSkel, run::
 
-* **TODO: templer templates for buildouts**
-
-After rerunning buildout, buildout adds the ``bin/templer`` command.
-
-Now you can use templates, through **templer** from buildout folder::
-
-        bin/templer
+    bin/zopeskel --help
 
 Troubleshooting
 =================
 
 If you get any exceptions running this command see :doc:`troubleshooting </troubleshooting/exceptions>`.
-If self-service help doesn't get you anywhere `file issues on Github <https://github.com/collective/templer.plone>`_.
-
-Templer templates
----------------------------------
+If self-service help doesn't get you anywhere `file issues on Github 
+<https://github.com/collective/ZopeSkel/issues>`_.
 
 .. note ::
 
-    This section is still under construction. New template packaegs are being released.
+    If you are migrating from a version of ZopeSkel prior to 3.0, you may need to remove the old ZopeSkel
+    egg before you begin.  You can find notes about this in the README for `templer.plone 
+    <https://github.com/collective/templer.plone/blob/master/README.txt>`_.
 
-``bin/templer`` command will list the available templates.
+ZopeSkel Templates
+------------------
 
-Useful templates you should know about (there are others).
+.. note ::
 
-* ``archetypes``: Create :doc:`Archetypes </content/archetypes/index>` based content types
+    The templates listed below may not be the only ones available when you install ZopeSkel.  New
+    templates are being developed actively.
 
-* ``plone``: Basic contentless Plone add-on. Good for form, view, etc. customizations.
-  You can add portlets in this package.
+* ``archetypes``: Creates a package skeleton for :doc: `Archetypes </content/archetypes/index>` 
+  based content types.  
+
+* ``plone_basic``: Creates a basic skeleton good for general Plone add-on packages.  Minimal and 
+  clean.  You can use this package to set up views, forms, portlets, and many other add-on features.
+
+* ``plone_nested``: Creates a nested namespace package with the same basic skeleton as 
+  ``plone_basic``.  This is generally used for packages that are meant to be part of a set, like
+  ``collective.blog.feeds``, ``collective.formwidget.autocomplete`` or ``collective.geo.mapwidget``.
 
 Creating an add-on product skeleton
 -----------------------------------
 
-After you have followed the steps above to add Templer to your buildout,
-you can create your first add-on.
+After you have followed the steps above to add ZopeSkel to your buildout,
+you can create your first add-on::
 
 .. note ::
 
-    If you are unsure about questions answer **yes**.
+    If you are unsure about questions, you may type ``?`` to get more information.  You can also
+    just hit enter to accept the default value.  These are sensible for most cases.
 
-Create Archetypes based content types package::
+To create an Archetypes based content types package::
 
-    # Run in buildout folder
+    cd /path/to/buildout
     cd src
     ../bin/templer archetype yourcompany.productname
 
-
-After this you need to include the newly created egg in your ``buildout.cfg``::
+After answering the questions, you'll have a new python package in the ``src`` directory of your 
+buildout.  To begin using this code, you'll need to include the newly created package in your 
+``buildout.cfg``::
 
     eggs =
         yourcompany.productname
@@ -136,70 +152,79 @@ After this you need to include the newly created egg in your ``buildout.cfg``::
     develop =
         src/yourcompany.productname
 
-Rerun buildout.
+Rerun buildout to pick up the new package.
 
-:doc:`Restart Plone in foreground mode </troubleshooting/basic>`. If your code files contain errors it usually fails in this point
-with a :doc:`Python traceback </troubleshooting/exceptions>`.
+:doc:`Restart Plone in foreground mode </troubleshooting/basic>`. If your new code files contain errors 
+it usually fails in this point with a :doc:`Python traceback </troubleshooting/exceptions>`.  This 
+traceback will contain valuable information about what went wrong, and will be the first thing anyone
+will ask for if you seek help.
 
-Now you should see your add-on in *Add/remove add-ons* in *Site setup* after logging into your local Plone site as admin.
-
-.. note ::
-
-    If you are migrating from old ZopeSkel templates you need to remove ZopeSkel frmo buildout first.
-
-`Get rid of old ZopeSkel before starting using Templer <https://github.com/collective/templer.plone/blob/master/README.txt>`_.
+Once Plone has started, log in as admin and go to ``Site Setup`` > ``Add-ons``.  If your package has
+a GenericSetup profile, you should see your add-on in the list of ``available`` add-ons at the top of 
+the page.
 
 Local commands
----------------------------------
+--------------
 
-Besides project templates, Templer package provides local commands.
-Local commands are context aware commands to add more functionality to an existing Templer generated
-project.
+Besides project templates, ZopeSkel allows templates to define **local commands**.
+Local commands are context aware commands that allow you to add more functionality
+to an existing project generated by ZopeSkel.
 
 Examples of the kind of Plone functionality you can add with local commands
 
-* Content types inside your add-on
-
-* Portlets inside your add-on
+* Content types inside your add-on. 
+* Schemas for your content types.
+* Browser views
+* Browser layers (to allow you to isolate add-on code to sites where your package is activated)
 
 * etc.
 
 
 .. note ::
 
-    Local commands are not available until your egg is correctly
-    registered as development egg in buildout (this causes setup.py develop command
-    run, creating necessary Paster hooks).
+    Local commands are not available until your egg is registered as development egg 
+    in your buildout. This causes python to execute code which creates the required
+    Paster hooks.  If you follow the instructions below and do not see an ``add`` local
+    command, please verify that your package has been properly added to your buildout
+    and that buildout has been re-run afterwards.
 
-Creating a content type
-===========================
+Adding a Content Type to your package
+=====================================
 
-In this example we will continue ``yourcompany.productname``
-development and add our first Archetypes based content type.
+In this example we will continue ``yourcompany.productname`` development and add our first 
+Archetypes based content type.
 
 Example of creating a content type::
 
         # First create an add-on skeleton if one does not exist
-        cd src/yourcompany.productname/src
+        cd yourcompany.productname/src
 
 .. note ::
 
-    You must enter *src* folder **inside** your package. Otherwise paster add command does not work.
+    You must enter *src* folder **inside** your package. Otherwise the paster add command cannot
+    work.
 
-To list available local commands templates type::
+To list the local commands available to your package, type::
 
-    ../../../bin/paster add -a
+    ../../../bin/paster add --list
 
-Now you can use ``paster`` ``addcontent`` local command to contribute to the existing project
+This will display local commands that will work for the package you have created.  Different
+package types have different local commands.  Next you can use the ``paster`` ``add`` local 
+command to add new functionality to your existing code.
 
-Example of how to create a special content type for managing lectures::
+For example, to add a special content type for managing lectures::
 
-        ../../../bin/paster add contenttype
+    ../../../bin/paster add at_contenttype
+
+After the content type is added, you can add schema fields for the type::
+
+    ../../../bin/paster add at_schema_field
 
 .. note ::
 
-    New content types come available through add-on product reinstall.
-    You need to restart Plone **and** reinstall the add-on after creating a new content type.
+    New content types are added to Plone using GenericSetup.  GenericSetup profiles are run
+    when an add-on product is **activated**.  To see the content type you create, you'll need 
+    to restart Plone **and** reinstall the add-on.
 
 In-depth background information
 ---------------------------------
@@ -207,16 +232,19 @@ In-depth background information
 How paster local commands work
 ================================
 
-paster reads ``setup.py``. If it finds a *paster_plugins* section there,
-it will look for local commands there.
-For example, Plone project templates declare the following paste_plugins in setup.py::
+Paster reads ``setup.py``. If it finds a *paster_plugins* section there, it will look for 
+local commands. For example, the Archetype template declares the following paster_plugins 
+in setup.py::
 
-        paster_plugins = ["Templer"]
+        paster_plugins=["templer.localcommands"],
+
+This allows paster to know that packages created by that template provide local commands
+defined by the templer system which underlies ZopeSkel.
 
 :doc:`More about paster templates </misc/paster_templates>`.
 
 setup.py install_requires
-================================
+=========================
 
 Python modules can specify dependencies to other modules by using the *install_requires* setup.py section. For example, a Plone add-on might read::
 

@@ -6,7 +6,7 @@ WYSIWYG text edit
 
         WYSIWYG text field editor programming in Plone.
 
-.. contents :: :local:        
+.. contents :: :local:
 
 Introduction
 ------------
@@ -36,12 +36,12 @@ links where shown on the other page as the original context.
 
 .. note ::
 
-   You might need to turn on *Linking by UID* setting on in the site setup if you are migrating from older Plone sites. 
+   You might need to turn on *Linking by UID* setting on in the site setup if you are migrating from older Plone sites.
 
 Editor preferences
 ---------------------
 
-Plone supports user text changeable editor. The active editor is stored in 
+Plone supports user text changeable editor. The active editor is stored in
 the :doc:`user preferences </members/member_profile>`.
 
 The user can fallback to hand-edited HTML by setting active editor to none.
@@ -64,18 +64,18 @@ You can use TinyMCE body selector make your CSS class have different styles in v
 
 .. code-block:: css
 
-        
-        /* Break columns in two column layout 
-         * 
+
+        /* Break columns in two column layout
+         *
          * https://developer.mozilla.org/en/css3_columns
-         * 
+         *
          */
-        
+
         .column-breaker {
                 column-break-before: always;
                 display: block;
         }
-        
+
         .mceContentBody .column-breaker {
                 color: red;
                 border: 1px dashed red;
@@ -90,7 +90,7 @@ Customizing TinyMCE options
 ----------------------------
 
 In your add-on code, all TinyMCE options in the control panel can be exported and imported
-:doc:`using GenericSetup, portal_setup and tinymce.xml </components/genericsetup>`. 
+:doc:`using GenericSetup, portal_setup and tinymce.xml </components/genericsetup>`.
 
 Custom field-specific style list for TinyMCE
 -----------------------------------------------
@@ -103,7 +103,7 @@ Oho.
 Archetypes
 ===========
 
-For Archetypes see 
+For Archetypes see
 
 * http://plone.org/products/tinymce/documentation/how-to/how-to-customize-tinymce-for-an-archetypes-richwidget
 
@@ -138,10 +138,10 @@ copy-paste its content into tiny_mce.js.
 TinyMCE plug-ins
 ------------------
 
-TinyMCE consists of plug-ins. Existing plug-ins can be overlaid with your 
+TinyMCE consists of plug-ins. Existing plug-ins can be overlaid with your
 custom version by loading Javascript after core TinyMCE load.
 
-* Default TinyMCE plug-in Javascript files can be found under Products.TinyMCE/skins/tinymce/plugins 
+* Default TinyMCE plug-in Javascript files can be found under Products.TinyMCE/skins/tinymce/plugins
 
 * Usually TinyMCE plug-ins dialogs load in <iframe> and HTML code loads separate CSS and JS
   files from the main site
@@ -163,7 +163,7 @@ Some rules
 * You don't register plug-in Javascript *portal_javascripts*
 
 * TinyMCE button row is in the main document. However, the edit area itself is in <iframe>.
-  Also, many of TinyMCE dialogs are launched in <iframe> and they load a hardcoded 
+  Also, many of TinyMCE dialogs are launched in <iframe> and they load a hardcoded
   set of Javascript files (they don't use any kind of Plone master template or <head> section).
 
 So in the end you'll have a file::
@@ -176,17 +176,17 @@ Register your specially named skin layer in ``skins.xml``::
 
     <?xml version="1.0"?>
     <object name="portal_skins" meta_type="Plone Skins Tool">
-     
-              
+
+
      <object name="tinymce_plugin_flowplayer"
         meta_type="Filesystem Directory View"
         directory="your.app:skins/tinymce_plugin_flowplayer"/>
-    
+
      <skin-path name="*">
       <layer name="tinymce_plugin_flowplayer"
          insert-after="custom"/>
-     </skin-path>      
-      
+     </skin-path>
+
     </object>
 
 Register your plugin in ``tinymce.xml`` GenericSetup install profile
@@ -195,15 +195,15 @@ Register your plugin in ``tinymce.xml`` GenericSetup install profile
 
     <?xml version="1.0"?>
     <object>
-    
+
      <toolbar>
       <customtoolbarbuttons purge="False">
         <element value="flowplayer"/>
       </customtoolbarbuttons>
      </toolbar>
-            
+
      <resourcetypes>
-    
+
       <customplugins purge="False">
         <element value="flowplayer"/>
       </customplugins>
@@ -214,36 +214,36 @@ Then finally drop a ``editor_plugin.js`` to your plug-in folder
 
     /**
      * a TinyMCE plug-in for opening a dialog asking a video link and creating Flowplayer code out of it
-     * 
+     *
      */
-    
+
     (function() {
-            
+
         tinymce.create('tinymce.plugins.FlowplayerPlugin', {
-                       
+
             init : function (ed, url) {
-                                       
+
                 var t = this;
                 t.url = url;
                 t.editor = ed;
                 t.docs = false;
-    
+
                 ed.addButton('flowplayer', {
                     title : 'Video',
                     cmd : 'flowplayer',
                     image : url + '/img/flowplayer.gif'
                 });
-                
+
                 ed.addCommand('flowplayer', function (val, page) {
                     var url = prompt("Copy-paste URL to MP4 video file", "");
-                    // note: flowplayer link must not have text inside                                
-                    html = '<a class="flow-player tinymce-flow-player" href="' + url + '" />';                                        
+                    // note: flowplayer link must not have text inside
+                    html = '<a class="flow-player tinymce-flow-player" href="' + url + '" />';
                     ed.execCommand('mceInsertContent', false, html);
                 });
-    
+
                 //ed.onPostRender.add(t._setupTOC, t);
             },
-    
+
             getInfo : function () {
                 return {
                     longname : 'collective.flowplayer video insert plug-in ',
@@ -254,7 +254,7 @@ Then finally drop a ``editor_plugin.js`` to your plug-in folder
                 };
             }
        });
-    
+
        tinymce.PluginManager.add('flowplayer', tinymce.plugins.FlowplayerPlugin);
     })();
 
@@ -298,12 +298,12 @@ More info
 Customizing existing plug-in
 ------------------------------------
 
-The recommended way is to customize TinyMCE 
+The recommended way is to customize TinyMCE
 
-* Re-register plug-in by simply including a plug-in JS code 
+* Re-register plug-in by simply including a plug-in JS code
   in a separate Javascript file loaded after tinymce.js
 
-* override existing individual TinyMCE files using 
+* override existing individual TinyMCE files using
   :doc:`jbot </templates_css_and_javascripts/skin_layers>`.
 
 Overriding plug-in
@@ -325,13 +325,13 @@ and you can just re-register your own plug-in version to override the existing v
                 authenticated="True"
                 cacheable="True" compression="safe" cookable="True" insert-after="tinymce.js"
                 enabled="True" expression=""
-                inline="False" 
+                inline="False"
                 />
 
 
 
 Overriding plug-in resources
-===================================                
+===================================
 
 Yoiu can also override CSS, HTML (.htm.pt templates) with ``z3c.jbot``
 as instructed above.
@@ -339,13 +339,13 @@ as instructed above.
 Example::
 
         jbot/Products.TinyMCE.skins.tinymce.plugins.table.js.table.js
-        
+
 .. warning ::
 
         Since there resources are loaded in <iframe> the normal browser refresh
         does not trigger reload for them. Right click <iframe>, choose Refresh
-        from context menu.        
-                
+        from context menu.
+
 Ploneboard and anonymous editor
 -------------------------------
 
@@ -354,4 +354,68 @@ Problems with TinyMCE and Ploneboard.
 For more information, see
 
 * http://www.llakomy.com/articles/enable-kupu-for-anonymous-in-ploneboard
+
+
+TinyMCE shortcuts
+-------------------
+
+``Products.TinyMCE`` versions 1.3+ provide a shortcut view in
+link and image dialogs. You can add your own site specific shortcuts here.
+
+The most common use case is a shortcut link a folder which acts
+as a site image bank. On multilingual sites this folder is
+
+* Below natural language folders in the site root
+
+* Language neutral
+
+These make navigating to the folder using normal means very difficult.
+
+New TinyMCE shortcuts can be registered as global utility via
+`Products.TinyMCE.interfaces.IShortcut interface <https://github.com/plone/Products.TinyMCE/blob/master/Products/TinyMCE/interfaces/shortcut.py>`_.
+
+.. image :: tinymce_images.png
+
+We'll register our image bank as a shortcut into TinyMCE image dialog.
+
+First make sure your add-on is :doc:`grok'ed </components/grok>`.
+
+Then drop in the following file ``shortcut.py`` file into your :doc:`add-on </getstarted/index>`::
+
+    from five import grok
+
+    from Products.TinyMCE.interfaces.shortcut import ITinyMCEShortcut
+
+    class ImageBankShortcut(grok.GlobalUtility):
+        """Provides shortcut to the language neutral image bank below language folders """
+
+        grok.name("imagebank")
+        grok.provides(ITinyMCEShortcut)
+
+        # This time we don't bother with i18n and assume
+        # the whole world understands Finnish
+        title = u'Kuvapankki'
+
+        # Portal root relative path
+        link = "/kuvapankki"
+
+        def render(self, context):
+
+            # http://collective-docs.readthedocs.org/en/latest/misc/context.html
+            portal_state = context.restrictedTraverse('@@plone_portal_state')
+
+            return ["""
+            <img src="img/folder_current.png" />
+            <a id="currentfolder" href="%s">%s</a>
+            """ % (portal_state.portal_url() + self.link, self.title)]
+
+After this you still need to go to TinyMCE control panel
+(``http://localhost:8080/Plone/@@tinymce-controlpanel``)
+and enable the link button in the settings for *Image Shortcuts*.
+
+.. note ::
+
+  You might also want to disable TinyMCE inline image uploads through CSS
+  and disable image creation in arbitraty folders on your site.
+
 

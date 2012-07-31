@@ -153,7 +153,7 @@ and provides the fancy /@@manage-viewlets output.
 
 Viewlet manage can be rendered in a page template code using the following expression::
 
-  <div tal:replace="structrure provider:viewletmanagerid" />
+  <div tal:replace="structure provider:viewletmanagerid" />
 
 Each viewlet manager allows you to shuffle viewlets inside a viewlet manager.
 This is done by using ``/@@manage-viewlets`` view. These settings

@@ -84,7 +84,7 @@ Example::
                     end = DateTime(rendDate)
                     
 Friendly date/time formatting
---------------------------------
+-----------------------------
 
 Format datetime relative to the current time,
 human-readable::
@@ -133,3 +133,8 @@ human-readable::
                         return "%d minutes ago" % minutes
                     else:
                         return "few seconds ago"     
+
+Friendly date/time from TAL
+---------------------------
+From within your TAL templates, you can call toLocalizedTime like:
+        <span tal:replace="python:here.toLocalizedTime(o.ModificationDate)"></span>

@@ -152,7 +152,46 @@ Creating a view using Grok
 This is the simplest method and recommended for Plone 4.1+ onwards.
 
 First, create your add-on product using
-:doc:`Dexterity project template </getstarted/paste>`.
+:doc:`Dexterity project template </getstarted/paste>`. The most important 
+thing in the add-on is that your registers itself to :doc:`grok </components/grok>`
+which allows Plone to scan all Python files for ``grok()`` directives and 
+furter automatically pick up your views (as opposite using old Zope 3 method
+where you manually register views by typing them in to ZCML in ZCML).
+
+configure.zcml
+`````````````````````
+
+First make sure the file ``configure.zcml`` in your add-on root folder 
+contains the following lines. These lines are needed only once, in the root
+configuration ZCML file::
+
+	<configure
+	    ...
+	    xmlns:five="http://namespaces.zope.org/five"
+	    xmlns:grok="http://namespaces.zope.org/grok"
+	    >
+	
+	  <include package="five.grok" />
+	
+	  <five:registerPackage package="." initialize=".initialize" />
+	
+	  <!-- Grok the package to initialise schema interfaces and content classes -->
+	  <grok:grok package="." />
+
+          ....
+
+	</configure>
+
+setup.py and buildot
+`````````````````````
+
+Either you need to have ``five.grok`` 
+`registered in your buildout <http://plone.org/documentation/kb/installing-add-ons-quick-how-to>`_ 
+or have :doc:`five.grok in your setup.py </components/grok>`. If you didn't add it in this 
+point and run buildout again to download and install ``five.grok`` package.
+
+Python logic code
+`````````````````````
 
 Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
 
@@ -175,22 +214,41 @@ Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
         ...
 
 The view in question is not registered against any
-:doc:`layer </views/layers>`, so it is always available.
-The view becomes available upon Zope start-up, and is available even if you
-don't run an add-on installer.  This is the suggested approach for logic
-views which are not theme-related.
+:doc:`layer </views/layers>`, so it is immediately available after
+restart without need to run :doc:`Add/remove in Site setup </components/genericsetup>`.
 
 The ``grok.context(Interface)`` statement makes the view available for
-every content item: you can use it in URLs like
+every content item and the site root: you can use it in URLs like
 ``http://yoursite/news/newsitem/@@yourviewname`` or
 ``http://yoursite/news/@@yourviewname``. In the first case, the incoming
 ``self.context`` parameter received by the view would be the ``newsitem``
 object, and in the second case, it would be the ``news`` container.
 
 Alternatively, you could use the :doc:`content interface </content/types>`
-docs to make the view available only for certain content types.
+docs to make the view available only for certain content types. Example 
+``grok.context()`` directives could be::
 
-Then create ``yourcompany.app/yourcompany/app/browser/templates`` and add
+	# View is registered in portal root only
+	from Products.CMFCore.interfaces import ISiteRoot
+
+	grok.context(ISiteRoot)
+
+	# Any content with child items
+	from Products.CMFCore.interfaces import IFolderish
+
+	grok.context(IFolderish)
+
+
+	# Only "Page" Plone content type
+	from Products.ATContentTypes.interface import IATDocument
+
+	grok.context(IATDocument)
+
+Page template
+`````````````````````
+
+Then create a :doc:`page template for your view. </templates_css_and_javascripts/template_basics>`.
+Create ``yourcompany.app/yourcompany/app/browser/templates`` and add
 the related template:
 
 .. code-block:: xml
@@ -206,6 +264,11 @@ the related template:
 	    </metal:block>
 
 	</html>
+
+Now when you restart to Plone (or use :doc:`auto-restart add-on </getstarted/index>`)
+the view should be available through your browser. After enabled,
+grok will scan all Python files for available files, so it doesn't matter
+what .py filename you use.
 
 Content slots
 ------------------
@@ -863,30 +926,28 @@ More info:
 
 * http://plone.293351.n2.nabble.com/URL-to-content-view-tp6028204p6028204.html
 
-Views and magical acquisition
-==================================
+Views and automatic member variable acquisition wrapping
+==========================================================
 
-.. warning::
-
-    This is really nasty stuff. If this were not be a public document
-    I'd use more harsh words here.
-
-In Plone 3, the following will lead to errors which are very hard to debug.
-
-Views will automatically assign themselves as a parent for all member
-variables.
+View class instances will automatically assign themselves as a parent for all member
+variables. This is because ``five`` package based views inherit from ``Acquisition.Implicit`` base class.
 
 E.g. you have a ``Basket`` content item with ``absolute_url()`` of::
 
     http://localhost:9666/isleofback/sisalto/matkasuunnitelmat/d59ca034c50995d6a77cacbe03e718de
 
-Then if you use this object in a view code's member variable assignment::
+Then if you use this object in a view code's member variable assignment in e.g. ``Viewlet.update() method``::
 
     self.basket = my_basket
 
 ... this will mess up the Basket content item's acquisition chain::
 
     <Basket at /isleofback/sisalto/yritykset/katajamaan_taksi/d59ca034c50995d6a77cacbe03e718de>
+
+This concerns views, viewlets and portlet renderers. It will, for example, make the following code to fail::
+
+            self.obj = self.context.reference_catalog.lookupObject(value)
+            return self.obj.absolute_url() # Acquistion chain messed up, getPhysicalPath() fails
 
 One workaround to avoid this mess is to put a member variable inside a
 Python array and create an accessor method to read it when needed::

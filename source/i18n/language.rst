@@ -36,6 +36,7 @@ Example view/viewlet method of getting the current language.
 .. code-block:: python
 
     from Acquisition import aq_inner
+    from Products.Five.browser import BrowserView
     from zope.component import getMultiAdapter
     
     class MyView(BrowserView):
@@ -60,6 +61,7 @@ defined by the ``IDublinCore`` interface. Below is the safe way to extract
 the served language on the content.
 
 Example BrowserView method::
+
 
     from Acquisition import aq_inner
 

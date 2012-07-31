@@ -231,3 +231,84 @@ For ``ATImage``, those are in
 `Products.ATContentTypes.content.image
 <http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py>`_.
 
+Lightbox style image pop-ups
+====================================
+
+Plone comes with `plone.app.jquerytools <http://pypi.python.org/pypi/plone.app.jquerytools>`_ which offers easy integration
+for lightbox style image pop-ups.
+
+You can use Plone standard image content type, defining scales using `plone.app.imaging <https://github.com/plone/plone.app.imaging/>`_
+or you can define image fields in your schema.
+
+In the example below we define custom image fields in Archetypes schema.
+
+contenttype.py::
+
+    atapi.ImageField(
+        'imageTwo',
+        widget=atapi.ImageWidget(
+            label=_(u"Kuva #2"),
+        ),
+        validators=('isNonEmptyFile'),
+        languageIndependent=True,
+        sizes={
+               'thumb': (90, 90),
+               'large': (768, 768),
+        },
+    ),
+
+    atapi.ImageField(
+        'imageThree',
+        widget=atapi.ImageWidget(
+            label=_(u"Kuva #3"),
+        ),
+        validators=('isNonEmptyFile'),
+        languageIndependent=True,
+        sizes={
+               'thumb': (90, 90),
+               'large': (768, 768),
+        },
+    ),
+
+Related view page template file
+
+.. code-block:: html
+
+        <div class="product-all-images">
+
+            <img class="product-image-preview" tal:condition="context/getImageTwo" tal:attributes="src string:${context/absolute_url}/@@images/imageTwo/thumb" alt="" />
+
+            <img class="product-image-preview" tal:condition="context/getImageThree" alt="" tal:attributes="src string:${context/absolute_url}/@@images/imageThree/thumb" />
+
+        </div>
+
+And then we activate all this in a Javascript using ``prepOverlay()`` from ``plone.app.jquerytools``
+
+.. code-block:: javascript
+
+
+     /*global window,document*/
+
+    (function($) {
+
+        "use strict";
+
+        /**
+         * Make images clickable and open a bigger version of the image when clicked
+         */
+        function prepareProductImagePreviews() {
+
+            // http://pypi.python.org/pypi/plone.app.jquerytools/1.4#examples
+            $('.product-image-preview')
+            .prepOverlay({
+                subtype: 'image',
+                urlmatch: 'thumb',
+                urlreplace: 'large'
+                });
+            }
+
+        $(document).ready(function() {
+            prepareProductImagePreviews();
+        });
+
+    })(jQuery);
