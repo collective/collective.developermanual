@@ -22,10 +22,20 @@ You will need to have the following:
 * Access to working copy Plone 4.2 or Plone 4.1 with plone.app.theming 
 * A Dropbox Account
 
-Step 1 - Quick TestSetup theme folder in Dropbox
+Step 1 - Quick Test
 ==============================================================
 
 Start by testing that everything is working.
 In your Plone Site go to 'Site Setup' > 'Diazo theme'.
 
 .. image:: ../images/sitesetup-cp.png
+
+Then click on the 'Advanced Settings' tab.
+
+Enter the following values::
+
+ For Rules file: http://pigeonflight.github.com/diazodemo/rules.xml
+
+ For Absolute path prefix: http://pigeonflight.github.com/diazodemo/
+
+ Make sure that 'Read network' is checked and then click 'save'
