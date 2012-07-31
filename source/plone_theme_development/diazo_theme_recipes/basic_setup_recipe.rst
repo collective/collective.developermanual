@@ -39,3 +39,5 @@ Enter the following values::
  For Absolute path prefix: http://pigeonflight.github.com/diazodemo/
 
  Make sure that 'Read network' is checked and then click 'save'
+
+ Visit your site homepage, the result will be a themed version of the plone site based on http://pigeonflight.github.com/diazodemo.
