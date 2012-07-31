@@ -36,7 +36,7 @@ Creating Plone add-ons and functionality
 Plone Theme Development 
 -------------------------------------------
 
-   diazo_theme_recipes/index
+   plone_theme_development/index
 
 Maintaining Plone sites
 -------------------------------------------
