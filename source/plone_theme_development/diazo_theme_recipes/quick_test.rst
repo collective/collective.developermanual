@@ -41,6 +41,8 @@ Enter the following values:
 
  **Read network** should be checked, then click 'save'
 
+.. important:: Make sure that your Diazo theme is enabled
+
 .. note:: The rule file and resources in this example are hosted online, this will be a problem if your Plone site is behind a firewall or otherwise not connected to the internet.
 
 When you visit your Plone site you will see a the main content displayed inside of the custom theme provided by http://pigeonflight.github.com/diazodemo.
@@ -48,3 +50,10 @@ When you visit your Plone site you will see a the main content displayed inside 
 It should look similar to this screenshot:
 
  .. image:: ../images/plone_theme_dev_theming-test-screenshot.png
+
+Troubleshooting
+------------------
+
+The theme is not showing
+
+	Check 'Site Setup' > 'Diazo Theme' and ensure that under 'Basic Settings', 'Enabled' is checked.
