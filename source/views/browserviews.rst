@@ -949,29 +949,9 @@ This concerns views, viewlets and portlet renderers. It will, for example, make 
             self.obj = self.context.reference_catalog.lookupObject(value)
             return self.obj.absolute_url() # Acquistion chain messed up, getPhysicalPath() fails
 
-One workaround to avoid this mess is to put a member variable inside a
-Python array and create an accessor method to read it when needed::
+One workaround to avoid this mess is to use aq_inner when accessing self.obj values:
 
-    def initSomeVariables():
-
-        basket = collector.get_collector(basket_folder, self.request, create)
-
-        if basket is not None:
-            # Work around acquisition wrapping thing
-            # which forces the parent
-
-            # Assign a variable inside an array which prevents automatic
-            # acquisition wrapping for doing its broken magic or something
-            # along the lines
-            self.basket_holder = [basket]
-        else:
-            self.basket_holder = [None]
-
-    def getCollector(self):
-        """ @return: User's collector object where pages are stored
-        """
-        return self.basket_holder[0]
-
+* http://stackoverflow.com/a/11755348/315168
 
 .. _Products.Five:
    http://svn.zope.org/Zope/trunk/src/Products/Five/README.txt?view=markup
