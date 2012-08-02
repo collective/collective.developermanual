@@ -479,7 +479,7 @@ There exist many ways to make your objects traversable:
 * ``__getitem__()`` which makes your objects act like Python dictionary.
   This is the simplest method and recommended.
 
-* ``__bobo_traverse__()`` which is archaid way from early 00s.
+* ``__bobo_traverse__()`` which is an archaic method from the early 2000s.
 
 * ``ITraversable`` interface. You can create your own traversing hooks.
   ``zope.traversing.interfaces.ITraversable``
