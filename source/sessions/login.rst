@@ -22,6 +22,11 @@ There are two login points in Plone
 
 ``/login_form`` view does login without the redirect back to the original page.
 
+In addition, the ``/logout`` action logs the user out.
+
+The logic that drives the login process is implemented using the CMF form controller framework (legacy). To customize it, you need to override one or more of the ``login_*`` scripts. This can be accomplished in two ways: register your own skin directory or use `z3c.jbot <http://pypi.python.org/pypi/z3c.jbot>`_. Note that in both cases, you need to copy the ``.metadata`` file as well.
+
+
 Extracting credentials
 ----------------------
 
