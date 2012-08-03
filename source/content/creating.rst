@@ -140,9 +140,9 @@ object ids manually::
 
     from zope.component import getUtility
     from plone.i18n.normalizer.interfaces import IIDNormalizer
-        
+
     import transaction
-        
+
     def createResearcherById(folder, id):
         """ Create one researcher in a folder based on its ORA id.
         
@@ -150,38 +150,38 @@ object ids manually::
     
         @returns: Newly created researcher
         """
-        
+
         # Call X REST service to get JSON blob for this researcher
         # Note: queryById parses JSON back to Python to do some sanity checks for it
         index = XPeopleIndex()
-            
+
         # Need to have temporary id
         id = str(random.randint(0, 99999999))
-        
+
         folder.invokeFactory("XResearcher", id)
         content = folder[id]
 
         # XXX: set up content item data            
-        
+
         # Will finish Archetypes content item creation process,
         # rename-after-creation and such
         content.processForm()
-            
+
         # make _p_jar on content
         transaction.savepoint(optimistic=True)
-        
+
         # Need to perform manual normalization for id,
         # as we don't have title available during the creation time
         normalizer = getUtility(IIDNormalizer)
         new_id = normalizer.normalize(content.Title())
-        
+
         if new_id in folder.objectIds():
             raise RuntimeError("Item already exists:" + new_id + " in " + folder.absolute_url())
-        
+
         content.aq_parent.manage_renameObject(id, new_id)
-                
+
         return content
-                        
+
 
 PortalFactory
 -------------
@@ -290,7 +290,7 @@ More examples in:
 
 .. _OFS: `IObjectManager definition <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_.
 
-Oject construction life cycle
+Object construction life cycle
 ==========================================
 
 .. note::
@@ -298,7 +298,7 @@ Oject construction life cycle
     The following applies to Archetypes-based objects only. The process
     might be different for Dexterity-based content.
 
-Archetypes content contruction has two phases:
+Archetypes content construction has two phases:
 
 #. The object is created using a ``?createType=`` URL or a
    ``Folder.invokeFactory()``
