@@ -416,6 +416,7 @@ and enable the link button in the settings for *Image Shortcuts*.
 .. note ::
 
   You might also want to disable TinyMCE inline image uploads through CSS
-  and disable image creation in arbitraty folders on your site.
+  and disable image creation in arbitraty folders on your site. Currently
+  the only way is to override TinyMCE internal CSS files using z3c.bot.
 
 
