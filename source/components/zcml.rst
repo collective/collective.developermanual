@@ -85,8 +85,6 @@ during ZCML parsing, not when site is run.
 
 * Syntax is 100% same as in ``configure.zcml``
 
-* Rerun buildout.
-
 * Restart Plone.
 
 .. Note::
