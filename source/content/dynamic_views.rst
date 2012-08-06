@@ -154,7 +154,24 @@ the following *profiles/default/types/Topic.xml*.
      </property>
     </object>
     
+Working around broken default view
+------------------------------------
 
+If you manage to 
+
+* Create a new view
+
+* set it to the default as a folder
+
+* and this view has a bug
+
+... you cannot access the folder anymore, because you are taken to the 
+broken view stack trace instead instead of rendering the green edit menubar.
+
+The fix is to reset the view through ``select_default_view`` direct link.
+Access your folder like::
+
+	http://localhost/Plone/folder/select_default_view
 
 Checking that your view is available
 -------------------------------------
