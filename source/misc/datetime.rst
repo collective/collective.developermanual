@@ -27,6 +27,18 @@ for your religion before programming with it.
 	Zope DateTime should be dealt in legacy systems only
 	as Python datetime is much more documented and widely used.
 	
+Default formatting
+-------------------
+
+Since Plone 4 
+
+* A per-language format string from a translations is preferred
+
+* If such string is not available the default is taken from portal_properties / site_properties
+
+More info
+
+* https://dev.plone.org/wiki/DateTimeFormatting
 	
 DateTime API
 -------------
