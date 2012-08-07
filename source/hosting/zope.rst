@@ -138,7 +138,7 @@ you need to pack ZODB automatically and regularly.
 
 More info
 
-* stackoverflow.com/questions/5300886/what-is-the-suggested-way-to-cron-automate-zodb-packs-for-a-production-plone-ins/
+* http://stackoverflow.com/questions/5300886/what-is-the-suggested-way-to-cron-automate-zodb-packs-for-a-production-plone-ins/
 
 Copying a remote site database
 --------------------------------
