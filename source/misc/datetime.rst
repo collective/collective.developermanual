@@ -36,10 +36,25 @@ Since Plone 4
 
 * If such string is not available the default is taken from portal_properties / site_properties
 
+Formatting examples
+=====================
+
+US example::
+
+    localTimeFormat: %b %d, %Y
+    localLongTimeFormat: %b %d, %Y %I:%M %p
+
+European style format:
+
+    localTimeFormat: %d.%m.%Y (like 1.12.2010)
+    localLongTimeFormat: %H:%M %d.%m.%Y (like 12:59 1.12.2010)
+
 More info
 
 * https://dev.plone.org/wiki/DateTimeFormatting
-	
+
+* http://docs.python.org/library/time.html#time.strftime
+
 DateTime API
 -------------
 
