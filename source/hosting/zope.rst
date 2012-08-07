@@ -129,6 +129,17 @@ More information
 
 * http://quintagroup.com/services/support/tutorials/import-export-plone/ 
 
+Regular database packing
+--------------------------
+
+:doc:`ZODB's </persistency/database>`_ append-only nature makes database continuously grow even
+if old information is edited only. To make sure your server hard disk does not fill up 
+you need to pack ZODB automatically and regularly.
+
+More info
+
+* stackoverflow.com/questions/5300886/what-is-the-suggested-way-to-cron-automate-zodb-packs-for-a-production-plone-ins/
+
 Copying a remote site database
 --------------------------------
 
