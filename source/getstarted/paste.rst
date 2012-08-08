@@ -74,7 +74,7 @@ To install ZopeSkel in your buildout, add the following to your ``buildout.cfg``
 
     # create zopeskel command in bin/
     # with Plone templates
-    [templer]
+    [zopeskel]
     recipe = zc.recipe.egg
     unzip = true
     eggs =
