@@ -41,7 +41,7 @@ Plone Theme Development
 
    plone_theme_development/index
 
-Maintaining Plone sites
+Installing & Maintaining Plone sites
 -------------------------------------------
 
 .. toctree::
