@@ -603,4 +603,9 @@ Email notifications for errors
 Please see:
 
 * http://stackoverflow.com/questions/5993334/error-notification-on-plone-4
+
+Adding multiple file storage mount points
+==========================================
+
+* http://pypi.python.org/pypi/collective.recipe.filestorage
  
