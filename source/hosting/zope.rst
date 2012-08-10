@@ -608,4 +608,6 @@ Adding multiple file storage mount points
 ==========================================
 
 * http://pypi.python.org/pypi/collective.recipe.filestorage
+
+* plone.org/documentation/kb/multiple-plone-sites-per-zope-instance-using-separate-data-fs-files-for-each-one/
  
