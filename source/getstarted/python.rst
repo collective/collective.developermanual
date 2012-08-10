@@ -23,3 +23,5 @@ Python Tutorials
 
 * `Google Python classes <http://code.google.com/edu/languages/google-python-class/>`_
 
+' `Dive into Python book <http://www.diveintopython.net/toc/index.html>`_ 
+
