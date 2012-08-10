@@ -5,6 +5,8 @@ This document is community maintained manual for `Plone <http://plone.org>`_ con
 system customization. It is intended for Python developers who
 want to write their own add-ons, integration code, and other customizations.
 
+The Installalling & Maintaining section is addionally intended for integrators and maintainers.
+
 Table of Content
 ================
 
