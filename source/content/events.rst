@@ -109,6 +109,27 @@ Workflow states in which events appear in the calendar::
 
         portal_calendar.getCalendarStates()
 
+iCal export
+------------------
+
+Plone 3+ provides ``ics_view`` which applies for
+
+* Single Event content items
+
+* Folders
+
+The view creates iCal export for the content. 
+A single exported iCal wile (text/calendar mimetype) can contain several events.
+When applied a on folder the view  exports all event items  which provide
+``Products.ATContentTypes.interfaces.ICalendarSupport`` interface.
+
+More info
+
+* http://stackoverflow.com/q/11862095/315168
+
+* https://github.com/plone/Products.ATContentTypes/blob/master/Products/ATContentTypes/browser/calendar.py#L25
+
+
 Recurrence calendar support in Plone 3
 --------------------------------------
 
