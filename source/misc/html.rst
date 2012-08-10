@@ -1,5 +1,5 @@
 ===============================================
- HTML manipulation
+ HTML manipulation and transformations
 ===============================================
 
 .. admonition:: Description
