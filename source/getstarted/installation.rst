@@ -280,34 +280,34 @@ This is the recommended method if you want to try Plone for the first time.
 
 Please use the installer from the download page `<http://plone.org/products/plone/releases>`_.
 
-Installing Plone using buildout
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The binary installer is intended to provide an environment suitable for testing, evaluating, 
+and developing theme and add-on packages. It will not give you the ability to add or develop 
+components that require a C compiler.
 
-This is a good method for doing Plone development on OSX.
+Installing Plone from source
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Installation via the Unified Installer or buildout is very similar to Unix. However, you will
+need to install a command-line build environment. To get a free build kit from Apple, do one 
+of the following:
+
+* Download gcc and command-line tools from https://developer.apple.com/downloads/. This
+will require an Apple developer id.
+
+* Install Xcode from the App Store. After installation, visit the Xcode app's preference
+panel to download the command-line tools.
+
+After either of these steps, you immediately should be able to install Plone using the
+Unified Installer. Note that with Plone 4.2.x, you may use the Python 2.7 that's shipped
+with OS X via the --with-python option of the installer.
+
+For OS X 10.6 and 10.7, you may avoid the Xcode install via these steps.
 
 * Install Homebrew or Macports package manager.
 
-* Install Python 2.6 via the package manager.
+* Install Python 2.7 (Plone 4.2.x) or 2.6 via the package manager.
 
-* Install `virtualenv <http://pypi.python.org/pypi/virtualenv>`_ via the package manager.
-
-* Under this virtualenv, install ZopeSkel (not version 3):
-
-  .. code-block:: console
-
-    virtualenv -p python2.6 my-plone-python-env
-    source my-plone-python-env/bin/activate
-    easy_install "ZopeSkel<2.99"
-
-* Then bootstrap Plone 4 installation (using the python interpreter in your
-  virtualenv):
-
-  .. code-block:: console
-
-     bin/paster create -t plone4_buildout your-installation-folder
-     cd your-installation-folder
-     bin/python bootstrap.py
-     bin/buildout
+Proceed as with Linux.
 
 Installer source code
 ======================
