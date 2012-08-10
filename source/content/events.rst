@@ -119,7 +119,7 @@ Plone 3+ provides ``ics_view`` which applies for
 * Folders
 
 The view creates iCal export for the content. 
-A single exported iCal wile (text/calendar mimetype) can contain several events.
+A single exported iCal file (text/calendar mimetype) can contain several events.
 When applied a on folder the view  exports all event items  which provide
 ``Products.ATContentTypes.interfaces.ICalendarSupport`` interface.
 
