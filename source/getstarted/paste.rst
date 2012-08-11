@@ -138,7 +138,9 @@ you can create your first add-on::
 
 To create an Archetypes based content types package::
 
-    cd /path/to/buildout
+    # Actual location is your Plone installation
+    # Usually the folder name is zintance or  zeocluster 
+    cd /path/to/buildout 
     cd src
     ../bin/templer archetype yourcompany.productname
 
