@@ -81,6 +81,9 @@ To install ZopeSkel in your buildout, add the following to your ``buildout.cfg``
     eggs =
         Paste
         ZopeSkel
+        templer.plone
+        templer.plone.localcommands
+ 
 
 After adding this, run buildout and it will install ZopeSkel and all the templer and Paste packages
 that it requires. After buildout completes, you will find the ``zopeskel`` command in the ``bin`` 
@@ -141,7 +144,7 @@ To create an Archetypes based content types package::
     # Here replace "archetype" with scaffold name you want to use
     # For the complete list of different templates
     # run ../bin/templer command without arguments
-    ../bin/templer archetype yourcompany.productname
+    ../bin/zopeskel archetype yourcompany.productname
 
 Now it will ask you a series of question for the add-on properties.
 
