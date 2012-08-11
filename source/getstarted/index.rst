@@ -30,13 +30,50 @@ but you need to have much more experience dealing with Python and Windows relate
 
 See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation suitable for development.
 
+Plone add-ons as Python packages
+-----------------------------------
+
+Plone can be customized for your needs by creating addons which are developed and distributed `Python egg packages <http://packages.python.org/distribute/setuptools.html>`_. Python egg is a Python packaing format. Open source Python packages are listed and automatically downloaded from `pypi.python.org <http://pypi.python.org>`_
+service.
+
+The set of components, which makes your Plone installation, is managed by :doc:`bin/buildout command and buildout.cfg configuration </buildout/index>`. Buildout itself wraps around Python's setuptools and easy_install commands.
+
+Creating your first add-on
+----------------------------
+
+Since Python egg packagestructure is little bit complex, to get started with your first add-on
+you create a code skeleton (scaffold) for its using :doc:`Plone templer templates </getstarted/paste>`.
+
+* Templer generates basic Python egg package with some Plone files in-place
+
+* This package is registered to buildout via development eggs in buildout.cfg file
+
+* Buildout is rerun which regenerates your ``bin/instance`` script with new Python egg set
+
+* You start Plone site in debug
+
+* You install your add-on through ``Add/remove add-ons``
+
+See `Hello World </getstarted/helloworld>`_ for example how to create your first Hello World application.
+
+.. note ::
+
+  There are different scaffolds for different kind of add-ons. Most usual are plone3_theme,
+  archetypes (create Archetypes content), dexterity (create Dexterity content) and plone
+  (barebone Plone add-on).
+
+There are some alternative ways for add-on creation.
+
+
 Plone development workflow
 ----------------------------
 
 You never edit Plone files directly. Everything under ``parts`` and `eggs``
 folders in your Plone installation are downloaded from internet and dynamically generated
 based by ``buildout.cfg``. Plone is free to override these files on any update.
-Instead you overlay changes to existing Plone code through extension mechanisms provided by Plone
+
+You need to have your own add-on in ``src/`` folder as created above.  
+There you overlay changes to existing Plone core through extension mechanisms provided by Plone
 
 * :doc:`Layers </views/layers>`
 
@@ -48,14 +85,6 @@ Plone development always happens on your local computer or the development serve
 The changes are moved to the production through version control system like Git or Subversion.
 
 **The best practice is that you install Plone on your local computer for the development**.
-
-Plone add-ons as Python packages
------------------------------------
-
-Plone can be customized for your needs by creating addons which are developed and distributed `Python egg packages <http://packages.python.org/distribute/setuptools.html>`_. Python egg is a Python packaing format. Open source Python packages are listed and automatically downloaded from `pypi.python.org <http://pypi.python.org>`_
-service.
-
-The set of components, which makes your Plone installation, is managed by :doc:`bin/buildout command and buildout.cfg configuration </buildout/index>`. Buildout itself wraps around Python's setuptools and easy_install commands.
 
 Plone add-on features
 -----------------------
@@ -77,25 +106,6 @@ A lot of Plone functionality extensivility is built on :doc:`Zope 3 development 
 like adapters and interfaces. This design patters take some time to learn, but they are crucial in complex
 component based software like Plone.
 
-Creating your first add-on
-----------------------------
-
-Since Python egg packagestructure is little bit complex, to get started with your first add-on
-you create a skeleton for its using :doc:`Plone templer templates </getstarted/paste>`.
-
-* Templer generates basic Python egg package with some Plone files in-place
-
-* This package is registered to buildout via development eggs in buildout.cfg file
-
-* Buildout is rerun which regenerates your ``bin/instance`` script with new Python egg set
-
-* You start Plone site in debug
-
-* You install your add-on through ``Add/remove add-ons``
-
-See `Hello World </getstarted/helloworld>`_ for example how to create your first Hello World application.
-
-There are some alternative ways for add-on creation.
 
 Development mode restarts
 ---------------------------
