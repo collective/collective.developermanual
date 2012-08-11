@@ -125,6 +125,9 @@ ZopeSkel Templates
 * ``plone_basic``: Creates a basic skeleton good for general Plone add-on packages.  Minimal and 
   clean.  You can use this package to set up views, forms, portlets, and many other add-on features.
 
+* ``plone3_theme``: Creates a basic skeleton good for creating old style theme for Plone (views,
+  viewlets and so on)
+
 * ``plone_nested``: Creates a nested namespace package with the same basic skeleton as 
   ``plone_basic``.  This is generally used for packages that are meant to be part of a set, like
   ``collective.blog.feeds``, ``collective.formwidget.autocomplete`` or ``collective.geo.mapwidget``.
