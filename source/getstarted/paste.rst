@@ -6,7 +6,8 @@
 
 .. admonition:: Description
 
-        ZopeSkel is a tool that helps you to rapidly generate skeleton code useful in development for Plone.
+        ZopeSkel is a tool which generates a code skeleton template for your Plone add-on
+        you wish to develop.
 
 Introduction
 ------------
