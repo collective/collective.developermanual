@@ -128,13 +128,8 @@ ZopeSkel Templates
 Creating an add-on product skeleton
 -----------------------------------
 
-After you have followed the steps above to add ZopeSkel to your buildout,
+After you have followed the steps above how include ZopeSkel to your buildout,
 you can create your first add-on::
-
-.. note ::
-
-    If you are unsure about questions, you may type ``?`` to get more information.  You can also
-    just hit enter to accept the default value.  These are sensible for most cases.
 
 To create an Archetypes based content types package::
 
@@ -142,7 +137,18 @@ To create an Archetypes based content types package::
     # Usually the folder name is zintance or  zeocluster 
     cd /path/to/buildout 
     cd src
+    # Here replace "archetype" with scaffold name you want to use
+    # For the complete list of different templates
+    # run ../bin/templer command without arguments
     ../bin/templer archetype yourcompany.productname
+
+Now it will ask you a series of question for the add-on properties.
+
+.. note ::
+
+    If you are unsure about questions, you may type ``?`` to get more information.  You can also
+    just hit enter to accept the default value.  These are sensible for most cases.
+
 
 After answering the questions, you'll have a new python package in the ``src`` directory of your 
 buildout.  To begin using this code, you'll need to include the newly created package in your 
