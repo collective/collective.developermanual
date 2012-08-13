@@ -42,9 +42,9 @@ Creating your first add-on
 ----------------------------
 
 Since Python egg packagestructure is little bit complex, to get started with your first add-on
-you create a code skeleton (scaffold) for its using :doc:`Plone templer templates </getstarted/paste>`.
+you create a code skeleton (scaffold) for its using :doc:`Plone ZopeSkel code templates </getstarted/paste>`.
 
-* Templer generates basic Python egg package with some Plone files in-place
+* ZopeSkel generates basic Python egg package with some Plone files in-place
 
 * This package is registered to buildout via development eggs in buildout.cfg file
 
