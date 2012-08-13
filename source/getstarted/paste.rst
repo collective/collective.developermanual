@@ -130,7 +130,8 @@ To create an Archetypes based content types package::
     # run ../bin/templer command without arguments
     ../bin/zopeskel archetype yourcompany.productname
 
-Now it will ask you a series of question for the add-on properties.
+Now it will ask you a series of question for the add-on properties. After this ``yourcompany.productname`` 
+folder is created with prepopulated subfolders and files.
 
 .. note ::
 
