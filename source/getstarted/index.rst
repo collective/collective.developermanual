@@ -54,16 +54,13 @@ you create a code skeleton (scaffold) for its using :doc:`Plone ZopeSkel code te
 
 * You install your add-on through ``Add/remove add-ons``
 
-See `Hello World </getstarted/helloworld>`_ for example how to create your first Hello World application.
-
 .. note ::
 
   There are different scaffolds for different kind of add-ons. Most usual are plone3_theme,
   archetypes (create Archetypes content), dexterity (create Dexterity content) and plone
   (barebone Plone add-on).
 
-There are some alternative ways for add-on creation.
-
+Please follow ZopeSkel link above to get your first add-on bootstrapped.
 
 Plone development workflow
 ----------------------------
