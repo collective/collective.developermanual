@@ -43,25 +43,6 @@ There are three steps in your add-on creation and installation procedure
   ``bin/instance`` script when you open the file.
 
 * After this Zope will load your Python and ZCML code every time Zope is restarted with the 
-  ``bin/instance`` command. Because manual restarts can be time-consuming you may use the
-  `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package to make it happen fast
-  and automatically every time you change Python code in your package.
-
-If you want your add-on to be 'activated' by going to the Plone Add-on control panel, you will
-need to have a :doc:`GenericSetup profile </components/genericsetup>`.  ZopeSkel can set
-this up for you, just say 'Yes' if you are asked.  Some templates require a profile, and will not ask.
-This profile modifies the site database **every time you run Add-on installer your site setup**.  
-If you make changes to your profile, you need to **re-run the installation of your package** to pick
-up those changes.
-
-A GenericSetup profile is just a bunch of XML files with information that is written to the database
-when the add-on is installed. This is independent of Python and ZCML code and GenericSetup XML can be 
-updated without restarting the site.
-
-All add-ons do not provide GenericSetup profile.  If an add-on does not modify the site database
-in any way e.g. they provide only new :doc:`views </views/browserviews>`, it may not require one. But
-a GenericSetup profile is required in order to have the add-on appear in the list of 'available add-ons'
-in the Plone Add-ons control panel.
 
 Adding ZopeSkel to your buildout
 --------------------------------
@@ -240,6 +221,26 @@ After the content type is added, you can add schema fields for the type::
     New content types are added to Plone using GenericSetup.  GenericSetup profiles are run
     when an add-on product is **activated**.  To see the content type you create, you'll need 
     to restart Plone **and** reinstall the add-on.
+
+Site setup and Add-on installation
+------------------------------------
+
+If you want your add-on to be 'activated' by going to the Plone Add-on control panel, you will
+need to have a :doc:`GenericSetup profile </components/genericsetup>`.  ZopeSkel can set
+this up for you, just say 'Yes' if you are asked.  Some templates require a profile, and will not ask.
+This profile modifies the site database **every time you run Add-on installer your site setup**.  
+If you make changes to your profile, you need to **re-run the installation of your package** to pick
+up those changes.
+
+A GenericSetup profile is just a bunch of XML files with information that is written to the database
+when the add-on is installed. This is independent of Python and ZCML code and GenericSetup XML can be 
+updated without restarting the site.
+
+All add-ons do not provide GenericSetup profile.  If an add-on does not modify the site database
+in any way e.g. they provide only new :doc:`views </views/browserviews>`, it may not require one. But
+a GenericSetup profile is required in order to have the add-on appear in the list of 'available add-ons'
+in the Plone Add-ons control panel.
+
 
 In-depth background information
 ---------------------------------
