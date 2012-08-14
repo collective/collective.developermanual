@@ -198,7 +198,17 @@ Example how to generate a multilingual-aware RSS feed link::
 ... or you can use a Python expression for comparison::
 
     python:object.restrictedTraverse('@@plone_portal_state').language() == 'fi'
-        
+
+Check current language in TAL page template
+----------------------------------------------
+
+If you need to have HTML code, e.g. links, conditioned by a langauge in templates
+
+Example::
+
+	<a tal:define="language context/@@plone_portal_state/language" tal:condition="python: language == 'fi'"
+           href="http://www.fi">Finnish link</a>
+
 Check if object implements an interface
 --------------------------------------------
 
