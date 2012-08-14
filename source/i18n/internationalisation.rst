@@ -87,8 +87,8 @@ corresponding ``.po`` files containing the translation strings:
    ./locales/ga/LC_MESSAGES/mypackage.po
 
 
-Marking translatable strings
-----------------------------
+Marking translatable strings in Python
+------------------------------------------
 
 Each module declares its own ``MessageFactory`` which is a callable and
 marks strings with translation domain.  ``MessageFactory`` is declared in
@@ -141,6 +141,17 @@ To see the translation::
 For more information see:
 
 * http://grok.zope.org/documentation/how-to/how-to-internationalize-your-application
+
+Marking translatable strings in TAL page templates
+---------------------------------------------------
+
+TODO
+
+* Declare language
+
+* Use attributes i18n:translate, i18n:attributes and so on
+
+For examples look any core Plone .pt files
 
 Automatically translated message ids
 -------------------------------------
