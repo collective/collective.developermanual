@@ -210,6 +210,7 @@ Example::
            href="http://www.fi">Finnish link</a>
            
 Example to have different footers (or something similar) for different languages::
+
     <div tal:replace="structure context/footertext"  tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'no'" /> 
     <div tal:replace="structure context/footertexteng"  tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'en'" />
 
