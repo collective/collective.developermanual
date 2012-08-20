@@ -376,6 +376,13 @@ Add the following to your buildout.cfg::
         
 After this ``i18ndude`` is available in your ``buildout/bin`` folder
 
+For **Plone 3** you might need to add:
+
+    [versions]
+    # i18ndude pindowns for Plone 3.3
+    zope.i18nmessageid = 3.6.1
+    zope.interface = 3.8.0
+
 .. code-block:: console 
 
         bin/i18ndude -h
