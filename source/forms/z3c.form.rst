@@ -99,7 +99,7 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity
 
 * Include Dexterity in your buildout as instructed by Dexterity manual
 
-* Create Plone add-on product using :doc`Paster </getstarted/paste>`
+* Create Plone add-on product using :doc:`Paster </getstarted/paste>`
 
 * Include :doc:`five.grok support in your add-on </components/grok>`
 
@@ -212,6 +212,14 @@ Example (incomplete)::
         # Always check form errors after update()
         errors = view.errors
         self.assertEqual(len(errors), 0, "Got errors:" + str(errors))
+
+Changing form ACTION attribute
+================================
+
+By default HTTP POST request is made to ``context.absolute_url()``.
+However you might want to make the post go to an external server.
+
+* See `how to set <form> action attribute <http://pypi.python.org/pypi/plone.app.z3cform#form-action>`_ 
 
 Customizing form template
 ==========================
