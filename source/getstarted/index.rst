@@ -140,7 +140,7 @@ More info
     installation
     python
     paste
-    helloworld
+    helloworld/index
 
 Plone resources
 =================
