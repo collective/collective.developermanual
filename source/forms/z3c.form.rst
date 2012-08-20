@@ -652,8 +652,28 @@ page:
 <http://pypi.python.org/pypi/plone.z3cform#fieldsets-and-form-extenders>`_
 
 
+Unprefixing widgets
+====================
+
+By default each form widget gets a name prefix by form id. This
+allows you to separate several forms on the same page.
+
+You can override this behavior in ``updateWidgets()``::
+
+        # Remove prefix from form widget names, so that
+        # the names are actual names on the remote server
+        for widget in self.widgets.values():
+            # form.widgets.foobar -> foobar
+            widget.id = widget.name = widget.field.__name__
+
+.. note ::
+
+	Some templates, like select_input.pt, have hard coded
+  	name suffixes like :list to satisfy ZPublisher machinery.
+	If you need to get rid of these you need to override the template.
+
 Making widgets required conditionally
-+++++++++++++++++++++++++++++++++++++++++
+======================================
 
 If you want to avoid hardwired required on fields
 and toggle then conditionally you need to supplied
