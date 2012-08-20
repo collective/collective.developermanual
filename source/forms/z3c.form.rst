@@ -652,6 +652,17 @@ page:
 <http://pypi.python.org/pypi/plone.z3cform#fieldsets-and-form-extenders>`_
 
 
+Hiding fields
+==================
+
+Example how to do it in pure z3c.form::
+
+	import z3c.form.interfaces
+	...
+
+    	def updateWidgets(self):
+		self.widgets["getAvailability"].mode = z3c.form.interfaces.HIDDEN_MODE
+
 Unprefixing widgets
 ====================
 
