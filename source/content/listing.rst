@@ -339,6 +339,24 @@ Example (AT content class method)::
         if len(items) > 0:
             return items[1]
         
+Navigational view URL
+=======================
+
+Plone has a special default navigation URL which is used in
+
+* Folder listing
+
+* Navigation tree
+
+It doesn't need to be the object URL itself (/folder/item), 
+but can be e.g. /folder/item/@@yourcustomview
+
+View action URL must be configured in portal_types and separately
+enabled for the content type in site_properties.
+
+For more information see
+
+* http://stackoverflow.com/questions/12033414/change-link-in-contents-listing-for-custom-content-type#comment16065296_12033414
 
 Custom folder listing
 =====================
