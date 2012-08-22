@@ -151,6 +151,9 @@ Plone resources
 
 * `Plone source code in version control system <https://github.com/plone>`_.
 
+* `Plone API <http://ploneapi.readthedocs.org/>`_.
+
+
 Zope resources
 ==================
 
