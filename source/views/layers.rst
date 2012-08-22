@@ -295,6 +295,19 @@ And then the manual assignment works ok::
 
 (If this didn't make sense for you, don't worry. It doesn't make sense for me either.)            
 
+Troubleshooting instructions for layers
+---------------------------------------------
+
+* Checl that your view or whatever is working without a layer assigned on (globally)
+
+* Check that configure.zcml has a layer entry. Put garbage to configure.zcml to see that it is being loaded.
+
+* Add-on layer: check that ``profiles/default/browserlayer.xml`` has a matching entry with a matching name
+
+* Theme layer: If it's a theme layer check that there is matching ``skins.xml`` entry
+
+* Check that layer name is correctly spelt in the view declaration
+
 Checking active layers
 ----------------------
 
