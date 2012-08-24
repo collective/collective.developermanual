@@ -17,11 +17,11 @@ to access miscellaneous information useful for the
 rendering the current page. The views are cached properly,
 so they should access the information quite effectively.
 
-* ``IPortalState`` is mapped as the ``@@plone_portal_state`` view for
-  traversing.
+* ``IPortalState`` is mapped as the ``plone_portal_state`` name view 
 
-* ``IContextState`` is mapped as the ``@@plone_context_state`` view for
-  traversing.
+* ``IContextState`` is mapped as the ``plone_context_state`` named view
+
+* ``ITools`` is mapped as the ``plone_tools`` named view
 
 To see what's available through the interface,
 read the documentation in the 
