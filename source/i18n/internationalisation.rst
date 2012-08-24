@@ -145,9 +145,20 @@ For more information see:
 Marking translatable strings in TAL page templates
 ---------------------------------------------------
 
-TODO
+Declare XML namespace ``i18n`` and translation domain at the beginning of your template, at the first element
 
-* Declare language
+.. code-block:: html
+
+    <div id="mobile-header" xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="plomobile">
+
+Translate element content text using ``i18n:translate=""``. It will use the text content of the 
+element as msgid.
+
+.. code-block:: html
+
+          <li class="heading" i18n:translate="">
+              Sections
+          </li>
 
 * Use attributes i18n:translate, i18n:attributes and so on
 
