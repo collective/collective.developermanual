@@ -53,11 +53,12 @@ Starting interactive interpreter
 --------------------------------
 
 se *bin/instance debug* command to start interactive interpreter with Zope application server and 
-database loaded
+database loaded. To have persistent utilities loaded, you should also provide the id if your Plone site.
+The following example assumes you have a plone site named "Plone"
 
 Example::
 
-        bin/instance debug 
+        bin/instance -P Plone debug 
 
 .. note ::
         
