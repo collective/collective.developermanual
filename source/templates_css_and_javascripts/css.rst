@@ -7,7 +7,7 @@ CSS
     Creating and registering CSS files for Plone and Plone add-on products.
     CSS-related Python functionality.
 
-.. contents::
+.. contents:: :local:
 
 Introduction
 ==============
@@ -110,9 +110,7 @@ values from other files unless the CSS directive ``!important`` is used.
 Condition for Diazo themed sites
 --------------------------------
 
-To check if theming is active, will return true if Diazo is enabled.
-
-.. code-block:: diazo:
+To check if theming is active, will return true if Diazo is enabled::
 
     request/HTTP_X_THEME_ENABLED | nothing
 

@@ -3,36 +3,41 @@ Layers
 =========
 
 .. admonition:: Description
-        
-        Layers allow you to easily enable and disable views and other site functionality 
-        based on installed add-ons and themes. 
 
-.. contents :: :local:
+    Layers allow you to easily enable and disable views and other site
+    functionality based on installed add-ons and themes. 
+
+.. contents:: :local:
 
 Introduction
-------------
+============
 
-Layers allow you to activate different code paths and modules depending on the external configuration
+Layers allow you to activate different code paths and modules depending on
+the external configuration.
 
 Examples:
 
-* Theme code is only activated when theme is being selected
+* Code belonging to a theme is only active when that theme has been selected.
 
-* Mobile browsing code is only activated when the site is being browser on a mobile phone
+* Mobile browsing code is only active when the site is being browsed on a
+  mobile phone.
 
-Layers are marker interfacse applied to HTTPRequest object. They are usually
-used in conjunction with ZCML directives to dynamically activate various parts
+Layers are marker interfaces applied to the HTTPRequest_ object.
+They are usually used in conjunction with :term:`ZCML` directives to
+dynamically activate various parts
 of the configuration (theme files, add-on product functionality).
 
-Layers ensure that only one add-on product can override the specific Plone instance functionality
-in your site at a time, but still leaving you with an option to have possibly conflicting add-on products
-in your buildout and ZCML once. Remember that multiple Plone site instances can share
+Layers ensure that only one add-on product can override the specific Plone
+instance functionality in your site at a time, while still allowing you 
+to have possibly conflicting add-on products in your buildout and
+ZCML. Remember that multiple Plone site instances can share
 the same ZCML and code files.
 
-Many ZCML directives take the optional *layer* parameter. See example, resourceDirectory_
+Many ZCML directives take the optional ``layer`` parameter. See example,
+resourceDirectory_
 
-Layers can be activated when an add-on product is installed or a certain theme
-is picked.
+Layers can be activated when an add-on product is installed or a certain
+theme is picked.
 
 For more information, read
 
@@ -43,17 +48,22 @@ For more information, read
 * `Zope 3 Developer Handbook, Skinning <http://zope3.xmu.me/skinning.html>`_
 
 Using layers
-------------
+============
 
-Some ZCML directives (example: `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_) take layer attribute.
+Some ZCML directives (for example: `browser:page
+<http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_)
+take a ``layer`` attribute.
 
-If you have
+If you have:
 
- # plonetheme.yourthemename.interfaces.IThemeSpecific layer defined in Python code
+# ``plonetheme.yourthemename.interfaces.IThemeSpecific`` layer defined in
+  Python code
 
- # YourTheme product installed through add-on product installer on your site instance
+# ``YourTheme`` product installed through add-on product installer on your
+  site instance
 
-Views and viewlets will be active on the site instance using the following ZCML::
+then views and viewlets from your product can be enabled on the site
+instance using the following ZCML::
 
      <!-- Site actions override in YourTheme -->
      <browser:viewlet
@@ -65,25 +75,24 @@ Views and viewlets will be active on the site instance using the following ZCML:
          />
 
 Unconditional overrides
-=======================
+-----------------------
 
-If you want to override a view or a viewlet unconditionally for all sites without the add-on product installer
-support you need to use overrides.zcml.
+If you want to override a view or a viewlet unconditionally for all sites
+without the add-on product installer
+support you need to use ``overrides.zcml``.
 
 Creating a layer
-----------------
+================
 
 Theme layer
-===========
+-----------
 
-Theme layers can be created with the following steps
+Theme layers can be created via the following steps:
 
-1. Subclass an interface from IDefaultPloneLayer
+1. Subclass an interface from ``IDefaultPloneLayer``::
 
-   .. code-block:: python
-    
        from plone.theme.interfaces import IDefaultPloneLayer
-    
+
        class IThemeSpecific(IDefaultPloneLayer):
            """Marker interface that defines a Zope 3 skin layer bound to a Skin
               Selection in portal_skins.
@@ -92,85 +101,88 @@ Theme layers can be created with the following steps
               in YourSkin/browser/configure.zcml.
            """
 
-2. Register in in ZCML. Name must match the theme name.
+2. Register it in ZCML. The name must match the theme name.
 
    .. code-block:: xml
-    
+
        <interface
            interface=".interfaces.IThemeSpecific"
            type="zope.publisher.interfaces.browser.IBrowserSkinType"
            name="SitsSkin"
            />
 
-3. Declare your theme in profiles/default/skins.xml. Example.
+3. Declare your theme in ``profiles/default/skins.xml``. Example:
 
    .. code-block:: xml
-    
+
        <skin-path name="SitsSkin" based-on="Plone Default">
          <layer name="plone_skins_style_folder_name"
-            insert-before="*"/>
+           insert-before="*"/>
        </skin-path>
 
-4. Create profiles/default/browserlayer.xml.
+4. Create ``profiles/default/browserlayer.xml``.
 
    .. code-block:: xml
-    
+
       <layers>
-       <layer
+        <layer
            name="myproduct"
            interface="Products.myproduct.interfaces.IThemeSpecific"
            />
       </layers>
 
 Add-on layer
-=============
+-------------
 
-Add-on product layer is enabled when an add-on product is installed. 
+An add-on product layer is enabled when an add-on product is installed. 
 Since one Zope application server may contain several Plone sites, 
-you need separate different enanbled code paths by add-on layers -
+you need to keep enabled code paths separate by using add-on layers -
 otherwise all views and viewlets apply to all sites in one Zope application server. 
 
-* You can enable views and viewlets specific to functional add-on
+* You can enable views and viewlets specific to functional add-ons.
 
-* Unlike theme layer, add-on layer depends on the activated add-on products, not on the selected theme
+* Unlike theme layers, add-on layers depend on the activated add-on
+  products, not on the selected theme.
 
-Add-on layer is a marker interface which is applied on :doc:`HTTP request object </serving/http_request_and_response>`
+An add-on layer is a marker interface which is applied on the
+:doc:`HTTP request object </serving/http_request_and_response>`
 by Plone core logic.  
 
-First create an an :doc:`interface </components/interfaces>` for your layer in ``your.product.interfaces.py``::
+First create an :doc:`interface </components/interfaces>` for your layer in 
+``your.product.interfaces.py``::
 
-        """Define interfaces for your add-on.
+    """ Define interfaces for your add-on.
+    """
+
+    import zope.interface
+
+    class IAddOnInstalled(zope.interface.Interface):
+        """ A layer specific for this add-on product.
+
+        This interface is referred in browserlayers.xml.
+
+        All views and viewlets register against this layer will appear on
+        your Plone site only when the add-on installer has been run.
         """
-        
-        import zope.interface
-        
-        class IAddOnInstalled(zope.interface.Interface):
-            """A layer specific for this add-on product.
-        
-            This interface is referred in browserlayers.xml.
-        
-            All views and viewlets register against this layer will appear on your Plone site 
-            only when the add-on installer has been run.
-            """
 
-You need to then refer to this in your add-on installer :doc:`setup profile </components/genericsetup>`.
-
-``profile/default/browserlayer.xml`` file
+You then need to refer to this in the ``profile/default/browserlayer.xml``
+file of your add-on installer 
+:doc:`setup profile </components/genericsetup>`:
 
 .. code-block:: xml
 
-        <layers>
-         <layer
-             name="your.product"
+    <layers>
+        <layer
+            name="your.product"
              interface="your.product.interfaces.IAddOnInstalled"
              />
-        </layers>
-                
+    </layers>
 
-.. note ::
+.. note::
 
-        Add-on layer registry is persistent and stored in the database. The changes to add-on
-        layers apply only when add-ons are installed or uninstalled.
+    The add-on layer registry is persistent and stored in the database.
+    The changes to add-on
+    layers are applied only when add-ons are installed or uninstalled.
 
 More information
 
@@ -179,27 +191,28 @@ More information
 * See example in `LinguaPlone <https://github.com/plone/Products.LinguaPlone/tree/master/Products/LinguaPlone/profiles/default/browserlayer.xml>`_.
 
 Using layers (for customization)
-================================
+--------------------------------
 
-Whole point of using layers is for someone else to override your ZCA registrations (for example a view).
-By subclassing an marker interface for marker you can define more specific adapter which will take precedence
-over primary adapter.
-
+The whole point of using layers is to enable someone else to override your 
+:term:`ZCA` registrations (for example, to override a view).
+By subclassing a marker interface for some marker you can define a more
+specific adapter which will take precedence over the primary adapter.
 
 Manual layers
-=============
+-------------
 
-Apply your layer to HTTPRequest in before_traverse hook or before you call
-the code which looks up the interfaces.
+Apply your layer to the HTTPRequest_ in the ``before_traverse`` hook or
+before you call the code which looks up the interfaces.
 
 Choosing skin layer dynamically 1: http://blog.fourdigits.nl/changing-your-plone-theme-skin-based-on-the-objects-portal_type
 
 Choosing skin layer dynamically 2: http://code.google.com/p/plonegomobile/source/browse/trunk/gomobile/gomobile.mobile/gomobile/mobile/monkeypatch.py
 
-See `plone.app.z3cform.z2 <http://svn.zope.org/plone.z3cform/trunk/plone/z3cform/z2.py?rev=88331&view=markup>`_ module.
+See the `plone.app.z3cform.z2 <http://svn.zope.org/plone.z3cform/trunk/plone/z3cform/z2.py?rev=88331&view=markup>`_ module.
 
-In the example below we turn on a layer for request which is later checked by the rendering code.
-This way some pages can ask special View/Viewlet rendering.
+In the example below we turn on a layer for the request which is later
+checked by the rendering code.
+This way some pages can ask for special View/Viewlet rendering.
 
 Example::
 
@@ -230,89 +243,97 @@ Example::
 
             # Render the edit form
             return FormWrapper.__call__(self)
-            
-Problem with IDefaultBrowserLayer
-==================================
 
-``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is a problematic layer is it takes precedence in 
+Problem with ``IDefaultBrowserLayer``
+---------------------------------------
+
+``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is a problematic
+layer, because it takes precedence in the
 HTTP request multi-adapter look up (due to magic involving Plone themes).
 
-Below is ``self.request.__provides__.__iro__`` dump for adding an extra form layer
+Below is a dump of ``self.request.__provides__.__iro__`` for adding an extra
+form layer::
 
-.. code-block:: python
+    (<InterfaceClass Products.CMFDefault.interfaces.ICMFDefaultSkin>, 
+     <InterfaceClass plone.z3cform.z2.IFixedUpRequest>, 
+     <InterfaceClass getpaid.expercash.browser.views.IExperCashFormLayer>,
+     <InterfaceClass plone.app.z3cform.interfaces.IPloneFormLayer>, 
+     <InterfaceClass z3c.form.interfaces.IFormLayer>, 
+     <InterfaceClass zope.publisher.interfaces.browser.IBrowserRequest>, 
+     ...
 
-        (<InterfaceClass Products.CMFDefault.interfaces.ICMFDefaultSkin>, 
-         <InterfaceClass plone.z3cform.z2.IFixedUpRequest>, 
-         <InterfaceClass getpaid.expercash.browser.views.IExperCashFormLayer>,          
-         <InterfaceClass plone.app.z3cform.interfaces.IPloneFormLayer>, 
-         <InterfaceClass z3c.form.interfaces.IFormLayer>, 
-         <InterfaceClass zope.publisher.interfaces.browser.IBrowserRequest>, 
-         ...
-         
-One would assume a custom form layer (IExperCashFormLayer) is used and it would
-take priority over more generic IPloneFormLayer. However, due to involment
-of IDefaultBrowserLayer when registering items using ``<browser:page for="*">``
-syntax.
+One would assume that the custom form layer (``IExperCashFormLayer``) is
+used and that
+it would take priority over the more generic ``IPloneFormLayer``.
+However, due to the involvement of ``IDefaultBrowserLayer`` when registering
+items using ``<browser:page for="*">`` syntax, it does not.
 
-The fix is to make your custom layer to subclass IDefaultBrowserLayer like::
+The fix is to make your custom layer to subclass ``IDefaultBrowserLayer``,
+as follows::
 
-        class IExperCashFormLayer(IDefaultBrowserLayer, IPloneFormLayer):
-            """ Define a custom layer for which against our form macros are registered.
-            
-            This way we override the default plone.app.z3cform templates.
-            
-            Inheriting from IDefaultBrowserLayer makes sure this layer will get 1st priority.
-            """ 
+    class IExperCashFormLayer(IDefaultBrowserLayer, IPloneFormLayer):
+        """ Define a custom layer for which against our form macros are registered.
 
-We register a custom macros like
+        This way we override the default plone.app.z3cform templates.
+
+        Inheriting from IDefaultBrowserLayer makes sure this layer will get 1st priority.
+        """ 
+
+We register a custom macro as follows:
 
 .. code-block:: xml
 
-          <!-- Override plone.app.z3cform default form template -->
-          <browser:page
-              name="ploneform-macros"
-              for="*"
-              layer=".views.IExperCashFormLayer"
-              class=".views.Macros"
-              template="templates/expercash-form-macros.pt"
-              allowed_interface="zope.interface.common.mapping.IItemMapping"
-              permission="zope.Public"
-              />
-             
-            
-And then the manual assignment works ok::
+      <!-- Override plone.app.z3cform default form template -->
+      <browser:page
+          name="ploneform-macros"
+          for="*"
+          layer=".views.IExperCashFormLayer"
+          class=".views.Macros"
+          template="templates/expercash-form-macros.pt"
+          allowed_interface="zope.interface.common.mapping.IItemMapping"
+          permission="zope.Public"
+          />
 
-          def update(self):
-                """ z3c.form.form.Form.Update() method
-                """
-                                
-                # This will fix @@ploneform-macros to use our special version
-                zope.interface.alsoProvides(self.request, IExperCashFormLayer)        
-                
-                # This should return macros we have registered
-                macros = self.context.unrestrictedTraverse("@@ploneform-macros")            
+Now, manual assignment works OK::
 
+      def update(self):
+            """ z3c.form.form.Form.Update() method
+            """
 
-(If this didn't make sense for you, don't worry. It doesn't make sense for me either.)            
+            # This will fix @@ploneform-macros to use our special version
+            zope.interface.alsoProvides(self.request, IExperCashFormLayer)
+
+            # This should return macros we have registered
+            macros = self.context.unrestrictedTraverse("@@ploneform-macros")
+
+(If this didn't make sense for you, don't worry.
+It doesn't make sense for me either.)            
+
+.. todo:: This is not helpful.
 
 Troubleshooting instructions for layers
----------------------------------------------
+=============================================
 
-* Checl that your view or whatever is working without a layer assigned on (globally)
+* Check that your view or whatever is working without a layer assigned 
+  (globally);
 
-* Check that configure.zcml has a layer entry. Put garbage to configure.zcml to see that it is being loaded.
+* Check that ``configure.zcml`` has a layer entry. Put some garbage to
+  trigger a syntax error in ``configure.zcml`` to make sure that it is being
+  loaded;
 
-* Add-on layer: check that ``profiles/default/browserlayer.xml`` has a matching entry with a matching name
+* Add-on layer: check that ``profiles/default/browserlayer.xml`` has a
+  matching entry with a matching name;
 
-* Theme layer: If it's a theme layer check that there is matching ``skins.xml`` entry
+* Theme layer: if it's a theme layer, check that there is a matching
+  ``skins.xml`` entry
 
-* Check that layer name is correctly spelt in the view declaration
+* Check that layer name is correctly spelt in the view declaration.
 
 Checking active layers
-----------------------
+======================
 
 Layers are activated on the current request object
-================================================================
+----------------------------------------------------------------
 
 Example::
 
@@ -321,17 +342,17 @@ Example::
         return ""
 
 Active themes and add-on products
-======================================
+--------------------------------------
 
-registered_layers() method returns list of all layers active on the site.
-Note that this is different list of layers which are application on the current
-HTTP request object - request object may contain manually activated layers.
+The ``registered_layers()`` method returns a list of all layers active on
+the site.
+Note that this is different to the list of layers which are applied on the
+current HTTP request object:
+the request object may contain manually activated layers.
 
 Example::
 
-    from interfaces import IThemeSpecific
-
-
+    from interfaces import IThemeSpecific 
     from plone.browserlayer.utils import registered_layers
 
     if IThemeSpecific in registered_layers():
@@ -342,31 +363,33 @@ Example::
         pass
 
 Getting active theme layer
-==========================
+--------------------------
 
-Only one theme layer can be activate at once.
+Only one theme layer can be active at once.
 
-Active theme name is defined in portal_skins properties.
+The active theme name is defined in ``portal_skins`` properties.
 This name can be resolved to a theme layer.
 
-
 Debugging active layers
-=======================
+-----------------------
 
-You can check the activated layers from HTTP request object in self.request.__provides__.__iro__.
-Layers are evaluated from zero index (highest priority) the last index (lowest priority)
+You can check the activated layers from HTTP request object by looking at
+``self.request.__provides__.__iro__``.
+Layers are evaluated from zero index (highest priority) the last index
+(lowest priority).
 
-.. HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
+.. _HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
 
 .. _resourceDirectory: http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/resourceDirectory/index.html
 
 
 Testing Layers
---------------
+==============
 
 Plone testing toolkits won't register layers for you, you have to do it
-yourself somehere in the bolierplate code::
+yourself somewhere in the boilerplate code::
 
-	from zope.interface import directlyProvides
+    from zope.interface import directlyProvides
 
-        directlyProvides(self.portal.REQUEST, IThemeLayer)
+    directlyProvides(self.portal.REQUEST, IThemeLayer)
+

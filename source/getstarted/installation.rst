@@ -291,15 +291,18 @@ Installation via the Unified Installer or buildout is very similar to Unix. Howe
 need to install a command-line build environment. To get a free build kit from Apple, do one 
 of the following:
 
-* Download gcc and command-line tools from https://developer.apple.com/downloads/. This
-will require an Apple developer id.
+* Download gcc and command-line tools from
+  https://developer.apple.com/downloads/. This will require an Apple
+  developer id.
 
-* Install Xcode from the App Store. After installation, visit the Xcode app's preference
-panel to download the command-line tools.
+* Install Xcode from the App Store. After installation, visit the Xcode
+  app's preference panel to download the command-line tools.
 
-After either of these steps, you immediately should be able to install Plone using the
-Unified Installer. Note that with Plone 4.2.x, you may use the Python 2.7 that's shipped
-with OS X via the --with-python option of the installer.
+After either of these steps, you immediately should be able to install Plone
+using the
+Unified Installer. Note that with Plone 4.2.x, you may use the Python 2.7
+that's shipped
+with OS X via the ``--with-python`` option of the installer.
 
 For OS X 10.6 and 10.7, you may avoid the Xcode install via these steps.
 
