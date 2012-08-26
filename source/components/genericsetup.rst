@@ -359,7 +359,10 @@ GenericSetup upgrade step means non-technical people can do it as well. As it
 turns out, once you have the script, it's easy to put its code in an upgrade
 step.)
 
-First increase the number of the version in the metadata.xml. This version
+metadata.xml
+------------
+
+First increase the number of the version in the ``profiles/default/metadata.xml``. This version
 number should be an integer. Package version are different because they
 add sens like the status of the addon: is it stable, is it in dev, in beta,
 which branch it is. A profile version indicate only that you have to migrate
