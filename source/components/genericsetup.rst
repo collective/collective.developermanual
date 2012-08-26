@@ -359,14 +359,17 @@ GenericSetup upgrade step means non-technical people can do it as well. As it
 turns out, once you have the script, it's easy to put its code in an upgrade
 step.)
 
-metadata.xml
-------------
+Increment profile version
+-------------------------
 
 First increase the number of the version in the ``profiles/default/metadata.xml``. This version
 number should be an integer. Package version are different because they
 add sens like the status of the addon: is it stable, is it in dev, in beta,
 which branch it is. A profile version indicate only that you have to migrate
 data in the database.
+
+Add upgrade step
+----------------
 
 Next we add an upgrade step:
 
@@ -395,6 +398,9 @@ Next we add an upgrade step:
 
 * A *sortkey* can be used to indicate the order in which upgrade steps are
   run.
+
+Add upgrade code
+----------------
 
 The code for the upgrade method itself is best placed in a *upgrades.py* module::
 
