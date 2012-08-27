@@ -6,10 +6,6 @@
 
     The basics of Python programming, and performing Python interpreter installations.
 
-.. contents :: :local:
-
-.. highlight:: console
-
 Introduction
 =============
 
@@ -22,6 +18,8 @@ Python Tutorials
 * `Official Python tutorial <http://docs.python.org/tutorial/>`_
 
 * `Google Python classes <http://code.google.com/edu/languages/google-python-class/>`_
+
+* `Free Python books <http://pythonbooks.revolunet.com/>`_ 
 
 ' `Dive into Python book <http://www.diveintopython.net/toc/index.html>`_ 
 
