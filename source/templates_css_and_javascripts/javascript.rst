@@ -611,7 +611,7 @@ Example code
         /**
           * Convert one front page link to AJAX pop-up
           */
-        function linkOmaKalajoki() {
+        function linkPopupPage() {
             $(".oma-kalajoki-button a").prepOverlay({
                 subtype: 'ajax',
                 // part of Plone page going into pop-up dialog content area
@@ -620,8 +620,7 @@ Example code
         }
 
         $(document).ready(function() {
-            prepareProductImagePreviews();
-            linkOmaKalajoki();
+            linkPopupPage();
         });
 
     })(jQuery);
