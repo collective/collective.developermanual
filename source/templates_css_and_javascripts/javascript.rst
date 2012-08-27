@@ -542,11 +542,6 @@ Useful out of the box Javascripts
 
 `Please read this blog post <http://www.sixfeetup.com/blog/2009/7/31/utilize-available-javascript-in-plone-without-knowing-javascript>`_.
 
-Per folder overrides
----------------------
-
-* http://pypi.python.org/pypi/Products.CustomOverrides
-
 Generating Javascript dynamically
 ----------------------------------
 
@@ -593,6 +588,43 @@ Loading Javascript files for certain edit views only (to be used with widgets)
 ------------------------------------------------------------------------------------
 
 * http://stackoverflow.com/questions/5469844/registering-a-javascript-to-be-loaded-on-edit-view
+
+Converting page links to pop-up windows
+----------------------------------------
+
+`plone.app.jquerytools <http://plone.org/products/plone.app.jquerytools>`_ 
+can convert links, images and forms to AJAX pop-up windows.
+Plone 4 uses this e.g. for the login box pop-up functionality. 
+
+Below is an example code how you can convert any of the links
+on your site to a pop-up window.
+
+Example code
+
+.. code-block:: javascript
+
+
+    (function($) {
+
+        "use strict";
+
+        /**
+          * Convert one front page link to AJAX pop-up
+          */
+        function linkOmaKalajoki() {
+            $(".oma-kalajoki-button a").prepOverlay({
+                subtype: 'ajax',
+                // part of Plone page going into pop-up dialog content area
+                filter: '#content > *'
+            });
+        }
+
+        $(document).ready(function() {
+            prepareProductImagePreviews();
+            linkOmaKalajoki();
+        });
+
+    })(jQuery);
 
 AJAX-y view loading
 -------------------
