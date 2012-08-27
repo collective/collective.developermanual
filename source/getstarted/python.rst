@@ -21,5 +21,5 @@ Python Tutorials
 
 * `Free Python books <http://pythonbooks.revolunet.com/>`_ 
 
-' `Dive into Python book <http://www.diveintopython.net/toc/index.html>`_ 
+* `Dive into Python book <http://www.diveintopython.net/toc/index.html>`_ 
 
