@@ -1,5 +1,5 @@
 ============================
- Context helpers
+ Helper views and tools
 ============================
 
 .. contents:: :local:
@@ -160,6 +160,13 @@ Example::
 
     the_current_root_url_of_the_site = portal_url()
 
+IPlone
+-------------
+
+`Products.CMFPlone.browser.interfaces.IPlone <https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/interfaces.py#L183>`_
+provides some helper methods for Plone specific functionality and user interface.
+
+* ``IPlone`` helper views is registered under the name ``plone``
 
 getToolByName
 -------------
@@ -178,11 +185,3 @@ Example::
     workflowTool = getToolByName(self.context, "portal_workflow")
     workflowTool.doActionFor(self.context, "submit")
 
-getSite
--------
-
-Sometimes you don't have a context and/or you just need to get the portal
-object (site root)::
-
-    from zope.app.component.hooks import getSite
-    portal = getSite()
