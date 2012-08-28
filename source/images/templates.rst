@@ -312,3 +312,47 @@ And then we activate all this in a Javascript using ``prepOverlay()`` from ``plo
         });
 
     })(jQuery);
+
+Rotating banners
+------------------
+
+Simple rotating banneres can be done with `jQuery Cycle plug-in (lite) <http://jquery.malsup.com/cycle/>`_.
+
+Example TAL code... render list of content items and extract one image from each of them
+
+.. code-block:: html
+
+    <dd class="cycle">
+
+        <tal:hl repeat="obj view/obj">
+            <a tal:attributes="href python:view.getLink(obj); title python:view.getAltText(obj)" class="outer-wrapper">
+                <img tal:attributes="src python:view.getImageURL(obj)" />
+            </a>
+        </tal:hl>
+
+    </dd>
+
+Then use the the following Javascript to boostrap the cycling
+
+.. code-block:: javascript
+
+    (function($) {
+
+        "use strict";
+
+        function rotateBanners() {
+            $(".cycle").cycle();
+        }
+
+        $(document).ready(function() {
+            rotateBanners();
+        });
+
+    })(jQuery);
+
+You need to have this snippet and ``jquery.cycle.light.js`` in your portal_javascripts registry.
+
+You also may need to set pixel height for ``cycle`` elements, as they use absolute
+positioning making the element take otherwise 0 pixel of height.
+
+
