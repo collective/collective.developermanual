@@ -135,3 +135,7 @@ Session data and unit testing
 
 * Please see http://article.gmane.org/gmane.comp.web.zope.plone.user/104243
 
+Using Plone authentication cookie in other systems
+====================================================
+
+* http://stackoverflow.com/questions/12167202/how-to-wrap-plone-authentication-around-a-third-party-servlet/12171528#comment16307483_12171528
