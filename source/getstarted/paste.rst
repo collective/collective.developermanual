@@ -146,7 +146,7 @@ Creating an add-on product skeleton
 ===================================
 
 After you have followed the steps above how include ZopeSkel to your
-buildout, you can create your first add-on::
+buildout, you can create your first add-on.
 
 To create an Archetypes-based content types package:
 
