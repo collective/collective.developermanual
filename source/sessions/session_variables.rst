@@ -139,3 +139,8 @@ Using Plone authentication cookie in other systems
 ====================================================
 
 * http://stackoverflow.com/questions/12167202/how-to-wrap-plone-authentication-around-a-third-party-servlet/12171528#comment16307483_12171528
+
+Exporing Plone session configuration
+======================================
+
+* http://stackoverflow.com/questions/12211682/how-to-export-plone-session-configuration
