@@ -63,9 +63,10 @@ To install ZopeSkel in your buildout, add the following to your
 
     # add a 'zopeskel' part to the list of parts in the [buildout] section.
     parts =
-        ...
-        zopeskel
+        ... # some other parts here
+        zopeskel # Add this as the last line
 
+    # Add this bit at the end of your buildout.cfg
     # create zopeskel command in bin/
     # with Plone templates
     [zopeskel]
@@ -77,6 +78,9 @@ To install ZopeSkel in your buildout, add the following to your
         templer.plone
         templer.plone.localcommands
  
+.. note ::
+
+     In buildout.cfg # marks comment at the end of the line - you don't need to type those
 
 After adding this, run buildout and it will install ZopeSkel and all the
 templer and Paste packages
