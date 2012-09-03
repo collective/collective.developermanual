@@ -60,7 +60,7 @@ you create a code skeleton (scaffold) for its using :doc:`Plone ZopeSkel code te
   archetypes (create Archetypes content), dexterity (create Dexterity content) and plone
   (barebone Plone add-on).
 
-Please follow ZopeSkel link above to get your first add-on bootstrapped.
+Please read how to use :doc:`ZopeSkel to bootstrap your first add-on </getstarted/paste>`.
 
 Plone development workflow
 ----------------------------
