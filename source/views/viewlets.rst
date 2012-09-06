@@ -406,7 +406,7 @@ Example configuration ZCML snippets below. You usually <viewlet> to *browser/con
 
             <browser:viewlet
               name="mfabrik.like"
-              manager="Plone.App.Layout.Viewlets.Interfaces.IBelowContent"
+              manager="plone.app.layout.viewlets.interfaces.IBelowContent"
               template="like.pt"
               layer="mfabrik.like.interfaces.IAddOnInstalled"
               permission="zope2.View"
