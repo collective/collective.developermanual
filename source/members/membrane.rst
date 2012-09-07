@@ -169,6 +169,14 @@ Passwords are stored hashed and can be set using
 before storing::
 
     user_object._setPassword("secret")
+
+You may also use the portal_registrations tool. This method is security
+checked and may be used from ZMI scripts::
+
+    rtool = context.portal_registration
+    rtool.editMember(id, properties={}, password="secret")
+
+Use getToolByName rather than context... if you're doing this in a browser view.
     
 Accessing hashed password
 -------------------------
