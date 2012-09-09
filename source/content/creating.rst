@@ -479,7 +479,7 @@ not public and will appear in the review list)::
 
     # Field id have been set in Form Folder Contents view,
     # using rename functionality
-    target.invokeFactory("Link", id=uid,
+    target.invokeFactory("Document", id=uid,
                          title=form['site-name'],
                          description=form['site-description'],
                          remoteUrl=form["link"]
