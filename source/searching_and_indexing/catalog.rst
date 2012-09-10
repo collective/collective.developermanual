@@ -44,7 +44,7 @@ about ZCatalogs in the context of Zope, please refer to
 `The Zope Book, Searching and Categorizing Content`_. If you want
 to perform advanced searches, `AdvancedQuery`_, which is included
 with Plone since the 3.0 release, is what you're looking for. See
-`Searching with AdvancedQuery`_ for a brief introduction.
+`Boolean queries (AdvancedQuery)`_ for a brief introduction.
 
 Quick start
 -------------
@@ -327,4 +327,4 @@ Additional info
 
 .. _The Zope Book, Searching and Categorizing Content: http://docs.zope.org/zope2/zope2book/SearchingZCatalog.html
 .. _AdvancedQuery: http://www.dieter.handshake.de/pyprojects/zope/AdvancedQuery.html
-.. _Searching with AdvancedQuery: searching-with-advancedquery/
+.. _Boolean queries (AdvancedQuery): query.html#boolean-queries-advancedquery
