@@ -223,6 +223,7 @@ Example::
     from zope import schema
     from zope.interface import implements, alsoProvides
     from persistent import Persistent
+    from plone import namedfile
     from plone.namedfile.field import NamedBlobFile, NamedBlobImage
     from zope.schema.fieldproperty import FieldProperty
 
