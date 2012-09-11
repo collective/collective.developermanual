@@ -16,8 +16,12 @@ See also
 
 * `Versioning tutorial for custom content types <http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-enable-versioning-history-for-a-custom-content-type>`_. 
 
-Enabling versioning on your custom content type
------------------------------------------------
+Enabling versioning on your custom content type (Plone 3 ONLY)
+----------------------------------------------------------------
+
+.. note ::
+
+         This information applies for Plone 3 only.
 
 By default, version history is not enabled for custom content types.
 Below are some notes how to enable it.
