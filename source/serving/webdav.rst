@@ -12,15 +12,14 @@
 Introduction
 ==============
 
-The WebDAV port must be enabled in Zope configuration to use WebDAV
-facilities. See the 
-`WebDAV howto <http://plone.org/documentation/how-to/webdav>`_.
+WebDAV is enabled by default. A Zope server listening on port 8080 will also
+accept WebDAV traffic on that port.
+(http://stackoverflow.com/questions/9127269/how-can-i-stop-people-accessing-a-plone-server-via-webdav)
 
-Enabling WebDAV in Zope
------------------------
+Enabling WebDAV on an extra port in Zope
+----------------------------------------
 
-You must enable the WebDAV port in your Zope config to use it. Modify your
-buildout configuration's client setup to add a webdav address:
+Modify your buildout configuration's client setup to add a webdav address:
 
 Short ``buildout.cfg`` example::
 
@@ -52,6 +51,23 @@ Using the web browser will give you an error message ``AttributeError:
 manage_FTPget``. You could also just run the WebDAV server on ``localhost``
 with address 1980, forcing you to either use a WebDAV client locally or
 proxy WebDAV through Apache.
+
+Disabling WebDAV
+----------------
+
+You can't disable WebDAV in Plone itself, it's tightly integrated in Zope.
+
+What you can do: Make your web server filter out the WebDAV commands.
+For nginx, this is done by adding::
+
+            limit_except GET POST {
+              deny   all;
+            }
+
+to the location block in your nginx.conf.
+
+For Apache, see http://stackoverflow.com/questions/9127269/how-can-i-stop-people-accessing-a-plone-server-via-webdav 
+Also note the "Access WebDAV" permission referenced in a reply to that question.
 
 Supporting WebDAV in your custom content
 ========================================
