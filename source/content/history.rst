@@ -140,6 +140,9 @@ Below are some notes how to enable it.
     * Module Products.CMFEditions.CopyModifyMergeRepositoryTool, line 408, in _assertAuthorized
 
     Unauthorized: You are not allowed to access 'save' in this context
+
+* If your content type contains blob fields you want to version, you will need to edit
+  portal_modifier/CloneBlobs entry and add your portal type to the condition field.
     
 For more information
 
