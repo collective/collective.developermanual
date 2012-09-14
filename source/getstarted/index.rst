@@ -131,6 +131,13 @@ Documentation here does not focus for extending fuctionality through this method
 
 * it is seriously limited and usually can take you only half way there
 
+Hello World Tutorial
+----------------------
+
+We have a :doc:`tutorial </getstarted/helloworld/index>` introducing the basics of Plone development. 
+
+The tutorial covers a basic form, custom content-type, and dynamic view. It also has detailed sections on building a development environment, installing Plone, and creating an add-on package for your development code. 
+
 More info
 ------------
 
