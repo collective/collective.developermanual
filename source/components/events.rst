@@ -31,12 +31,18 @@ For more information, see:
 Registering an event handler
 ============================
 
-.. note ::
+Plone events can be scoped
 
-        Starting Plone 4, using grok method is recommended as it is simpler
+* Globally (no scope)
+
+* For some content type
 
 Subscribing using the ``grok`` API
 -----------------------------------------
+
+.. note ::
+
+        Starting Plone 4, this grok method is simpler
 
 Example subscription which subscribes add and edit events for an content item type::
 
@@ -86,7 +92,23 @@ For more information, see:
 Subscribing using ZCML
 ----------------------
 
-Custom event example::
+Subscribing to a global event using ZCML.
+
+.. code-block:: xml
+
+    <subscriber for="Products.PlonePAS.events.UserLoggedOutEvent"
+        handler=".smartcard.clear_extra_cookies_on_logout" />
+
+And then the Python code in ``smartcard.py`` would be::
+
+        def clear_extra_cookies_on_logout(event):
+            # What event contains depends on the 
+            # triggerer of the event and event class
+            request = event.object.REQUEST
+            ...
+
+Custom event example subscribing all IMyEvents when fired by IMyObject::
+
 
     <subscriber
       for=".interfaces.IMyObject
