@@ -197,7 +197,22 @@ Example logged_in.cpy::
         REQUEST.RESPONSE.redirect(context.portal_url() + "/some_folder")
     
     return state
-    
+
+Post-logout actions
+----------------------
+
+Products.PlonePAS.tools.membership fires ``Products.PlonePAS.events.UserLoggedOutEvent``
+when the user logs out via *Log out* menu item.
+
+.. note ::
+
+	You cannot catch session timeout events this way... only explicit logout 
+	action.
+
+More info
+
+* https://github.com/plone/Products.PlonePAS/blob/master/Products/PlonePAS/tools/membership.py#L645
+
 Entry points to logged in member handling
 -----------------------------------------
 
