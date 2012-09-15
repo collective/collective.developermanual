@@ -209,6 +209,35 @@ when the user logs out via *Log out* menu item.
 	You cannot catch session timeout events this way... only explicit logout 
 	action.
 
+Example ZCML
+
+.. code-block:: xml
+
+
+    <subscriber for="Products.PlonePAS.events.UserLoggedOutEvent"
+        handler=".smartcard.clear_extra_cookies_on_logout" />
+
+Example Python::
+
+	def clear_extra_cookies_on_logout(event):
+	    """
+	    Logout event handler.
+	
+	    When user explicitly logs out from the Logout menu, clear our priviledges smartcard cookie.
+	    """
+	
+	    # Which cookie we want to clear
+	    cookie_name = SmartcardHelper.PRIVILEDGED_COOKIE_NAME
+	
+	    request = event.object.REQUEST
+	    # YES CAPS LOCK WAS MUST WHEN ZOPE 2 WAS INVENTED
+	    # SOMEWHERE AROUND NINETIES. THEN IT WAS THE CRUISE
+	    # CONTROL FOR COOLNESS AND ZOPE IS SOO COOOOOL.
+	    response = request.RESPONSE
+	    # Voiding our special cookie on logout
+	    response.expireCookie(cookie_name)
+	
+
 More info
 
 * https://github.com/plone/Products.PlonePAS/blob/master/Products/PlonePAS/tools/membership.py#L645
