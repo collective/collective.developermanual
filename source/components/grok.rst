@@ -64,7 +64,9 @@ To enable grok'ing for your package:
 * You still need to include subpackages for old-fashioned :term:`ZCML`
   configurations.
 
-Example::
+Example
+
+.. code-block:: xml
 
    <configure
        xmlns="http://namespaces.zope.org/zope"
@@ -84,6 +86,16 @@ Example::
      <include package=".browser" />
    
    </configure>
+
+If you are using components from other packages you might also want to add
+
+.. code-block:: xml
+
+      <includeDependencies package="." />
+
+This makes the ``configure.zcml`` and thus Python code 
+of all modules listed in ``setup.py`` *install_requires*
+section is loaded before your module is being processed.
 
 setup.py - include five.grok package dependency for download
 --------------------------------------------------------------
