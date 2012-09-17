@@ -58,11 +58,26 @@ Disabling WebDAV
 You can't disable WebDAV in Plone itself, it's tightly integrated in Zope.
 
 What you can do: Make your web server filter out the WebDAV commands.
+
+Nginx
+~~~~~
+
 For nginx, this is done by adding::
 
             dav_methods off
 
 to the server block in your nginx.conf. (http://wiki.nginx.org/HttpDavModule)
+
+If you do not use the HttpDavModule, you can add::
+
+            limit_except GET POST {
+              deny   all;
+            }
+
+to the location block.
+
+Apache
+~~~~~~
 
 For Apache, see http://stackoverflow.com/questions/9127269/how-can-i-stop-people-accessing-a-plone-server-via-webdav 
 Also note the "Access WebDAV" permission referenced in a reply to that question.
