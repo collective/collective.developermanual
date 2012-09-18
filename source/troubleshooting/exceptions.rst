@@ -2032,3 +2032,22 @@ More info
 * http://stackoverflow.com/questions/8387902/plone-upgrade-3-3-5-to-plone-4-1-2
 
 * https://mail.zope.org/pipermail/zodb-dev/2010-September/013620.html
+
+
+TypeError: argument of type 'NoneType' is not iterable
+---------------------------------------------------------
+
+Example traceback::
+	
+	Module ZPublisher.Publish, line 115, in publish
+	  Module ZPublisher.BaseRequest, line 437, in traverse
+	  Module Products.CMFCore.DynamicType, line 147, in __before_publishing_traverse__
+	  Module Products.CMFDynamicViewFTI.fti, line 215, in queryMethodID
+	  Module Products.CMFDynamicViewFTI.fti, line 182, in defaultView
+	  Module Products.CMFPlone.PloneTool, line 831, in browserDefault
+	  Module plone.app.folder.base, line 65, in index_html
+	  Module plone.folder.ordered, line 202, in __contains__
+	TypeError: argument of type 'NoneType' is not iterable
+
+Plone 3 > Plone 4 migration has not been run. Run the migration
+in *portal_migrations* under ZMI.
