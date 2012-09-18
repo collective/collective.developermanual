@@ -2,29 +2,31 @@
  Adapters
 =================
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 ============
 
 Adapters make it possible to extend the behavior of a class without
-modifying the class itself. This allows more modular, nice looking code in
+modifying the class itself. This allows more modular, readable code in
 complex systems where there might be hundreds of methods per class. Some 
 more advantages of this concept are:
 
 * The class interface itself is more readable (less visible clutter);
 * class functionality can be extended outside the class source code;
-* Add-on products may extend or override parts of the class functionality.
-  Frameworks use adapters extensively, because adapters provide easy joint
+* add-on products may extend or override parts of the class functionality.
+  Frameworks use adapters extensively, because adapters provide easy
+  integration
   points.  External code can override adapters to retrofit/modify
-  functiolity. For example: a theme product might want to override a
+  functionality. For example: a theme product might want to override a
   searchbox viewlet to have a search box with slightly different
   functionality and theme-specific goodies.
 
 The downside is that adapters cannot be found by "exploring" classes or
 source code. They must be well documented in order to be discoverable.
 
-Read more about adapters in the `zope.component README <http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_.
+Read more about adapters in the 
+`zope.component README <http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_.
 
 `Adapter ZCML <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/adapter/index.html>`_.
 
@@ -35,8 +37,8 @@ Adapters are matched by:
 
 There are two kinds of adapters:
 
-* Normal adapters that only one parameter 
-* Multi-adapters take many parameters as a tuple
+* Normal adapters that take only one parameter.
+* Multi-adapters take many parameters in the form of a tuple.
 
 Example adapters users
 -----------------------
@@ -50,7 +52,7 @@ An adapter provides functionality to a class. This functionality becomes
 available when the interface is queried from the instance of class.
 
 Below is an example how to make a custom "image provider". The image
-provider provides a list of images for arbitary content.
+provider provides a list of images for arbitrary content.
 
 This is the image provider interface::
 
@@ -105,8 +107,10 @@ This is the adapter for the content class::
                             contentFilter={"portal_type" : "Image"})
             return images
 
-Registers the adapter for you custom content type ``MyShoppableItemType`` in
-the ``configure.zcml`` file of your product::
+Register the adapter for your custom content type ``MyShoppableItemType`` in
+the ``configure.zcml`` file of your product:
+
+.. code-block:: xml 
 
     <adapter for=".shop.MyShoppableItemType"
              provides=".interfaces.IProductImageProvider"
@@ -141,21 +145,23 @@ The following interfaces are useful when registering adapters:
 Multi-adapter registration
 ---------------------------
 
-You can specify any number of interface in the ``<adapter for="" />``
+You can specify any number of interfaces in the ``<adapter for="" />``
 attribute. Separate them with spaces or newlines.
 
 Below is a view-like example which registers against:
 
-* any context (``zope.interface.Interace``)
-* HTTP request objects (``zope.publisher.interfaces.browser.IBrowserRequest``)
+* any context (``zope.interface.Interace``);
+* HTTP request objects (``zope.publisher.interfaces.browser.IBrowserRequest``).
 
 Emulate view registration (context, request):
 
 .. code-block:: xml
 
-    <adapter for="zope.interface.Interface zope.publisher.interfaces.browser.IBrowserRequest"
-           provides="gomobile.mobile.interfaces.IMobileTracker"
-           factory=".bango.BangoTracker" />
+    <adapter
+        for="zope.interface.Interface
+             zope.publisher.interfaces.browser.IBrowserRequest"
+        provides="gomobile.mobile.interfaces.IMobileTracker"
+        factory=".bango.BangoTracker" />
 
 Getting the adapter
 ===================
@@ -209,7 +215,7 @@ Corresponding query code, to look up an adapter implementing the interfaces::
     # Throws exception if not found
     picker = getMultiAdapter((header, doc, self.portal.REQUEST), IHeaderAnimationPicker)
 
-.. note ::
+.. note::
 
     You cannot get adapters on module-level code during import, as the Zope
     Component Architecture is not yet initialized.
@@ -236,7 +242,7 @@ Getting all multi-adapters (context, request)::
     from zope.component import getAdapters
     adapters = getAdapters((context, request), provided=Interface)
 
-.. warning ::
+.. warning::
 
     This does not list locally-registered adapters such as Zope views.
 
