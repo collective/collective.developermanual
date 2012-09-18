@@ -1865,6 +1865,11 @@ Another tutorial:
 Validators
 ==========
 
+Introduction
+--------------------
+
+Please read `Dexterity manual validators chapter <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms/customising-form-behaviour/referencemanual-all-pages>`_.
+
 Adding validators
 -------------------
 
