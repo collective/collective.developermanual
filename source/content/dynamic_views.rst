@@ -268,6 +268,18 @@ More information can be found in
 
 * https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/navigation/defaultpage.py
 
+Disabing dynamic views
+========================
+
+Add to your content type class::
+
+    def canSetDefaultPage(self):
+        """
+        Override BrowserDefaultMixin because default page stuff doesn't make
+        sense for topics.
+        """
+        return False
+
 Setting a view using marker interfaces
 ======================================
 

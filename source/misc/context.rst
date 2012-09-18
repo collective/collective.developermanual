@@ -30,20 +30,18 @@ module.
 
 Example showing how to get the portal root URL::
 
-    from Acquisition import aq_inner
     from zope.component import getMultiAdapter
-
     ...
     
     class MyView(BrowserView):
 
         ...
         
-        def mymethod(self):
-            context = aq_inner(self.context)
+        def __call__(self):
+            context = self.context.aq_inner
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-        
-            url = portal_state.portal_url()
+     
+            self.some_url = portal_state.portal_url() + "/my_foo_bar"
 
 
 Example showing how to get the current language::
