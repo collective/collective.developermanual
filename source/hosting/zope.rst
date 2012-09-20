@@ -486,21 +486,26 @@ Log rotate
 Log rotation prevents log files from growing indefinitely by creating a new
 file for a certain timespan and dropping old files.
 
+Basic Log rotation for buildout users
+-------------------------------------
+
 If you are using buildout and the plone.recipe.zope2instance to create your
-zope installation 2 parameters are available to enable log rotation. For example:
+zope installation, two parameters are available to enable log rotation.
+For example:
 
 * event-log-max-size = 10mb
 
 * event-log-old-files = 3
 
 This will rotate the event log when it reaches 10mb in size. It will retain a
-maximum of 3 files. You can also use this for the access log.
+maximum of 3 files. Similar direcives are also available for the access log.
 
 * access-log-max-size = 100mb
 
 * access-log-old-files = 10
 
-The unix tool ``logrotate`` is used for log rotation.
+Using the unix tool ''logrotate''
+---------------------------------
 
 You need to rotate Zope access and error logs, plus possible front-end web
 server logs. The latter is usually taken care of your operating system.
