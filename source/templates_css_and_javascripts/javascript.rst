@@ -372,6 +372,17 @@ We create special conditions using :doc:`Grok </components/grok>` views.
 Passing dynamic settings to Javascripts
 ------------------------------------------
 
+Default passed in variables
+================================
+
+Plone passes in some variables, like ``portal_url`` to Javascript by default.
+
+* https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/jsvariables.py
+
+More info
+
+* http://stackoverflow.com/questions/12530308/accessing-portal-url-in-javascript-in-plone/12530378#12530378
+
 Passing settings on every page
 ================================
 
