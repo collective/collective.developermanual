@@ -525,4 +525,16 @@ Example::
                     schema_field.required = False
                     f.field = schema_field
 
+Don't use dict {} or list [] as a default value
+--------------------------------------------------
+
+Because how Python object construction works, giving [] or {}
+as a default value will make all created field values to share this same object.
+
+http://effbot.org/zone/default-values.htm
+
+Use value adapters instead 
+
+* http://pypi.python.org/pypi/plone.directives.form#value-adapters
+
 .. |---| unicode:: U+02014 .. em dash
