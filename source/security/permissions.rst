@@ -11,8 +11,11 @@
 Introduction
 ------------
 
+Permissions control whether the logged in / anonymous users can execute code paths and access contet.
 Permissions in Plone are managed by `Zope's AccessControl module <http://svn.zope.org/AccessControl/trunk/src/AccessControl/>`_. 
-Permissions control whether the logged in / anonymous users can execute code paths.
+Persistent permission setting and getting by role heavy lifting is done by
+`OFS.role.RoleManager <Permissions in Plone are managed by `Zope's AccessControl module <http://svn.zope.org/AccessControl/trunk/src/AccessControl/>`_. 
+>`_.
 
 Permission check is done for
 
