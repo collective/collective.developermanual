@@ -11,6 +11,7 @@
 Introduction
 ------------
 
+Permissions in Plone are managed by `Zope's AccessControl module <http://svn.zope.org/AccessControl/trunk/src/AccessControl/>`_. 
 Permissions control whether the logged in / anonymous users can execute code paths.
 
 Permission check is done for
