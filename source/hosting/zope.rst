@@ -489,7 +489,7 @@ file for a certain timespan and dropping old files.
 Basic Log rotation for buildout users
 -------------------------------------
 
-If you are using buildout and the plone.recipe.zope2instance to create your
+If you are using buildout and the plone.recipe.zope2instance (>= 4.2.5) to create your
 zope installation, two parameters are available to enable log rotation.
 For example:
 
