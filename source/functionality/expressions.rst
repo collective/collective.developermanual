@@ -264,6 +264,61 @@ Creating a TTW Python script in an add-on installer
 -----------------------------------------------------
 
 Here is an example how one can pre-seed a Python script in 
-an add-on installer.
+an add-on installer :doc:`GenericSetup profile </components/genericsetup>`.
+
+``setuphandlers.py``::
+
+    from Products.PythonScripts.PythonScript import manage_addPythonScript
+
+    DEFAULT_REDIRECT_PY_CONTENT = """
+    if port not in (80, 443):
+        # Don't kick in HTTP/HTTPS redirects if the site
+        # is directly being accessed from a Zope front-end port
+        return None
+
+  
+    """
+
+
+    def runCustomInstallerCode(site):
+        """ Run custom add-on product installation code to modify Plone site object and others
+
+        Python scripts can be created by Products.PythonScripts.PythonScript.manage_addPythonScript
+
+        http://svn.zope.org/Products.PythonScripts/trunk/src/Products/PythonScripts/PythonScript.py?rev=114513&view=auto
+
+        @param site: Plone site
+        """
+
+        # Create the script in the site root
+        id = "redirect_handler"
+
+        # Don't override the existing installation
+        if not id in site.objectIds():
+            manage_addPythonScript(site, id)
+            script = site[id]
+
+            # Define the script parameters
+            parameters = "url, port"
+
+            script.ZPythonScript_edit(parameters, DEFAULT_REDIRECT_PY_CONTENT)
+
+
+    def setupVarious(context):
+        """
+        @param context: Products.GenericSetup.context.DirectoryImportContext instance
+        """
+
+        # We check from our GenericSetup context whether we are running
+        # add-on installation for your product or any other proudct
+        if context.readDataFile('collective.scriptedredirect.marker.txt') is None:
+            # Not our add-on
+            return
+
+        portal = context.getSite()
+
+        runCustomInstallerCode(portal)
+
+See `the full example <https://github.com/collective/collective.scriptedredirect/>`_.
 
 
