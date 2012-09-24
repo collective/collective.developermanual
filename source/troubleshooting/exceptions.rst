@@ -280,6 +280,9 @@ Discussion
 z3c.form based form updateWidgets() raises ComponentLookupError
 ---------------------------------------------------------------
 
+Case 1: z3c.form with Plone 3
+==================================
+
 Example::
 
     Error in test test_render_form (gomobile.convergence.tests.test_mobile_overrides.TestMobileOverrides)
@@ -334,6 +337,37 @@ and then your add-on product setup.py file::
       ],
 
 Also remember to run Plone add-on installer for plone.app.z3cform (though it is unrelated to this error).
+
+Case 2: missing plone.app.z3cform migration
+=============================================
+
+Example traceback::
+
+    Traceback (innermost last):
+      Module ZPublisher.Publish, line 126, in publish
+      Module ZPublisher.mapply, line 77, in mapply
+      Module ZPublisher.Publish, line 46, in call_object
+      Module z3c.form.form, line 215, in __call__
+      Module z3c.form.form, line 208, in update
+      Module plone.z3cform.patch, line 21, in BaseForm_update
+      Module z3c.form.form, line 149, in update
+      Module z3c.form.form, line 129, in updateWidgets
+      Module zope.component._api, line 109, in getMultiAdapter
+    ComponentLookupError: ((<Products.Five.metaclass.EditForm object at 0x117a97dd0>, <HTTPRequest, URL=http://localhost:8080/folder_xxx/xxxngta/@@dgftreeselect-test>, <PloneSite at /folder_xxx/xxxngta>), <InterfaceClass z3c.form.interfaces.IWidgets>, u'')
+
+You are running Plone 4 with ``plone.app.directives`` form which does not 
+open. The reason is that you most likely have old ``plone.app.z3cform``
+installation which is not upgraded properly. In particular,
+the following layer is missing
+
+.. code-block:: xml
+
+	<layer name="plone.app.z3cform" interface="plone.app.z3cform.interfaces.IPloneFormLayer" />
+
+This enables ``z3c.form`` widgets on a Plone site.
+
+Solution: *portal_setup* > *Import*. Choose profile *Plone z3cform support*. 
+and import. The layer gets properly inserted to your site database.
 
 NotFound error (Page not found) when accessing @@manage-portlets
 --------------------------------------------------------------------
@@ -1998,3 +2032,22 @@ More info
 * http://stackoverflow.com/questions/8387902/plone-upgrade-3-3-5-to-plone-4-1-2
 
 * https://mail.zope.org/pipermail/zodb-dev/2010-September/013620.html
+
+
+TypeError: argument of type 'NoneType' is not iterable
+---------------------------------------------------------
+
+Example traceback::
+	
+	Module ZPublisher.Publish, line 115, in publish
+	  Module ZPublisher.BaseRequest, line 437, in traverse
+	  Module Products.CMFCore.DynamicType, line 147, in __before_publishing_traverse__
+	  Module Products.CMFDynamicViewFTI.fti, line 215, in queryMethodID
+	  Module Products.CMFDynamicViewFTI.fti, line 182, in defaultView
+	  Module Products.CMFPlone.PloneTool, line 831, in browserDefault
+	  Module plone.app.folder.base, line 65, in index_html
+	  Module plone.folder.ordered, line 202, in __contains__
+	TypeError: argument of type 'NoneType' is not iterable
+
+Plone 3 > Plone 4 migration has not been run. Run the migration
+in *portal_migrations* under ZMI.

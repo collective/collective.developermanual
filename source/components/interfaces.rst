@@ -13,7 +13,7 @@ different subsystems. They provide a more consistent and declarative
 way to define bridges between two different things, when duck-typing
 is not enough.
 
-An Interface defines the shape of a hole where different pieces fit.
+An interface defines the shape of a hole where different pieces fit.
 The shape of the piece is defined by the interface, but the implementation
 details like color, material, etc. can vary.
 
@@ -22,23 +22,34 @@ See `zope.interface package README <http://pypi.python.org/pypi/zope.interface>`
 Common interfaces
 ==================
 
-When programming Plone, the following interfaces are often used.
-The usual use case is :doc:`context directive for view </views/browserviews>`
-telling on what kind of content items the view is available.
+Some interfaces are commonly used throughout Plone.
 
-* ``zope.interface.Interface`` - base class of all interfaces. Also used as a ``*`` wildcard
-  when registering views meaning that the view applies on every object.
+The usual use case is that a 
+:doc:`context directive for a view </views/browserviews>`
+is provided, specifying where the view is available 
+(e.g. for which content types).
 
-* ``Products.CMFCore.interfaces.IContentish`` - all content items on the site. In the site root,
-  this interface excludes Zope objects like ``acl_users`` user folder and ``portal_skins`` which
-  might otherwise appear in the item listing when you iterate through the root content.
+``zope.interface.Interface`` 
+    Base class of all interfaces. Also used as a ``*`` wildcard when
+    registering views, meaning that the view applies on every object.
 
-* ``Products.CMFCore.interfaces.IFolderish`` - all content folders on the site
+``Products.CMFCore.interfaces.IContentish`` 
+    All *content* items on the site.
+    In the site root, this interface excludes Zope objects like
+    ``acl_users`` (the user folder) and ``portal_skins`` which might
+    otherwise appear in the item listing when you iterate through the root
+    content.
 
-* ``Products.CMFCore.interfaces.ISiteRoot`` - Plone site root object
+``Products.CMFCore.interfaces.IFolderish`` 
+    All *folders* in the site.
 
-* ``plone.app.layout.navigation.interfaces import INavigationRoot`` - Navigation top object -
-  where the breadcrumbs being. On multilingual site this is the language folder.
+``Products.CMFCore.interfaces.ISiteRoot`` 
+    The Plone site root object.
+
+``plone.app.layout.navigation.interfaces import INavigationRoot`` 
+    Navigation top object - where the breadcrumbs are anchored.
+    On multilingual sites, this is the top-level folder for the current
+    language.
 
 
 Implementing one or multiple interfaces
@@ -107,7 +118,7 @@ Interface resolution order
 Interface resolution order (IRO) is the list of interfaces provided by the
 object (directly, or implemented by a class), sorted by priority.
 
-Interaces are evaluated from zero index (highest priority) to the last index
+Interfaces are evaluated from zero index (highest priority) to the last index
 (lowest priority).
 
 You can access this information for the object for debugging purposes using
@@ -140,10 +151,8 @@ Example file ``yourpackage/interfaces.py``::
 
 Note that this attribute does not respect import aliasing.
 
-Example::
-
-    Products.ATContentTypes.interfaces.IATDocument.__identifier__ is
-    Products.ATContentTypes.interfaces.document.IATDocument
+Example: ``Products.ATContentTypes.interfaces.IATDocument.__identifier__``
+is ``Products.ATContentTypes.interfaces.document.IATDocument``.
 
 Getting interface class by its string id
 ========================================
@@ -166,27 +175,30 @@ Example::
 Applying interfaces for several content types
 =====================================================
 
-You can retrofit content types to a marker interface afterwards.
+You can apply marker interfaces to content types at any time.
 
 Example use cases:
 
-* You want to assign a viewlet to a set of particular content types
+* You want to assign a viewlet to a set of particular content types.
 
-* You want to enable certain behavior on certain content types
+* You want to enable certain behavior on certain content types.
 
 .. note::
 
-    Retrofitting is needed only when you need to create a common nominator
-    for several otherwise unrelated classes.
+    A marker interface is needed only when you need to create a common
+    nominator for several otherwise unrelated classes.
     You can use one existing class or interface as a context without
     explicitly creating a marker interface.
     Places accepting ``zope.interface.Interface`` as a context
     usually accept a normal Python class as well (``isinstance`` behavior).
 
 You can assign the marker interface for several classes in ZCML using
-a ``<class>`` declaration::
+a ``<class>`` declaration. Here we're assigning ``ILastModifiedSupport``
+to documents, events and news items:
 
-   <!-- List of content types where last modified viewlet is enabled -->
+.. code-block:: xml 
+
+   <!-- List of content types where "last modified" viewlet is enabled -->
    <class class="Products.ATContentTypes.content.document.ATDocument">
       <implements interface=".interfaces.ILastModifiedSupport" />
    </class>
@@ -203,7 +215,6 @@ a ``<class>`` declaration::
 Then we can have a viewlet for these content types only using the following
 (grok example)::
 
-
     from five import grok
     from interfaces import ILastModifiedSupport
     from plone.app.layout.viewlets.interfaces import IBelowContent
@@ -211,7 +222,8 @@ Then we can have a viewlet for these content types only using the following
     class LastModified(grok.Viewlet):
         """ Viewlet to show the document last modification time.
 
-        This is enabled on Page, Event and News Item wich implement ILastModofiedSupport marker interface.
+        This is enabled on Page, Event and News Item which implement
+        ILastModifiedSupport marker interface.
         """
 
         grok.context(ILastModifiedSupport)
@@ -230,15 +242,17 @@ objects through the :term:`ZMI`.
 Browse to any object and visit the :guilabel:`Interfaces` tab.
 
 Marker interfaces might need to be explicitly declared using the
-:term:`ZCML` ``<interface>`` directive, so that Zope finds them::
+:term:`ZCML` ``<interface>`` directive, so that Zope can find them:
+
+.. code-block:: xml 
 
     <!-- Declare marker interface, so that it is available in ZMI -->
     <interface interface="mfabrik.app.interfaces.promotion.IPromotionsPage" />
 
 .. note::
 
-    Interface dotted name must be directly to the interface class and not an
-    import from other module, like ``__init__.py``.
+    The interface dotted name must refer directly to the interface class and
+    not to an import from other module, like ``__init__.py``.
 
 Setting dynamic marker interfaces programmatically
 --------------------------------------------------
@@ -253,9 +267,9 @@ Example::
 
 .. note::
 
-    This marking persists with the object, and is not temporary.
-    Under-the-hood:
+    This marking persists with the object: it is not temporary.
 
+    Under the hood: 
     ``mark()`` delegates to ``zope.interface.directlyProvides()`` |---| with
     the result that
     a persistent object (e.g. content item) has a reference to the interface
@@ -266,8 +280,8 @@ Example::
     it does
     for any other object, persistent or not) to resolve provided interfaces.
 
-To remove a marker interface on an object, use the ``erase()`` function from
-`Products.Five`_.
+To remove a marker interface from an object, use the ``erase()`` function
+from `Products.Five`_.
 
 Example::
 
@@ -279,7 +293,7 @@ Example::
 Tagged values
 ==============
 
-Tagged values are arbitary metadata you can stick on
+Tagged values are arbitrary metadata you can stick on
 ``zope.interface.Interface`` subclasses.
 For example, the `plone.autoform`_ package uses them to set form widget
 hints for `zope.schema`_ data model declarations.

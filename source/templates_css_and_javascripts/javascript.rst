@@ -372,6 +372,17 @@ We create special conditions using :doc:`Grok </components/grok>` views.
 Passing dynamic settings to Javascripts
 ------------------------------------------
 
+Default passed in variables
+================================
+
+Plone passes in some variables, like ``portal_url`` to Javascript by default.
+
+* https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/jsvariables.py
+
+More info
+
+* http://stackoverflow.com/questions/12530308/accessing-portal-url-in-javascript-in-plone/12530378#12530378
+
 Passing settings on every page
 ================================
 
@@ -714,13 +725,13 @@ More info
 Speeding up page load (ajax_load parameter)
 ----------------------------------------------
 
-By observing Plone's ``main_template.pt``, having a True value on the 'ajax_load' request key means some parts of the page aren't displayed, hence the speed:
+By observing Plone's ``main_template.pt``, having a True value on the ``ajax_load`` request key means some parts of the page aren't displayed, hence the speed:
 
-* No CSS or Javascript from  tag is loaded
+* No CSS or Javascript from ``<head />`` tag is loaded
 
-* Nothing from the plone.portaltop ViewletManager, such as the personal bar, searchbox, logo and main menu
+* Nothing from the ``plone.portaltop`` ViewletManager, such as the personal bar, searchbox, logo and main menu
 
-* Nothing from the plone.portalfooter ViewletManager, which contains footer and colophon information, site actions and the Analytics javascript calls if you have that configured in your site
+* Nothing from the ``plone.portalfooter`` ViewletManager, which contains footer and colophon information, site actions and the Analytics javascript calls if you have that configured in your site
 
 * Neither the left nor the right column, along with all the portlets there assigned
 

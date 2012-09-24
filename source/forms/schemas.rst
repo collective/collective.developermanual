@@ -40,6 +40,24 @@ Zope 3 schemas are used for tasks like:
 The basic unit of data model declaration is the *field*, which specifies what
 kind of data each Python attribute can hold.
 
+More info
+----------------
+
+* `zope.schema <http://pypi.python.org/pypi/zope.schema>`_ on PyPi
+
+* `zope.schema source code <http://svn.zope.org/zope.schema/trunk/src/zope/schema/>`_ - definite source for field types and usage.
+
+``zope.schema`` provides a very comprehensive set of fields out of the box.
+Finding good documentation for them, however, can be challenging.  Here are
+some starting points:
+
+* `Stock zope.schema field list part I <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_
+
+* `Stock zope.schema field list part II <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_
+
+* `Dexterity field list <http://dexterity-developer-manual.readthedocs.org/en/latest/reference/fields.html>`_.
+
+
 Example of a schema
 --------------------
 
@@ -131,27 +149,6 @@ Example::
             # Do not do this, you will regret it later.
             context.test_address.arbitary_attribute = u"Don't do this!"
 
-
-Further reading
-===============
-
-* `zope.schema <http://pypi.python.org/pypi/zope.schema>`_ package to
-  describe data structures.
-
-* http://zope3.xmu.me/schema.html
-
-``zope.schema`` out-of-the-box fields
-======================================
-
-``zope.schema`` provides a very comprehensive set of fields out of the box.
-Finding good documentation for them, however, can be challenging.  Here are
-some starting points:
-
-* `Stock zope.schema field list part I <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_
-
-* `Stock zope.schema field list part II <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_
-
-* `Dexterity field list <http://dexterity-developer-manual.readthedocs.org/en/latest/reference/fields.html>`_.
 
 Field constructor parameters
 ============================
@@ -527,5 +524,17 @@ Example::
                     schema_field = copy.copy(f.field) # shallow copy of an instance
                     schema_field.required = False
                     f.field = schema_field
+
+Don't use dict {} or list [] as a default value
+--------------------------------------------------
+
+Because how Python object construction works, giving [] or {}
+as a default value will make all created field values to share this same object.
+
+http://effbot.org/zone/default-values.htm
+
+Use value adapters instead 
+
+* http://pypi.python.org/pypi/plone.directives.form#value-adapters
 
 .. |---| unicode:: U+02014 .. em dash

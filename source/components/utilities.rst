@@ -4,23 +4,26 @@ Utilities
 
 .. admonition:: Description
 
-        Utility design pattern in Zope 3 allows easily overridable singleton class instances
-        for your code.
+    Utility design pattern in Zope 3 allows easily overridable singleton class instances
+    for your code.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
-------------
+============
 
 * Utility classes provide site-wide utility functions. 
 
 * They are registered by marker interfaces.
 
-* Site customization logic or add-on products can override utility for enhanced or modified functionality
-  
+* Site customization logic or add-on products can override utilities for
+  enhanced or modified functionality
+
 * Utilities can be looked up by name or interface
 
-* Compared to "plain Python functions" utiltiies provide the advantage of being plug-in points without need of :doc:`monkey-patching </misc/monkeypatch>`
+* Compared to "plain Python functions", utilities provide the advantage of
+  being plug-in points without need of 
+  :doc:`monkey-patching </misc/monkeypatch>`.
 
 Read more in 
 
@@ -29,81 +32,86 @@ Read more in
 * `zope.component documentation <http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_.
 
 Local and global utilities
-==========================
+--------------------------
 
 Utilities can be 
 
-* global - registered during Zope start-up
+* *global* - registered during Zope start-up
 
-* local - registered during add-on installer for a certain site/content item
+* *local* - registered during add-on installer for a certain site/content item
 
-Local utilities are registered to persistent object.
-The context of local utilities is stored in a thread local variable which is set
-during the traversing. Thus, when you ask for local utilities, they usually
-come from persistent registry set up in the Plone site root object.
+Local utilities are registered to persistent objects.
+The context of local utilities is stored in a thread-local variable which is set
+during traversal. Thus, when you ask for local utilities, they usually
+come from a persistent registry set up in the Plone site root object.
 
-Global utilities are registered in ZCML and affect all Zope application server and Plone site instances.
+Global utilities are registered in ZCML and affect all Zope application
+server and Plone site instances.
 
 Some hints::
         
-        <Moo^_^> what's difference between gsm.queryUtility() (global site manager) and zope.component.queryUtility()
-        <agroszer> Moo^_^, I think gsm... takes the global registrations, z.c.queryUtility respects the current context
+    <Moo^_^> what's difference between gsm.queryUtility() (global site manager) and zope.component.queryUtility()
+    <agroszer> Moo^_^, I think gsm... takes the global registrations, z.c.queryUtility respects the current context
         
 Registering a global utility
------------------------------
+=============================
 
-Utility is constructed when Plone is started and ZCML is read.
+A utility is constructed when Plone is started and ZCML is read.
 Utilities take no constructor parameters. If you need to use parameters
 like context or request, consider using views or adapters instead.
 Utilities may or may not have a name.
 
-* Utility can be provided by a function: function is being called and it returns utility object
+* A utility can be provided by a function: the function is called and it
+  returns the utility object.
 
-* Utility can be provided by a class: class __call__() method itself acts as an factory and returns new class instance
+* A utility can be provided by a class: the class ``__call__()`` method
+  itself acts as an factory and returns a new class instance.
 
-ZCML example::
+ZCML example:
 
-   <!-- Register header animation picking logic - override this for your custom logic -->
-   <utility
-     provides="gomobile.convergence.interfaces.IConvergenceMediaFilter"
-     factory=".filter.ConvergedMediaFilter" />
+.. code-block:: xml 
+
+    <!-- Register header animation picking logic - override this for your custom logic -->
+    <utility
+        provides="gomobile.convergence.interfaces.IConvergenceMediaFilter"
+        factory=".filter.ConvergedMediaFilter" />
          
 
 Python example (named utility)::
 
-	def registerOnsitePaymentProcessor(processor_class):
-	    """ """
+    def registerOnsitePaymentProcessor(processor_class):
+        """ """
 
-	    # Make OnsitePaymentProcessor class available as utiltiy
-	    processor = processor_class()
-	    gsm = component.getGlobalSiteManager()
-	    gsm.registerUtility(processor, interfaces.IOnsitePaymentProcessor, processor.name)
-	    
-The utility class "factory" is in its simplest form a class which implements the interface::
+        # Make OnsitePaymentProcessor class available as utiltiy
+        processor = processor_class()
+        gsm = component.getGlobalSiteManager()
+        gsm.registerUtility(processor, interfaces.IOnsitePaymentProcessor, processor.name)
+        
+The utility class "factory" is in its simplest form a class which implements
+the interface::
 
-        class ConvergedMediaFilter(object):
-            """ Helper class to deal with media state of content objects. 
-            
-            """
-            
-            zope.interface.implements(IConvergenceMediaFilter)
-            
-            def foobar(x):
-                """ An example method """
-                return x+2	    
+    class ConvergedMediaFilter(object):
+        """ Helper class to deal with media state of content objects.  
+        """
+        
+        zope.interface.implements(IConvergenceMediaFilter)
+        
+        def foobar(x):
+            """ An example method """
+            return x+2      
 
 Class is constructed / factory is run during the ZCML initialization.
 
 To use this class::
     
-        from gomobile.convergence.interfaces import IConvergenceMediaFilter
-        
-        def something():
-           filter = getUtility(IConvergenceMediaFilter)
-           x = filter.foobar(3)                    
+    from gomobile.convergence.interfaces import IConvergenceMediaFilter
+
+    def something():
+       filter = getUtility(IConvergenceMediaFilter)
+       x = filter.foobar(3)                    
 
 Registering a local utility
------------------------------
+=============================
 
 * http://plone.org/documentation/manual/developer-manual/generic-setup/reference/component-registry
 
@@ -111,26 +119,30 @@ Registering a local utility
 
 * http://pypi.python.org/pypi/z3c.baseregistry
 
-.. warning ::
+.. warning::
 
-	Local utilities are potentially destroyed on the add-on product reinstall.
-	Do not use them to store any data.
+    Local utilities may be destroyed when the add-on product that 
+    provides them is reinstalled.
+    Do not use them to store any data.
 
 * http://markmail.org/thread/twuhyldgyje7p723
 
 Overriding utility
-------------------
+==================
 
-If you want to override any existing utility you can re-register the utility  in ``overrides.zcml`` file in your product.
+If you want to override any existing utility you can re-register the utility
+in the ``overrides.zcml`` file in your product.
 
-Getting utility
----------------
+Getting a utility
+==================
 
-There are two functions
+There are two functions:
 
-    * zope.component.getUtility will raise exception if utility is not found
+``zope.component.getUtility``
+    will raise an exception if the utility is not found.
 
-    * zope.component.queryUtility will return None if utility is not found
+``zope.component.queryUtility``
+    will return ``None`` if the utility is not found.
 
 Utility query parameters are passed to the utility class constructor.
 
@@ -142,14 +154,15 @@ Example::
     # they are optional and depend on the utility itself
     picker = getUtility(IHeaderAnimationPicker, context, request)
 
-.. note ::
+.. note::
 
-        You cannot use getUtility() on Python module body level code 
-        during import, as Zope Component Architecture is not yet initialized.
-        Always call getUtility() from HTTP request end point or after Zope 
-        has been started.
+    You cannot use ``getUtility()`` on Python module level code 
+    during import, as the Zope Component Architecture is not yet initialized
+    at that time.
+    Always call ``getUtility()`` from an HTTP request end point or after
+    Zope has been started.
 
-Query local + global utilities::
+Query local + global utilities:
 
 ``zope.component.queryUtility()`` for local utilities, with global fallback.
 
@@ -159,35 +172,35 @@ Query only global utilities::
     gsm = zapi.getGlobalSiteManager()
     return gsm.getUtility(IConvergenceMediaFilter)  
 
-.. warning ::
+.. warning::
 
-        Due to Zope component architecture initialization order, you cannot call getUtility()
-        in module level Python code. Module level Python code is run when the module is being
-        imported, and Zope components are not yet necessary set up in this point. 
+    Due to Zope component architecture initialization order, you cannot call
+    ``getUtility()`` in module-level Python code.
+    Module-level Python code is run when the module is being
+    imported, and Zope components are not yet set up at this point. 
 
 Getting all named utilities of one interface
---------------------------------------------
+============================================
 
-Use zope.component.getUtilitiesFor().
+Use ``zope.component.getUtilitiesFor()``.
 
-Example
+Example::
 
-.. code-block:: python
+    def OnsitePaymentProcessors(context):
+        """ List all registered on-site payment processors.
 
-	def OnsitePaymentProcessors(context):
-	    """ List all registered on-site payment processors.
+        Mostly useful for validating form input.
 
-	    Mostly useful for validating form input.
+        Vocabulary contains all payment processors, not just active ones.
 
-	    Vocabulary contains all payment processors, not just active ones.
+        @return: zope.vocabulary.SimpleVocabulary
+        """
 
-	    @return: zope.vocabulary.SimpleVocabulary
-	    """
-	    utilities = component.getUtilitiesFor(interfaces.IOnsitePaymentProcessor)
-	    for name, instance in utilities:
-	    	pass
+        utilities = component.getUtilitiesFor(interfaces.IOnsitePaymentProcessor)
+        for name, instance in utilities:
+            pass
 
 Unregistering utilities
-------------------------
+========================
 
 * http://www.muthukadan.net/docs/zca.html#unregisterutility
