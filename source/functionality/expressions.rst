@@ -248,3 +248,22 @@ Example::
     tal:define="
             portal context/portal_url/getPortalObject;
             portal_description portal/Description"
+
+Through-the-web scripts
+========================
+
+.. note ::
+
+   TODO: Move TTW script info to its own chapter.
+
+Zope Management Interface allows one to create, edit and execute :doc:`RestrictedPython sandboxed scripts 
+<//security/sandboxing>` directly through the web management interface. This functionality
+is ancient and generally discouraged nowadays in the favor or :doc:`view classes </views/browserviews>`.
+
+Creating a TTW Python script in an add-on installer
+-----------------------------------------------------
+
+Here is an example how one can pre-seed a Python script in 
+an add-on installer.
+
+
