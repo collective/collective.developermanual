@@ -218,4 +218,21 @@ More info:
 
 * http://stackoverflow.com/questions/6170962/plone-app-caching-for-front-page-only
 
+Creating a "cache forever" view
+-----------------------------------
+
+You might create views which generate or produce resources (images, JS, CSS)
+in-fly. If you refer this views always through content unique URL 
+you can cache the view result forever.
+
+This can be done
+
+* Using blob._p_mtime, or similar, to get the modified timestamp of the related content item.
+  All persistent ZODB objects have _p_mtime
+
+* Setting *plone.stableResource* ruleset on the view
+
+
+
+
 .. |---| unicode:: U+02014 .. em dash
