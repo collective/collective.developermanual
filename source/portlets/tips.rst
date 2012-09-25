@@ -116,7 +116,88 @@ which have been assigned to the portal root::
             # and automatically generated
             for id, assignment in mapping.items():
                 print "Found portlet assignment:" + id + " " + str(assignment)
-                    
+
+Looking up a portlet by id
+-----------------------------
+
+Here are some tips how to extract the portlet id data in the portlet 
+renderer to pass around to be consumed elsewhere.
+
+portlets.py::
+
+    def getImageURL(self, imageDesc):
+        """
+        :return: The tag to be used to rended <img>
+
+        """
+
+        # The real context, where the data is stored, here is Assignment
+        # self.context points to the viewed portal item
+
+        # http://plone.org/products/plone.app.imaging
+        context = self.context.aq_inner
+
+        #portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+
+        params = dict(
+            portletName=self.__portlet_metadata__["name"],
+            portletManager=self.__portlet_metadata__["manager"],
+            image=imageDesc["id"],
+            modified=self.data._p_mtime
+        )
+
+        imageURL = "%s/@@image-portlet-downloader?%s" % (context.absolute_url(), urllib.urlencode(params))
+
+        # XXX: Escape
+        return imageURL
+
+Then we can re-loop-up this portlet and its image field, based on the field name, in the downloader view::
+
+    
+    # Zope imports
+    from zope.interface import Interface
+    from zope.component import getUtility, getMultiAdapter
+    from five import grok
+    
+    # Plone imports
+    from plone.portlets.interfaces import IPortletManager
+    from plone.portlets.interfaces import IPortletAssignmentMapping
+    from plone.namedfile.utils import set_headers, stream_data
+    
+    
+    class ImagePortletImageDownload(grok.codeView):
+        """
+        Expose image fields as downloadable BLOBS from the image portlet.
+    
+        Allow set caching rules (content caching for this view)
+        """
+        grok.context(Interface)
+        grok.name("image-portlet-downloader")
+    
+        def render(self):
+            """
+    
+            """
+            content = self.context
+    
+            # Read portlet assignment pointers from the GET query
+            name = self.request.form.get("portletName")
+            portletManager = self.request.form.get("portletManager")
+            imageId = self.request.form.get("image")
+    
+            # Resolve portlet and its image field
+            manager = getUtility(IPortletManager, name=portletManager, context=content)
+            mapping = getMultiAdapter((content, manager), IPortletAssignmentMapping)
+            portlet = mapping[name]
+            image = getattr(portlet, imageId, None)
+            if not image:
+                # Ohops?
+                return ""
+
+
+
+See *imageportlet* add-on for the complete example.
+
 
 Walking through every portlet on the site
 -----------------------------------------
