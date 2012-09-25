@@ -463,11 +463,11 @@ Example::
         # Contains lists of values from Choice list using special "get_field_list" vocabulary
         # We also give a plone.form.directives hint to render this as
         # multiple checbox choices
-        form.widget(enabled_overrides=CheckBoxFieldWidget)
-        alternatives = schema.List(title=u"Available headers and animations",
+        form.widget(yourField=CheckBoxFieldWidget)
+        yourField = schema.List(title=u"Available headers and animations",
                                    description=u"Headers and animations uploaded here",
                                    required=False, default=[],
-                                   value_type=zope.schema.Choice(source=get_field_list),
+                                   value_type=zope.schema.Choice(source=yourVocabularyFunction),
                                    )
 
 Dynamic schemas
