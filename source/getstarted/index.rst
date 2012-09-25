@@ -62,6 +62,8 @@ you create a code skeleton (scaffold) for its using :doc:`Plone ZopeSkel code te
 
 Please read how to use :doc:`ZopeSkel to bootstrap your first add-on </getstarted/paste>`.
 
+If you want to create a package with :doc:`Dexterity content types please read the tutorial</getstarted/dexterity>`.
+
 Plone development workflow
 ----------------------------
 
