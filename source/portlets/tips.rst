@@ -125,74 +125,120 @@ renderer to pass around to be consumed elsewhere.
 
 portlets.py::
 
-    def getImageURL(self, imageDesc):
-        """
-        :return: The tag to be used to rended <img>
+    class Renderer(base.Renderer):
 
-        """
+        def getImageURL(self, imageDesc):
+            """
+            :return: The URL where the image can be downloaded from.
 
-        # The real context, where the data is stored, here is Assignment
-        # self.context points to the viewed portal item
+            """
+            context = self.context.aq_inner
 
-        # http://plone.org/products/plone.app.imaging
-        context = self.context.aq_inner
+            # [{'category': 'context', 'assignment': <imageportlet.portlets.Assignment object at 0x1138bb140>, 'name': u'bound-method-assignment-title-of-assignment-at-1', 'key': '/Plone/fi'},
+            params = dict(
+                portletName=self.__portlet_metadata__["name"],
+                portletManager=self.__portlet_metadata__["manager"],
+                image=imageDesc["id"],
+                modified=self.data._p_mtime,
+                portletKey=self.__portlet_metadata__["key"],
+            )
 
-        #portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+            imageURL = "%s/@@image-portlet-downloader?%s" % (context.absolute_url(), urllib.urlencode(params))
 
-        params = dict(
-            portletName=self.__portlet_metadata__["name"],
-            portletManager=self.__portlet_metadata__["manager"],
-            image=imageDesc["id"],
-            modified=self.data._p_mtime
-        )
+            return imageURL
 
-        imageURL = "%s/@@image-portlet-downloader?%s" % (context.absolute_url(), urllib.urlencode(params))
-
-        # XXX: Escape
-        return imageURL
-
-Then we can re-loop-up this portlet and its image field, based on the field name, in the downloader view::
+Then we can re-look-up this portlet and its image field, based on the field name, in the downloader view::
 
     
     # Zope imports
+    from zExceptions import InternalError
     from zope.interface import Interface
     from zope.component import getUtility, getMultiAdapter
     from five import grok
-    
+
     # Plone imports
     from plone.portlets.interfaces import IPortletManager
-    from plone.portlets.interfaces import IPortletAssignmentMapping
+    from plone.portlets.interfaces import IPortletRetriever
     from plone.namedfile.utils import set_headers, stream_data
-    
-    
-    class ImagePortletImageDownload(grok.codeView):
+
+
+    # Local imports
+    from interfaces import IAddonSpecific
+
+    grok.templatedir("templates")
+    grok.layer(IAddonSpecific)
+
+
+    class ImagePortletHelper(grok.CodeView):
+        """
+        Expose stuff downloadable from the image portlet BLOBs.
+        """
+        grok.context(Interface)
+        grok.baseclass()
+
+
+    class ImagePortletImageDownload(ImagePortletHelper):
         """
         Expose image fields as downloadable BLOBS from the image portlet.
-    
+
         Allow set caching rules (content caching for this view)
         """
         grok.context(Interface)
         grok.name("image-portlet-downloader")
-    
-        def render(self):
+
+        def getPortletById(self, content, portletManager, key, name):
             """
-    
+            :param content: Context item where the look-up is performed
+
+            :param portletManager: Portlet manager name as a string
+
+            :param key: Assignment key... context path as string for content portlets
+
+            :param name: Portlet name as a string
+
+            :return: Portlet assignment instance
             """
-            content = self.context
-    
-            # Read portlet assignment pointers from the GET query
-            name = self.request.form.get("portletName")
-            portletManager = self.request.form.get("portletManager")
-            imageId = self.request.form.get("image")
-    
+
+            # Make sure we got input
+            assert key, "Give a proper portlet assignment key"
+            assert name, "Give a proper portlet assignment name"
+
             # Resolve portlet and its image field
             manager = getUtility(IPortletManager, name=portletManager, context=content)
-            mapping = getMultiAdapter((content, manager), IPortletAssignmentMapping)
-            portlet = mapping[name]
+
+            # Mappings can be directly used only when
+            # portlet is directly assignment to the content.
+            # If it is assigned to the parent we would fail here.
+            # mapping = getMultiAdapter((content, manager), IPortletAssignmentMapping)
+
+            retriever = getMultiAdapter((content, manager,), IPortletRetriever)
+
+            for assignment in retriever.getPortlets():
+                if assignment["key"] == key and assignment["name"] == name:
+                    return assignment["assignment"]
+
+            return None
+
+        def render(self):
+            """
+
+            """
+            content = self.context.aq_inner
+
+            # Read portlet assignment pointers from the GET query
+            name = self.request.form.get("portletName")
+            manager = self.request.form.get("portletManager")
+            imageId = self.request.form.get("image")
+            key = self.request.form.get("portletKey")
+
+            portlet = self.getPortletById(content, manager, key, name)
+            if not portlet:
+                raise InternalError("Portlet not found: %s %s" % (key, name))
+
             image = getattr(portlet, imageId, None)
             if not image:
                 # Ohops?
-                return ""
+                raise InternalError("Image was empty: %s" % imageId)
 
 
 
