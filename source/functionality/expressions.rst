@@ -5,7 +5,8 @@ Expressions
 .. admonition:: Description
 
     Expressions are string templates or Python expressions
-    which are used in various places in Plone for templates, action conditions
+    which are used in various places in Plone for templates,
+    action conditions
     and URL generation. 
 
 .. contents:: :local:
@@ -28,16 +29,16 @@ Expressions are used in:
 
 * the ``tal:condition``, ``tal:content``, ``tal:replace``,
   ``tal:attribute``, ``tal:define`` :term:`TAL` directives;
-  
+
 * ``portal_css``, ``portal_javascript`` and other resource managers, to
   express when a resource should be included or not;
- 
+
 * ``portal_actions`` to define when content, site and user actions are
   visible.
-       
+
 Expression types
 ================
-        
+
 There are three main categories of expressions.
 
 Expression can contain an optional ``protocol:`` prefix
@@ -46,7 +47,8 @@ to determine the expression type.
 path expression (default)
 --------------------------
 
-Unless you specify expression type using ``python:`` or ``string:`` notation
+Unless you specify an expression type using ``python:`` or ``string:``
+notation,
 a `path expression <http://docs.zope.org/zope2/zope2book/AppendixC.html#tales-path-expressions>`_
 is assumed.
 
@@ -54,16 +56,17 @@ Path expressions use slashes for traversal
 (:doc:`traversing </serving/traversing>`),
 and will implicitly call callables.
 
-Example: call the ``Title()`` method of the ``context`` object
+Example: call the ``Title()`` method on the ``context`` object
+(finding it by :term:`acquisition` if necessary)
 and return its value::
- 
+
     context/Title        
 
 Variables can be included using ``?``.
 Example: access a folder using the id stored in the ``myItemId`` variable,
 and return its title::
 
-        context/?myItemId/Title
+    context/?myItemId/Title
 
 .. Note::
 
@@ -89,7 +92,7 @@ Evaluate as Python code.
 Example::
 
     python:object.myFunction() == False             
-        
+
 
 Expression variables
 ==============================
@@ -109,9 +112,9 @@ Available expression variables are defined in ``CMFCore/Expressions.py``::
         'member':       member,
         'here':         object,
         }
-        
+
 You can also access :doc:`helper views </misc/context>` directly by name.
-    
+
 Using expressions in your own code
 ===================================
 
@@ -120,31 +123,31 @@ want to attach them to something, but this is not necessary.
 
 Example::
 
-	from Products.CMFCore.Expression import Expression, getExprContext
-	
-	# Create a sample expression - usually this is taken from
-	# the user input
-	expression = Expression("python:context.Title() == 'foo')
-	
-	expression_context = getExprContext(self.context)  
-	
-	# Evaluate expression by calling
-	# Expression.__call__(). This
-	# will return whatever value expression evaluation gives
-	value = expression(expression_context)
-	
-	if value.strip() == "":
-		# Usually empty expression field means that
-		# expression should be True
-		value = True
-	
-	if value:
-		# Expression succeeded
-		pass
-	else:
-		pass
-		
-    
+    from Products.CMFCore.Expression import Expression, getExprContext
+
+    # Create a sample expression - usually this is taken from
+    # the user input
+    expression = Expression("python:context.Title() == 'foo')
+
+    expression_context = getExprContext(self.context)  
+
+    # Evaluate expression by calling
+    # Expression.__call__(). This
+    # will return whatever value expression evaluation gives
+    value = expression(expression_context)
+
+    if value.strip() == "":
+        # Usually empty expression field means that
+        # expression should be True
+        value = True
+
+    if value:
+        # Expression succeeded
+        pass
+    else:
+        pass
+
+
 Custom expression using a helper view
 =====================================
 
@@ -153,17 +156,17 @@ it is best to put this code in a BrowserView
 and expose it as a method.
 
 Then you can call the method on a view from a TALES expression::
-    
+
     object/@@my_view_name/my_method
 
 Your view code would look like::
 
     class MyViewName(BrowserView):
         """ Exposes methods for expression conditions """ 
-            
+
         def my_method(self):
             """ Funky condition 
-            
+
             self.context = object for which this view was traversed
             """
             if self.context.Title().startswith("a"):
@@ -202,17 +205,25 @@ Example how to generate a multilingual-aware RSS feed link::
 Check current language in TAL page template
 ----------------------------------------------
 
-If you need to have HTML code, e.g. links, conditioned by a langauge in templates
+For example, in case you need to generate HTML such as links
+conditionally, depending on the current language:
 
-Example::
+Example:
 
-	<a tal:define="language context/@@plone_portal_state/language" tal:condition="python: language == 'fi'"
+.. code-block:: html
+
+    <a tal:define="language context/@@plone_portal_state/language" tal:condition="python: language == 'fi'"
            href="http://www.fi">Finnish link</a>
-           
-Example to have different footers (or something similar) for different languages::
 
-    <div tal:replace="structure context/footertext"  tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'no'" /> 
-    <div tal:replace="structure context/footertexteng"  tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'en'" />
+Example to have different footers (or something similar)
+for different languages:
+
+.. code-block:: html
+
+    <div tal:replace="structure context/footertext"
+        tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'no'" /> 
+    <div tal:replace="structure context/footertexteng"
+        tal:condition="python:context.restrictedTraverse('@@plone_portal_state').language() == 'en'" />
 
 
 Check if object implements an interface
@@ -232,7 +243,7 @@ Example::
     python:"localhost" in request.environ.get("HTTP_HOST", "")
 
 
-Check if the object is certain content type
+Check if the object is a certain content type
 ----------------------------------------------
 
 Example::
@@ -252,18 +263,21 @@ Example::
 Through-the-web scripts
 ========================
 
-.. note ::
+.. todo::
 
-   TODO: Move TTW script info to its own chapter.
+   Move TTW script info to its own chapter.
 
-Zope Management Interface allows one to create, edit and execute :doc:`RestrictedPython sandboxed scripts 
-<//security/sandboxing>` directly through the web management interface. This functionality
-is ancient and generally discouraged nowadays in the favor or :doc:`view classes </views/browserviews>`.
+The Zope Management Interface allows one to create,
+edit and execute 
+:doc:`RestrictedPython sandboxed scripts </security/sandboxing>`
+directly through the web management interface. This functionality
+is generally discouraged nowadays in the favor of
+:doc:`view classes </views/browserviews>`.
 
 Creating a TTW Python script in an add-on installer
 -----------------------------------------------------
 
-Here is an example how one can pre-seed a Python script in 
+Here is an example of how one can pre-seed a Python script in 
 an add-on installer :doc:`GenericSetup profile </components/genericsetup>`.
 
 ``setuphandlers.py``::
@@ -274,11 +288,8 @@ an add-on installer :doc:`GenericSetup profile </components/genericsetup>`.
     if port not in (80, 443):
         # Don't kick in HTTP/HTTPS redirects if the site
         # is directly being accessed from a Zope front-end port
-        return None
-
-  
+        return None 
     """
-
 
     def runCustomInstallerCode(site):
         """ Run custom add-on product installation code to modify Plone site object and others
