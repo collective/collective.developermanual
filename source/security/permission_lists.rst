@@ -5,7 +5,7 @@ Available permissions in Plone
 .. admonition:: Description
 
         What Zope security permissions you have available for your Plone coding
-        
+
 .. contents :: local
 
 Listing different available permissions
@@ -39,24 +39,55 @@ Example using UNIX grep tool:
 .. code-block:: console
 
 	grep -C 3 -Ri --include=*.zcml "<permission" *
-	
+
 Useful permissions
 ------------------
 
 Permissions are shown by their verbose name in the :term:`ZMI`.
 
-``List folder contents``
-    This governs whether you can get a listing of the contents of a folder;
-    it doesn't check whether you have the right to view the objects listed.
-``View`` 
-    This governs whether you are allowed to view some content.  
-``Modify Portal Content``
-    This governs whether you are allowed to modify some content.
+``View``
+    This governs whether you are allowed to view some content.
 ``Access Contents Information``
     This permission allows access to an object, without necessarily viewing
     the object. For example, a user may want to see the object's title in a
     list of results, even though the user can't view the contents of that
     file.
+``List folder contents``
+    This governs whether you can get a listing of the contents of a folder;
+    it doesn't check whether you have the right to view the objects listed.
+``Modify Portal Content``
+    This governs whether you are allowed to modify some content.
+``Manage Portal``
+    This permission allows you to manage the portal.
+    A number of views in the plone control panel are protected with this view.
+    If you plan to write a reusable product, be very hesitant to use this permission, check whether a custom permission might make more sense.
+
+There is no single permission for adding content. Every content type has its own permission.
+If you create your own content type, create a custom add permission for it.
+
+.. table:: Permissions
+=========================== ===================================
+Permission name             Permission name for ZCML
+=========================== ===================================
+View                        zope2.View
+Access Contents Information zope2.AccessContentsInformation
+List folder contents        cmf.ListFolderContents
+Modify Portal Content       cmf.ModifyPortalContent
+Manage Portal               cmf.ManagePortal
+=========================== ===================================
+
+To reference a permission in code, you need the name as a string.
+Using strings is a bad convention, all common permissions have a constant in Products.CMFCore.permissions.
+So to perform a permission check propery, you do something like this::
+
+    from AccessControl import getSecurityManager
+    from AccessControl import Unauthorized
+    from Products.CMFCore import permissions
+
+    if not getSecurityManager().checkPermission(permission.ModifyPortalContent, object):
+        raise Unauthorized("You may not modify this object")
+
+All standard permissions from above can be referenced by their Permission name without spaces.
 
 More info:
 
