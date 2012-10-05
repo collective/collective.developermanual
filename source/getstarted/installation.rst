@@ -115,7 +115,7 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-        sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils
+        sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils python-imaging
 
    Install also version control software needed often when developing with Plone::
 
