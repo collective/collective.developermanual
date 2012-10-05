@@ -420,6 +420,29 @@ More information:
 
 * http://starzel.de/blog/how-to-get-a-different-look-for-some-pages-of-a-plone-site
 
+URL quoting inside TAL templates
+----------------------------------
+
+You need to escape TAL attribute URLs if they contain special characters like plus (+)
+in query parameters. Otherwise browsers will mangle links, leading to incorrect parameter
+passing.
+
+Zope 2 provides ``url_quote()`` function which you can access
+
+.. code-block:: xml
+
+  <td id="cal#"
+        tal:define="std modules/Products.PythonScripts.standard;
+                    url_quote nocall: std/url_quote;
+
+Then you can use this function in your TAL code
+
+.. code-block:: xml
+
+       <a href="#" tal:define="start_esc python:url_quote(start)" 
+          tal:attributes="href string: ${url}/day?currentDate=${start_esc}&xmy=${xmy}&xsub=${xsub}">
+
+
 .. _z3c.jbot: http://pypi.python.org/pypi/z3c.jbot
 .. _Roll out your own add-on:
 .. _sane_plone_addon_template:
