@@ -29,7 +29,7 @@ following snippet.
 
 See the set-up for the http://plone.org/ site as an example:
 
-* https://github.com/plone/Products.PloneOrg/tree/master/Products/PloneOrg/caching.py
+* https://github.com/plone/Products.PloneOrg/blob/master/src/Products/PloneOrg/caching.py
 
 RAM Cache
 ---------
