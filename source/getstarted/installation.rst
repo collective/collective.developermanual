@@ -108,7 +108,7 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-        sudo apt-get install python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
+        sudo apt-get install python-distribute python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
    You will probably also want these optional system packages (see `Plone manual
    <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
