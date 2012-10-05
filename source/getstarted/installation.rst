@@ -117,6 +117,10 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
         sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils
 
+   Install also version control software needed often when developing with Plone::
+
+        sudo apt-get install subversion git
+
    .. note::
 
       If sudo command is not recognized or does not work you don't have administrator rights to
