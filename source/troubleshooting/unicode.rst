@@ -26,6 +26,26 @@ Read more:
 
 * http://evanjones.ca/python-utf8.html
 
+safe_unicode()
+=====================
+
+Plone's core contain a helper function which allows you 
+to safely decode strings to unicode without fear of UnicodeDecodeException.
+Use this in your own code to decode unicode in the cases you are
+not sure if the input is 8-bit bytestrings or real unicode strings.
+
+https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/utils.py#L434
+
+Example::
+
+     # -*- coding: utf-8 -*-
+
+     from Products.CMFPlone.utils import safe_unicode
+
+
+     foobar = safe_unicode("Ärrinmurrin taas on Plonea joku jättänyt dokumentoimatta")
+
+
 sys.setdefaultencoding()
 =========================
 
