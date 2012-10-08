@@ -1028,3 +1028,30 @@ viewlet
 
             # and that's it.  Everything else from here out is identical to the
             # example above.
+
+
+Poking viewlet registrations programmatically
+------------------------------------------------
+
+Below is an example how one can poke viewlets registration for a Plone site.
+
+    from zope.component import getUtility
+    from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
+
+
+    def fix_tinymce_viewlets(site):
+        """
+        Make sure TinyMCE viewlet is forced to be in Plone HTML <head> viewletmanager.
+
+        For some reason, runnign in our viewlets.xml has no effect so we need to fix this by hand.
+        """
+
+        # Poke me like this: for i in storage._hidden["Isle of Back theme"].items(): print i
+        storage = getUtility(IViewletSettingsStorage)
+        manager = "plone.htmlhead'"
+        skinname = site.getCurrentSkinName()
+
+        # Force tinymce.configuration out of hidden viewlets in <head>
+        hidden = storage.getHidden(manager, skinname)
+        hidden = (x for x in hidden if x != u'tinymce.configuration')
+        storage.setHidden(manager, skinname, hidden)
