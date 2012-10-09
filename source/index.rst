@@ -52,6 +52,7 @@ Installing & Maintaining Plone sites
    getstarted/installation
    buildout/index
    hosting/index
+   deployment/index
 
 Testing and tuning Plone
 -------------------------------------------
