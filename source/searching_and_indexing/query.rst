@@ -28,7 +28,7 @@ Example::
 
     # portal_catalog is defined in the site root
     portal_catalog = site.portal_catalog
-        
+
 You can also use :doc:`ITools </misc/context>` tool to get access to
 ``portal_catalog`` if you do not have Plone site object directly available::
 
@@ -36,17 +36,17 @@ You can also use :doc:`ITools </misc/context>` tool to get access to
     tools = getMultiAdapter((context, self.request), name=u'plone_tools')
 
     portal_url = tools.catalog()
-    
+
 There is also a third way, using traversing. This is discouraged, as this
 includes extra processing overhead::
 
-    # Use magical Zope acquisition mechanism 
+    # Use magical Zope acquisition mechanism
     portal_catalog = context.portal_catalog
-    
+
 ... and the same in TAL template::
 
     <div tal:define="portal_catalog context/portal_catalog" />
- 
+
 
 A safer method is to use the ``getToolByName`` helper function::
 
@@ -116,15 +116,15 @@ Some of the most commonly used ones are:
 
 Title
     The title of the content object.
-Description 
+Description
     The description field of the content.
-Subject 
+Subject
     The keywords used to categorize the content. Example:
     ::
 
         catalog.searchResults(Subject=('cats', 'dogs'))
 
-portal\_type 
+portal\_type
     As its name suggest, search for content whose portal type is
     indicated. For example:
     ::
@@ -137,7 +137,7 @@ portal\_type
 
         catalog.searchResults(portal_type=('News Item', 'Event'))
 
-review\_state 
+review\_state
     The current workflow review state of the content. For example:
     ::
 
@@ -168,7 +168,7 @@ object\_provides
 Brain result id
 ========================
 
-Result ID (RID) is given with the brain object and you can use this ID to query 
+Result ID (RID) is given with the brain object and you can use this ID to query
 further info about the object from the catalog.
 
 Example::
@@ -194,7 +194,7 @@ this information from ``__record_schema__`` attribute which is a dict.
 Example::
 
         for i in brain.__record_schema__.items(): print i
-        
+
         ('startDate', 32)
         ('endDate', 33)
         ('Title', 8)
@@ -287,7 +287,7 @@ not searching by it. The sort\_order can be either 'ascending' or
 
 ::
 
-    results = catalog_searchResults(Description='Plone documentation', 
+    results = catalog_searchResults(Description='Plone documentation',
                                     sort_on='sortable_title', sort_order='ascending')
 
 The catalog.searchResults() returns a list-like object, so to limit
@@ -306,7 +306,7 @@ potentially return a few more items, so it's preferable to use both
 ::
 
     limit = 50
-    results = catalog.searchResults(Description='Plone documentation', 
+    results = catalog.searchResults(Description='Plone documentation',
                                     sort_limit=limit)[:limit]
 
 
@@ -346,7 +346,7 @@ Accessing indexed data
 ========================
 
 Normally you don't get copy of indexed data with brains, only metadata.
-You can still access the raw indexed data if you know what you are doing 
+You can still access the raw indexed data if you know what you are doing
 by using RID of the brain object.
 
 Example::
@@ -389,12 +389,12 @@ Example::
 
 You can also directly access a single index::
 
-    # Get event brain result id 
+    # Get event brain result id
     rid = event.getRID()
     # Get list of recurrence_days indexed value.
-    # ZCatalog holds internal Catalog object which we can directly poke in evil way    
-    # This call goes to Products.PluginIndexes.UnIndex.Unindex class and we 
-    # read the persistent value from there what it has stored in our index 
+    # ZCatalog holds internal Catalog object which we can directly poke in evil way
+    # This call goes to Products.PluginIndexes.UnIndex.Unindex class and we
+    # read the persistent value from there what it has stored in our index
     # recurrence_days
     indexed_days = portal_catalog._catalog.getIndex("recurrence_days").getEntryForObject(rid, default=[])
 
@@ -411,8 +411,8 @@ Following is useful in unit test debugging::
 .. note:
 
         Security: This portal_catalog() query respects the permissions of the currently logged in user
-        
-               
+
+
 Bypassing query security check
 ==============================
 
@@ -428,11 +428,11 @@ Example::
     # Print absolute content of portal_catalog
     for i in portal_catalog.unrestrictedSearchResults(): print i.getURL()
 
-With ``unrestrictedSearchResults()`` you need also a special way to get access to 
+With ``unrestrictedSearchResults()`` you need also a special way to get access to
 the objects without triggering a security exception::
 
     obj = brain._unrestrictedGetObject()
-    
+
 Bypassing language check
 ========================
 
@@ -441,24 +441,24 @@ Bypassing language check
         All portal_catalog() queries are limited to the selected language of
         current user. You need to explicitly bypass the language check if you
         want to do multilingual queries.
-        
+
 Example of how to bypass language check::
 
     all_content_brains = portal_catalog(Language="")
-    
-Some older LinguaPlone versions, which are still using ``LanguageIndex`` to 
-keep language information in portal_catalog() may require::    
-    
+
+Some older LinguaPlone versions, which are still using ``LanguageIndex`` to
+keep language information in portal_catalog() may require::
+
     all_content_brains = portal_catalog(Language="all")
-    
+
 More information
 
 * http://plone.293351.n2.nabble.com/Products-LinguaPlone-LanguageIndex-vs-FieldIndex-td5554729.html#a5747819
-    
+
 Bypassing Expired content check
 ================================
 
-Plone and portal_catalog have a mechanism to list only 
+Plone and portal_catalog have a mechanism to list only
 active (non-expired) content by default.
 
 Below is an example of how the expired content check is made::
@@ -467,10 +467,10 @@ Below is an example of how the expired content check is made::
         show_inactive = mtool.checkPermission('Access inactive portal content', context)
 
         contents = context.portal_catalog.queryCatalog(show_inactive=show_inactive)
-              
+
 See also::
 
-* :doc:`Listing </content/listing>` 
+* :doc:`Listing </content/listing>`
 
 
 None as query parameter
@@ -479,10 +479,10 @@ None as query parameter
 .. warning ::
 
         Usually if you pass in None as the query value, it will match all the objects instead of zero objects.
-        
+
 .. note ::
-        
-        Querying for None values is possible with AdvancedQuery_ (see below). 
+
+        Querying for None values is possible with AdvancedQuery_ (see below).
 
 
 Query by path
@@ -531,11 +531,11 @@ example:
 Query multiple values
 =====================
 
-``KeywordIndex`` index type indexes list of values. 
+``KeywordIndex`` index type indexes list of values.
 It is used e.g. by Plone's categories (subject) feature
 and `object_provides`` provided interfaces index.
 
-You can either query 
+You can either query
 
 * a single value in the list
 
@@ -554,8 +554,8 @@ Attributes of record objects
 
 * ``operator`` -- specifies the combination of search results when
   query is a sequence of values. (optional, default: 'or'). Allowed values:
-  'and', 'or'  
-     
+  'and', 'or'
+
 Below is an example of matching any of multiple values gives as a Python list in KeywordIndex.
 It queries all event types and recurrence_days KeywordIndex must match
 any of given dates::
@@ -565,12 +565,12 @@ any of given dates::
         # so if you want to speed up you can hardcode
         # recurrent event type list here.
         matched_recurrence_events = self.context.portal_catalog(
-                        portal_type=supported_event_types, 
+                        portal_type=supported_event_types,
                         recurrence_days={
-                            "query":recurrence_days_in_this_month, 
+                            "query":recurrence_days_in_this_month,
                             "operator" : "or"
                         })
-                                        
+
 
 Querying by interface
 =====================
@@ -592,7 +592,7 @@ Import the interface::
     from Products.MyProduct.interfaces import IIsCauseForCelebration
     catalog(object_provides=IIsCauseForCelebration.__identifier__)
 
-In a script, where you can't import the interface due to restricted Python, 
+In a script, where you can't import the interface due to restricted Python,
 you might do this::
 
     object_provides='Products.MyProduct.interfaces.IIsCauseForCelebration'
@@ -625,7 +625,7 @@ Caveats
 .. note ::
 
     Looks like query by Products.CMFCore.interfaces._content.IFolderish does not seem to work in Plone 4.1
-    as this implementation information is not populated in portal_catalog. 
+    as this implementation information is not populated in portal_catalog.
 
 Query by content type
 =====================
@@ -633,22 +633,22 @@ Query by content type
 To get all catalog brains of certain content type on the whole site::
 
         campaign_brains = self.context.portal_catalog(portal_type="News Item")
-        
+
 To see available type names, visit in portal_types tool in ZMI.
 
 Query published items
 =====================
 
-By default, the portal_catalog query does not care about the workflow state. 
+By default, the portal_catalog query does not care about the workflow state.
 You might want to limit the query to published items.
 
 Example::
 
         campaign_brains = self.context.portal_catalog(portal_type="News Item", review_state="published")
-        
+
 
 review_state is a portal_catalog index which reads portal_workflow variable "review_state".
-For more information, see what portal_workflow tool *Content* tab in ZMI contains.        
+For more information, see what portal_workflow tool *Content* tab in ZMI contains.
 
 Getting a random item
 =====================
@@ -660,29 +660,29 @@ The following view snippet allows you to get one random item on the site::
     def getRandomCampaign(self):
         """
         """
-        
-        
+
+
         campaign_brains = self.context.portal_catalog(portal_type="CampaignPage", review_state="published")
-        
+
         # Filter out the current item which we have
-        
-        bad_ids = [ "you", "might", "want to black  list some ids here" ] 
-        
+
+        bad_ids = [ "you", "might", "want to black  list some ids here" ]
+
         items = [ brain for brain in campaign_brains if brain["getId"] not in bad_ids ]
-        
+
         # Check that we have items left after filtering
-        
+
         items = list(items)
-        
+
         if len(items) >= 1:
             # Pick one
             chosen = random.choice(items)
             return chosen.getObject()
         else:
             # Fallback to the current content item if no random options available
-            return self.context            
-    
-   
+            return self.context
+
+
 Querying FieldIndexes by Range
 ==================================
 The following examples demonstrate how to do range based queries.
@@ -720,20 +720,20 @@ unpublished::
 
 
 Example 2 - how to get items one day old of FeedFeederItem content type::
-        
+
         # DateTime deltas are days as floating points
         end = DateTime.DateTime() + 0.1 # If we have some clock skew peek a little to the future
         start = DateTime.DateTime() - 1
-        
-        date_range_query = { 'query':(start,end), 'range': 'min:max'} 
-                
+
+        date_range_query = { 'query':(start,end), 'range': 'min:max'}
+
         items = portal_catalog.queryCatalog({"portal_type":"FeedFeederItem",
                                              "created" : date_range_query,
                                              "sort_on":"positive_ratings",
                                              "sort_order":"reverse",
                                              "sort_limit":count,
                                              "review_state":"published"})
-        
+
 
 Example 3: how to get news items for a particular year in the template code
 
@@ -773,7 +773,7 @@ Example 4 - how to get upcoming events of next two months::
         """
         dt = event["start"]
         return  dt.strftime("%d.%m.%Y")
-    
+
     def update(self):
         portal_catalog = self.context.portal_catalog
 
@@ -790,7 +790,7 @@ Example 4 - how to get upcoming events of next two months::
                                      "sort_limit": count,
                                      "review_state": "published"})
 
-More info 
+More info
 
 * http://www.ifpeople.net/fairsource/courses/material/apiPlone_en
 
@@ -799,8 +799,8 @@ Query by language
 
 You can query by language::
 
-        portal_catalog({"Language":"en"}) 
-        
+        portal_catalog({"Language":"en"})
+
 .. note ::
 
         Products.LinguaPlone must be installed.
@@ -813,7 +813,7 @@ using boolean logic. AdvancedQuery is developer level product,
 providing Python interface for constructing boolean queries.
 
 AdvancedQuery monkey-patches ``portal_catalog`` to provide
-new method ``portal_catalog.evalAdvancedQuery()``. 
+new method ``portal_catalog.evalAdvancedQuery()``.
 
 Example::
 
@@ -847,17 +847,17 @@ Example::
     query = Eq("path", diagnose_path) & Eq("SearchableText", text_query_target)
 
     return self.context.portal_catalog.evalAdvancedQuery(query)
-    
+
 .. note ::
 
 	Plone 3 ships with AdvancedQuery but it is not part of Plone. Always declare
 	AdvancedQuery dependency in your egg's setup.py install_requires.
-	
+
 .. warning ::
 
 	AdvancedQuery does not necessarily apply the same automatic limitations which normal
 	portal_catalog() queries do, like language and expiration date.
-	Always check your query code against these limitations.	 
+	Always check your query code against these limitations.
 
 More information
 
@@ -880,7 +880,7 @@ Below is a fail-safe example for a metadata access::
 
         (Based on collective.contentleadimage add-on product)
 
-        @param brain: Products.ZCatalog.Catalog.mybrains object 
+        @param brain: Products.ZCatalog.Catalog.mybrains object
 
         @return: HTML source code for content lead <img>
         """
@@ -890,15 +890,15 @@ Below is a fail-safe example for a metadata access::
             return None
 
         # Index can have indexed value None or
-        # custom value Missing.Value if the indexer 
+        # custom value Missing.Value if the indexer
         # for brain's object failed to run or returned Missing.
-        # Both of these values evaluate to False in Python 
+        # Both of these values evaluate to False in Python
         has_image = brain["hasContentLeadImage"]
 
         # The value was missing, None or False
         if not has_image:
             return None
-        
+
         context = brain.getObject()
 
         # AT inspection API
@@ -909,12 +909,17 @@ Below is a fail-safe example for a metadata access::
         # ImageField.tag() API
         if field.get_size(context) != 0:
             scale = "tile" # 64x64
-            return field.tag(context, scale=scale)            
+            return field.tag(context, scale=scale)
 
 .. note ::
 
 	This is for example purposes only - the code above is working, but not optimal,
 	and can be written up without waking up the object.
+
+Fuzzy search
+===============
+
+* http://pypi.python.org/pypi/c2.search.fuzzy/
 
 Unique values
 =============
@@ -950,7 +955,7 @@ Example::
 
     results = Batch(contents, self.b_size, self.b_start, orphan=0)
 
-* orphan - the next page will be combined with the current page if it does not contain more than orphan elements 
+* orphan - the next page will be combined with the current page if it does not contain more than orphan elements
 
 Walking through all content
 =============================
@@ -970,12 +975,12 @@ etc.) and thus they are invisible to the normal full text search.
 
 Example::
 
-    # Find arbitary HTML snippets on Plone content pages 
-    
+    # Find arbitary HTML snippets on Plone content pages
+
     # Collect script output as text/html, so that you can
     # call this script conveniently by just typing its URL to a web browser
     buffer = ""
-    
+
     # We need to walk through all the content, as the
     # links might not be indexed in any search catalog
     for brain in context.portal_catalog(): # This queries cataloged brain of every content object
@@ -989,7 +994,7 @@ Example::
                 buffer += "Found old links on <a href='%s'>%s</a><br>\n" % (obj.absolute_url(), obj.Title())
         except:
             pass # Something may fail here if the content object is broken
-    
+
     return buffer
 
 More info:
