@@ -58,6 +58,20 @@ Add to the ``[instance]`` part in ``buildout.cfg``:
             TZ Europe/Helsinki
         </environment>
 
+Log level
+=========
+
+Default log level in Zope is INFO.
+
+To reduce the log files size and to improve performances, add to the
+``[instance]`` part in ``buildout.cfg``:
+
+.. code-block:: cfg
+
+    event-log-level = WARN 
+    z2-log-level = CRITICAL
+
+
 Creating additional debug instances
 ====================================
 
