@@ -64,7 +64,7 @@ Log level
 The default log level in Zope is ``INFO``. This causes a lot of 
 logging that is usually not needed. 
 
-To reduce the size of log files size and improve performance, add 
+To reduce the size of log files and improve performance, add 
 the following to the ``[instance]`` part (the part(s) that specify
 your Zope instances) in ``buildout.cfg``:
 
