@@ -4,11 +4,11 @@ Deploying Plone for Production
 
 .. admonition:: Description
 
-    A guide to the Plone deployment stack, including load balancing, 
+    A guide to the Plone deployment stack, including load balancing,
     proxy caching,
     server preparation, backups, log rotation, and process control.
 
-    This guide particularly focuses on 
+    This guide particularly focuses on
     `Unix-like <https://en.wikipedia.org/wiki/Unix-like>`_ environments,
     though the stack discussion may be useful to everyone.
 
@@ -18,3 +18,5 @@ Deploying Plone for Production
     intro
     stack
     preparing
+
+    packing
