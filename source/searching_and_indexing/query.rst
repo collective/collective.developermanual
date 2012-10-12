@@ -1008,9 +1008,10 @@ Other notes
 
 * `Manual sorting example <http://www.universalwebservices.net/web-programming-resources/zope-plone/advanced-sorting-of-plone-search-results/>`_
 
+* `Getting all unique keywords <http://stackoverflow.com/questions/10497342/python-plone-getting-all-unique-keywords-subject>`_
+
 .. _AdvancedQuery: http://www.dieter.handshake.de/pyprojects/zope/AdvancedQuery.html
 
 .. _ExtendedPathIndex: https://github.com/plone/Products.ExtendedPathIndex/tree/master/README.txt
 
 .. _PluginxIndexes: http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/
-
