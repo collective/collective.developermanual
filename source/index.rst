@@ -109,6 +109,7 @@ Old reference manuals
 .. toctree::
    :maxdepth: 1
 
+   reference_manuals/old/archetypes/index
    reference_manuals/old/buildout/index
    reference_manuals/old/archgenxml/index
    reference_manuals/old/testing/index
