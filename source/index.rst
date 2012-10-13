@@ -32,7 +32,6 @@ Creating Plone add-ons and functionality
    sessions/index
    images/index
    misc/index
-   zope_secrets/index
 
 Plone Theme Development
 -------------------------------------------
@@ -97,6 +96,7 @@ Old reference manuals
    reference_manuals/buildout/index
    reference_manuals/archgenxml/index
    reference_manuals/portlets/index
+   reference_manuals/zope_secrets/index
 
 Other
 ------------

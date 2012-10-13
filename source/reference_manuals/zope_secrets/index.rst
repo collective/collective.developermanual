@@ -1,5 +1,5 @@
 ============================
-Zope 2 process internals
+Zope 2 internals
 ============================
 
 This documentation will attempt to explain some of Zope's internals. It may be
