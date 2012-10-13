@@ -107,27 +107,27 @@ Old reference manuals
     to be used in your active Plone development.
 
 .. toctree::
-   :maxdepth: 1
+    :maxdepth: 1
 
-   reference_manuals/old/archetypes/index
-   reference_manuals/old/buildout/index
-   reference_manuals/old/archgenxml/index
-   reference_manuals/old/testing/index
-   reference_manuals/old/portlets/index
-   reference_manuals/old/zope_secrets/index
-   reference_manuals/old/pluggable_authentication_service/index.rst
-   reference_manuals/old/old-style-vs-new-style/index
+    reference_manuals/old/archetypes/index
+    reference_manuals/old/buildout/index
+    reference_manuals/old/archgenxml/index
+    reference_manuals/old/testing/index
+    reference_manuals/old/portlets/index
+    reference_manuals/old/zope_secrets/index
+    reference_manuals/old/pluggable_authentication_service/index.rst
+    reference_manuals/old/old-style-vs-new-style/index
 
 :doc:`More information about the documentation deprecation process </reference_manuals/active/writing/nursinghome>`.
 
 Documentation style guide
 -----------------------------
 
-How to maintain this documentation and
-Plone related package documentation.
+Instructions and style guide for maintain this documentation
+and other Plone related developer documentation.
 
 .. toctree::
-   :maxdepth: 1
+    :maxdepth: 1
 
     reference_manuals/active/writing/index
 

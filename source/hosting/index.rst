@@ -9,7 +9,6 @@ How to manage Plone hosting and deployments.
 
     basics/index
     restarts
-    buildout
     zope
     apache
     wsgi
