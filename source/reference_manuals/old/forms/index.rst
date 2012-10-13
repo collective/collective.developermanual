@@ -1,13 +1,10 @@
-=====
-Forms
-=====
+===============
+zope.formlib
+===============
 
 .. admonition:: Description
 
-    This tutorial will explain how to write safer, better code that makes you
-    look more professional. That's right - it's time to write tests, for
-    everything you do. Don't worry, it's not boring or complicated, you just
-    need to learn how.
+    How to use zope.formlib library to create forms.
 
 .. toctree::
     :maxdepth: 1
