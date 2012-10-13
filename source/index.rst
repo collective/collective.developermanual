@@ -10,7 +10,9 @@ The Installalling & Maintaining section is addionally intended for integrators a
 Table of Content
 ================
 
-Creating Plone add-ons and functionality
+.. contents :: :local:
+
+Extending Plone Functionality
 -------------------------------------------
 
 .. toctree::
@@ -33,7 +35,7 @@ Creating Plone add-ons and functionality
    images/index
    misc/index
 
-Plone Theme Development
+Theme development
 -------------------------------------------
 
 .. toctree::
@@ -41,7 +43,7 @@ Plone Theme Development
 
    plone_theme_development/index
 
-Installing & Maintaining Plone sites
+Installing and maintaining Plone sites
 -------------------------------------------
 
 .. toctree::
@@ -98,13 +100,20 @@ Old reference manuals
    reference_manuals/portlets/index
    reference_manuals/zope_secrets/index
 
+Documentation style guide
+-----------------------------
+
+How to maintain this documentation and
+Plone related package documentation.
+
+    reference_manuals/writing/index
+
 Other
 ------------
 
 .. toctree::
    :maxdepth: 1
 
-   writing/index
    glossary
    todos
    old-style-vs-new-style/index
