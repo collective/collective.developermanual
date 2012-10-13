@@ -95,6 +95,7 @@ Old reference manuals
 
    reference_manuals/buildout/index
    reference_manuals/archgenxml/index
+   reference_manuals/testing/index
    reference_manuals/portlets/index
    reference_manuals/zope_secrets/index
 
