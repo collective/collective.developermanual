@@ -16,10 +16,10 @@ and what text to use in assertions.
 This is where zope.testrecorder comes in. The theory is that you click
 around the UI only once, and then render the history of what you did to
 a runnable testbrowser test. zope.testrecorder can even create
-`Selenium`_ tests - an alternative form of functional tests which runs
-in the browser (i.e. it automates your browser right before your eyes)
-and thus supports JavaScript, but which cannot be run as part of an
-automated test run without a browser.
+`Selenium <http://seleniumhq.org/>`_ tests - an alternative form of
+functional tests which runs in the browser (i.e. it automates your browser
+right before your eyes) and thus supports JavaScript, but which cannot
+be run as part of an automated test run without a browser.
 
 Installing zope.testrecorder is simple. First, check it out from Zope’s
 subversion repository:
@@ -41,7 +41,7 @@ Presuming you run Zope on localhost:8080, you should now be able to go
 to http://localhost:8080/test-recorder/index.html. You should see a page
 something like this:
 
-.. figure:: images/blank-testrecorder.png
+.. figure:: ../../images/blank-testrecorder.png
    :align: center
    :alt: Screenshot of blank test recorder
 
@@ -56,7 +56,7 @@ doctest, click the Add comment button. If you wish to verify that some
 text appears on the page, highlight that text, shift-click on it, and
 select “Check text appears on page”:
 
-.. figure:: images/verify-testrecorder.png
+.. figure:: ../../images/verify-testrecorder.png
    :align: center
    :alt: Screenshot of text verification
 

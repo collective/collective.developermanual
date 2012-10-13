@@ -302,7 +302,4 @@ Good unit testing comes with experience. It's always useful to read the unit tes
 *  Similarly, the python debugger is very valuable inside tests. Putting
    import pdb; pdb.set\_trace() inside your test methods lets you step
    through testing code and step into the code it calls. If you’re not
-   familiar with the python debugger, your life is incomplete. `More
-   about using pdb with Plone`_.
-
-.. _More about using pdb with Plone: ../../how-to/using-pdb/
+   familiar with the python debugger, your life is incomplete.

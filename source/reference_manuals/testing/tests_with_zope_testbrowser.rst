@@ -17,7 +17,7 @@ test.
 Zope 3 has an elegant library called zope.testbrowser which lets you
 write doctests that behave like a real web browser (almost… it cannot
 yet handle JavaScript, which means that testing dynamic UIs that depend
-on JavaScript is not possible, although `Selenium`_\ may be a viable
+on JavaScript is not possible, although `Selenium <http://seleniumhq.org/>`_ may be a viable
 alternative here). You can open URLs, click links, fill in form fields
 and test the HTTP headers, URLs and page contents that are returned from
 Plone. In fact, you could test any website, not just Zope or Plone ones.
