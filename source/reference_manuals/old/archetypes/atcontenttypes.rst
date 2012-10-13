@@ -19,7 +19,7 @@ site. It will migrate the base CMF content types to its own equivalents
 using its own highly generic migration framework.
 Please note that ATContentTypes aims to be usable in plain CMF. It has a
 number of optional Plone dependencies, in the form::
- if HAS\_PLONE21:
+ if HAS_PLONE21:
  …
  else:
  …
