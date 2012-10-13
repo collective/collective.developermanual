@@ -101,7 +101,7 @@ Old reference manuals
    :maxdepth: 1
 
    reference_manuals/buildout/index
-   reference_manuals/archgenxml/index
+   reference_manuals/old/archgenxml/index
    reference_manuals/portlets/index
    reference_manuals/zope_secrets/index
    reference_manuals/old-style-vs-new-style/index
@@ -115,7 +115,7 @@ Plone related package documentation.
 .. toctree::
    :maxdepth: 1
 
-    reference_manuals/writing/index
+    reference_manuals/activewriting/index
 
 Other
 ------------
