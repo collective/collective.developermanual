@@ -7,7 +7,6 @@ Users and members
 
     member_basics.rst
     member_profile.rst
-    pluggable_authentication_service/index.rst
     membrane.rst
     sharing_tab.rst
 
