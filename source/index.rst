@@ -100,12 +100,15 @@ Old reference manuals
 .. toctree::
    :maxdepth: 1
 
-   reference_manuals/buildout/index
+   reference_manuals/old/buildout/index
    reference_manuals/old/archgenxml/index
    reference_manuals/old/testing/index
-   reference_manuals/portlets/index
-   reference_manuals/zope_secrets/index
-   reference_manuals/old-style-vs-new-style/index
+   reference_manuals/old/portlets/index
+   reference_manuals/old/zope_secrets/index
+   reference_manuals/old/pluggable_authentication_service/index.rst
+   reference_manuals/old/old-style-vs-new-style/index
+
+:doc:`More information about the documentation deprecation process </reference_manuals/active/writing/nursinghome>`.
 
 Documentation style guide
 -----------------------------
@@ -125,7 +128,7 @@ Other
    :maxdepth: 1
 
    glossary
-   todos
+
 
 
 
