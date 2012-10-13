@@ -1,6 +1,6 @@
-=======
-Testing
-=======
+======================
+PloneTestCase tests
+======================
 
 .. admonition:: Description
 
@@ -8,6 +8,12 @@ Testing
     look more professional. That's right - it's time to write tests, for
     everything you do. Don't worry, it's not boring or complicated, you just
     need to learn how.
+
+.. warn ::
+
+    Technologies presented here are for Plone 3.x and older.
+
+For `up-to-date testing best pratices read about plone.app.testing <http://pypi.python.org/pypi/plone.app.testing>`_.
 
 .. toctree::
     :maxdepth: 1
