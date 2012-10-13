@@ -1,43 +1,6 @@
 {% extends 'basic/layout.html' %}
 <!-- $Id$ -->
 {% block extrahead %}
-<script language="javascript">
-//<![CDATA[
-
-Documentation.addTranslations({"locale": "fr", "plural_expr": "(n > 1)", "messages": {"See the definition": "Voir la d\u00e9finition"}});
-
-// See http://disqus.disqus.com/general_integration_help/
-var disqus_developer = 1;
-if (document.location.protocol == 'http:') {
-    disqus_developer = 0;
-}
-
-// Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
-$(document).ready(function () {
-
-    // Style of .. verisonmodified:: , .. versionadded:: ...
-    $('p:has(span.versionmodified)').addClass('p-versionmodified');
-
-    // Style of the TOC tree
-    $('ul:has(li.toctree-l1)').addClass('toctree');
-
-    // Decorate links to other sites
-    $('a[class~=external]').attr('target', '_blank');
-
-    // Glossary terms
-    $('em.xref').attr('title', _('See the definition'));
-
-    // We need to have all <pre> in a <div class="highlight"> to mimic pygments
-    // to work around a pygments (?) bug
-    var suffixes = {cfg: null, python:null};
-    for (var suffix in suffixes) {
-        var pattern = 'div.highlight-' + suffix + ' > pre';
-        $(pattern).wrap('<div class="highlight" />');
-    }
-    return true;
-});
-//]]>
-</script>
 {% endblock %}
 
 {% block relbar1 %}

@@ -210,7 +210,7 @@ latex_documents = [
 html_use_smartypants = False
 
 
-# Don't build Modules pages 
+# Don't build Modules pages
 html_domain_indices = False
 
 # Don't build term index
@@ -218,3 +218,4 @@ html_use_index = False
 
 # Don't copy sources with output HTML, as they live on GitHub
 html_copy_source = False
+

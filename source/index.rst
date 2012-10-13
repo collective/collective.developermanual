@@ -10,7 +10,9 @@ The Installalling & Maintaining section is addionally intended for integrators a
 Table of Content
 ================
 
-Creating Plone add-ons and functionality
+.. contents :: :local:
+
+Extending Plone Functionality
 -------------------------------------------
 
 .. toctree::
@@ -29,13 +31,11 @@ Creating Plone add-ons and functionality
    members/index
    security/index
    templates_css_and_javascripts/index
-   portlets/index
    sessions/index
    images/index
    misc/index
-   zope_secrets/index
 
-Plone Theme Development
+Theme development
 -------------------------------------------
 
 .. toctree::
@@ -43,14 +43,13 @@ Plone Theme Development
 
    plone_theme_development/index
 
-Installing & Maintaining Plone sites
+Installing and maintaining Plone sites
 -------------------------------------------
 
 .. toctree::
    :maxdepth: 1
 
    getstarted/installation
-   buildout/index
    hosting/index
    deployment/index
 
@@ -69,24 +68,59 @@ Troubleshooting
 .. toctree::
    :maxdepth: 1
 
-   troubleshooting/index
+   troubleshooting/basic
+   troubleshooting/exceptions
+   troubleshooting/buildout
+   troubleshooting/unicode
+   troubleshooting/images
+   troubleshooting/transactions
 
-Old manuals
--------------
+Reference manuals
+--------------------
+
+These manuals apply to the current best practices of Plone development.
+They are in their own separate section due to length and narrative explanation.
+
+
+Old reference manuals
+-----------------------
+
+.. role:: itwillhurt
+   :class: itwillhurt
+
+:itwillhurt:`☠` Beyond this point lie the ancient dragons :itwillhurt:`☠`
 
 .. warning ::
 
-    Beyond this point lie the ancient dragons.
     The following sections of developer documentation are no longer under active maintance.
-    They are included as the reference for older technologies (Plone 2.x, Plone 3,x)
-    for which currently exist modern alternatives.
+    They are included as the reference for older technologies (Plone 2.x, Plone 3.x).
+    Some of the practices described in these documents may still work, but are not recommended
+    to be used in your active Plone development.
 
 .. toctree::
    :maxdepth: 1
 
-   reference_manuals/archgenxml/index
-   reference_manuals/archetypes/index
+   reference_manuals/old/archetypes/index
+   reference_manuals/old/buildout/index
+   reference_manuals/old/archgenxml/index
+   reference_manuals/old/testing/index
+   reference_manuals/old/portlets/index
+   reference_manuals/old/zope_secrets/index
+   reference_manuals/old/pluggable_authentication_service/index.rst
+   reference_manuals/old/old-style-vs-new-style/index
 
+:doc:`More information about the documentation deprecation process </reference_manuals/active/writing/nursinghome>`.
+
+Documentation style guide
+-----------------------------
+
+How to maintain this documentation and
+Plone related package documentation.
+
+.. toctree::
+   :maxdepth: 1
+
+    reference_manuals/activewriting/index
 
 Other
 ------------
@@ -94,10 +128,8 @@ Other
 .. toctree::
    :maxdepth: 1
 
-   writing/index
    glossary
-   todos
-   old-style-vs-new-style/index
+
 
 
 

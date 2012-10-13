@@ -1,5 +1,5 @@
 ==================================
-Exceptions: common tracebacks
+Exceptions and common tracebacks
 ==================================
 
 .. admonition:: Description
@@ -355,7 +355,7 @@ Example traceback::
       Module zope.component._api, line 109, in getMultiAdapter
     ComponentLookupError: ((<Products.Five.metaclass.EditForm object at 0x117a97dd0>, <HTTPRequest, URL=http://localhost:8080/folder_xxx/xxxngta/@@dgftreeselect-test>, <PloneSite at /folder_xxx/xxxngta>), <InterfaceClass z3c.form.interfaces.IWidgets>, u'')
 
-You are running Plone 4 with ``plone.app.directives`` form which does not 
+You are running Plone 4 with ``plone.app.directives`` form which does not
 open. The reason is that you most likely have old ``plone.app.z3cform``
 installation which is not upgraded properly. In particular,
 the following layer is missing
@@ -366,7 +366,7 @@ the following layer is missing
 
 This enables ``z3c.form`` widgets on a Plone site.
 
-Solution: *portal_setup* > *Import*. Choose profile *Plone z3cform support*. 
+Solution: *portal_setup* > *Import*. Choose profile *Plone z3cform support*.
 and import. The layer gets properly inserted to your site database.
 
 NotFound error (Page not found) when accessing @@manage-portlets
@@ -2038,7 +2038,7 @@ TypeError: argument of type 'NoneType' is not iterable
 ---------------------------------------------------------
 
 Example traceback::
-	
+
 	Module ZPublisher.Publish, line 115, in publish
 	  Module ZPublisher.BaseRequest, line 437, in traverse
 	  Module Products.CMFCore.DynamicType, line 147, in __before_publishing_traverse__

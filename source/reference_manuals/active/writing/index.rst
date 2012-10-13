@@ -4,8 +4,9 @@ Updating Plone Developer Documentation
 
 .. toctree::
    :maxdepth: 2
-   
-   preface   
+
+   preface
    writing
    developermanual
-   
+   nursinghome
+   todos
