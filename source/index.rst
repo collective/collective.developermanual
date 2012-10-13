@@ -112,6 +112,7 @@ Old reference manuals
 
    reference_manuals/old/buildout/index
    reference_manuals/old/archgenxml/index
+   reference_manuals/old/testing/index
    reference_manuals/old/portlets/index
    reference_manuals/old/zope_secrets/index
    reference_manuals/old/pluggable_authentication_service/index.rst
