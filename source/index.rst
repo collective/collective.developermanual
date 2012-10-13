@@ -29,7 +29,6 @@ Creating Plone add-ons and functionality
    members/index
    security/index
    templates_css_and_javascripts/index
-   portlets/index
    sessions/index
    images/index
    misc/index
@@ -50,7 +49,6 @@ Installing & Maintaining Plone sites
    :maxdepth: 1
 
    getstarted/installation
-   buildout/index
    hosting/index
    deployment/index
 
@@ -71,8 +69,15 @@ Troubleshooting
 
    troubleshooting/index
 
-Old manuals
--------------
+Reference manuals
+--------------------
+
+These manuals apply to the current best practices of Plone development.
+They are in their own separate section due to length and narrative explanation.
+
+
+Old reference manuals
+-----------------------
 
 .. warning ::
 
@@ -86,6 +91,7 @@ Old manuals
 
    reference_manuals/buildout/index
    reference_manuals/archgenxml/index
+   reference_manuals/portlets/index
 
 Other
 ------------

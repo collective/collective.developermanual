@@ -11,13 +11,14 @@
     :maxdepth: 2
 
     actions
-    expressions    
-    contactform
+    expressions
+    portlets
     controlpanel
     dashboard
-    rss            
+    rss
     collections
     locks
-    breadcrumbs    
-    sitemap        
+    breadcrumbs
+    sitemap
     discussion
+    contactform
