@@ -1,11 +1,21 @@
 Plone Developer Documentation
 =======================================================
 
-This document is community maintained manual for `Plone <http://plone.org>`_ content management
-system customization. It is intended for Python developers who
-want to write their own add-ons, integration code, and other customizations.
+This document is a community maintained manual for `Plone <http://plone.org>`_ content management
+system. The target audience of the documentation includes
 
-The Installalling & Maintaining section is addionally intended for integrators and maintainers.
+* Integrators: installing Plone, add-ons and changing their settings
+
+* Theme authors: changing Plone's visual appearance
+
+* Developers: customizing Plone's content types and forms for a specific use case
+
+* System administrators: hosting Plone on a server
+
+This documentation does not have the end user (content editor)
+documentation for Plone. For the editor documentation
+please go to `plone.org documentation <http://plone.org/documentation>`_.
+
 
 Table of Content
 ================
