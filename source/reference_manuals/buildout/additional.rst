@@ -389,13 +389,6 @@ Example in buildout.cfg
         environment-vars =
                 LD_LIBRARY_PATH ${buildout:directory}/parts/lxml/libxml2/lib:${buildout:directory}/parts/lxml/libxslt/lib
 
-Paste factory
---------------
-
-Web based user interface to create different buildouts
-
-* http://pypi.python.org/pypi/collective.generic.webbuilder
-
 Troubleshooting
 ----------------
 

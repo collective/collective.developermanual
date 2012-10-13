@@ -84,8 +84,8 @@ Old manuals
 .. toctree::
    :maxdepth: 1
 
+   reference_manuals/buildout/index
    reference_manuals/archgenxml/index
-
 
 Other
 ------------
