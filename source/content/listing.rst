@@ -29,13 +29,13 @@ Special attention must be paid also to object ids.
 Zope locates all objects by traversing the site graph using ids.
 The id mapping is usually a property of a *parent* object, not the child.
 Thus most of the listing methods tend to return ``(id, object)`` tuples instead
-of plain objects.   
+of plain objects.
 
 Ensuring that the content item is a folder
 ==========================================
 
 All Plone folderish content types provide the ``IFolderish`` interface.
-Check that this is present to make sure that a content item is a 
+Check that this is present to make sure that a content item is a
 folder, and that ``contentItems()`` and the other methods are available::
 
     from Products.CMFCore.interfaces import IFolderish
@@ -64,7 +64,7 @@ Getting all content objects inside a folder
 ===========================================
 
 The ``contentItems`` method is defined in ``CMFCore/PortalFolder.py``.
-From Plone 4 and later, you can also use ``folder.items()`` instead 
+From Plone 4 and later, you can also use ``folder.items()`` instead
 (this applies to the whole section below).
 See source code for details, e.g. filtering and other forms of listing.
 
@@ -142,6 +142,17 @@ Plone applies some default rules for ``listFolderContents()``
 * ``portal_properties.nav_tree_properties``: meta types marked here do not
   appear in the listing.
 
+Why does ``folder_listing`` not list my contents?
+====================================================
+
+The site search settings (*Site Setup*--> *Search*) modifies the way
+``folder_listing`` works.
+
+So for example, if you specifify that you do not want to search objects
+of type *Page*, they will not appear in ``folder_listing`` anymore.
+
+From `this thread <http://lists.plone.org/pipermail/plone-product-developers/2012-March/thread.html#11436>`_.
+
 
 Enforcing manual sort order
 ==============================
@@ -154,14 +165,14 @@ Below is an example of how to order content items by their manual sort order
     queried_objects = list(folder.listFolderContents())
 
     def get_position_in_parent(obj):
-        """ 
+        """
         Use IOrderedContainer interface to extract the object's manual ordering position
         """
         parent = obj.aq_inner.aq_parent
         ordered = IOrderedContainer(parent, None)
         if ordered is not None:
             return ordered.getObjectPosition(obj.getId())
-        return 0            
+        return 0
 
     def sort_by_position(a, b):
         """
@@ -199,7 +210,7 @@ Getting non-contentish Zope objects
 In some special cases, it is necessary to manipulate non-contentish Zope objects.
 
 This listing method applies to all `OFS.Folder.Folder objects
-<http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_, 
+<http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_,
 not just Plone content objects::
 
     for id, item in folder.objectItems():
@@ -237,7 +248,7 @@ check if the folder is a ``BTreeFolder``::
     if base_hasattr(context, 'has_key'):
         # BTreeFolder's has_key returns numeric values
         return context.has_key(myid) and True or False
-    elif myid in context.objectIds(): 
+    elif myid in context.objectIds():
     # "elif myid in context:" in Plone 4 or newer
         return True
     else:
@@ -261,10 +272,10 @@ instead of the real content objects (less database look ups).
 Simple example how to get all items in a folder::
 
     # Get the physical path (includes Plone site name)
-    # to the folder    
+    # to the folder
     path = folder.getPhysicalPath()
 
-    # Convert getPhysicalPath() tuples result to 
+    # Convert getPhysicalPath() tuples result to
     # slash separated string, which is used by ExtendedPathIndex
     path = "/".join(path)
 
@@ -335,11 +346,11 @@ Counting items using ``contentItems``
 
 Alternatively, if you know there are not many objects in in the folder,
 you can call ``contentItems()`` (or simply ``items()`` in Plone 4 or newer),
-as this will potentially wake fewer items than a complex catalog query. 
+as this will potentially wake fewer items than a complex catalog query.
 
-.. warning:: 
+.. warning::
 
-    Security: This method does not consider access rights.  
+    Security: This method does not consider access rights.
 
 Example (AT content class method)::
 
@@ -358,7 +369,7 @@ Plone has a special default navigation URL which is used in
 
 * Navigation tree
 
-It is not necessarily the object URL itself (``/folder/item``), 
+It is not necessarily the object URL itself (``/folder/item``),
 but can be e.g. ``/folder/item/@@yourcustomview``
 
 The view action URL must be configured in ``portal_types`` and separately
@@ -388,10 +399,10 @@ you need to tailor it for your specific needs.
     or add more catalog indexes. To know more about the
     issue read about waking up database objects.
 
-* First, let's register our view.  
+* First, let's register our view.
   We could limit content types for which the view is enabled by specifying
   ``Products.ATContentTypes.interface.IATFolder`` or
-  ``Products.ATContentTypes.interface.IATTopic`` in the ``for`` attribute. 
+  ``Products.ATContentTypes.interface.IATTopic`` in the ``for`` attribute.
   Cf. the ``configure.zcml`` snippet below:
 
 .. code-block:: xml
@@ -648,7 +659,7 @@ Complex folder listings and filtering
 ======================================
 
 The following example is for a very complex folder listing view.
-You can call view methods to returns the listed items themselves and render 
+You can call view methods to returns the listed items themselves and render
 the HTML in another view --- this allows you to recycle this listing code
 easily.
 
@@ -763,8 +774,8 @@ Example code::
                     if item_lang != language:
                         return False
 
-                # Note: getExcludeFromNav not necessarily exist on all content types 
-                if hasattr(item, "getExcludeFromNav"):                
+                # Note: getExcludeFromNav not necessarily exist on all content types
+                if hasattr(item, "getExcludeFromNav"):
                     if item.getExcludeFromNav():
                         return False
 

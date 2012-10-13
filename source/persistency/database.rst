@@ -16,7 +16,7 @@ Introduction
 Plone uses the ZODB database.  The ZODB happily stores any Python object with
 any attributes |---| there is no need to write database schema or table
 descriptions as there is
-with SQL-based systems. If data models are described somehow 
+with SQL-based systems. If data models are described somehow
 the descriptions are written in Python, usually using
 ``zope.schema`` package.
 
@@ -91,17 +91,17 @@ This gives some benefits
   to provide basic CMS functionality easily
 
 * You can have optimized catalogs for specialized data (e.g. reference look-ups
-  using reference_catalog)  
-  
+  using reference_catalog)
+
 Data model
 ------------
 
 There is no hardwired way for desceribe
-data in ZODB database. 
+data in ZODB database.
 
-Subclasses of ZODB ``persistent.Persistent`` 
+Subclasses of ZODB ``persistent.Persistent``
 clas will have all their attributes and referred objects
-written to the database using Python pickle mechanism.  
+written to the database using Python pickle mechanism.
 Lists and dictionaries will be automatically
 converted to persistent versions.
 
@@ -114,16 +114,16 @@ There are currently three primary ways to define data models in Plone
 * Not defining the model, but relying on ad hoc object attributes
 
 Read about :doc:`zope.schema </forms/schemas>`
-how to define a model for the data to be stored 
+how to define a model for the data to be stored
 in ZODB database.
 
-Transactions and committing 
+Transactions and committing
 --------------------------------------
 
 `This in-depth SO answer <http://stackoverflow.com/questions/11254384/when-to-commit-data-in-zodb/>`_
 explains how committing works in ZODB.
 
-* Savepoints and optimism regarding them 
+* Savepoints and optimism regarding them
 
 * PersistentList and list differences when saving data
 
@@ -156,7 +156,7 @@ inside buildout.
 It allows you to trigger packing from the command line when Zope is clustered ZEO configuration.
 ``zeopack`` command runs against an on-line site.
 
-This command is useful to run in cron to keep your Data.fs file growing forever. 
+This command is useful to run in cron to keep your Data.fs file growing forever.
 You can control the number of days of history to be kept, etc., using buildout recipe variables.
 
 More info
@@ -180,10 +180,10 @@ Example how to pack a copy of Data.fs in offline using Python snippet::
 As this depends on ZODB egg, the easiest way to run the snippet is to ``zopepy``
 script from your ``buildout/bin`` folder::
 
-    bin/zopepy pack.py 
-    
+    bin/zopepy pack.py
+
 For more information, see :doc:`command-line scripts </misc/commandline>`.
-        
+
 Visualizing object graphs
 ====================================
 
@@ -210,13 +210,20 @@ and there are no problems due to low level disk corruption or bit flip.
 
         It is recommended best practice to run integrity against your Data.fs regularly.
         This is the only way to detect corruption which would otherwise go unnoticed
-        for a long time. 
+        for a long time.
+
+Recovering old data
+======================
+
+Instructions for undoing deleted data and fixing broken databases.
+
+* http://www.zopatista.com/plone/2008/12/18/saving-the-day-recovering-lost-objects
 
 ZODB tips and tricks
 ====================
 
 Please see
 
-* http://plone.org/events/regional/nola05/collateral/Chris%20McDonough-ZODB%20Tips%20and%20Tricks.pdf        
+* http://plone.org/events/regional/nola05/collateral/Chris%20McDonough-ZODB%20Tips%20and%20Tricks.pdf
 
 .. |---| unicode:: U+02014 .. em dash

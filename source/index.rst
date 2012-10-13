@@ -67,7 +67,12 @@ Troubleshooting
 .. toctree::
    :maxdepth: 1
 
-   troubleshooting/index
+   troubleshooting/basic
+   troubleshooting/exceptions
+   troubleshooting/buildout
+   troubleshooting/unicode
+   troubleshooting/images
+   troubleshooting/transactions
 
 Reference manuals
 --------------------

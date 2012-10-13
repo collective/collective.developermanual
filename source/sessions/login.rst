@@ -5,11 +5,11 @@
 .. admonition:: Description
 
 	Login and logout related programming activities in Plone
-	
+
 .. contents:: :local:
 
 Introduction
--------------	 
+-------------
 
 This chapter contains login and logout related code snippets.
 
@@ -32,54 +32,54 @@ Extracting credentials
 
 Extracting credentials try to extract log-in (username, password) from HTTP request.
 
-Below is an example how to extract and authenticate the user manually. 
+Below is an example how to extract and authenticate the user manually.
 It is mostly suitable for unit testing.
 Note that given login field isn't necessarily the username. For example,
 `betahaus.emaillogin <http://pypi.python.org/pypi/betahaus.emaillogin>`_ add-on authenticates users by their email addresses.
 
-Credential extraction will go through all plug-ins registered for 
+Credential extraction will go through all plug-ins registered for
 `PlonePAS <https://github.com/plone/Products.PlonePAS/tree/master/README.txt>`_ system.
 
-The first found login/password pair attempt will be used for user authentication.  
+The first found login/password pair attempt will be used for user authentication.
 
 Unit test example::
 
     def extract_credentials(self, login, password):
         """ Spoof HTTP login attempt.
-        
-        Functional test using zope.testbrowser would be 
+
+        Functional test using zope.testbrowser would be
         more appropriate way to test this.
         """
-        
+
         request  = self.portal.REQUEST
-        
+
         # Assume publishing process has succeeded and object has been found by traversing
         # (this is usually set by ZPublisher)
         request['PUBLISHED'] = self.portal
-                
+
         # More ugly ZPublisher stubs
         request['PARENTS'] = [self.portal]
         request.steps = [self.portal]
-        
+
         # Spoof HTTP request login fields
         request["__ac_name"] = login
         request["__ac_password"] = password
-        
+
         # Call PluggableAuthService._extractUserIds()
         # which will return a list of user ids  extracted from the request
         plugins = self.portal.acl_users.plugins
-        
+
         users = self.portal.acl_users._extractUserIds(request, plugins)
-                
+
         if len(users) == 0:
             return None
-        
+
         self.assertEqual(len(users), 1)
-        
+
         # User will be none if the authentication fails
         # or anonymous if there were no credential fields in HTTP request
         return users[0]
-        
+
 
 Authenticating the user
 ------------------------
@@ -93,17 +93,17 @@ Pluggable Authentication Service (acl_users under site root)
 will go through all authentication plug-ins and return the first succesful
 authenticated users.
 
-Read more in 
+Read more in
 `PlonePAS <https://github.com/plone/Products.PlonePAS/tree/master/README.txt>`_.
 
 Unit test example::
 
     def authenticate_using_credentials(self, login, password):
-    
+
         request = self.portal.REQUEST
-        
+
         # Will return valid user object
-        user = self.portal.acl_users.authenticate(login, password, request)                        
+        user = self.portal.acl_users.authenticate(login, password, request)
         self.assertNotEqual(user, None)
 
 
@@ -120,7 +120,7 @@ Useful for sudo style logins.
         """
         self.context.acl_users.session._setupSession(username, self.context.REQUEST.RESPONSE)
         self.request.RESPONSE.redirect(self.portal_state.portal_url())
-                
+
 See also
 
 * http://svn.plone.org/svn/collective/niteoweb.loginas/trunk/niteoweb/loginas/browser/login_as.py
@@ -142,7 +142,7 @@ Post-login code is defined in CMFPlone/skins/plone_scripts/logged_in.cpy.
 You need make a copy of both logged_in.cpy and logged_in.cpy.metadata to your add-on product skins structure to override these.
 
 Example logged_in.cpy::
-    
+
     ## Controller Python Script "logged_in"
     ##bind container=container
     ##bind context=context
@@ -153,49 +153,49 @@ Example logged_in.cpy::
     ##parameters=
     ##title=Initial post-login actions
     ##
-    
+
     from Products.CMFCore.utils import getToolByName
     from Products.CMFPlone import PloneMessageFactory as _
     REQUEST=context.REQUEST
-    
+
     membership_tool=getToolByName(context, 'portal_membership')
     if membership_tool.isAnonymousUser():
         REQUEST.RESPONSE.expireCookie('__ac', path='/')
         context.plone_utils.addPortalMessage(_(u'Login failed. Both login name and password are case sensitive, check that caps lock is not enabled.'), 'error')
         return state.set(status='failure')
-    
+
     member = membership_tool.getAuthenticatedMember()
     login_time = member.getProperty('login_time', '2000/01/01')
     initial_login = int(str(login_time) == '2000/01/01')
     state.set(initial_login=initial_login)
-    
+
     must_change_password = member.getProperty('must_change_password', 0)
     state.set(must_change_password=must_change_password)
-    
+
     if initial_login:
         state.set(status='initial_login')
     elif must_change_password:
         state.set(status='change_password')
-    
+
     membership_tool.loginUser(REQUEST)
-    
+
     #
     # Special login code specific login code
     #
-    
-    # Debug log output about the user we are dealing with 
+
+    # Debug log output about the user we are dealing with
     context.plone_log("Got member:" + str(member))
-    
+
     # Check that if the user has a custom method which marks our special members
-    # needing special actions 
+    # needing special actions
     if hasattr(member, "getLoginRedirect"):
-    
+
         # Show a custom login message
         context.plone_utils.addPortalMessage(_(u'You are now logged in. Welcome to supa-dupa-system.'), 'info') # This message is in Plone i18n domain
-        
+
         # Go to a custom page after login
         REQUEST.RESPONSE.redirect(context.portal_url() + "/some_folder")
-    
+
     return state
 
 Post-logout actions
@@ -206,7 +206,7 @@ when the user logs out via *Log out* menu item.
 
 .. note ::
 
-	You cannot catch session timeout events this way... only explicit logout 
+	You cannot catch session timeout events this way... only explicit logout
 	action.
 
 Example ZCML
@@ -222,13 +222,13 @@ Example Python::
 	def clear_extra_cookies_on_logout(event):
 	    """
 	    Logout event handler.
-	
+
 	    When user explicitly logs out from the Logout menu, clear our priviledges smartcard cookie.
 	    """
-	
+
 	    # Which cookie we want to clear
 	    cookie_name = SmartcardHelper.PRIVILEDGED_COOKIE_NAME
-	
+
 	    request = event.object.REQUEST
 	    # YES CAPS LOCK WAS MUST WHEN ZOPE 2 WAS INVENTED
 	    # SOMEWHERE AROUND NINETIES. THEN IT WAS THE CRUISE
@@ -236,7 +236,7 @@ Example Python::
 	    response = request.RESPONSE
 	    # Voiding our special cookie on logout
 	    response.expireCookie(cookie_name)
-	
+
 
 More info
 
@@ -257,7 +257,7 @@ a user;  accumulate a list of the IDs of such users over all
 our authentication and extraction plugins.
 
 ``PluggableAuthService`` may use :doc:`ZCacheable </performance/ramcache>`
-pattern to see if the user data exists already in the cache, based on 
+pattern to see if the user data exists already in the cache, based on
 any extractd credentials, instead of actually checking whether
 the credentials are valid or not. PluggableAuthService must
 be set to have cache end. By default it is not set,
@@ -281,60 +281,60 @@ Here is a short view snippet to set PAS cache state::
         """
         Set PAS caching parameters from browser address bar.
         """
-        
+
         def getPAS(self):
             site=getSite()
             return getToolByName(site, "acl_users")
-        
+
         def setPASCache(self, value):
             """
             Enables or disables pluggable authentication servive caching.
-            
-            The setting is stored persistently in PAS 
-                    
-            This caches credentials for authenticated users after the first login. 
-                
+
+            The setting is stored persistently in PAS
+
+            This caches credentials for authenticated users after the first login.
+
             This will make authentication and permission operations little bit faster.
             The downside is that the cache must be purged if you want to remove old values from there.
             (user has been deleted, etc.)
-            
+
             More info
-            
+
             * https://github.com/plone/plone.app.ldap/tree/master/plone/app/ldap/ploneldap/util.py
-            
+
             """
-            
+
             pas = self.getPAS()
-            
+
             if value:
-                
+
                 # Enable
-            
+
                 if pas.ZCacheable_getManager() is None:
                     pas.ZCacheable_setManagerId(manager_id="RAMCache")
-                    
+
                 pas.ZCacheable_setEnabled(True)
-                            
+
             else:
-                # Disable        
+                # Disable
                 pas.ZCacheable_setManagerId(None)
                 pas.ZCacheable_setEnabled(False)
-                
-            
+
+
         def __call__(self):
             """ Serve HTTP GET queries.
             """
-            
+
             cache_value = self.request.form.get("cache", None)
-            
+
             if cache_value is None:
                 # Output help text
                 return "Use: http://localhost/@@pas-cache-controller?cache=true"
-            
+
             value = (cache_value == "true")
-            
+
             self.setPASCache(value)
-            
+
             return "Set value to:" + str(value)
 
 ... and related ZCML
@@ -347,7 +347,7 @@ Here is a short view snippet to set PAS cache state::
      class=".pascache.PASCacheController"
      permission="cmf.ManagePortal"
     />
-                        
+
 
 Login as another user ("sudo")
 -------------------------------
@@ -374,3 +374,73 @@ This protects user accounts against brute force attacks.
 
 * https://svn.plone.org/svn/collective/PASPlugins/Products.LoginLockout/branches/ajung-login-logging/
 
+Hyperlinks to authenticated Plone content in Microsoft Office
+---------------------------------------------------------------------------
+
+Microsoft Office applications (in the first instance Word and Excel), have
+been observed to attempt to resolve hyperlinks once clicked, prior to sending
+the hyperlink to the user's browser.  So, if such a link points to some
+Plone content that requires authentication, the Office application will
+request the URL first, and receive a 302 Redirect to the ``require_login``
+Python script on the relevant Plone instance.  So, if your original hyperlink
+was like so::
+
+    http://example.com/myfolder/mycontent
+
+and this URL requires authentication, then the Office application will send
+your browser to this URL::
+
+    http://example.com/acl_users/credentials_cookie_auth/require_login?came_from=http%3A//example.com/myfolder/mycontent
+
+Normally, this isn't a problem if a user is logged out at the time. They will
+be presented with the relevant login form and upon login, they will be
+redirected accordingly to the ``came_from=`` URL.
+
+However, if the user is *already* logged in on the site, visiting this URL
+will result in an ``Insufficient Privileges`` page being displayed.  This is
+to be expected of Plone (as this URL is normally only reached if the given
+user has no access), but because of Microsoft Office's mangling of the URL,
+may not necessarily be correct as the user may indeed have access.
+
+The following drop-in replacement for the ``require_login`` script has been
+tested in Plone 4.1.3 (YMMV).  Upon a request coming into this script,
+it attempts (a hack) to traverse to the given path. If permission is actually
+allowed, Plone redirects the user back to the content. Otherwise, things
+proceed normally and the user has no access (and is shown the appropriate
+message)::
+
+    ## Script (Python) "require_login"
+    ##bind container=container
+    ##bind context=context
+    ##bind namespace=
+    ##bind script=script
+    ##bind subpath=traverse_subpath
+    ##parameters=
+    ##title=Login
+    ##
+
+    login = 'login'
+
+    portal = context.portal_url.getPortalObject()
+    # if cookie crumbler did a traverse instead of a redirect,
+    # this would be the way to get the value of came_from
+    #url = portal.getCurrentUrl()
+    #context.REQUEST.set('came_from', url)
+
+    if context.portal_membership.isAnonymousUser():
+        return portal.restrictedTraverse(login)()
+    else:
+        expected_location = context.REQUEST.get('came_from')
+        try:
+            #XXX Attempt a traverse to the given path
+            portal.restrictedTraverse(expected_location.replace(portal.absolute_url()+'/',''))
+            container.REQUEST.RESPONSE.redirect(expected_location)
+        except:
+            return portal.restrictedTraverse('insufficient_privileges')()
+
+For further reading see:
+
+* http://plone.293351.n2.nabble.com/Linking-to-private-page-from-MS-Word-redirect-to-login-form-td5495131.html
+* http://plone.293351.n2.nabble.com/Problem-with-links-to-files-stored-in-Plone-td3055014.html
+* http://bytes.com/topic/asp-classic/answers/596062-hyperlinks-microsoft-applications-access-word-excel-etc
+* https://community.jivesoftware.com/docs/DOC-32157
