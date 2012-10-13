@@ -1,5 +1,5 @@
 ================
-Using ArchGenXML
+ArchGenXML
 ================
 
 .. admonition:: Description

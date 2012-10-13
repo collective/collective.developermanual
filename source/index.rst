@@ -35,7 +35,7 @@ Creating Plone add-ons and functionality
    misc/index
    zope_secrets/index
 
-Plone Theme Development 
+Plone Theme Development
 -------------------------------------------
 
 .. toctree::
@@ -70,6 +70,22 @@ Troubleshooting
    :maxdepth: 1
 
    troubleshooting/index
+
+Old manuals
+-------------
+
+.. warning ::
+
+    Beyond this point lie the ancient dragons.
+    The following sections of developer documentation are no longer under active maintance.
+    They are included as the reference for older technologies (Plone 2.x, Plone 3,x)
+    for which currently exist modern alternatives.
+
+.. toctree::
+   :maxdepth: 1
+
+   reference_manuals/archgenxml/index
+
 
 Other
 ------------
