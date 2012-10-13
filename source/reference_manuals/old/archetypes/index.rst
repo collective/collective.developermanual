@@ -18,3 +18,4 @@ Content-types with Archetypes
     a_simple_at_product/index
     fields/index
     other_useful_archetypes_features
+    appendix
