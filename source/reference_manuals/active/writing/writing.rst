@@ -14,20 +14,18 @@ Introduction
 This chapter explains the basics of editing, updating and contributing to
 the *Plone Developer Documentation*.
 
-Contributions needed
-====================
+Reaching documentation team
+=============================
 
-Below is the list of documentation and references we'd like to see:
+Plone community runs a documentation team which is responsible
+for keeping Plone documentation coherent.
+To reach this team for any questions please contact
 
-- New code snippets and system descriptions
-- Links to external documentation
-- Links to component READMEs
-- Links to blog posts talking about particular issues
-- Links to email list discussions
-- Links to source code (directly to the version control)
-- Clean up and restructuring (see the :doc:`todo list </todos>`)
+* `Documentation team mailing list <https://plone.org/support/forums/docs>`_
 
-Committing changes to the documentation Github
+* *#plone-docs* IRC channel on irc.freenode.net
+
+Editing documentation on Github
 ==============================================
 
 * You can `commit file edits through GitHub web interface
@@ -42,10 +40,11 @@ If you want to contribute changes without asking the maintainers to merge
 them, please add your GitHub username to your profile on plone.org and
 request access `here <http://dev.plone.org/wiki/ContributeCollective>`_.
 
-Using git
----------
+Editing documentation using git
+=================================
 
-This is the recommended method. Please do not be afraid to commit.  If you
+This is the recommended method of editing the documentation for
+advanced users. Please do not be afraid to commit.  If you
 break the documentation or add invalid information, it will be cleaned up
 sooner or later and no one is going to blame you: human errors happen all
 the time.
@@ -98,8 +97,15 @@ Document page format
 
 Here are some Sphinx coding conventions used in the documentation.
 
+Headings and filenames
+-------------------------
+
+* For the headings, capitalize the first letter only
+
+* For the filenames, use_underscore_naming_style
+
 Page structure
---------------
+---------------------
 
 Each page must contain, in this order:
 
@@ -204,7 +210,6 @@ would be underlined like this:
    Heading 4
    `````````
    ...
-
 
 Syntax highlighting
 ===================
