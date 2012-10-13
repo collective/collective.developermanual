@@ -1,6 +1,6 @@
-==============================
-Deploying Plone for Production
-==============================
+==========================================
+Basics of Plone production deployment
+==========================================
 
 .. admonition:: Description
 

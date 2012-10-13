@@ -22,6 +22,8 @@ Buildout
     deployment
     recipes
     subversion
+    zope_to_zeo
     additional
+
 
 

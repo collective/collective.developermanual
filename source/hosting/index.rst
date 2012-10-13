@@ -1,12 +1,13 @@
 ==========================
-Hosting
+Hosting and deployment
 ==========================
 
 How to manage Plone hosting and deployments.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
+    basics/index
     restarts
     buildout
     zope
@@ -16,5 +17,5 @@ How to manage Plone hosting and deployments.
     nginx
     deliverance
     zopetozeo
-    
-    
+
+
