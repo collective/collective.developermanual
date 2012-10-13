@@ -5,16 +5,14 @@ python:
   - "2.6"
 
 install:
-  - python bootstrap.py 
+  - python bootstrap.py
   - bin/buildout
 
 script: bin/sphinx-build -W -b html source build/html
 
 notifications:
-  email:
-    - mikko@opensourcehacker.com
-  irc: 
-    channels: 
-        - "irc.freenode.org#plone.org"
+  irc:
+    channels:
+        - "irc.freenode.org#plone-docs"
     on_success: never
     on_failure: change
