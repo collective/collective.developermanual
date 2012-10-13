@@ -85,6 +85,7 @@ Old manuals
    :maxdepth: 1
 
    reference_manuals/archgenxml/index
+   reference_manuals/archetypes/index
 
 
 Other
