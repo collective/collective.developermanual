@@ -8,7 +8,7 @@
 	are programmed in Plone.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     actions
     expressions
