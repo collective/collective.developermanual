@@ -1,5 +1,4 @@
-
-Old style vs. new style technologies
+Zope 2 vs. Zope 3 pratices
 ====================================
 
 Over the years Plone has used many, many different technologies to

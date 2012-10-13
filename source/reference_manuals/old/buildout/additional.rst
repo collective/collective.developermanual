@@ -389,6 +389,14 @@ Example in buildout.cfg
         environment-vars =
                 LD_LIBRARY_PATH ${buildout:directory}/parts/lxml/libxml2/lib:${buildout:directory}/parts/lxml/libxslt/lib
 
+
+Extending buildout section
+-------------------------------
+
+Buildout extensions can be extended in another buildout file.
+
+* http://pypi.python.org/pypi/zc.buildout#extending-sections-macros
+
 Troubleshooting
 ----------------
 

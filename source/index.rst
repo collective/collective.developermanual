@@ -4,7 +4,7 @@ Plone Developer Documentation
 This document is a community maintained manual for `Plone <http://plone.org>`_ content management
 system. The target audience of the documentation includes
 
-* Integrators: installing Plone, add-ons and changing their settings
+* Integrators: installing Plone, add-ons and setting up the site
 
 * Theme authors: changing Plone's visual appearance
 
@@ -129,7 +129,7 @@ Plone related package documentation.
 .. toctree::
    :maxdepth: 1
 
-    reference_manuals/activewriting/index
+    reference_manuals/active/writing/index
 
 Other
 ------------
