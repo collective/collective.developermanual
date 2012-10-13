@@ -117,6 +117,7 @@ Old reference manuals
     reference_manuals/old/zope_secrets/index
     reference_manuals/old/pluggable_authentication_service/index.rst
     reference_manuals/old/old-style-vs-new-style/index
+    reference_manuals/old/forms/index
 
 :doc:`More information about the documentation deprecation process </reference_manuals/active/writing/nursinghome>`.
 
