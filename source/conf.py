@@ -11,7 +11,13 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import os
+
+# Embedded packages. The folder context for these is "source"
+THE_OTHERS = {
+    "plone.api": "../../../src/plone.api/docs"
+}
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -218,4 +224,20 @@ html_use_index = False
 
 # Don't copy sources with output HTML, as they live on GitHub
 html_copy_source = False
+
+
+def symlinks_fuck_yeah():
+    """
+    Create symlinks needed to embed the other package documentation in
+    """
+
+    target = os.path.join("reference_manuals", "external")
+
+    for pkg, folder in THE_OTHERS.items():
+        target_path = os.path.join(target, pkg)
+        if not os.path.exists(target_path):
+            os.symlink(folder, target_path)
+
+
+symlinks_fuck_yeah()
 

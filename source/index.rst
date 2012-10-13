@@ -90,6 +90,10 @@ Reference manuals
 These manuals apply to the current best practices of Plone development.
 They are in their own separate section due to length and narrative explanation.
 
+.. toctree::
+    :maxdepth: 1
+
+    reference_manuals/external/plone.api/index
 
 Old reference manuals
 -----------------------
