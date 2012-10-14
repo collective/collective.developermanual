@@ -347,6 +347,12 @@ Making an internal link:
    And a link to the term :term:`foo` assuming that ``foo`` is defined in
    the glossary.
 
+Glossary:
+
+.. code-block:: rst
+
+    .. glossary:: :sorted:
+
 Bullet list:
 
 .. code-block:: rst
