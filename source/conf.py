@@ -16,8 +16,8 @@ import os
 # Embedded packages. The folder context for these is "source/reference_manuals/external"
 # Please note that "#€=)/&"(=?ASFG=)"" pip lowercases all folder names
 THE_OTHERS = {
-    "plone.api": "../../../src/plone.api/docs",
-    "Products.TinyMCE": "../../../src/products.tinymce/docs/source"
+    "plone.api": "../src/plone.api/docs",
+    "Products.TinyMCE": "../src/products.tinymce/docs/source"
 }
 
 
@@ -237,6 +237,7 @@ def symlinks_fuck_yeah():
 
     for pkg, folder in THE_OTHERS.items():
         target_path = os.path.join(target, pkg)
+        # print os.path.abspath(folder), os.path.abspath(target_path)
         if not os.path.exists(target_path):
             os.symlink(folder, target_path)
 
