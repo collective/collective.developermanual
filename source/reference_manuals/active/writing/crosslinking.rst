@@ -72,3 +72,8 @@ See Sphinx ouput for warnings and errors.
 See that your manual gets correctly added in the index::
 
     open build/html/index.html
+
+``conf.py`` creates symlinks in ``source/reference_manuals/external``. If you manage
+to mess them reset the situation with the command::
+
+    rm source/reference_manuals/external/*

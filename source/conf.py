@@ -17,7 +17,7 @@ import os
 THE_OTHERS = {
     "plone.api": "../../../src/plone.api/docs",
     "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
-    "tutorials.todoapp": "../../../src/tutorials.todoapp/docs/source"
+    "tutorials.todoapp": "../../../src/tutorials.todoapp/docs"
 }
 
 
