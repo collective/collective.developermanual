@@ -22,6 +22,15 @@ Table of Content
 
 .. contents :: :local:
 
+Tutorials
+-------------------------------------------
+
+If doing Plone development for the first time
+these tutorials serving as a starting point.
+
+* :doc:`Building TODO application on Plone <reference_manuals/external/tutorials.todoapp/index>`
+
+
 Extending Plone Functionality
 -------------------------------------------
 
