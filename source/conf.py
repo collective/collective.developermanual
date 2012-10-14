@@ -14,10 +14,10 @@
 import os
 
 # Embedded packages. The folder context for these is "source/reference_manuals/external"
-# Please note that "#€=)/&"(=?ASFG=)"" pip lowercases all folder names
 THE_OTHERS = {
     "plone.api": "../../../src/plone.api/docs",
-    "Products.TinyMCE": "../../../src/products.tinymce/docs/source"
+    "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
+    "tutorials.todoapp": "../../../src/tutorials.todoapp/docs/source"
 }
 
 
@@ -228,7 +228,7 @@ html_use_index = False
 html_copy_source = False
 
 
-def symlinks_fuck_yeah():
+def create_symlinks_for_external_docs():
     """
     Create symlinks needed to embed the other package documentation in
     """
@@ -242,5 +242,5 @@ def symlinks_fuck_yeah():
             os.symlink(folder, target_path)
 
 
-symlinks_fuck_yeah()
+create_symlinks_for_external_docs()
 
