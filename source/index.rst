@@ -28,8 +28,18 @@ Tutorials
 If doing Plone development for the first time
 these tutorials serving as a starting point.
 
+Add-ons
++++++++++++
+
 * :doc:`Building TODO application on Plone <reference_manuals/external/tutorials.todoapp/index>`
 
+Theming
++++++++++++
+
+.. toctree::
+   :maxdepth: 1
+
+   tutorials/theming/index
 
 Extending Plone Functionality
 -------------------------------------------
