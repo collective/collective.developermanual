@@ -82,7 +82,7 @@ the time.
 
 .. code-block:: sh
 
-   bin/sphinx-build source build
+   make html
 
 * Commit changes:
 
