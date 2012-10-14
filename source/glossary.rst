@@ -37,12 +37,12 @@ It incorporates the original `glossary on plone.org
         something like:
         ``<include package="my.package" file="configure.zcml" />``
 
-        This is the Zope 3 way to load a particular package. 
+        This is the Zope 3 way to load a particular package.
 
     VirtualHostMonster
         A Zope technology that supports virtual hosting. See
         `VirtualHostMonster URL rewriting mechanism
-        <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_ 
+        <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_
 
     Workflow
         Workflow is a very powerful way of mimicking business processes — it
@@ -50,7 +50,7 @@ It incorporates the original `glossary on plone.org
 
     ZODB
         The Zope Object Database is where your content is normally stored
-        when you are using Plone. The default storage backend of the ZODB is 
+        when you are using Plone. The default storage backend of the ZODB is
         *filestorage*, which stores the database on the file system in the
         file(s) such as ``Data.fs``, normally located in the ``var``
         directory.
