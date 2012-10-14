@@ -237,6 +237,7 @@ def symlinks_fuck_yeah():
 
     for pkg, folder in THE_OTHERS.items():
         target_path = os.path.join(target, pkg)
+        # print os.path.abspath(folder), os.path.abspath(target_path)
         if not os.path.exists(target_path):
             os.symlink(folder, target_path)
 
