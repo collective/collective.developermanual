@@ -56,9 +56,9 @@ Disadvantages include
 Steps to embed a reference manual in collective-docs
 =======================================================
 
-Add your egg source to ``requirements.txt``.
+Add your egg to ``[sources]`` and ``auto-checkout`` in ``buildout.cfg``.
 
-Add directory mapping to the top of ``conf.py``.
+Add directory mapping the Sphinx documentation inside that egg at the top of ``conf.py``.
 
 Add a reference in ``source/index.rst`` to point your master ``index.rst``.
 
@@ -66,6 +66,8 @@ Then run Sphinx::
 
     bin/buildout
     make html
+
+See Sphinx ouput for warnings and errors.
 
 See that your manual gets correctly added in the index::
 

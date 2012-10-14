@@ -1,5 +1,5 @@
 ==============================================================
-Plone Developer Documentation maintenance and style guide
+Documentation style and maintenance guide
 ==============================================================
 
 .. toctree::
