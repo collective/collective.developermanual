@@ -10,3 +10,4 @@ Plone Developer Documentation maintenance and style guide
    developermanual
    nursinghome
    todos
+   crosslinking

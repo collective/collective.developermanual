@@ -26,5 +26,7 @@ Steps to embed reference manuaks
 
 Add your egg source to ``requirements.txt``.
 
-Add a reference in ``source/index.rst``.
+Add directory mapping to the top of ``conf.py``.
+
+Add a reference in ``source/index.rst`` to point your master ``index.rst``.
 

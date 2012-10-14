@@ -13,9 +13,10 @@
 
 import os
 
-# Embedded packages. The folder context for these is "source"
+# Embedded packages. The folder context for these is "source/reference_manuals/external"
 THE_OTHERS = {
-    "plone.api": "../../../src/plone.api/docs"
+    "plone.api": "../../../src/plone.api/docs",
+    "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source"
 }
 
 

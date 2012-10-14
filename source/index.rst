@@ -88,12 +88,16 @@ Reference manuals
 --------------------
 
 These manuals apply to the current best practices of Plone development.
-They are in their own separate section due to length and narrative explanation.
+They are in their own separate section due to the length of narrative explanation
+and having the documentation source code hosted in an external package.
 
 .. toctree::
     :maxdepth: 1
 
     reference_manuals/external/plone.api/index
+    reference_manuals/external/Products.TinyMCE/index
+
+See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
 Old reference manuals
 -----------------------
