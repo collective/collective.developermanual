@@ -14,9 +14,10 @@
 import os
 
 # Embedded packages. The folder context for these is "source/reference_manuals/external"
+# Please note that "#€=)/&"(=?ASFG=)"" pip lowercases all folder names
 THE_OTHERS = {
     "plone.api": "../../../src/plone.api/docs",
-    "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source"
+    "Products.TinyMCE": "../../../src/products.tinymce/docs/source"
 }
 
 

@@ -35,8 +35,15 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 {% endblock %}
 
 {% block sidebarlogo %}
-<p class="logo"><a href="{{ pathto(master_doc) }}"><img src="{{ pathto('_static/plone-icon-64.png', 1) }}" />
-</a></p>
+<div class="logo">
+    <a id="logo-link" href="{{ pathto(master_doc) }}">
+        <img src="{{ pathto('_static/logo.png', 1) }}" />
+    </a>
+    <div id="logo-tagline">
+        Plone Developer Documentation
+    </div>
+    <div style="clear: both"><!-- --></div>
+</div>
 {% endblock %}
 
 {% block footer %}
