@@ -5,7 +5,7 @@
 .. admonition:: Description
 
     Using the nginx web server to host Plone sites
-        
+
 .. contents:: :local:
 
 Introduction
@@ -13,8 +13,8 @@ Introduction
 
 Nginx is an modern alternative server to Apache.
 
-* It acts as a proxy server and load balancer in front of Zope.  
-* It handles rewrite rules.  
+* It acts as a proxy server and load balancer in front of Zope.
+* It handles rewrite rules.
 * It handles HTTPS.
 
 Minimal Nginx front end configuration for Plone on Ubuntu/Debian Linux
@@ -48,18 +48,18 @@ uses the buildout configuration tool to build a static Nginx server.
   from port 8080 -- Nginx acts simple as a HTTP proxy between Medusa and
   outgoing port 80 traffic.  Nginx does not spawn Plone process or anything
   like that, but Plone processes are externally controlled, usually by
-  buildout-created ``bin/instance`` and ``bin/plonectl`` commands, or by 
+  buildout-created ``bin/instance`` and ``bin/plonectl`` commands, or by
   a ``supervisor`` instance.
 
 Create file ``/etc/nginx/sites-available/yoursite.conf`` with contents::
 
     # This specifies which IP and port Plone is running on.
-    # The default is 127.0.0.1:8080    
+    # The default is 127.0.0.1:8080
     upstream plone {
         server 127.0.0.1:8090;
     }
 
-    # Redirect all www-less traffic to the www.site.com domain 
+    # Redirect all www-less traffic to the www.site.com domain
     # (you could also do the opposite www -> non-www domain)
     server {
         listen 80;
@@ -94,12 +94,12 @@ See that your nginx configuration is valid::
 
     ok
     configuration file /etc/nginx/nginx.conf test is successful
-    nginx.        
+    nginx.
 
 Alternatively your system might not provide ``configtest`` command and then
 you can test config with::
 
-    /usr/sbin/nginx   
+    /usr/sbin/nginx
 
 If the config was OK then restart::
 
@@ -107,7 +107,7 @@ If the config was OK then restart::
 
 More info:
 
-* http://wiki.mediatemple.net/w/%28ve%29:Configure_virtual_hosts_with_Nginx_on_Ubuntu  
+* http://wiki.mediatemple.net/w/%28ve%29:Configure_virtual_hosts_with_Nginx_on_Ubuntu
 
 * http://www.starzel.de/blog/securing-plone-sites-with-https-and-nginx
 
@@ -135,8 +135,8 @@ Config test
 Assuming you have a buildout nginx section called ``balancer``::
 
     bin/balancer configtest
-    
-    Testing nginx configuration 
+
+    Testing nginx configuration
     the configuration file /srv/plone/isleofback/parts/balancer/balancer.conf syntax is ok
     configuration file /srv/plone/isleofback/parts/balancer/balancer.conf test is successful
 
@@ -157,14 +157,14 @@ Example deployment configuration in ``production.cfg``::
     # Define folder and file locations for nginx called "balancer"
     # If deployment= is set on gocept.nginx recipe it uses
     # data provider here
-    [nginx]  
+    [nginx]
     run-directory = ${buildout:directory}/var/nginx
     etc-directory = ${buildout:directory}/var/nginx
     log-directory = ${buildout:directory}/var/logs
     rc-directory = ${buildout:directory}/bin
     logrotate-directory =
     user =
-    
+
     [balancer]
     recipe = gocept.nginx
     nginx = nginx-build
@@ -177,18 +177,18 @@ Example deployment configuration in ``production.cfg``::
 Install this part::
 
     bin/buildout -c production.cfg install balancer
-        
+
 Then you can use the following cycle to update the configuration::
 
     bin/balancer-nginx-balancer start
     # Update config in buildout
     nano production.cfg
-    # This is non-destructive, because now our PID file is in var/nginx        
+    # This is non-destructive, because now our PID file is in var/nginx
     bin/buildout -c production.cfg install balancer
     # Looks like reload is not enough
     bin/nginx-balancer stop ; bin/nginx-balancer start
 
-        
+
 Manually killing nginx
 =======================
 
@@ -198,9 +198,9 @@ You have lost ``PID`` file, or the recorded ``PID`` does not match the real
 .. code-block:: console
 
     (hardy_i386)isleofback@isleofback:~$ bin/balancer reload
-    Reloading nginx 
+    Reloading nginx
     cat: /srv/plone/isleofback/parts/balancer/balancer.pid: No such file or directory
-    
+
     (hardy_i386)isleofback@isleofback:~$ ps -Af|grep -i balancer
     1001     14012     1  0 15:26 ?        00:00:00 nginx: master process /srv/plone/isleofback/parts/nginx-build/sbin/nginx -c /srv/plone/isleofback/parts/balancer/balancer.conf
     1001     16488 16458  0 16:34 pts/2    00:00:00 grep -i balancer
@@ -211,20 +211,20 @@ You have lost ``PID`` file, or the recorded ``PID`` does not match the real
     1001     16496 16458  0 16:34 pts/2    00:00:00 grep -i balancer
 
     (hardy_i386)isleofback@isleofback:~$ bin/balancer start
-    Starting nginx 
+    Starting nginx
 
     # Now it is running again
     (hardy_i386)isleofback@isleofback:~$ ps -Af|grep -i balancer
     1001     16501     1  0 16:34 ?        00:00:00 nginx: master process /srv/plone/isleofback/parts/nginx-build/sbin/nginx -c /srv/plone/isleofback/parts/balancer/balancer.conf
     1001     16504 16458  0 16:34 pts/2    00:00:00 grep -i balancer
 
-Debugging nginx 
+Debugging nginx
 ===============
 
 Set nginx logging to debug mode::
 
     error_log ${buildout:directory}/var/log/balancer-error.log debug;
-        
+
 www-redirect
 ============
 
@@ -248,11 +248,11 @@ Hosts are configured in a separate buildout section::
         # Hostnames for servers
         main = www.yoursite.com
         main-alias = yoursite.com
-        
+
 More info
 
 * http://aleksandarsavic.com/nginx-redirect-wwwexamplecom-requests-to-examplecom-or-vice-versa/
-        
+
 Permanent redirect
 ===================
 
@@ -307,7 +307,7 @@ nginx redirect module docs
 
 * http://wiki.nginx.org/NginxHttpRewriteModule
 
-More info on nginx redirects 
+More info on nginx redirects
 
 * http://scott.yang.id.au/2007/04/do-you-need-permalink-redirect/
 
@@ -373,7 +373,7 @@ on SSI for a specific location::
     server {
             listen 80;
             server_name localhost;
-    
+
             # Decide if we need to filter
             if ($args ~ "^(.*);filter_xpath=(.*)$") {
                 set $newargs $1;
@@ -381,22 +381,22 @@ on SSI for a specific location::
                 # rewrite args to avoid looping
                 rewrite    ^(.*)$    /_include$1?$newargs?;
             }
-    
+
             location @include500 { return 500; }
             location @include404 { return 404; }
-    
+
             location ^~ /_include {
                 # Restrict to subrequests
                 internal;
                 error_page 404 = @include404;
-    
+
                 # Cache in Varnish for 1h
                 expires 1h;
-    
+
                 # Proxy
                 rewrite    ^/_include(.*)$    $1    break;
                 proxy_pass http://127.0.0.1:80;
-    
+
                 # Our safety belt.
                 proxy_set_header X-Loop 1$http_X_Loop; # unary count
                 proxy_set_header Accept-Encoding "";
@@ -404,7 +404,7 @@ on SSI for a specific location::
                 if ($http_X_Loop ~ "11111") {
                     return 500;
                 }
-    
+
                 # Filter by xpath
                 xslt_stylesheet /home/ubuntu/plone/eggs/xdv-0.4b2-py2.6.egg/xdv/filter.xsl
                 xpath=$filter_xpath
@@ -412,8 +412,8 @@ on SSI for a specific location::
                 xslt_html_parser on;
                 xslt_types text/html;
             }
-            
-            
+
+
             location /forum {
                 xslt_stylesheet /home/ubuntu/plone/theme/theme.xsl
                 path='$uri'
@@ -422,13 +422,13 @@ on SSI for a specific location::
                 xslt_types text/html;
                 # Switch on ssi here to enable external includes.
                 ssi on;
-    
+
                 root   /home/ubuntu/phpBB3;
                 index  index.php;
                 try_files $uri $uri/ /index.php?q=$uri&$args;
             }
     }
-        
+
 Session affinity
 =================
 
@@ -440,7 +440,7 @@ redirect users to the same ZEO client process or they will have 1/number of
 processes chance to see the orignal data.
 
 Make sure that your :doc:`Zope session cookie </sessions/cookies>` are not
-cleared by any front-end server (nginx, Varnish). 
+cleared by any front-end server (nginx, Varnish).
 
 By using IP addresses
 -------------------------
@@ -466,12 +466,12 @@ Manually extract ``nginx-sticky-module`` under ``src``:
 
     cd src
     wget http://nginx-sticky-module.googlecode.com/files/nginx-sticky-module-1.0-rc2.tar.gz
-    
+
 Then add it to the ``nginx-build`` part in buildout:
 
 .. code-block:: ini
 
-    [nginx-build]  
+    [nginx-build]
     recipe = zc.recipe.cmmi
     url = http://sysoev.ru/nginx/nginx-0.7.65.tar.gz
     extra_options = --add-module=${buildout:directory}/src/nginx-sticky-module-1.0-rc2
@@ -482,7 +482,7 @@ Now test reinstalling nginx in buildout:
 
     mv parts/nginx-build/ parts/nginx-build-old # Make sure full rebuild is done
     bin/buildout install nginx-build
-    
+
 See that it compiles without errors. Here is the line of compiling sticky:
 
 .. code-block:: console
@@ -514,20 +514,20 @@ Reinstall nginx balancer configs and start-up scripts:
 
 .. code-block:: console
 
-    bin/buildout install balancer 
+    bin/buildout install balancer
 
 Make sure that the generated configuration is ok:
 
 .. code-block:: console
 
     bin/nginx-balancer configtest
-    
+
 Restart nginx:
 
 .. code-block:: console
 
     bin/nginx-balancer stop ;bin/nginx-balancer start
-    
+
 Check that some (non-anonymous) page has the ``route`` cookie set:
 
 .. code-block:: console
@@ -536,7 +536,7 @@ Check that some (non-anonymous) page has the ``route`` cookie set:
     --2011-03-21 21:31:40--  http://yoursite.com/sisalto/saariselka-infoa
     Resolving yoursite.com (yoursite.com)... 12.12.12.12
     Connecting to yoursite.com (yoursite.com)|12.12.12.12|:80... connected.
-    HTTP request sent, awaiting response... 
+    HTTP request sent, awaiting response...
       HTTP/1.1 200 OK
       Server: nginx/0.7.65
       Content-Type: text/html;charset=utf-8
@@ -550,23 +550,23 @@ Check that some (non-anonymous) page has the ``route`` cookie set:
       Age: 0
       Via: 1.1 varnish
       Connection: keep-alive
-    
+
 
 Now test it by doing session-related activity and see that your shopping
-cart is not "lost". 
-                
+cart is not "lost".
+
 More info
 
 * http://code.google.com/p/nginx-sticky-module/source/browse/trunk/README
 
-* http://nathanvangheem.com/news/nginx-with-built-in-load-balancing-and-caching     
+* http://nathanvangheem.com/news/nginx-with-built-in-load-balancing-and-caching
 
 
-Securing Plone-Sites with https and nginx 
+Securing Plone-Sites with https and nginx
 =========================================
 
 For instructions how to use SSL for all authenticated traffic see this
-blog-post: 
+blog-post:
 
 * http://www.starzel.de/blog/securing-plone-sites-with-https-and-nginx
 
@@ -574,15 +574,15 @@ Setting log files
 =============================
 
 nginx.conf example::
-    
+
     worker_processes 2;
     error_log /srv/site/Plone/zinstance/var/log/nginx-error.log warn;
-    
+
     events {
         worker_connections  256;
     }
-    
+
     http {
         client_max_body_size 10M;
-    
+
         access_log /srv/site/Plone/zinstance/var/log/nginx-access.log;
