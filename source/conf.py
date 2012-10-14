@@ -239,8 +239,11 @@ def create_symlinks_for_external_docs():
         target_path = os.path.join(target, pkg)
         # print os.path.abspath(folder), os.path.abspath(target_path)
         if not os.path.exists(target_path):
-            os.symlink(folder, target_path)
-
+            try:
+                os.symlink(folder, target_path)
+            except:
+                print "Got %s -> %s error" % (folder, target_path)
+                raise
 
 create_symlinks_for_external_docs()
 
