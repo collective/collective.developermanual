@@ -505,3 +505,13 @@ non-zero length file or verifying the content using something like
 error makes it look as if your Python install doesn't have support for this
 type of archive, but in fact it can be caused by a corrupt download.
 
+VersionConflict: zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'.
+=============================================================================
+
+Example::
+	
+	Error: There is a version conflict.
+	We already have: zope.publisher 3.5.6
+
+Plone 3.x problem. Pin plone.uuid to 1.0.0.
+	but zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'.
