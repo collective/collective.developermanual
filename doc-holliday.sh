@@ -7,14 +7,12 @@
 #
 
 
-changed=0
-
 deploy_target=/tmp/test-deploy
 
 # http://stackoverflow.com/questions/3258243/git-check-if-pull-needed
 git pull | grep -q -v 'Already up-to-date.' && changed=1
 
-if [[ $changed ]] ; then
+if [[ ! -z "$changed" ]] ; then
     # Rebuild the docs from the scratch
     bin/buildout
     make clean html
