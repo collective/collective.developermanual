@@ -8,7 +8,7 @@ To read the documentation (formatted) in your web browser,
 please head to `Plone Developer Documentation at readthedocs.org <http://collective-docs.readthedocs.org/en/latest/>`_.
 
 To learn how to update and manage this documentation and its tools, read 
-`Writing and updating this documentation <http://collective-docs.readthedocs.org/en/latest/introduction/writing.html>`_.
+`Writing and updating this documentation <http://collective-docs.readthedocs.org/en/latest/reference_manuals/active/writing/writing.html>`_.
 
 Some clarifications:
 
