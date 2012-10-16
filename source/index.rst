@@ -115,6 +115,7 @@ and having the documentation source code hosted in an external package.
 
     reference_manuals/external/plone.api/index
     reference_manuals/external/Products.TinyMCE/index
+    reference_manuals/external/ploneorg.admin/index
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
