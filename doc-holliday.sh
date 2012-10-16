@@ -24,4 +24,6 @@ if [[ $changed ]] ; then
     install -d $deploy_target
     rsync -a --inplace build/html/* $deploy_target
     echo "Copied docs to $deploy_target"
+else
+    echo "Git was up to date - no docs built"
 fi
