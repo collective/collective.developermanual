@@ -14,7 +14,7 @@ for documentation which is no longer under active maintenance.
 
 This includes
 
-* Old content from plone.org
+* Old content from plone.org which has been migrated to Sphinx format
 
 * Content from Plone Developer Documentation where the documentation
   team feels it no longer reflects the modern Plone versions

@@ -7,7 +7,7 @@
 #
 
 
-deploy_target=/tmp/test-deploy
+deploy_target=/var/www/developer.plone.org/var/public_html
 
 # http://stackoverflow.com/questions/3258243/git-check-if-pull-needed
 git pull | grep -q -v 'Already up-to-date.' && changed=1
