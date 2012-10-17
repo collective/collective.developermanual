@@ -50,10 +50,32 @@ Approaches
     approaches/filesystem
     approaches/directions
 
+Tools
+---------
+
+.. toctree::
+    :maxdepth: 1
+
+    tools/authoring
+    tools/debug
+    tools/egg1/overview
+
+Building blocks
+-------------------
+
+.. toctree::
+    :maxdepth: 1
+
+    buildingblocks/overview
+    buildingblocks/skin/templates/overview
+    buildingblocks/skin/locations
+    buildingblocks/skin/components
+
+TODO continue here
+
 Content to be migrated
 ---------------------------
 
-    approaches/index
     tools/index
     buildingblocks/index
     page/index

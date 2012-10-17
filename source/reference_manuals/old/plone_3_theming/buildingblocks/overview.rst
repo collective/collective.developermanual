@@ -7,11 +7,8 @@ theme.
 There are really three main building blocks in a theme. The diagram
 below shows you how these slot together:
 
-.. figure:: http://plone.org/documentation/manual/theme-reference/images/buildingblocks1.gif/image_large
-   :align: center
-   :alt: diagram of the building blocks used to create a theme
+.. image:: buildingblocks1.gif
 
-   diagram of the building blocks used to create a theme
 Skin
 ----
 

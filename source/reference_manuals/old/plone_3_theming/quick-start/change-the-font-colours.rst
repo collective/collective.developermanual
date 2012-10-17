@@ -30,7 +30,7 @@ Locating the styles you want to change
 -  If you don't already have a page in your Plone site, add one, save it
    and inspect it in view mode.
 -  Use `Firebug, or a similar
-   tool, <http://plone.org/documentation/manual/theme-reference/quick-start/sharpen/firefox-mozilla-ui-development-tools>`_
+   tool, <firefox-mozilla-ui-development-tools>`_
    to locate the class name of the page title - in this case its
    h1.documentFirstHeading.
 

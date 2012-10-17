@@ -1,4 +1,4 @@
-5.3. Components
+Components
 ===============
 
 The page furniture, viewlets, portlets, and their managers. How to make
