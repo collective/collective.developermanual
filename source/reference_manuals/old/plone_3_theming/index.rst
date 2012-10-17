@@ -40,8 +40,18 @@ Quick start
     quick-start/change-the-font-colours
     quick-start/firefox-mozilla-ui-development-tools
 
-Foobar
---------
+Approaches
+------------
+
+.. toctree::
+    :maxdepth: 1
+
+    approaches/plonedefault
+    approaches/filesystem
+    approaches/directions
+
+Content to be migrated
+---------------------------
 
     approaches/index
     tools/index

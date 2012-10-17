@@ -23,15 +23,5 @@ Plone theming story
 
 -  `http://www.openplans.org/projects/ootb-plone-themes/summary <http://www.openplans.org/projects/ootb-plone-themes/summary>`_
 
-Deliverance
------------
-
-Deliverance is a lightweight program that applies a theme to content
-according to a set of rules.
-
--  `http://www.openplans.org/projects/deliverance/summary <http://www.openplans.org/projects/deliverance/summary>`_
--  `http://blog.repoze.org/setting-up-deliverance-screencast-20071025.html <http://blog.repoze.org/setting-up-deliverance-screencast-20071025.html>`_
-
- 
 
  
