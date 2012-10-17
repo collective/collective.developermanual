@@ -284,15 +284,15 @@ This is the recommended method if you want to try Plone for the first time.
 
 Please use the installer from the download page `<http://plone.org/products/plone/releases>`_.
 
-The binary installer is intended to provide an environment suitable for testing, evaluating, 
-and developing theme and add-on packages. It will not give you the ability to add or develop 
+The binary installer is intended to provide an environment suitable for testing, evaluating,
+and developing theme and add-on packages. It will not give you the ability to add or develop
 components that require a C compiler.
 
 Installing Plone from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Installation via the Unified Installer or buildout is very similar to Unix. However, you will
-need to install a command-line build environment. To get a free build kit from Apple, do one 
+need to install a command-line build environment. To get a free build kit from Apple, do one
 of the following:
 
 * Download gcc and command-line tools from
@@ -315,6 +315,12 @@ For OS X 10.6 and 10.7, you may avoid the Xcode install via these steps.
 * Install Python 2.7 (Plone 4.2.x) or 2.6 via the package manager.
 
 Proceed as with Linux.
+
+Entering debug mode after installation
+=========================================
+
+When you have Plone installed and want to start
+development you need do :doc:`enter debug mode </getstarted/debug-mode>`_.
 
 Installer source code
 ======================

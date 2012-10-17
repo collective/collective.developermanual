@@ -138,6 +138,7 @@ Old reference manuals
     :maxdepth: 1
 
     reference_manuals/old/archetypes/index
+    reference_manuals/old/plone_3_theming/index
     reference_manuals/old/archgenxml/index
     reference_manuals/old/buildout/index
     reference_manuals/old/forms/index

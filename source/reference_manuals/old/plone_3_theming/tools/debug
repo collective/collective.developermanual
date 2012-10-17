@@ -1,0 +1,76 @@
+Debug Mode
+==========
+
+Inevitably you won't get things right first time, so you need to make
+sure your site is running in debug mode.
+
+CSS Debug Mode
+--------------
+
+Plone bundles all its CSS files into one or two for efficiency by using
+a resource registry (there is more information on how this works in the
+`CSS and JavaScript to Page
+section <http://plone.org/documentation/manual/theme-reference/page/css>`_).
+It is a lot easier to see what you're doing if you turn this function
+off when you're designing. You can do the same for JavaScript.
+
+-  Go to Site Setup > Zope Management Interface > portal\_css or
+   portal\_javascripts
+-  Tick the debug check box
+
+Zope Debug Mode
+---------------
+
+If you're making your own theme product, you'll also find it helpful to
+run Zope itself in debug mode. This is set in the zope.conf file which
+you'll find in /etc in your Zope instance. Just remove the # from this
+line:
+
+::
+
+    #debug-mode = on
+
+If you're using buildout, you can set this in buildout.cfg:
+
+::
+
+    [instance]
+    debug-mode = on
+
+You'll still need to restart from time to time, but changes to the Skin
+part of your theme made on the file system will refresh straightaway.
+
+Can't see your changes?
+-----------------------
+
++-------------------------------+-------------------------------------------------------+-------------------------------------------------------+
+| Changes to....                | Through the Web                                       | On the File System                                    |
++-------------------------------+-------------------------------------------------------+-------------------------------------------------------+
+| Components                    | Should see these immediately                          | Restart Zope                                          |
++-------------------------------+-------------------------------------------------------+-------------------------------------------------------+
+| Skins                         | Should see these immediately                          | Run Zope in debug mode                                |
++-------------------------------+-------------------------------------------------------+-------------------------------------------------------+
+| Style sheets and JavaScript   | Switch portal\_css and portal\_javascripts to debug   | Switch portal\_css and portal\_javascripts to debug   |
++-------------------------------+-------------------------------------------------------+-------------------------------------------------------+
+| Configuration                 | Should see these immediately                          | Reinstall product with quick installer                |
++-------------------------------+-------------------------------------------------------+-------------------------------------------------------+
+
+Error messages
+--------------
+
+Plone comes with an error reporting module - PloneErrorReporting. When
+you've created a Plone site, you'll find this ready to install
+
+-  Site Setup > Add/Remove Products
+
+Make sure you uninstall it before you put a site into production mode.
+
+Avoid restarting all the time
+-----------------------------
+
+If you are doing a lot of work on components on the file system, you'll
+soon get tired of restarting Zope.
+`plone.reload <http://pypi.python.org/pypi/plone.reload/0.9>`_ will save
+you time. Add it to your buildout configuration file like any other egg,
+rerun buildout and you'll find that you can reload your code via your
+browser.

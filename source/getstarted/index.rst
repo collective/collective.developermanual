@@ -11,7 +11,7 @@ Introduction
 
 Plone is developed in :doc:`Python </getstarted/python>` programming language. You should master Python basics
 before you can efficiently customize Plone. If you are very new to Python, Plone or software development
-generally it is suggested that you read `Professional Plone 4 Development book <https://plone.org/documentation>`_ 
+generally it is suggested that you read `Professional Plone 4 Development book <https://plone.org/documentation>`_
 before you attempt to develop your own solutions.
 
 Plone runs on the top of `Zope 2 application server <zope2.zope.org/>`_ meaning that one Zope 2 server process
@@ -29,6 +29,13 @@ It is recommended that you do Plone development on Linux or OSX. Development on 
 but you need to have much more experience dealing with Python and Windows related problems, so starting on Windows is not so easy.
 
 See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation suitable for development.
+
+Enabling debug mode
+--------------------
+
+By default Plone runs in a *production mode* where changing on the files on a file system
+are not reflected in the served HTML. When you start developing Plone you need to
+first :doc:`put it into a debug model <debug-mode>`.
 
 Plone add-ons as Python packages
 -----------------------------------
@@ -69,7 +76,7 @@ You never edit Plone files directly. Everything under ``parts`` and `eggs``
 folders in your Plone installation are downloaded from internet and dynamically generated
 based by ``buildout.cfg``. Plone is free to override these files on any update.
 
-You need to have your own add-on in ``src/`` folder as created above.  
+You need to have your own add-on in ``src/`` folder as created above.
 There you overlay changes to existing Plone core through extension mechanisms provided by Plone
 
 * :doc:`Layers </views/layers>`
@@ -134,9 +141,9 @@ Documentation here does not focus for extending fuctionality through this method
 Hello World Tutorial
 ----------------------
 
-We have a :doc:`tutorial </getstarted/helloworld/index>` introducing the basics of Plone development. 
+We have a :doc:`tutorial </getstarted/helloworld/index>` introducing the basics of Plone development.
 
-The tutorial covers a basic form, custom content-type, and dynamic view. It also has detailed sections on building a development environment, installing Plone, and creating an add-on package for your development code. 
+The tutorial covers a basic form, custom content-type, and dynamic view. It also has detailed sections on building a development environment, installing Plone, and creating an add-on package for your development code.
 
 More info
 ------------
@@ -145,6 +152,7 @@ More info
     :maxdepth: 1
 
     installation
+    debug_mode
     python
     paste
     helloworld/index
