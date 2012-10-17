@@ -12,6 +12,7 @@ Doing HTML in Plone.
     javascript
     resourcefolders
     skin_layers
+    diazo
     xdv
     dtml
     redirects
