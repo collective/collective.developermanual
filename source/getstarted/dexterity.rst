@@ -5,8 +5,8 @@ Creating a Dexterity project
 How to create a dexterity project. This how-to explains how to setup a Dexterity-based project
 with minimum effort.
 
-There a few bumps when creating a Dexterity-based project from scratch using zopeskel.dexterity.
-This getting started document explains how to fix those bumps.
+There are a few bumps when creating a Dexterity-based project from scratch using zopeskel.dexterity.
+This getting started document explains how to work around the bugs.
 
 Prerequisites
 =============
