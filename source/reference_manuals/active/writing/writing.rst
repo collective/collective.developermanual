@@ -71,7 +71,7 @@ the time.
 .. code-block:: sh
 
    cd collective.developermanual
-   python2.6 bootstrap.py
+   python2.7 bootstrap.py
 
 * Run ``buildout`` (or just ``bin/develop update``) to get the latest
   documentation and code.
