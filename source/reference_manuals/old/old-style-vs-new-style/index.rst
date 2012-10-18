@@ -1,5 +1,5 @@
-Zope 2 vs. Zope 3 pratices
-====================================
+Zope 2 vs. Zope 3 practices
+===========================
 
 Over the years Plone has used many, many different technologies to
 deliver its award-winning CMS to the masses.
