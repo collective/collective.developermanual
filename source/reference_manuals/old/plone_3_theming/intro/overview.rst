@@ -3,7 +3,7 @@ Overview
 
 Here's a quick overview of what this manual covers.
 
-.. image :: /reference_manuals/old/plone_3_theming/images/mindmap.gif
+.. image:: ../images/mindmap.gif
 
 Section 1: Introduction
 
