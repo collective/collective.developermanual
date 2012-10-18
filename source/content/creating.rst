@@ -518,27 +518,27 @@ You could do this programmatically, but if you don't want anything fancy (see
 Step by step
 ------------
 
-* In your product's `profiles/default` folder, create a directory called `structure`.
+* In your product's ``profiles/default`` folder, create a directory called ``structure``.
 
-* To create a top-level folder with id `my-folder-gs-created`, add a directory of that name to the structure folder.
+* To create a top-level folder with id ``my-folder-gs-created``, add a directory of that name to the structure folder.
 
-* Create a file called .objects in the `structure` directory
+* Create a file called .objects in the ``structure`` directory
 
-* Create a file called .properties in the `my-folder-gs-created` directory
+* Create a file called .properties in the ``my-folder-gs-created`` directory
 
-* Create a file called .preserve in the `structure` directory
+* Create a file called .preserve in the ``structure`` directory
 
-* `.objects` registers the folder to be created::
+* ``.objects`` registers the folder to be created::
 
     my-folder-gs-created,Folder
 
-* `.properties` sets properties of the folder to be created::
+* ``.properties`` sets properties of the folder to be created::
 
     [DEFAULT]
     description = Folder for imported Projects
     title = My folder (created by generic setup)
 
-* `.preserve` will make sure the folder isn't overwritten if it already exists::
+* ``.preserve`` will make sure the folder isn't overwritten if it already exists::
 
     my-folder-gs-created
 
@@ -561,7 +561,7 @@ I don't see titles in the navigation, only ids
 
 You may notice that the new generated content's title appears to be set to its
 id. In this case, the catalog needs to be updated. You can do this through the
-ZMI, in `portal_catalog`.
+ZMI, in ``portal_catalog``.
 
 You could automate this process by adding a GS import step in configure.zcml, which looks like this::
 
@@ -575,9 +575,9 @@ You could automate this process by adding a GS import step in configure.zcml, wh
 
 This is the preferred way to define dependencies for import profiles: The
 import step declares its dependency on the content import step. 'content' is
-the name for the step which creates content from `profiles/default/structure`.
+the name for the step which creates content from ``profiles/default/structure``.
 You could then add a method which updates the catalog in the product's
-setuphandlers.py::
+``setuphandlers.py``::
 
   def updateCatalog(context, clear=True):
       portal = context.getSite()
