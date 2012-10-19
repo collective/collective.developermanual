@@ -75,6 +75,44 @@ and return its title::
     ``python:restrictedTraverse()`` instead if you need to use
     variables in your path parts.
 
+__call__() and nocall: behavior in TAL path traversing
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The TAL path expression will call Python callable objects by default.
+
+If you try to get a hold of a :doc:`helper view </views/browserviews>` like this::
+
+     tal:define="commentsView context/@@comments_view"
+
+You might get this exception::
+
+      Module zope.tales.expressions, line 217, in __call__
+      Module Products.PageTemplates.Expressions, line 155, in _eval
+      Module Products.PageTemplates.Expressions, line 117, in render
+      Module Products.Five.browser.metaconfigure, line 476, in __call__
+    AttributeError: 'coments_view' object has no attribute 'index'
+
+It basically means that your view does not have a template assigned
+and the traversing logic tries to render that template.
+
+This happens because
+
+1) `` context/@@comments_view`` creates a view instance 
+
+2) then calls its ``__call__()`` method 
+
+3) the default ``BrowserView.__call__()``  behavior  to render a template by doing:: 
+    
+    def __call__(self): 
+        return self.index()
+
+4) Because your view does not have a template assigned it also lacks self.index attribute
+
+The workaround for cases like this is to use ``nocall::`` traversing::
+    
+     tal:define="commentsView nocall:context/@@comments_view"
+
+
 ``string:`` expressions
 -------------------------
 
