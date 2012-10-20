@@ -27,7 +27,7 @@ After your ``mail_text`` is prepared, sending it is as simple as::
 
     try:
         host = getToolByName(self, 'MailHost')
-        # The `immediate` parameter causes an email to be sent immediately
+        # The ``immediate`` parameter causes an email to be sent immediately
         # (if any error is raised) rather than sent at the transaction
         # boundary or queued for later delivery.
         return host.send(mail_text, immediate=True)

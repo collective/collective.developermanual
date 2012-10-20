@@ -378,7 +378,7 @@ Example::
     from Products.Five.testbrowser import PublisherMechanizeBrowser
 
     class UABrowser(browser.Browser):
-        """A Zope ``testbrowser` Browser that uses the Zope Publisher.
+        """A Zope ``testbrowser`` Browser that uses the Zope Publisher.
 
         The instance must set a custom user agent string.
         """

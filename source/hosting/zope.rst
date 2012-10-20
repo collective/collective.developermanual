@@ -127,7 +127,7 @@ And your main Zope instance stays in production mode:
 
 .. note::
 
-    Starting Zope with the `fg` command forces it into debug mode,
+    Starting Zope with the ``fg`` command forces it into debug mode,
     but does not change the log level.                         
 
 Virtual hosting
