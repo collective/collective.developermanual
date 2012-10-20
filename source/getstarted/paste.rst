@@ -129,7 +129,7 @@ ZopeSkel Templates
 
 ``archetypes``
     Creates a package skeleton for 
-    :doc: ``Archetypes </content/archetypes/index>`` based content types.  
+    :doc:`Archetypes </content/archetypes/index>` based content types.  
 
 ``plone_basic``
     Creates a basic skeleton good for general Plone add-on packages.
