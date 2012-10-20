@@ -281,7 +281,7 @@ Solution:
 ImportError: No module named lxml
 =================================
 
-`lxml` as a PyPi package dependency fails even though it is clearly
+``lxml`` as a PyPi package dependency fails even though it is clearly
 installed.
 
 Example traceback when running buildout::

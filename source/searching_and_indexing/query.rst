@@ -533,7 +533,7 @@ Query multiple values
 
 ``KeywordIndex`` index type indexes list of values.
 It is used e.g. by Plone's categories (subject) feature
-and `object_provides`` provided interfaces index.
+and ``object_provides`` provided interfaces index.
 
 You can either query
 
@@ -577,10 +577,10 @@ Querying by interface
 
 Suppose you have several content types (for example, event types like
 'Birthday','Wedding','Graduation') in your portal which implement the same
-interface (for example, `IIsCauseForCelebration`). Suppose you want to get
+interface (for example, ``IIsCauseForCelebration``). Suppose you want to get
 items of these types from the catalog by their interface. This is more exact
-than naming the types explicitly (like `portal_type=['Birthday', 'Wedding',
-'Graduation' ]`), because you don't really care what the types' names really
+than naming the types explicitly (like ``portal_type=['Birthday', 'Wedding',
+'Graduation' ]``), because you don't really care what the types' names really
 are: all you really care for is the interface.
 
 This has the additional advantage that if products added or modified later add
@@ -597,21 +597,21 @@ you might do this::
 
     object_provides='Products.MyProduct.interfaces.IIsCauseForCelebration'
 
-The advantage of using `.__identifier__` instead instead of a dotted
+The advantage of using ``.__identifier__`` instead instead of a dotted
 name-string is that you will get errors at startup time if the interface cannot
 be found. This will catch typos and missing imports.
 
 Caveats
 -------
 
-* `object_provides` is a KeywordIndex which indexes absolute
+* ``object_provides`` is a KeywordIndex which indexes absolute
   Python class names. A string matching is performed for the dotted name. Thus,
   you will have zero results for this::
 
       catalog(object_provides="Products.ATContentTypes.interface.IATDocument")
 
   , because Products.ATContentTypes.interface imports everything from
-  `document.py`. But this will work::
+  ``document.py``. But this will work::
 
       catalog(object_provides="Products.ATContentTypes.interface.document.IATDocument")
       # products.atcontenttypes.document.iatdocument declares the interfacea
@@ -712,8 +712,8 @@ Example::
                                             DateTime('2062-05-08 15:16:17')),
                                    'range': 'min:max'})
 
-Note that `effectiveRange` may be a lot more efficient. This will return only
-objects whose `effective_date` is in the past, ie. objects that are not
+Note that ``effectiveRange`` may be a lot more efficient. This will return only
+objects whose ``effective_date`` is in the past, ie. objects that are not
 unpublished::
 
     items = portal_catalog(effectiveRange=DateTime())

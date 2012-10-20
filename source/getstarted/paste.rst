@@ -129,7 +129,7 @@ ZopeSkel Templates
 
 ``archetypes``
     Creates a package skeleton for 
-    :doc: `Archetypes </content/archetypes/index>` based content types.  
+    :doc: ``Archetypes </content/archetypes/index>`` based content types.  
 
 ``plone_basic``
     Creates a basic skeleton good for general Plone add-on packages.
@@ -242,7 +242,7 @@ Example of creating a content type:
 
 .. note::
 
-    You must create the `src` folder **inside** your package.
+    You must create the ``src`` folder **inside** your package.
     Otherwise the ``paster add`` command cannot work.
 
 To list the local commands available to your package, type:

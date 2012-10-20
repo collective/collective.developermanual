@@ -61,7 +61,7 @@ Dropping into pdb
 
 If you need to inspect start-up errors in Python's :doc:`debugger </testing_and_debugging/pdb>`.
 
-Activate Python configuration associated with your `bin/instance` script::
+Activate Python configuration associated with your ``bin/instance`` script::
 
     source ~/code/collective.buildout.python/python-2.6/bin/activate
 

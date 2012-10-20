@@ -481,7 +481,7 @@ to form engine, you need to
   replace these references with dynamically generated copes)
 
 * Generate a Python class dynamically. Output Python source code,
-  then `eval()` it. Using `eval()` is almost always considered
+  then ``eval()`` it. Using ``eval()`` is almost always considered
   as a bad practice.
 
 .. warning ::
@@ -494,7 +494,7 @@ to form engine, you need to
 Replacing schema fields with dynamically modified copies
 ---------------------------------------------------------
 
-The below is an example for z3c.form. It uses Python `copy`
+The below is an example for z3c.form. It uses Python ``copy``
 module to copy f.field reference, which points to zope.schema
 field. For this field copy, we modify *required* attribute based
 on input.

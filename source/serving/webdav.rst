@@ -82,7 +82,7 @@ to the location block.
 Apache
 ~~~~~~
 
-For Apache, you can use the `limit` statement, see http://httpd.apache.org/docs/current/mod/core.html#limit
+For Apache, you can use the ``limit`` statement, see http://httpd.apache.org/docs/current/mod/core.html#limit
 
 
 Supporting WebDAV in your custom content

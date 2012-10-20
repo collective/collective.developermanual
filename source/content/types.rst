@@ -194,7 +194,7 @@ types specified in the content-type's FTI (Factory Type Information) in the
 ``portal_types`` tool.
 
 If you want the types to appear in the :guilabel:
-`Add new..` dropdown menu, then you must
+``Add new..`` dropdown menu, then you must
 also set the immediately addable types. Otherwise, they will appear under the
 :guilabel:`more` submenu of :guilabel:`Add new..`.
 

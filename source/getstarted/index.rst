@@ -74,7 +74,7 @@ If you want to create a package with :doc:`Dexterity content types please read t
 Plone development workflow
 ----------------------------
 
-You never edit Plone files directly. Everything under ``parts`` and `eggs``
+You never edit Plone files directly. Everything under ``parts`` and ``eggs``
 folders in your Plone installation are downloaded from internet and dynamically generated
 based by ``buildout.cfg``. Plone is free to override these files on any update.
 

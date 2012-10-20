@@ -110,14 +110,14 @@ Generally, these decisions are made on the basis of caching hints that are in th
 
 Out of the box, Plone is very conservative. It assumes that currency is critical, and only tells the caching agent to store resources like icons. You may tune this up considerably by installing the *HTTP Caching* add on via the Plone control panel, then using the * caching* configlet to set cache rules.
 
-The *HTTP Caching* add on is shipped with Plone, but not activated. So, you don't need to add it to your buildout packages. Just activate it and go. By the way, the package that does the work is `plone.app.caching`, and that's how it's often discussed.
+The *HTTP Caching* add on is shipped with Plone, but not activated. So, you don't need to add it to your buildout packages. Just activate it and go. By the way, the package that does the work is ``plone.app.caching``, and that's how it's often discussed.
 
 Caching Settings
 ****************
 
 **Import settings**
 
-This is actually the place to start if you're new to cache settings. Set a basic profile by making a choice from this menu. Then use `Change settings` to refine it to your needs.
+This is actually the place to start if you're new to cache settings. Set a basic profile by making a choice from this menu. Then use ``Change settings`` to refine it to your needs.
 
 
 **Global settings:**

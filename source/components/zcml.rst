@@ -97,7 +97,7 @@ during ZCML parsing, not when site is run.
           ...
           myegg-overrides
 
-    Since Plone 3.3, the `z3c.autoinclude` plugin can do this
+    Since Plone 3.3, the ``z3c.autoinclude`` plugin can do this
     (http://plone.org/products/plone/roadmap/247/).
 
 

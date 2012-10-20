@@ -62,7 +62,7 @@ accordingly.
     Relationship between ZCML and site-specific behavior is usually done
     using :doc:`layers </views/layers>`. ZCML
     directives, like viewlets and views, are registered
-    to be active on a certain layer only using `layer`
+    to be active on a certain layer only using ``layer``
     attribute. When GenericSetup XML is imported
     through ``portal_setup``, or the product add-on installer is
     run for a Plone site, the layer is activated for the

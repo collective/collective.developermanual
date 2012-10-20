@@ -93,7 +93,7 @@ Congratulations! You should be now logged in as an admin to your new Plone insta
 On Unix
 ==============================
 
-Enter to your installation folder using `cd` command (depends on where you have installed Plone).
+Enter to your installation folder using ``cd`` command (depends on where you have installed Plone).
 
 Type in command::
 

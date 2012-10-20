@@ -64,7 +64,7 @@ Platform Notes
 Debian/Ubuntu
 *************
 
-Use `apt-get install`. The matching package names are:
+Use ``apt-get install``. The matching package names are:
 
 * build-essential
 * libssl-def
@@ -78,7 +78,7 @@ Use `apt-get install`. The matching package names are:
 Fedora
 ******
 
-Using `yum install`:
+Using ``yum install``:
 
 gcc-c++
 patch
@@ -90,7 +90,7 @@ readline-devel
 OpenSUSE
 ********
 
-Using `zypper in`
+Using ``zypper in``
 
 * zypper in gcc-c++
 * zypper in gmake
