@@ -1,6 +1,57 @@
 Starting, Stopping and Restarting
 =================================
 
+If you're using a stand-alone Zope/Plone installation (not a ZEO cluster), starting and stopping Plone is easy. A production ZEO cluster deployment adds some complexity because you'll now be controlling several process: a ZEO server and several ZEO clients.
+
+If you check the `bin` directory of your buildout after building a cluster, you'll find control commands for the server and each client. They're typically named zeoserver, client1, client2, client#. You can do a quick start with the command sequence::
+
+    cd /var/db/your_plone_build
+    sudo -u plone bin/zeoserver start
+    sudo -u plone bin/client1 start
+    sudo -u plone bin/client2 start
+    ...
+
+If you've set all this up with the Unified Installer, you'll have a convenience controller script named `plonectl` that will start all your components with one command::
+
+    cd /var/db/your_plone_build
+    sudo -u plone bin/plonectl start
+
+Each "start" command will run the program in "daemon" mode: after a few startup messages, the program will disconnect from the console and run in the background.
+
+The daemon mode start will write a process ID (pid) file in your buildout's `var` directory; that pid may be used to control the background process. It's automatically used by "stop" and "restart" commands.
+
+Starting and Stopping Plone with the Server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can start and stop Plone with your server by adding and init.d (Linux and other sys v heritage systems) or rc.d (BSD heritage) script that accepts start and stop commands.
+
+The Unified Installer has an init_scripts directory that contains sample initialization/stop scripts for several platforms. If you didn't use that installer, you may find the scripts on `github <https://github.com/plone/Installers-UnifiedInstaller/tree/master/init_scripts>`_.
+
+Process Control with Supervisor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A much better alternative to custom init scripts is to use a process-control system like `Supervisor <http://supervisord.org/>`_. Supervisor is well-known by the Plone community, and you should have no trouble getting community support for it. It's available as a package or port on most Linux and BSD systems (look for supervisor, supervisord or supervisor-python). Installing the port or package will typically activate supervisor. You then just add the Zope/Plone commands to the supervisor configuration file.
+
+Process-control system's like supervisor typically require the controlled application to run in foreground or console mode. Don't confuse this with the Zope/Plone `fg` command, which runs the application in debug mode (which is *very* slow). Instead, use `console` for clients. Use `fg` for the zeoserver; it doesn't have the "console" command, but its performance is unhindered.
+
+Here's a sample program-configuration stanza for supervisor, controlling both a ZEO server and client::
+
+    [program:plone_zeoserver]
+    command=/var/db/plone/zeocluster/bin/zeoserver fg
+    user=plone
+    directory=/var/db/plone/zeocluster
+    stopwaitsecs=60
+
+    [program:plone41_client1]
+    command=/var/db/plone41/zeocluster/bin/client1 console
+    user=plone
+    directory=/var/db/plone41/zeocluster
+    stopwaitsecs=60
+
+Note the `stopwaitsecs` setting. When trying to stop a program, supervisor will ordinarily wait 10 seconds before trying aggressive measures to terminate the process. Since it's entirely possible for a ZEO client to take longer than this to stop gracefully, we increase the grace period.
+
+When running a ZEO cluster through a process-control system such as supervisor, you should always use the system's own control mechanisms (supervisorctl for supervisor) to start, stop, and status-check cluster components.
+
 Cluster Restarts
 ~~~~~~~~~~~~~~~~
 
