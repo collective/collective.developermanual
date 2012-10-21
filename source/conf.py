@@ -238,6 +238,11 @@ def create_symlinks_for_external_docs():
 
     for pkg, folder in THE_OTHERS.items():
         target_path = os.path.join(target, pkg)
+
+        # Try to clean up broken symlinks
+        if not os.path.exists(os.readlink(target_path)):
+            os.remove(target_path)
+
         # print os.path.abspath(folder), os.path.abspath(target_path)
         if not os.path.exists(target_path):
             try:
