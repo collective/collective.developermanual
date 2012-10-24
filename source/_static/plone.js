@@ -13,6 +13,18 @@ function summonDragons() {
     }
 }
 
+/**
+ * Make sure we get redirected to developer.ploen.org
+ *
+ */
+function preferPrimaryDomain() {
+    if(window.location.hostname != "developer.plone.org") {
+        var href = window.location.href;
+        href = href.replace(window.location.hostname, "developer.plone.org");
+        window.location = href;
+    }
+}
+
 // Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
 $(document).ready(function () {
 
@@ -35,6 +47,8 @@ $(document).ready(function () {
         var pattern = 'div.highlight-' + suffix + ' > pre';
         $(pattern).wrap('<div class="highlight" />');
     }
+
+    preferPrimaryDomain();
 
     summonDragons();
 
