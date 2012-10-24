@@ -501,3 +501,100 @@ More info:
 * http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg
 
 * http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg
+
+Creating content using Generic Setup
+====================================
+
+Purpose
+-------
+
+You want your product to create default content in the site.  (For example,
+because you have a product which adds a new content type, and you want to
+create a special folder to put these items in.)
+
+You could do this programmatically, but if you don't want anything fancy (see
+"Limitations" below), Generic Setup can also take care of it.
+
+Step by step
+------------
+
+* In your product's ``profiles/default`` folder, create a directory called ``structure``.
+
+* To create a top-level folder with id ``my-folder-gs-created``, add a directory of that name to the structure folder.
+
+* Create a file called .objects in the ``structure`` directory
+
+* Create a file called .properties in the ``my-folder-gs-created`` directory
+
+* Create a file called .preserve in the ``structure`` directory
+
+* ``.objects`` registers the folder to be created::
+
+    my-folder-gs-created,Folder
+
+* ``.properties`` sets properties of the folder to be created::
+
+    [DEFAULT]
+    description = Folder for imported Projects
+    title = My folder (created by generic setup)
+
+* ``.preserve`` will make sure the folder isn't overwritten if it already exists::
+
+    my-folder-gs-created
+
+Limitations
+-----------
+
+* This will only work for Plone's own content types
+
+* Items will be in their initial workflow state
+
+If you want to create objects of a custom content type, or manipulate them
+more, you'll have to write a setuphandler. See below under "Further
+Information".
+
+Troubleshooting
+---------------
+
+I don't see titles in the navigation, only ids
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You may notice that the new generated content's title appears to be set to its
+id. In this case, the catalog needs to be updated. You can do this through the
+ZMI, in ``portal_catalog``.
+
+You could automate this process by adding a GS import step in configure.zcml, which looks like this::
+
+  <genericsetup:importStep
+         name="my.policy_updateCatalog"
+         title="Update catalog"
+         description="After creating content (from profiles/default/structure), the catalog needs to be updated."
+         handler="my.policy.setuphandlers.updateCatalog">
+       <depends name="content"/>
+     </genericsetup:importStep>
+
+This is the preferred way to define dependencies for import profiles: The
+import step declares its dependency on the content import step. 'content' is
+the name for the step which creates content from ``profiles/default/structure``.
+You could then add a method which updates the catalog in the product's
+``setuphandlers.py``::
+
+  def updateCatalog(context, clear=True):
+      portal = context.getSite()
+      logger = context.getLogger('my.policy updateCatalog')
+      logger.info('Updating catalog (with clear=%s) so items in profiles/default/structure are indexed...' % clear )
+      catalog = portal.portal_catalog
+      err = catalog.refreshCatalog(clear=clear)
+      if not err:
+          logger.info('...done.')
+      else:
+          logger.warn('Could not update catalog.')
+
+Further information
+-------------------
+
+* Original manual:
+  http://vanrees.org/weblog/creating-content-with-genericsetup
+* If you want to do things like workflow transitions or setting default views
+  after creating, read
+  http://keeshink.blogspot.de/2011/05/creating-plone-content-when-installing.html

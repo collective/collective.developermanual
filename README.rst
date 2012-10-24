@@ -2,7 +2,7 @@ Introduction
 ============
 
 This is the Sphinx source for the `Plone CMS <http://plone.org>`_ 
-developer manual used on the site `developer.plone.com <http://developer.plone.com>`_.
+developer manual used on the site `developer.plone.org <http://developer.plone.org>`_.
 
 To read the documentation (formatted) in your web browser,
 please head to `Plone Developer Documentation at readthedocs.org <http://collective-docs.readthedocs.org/en/latest/>`_.
