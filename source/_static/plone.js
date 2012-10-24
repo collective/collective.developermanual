@@ -36,6 +36,9 @@ function preferPrimaryDomain() {
     }
 }
 
+
+preferPrimaryDomain();
+
 // Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
 $(document).ready(function () {
 
@@ -58,8 +61,6 @@ $(document).ready(function () {
         var pattern = 'div.highlight-' + suffix + ' > pre';
         $(pattern).wrap('<div class="highlight" />');
     }
-
-    preferPrimaryDomain();
 
     summonDragons();
 
