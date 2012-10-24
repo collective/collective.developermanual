@@ -61,16 +61,16 @@ Add to the ``[instance]`` part in ``buildout.cfg``:
 Log level
 =========
 
-The default log level in Zope is ``INFO``. This causes a lot of 
-logging that is usually not needed. 
+The default log level in Zope is ``INFO``. This causes a lot of
+logging that is usually not needed.
 
-To reduce the size of log files and improve performance, add 
+To reduce the size of log files and improve performance, add
 the following to the ``[instance]`` part (the part(s) that specify
 your Zope instances) in ``buildout.cfg``:
 
 .. code-block:: cfg
 
-    event-log-level = WARN 
+    event-log-level = WARN
     z2-log-level = CRITICAL
 
 
@@ -79,10 +79,10 @@ Creating additional debug instances
 
 You might want to keep your production ``buildout.cfg`` and development
 configuration
-in sync automatically as possible. 
+in sync automatically as possible.
 
 A good idea is to use the same ``buildout.cfg`` for every Plone environment.
-For conditional things, such as turning debug mode on, extend the buildout 
+For conditional things, such as turning debug mode on, extend the buildout
 sections, which in turn create scripts to launch additional Zope clients in
 the ``bin/`` folder:
 
@@ -105,7 +105,7 @@ the ``bin/`` folder:
     # Create a launcher script which will start one Zope instance in debug mode
     #
     [debug-instance]
-    # Extend the main production instance  
+    # Extend the main production instance
     <= instance
 
     # Here override specific settings to make the instance run in debug mode
@@ -123,19 +123,19 @@ And your main Zope instance stays in production mode:
 
 .. code-block:: console
 
-    bin/instance 
+    bin/instance
 
 .. note::
 
     Starting Zope with the ``fg`` command forces it into debug mode,
-    but does not change the log level.                         
+    but does not change the log level.
 
 Virtual hosting
 ===============
 
-Zope has a component called 
+Zope has a component called
 `VirtualHostMonster <https://plone.dcri.duke.edu/info/faq/vhm>`_
-which does the virtual host mapping inside Zope. 
+which does the virtual host mapping inside Zope.
 
 Supressing virtual host monster
 -------------------------------
@@ -166,7 +166,7 @@ up in the selection drop down. You do not need to restart Zope.
 
 More information
 
-* http://quintagroup.com/services/support/tutorials/import-export-plone/ 
+* http://quintagroup.com/services/support/tutorials/import-export-plone/
 
 Regular database packing
 ==========================
@@ -263,7 +263,7 @@ Then copy to your own computer:
 
 .. code-block:: console
 
-    rsync -av --progress --inplace --partial user@server.com:/tmp/Data.fs.tar.bz2 .    
+    rsync -av --progress --inplace --partial user@server.com:/tmp/Data.fs.tar.bz2 .
 
 Creating a sanitized data drop
 ==============================
@@ -305,7 +305,7 @@ This script has two options for purging data:
 
 The sample ``clean.py``:
 
-.. code-block:: python 
+.. code-block:: python
 
     """ Pack Plone database size and clean sensitive data.
         This makes output ideal as a developent drop.
@@ -320,7 +320,7 @@ The sample ``clean.py``:
 
     """
 
-    import logging 
+    import logging
     import transaction
 
     logger = logging.getLogger("cleaner")
@@ -339,7 +339,7 @@ The sample ``clean.py``:
     PASSWORD="123123"
 
     def is_white_listed(path):
-        """    
+        """
         """
         paths = [ s.strip() for s in WHITELIST.split("\n") if s.strip() != ""]
 
@@ -349,14 +349,14 @@ The sample ``clean.py``:
 
     def purge(site):
         """
-        Purge the site using standard Plone deleting mechanism (slow)    
+        Purge the site using standard Plone deleting mechanism (slow)
         """
         i = 0
         for dp in DELETE_POINTS.split("\n"):
 
             dp = dp.string()
             if dp == "":
-                continue        
+                continue
 
             folder = site.unrestrictedTraverse(dp)
 
@@ -365,17 +365,17 @@ The sample ``clean.py``:
                 if not is_white_listed(full_path):
                     logger.info("Deleting path:" + full_path)
                     try:
-                        folder.manage_delObjects([id])         
+                        folder.manage_delObjects([id])
                     except Exception, e:
-                        # Bad delete handling code - e.g. catalog indexes b0rk out 
-                        logger.error("*** COULD NOT DELETE ***")               
+                        # Bad delete handling code - e.g. catalog indexes b0rk out
+                        logger.error("*** COULD NOT DELETE ***")
                         logger.exception(e)
                     i += 1
-                    if i % 100 == 0:       
+                    if i % 100 == 0:
                         transaction.commit()
 
     def purge_harder(site):
-        """    
+        """
         Purge using forced delete and then catalog rebuild.
 
         Might be faster if a lot of content.
@@ -386,18 +386,18 @@ The sample ``clean.py``:
         for dp in DELETE_POINTS.split("\n"):
 
             if dp.strip() == "":
-                continue        
+                continue
             folder = site.unrestrictedTraverse(dp)
 
             for id in folder.objectIds():
                 full_path = dp + "/" + id
                 if not is_white_listed(full_path):
-                    logger.info("Hard deleting path:" + full_path)           
-                    # http://collective-docs.readthedocs.org/en/latest/content/deleting.html#fail-safe-deleting     
-                    folder._delObject(id, suppress_events=True)         
+                    logger.info("Hard deleting path:" + full_path)
+                    # http://collective-docs.readthedocs.org/en/latest/content/deleting.html#fail-safe-deleting
+                    folder._delObject(id, suppress_events=True)
 
                     i += 1
-                    if i % 100 == 0:       
+                    if i % 100 == 0:
                         transaction.commit()
 
         site.portal_catalog.clearFindAndRebuild()
@@ -406,10 +406,10 @@ The sample ``clean.py``:
     def pack(app):
         """
         @param app Zope application server root
-        """     
+        """
         logger.info("Packing database")
         cpanel = app.unrestrictedTraverse('/Control_Panel')
-        cpanel.manage_pack(days=0, REQUEST=None)    
+        cpanel.manage_pack(days=0, REQUEST=None)
 
     def change_zope_passwords(app):
         """
@@ -427,12 +427,12 @@ The sample ``clean.py``:
         # Products.PlonePAS.plugins.ufactory
         users = site.acl_users.source_users
         for id in users.getUserIds():
-            users.doChangeUser(id, PASSWORD)    
+            users.doChangeUser(id, PASSWORD)
 
     def change_membrane_password(site):
         """
         Reset membrane passwords (if membrane installed)
-        """        
+        """
 
         if not "membrane_users" in site.acl_users.objectIds():
             return
@@ -442,7 +442,7 @@ The sample ``clean.py``:
         users = site.acl_users.membrane_users
         for id in users.getUserNames():
             try:
-                users.doChangeUser(id, PASSWORD)        
+                users.doChangeUser(id, PASSWORD)
             except:
                 # XXX: We should actually delete membrane users before content folders
                 # or we will break here
@@ -464,7 +464,7 @@ The sample ``clean.py``:
 
         def __init__(self, context, request):
             self.context = context
-            self.request = request    
+            self.request = request
 
         def __call__(self):
             """
@@ -560,7 +560,7 @@ The file contains:
             notifempty
             # File owner and permission for rotated files
             # For additional safety this can be a different
-            # user so your Plone UNIX user cannot 
+            # user so your Plone UNIX user cannot
             # delete logs
             create 640 root root
 
