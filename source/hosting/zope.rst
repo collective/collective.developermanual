@@ -154,7 +154,7 @@ The exported file is basically a Python pickle containing the chosen node
 and all child nodes.
 
 Importable ``.zexp`` files must be placed on ``/parts/instance/import``
-buildout folder on the server. 
+buildout folder on the server.
 If you are using  clustered ZEO set-up, always run imports through a
 specific front-end instance
 by using direct port access. Note that ``parts`` folder structure is pruned
@@ -171,9 +171,9 @@ More information
 Regular database packing
 ==========================
 
-The append-only nature of the :doc:`ZODB </persistency/database>` 
+The append-only nature of the :doc:`ZODB </persistency/database>`
 makes the database grow continuously even
-if you only edit old information and don't add any new content. 
+if you only edit old information and don't add any new content.
 To make sure your server's hard disk does not fill up,
 you need to pack the ZODB automatically and regularly.
 
@@ -185,7 +185,7 @@ Copying a remote site database
 ================================
 
 Below is a UNIX shell script to copy a remote Plone site(s) database to
-your local computer. This is useful for synchronizing the 
+your local computer. This is useful for synchronizing the
 development copy of a site from a live server.
 
 ``copy-plone-site.sh``
@@ -277,7 +277,7 @@ A *sanitized* data drop is a Plone site where:
 
 * other possible sensitive data has been removed.
 
-It should safe to give a sanitized copy to a third party. 
+It should safe to give a sanitized copy to a third party.
 
 Below is a sample script which will clean a Plone site in-place.
 
