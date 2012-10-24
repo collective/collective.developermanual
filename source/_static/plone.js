@@ -18,6 +18,17 @@ function summonDragons() {
  *
  */
 function preferPrimaryDomain() {
+
+    // Special cases
+    if(window.location.protocol == "file:") {
+        return;
+    }
+
+    if(window.location.hostname == "localhost") {
+        return;
+    }
+
+    // Redirect rtd.org to developer.plone.org
     if(window.location.hostname != "developer.plone.org") {
         var href = window.location.href;
         href = href.replace(window.location.hostname, "developer.plone.org");

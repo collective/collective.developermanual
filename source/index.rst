@@ -28,18 +28,13 @@ Tutorials
 If doing Plone development for the first time
 these tutorials serving as a starting point.
 
-Add-ons
-+++++++++++
+* :doc:`Add-ons: how Plone add-ons are created <getstarted/index>`
 
-* :doc:`Building TODO application on Plone <reference_manuals/external/tutorials.todoapp/index>`
+* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index>`
 
-Theming
-+++++++++++
+* :doc:`Archetypes: Building content types on Plone with Archetypes content subsystem <reference_manuals/old/archetypes/index>`
 
-.. toctree::
-   :maxdepth: 1
-
-   tutorials/theming/index
+* :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
 
 Extending Plone Functionality
 -------------------------------------------
@@ -103,7 +98,7 @@ Troubleshooting
    troubleshooting/images
    troubleshooting/transactions
 
-Reference manuals
+Manuals
 --------------------
 
 These manuals apply to the current best practices of Plone development.
@@ -119,7 +114,7 @@ and having the documentation source code hosted in an external package.
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
-Old reference manuals
+Old manuals
 -----------------------
 
 .. role:: itwillhurt
