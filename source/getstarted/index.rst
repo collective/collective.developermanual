@@ -35,7 +35,7 @@ Enabling debug mode
 
 By default Plone runs in a *production mode* where changing on the files on a file system
 are not reflected in the served HTML. When you start developing Plone you need to
-first :doc:`put it into a debug model <debug-mode>`.
+first :doc:`put it into a debug model </getstarted/debug_mode>`.
 
 Plone add-ons as Python packages
 -----------------------------------
