@@ -916,23 +916,27 @@ Discovering the query:
 	('getObjSize', u'Size')
     ]
 
-This output should be pretty self-evident: This query finds objects
+This output should be pretty self-explaining: This query finds objects
 that were created today, which have "my querystring" in their
 description, are of type "Document" (ie, "Page"), and have "some_tag"
 in their tag set (you'll find that under "Classification"). Also,
 the results are being sorted in reverse order of the Effective Date
-(ie, the publishing date).
+(ie, the publishing date). We're getting at most 1000 results, which
+is the default cut-off.
 
 You can set the query expression (individual parts are evaluated as logical AND) using
 
     >>> tq.setQuery( your query expression, see above )
-
 
 The three parts of an individual query term are
 
     * 'i': which index to query
     * 'o': which operator to use (see `plone.app.querystring` for a list)
     * 'v': the possible value of an argument to said operator - eg. the query string.
+
+Other parameters can be manipulated the same way:
+
+    >>> tq.setSort_reversed(True)
 
 
 Accessing metadata
