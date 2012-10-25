@@ -36,7 +36,7 @@ these tutorials serve as a starting point.
 
 * :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
 
-Extending Plone Functionality
+Programming Plone
 -------------------------------------------
 
 .. toctree::
