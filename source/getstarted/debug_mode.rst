@@ -12,17 +12,36 @@
 Introduction
 ===============
 
-By default when you start Plone you start it in a *production mode*.
+By default when you start Plone you start it in a **production mode**.
 
 * Plone is fast
 
-* CSS and Javascript files are merged instead of causing multipe HTTP request to load these assets
+* CSS and Javascript files are *merged* instead of causing multipe HTTP request to load these assets. 
+  CSS and Javascript behavior is different in production and debug mode, especially with files with syntax errors.
 
 * Plone does not reload changed filed on the disk
 
-But because of above optimizations the development against a production mode is not feasible.
+Because of above optimizations the development against a production mode is not feasible.
 Instead you need to start Plone in debug mode (also known as development mode) if you
 are doing any site development.
+
+In **debug mode**
+
+* Plone is slower
+
+* CSS and Javascript files are read file-by-file so line numbers match on the actual files on the disk.
+  (*portal_css* and *portal_javascript* is set to debug mode when Plone is started in debug mode)
+
+* Plone reloads CSS, Javascript and .pt files when the page is refreshed
+
+.. note ::
+
+     Plone does not reload .py or .zcml files in the debug mode by default.
+
+Reloading Python code
+========================
+
+Reloading Python code automatically can be enabled with `sauna.reload add-on <http://pypi.python.org/pypi/sauna.reload/>`_.
 
 
 On Microsoft Windows
