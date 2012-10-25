@@ -7,6 +7,8 @@
     Plone can be put in the debug mode where changes to CSS, Javascript
     and page templates take effect immediately.
 
+.. contents:: :local:
+
 Introduction
 ===============
 
