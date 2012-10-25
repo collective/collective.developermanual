@@ -865,6 +865,76 @@ More information
 
 * http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/removed-advanced-query
 
+
+Setting Up A New Style Query
+============================
+
+With Plone 4.2, collections use so-called new-style queries by
+default. These are, technically speaking, canned queries, and they
+appear to have the following advantages over old-style collection's
+criteria:
+
+ * They are not complicated sub-objects of collections, but comparably
+   simple subobjects that can be set using simple Python expressions.
+ * These queries are apparently much faster to execute, as well as
+ * much easier to understand, and
+ * content-type agnostic in the sense that they are no longer tied to
+   ArcheTypes.
+
+The easiest way to get into these queries is to grab a debug shell
+alongside an instance, then fire up a browser pointing to that
+instance, then manipulate the queries and watch the changes on the
+debug shell, if you want to experiment. I've constructed a dummy
+collection for demonstration purposes, named `testquery`. I've
+formatted the output a little, for readability.
+
+Discovering the query:
+
+    >>> site.invokeFactory('Collection', id='testquery') # actually with my browser
+    >>> tq = site['testquery']
+    >>> tq.getRawQuery()
+    [
+        {'i': 'created', 'o': 'plone.app.querystring.operation.date.today'},
+        {'i': 'Description', 'o': 'plone.app.querystring.operation.string.contains', 'v': 'my querystring'},
+        {'i': 'portal_type', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['Document']},
+        {'i': 'Subject', 'o': 'plone.app.querystring.operation.selection.is', 'v': ['some_tag']}
+    ]
+    >>> tq.getSort_on()
+    'effective'
+    >>> tq.getSort_reversed()
+    True
+    >>> tq.getLimit()
+    1000
+    >>> tq.selectedViewFields()
+    [
+        ('Title', u'Title'),
+	('Creator', 'Creator'),
+	('Type', u'Item Type'),
+	('ModificationDate', u'Modification Date'),
+	('ExpirationDate', u'Expiration Date'),
+	('getId', u'Short Name'),
+	('getObjSize', u'Size')
+    ]
+
+This output should be pretty self-evident: This query finds objects
+that were created today, which have "my querystring" in their
+description, are of type "Document" (ie, "Page"), and have "some_tag"
+in their tag set (you'll find that under "Classification"). Also,
+the results are being sorted in reverse order of the Effective Date
+(ie, the publishing date).
+
+You can set the query expression (individual parts are evaluated as logical AND) using
+
+    >>> tq.setQuery( your query expression, see above )
+
+
+The three parts of an individual query term are
+
+    * 'i': which index to query
+    * 'o': which operator to use (see `plone.app.querystring` for a list)
+    * 'v': the possible value of an argument to said operator - eg. the query string.
+
+
 Accessing metadata
 ======================
 
