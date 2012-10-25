@@ -5,7 +5,8 @@
 .. admonition:: Description
 
     Plone can be put in the debug mode where changes to CSS, Javascript
-    and page templates take effect immediately.
+    and page templates take effect immediately. This page also contains 
+    tips related to updating files and reflecting changes on the production servers.
 
 .. contents:: :local:
 
