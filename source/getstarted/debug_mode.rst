@@ -53,8 +53,25 @@ Make sure your Javascript and CSS files are valid, mergeable and compressable. I
 are not then you can tweak the settings for individual file in the corresponding
 management tool.
 
-On Microsoft Windows
-==============================
+Refresh issues
+===========================
+
+Plone **production mode** should re-read CSS and Javascript files on Plone start-up.
+
+Possible things to debug and force refresh of static assets
+
+* Check HTML <head> links and the actual file contents
+
+* Go to *portal_css*, press *Save* to force CSS rebundling
+
+* Make sure you are not using *plone.app.caching* and doing caching forever 
+
+* Use `hard browser refresh <http://support.mozilla.org/en-US/questions/746138>`_ to override local cache
+
+
+
+Starting Plone in debug mode on Microsoft Windows
+============================================================
 
 This document explains how to start and run the latest Plone (Plone 4.1.4) on Windows 7. This document explains post-installer steps on how to start and enter into a Plone site.
 Installation
@@ -120,8 +137,9 @@ To create your site, fill in this form and click the *Create Plone Site* button.
 Congratulations! You should be now logged in as an admin to your new Plone instance and you'll see the front page of Plone.
 
 
-On Unix
-==============================
+Starting Plone in debug mode on UNIX
+============================================================
+
 
 Enter to your installation folder using ``cd`` command (depends on where you have installed Plone).
 
