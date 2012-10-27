@@ -5,26 +5,74 @@
 .. admonition:: Description
 
     Plone can be put in the debug mode where changes to CSS, Javascript
-    and page templates take effect immediately.
+    and page templates take effect immediately. This page also contains 
+    tips related to updating files and reflecting changes on the production servers.
+
+.. contents:: :local:
 
 Introduction
 ===============
 
-By default when you start Plone you start it in a *production mode*.
+By default when you start Plone you start it in a **production mode**.
 
 * Plone is fast
 
-* CSS and Javascript files are merged instead of causing multipe HTTP request to load these assets
+* CSS and Javascript files are *merged* instead of causing multipe HTTP request to load these assets. 
+  CSS and Javascript behavior is different in production and debug mode, especially with files with syntax errors
+  because of merging. 
 
-* Plone does not reload changed filed on the disk
+* Plone does not reload changed files from the disk
 
-But because of above optimizations the development against a production mode is not feasible.
+Because of above optimizations the development against a production mode is not feasible.
 Instead you need to start Plone in debug mode (also known as development mode) if you
 are doing any site development.
 
+In **debug mode**
 
-On Microsoft Windows
-==============================
+* Plone is slower
+
+* CSS and Javascript files are read file-by-file so line numbers match on the actual files on the disk.
+  (*portal_css* and *portal_javascript* is set to debug mode when Plone is started in debug mode)
+
+* Plone reloads CSS, Javascript and .pt files when the page is refreshed
+
+.. note ::
+
+     Plone does not reload .py or .zcml files in the debug mode by default.
+
+Reloading Python code
+========================
+
+Reloading Python code automatically can be enabled with `sauna.reload add-on <http://pypi.python.org/pypi/sauna.reload/>`_.
+
+Javascript and CSS issues with production mode
+=================================================
+
+See **portal_css** and **portal_javascript** in ZMI to inspect how your scripts are bundled.
+
+Make sure your Javascript and CSS files are valid, mergeable and compressable. If they
+are not then you can tweak the settings for individual file in the corresponding
+management tool.
+
+Refresh issues
+===========================
+
+Plone **production mode** should re-read CSS and Javascript files on Plone start-up.
+
+Possible things to debug and force refresh of static assets
+
+* Check HTML <head> links and the actual file contents
+
+* Go to *portal_css*, press *Save* to force CSS rebundling
+
+* Make sure you are not using *plone.app.caching* and doing caching forever 
+
+* Use `hard browser refresh <http://support.mozilla.org/en-US/questions/746138>`_ to override local cache
+
+
+
+Starting Plone in debug mode on Microsoft Windows
+============================================================
 
 This document explains how to start and run the latest Plone (Plone 4.1.4) on Windows 7. This document explains post-installer steps on how to start and enter into a Plone site.
 Installation
@@ -90,8 +138,9 @@ To create your site, fill in this form and click the *Create Plone Site* button.
 Congratulations! You should be now logged in as an admin to your new Plone instance and you'll see the front page of Plone.
 
 
-On Unix
-==============================
+Starting Plone in debug mode on UNIX
+============================================================
+
 
 Enter to your installation folder using ``cd`` command (depends on where you have installed Plone).
 

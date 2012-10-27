@@ -26,22 +26,17 @@ Tutorials
 -------------------------------------------
 
 If doing Plone development for the first time
-these tutorials serving as a starting point.
+these tutorials serve as a starting point.
 
-Add-ons
-+++++++++++
+* :doc:`Add-ons: how Plone add-ons are created <getstarted/index>`
 
-* :doc:`Building TODO application on Plone <reference_manuals/external/tutorials.todoapp/index>`
+* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index>`
 
-Theming
-+++++++++++
+* :doc:`Archetypes: Building content types on Plone with Archetypes content subsystem <reference_manuals/old/archetypes/index>`
 
-.. toctree::
-   :maxdepth: 1
+* :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
 
-   tutorials/theming/index
-
-Extending Plone Functionality
+Programming Plone
 -------------------------------------------
 
 .. toctree::
@@ -103,7 +98,7 @@ Troubleshooting
    troubleshooting/images
    troubleshooting/transactions
 
-Reference manuals
+Manuals
 --------------------
 
 These manuals apply to the current best practices of Plone development.
@@ -119,7 +114,7 @@ and having the documentation source code hosted in an external package.
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
-Old reference manuals
+Old manuals
 -----------------------
 
 .. role:: itwillhurt
@@ -129,8 +124,8 @@ Old reference manuals
 
 .. warning ::
 
-    The following sections of developer documentation are no longer under active maintance.
-    They are included as the reference for older technologies (Plone 2.x, Plone 3.x).
+    The following sections of developer documentation are no longer under active maintenance.
+    They are included here as reference for older technologies (Plone 2.x, Plone 3.x).
     Some of the practices described in these documents may still work, but are not recommended
     to be used in your active Plone development.
 
@@ -153,7 +148,7 @@ Old reference manuals
 Documentation style guide
 -----------------------------
 
-Instructions and style guide for maintain this documentation
+Instructions and style guide to maintain this
 and other Plone related developer documentation.
 
 .. toctree::

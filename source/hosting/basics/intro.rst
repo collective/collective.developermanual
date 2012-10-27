@@ -22,7 +22,7 @@ deployment stack needed for real-life deployment:
 * Database packing
 
 We won't cover the details of installation or actual tool setup. Those are
-better covered in the :doc:`Installation </getstarted/installation>` and
+better covered in the :doc:`Installation </getstarted/installation>` and other
 :doc:`Hosting </hosting/index>` guides.
 
 And, what about Windows?

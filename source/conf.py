@@ -238,6 +238,11 @@ def create_symlinks_for_external_docs():
 
     for pkg, folder in THE_OTHERS.items():
         target_path = os.path.join(target, pkg)
+
+        # Try to clean up broken symlinks
+        if not os.path.exists(os.readlink(target_path)):
+            os.remove(target_path)
+
         # print os.path.abspath(folder), os.path.abspath(target_path)
         if not os.path.exists(target_path):
             try:
@@ -246,5 +251,8 @@ def create_symlinks_for_external_docs():
                 print "Got %s -> %s error" % (folder, target_path)
                 raise
 
-create_symlinks_for_external_docs()
-
+# Ignore for now so that we get collective-docs.rtd.org project built complete
+try:
+    create_symlinks_for_external_docs()
+except Exception as e:
+    pass

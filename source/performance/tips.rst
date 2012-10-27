@@ -9,6 +9,11 @@
     Tips for Plone performance tuning and making your add-on product and
     customizations faster.
 
+Profiling Plone
+===========================
+
+* http://pypi.python.org/pypi/collective.profiler/
+
 Optimizing ZEO and threads
 ===========================
 

@@ -18,5 +18,6 @@ Basics of Plone production deployment
     intro
     stack
     preparing
-
+    processes
+    logs
     packing
