@@ -11,7 +11,8 @@ Introduction
 
 Plone is developed in the :doc:`Python </getstarted/python>` programming language. You should master Python basics
 before you can efficiently customize Plone. If you are very new to Python, Plone or software development, 
-it is suggested that you read the `Professional Plone 4 Development book <https://plone.org/documentation>`_
+it is suggested that you read the `Professional Plone 4 Development book 
+<http://www.packtpub.com/professional-plone-4-development/book>`_
 before you attempt to develop your own solutions.
 
 Plone runs on the top of the `Zope 2 application server <zope2.zope.org/>`_ meaning that one Zope 2 server process
@@ -42,14 +43,22 @@ first :doc:`put it into a debug mode </getstarted/debug_mode>`.
 Plone add-ons as Python packages
 -----------------------------------
 
-Plone can be customized for your needs by creating add-ons which are developed and distributed as 
-`Python egg packages <http://packages.python.org/distribute/setuptools.html>`_. 
-Eggs are a Python packaging format. Open-source Python packages are listed and automatically downloaded 
-from the `pypi.python.org <http://pypi.python.org>`_ service.
+Plone sites can be customized by installing *Plone add-ons*, which add or customize functionality.
+You can install existing add-ons that others have developed or you can develop and install your own add-ons.
+Add-ons are developed and distributed as 
+`Python packages <http://packages.python.org/distribute/setuptools.html>`_. Many open-source Python packages, 
+including Plone add-ons, are available from `PyPI (the Python Package index) <http://pypi.python.org>`_.
 
-The set of components, which makes your Plone installation, is managed by 
-the :doc:`bin/buildout` command and the `buildout.cfg configuration file </buildout/index>`. 
-Buildout itself wraps Python's setuptools package.
+Plone uses a tool called `Buildout <http://www.buildout.org/>`_ to manage the set of Python packages 
+that are part of your Plone installation.
+Using Buildout involves using the :doc:`buildout.cfg` configuration file and the :doc:`bin/buildout` command.
+
+.. note ::
+
+  In prior versions of Plone and Zope, add-ons were referred to as "products" and they were installed by copying
+them into a special folder called :doc:`products`. This method is now deprecated in favor of using 
+standard Python packages, managed by Buildout.
+
 
 Creating your first add-on
 ----------------------------
