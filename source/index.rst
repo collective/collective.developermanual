@@ -26,7 +26,7 @@ Tutorials
 -------------------------------------------
 
 If doing Plone development for the first time
-these tutorials serving as a starting point.
+these tutorials serve as a starting point.
 
 * :doc:`Add-ons: how Plone add-ons are created <getstarted/index>`
 
@@ -36,7 +36,7 @@ these tutorials serving as a starting point.
 
 * :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
 
-Extending Plone Functionality
+Programming Plone
 -------------------------------------------
 
 .. toctree::
@@ -124,8 +124,8 @@ Old manuals
 
 .. warning ::
 
-    The following sections of developer documentation are no longer under active maintance.
-    They are included as the reference for older technologies (Plone 2.x, Plone 3.x).
+    The following sections of developer documentation are no longer under active maintenance.
+    They are included here as reference for older technologies (Plone 2.x, Plone 3.x).
     Some of the practices described in these documents may still work, but are not recommended
     to be used in your active Plone development.
 
@@ -148,7 +148,7 @@ Old manuals
 Documentation style guide
 -----------------------------
 
-Instructions and style guide for maintain this documentation
+Instructions and style guide to maintain this
 and other Plone related developer documentation.
 
 .. toctree::

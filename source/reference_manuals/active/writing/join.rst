@@ -11,8 +11,7 @@ Discussion channel and empowerment
 
 * **Mailing list**: Get yourself to `the mailing list <http://plone.293351.n2.nabble.com/Documentation-Team-f293358.html>`_
 
-* **Documentation role**: Get yourself documentation team role on plone.org by creating a bug against web site on
-  `Plone issue tracker <https://dev.plone.org/wiki>`_
+* **Documentation role**: Get yourself documentation team role on plone.org by creating an issue at the `Developer Documentation issue tracker <https://github.com/collective/collective.developermanual/issues/101>`_
 
 * **Collective commit rights**: Get yourself collective rights on Github to commit to `collective <https://github.com/collective/collective.developermanual>`_. Register on github.com first. Then add yourself to
   the owner of ``collective.developermanual`` repository

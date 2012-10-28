@@ -9,62 +9,68 @@ How to get started with Plone development.
 Introduction
 --------------
 
-Plone is developed in :doc:`Python </getstarted/python>` programming language. You should master Python basics
-before you can efficiently customize Plone. If you are very new to Python, Plone or software development
-generally it is suggested that you read `Professional Plone 4 Development book <https://plone.org/documentation>`_
+Plone is developed in the :doc:`Python </getstarted/python>` programming language. You should master Python basics
+before you can efficiently customize Plone. If you are very new to Python, Plone or software development, 
+it is suggested that you read the `Professional Plone 4 Development book <https://plone.org/documentation>`_
 before you attempt to develop your own solutions.
 
-Plone runs on the top of `Zope 2 application server <zope2.zope.org/>`_ meaning that one Zope 2 server process
-can contain and host several Plone sites. Plone also uses Zope 3 components. Zope 3 is not upgrade for Zope 2,
+Plone runs on the top of the `Zope 2 application server <zope2.zope.org/>`_ meaning that one Zope 2 server process
+can contain and host several Plone sites. Plone also uses Zope 3 components. Zope 3 is not an upgrade for Zope 2,
 but a separate project.
 
-Internally Plone uses objected-oriented :doc:`ZODB </persistency/index>` database and the development
-mindset greatly differs from SQL based system. SQL backends can be still integrated to Plone,
-like to any Python applications.
+Internally, Plone uses the objected-oriented :doc:`ZODB </persistency/index>` database and the development
+mindset greatly differs from that of SQL based systems. SQL backends can still be integrated to Plone,
+like for any other Python application, but this is a more advanced topic.
 
 Installing Plone
 ------------------
 
-It is recommended that you do Plone development on Linux or OSX. Development on Windows is possible,
-but you need to have much more experience dealing with Python and Windows related problems, so starting on Windows is not so easy.
+It is recommended that you do Plone development on Linux or OS X. Development on Windows is possible,
+but you need to have much more experience dealing with Python and Windows related problems, so starting 
+on Windows is not so easy.
 
-See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation suitable for development.
+See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation 
+suitable for development.
 
 Enabling debug mode
 --------------------
 
-By default Plone runs in a *production mode* where changing on the files on a file system
+By default, Plone runs in a *production mode* where changed files in the file system
 are not reflected in the served HTML. When you start developing Plone you need to
-first :doc:`put it into a debug model <debug-mode>`.
+first :doc:`put it into a debug mode </getstarted/debug_mode>`.
 
 Plone add-ons as Python packages
 -----------------------------------
 
-Plone can be customized for your needs by creating addons which are developed and distributed `Python egg packages <http://packages.python.org/distribute/setuptools.html>`_. Python egg is a Python packaing format. Open source Python packages are listed and automatically downloaded from `pypi.python.org <http://pypi.python.org>`_
-service.
+Plone can be customized for your needs by creating add-ons which are developed and distributed as 
+`Python egg packages <http://packages.python.org/distribute/setuptools.html>`_. 
+Eggs are a Python packaging format. Open-source Python packages are listed and automatically downloaded 
+from the `pypi.python.org <http://pypi.python.org>`_ service.
 
-The set of components, which makes your Plone installation, is managed by :doc:`bin/buildout command and buildout.cfg configuration </buildout/index>`. Buildout itself wraps around Python's setuptools and easy_install commands.
+The set of components, which makes your Plone installation, is managed by 
+the :doc:`bin/buildout` command and the `buildout.cfg configuration file </buildout/index>`. 
+Buildout itself wraps Python's setuptools package.
 
 Creating your first add-on
 ----------------------------
 
-Since Python egg packagestructure is little bit complex, to get started with your first add-on
-you create a code skeleton (scaffold) for its using :doc:`Plone ZopeSkel code templates </getstarted/paste>`.
+Since Python egg package structure is little bit complex, to get started with your first add-on
+you can create a code skeleton (scaffold) for it using :doc:`Plone ZopeSkel code templates </getstarted/paste>`.
 
-* ZopeSkel generates basic Python egg package with some Plone files in-place
+* ZopeSkel generates a basic Python egg package with some Plone files in-place.
 
-* This package is registered to buildout via development eggs in buildout.cfg file
+* This package is registered to buildout as a development egg in the ``buildout.cfg`` file.
 
-* Buildout is rerun which regenerates your ``bin/instance`` script with new Python egg set
+* Buildout is rerun which regenerates your ``bin/instance`` script with the new set of Python eggs.
 
-* You start Plone site in debug
+* You start your Plone instance in debug mode.
 
 * You install your add-on through ``Add/remove add-ons``
 
 .. note ::
 
-  There are different scaffolds for different kind of add-ons. Most usual are plone3_theme,
-  archetypes (create Archetypes content), dexterity (create Dexterity content) and plone
+  There are different scaffolds for different kind of add-ons. The most typically used are ``plone3_theme``,
+  ``archetype`` (create Archetypes content), ``dexterity`` (create Dexterity content) and ``plone``
   (barebone Plone add-on).
 
 Please read how to use :doc:`ZopeSkel to bootstrap your first add-on </getstarted/paste>`.
@@ -75,11 +81,11 @@ Plone development workflow
 ----------------------------
 
 You never edit Plone files directly. Everything under ``parts`` and ``eggs``
-folders in your Plone installation are downloaded from internet and dynamically generated
-based by ``buildout.cfg``. Plone is free to override these files on any update.
+folders in your Plone installation is downloaded from the internet and dynamically generated,
+based on ``buildout.cfg``. Plone is free to override these files on any update.
 
-You need to have your own add-on in ``src/`` folder as created above.
-There you overlay changes to existing Plone core through extension mechanisms provided by Plone
+You need to have your own add-on in the ``src/`` folder as created above.
+There you overlay changes to the existing Plone core through extension mechanisms provided by Plone:
 
 * :doc:`Layers </views/layers>`
 
@@ -88,28 +94,28 @@ There you overlay changes to existing Plone core through extension mechanisms pr
 * :doc:`Installation profiles </components/genericsetup>`
 
 Plone development always happens on your local computer or the development server.
-The changes are moved to the production through version control system like Git or Subversion.
+The changes are moved to production through version control system like Git or Subversion.
 
-**The best practice is that you install Plone on your local computer for the development**.
+**The best practice is that you install Plone on your local computer for development**.
 
 Plone add-on features
 -----------------------
 
-Plone add-ons usually
+Plone add-ons usually:
 
-* Create custom content types :doc:`content types </content/index>` or extend existing ones for your specialized need. Plone has
-  two subsystem for content types. :doc:`Dexterity (new) </content/dexterity>` and :doc:`Archetypes (old) </content/archetypes/index>`.
+* Create custom :doc:`content types </content/index>` or extend existing ones for your specialized need. Plone has
+  two subsystems for content types: :doc:`Dexterity (new) </content/dexterity>` and :doc:`Archetypes (old) </content/archetypes/index>`.
 
 * Add new :doc:`views </views/browserviews>` for your site and its content.
 
-* Create Python processed :doc:`forms </forms/index>` on your site.
+* Create Python-processed :doc:`forms </forms/index>` on your site.
 
 * Theme your site
 
 * etc.
 
-A lot of Plone functionality extensivility is built on :doc:`Zope 3 development patterns </components/index>`
-like adapters and interfaces. This design patters take some time to learn, but they are crucial in complex
+A lot of Plone functionality is built on :doc:`Zope 3 development patterns </components/index>`
+like adapters and interfaces. These design patterns take some time to learn, but they are crucial in complex
 component based software like Plone.
 
 
@@ -127,25 +133,24 @@ Plone must be started in the development mode using ``bin/instance fg`` command.
 * :doc:`GenericSetup XML files are reloaded </components/genericsetup>`
 
 Please note that Plone development mode does not reload ``.py`` or ``.zcml`` files by default.
-This is possible, however.  Yse `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package
-to make Plone reload your Python code.
+This is possible, however.  Use the `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package
+to make Plone reload your Python code automatically when it is changed.
 
 Through-the-web customizations
 --------------------------------
 
-Some aspects of Plone can be changed through Zope Management web interface.
-Documentation here does not focus for extending fuctionality through this method because
-
-* It is discouraged, because
-
-* it is seriously limited and usually can take you only half way there
+Some aspects of Plone can be changed through the Zope Management Interface (ZMI).
+Documentation here does not focus on extending functionality through the ZMI because this method is severely
+limited and usually can take you only half way there.
 
 Hello World Tutorial
 ----------------------
 
 We have a :doc:`tutorial </getstarted/helloworld/index>` introducing the basics of Plone development.
 
-The tutorial covers a basic form, custom content-type, and dynamic view. It also has detailed sections on building a development environment, installing Plone, and creating an add-on package for your development code.
+The tutorial covers a basic form, a custom content-type, and a dynamic view. 
+It also has detailed sections on building a development environment, installing Plone, and 
+creating an add-on package for your development code.
 
 More info
 ------------
@@ -164,7 +169,7 @@ Plone resources
 
 * `Plone Trac <http://dev.plone.org/plone>`_ contains bug reports, Plone source
   code and commits. Useful when you encounter a new exception or you are
-  looking for a reference how to use the API.
+  looking for a reference on how to use the API.
 
 * `Plone source code in version control system <https://github.com/plone>`_.
 

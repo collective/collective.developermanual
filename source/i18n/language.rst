@@ -35,7 +35,6 @@ Example view/viewlet method of getting the current language.
 
 .. code-block:: python
 
-    from Acquisition import aq_inner
     from Products.Five.browser import BrowserView
     from zope.component import getMultiAdapter
     
@@ -47,7 +46,7 @@ Example view/viewlet method of getting the current language.
             """
             @return: Two-letter string, the active language code
             """
-            context = aq_inner(self.context)
+            context = self.context.aq_inner
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
             current_language = portal_state.language()
             return current_language

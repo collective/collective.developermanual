@@ -93,3 +93,9 @@ HTTP responses.
 
 :doc:`More info in Varnish section of this manual </hosting/varnish>`.
 
+Signing cookies
+=================
+
+Kind of... crude example
+
+* https://gist.github.com/3951630

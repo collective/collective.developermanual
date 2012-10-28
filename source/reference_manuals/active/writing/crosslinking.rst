@@ -23,12 +23,12 @@ collective.developermanual has a section *Reference manuals*
 
 * All documentation is one place to be found for the fellow peer developers
 
-* Manuals will be hosted under *developers.plone.org* domain
+* Manuals will be hosted under *developer.plone.org* domain
 
 Benefits of having the documentation in developer.plone.org
 ================================================================
 
-The main benefit of having your manual in *developers.plone.org*
+The main benefit of having your manual in *developer.plone.org*
 instead of a custom readthedocs.org account include
 
 * Better co-developer user experience (all manuals in one place searchable).
