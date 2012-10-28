@@ -56,8 +56,8 @@ Using Buildout involves using the :doc:`buildout.cfg` configuration file and the
 .. note ::
 
   In prior versions of Plone and Zope, add-ons were referred to as "products" and they were installed by copying
-them into a special folder called :doc:`products`. This method is now deprecated in favor of using 
-standard Python packages, managed by Buildout.
+  them into a special folder called :doc:`products`. This method is now deprecated in favor of using 
+  standard Python packages, managed by Buildout.
 
 
 Creating your first add-on
