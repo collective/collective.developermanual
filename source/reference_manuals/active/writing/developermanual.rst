@@ -16,35 +16,27 @@ Introduction
 
 This document concerns those who:
 
-* wish to generate a HTML version of Plone Community Developer manual
+* wish to generate a HTML version of Plone Developer Documentation
 
-* need to edit templates or styles of Plone Community Developer manual, or
+* need to edit templates or styles of Plone Developer Documentation, or
   otherwise customize Sphinx process
-
-* Need to deal with readthedocs.org integration
 
 collective.developermanual
 ==========================
 
 collective.developermanual_ is open-for-anyone-to-edit documentation for
-Plone developers in Sphinx format, living in 
-`Plone's collective Github version control system`_ (anyone can get commit
-access, or, even easier, submit pull requests from their own github fork of
-the repository).
+Plone development in `Sphinx documentation format <http://sphinx.pocoo.org/>`_, living on 
+`Github <https://github.com/collective/collective.developermanual>`_.
+Anyone can provide patches through Github through-the-web editor and Pull request
+mechanisms.
 
-.. _collective.developermanual: https://github.com/collective/collective.developermanual 
-.. _Plone's collective Github version control system: https://github.com/collective
+The ``collective.developermanual`` *git clone* contains buildout to:
 
-Sphinx_ is a tool that makes it easy to create intelligent and beautiful
-documentation, written by Georg Brandl and licensed under the BSD license.
+* Install Sphinx 
 
-.. _Sphinx: http://sphinx.pocoo.org/
+* Install and clone necessary Plone packages referred by documentation (API docs)
 
-The ``collective.developermanual`` checkout contains 
-:doc:`buildout.cfg recipes </tutorials/buildout/index>` to:
-
-* install Sphinx;
-* compile the manual to HTML;
+* Compile the documentation to HTML
 
 Setting up software for manual compilation
 =======================================================
@@ -85,19 +77,10 @@ Run buildout again::
 
     ./bin/buildout
 
-readthedocs.org
------------------
-
-The documentation is automatically synced to 
-`readthedocs.org <http://collective-docs.readthedocs.org/>`_
-by the readthedocs.org bot.
-
-Pushing changes to GitHub is enough to publish the changes.        
-
 Analytics
 ---------
 
-http://readthedocs.org pages have the Google Analytics script installed.
+developer.plone.org pages have the Google Analytics script installed.
 Please ask on the #plone.org IRC channel for data access.
 
 Building static HTML with Sphinx
