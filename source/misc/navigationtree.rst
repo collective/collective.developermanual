@@ -23,7 +23,7 @@ These are internally used by navigation portlet and sitemap.
 Creating a custom navigation tree 
 ----------------------------------
 
-See `Products.PloneHelpCenter <http://svn.plone.org/svn/collective/Products.PloneHelpCenter/trunk/Products/PloneHelpCenter/content/ReferenceManual.py>`_ for full code.
+See `Products.PloneHelpCenter <https://github.com/collective/Products.PloneHelpCenter/blob/0f2fac5a7216eb8c0d83736dbcbd6a4385f9b4f4/Products/PloneHelpCenter/content/ReferenceManual.py>`_ for full code.
 
 The following example builds Table of Contents for *Reference Manual* content type::
 
