@@ -579,14 +579,16 @@ Setting a widget for a field
 --------------------------------
 
 plone.directives.form way
-+++++++++++++++++++++++++++++++++++
+``````````````````````````````````````````````````````
 
 See examples on `plone.directives.form page <http://pypi.python.org/pypi/plone.directives.form#form-widget-hints>`_ 
 
 Dynamically in ``Form.update()``
-+++++++++++++++++++++++++++++++++++
+``````````````````````````````````````````````````````
 
-Example from `collective.z3cform.datagridfield_demos <https://github.com/collective/collective.z3cform.datagridfield_demo>`_::
+Example from `collective.z3cform.datagridfield_demos <https://github.com/collective/collective.z3cform.datagridfield_demo>`_
+
+::
 
     class EditForm9(EditForm):
         label = u'Rendering widgets as blocks instead of cells'
