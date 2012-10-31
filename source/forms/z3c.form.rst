@@ -575,6 +575,30 @@ the widget takes. When an HTTP ``POST`` request comes in,
 Zope publisher automatically converts ``<select>`` dropdowns to lists and so
 on.
 
+Setting a widget for a field
+--------------------------------
+
+plone.directives.form way
++++++++++++++++++++++++++++++++++++
+
+See examples on `plone.directives.form page <http://pypi.python.org/pypi/plone.directives.form#form-widget-hints>`_ 
+
+Dynamically in ``Form.update()``
++++++++++++++++++++++++++++++++++++
+
+Example from `collective.z3cform.datagridfield_demos <https://github.com/collective/collective.z3cform.datagridfield_demo>`_::
+
+    class EditForm9(EditForm):
+        label = u'Rendering widgets as blocks instead of cells'
+    
+        grok.name('demo-collective.z3cform.datagrid-block-edit')
+    
+        def update(self):
+            # Set a custom widget for a field for this form instance only
+            self.fields['address'].widgetFactory = BlockDataGridFieldFactory
+            super(EditForm9, self).update()
+
+
 Accessing a widget
 ------------------
 
