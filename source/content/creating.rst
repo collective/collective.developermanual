@@ -402,7 +402,7 @@ drop-down menu.  Here are some tips for debugging.
   :guilabel:`portal_types`.
 
 * Does it have a proper factory method? Check :term:`ZMI`:
-  :guilabel:`types_tool`. 
+  :guilabel:`portal_types`. 
   Check Zope logs for ``_queryFactory`` and import errors.
 
 * Does it register itself with Archetypes? Check :term:`ZMI`:
