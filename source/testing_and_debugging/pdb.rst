@@ -36,14 +36,14 @@ See also
 Using pdb
 ----------
 
-.. warning:: In following text word *set_trace* has been replaced with xxx_trace
+.. warning:: In following text word *set_trace* has been replaced with set_trace
              due to commit problems.
 
-# Go to your code and insert statement *import pdb ; pdb.xxx_trace*. When the code is run next time
+# Go to your code and insert statement *import pdb ; pdb.set_trace*. When the code is run next time
   the execution will stop there and you can examine the current context variables from
   Python command prompt
 
-# After you have put *import pdb ; pdb.xxx_trace()* to your code, stop Zope and start it
+# After you have put *import pdb ; pdb.set_trace()* to your code, stop Zope and start it
   on foreground using *bin/instance fg* command.
   
 # TextMate support for pdb can be found at `http://pypi.python.org/pypi/PdbTextMateSupport/0.3 <http://pypi.python.org/pypi/PdbTextMateSupport/0.3>`_.
@@ -65,7 +65,7 @@ Example::
             # Execution will stop here and interactive Python prompt is opened
             #
 
-            import pdb ; xxx.set_trace()
+            import pdb ; pdb.set_trace()
             constructor = ARFormConstructor(self.context, self.context.context, self.request)
             return constructor.getFields()
             
