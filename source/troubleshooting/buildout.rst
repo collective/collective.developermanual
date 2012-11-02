@@ -529,3 +529,6 @@ For Plone 3.3.x You need to pindown::
 	zope.interface = 3.8.0
 	zope.proxy = 3.6.1
 	transaction = 1.1.1
+	zc.queue = 1.2.1
+	zope.copy = 3.5.0
+
