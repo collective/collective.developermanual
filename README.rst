@@ -5,7 +5,7 @@ This is the Sphinx source for the `Plone CMS <http://plone.org>`_
 developer manual used on the site `developer.plone.org <http://developer.plone.org>`_.
 
 To read the documentation (formatted) in your web browser,
-please head to `Plone Developer Documentation at readthedocs.org <http://collective-docs.readthedocs.org/en/latest/>`_.
+please head to `Plone Developer Documentation <http://developer.plone.org/index.html>`_.
 
 To learn how to update and manage this documentation and its tools, read 
 `Writing and updating this documentation <http://collective-docs.readthedocs.org/en/latest/reference_manuals/active/writing/writing.html>`_.
