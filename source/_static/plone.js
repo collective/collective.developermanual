@@ -32,6 +32,7 @@ function preferPrimaryDomain() {
     if(window.location.hostname != "developer.plone.org") {
         var href = window.location.href;
         href = href.replace(window.location.hostname, "developer.plone.org");
+        href = href.replace("https://", "http://");
         window.location = href;
     }
 }
