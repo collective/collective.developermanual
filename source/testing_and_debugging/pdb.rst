@@ -14,8 +14,8 @@ Introduction
 
 The Python debugger (``pdb``) is an interactive command-line debugger.
 
-It is very limited in functionality, but it will work in every environment,
-as well as the console. Plone also has through-the-web-browser PBD debugging
+It is very limited in functionality, but it will work in every environment
+and type of console. Plone also has through-the-web-browser PBD debugging
 add-on products.
 
 .. note::
