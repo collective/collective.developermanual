@@ -35,7 +35,7 @@ See also
 * http://plone.org/documentation/kb/best-practices/debugging-plone
 
 Using ``pdb``
-==========
+=============
 
 # Go to your code and insert the statement ``import pdb; pdb.set_trace`` at
   the point where you want have a closer look.  Next time the code is run,
