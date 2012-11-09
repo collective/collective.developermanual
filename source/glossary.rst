@@ -46,7 +46,7 @@ It incorporates the original `glossary on plone.org
 
     Workflow
         Workflow is a very powerful way of mimicking business processes — it
-        is also the way security settings are handled in Plone. 
+        is also the way security settings are handled in Plone.
 
     ZODB
         The Zope Object Database is where your content is normally stored
@@ -55,7 +55,7 @@ It incorporates the original `glossary on plone.org
         file(s) such as ``Data.fs``, normally located in the ``var``
         directory.
 
-    STX 
+    STX
         Structured Text is a simple markup technique that is useful when you
         don't want to resort to HTML for creating web content. It uses
         indenting for structure, and other markup for formatting. It has
@@ -152,7 +152,7 @@ It incorporates the original `glossary on plone.org
         Cascading Style Sheets is a way to separate content from
         presentation. Plone uses this extensively, and it is a web standard
         `documented at the W3C web site <http://www.w3.org/Style/CSS/>`_. If
-        you want to learn CSS, we reccommend `the W3Schools CSS Resources 
+        you want to learn CSS, we reccommend `the W3Schools CSS Resources
         <http://www.w3schools.com/Css/default.asp>`_
         and the `SitePoint CSS Reference
         <http://reference.sitepoint.com/css>`_.
@@ -205,7 +205,7 @@ It incorporates the original `glossary on plone.org
         look for *homepage* in *B*, doesn't find it, and goes back up to
         *A*, where it's found. The reality, inevitably, is more complex than
         this. For the whole story, see the `Acquisition chapter in the Zope
-        Book <http://www.plope.com/Books/2_7Edition/Acquisition.stx>`_. 
+        Book <http://www.plope.com/Books/2_7Edition/Acquisition.stx>`_.
 
     Kupu
         Kupu is the user-friendly graphical HTML editor component that used
@@ -221,11 +221,11 @@ It incorporates the original `glossary on plone.org
         create an abstract model of a system, referred to as a *UML model*.
         With the use of :term:`ArchGenXML`, this can be used to generate
         code for CMF/Plone applications (a :term:`Product`) based on the
-        Archetypes framework. 
+        Archetypes framework.
 
     Product
         A Plone-specific module that extends Plone functionality and can be
-        managed via the Plone Control Panel. Plone Products often integrate 
+        managed via the Plone Control Panel. Plone Products often integrate
         non-Plone-specific modules for use within the Plone context.
 
     Archetypes
@@ -289,7 +289,7 @@ It incorporates the original `glossary on plone.org
         the proposal and decides if it's suitable to be included in the next
         Plone release or not.
 
-        See more info about how to write a 
+        See more info about how to write a
         `PLIP <http://dev.plone.org/plone/wiki/PLIP>`_.
 
     ATCT
@@ -327,7 +327,7 @@ It incorporates the original `glossary on plone.org
         :term:`Archetypes` and :term:`ArchGenXML` are examples of these from
         the Plone universe.
 
-    XXX 
+    XXX
         XXX is a marker in the comments of the source code that should only
         be used during development to note things that need to be taken care
         of before a final (trunk) commit. Ideally, one should not expect to
@@ -438,7 +438,7 @@ It incorporates the original `glossary on plone.org
     Python egg
         A widely used Python packaging format which consists of a zip or
         ``.tar.gz`` archive with some metadata information. It was
-        introduced by 
+        introduced by
         `setuptools <http://peak.telecommunity.com/DevCenter/EasyInstall>`_
         which has since been superseded by `Distribute
         <http://packages.python.org/distribute/>`_.
@@ -465,7 +465,7 @@ It incorporates the original `glossary on plone.org
     easy_install
         A command-line tool for automatic discovery and installation of
         packages into a Python environment. The ``easy_install`` script is
-        part of the ``setuptools`` package, which uses the 
+        part of the ``setuptools`` package, which uses the
         :term:`Python Package Index` as its source for packages.
 
     Namespace package
@@ -477,7 +477,7 @@ It incorporates the original `glossary on plone.org
         has its own directory (or possibly a compressed archive of that
         directory).  Namespace packages eliminate the need to distribute one
         giant plone package, with a top-level plone directory containing all
-        possible children. 
+        possible children.
 
     ZCML
         Zope Configuration Markup Language. Zope 3 separates policy from the
@@ -492,7 +492,7 @@ It incorporates the original `glossary on plone.org
         enabling and disabling components means to drop in or remove a
         certain Zope 2 product. When it's there, it's automagically imported
         and loaded. This is not the case in Zope 3. If you don't enable it
-        explicitly, it will not be found. 
+        explicitly, it will not be found.
 
         The :term:`grok` project has taken a different approach to the same
         problem, and allows component registration etc. to be done
@@ -521,7 +521,7 @@ It incorporates the original `glossary on plone.org
         <http://docs.zope.org/zope2/zope2book/ZEO.html>`_.
         http://docs.zope.org/zope2/zope2book/Acquisition.html
 
-    GenericSetup 
+    GenericSetup
         An XML-based configuration system for Zope and Plone applications.
 
         .. todo:: Add reference.
@@ -545,6 +545,6 @@ It incorporates the original `glossary on plone.org
         supporting component based design and programming. It is very well
         suited to developing large Python software systems. The ZCA is not
         specific to the Zope web application server: it can be used for
-        developing any Python application. 
+        developing any Python application.
         From `A Comprehensive Guide to Zope Component Architecture
         <http://www.muthukadan.net/docs/zca.html>`_.
