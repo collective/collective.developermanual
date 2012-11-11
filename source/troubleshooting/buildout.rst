@@ -508,10 +508,27 @@ type of archive, but in fact it can be caused by a corrupt download.
 VersionConflict: zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'.
 =============================================================================
 
+Plone 3.3.x package pindown problems.
+
 Example::
 	
 	Error: There is a version conflict.
 	We already have: zope.publisher 3.5.6
+	but zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'.
 
 Plone 3.x problem. Pin plone.uuid to 1.0.0.
-	but zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'.
+
+For Plone 3.3.x You need to pindown::
+
+	extends =
+   		...
+    		http://good-py.appspot.com/release/dexterity/1.1?plone=3.3.5
+
+	[versions]
+	plone.uuid = 1.0.0
+	zope.interface = 3.8.0
+	zope.proxy = 3.6.1
+	transaction = 1.1.1
+	zc.queue = 1.2.1
+	zope.copy = 3.5.0
+
