@@ -161,7 +161,7 @@ Since our object has a *hello_name* attribute, the value is displayed along with
 
 We can also call our view on the root of the site.::
 
-    http://localhost:8080/Plone/@@hello_world
+    http://localhost:8080/Plone/@@hello_world_view
 
 The root of the site does not have a *hello_name* attribute, so *Hello World* is displayed.
 
