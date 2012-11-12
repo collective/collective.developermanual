@@ -68,7 +68,7 @@ Restart your instance to have access to the new content-type.::
 Add content to the site
 -------------------------
     
-To create a new object using the new content-type, select *HelloWorld* from the *Add new...* menu of your Plone site. This brings up the *edit* view.
+To create a new object using the new content-type, select *Person* from the *Add new...* menu of your Plone site. This brings up the *edit* view.
 
 .. image:: /getstarted/helloworld/images/helloworldpersonform.png
 
