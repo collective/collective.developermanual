@@ -342,7 +342,7 @@ It incorporates the original `glossary on plone.org
         we use a BBB comment marker with a date.
 
     TODO
-        The TODO marker in source code record new features, non-critical
+        The TODO marker in source code records new features, non-critical
         optimization notes, design changes, etc.
 
     Monkey patch
@@ -542,7 +542,7 @@ It incorporates the original `glossary on plone.org
 
     ZCA
         The Zope Component Architecture (ZCA) is a Python framework for
-        supporting component based design and programming. It is very well
+        supporting component-based design and programming. It is very well
         suited to developing large Python software systems. The ZCA is not
         specific to the Zope web application server: it can be used for
         developing any Python application.
