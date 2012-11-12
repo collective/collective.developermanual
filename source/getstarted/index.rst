@@ -33,6 +33,20 @@ on Windows is not so easy.
 See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation 
 suitable for development.
 
+Non-programming approaches for customizing Plone
+-------------------------------------------------
+
+If you lack programming skill or resources you can still get somet things done in Plone
+
+* `Plomino is a a powerful and flexible web-based application builder for Plone <http://www.plomino.net>`_
+
+* `PloneFormGen allows you to build forms in a web browser <http://plone.org/products/ploneformgen>`_ 
+
+* Plone 4+ comes with through-the-web Dexterity content type editor
+
+However, for heavy customization Python, Javascript, TAL page template and CSS programming is needed, 
+as explained above.
+
 Enabling debug mode
 --------------------
 
