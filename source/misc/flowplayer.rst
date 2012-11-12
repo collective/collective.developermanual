@@ -188,3 +188,12 @@ Needed CSS:
     there is no HTML code nor text inside the player container HTML tag.
     Such code/text is considered as player splash screen and player is
     waiting for click to the splash.
+
+Non-buffered MP4 playback fix
+================================
+
+MPEG4 files must be specially prepared (quick play fix),
+so that the playback starts instantly and the player does
+not try to buffer the whole file first
+
+* https://twitter.com/moo9000/status/253947688276594688
