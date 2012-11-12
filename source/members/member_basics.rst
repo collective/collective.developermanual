@@ -81,8 +81,8 @@ You can also get at the hash of the user's password
 (Plone add-on context: ``self`` is aquisition-wrapped)::
 
     uf = getToolByName(self, 'acl_users')
-    passwordhash_list = uf.source_users._user_passwords
-    userpasswordhash = passwordhash_list.get(member.id, '')
+    passwordhash_map = uf.source_users._user_passwords
+    userpasswordhash = passwordhash_map.get(member.id, '')
 
 Note that this is a private data structure.
 Depending on the Plone version and add-ons in use, it may not be available.
