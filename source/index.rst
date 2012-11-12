@@ -17,8 +17,8 @@ documentation for Plone. For the editor documentation
 please go to `plone.org documentation <http://plone.org/documentation>`_.
 
 
-Table of Content
-================
+Table of Contents
+=================
 
 .. contents :: :local:
 
