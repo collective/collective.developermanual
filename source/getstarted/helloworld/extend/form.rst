@@ -58,7 +58,7 @@ When we are done, configure.zcml should look something like this.::
     <!-- -*- extra stuff goes here -*- -->
 
     <browser:page
-          name="hello_world_form"
+        name="hello_world_form"
         for="*"
         permission="zope2.View"
         class=".hello_world_form.HelloWorldFormView"
