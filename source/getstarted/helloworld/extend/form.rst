@@ -50,36 +50,19 @@ When we are done, configure.zcml should look something like this.::
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
-        xmlns:five="http://namespaces.zope.org/five"
-        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-        xmlns:i18n="http://namespaces.zope.org/i18n"
-        xmlns:browser="http://namespaces.zope.org/browser"    
+        xmlns:browser="http://namespaces.zope.org/browser"
         i18n_domain="example.helloworld">
-        
-      <five:registerPackage package="." initialize=".initialize" />
 
-      <!-- Include the sub-packages that use their own configure.zcml files. -->
-      <include package=".browser" />
-      <include package=".content" />
-      <include package=".portlets" />
-      
-      <!-- Register the installation GenericSetup extension profile -->
-      <genericsetup:registerProfile
-          name="default"
-          title="Hello World"
-          directory="profiles/default"
-          description="Simple Hello World Project"
-          provides="Products.GenericSetup.interfaces.EXTENSION"
-          />
+    <include package="plone.app.contentmenu" />
 
-      <!-- -*- extra stuff goes here -*- -->
+    <!-- -*- extra stuff goes here -*- -->
 
-      <browser:page
-          name="hello_world_form"
-          for="*"
-          permission="zope2.View"
-          class=".hello_world_form.HelloWorldFormView"
-          />
+    <browser:page
+        name="hello_world_form"
+        for="*"
+        permission="zope2.View"
+        class=".hello_world_form.HelloWorldFormView"
+        />
 
     </configure>
 
@@ -106,7 +89,7 @@ Open the *hello_world_form.py* file in your editor and add the following code.
         
     The interface::
 
-        class IHelloWorldForm(Interface)\:
+        class IHelloWorldForm(Interface):
         
             hello_world_name = TextLine(
                 title=_(u'Name'),
@@ -127,7 +110,7 @@ This defines a TextLine field with an id of **hello_world_name**. The title and 
     
     The class::
 
-        class HelloWorldForm(form.Form)\:
+        class HelloWorldForm(form.Form):
         
             fields = field.Fields(IHelloWorldForm)
             ignoreContext = True
