@@ -75,10 +75,14 @@ you can grab basic information about it.
 Get the user's name::
 
     member.getName()
-    
+
+Exporting and importing member passwords
+----------------------------------------
+
 You can also get at the hash of the user's password 
 (only the hash is available, and only for standard Plone user objects)
-(Plone add-on context: ``self`` is aquisition-wrapped)::
+(in this example we're in Plone add-on context, since ``self`` is
+aquisition-wrapped)::
 
     uf = getToolByName(self, 'acl_users')
     passwordhash_map = uf.source_users._user_passwords
@@ -87,11 +91,31 @@ You can also get at the hash of the user's password
 Note that this is a private data structure.
 Depending on the Plone version and add-ons in use, it may not be available.
 
-You can use this hash directly when importing your user data, because the 
-``acl_users`` implementation automatically recognizes that the value is a
-hash, and will not attempt to encrypt it again.
+You can use this hash directly when importing your user data,
+for example as follows (can be executed from a 
+:doc:`debug prompt </misc/commandline>`.)::
 
-Also, take a look at a script for exporting Plone 3.0 's memberdata and
+    # The file 'exported.txt' contains lines with: "memberid hash"
+    lines = open('exported.txt').readlines()
+    changes = []
+    c = 0
+    members = mt.listMembers()
+    for l in lines:
+        memberid, passwordhash_exported = l.split(' ')
+        passwordhash_exported = passwordhash_exported.strip()
+        member = mt.getMemberById(memberid)
+        if not member:
+            print 'missing', memberid
+            continue
+        passwordhash = passwordhash_map.get(memberid)
+        if passwordhash != passwordhash_exported:
+            print 'changed', memberid, passwordhash, passwordhash_exported
+            c += 1
+            changes.append((memberid, passwordhash_exported))
+
+    uf.source_users._user_passwords.update(changes) 
+
+Also, take a look at a script for exporting Plone 3.0's memberdata and
 passwords:
 
 * http://blog.kagesenshi.org/2008/05/exporting-plone30-memberdata-and.html
