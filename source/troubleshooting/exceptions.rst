@@ -2051,3 +2051,20 @@ Example traceback::
 
 Plone 3 > Plone 4 migration has not been run. Run the migration
 in *portal_migrations* under ZMI.
+
+
+Archetypes: TypeError: getattr(): attribute name must be string
+------------------------------------------------------------------
+
+Example::
+
+	       'user': <PropertiedUser 'admin'>}
+	  Module Products.PageTemplates.ZRPythonExpr, line 48, in __call__
+	   - __traceback_info__: otherwidget.Description(here, target_language=target_language)
+	  Module PythonExpr, line 1, in <expression>
+	  Module Products.Archetypes.generator.widget, line 100, in Description
+	TypeError: getattr(): attribute name must be string
+
+You might have used something else besides string or translation string
+to define Archetypes widget name or description.
+
