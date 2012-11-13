@@ -20,7 +20,7 @@ please go to `plone.org documentation <http://plone.org/documentation>`_.
 Table of Contents
 =================
 
-.. contents :: :local:
+.. contents:: :local:
 
 Tutorials
 -------------------------------------------

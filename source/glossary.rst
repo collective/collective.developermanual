@@ -178,9 +178,8 @@ It incorporates the original `glossary on plone.org
         programs.
 
     TTW
-        This is a general term meaning an action should be performed
-        "Through The Web," as opposed to, say, being done programmatically
-        from a python script.
+        This is a general term meaning an action can be performed
+        "Through The Web," as opposed to, say, being done programmatically.
 
     TTP
         Actions done TTP are performed "Through the Plone" interface. It is
