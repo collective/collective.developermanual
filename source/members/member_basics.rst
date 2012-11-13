@@ -75,10 +75,14 @@ you can grab basic information about it.
 Get the user's name::
 
     member.getName()
-    
+
+Exporting and importing member passwords
+----------------------------------------
+
 You can also get at the hash of the user's password 
 (only the hash is available, and only for standard Plone user objects)
-(Plone add-on context: ``self`` is aquisition-wrapped)::
+(in this example we're in Plone add-on context, since ``self`` is
+aquisition-wrapped)::
 
     uf = getToolByName(self, 'acl_users')
     passwordhash_map = uf.source_users._user_passwords
@@ -88,7 +92,8 @@ Note that this is a private data structure.
 Depending on the Plone version and add-ons in use, it may not be available.
 
 You can use this hash directly when importing your user data,
-for example as follows::
+for example as follows (can be executed from a 
+:doc:`debug prompt </misc/commandline>`.)::
 
     # The file 'exported.txt' contains lines with: "memberid hash"
     lines = open('exported.txt').readlines()
