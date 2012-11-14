@@ -80,7 +80,7 @@ The tutorial sometimes refers to the hello_world directory as the **buildout dir
 
     # change your working directory to hello_world
     cd hello_world
-    ../bin/python bootstrap.p
+    ../bin/python bootstrap.py
         
 The bootstrap process creates some directories and adds a buildout script to the bin directory.:: 
     
