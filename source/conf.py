@@ -228,6 +228,12 @@ html_use_index = False
 # Don't copy sources with output HTML, as they live on GitHub
 html_copy_source = False
 
+# List .rst files which do not go into to the doc build
+exclude_patterns = [
+    "reference_manuals/external/plone.api/*.rst",
+    "reference_manuals/external/tutorials.todoapp/*.rst"
+]
+
 
 def create_symlinks_for_external_docs():
     """

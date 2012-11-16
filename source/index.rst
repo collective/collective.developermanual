@@ -30,23 +30,13 @@ these tutorials serve as a starting point.
 
 * :doc:`Add-ons: how Plone add-ons are created <getstarted/index>`
 
-.. following line commented out for now to stop sphinx errors as reference is not yet ready
-.* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index`
-
-.. - `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
-
 * :doc:`Archetypes: Building content types on Plone with Archetypes content subsystem <reference_manuals/old/archetypes/index>`
 
-.. following line commented out for now to stop sphinx errors as reference is not yet ready
+* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index>`
 
-* Theming: Creating Plone 3 theme (unfinished)
+* :doc:`Views: creating a hello world view <reference_manuals/active/helloworld/index>`
 
-.. * :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
-
-- `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
-
-.. toctree::
-   :maxdepth: 1
+* :doc:`Theming: Creating Plone 3 theme (unfinished) <reference_manuals/old/plone_3_theming/index>`
 
 Programming Plone
 -------------------------------------------
@@ -117,17 +107,15 @@ These manuals apply to the current best practices of Plone development.
 They are in their own separate section due to the length of narrative explanation
 and having the documentation source code hosted in an external package.
 
-- `Products.TinyMCE <https://productstinymce.readthedocs.org/en/latest/>`_
-- `Plone.API <http://ploneapi.readthedocs.org/en/latest/>`_
-- `Ploneorg.Admin <http://developer.plone.org/reference_manuals/external/ploneorg.admin/>`_
-
 .. toctree::
     :maxdepth: 1
 
-.. commented out for now to stop sphinx errors
-.. reference_manuals/external/plone.api/index
-.. reference_manuals/external/Products.TinyMCE/index
-.. reference_manuals/external/ploneorg.admin/index
+    reference_manuals/external/plone.api/index
+    reference_manuals/external/Products.TinyMCE/index
+    reference_manuals/external/ploneorg.admin/index
+    reference_manuals/external/tutorials.todoapp/index
+    reference_manuals/external/plone.api/api/index
+    reference_manuals/active/helloworld/index
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
