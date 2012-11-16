@@ -14,7 +14,7 @@ In Plone, answering to HTTP requests can be divided to three subproblems:
 Plone and Zope 2 application servers support FTP, WebDAV and XML-RPC protocols besides plain HTTP.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    http_request_and_response
    traversing

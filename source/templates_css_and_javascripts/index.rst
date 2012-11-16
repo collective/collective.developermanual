@@ -5,7 +5,7 @@ Templates, CSS and Javascript
 Doing HTML in Plone.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     template_basics
     css
@@ -16,5 +16,3 @@ Doing HTML in Plone.
     xdv
     dtml
     redirects
-
-
