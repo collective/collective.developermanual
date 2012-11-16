@@ -39,9 +39,10 @@ Plone Default skin can be found in the CMFPlone product:
 In your own Theme Product
 -------------------------
 
-|The skins folder in your theme product|/skins/[your theme
-namespace].[your theme name]\_custom\_templates \| custom\_images \|
-styles
+|The skins folder in your theme product|    
+
+/skins/[your theme namespace].[your theme name]\_custom\_templates \|
+ custom\_images \| styles
 
     These directories will form your skin layers. Your templates,
     images, and style sheets can go here. If you asked it to, the
@@ -51,15 +52,17 @@ styles
 /skins.zcml 
     When your Zope instance starts up, this turns your directories into
     skin layers
- |Subsidiary files used for installing and setting up the
-Skin|/profiles/default/skins.xml \| cssregistry.xml \| jsregistry.xml
+
+|Subsidiary files used for installing and setting up the Skin|
+
+/profiles/default/skins.xml \| cssregistry.xml \| jsregistry.xml
+
     When your theme is installed in your Plone site, these set up the
     hierarchy of skin layers, and register your style sheets and
     JavaScript with the registries
 
  
 
-.. |The skins folder in your theme
-product| image:: http://plone.org/documentation/manual/theme-reference/images/your_theme_egg_skin_cutdown.gif
-.. |Subsidiary files used for installing and setting up the
-Skin| image:: http://plone.org/documentation/manual/theme-reference/images/your_theme_egg_skin_cutdown1.gif
+.. |The skins folder in your theme product| image:: your_theme_egg_skin_cutdown.gif
+
+.. |Subsidiary files used for installing and setting up the Skin| image:: your_theme_egg_skin_cutdown1.gif
