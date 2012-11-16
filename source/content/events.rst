@@ -153,6 +153,7 @@ Below is a ZMI script which will delete events which are more than 30 days past 
      date_range_query = { 'query':(start,end), 'range': 'min:max'}
      
      items = context.portal_catalog.queryCatalog({
+                 "Language": "all", # Bypass LinguaPlone language check
                  "portal_type":["CompanyEvent", "VSEvent"],
                  "end" : date_range_query,
                  "sort_on" : "created" })
