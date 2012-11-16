@@ -30,11 +30,18 @@ these tutorials serve as a starting point.
 
 * :doc:`Add-ons: how Plone add-ons are created <getstarted/index>`
 
-* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index>`
+.. following line commented out for now to stop sphinx errors as reference is not yet ready
+.. * :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index` 
+
+- `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
 
 * :doc:`Archetypes: Building content types on Plone with Archetypes content subsystem <reference_manuals/old/archetypes/index>`
 
-* :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
+.. following line commented out for now to stop sphinx errors as reference is not yet ready
+.. * :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>` 
+
+- `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
+
 
 Programming Plone
 -------------------------------------------
@@ -111,6 +118,11 @@ and having the documentation source code hosted in an external package.
 
 .. toctree::
     :maxdepth: 1
+
+.. commented out for now to stop sphinx errors
+.. reference_manuals/external/plone.api/index
+.. reference_manuals/external/Products.TinyMCE/index
+.. reference_manuals/external/ploneorg.admin/index
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 

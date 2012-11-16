@@ -80,7 +80,9 @@ Related links
 Creating your first Diazo theme package
 ---------------------------------------
 
-:doc:`ZopeSkel package </tutorials/paste>` includes XDV theme skeleton
+.. commented out as missing resource gives sphinx error.
+.. :doc:`ZopeSkel package </tutorials/paste>` includes XDV theme skeleton
+    
 since version 2.20.
 
 to be documented

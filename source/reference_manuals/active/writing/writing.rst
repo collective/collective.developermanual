@@ -385,7 +385,8 @@ Note:
 
       This is a note box (yellow)
 
-TODO item (see :doc:`TODO list </todos>`:
+.. commented out as missing resource gives sphinx error.
+.. TODO item (see :doc:`TODO list </todos>`:
 
 .. code-block:: rst
 

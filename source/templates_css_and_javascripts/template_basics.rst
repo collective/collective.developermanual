@@ -446,7 +446,7 @@ Using macros
 =============
 
 Here is an example how to use `<metal:block define-macro="xxx">` and 
-`<metal:block use-macro="xxx">` in your :doc:`view class </browserviews/views>`
+`<metal:block use-macro="xxx">` in your :doc:`view class </views/browserviews>`
 template files.
 
 .. code-block:: html
