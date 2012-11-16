@@ -26,6 +26,6 @@ Zope 3 schema (zope.schema package) is database-neutral an framework-neutral way
     z3c.form
     files
     formlib/index
-    ploneformgen
     vocabularies
     wysiwyg
+    ploneformgen/index
