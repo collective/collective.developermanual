@@ -166,15 +166,15 @@ You can access the form with an url like::
     http://localhost:8080/Plone/@@hello_world_form 
 
 
-.. image:: /getstarted/helloworld/images/helloworldformblank.png
+.. image:: /reference_manuals/active/helloworld/images/helloworldformblank.png
     
-.. image:: /getstarted/helloworld/images/jimbobform.png
+.. image:: /reference_manuals/active/helloworld/images/jimbobform.png
 
 
 Type in a name and click *Save*, or just click *Cancel*.
     
-.. image:: /getstarted/helloworld/images/helloworldform.png
+.. image:: /reference_manuals/active/helloworld/images/helloworldform.png
 
-.. image:: /getstarted/helloworld/images/hellojimbobform.png
+.. image:: /reference_manuals/active/helloworld/images/hellojimbobform.png
 
 
