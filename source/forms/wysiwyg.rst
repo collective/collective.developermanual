@@ -28,7 +28,7 @@ attacks. This will make Plone to strip away from HTML
 
 If you need to put `<scrip>` tag on your content text in TinyMCE you can disable this security feature.
 
-.. warn::
+.. warning::
 
         If you don't trust all of your site editors, then this will open your site for an attack.
 
