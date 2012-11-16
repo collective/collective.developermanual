@@ -19,10 +19,12 @@ site. It will migrate the base CMF content types to its own equivalents
 using its own highly generic migration framework.
 Please note that ATContentTypes aims to be usable in plain CMF. It has a
 number of optional Plone dependencies, in the form::
+
  if HAS_PLONE21:
  …
  else:
  …
+
 Plone has no direct dependencies on ATContentTypes, nor on Archetypes.
 There are a few generic interfaces in ‘CMFPlone.interfaces’ that are
 used by both Archetypes/ATContentTypes and Plone, but we do not wish to
