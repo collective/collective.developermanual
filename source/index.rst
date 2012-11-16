@@ -42,6 +42,11 @@ these tutorials serve as a starting point.
 
 - `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
 
+.. toctree::
+   :maxdepth: 1
+ 
+   tutorials/theming/index
+.. above link is here because was not linked anywhere and was giving sphinx errors.
 
 Programming Plone
 -------------------------------------------
@@ -175,6 +180,7 @@ Other
    :maxdepth: 1
 
    glossary
+   moved_content
 
 
 
