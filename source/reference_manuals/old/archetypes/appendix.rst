@@ -1077,7 +1077,7 @@ The most important thing that Zope 3 promises is
 class that pulls in a number of mix-in classes, such as
 *SimpleItem* (surely, the most ironically named class in Zope 2)
 and its plethora of base classes that include *RoleManager* ,
-*Acquisition.Implicit*and many others. This means that a class
+*Acquisition.Implicit* and many others. This means that a class
 written for Zope 2 is nearly impossible to re-use outside of Zope.
 
 Furthermore, in Zope 2 we are tightly wedded to the *context* (aka
@@ -1371,7 +1371,7 @@ for convenience, but the principle is the same.
 
 To obtain a multi-adapter, you can't use the "calling an interface"
 syntax that you use for a regular adapter. Instead, you must use
-the *getMultiAdapter()*method:
+the *getMultiAdapter()* method:
 
 ::
 
@@ -1379,7 +1379,7 @@ the *getMultiAdapter()*method:
         ...
     >>> personView = getMultiAdapter((person, request,), IBrowserView)
 
-You could use *queryMultiAdapter()*instead if you wanted it to
+You could use *queryMultiAdapter()* instead if you wanted it to
 return None instead of raise a ComponentLookupError when it fails
 to find the adapter.
 
@@ -1734,7 +1734,7 @@ holding and persisting the data for this schema:
 
 The actual functionality for sending notifications etc would be in
 various adapters (e.g to *INotifying*), the view logic in views.
-Forms can be created from schema interfaces like *IIssue*above,
+Forms can be created from schema interfaces like *IIssue* above,
 using *zope.formlib*. This can handle proper add forms (so the
 object is not created until the form has been filled in, which is
 another headache with CMF content types and therefore also
@@ -1742,7 +1742,7 @@ Archetypes), validation, edit forms etc. Each form, adapter and
 menu entry (for the "add" menu, say) is registered separately,
 meaning that they can also be overridden and customised separately.
 Rocky Burt has written an excellent tutorial on
-`how to use formlib in a Plone context <https://plone.org/documentation/manual/developer-manual/archetypes/appendix-practicals/using-zope-formlib-with-plone>`_that
+`how to use formlib in a Plone context <https://plone.org/documentation/manual/developer-manual/archetypes/appendix-practicals/using-zope-formlib-with-plone>`_ that
 may be enlightening.
 
 There are voices that say we should dump Archetypes entirely in
@@ -1945,7 +1945,7 @@ on adapters again.
 For example, let's say you wanted to send an email to
 administrators when a particular button in the view was clicked.
 You could do that in an adapter. For examples, in your
-*interfaces*module, you could could have:
+*interfaces* module, you could could have:
 ::
 
     from zope.interface import Interfaceclass IAdministratorNagging(Interface):    """Someone who will nag the admin    """    def nag(message):        """Send nagging email        """
@@ -2044,7 +2044,7 @@ config.py
     Holds various constants
 configure.zcml 
     Starts the Zope 3 snowball going. This references other packages
-    with their own *configure.zcml*files.
+    with their own *configure.zcml* files.
 content/ 
     Contains the Archetypes content types for Department, Employee and
     Project. Also contains some utilities, like *EmployeeLocator*, an
@@ -2348,10 +2348,10 @@ that with PloneTestCase, things should "just work" for integration
 testing - components you have defined in ZCML in your products will
 be loaded as they would when Zope is started.
 
-The file *base.py*contains an insulating base class for b-org
+The file *base.py* contains an insulating base class for b-org
 tests, called *BorgTestCase* and its sister-class
 *BorgFunctionalTesetCase*. When imported, this file will trigger
-the setup of a Plone site with the *membrane*and *borg*extension
+the setup of a Plone site with the *membrane* and *borg* extension
 profiles installed, as such:
 
 ::
@@ -2403,7 +2403,7 @@ because this was quicker to write:
     from base import BorgTestCasefrom Products.membrane.interfaces import ICategoryMapperfrom Products.membrane.config import ACTIVE_STATUS_CATEGORYfrom Products.membrane.utils import generateCategorySetIdForTypefrom Products.borg.config import LOCALROLES_PLUGIN_NAME, PLACEFUL_WORKFLOW_POLICYclass TestProductInstall(BorgTestCase):    def afterSetUp(self):        self.types = ('Department', 'Employee', 'Project',)    def testTypesInstalled(self):        for t in self.types:            self.failUnless(t in self.portal.portal_types.objectIds(),                            '%s content type not installed' % t)    ...def test_suite():    from unittest import TestSuite, makeSuite    suite = TestSuite()    suite.addTest(makeSuite(TestProductInstall))    return suite
 
 Finally, there is an docstring DocTest for the
-*ExtensibleSchemaSupport*class. This is because this class if
+*ExtensibleSchemaSupport* class. This is because this class if
 largely standalone (it probably shouldn't be b-org at all, but in a
 more general module, except Archetypes will gain similar
 functionality of its own for Plone 3.0) and the test provided
@@ -2701,7 +2701,7 @@ Here, we are saying that:
    *IGroupAwareRolesProvider* is a sub-interface that will cause
    membrane to also look at the user's groups.
 
-The *IAttributeAnnotatable*interface is part of Zope 3's
+The *IAttributeAnnotatable* interface is part of Zope 3's
 annotations framework, discussed in a later section.
 Projects does not require any particular marker interfaces.
 
@@ -2783,7 +2783,7 @@ IMembraneUserManagement
 All these adapters are found in *membership/employee.py*.
 The *IUserRelated* adapter is the simplest, as it simply invokes
 the user name. Note that by default, membrane will use the
-Archetypes *UID()*function as the user id. This is sensible, but
+Archetypes *UID()* function as the user id. This is sensible, but
 unfortunately Plone's UI (and that of third party products) is not
 always aware of the distinction between user id and user name.
 Ideally, only the user name would ever be displayed, the user id
@@ -2800,7 +2800,7 @@ well-defined. The adapter is therefore quite trivial:
 
 The id of the content object that represents the employee is used
 as the user id. This is also used as the user name, as defined in
-the *IUserAuthentication*adapter:
+the *IUserAuthentication* adapter:
 ::
 
     class UserAuthentication(object):    """Provide authentication against employees.    """    implements(IUserAuthentication)    adapts(IEmployeeContent)    def __init__(self, context):        self.context = context    def getUserName(self):        return self.context.getId()    def verifyCredentials(self, credentials):        login = credentials.get('login', None)        password = credentials.get('password', None)        if login is None or password is None:            return False        digest = sha(password).digest()        annotations = IAnnotations(self.context)        passwordDigest = annotations.get(PASSWORD_KEY, None)        return (login == self.getUserName() and digest == passwordDigest)
@@ -2837,7 +2837,7 @@ enables the *PasswordResetTool* to do its magic. Note that we have
 not implemented *doAddUser()*, because there is no well-defined
 global policy for where the actual *Employee* content object should
 be added! Recently membrane has gained some functionality whereby a
-site-local utility providing *IUserAdder***from membrane can be
+site-local utility providing *IUserAdder*** from membrane can be
 queried for this policy. That may be useful for b-org extension
 products, but b-org is still not in a position to make a general
 policy for this, so it is not implemented out of the box.
