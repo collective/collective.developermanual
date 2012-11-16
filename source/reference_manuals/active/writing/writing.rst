@@ -97,6 +97,15 @@ Document page format
 
 Here are some Sphinx coding conventions used in the documentation.
 
+Tab policy
+-------------------------
+
+* Indentation 4 spaces
+
+* No hard tabs
+
+* No trailing whitespaces 
+
 Headings and filenames
 -------------------------
 
