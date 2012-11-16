@@ -65,12 +65,12 @@ including Plone add-ons, are available from `PyPI (the Python Package index) <ht
 
 Plone uses a tool called `Buildout <http://www.buildout.org/>`_ to manage the set of Python packages 
 that are part of your Plone installation.
-Using Buildout involves using the :doc:`buildout.cfg` configuration file and the :doc:`bin/buildout` command.
+Using Buildout involves using the ``buildout.cfg`` configuration file and the ``bin/buildout`` command.
 
 .. note ::
 
   In prior versions of Plone and Zope, add-ons were referred to as "products" and they were installed by copying
-  them into a special folder called :doc:`products`. This method is now deprecated in favor of using 
+  them into a special folder called ``products``. This method is now deprecated in favor of using 
   standard Python packages, managed by Buildout.
 
 
@@ -98,7 +98,7 @@ you can create a code skeleton (scaffold) for it using :doc:`Plone ZopeSkel code
 
 Please read how to use :doc:`ZopeSkel to bootstrap your first add-on </getstarted/paste>`.
 
-If you want to create a package with :doc:`Dexterity content types please read the tutorial</getstarted/dexterity>`.
+If you want to create a package with Dexterity content types please read about :doc:`creating a Dexterity project</getstarted/dexterity>`.
 
 Plone development workflow
 ----------------------------
@@ -186,6 +186,7 @@ More info
     python
     paste
     helloworld/index
+    dexterity
 
 Plone resources
 =================

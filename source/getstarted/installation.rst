@@ -320,7 +320,7 @@ Entering debug mode after installation
 =========================================
 
 When you have Plone installed and want to start
-development you need do :doc:`enter debug mode </getstarted/debug-mode>`_.
+development you need do :doc:`enter debug mode </getstarted/debug_mode>`.
 
 Installer source code
 ======================
