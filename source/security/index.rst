@@ -11,7 +11,7 @@ Zope provides various built-in security facilities
 * RestrictedPython to evaluate sandboxed code
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     permissions
     permission_lists
@@ -20,5 +20,3 @@ Zope provides various built-in security facilities
     local_roles
     dynamic_roles
     sandboxing
-
-
