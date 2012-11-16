@@ -168,7 +168,7 @@ limited and usually can take you only half way there.
 Hello World Tutorial
 ----------------------
 
-We have a :doc:`tutorial </getstarted/helloworld/index>` introducing the basics of Plone development.
+We have a :doc:`tutorial </reference_manuals/active/helloworld/index>` introducing the basics of Plone development.
 
 The tutorial covers a basic form, a custom content-type, and a dynamic view. 
 It also has detailed sections on building a development environment, installing Plone, and 
@@ -184,7 +184,7 @@ More info
     debug_mode
     python
     paste
-    helloworld/index
+    /reference_manuals/active/helloworld/index
     dexterity
 
 Plone resources
