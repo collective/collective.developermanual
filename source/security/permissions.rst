@@ -37,14 +37,14 @@ Checking if the logged-in user has a permission
 The following code checks whether the logged in user
 has a certain permission for some object.
 
-.. code-block::
+.. code-block:: python
 
     from AccessControl import getSecurityManager
     from AccessControl import Unauthorized
 
     # Import permission names as pseudo-constant strings from somewhere...
     # see security doc for more info
-    from Products.CMFCore.permissions import 
+    from Products.CMFCore.permissions import ModifyPortalContent 
 
     def some_function(self, object):
         sm = getSecurityManager()
