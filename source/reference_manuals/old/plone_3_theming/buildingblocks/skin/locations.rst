@@ -39,14 +39,16 @@ Plone Default skin can be found in the CMFPlone product:
 In your own Theme Product
 -------------------------
 
- |The skins folder in your theme product|/skins/[your theme
+|The skins folder in your theme product|/skins/[your theme
 namespace].[your theme name]\_custom\_templates \| custom\_images \|
 styles
+
     These directories will form your skin layers. Your templates,
     images, and style sheets can go here. If you asked it to, the
     plone3\_theme paster template will have provided blank style sheets
     to override the Plone Default ones.
-/skins.zcml
+
+/skins.zcml 
     When your Zope instance starts up, this turns your directories into
     skin layers
  |Subsidiary files used for installing and setting up the

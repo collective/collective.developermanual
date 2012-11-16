@@ -162,7 +162,7 @@ seems to have appeared from nowhere. In fact, *view* is a collection of
 properties computed by the plone.logo viewlet and seamlessly passed to
 the logo.pt template. Here are the available properties:
 
-navigation\_root\_url
+ navigation\_root\_url
     supplies the URL of your site (it could potentially be something
     different if you've set up a different navigation root)
  logo\_tag

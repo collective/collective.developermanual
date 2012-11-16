@@ -29,9 +29,12 @@ and compiled python files aren't added to your repository.
 
 `A Quick Guide to Python
 Eggs <http://peak.telecommunity.com/DevCenter/PythonEggs>`_
+
     A good overview of eggs and setuptools from the folks at PEAK.
+
 `Hatch Python Eggs with
 SetupTools <http://www.ibm.com/developerworks/library/l-cppeak3.html>`_
+
     David Metz takes a look at the setuptools framework.
 
 GenericSetup
@@ -55,13 +58,18 @@ itself, we will shortly be configuring several xml files needed by GS.
 
 `Understanding and Using GenericSetup in
 Plone <http://plone.org/documentation/tutorial/genericsetup>`_
+
     Now a bit dated, Rob Miller's tutorial on GS remains a useful
     resource for background on GS.
+
 `GenericSetup
 Improvements <http://theploneblog.org/blog/archive/2007/06/21/genericsetup-improvements>`_
+
     More information about GS from Rob Miller.
+
 `Benefit NOW from Using GenericSetup and Z3
 Technologies <http://plone.org/documentation/tutorial/benefit-now-from-using-genericsetup-and-zope-3-technologies/?searchterm=benefit%20NOW>`_
+
     Impress your colleagues by using GenericSetup and Zope 3 views
     efficiently and with minimal effort! This tutorial shows you how to
     add a new view, how to use it, how to add a new content type and how
@@ -78,5 +86,6 @@ this tutorial:
 
 `Customization for
 developers <http://plone.org/documentation/how-to/how-to-create-a-plone-3-theme-product-on-the-filesystem/plone.org/documentation/tutorial/customization-for-developers>`_
+
     An overview of Plone 3 customization by Martin Aspeli.
 
