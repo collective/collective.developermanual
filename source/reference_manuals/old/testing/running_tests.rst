@@ -14,14 +14,14 @@ control script.
       ./bin/zopectl test -s Products.RichDocument
 
 This would run all tests in the Products.RichDocument module. If you are
-using a `buildout`_ with an instance control script called instance,
+using a `buildout <http://www.buildout.org/>`_ with an instance control script called instance,
 this would be:
 
 ::
 
       ./bin/instance test -s Products.RichDocument
 
-Using buildout is probably a good idea - see `the buildout tutorial`_ -
+Using buildout is probably a good idea - see `the buildout tutorial <http://www.buildout.org/docs/tutorial.html>`_ -
 not at least because this is the only way that works reliably on
 Windows. We will use this syntax from now on.
 
