@@ -66,15 +66,16 @@ There is no single permission for adding content. Every content type has its own
 If you create your own content type, create a custom add permission for it.
 
 .. table:: Permissions
-=========================== ===================================
-Permission name             Permission name for ZCML
-=========================== ===================================
-View                        zope2.View
-Access Contents Information zope2.AccessContentsInformation
-List folder contents        cmf.ListFolderContents
-Modify Portal Content       cmf.ModifyPortalContent
-Manage Portal               cmf.ManagePortal
-=========================== ===================================
+
+    =========================== ===================================
+    Permission name             Permission name for ZCML
+    =========================== ===================================
+    View                        zope2.View
+    Access Contents Information zope2.AccessContentsInformation
+    List folder contents        cmf.ListFolderContents
+    Modify Portal Content       cmf.ModifyPortalContent
+    Manage Portal               cmf.ManagePortal
+    =========================== ===================================
 
 To reference a permission in code, you need the name as a string.
 Using strings is a bad convention, all common permissions have a constant in Products.CMFCore.permissions.

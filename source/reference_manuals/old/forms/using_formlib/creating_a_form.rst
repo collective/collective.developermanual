@@ -2,6 +2,7 @@ Creating a simple feedback form
 ===============================
 
 .. admonition:: Description
+
     This section explains how to create a very basic feedback form.
 
 The code for this example is available to checkout from the collective
