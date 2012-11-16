@@ -54,7 +54,7 @@ inside your product:
 
 ::
 
-    from Products.Five.formlib.formbase import PageForm
+    from five.formlib.formbase import PageForm
 
 You will also need to make use of Five's strange hybrid between
 Zope 2 and Zope 3 page templates:
