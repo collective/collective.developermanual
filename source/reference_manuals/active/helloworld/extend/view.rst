@@ -157,7 +157,7 @@ To access the view, add @@hello_world_view to the end of an object url in your p
     
 Since our object has a *hello_name* attribute, the value is displayed along with the word *Hello*.
 
-.. image:: /getstarted/helloworld/images/hellojimbobview.png
+.. image:: /reference_manuals/active/helloworld/images/hellojimbobview.png
 
 We can also call our view on the root of the site.::
 
@@ -165,7 +165,7 @@ We can also call our view on the root of the site.::
 
 The root of the site does not have a *hello_name* attribute, so *Hello World* is displayed.
 
-.. image:: /getstarted/helloworld/images/helloworldview.png
+.. image:: /reference_manuals/active/helloworld/images/helloworldview.png
 
 For a more in depth explanation of views, see the :doc:`Views and viewlets </views/index>` section of this manual.
 
