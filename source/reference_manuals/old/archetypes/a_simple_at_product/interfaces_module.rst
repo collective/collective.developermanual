@@ -3,6 +3,7 @@ The interfaces module
 ======================
 
 .. admonition:: Description
+
 		The module where you define interfaces describing what 
 		your content class(es) will do. 
 
