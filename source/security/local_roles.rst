@@ -18,6 +18,9 @@ By default Plone has roles like ``Contributor``, ``Reader``, ``Editor``, etc.
 and you can view these on the :guilabel:`Sharing` tab
 and in :term:`ZMI` :guilabel:`Security` tab.
 
+Good introduction to roles:
+`Basic Roles and Permissions in Plone <http://www.sixfeetup.com/blog/basic-roles-and-permissions-in-plone>`_
+
 Creating a new role
 =======================
 
