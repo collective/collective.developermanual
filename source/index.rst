@@ -31,22 +31,22 @@ these tutorials serve as a starting point.
 * :doc:`Add-ons: how Plone add-ons are created <getstarted/index>`
 
 .. following line commented out for now to stop sphinx errors as reference is not yet ready
-.. * :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index` 
+.* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index`
 
-- `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
+.. - `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
 
 * :doc:`Archetypes: Building content types on Plone with Archetypes content subsystem <reference_manuals/old/archetypes/index>`
 
 .. following line commented out for now to stop sphinx errors as reference is not yet ready
-.. * :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>` 
+
+* Theming: Creating Plone 3 theme (unfinished)
+
+.. * :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
 
 - `Dexterity: Building TODO application on Plone with Dexterity content subsystem <http://tutorialtodoapp.readthedocs.org/en/latest/>`_
 
 .. toctree::
    :maxdepth: 1
- 
-   tutorials/theming/index
-.. above link is here because was not linked anywhere and was giving sphinx errors.
 
 Programming Plone
 -------------------------------------------
