@@ -36,7 +36,7 @@ pack-gc
 
 pack-keep-old
 
-    Can be set to false to disable the creation of *.fs.old files before the pack is run. Defaults to true.
+    Can be set to false to disable the creation of \*.fs.old files before the pack is run. Defaults to true.
 
 pack-user
 

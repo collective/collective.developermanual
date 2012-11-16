@@ -15,7 +15,6 @@ How to manage Plone hosting and deployments.
     varnish
     nginx
     deliverance
-    instancesthreads
 
 
 
