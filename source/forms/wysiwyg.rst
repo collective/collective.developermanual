@@ -1,6 +1,6 @@
-==================
-WYSIWYG text edit
-==================
+====================================
+WYSIWYG rich text edit and TinyMCE
+====================================
 
 .. admonition:: Description
 
