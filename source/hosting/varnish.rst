@@ -7,7 +7,7 @@
     Varnish is a caching front-end server. This document has notes on how to
     use Varnish with Plone. 
 
-.. contents :: :local:
+.. contents:: :local:
 
 .. highlight:: console
 
@@ -45,7 +45,7 @@ Buildout examples
 
 Management console
 ==================
-        
+
 ``varnishadm`` 
 --------------------------------------------
 
@@ -59,7 +59,7 @@ You can access Varnish admin console on your server by::
 Telnet console
 -----------------
 
-The telent management console is available on some configurations
+The telnet management console is available on some configurations
 where ``varnishadm`` cannot be used. The functionality is the same.
 
 Example::
@@ -68,7 +68,7 @@ Example::
     # Your system does not have a secret handshake file
     telnet localhost 6082 
 
-.. note ::
+.. note::
 
     Port number depends on your Varnish settings.
 
@@ -106,9 +106,9 @@ Varnish installation::
 
 Port 8088 is defined in ``buildout.cfg``::
 
-        [varnish-instance]
-        telnet = localhost:8088
-                    
+    [varnish-instance]
+    telnet = localhost:8088
+
 Opening a new CLI connection to the Varnish console, in a system-wide
 Varnish installation on Ubuntu/Debian::
 
@@ -116,24 +116,24 @@ Varnish installation on Ubuntu/Debian::
 
 You can dynamically load and parse a new VCL config file to memory::
 
-	vcl.load <name> <file>
+    vcl.load <name> <file>
 
 For example::
 
-	vcl.load newconf_1 /etc/varnish/newconf.vcl
+    vcl.load newconf_1 /etc/varnish/newconf.vcl
 
-.. or ... ::
+... or ... ::
 
-  # Ubuntu / Debian default config 
-  vcl.load defconf1 /etc/varnish/default.vcl
-        
+    # Ubuntu / Debian default config 
+    vcl.load defconf1 /etc/varnish/default.vcl
+
 ``vcl.load`` will load and compile the new configuration. Compilation will
 fail and report on syntax errors.  Now that the new configuration has been
 loaded, it can be activated with::
 
-	vcl.use newconf_1 
-	
-.. note ::
+    vcl.use newconf_1 
+
+.. note::
 
     Varnish remembers ``<name>`` in ``vcl.load``, so every time you
     need to reload your config you need to invent a new name for 
@@ -145,29 +145,29 @@ Logs
 To see a real-time log dump (in a system-wide Varnish configuration)::
 
     varnishlog
-        
+
 By default, Varnish does not log to any file and keeps the log only in
 memory.  If you want to extract Apache-like logs from varnish, you need to
 use the ``varnishncsa`` utility.
-        
+
 Stats
 =====
 
 Check live "top-like" Varnish statistics::
 
     parts/varnish-build/bin/varnishstat
-        
+
 Use the admin console to print stats for you::
 
     stats
     200 2114    
-    
+
            95717  Client connections accepted
           132889  Client requests received
            38638  Cache hits
            21261  Cache hits for pass
           ...
-        
+
 
 Varnish buildout restart snippet
 ================================
@@ -207,23 +207,23 @@ port 9999.
 
 Example:: 
 
-	backend plonecommunity {
-	        .host = "127.0.0.1";
-	        .port = "9999";
-	}
-	
-	sub vcl_recv {
-	        if (req.http.host ~ "^(www.)?plonecommunity.mobi(:[0-9]+)?$"
-	            || req.http.host ~ "^plonecommunity.mfabrik.com(:[0-9]+)?$") {
-	
-	                set req.backend = plonecommunity 
-	                set req.url = "/VirtualHostBase/http/" req.http.host ":80/plonecommunity/VirtualHostRoot" req.url;
-	                set req.backend = plonecommunity;
-	        }
-	}
+    backend plonecommunity {
+            .host = "127.0.0.1";
+            .port = "9999";
+    }
+
+    sub vcl_recv {
+            if (req.http.host ~ "^(www.)?plonecommunity.mobi(:[0-9]+)?$"
+                || req.http.host ~ "^plonecommunity.mfabrik.com(:[0-9]+)?$") {
+
+                    set req.backend = plonecommunity 
+                    set req.url = "/VirtualHostBase/http/" req.http.host ":80/plonecommunity/VirtualHostRoot" req.url;
+                    set req.backend = plonecommunity;
+            }
+    }
 
 
-	
+
 Varnishd port and IP address to listen
 ========================================
 
@@ -231,18 +231,18 @@ You give IP address(s) and ports to Varnish to listen to
 on the ``varnishd`` command line using -a switch.
 Edit ``/etc/default/varnish``::
 
-  DAEMON_OPTS="-a 192.168.1.1:80 \
-               -T localhost:6082 \
-               -f /etc/varnish/default.vcl \
-               -s file,/var/lib/varnish/$INSTANCE/varnish_storage.bin,1G"
+    DAEMON_OPTS="-a 192.168.1.1:80 \
+                 -T localhost:6082 \
+                 -f /etc/varnish/default.vcl \
+                 -s file,/var/lib/varnish/$INSTANCE/varnish_storage.bin,1G"
 
-	
+
 Cached and editor subdomains
 ==============================
 
 You can provide an uncached version of the site for editors:
 
-* http://serverfault.com/questions/297541/varnish-cached-and-non-cached-subdomains/297547#297547	
+* http://serverfault.com/questions/297541/varnish-cached-and-non-cached-subdomains/297547#297547    
 
 Varnish and I18N
 =================
@@ -260,49 +260,53 @@ HTTP caching needs to deal with both HTTP request and response cookie handling
 
 * HTTP request *Cookie* header. The browser sending HTTP request
   with ``Cookie`` header confuses Varnish cache look-up. This header can be 
-  set by Javascript also, not just by the server. *Cookie* can be preprocessed in *vcl_recv*.
-  
-* HTTP response *Set-Cookie* header. This is server-side cookie set. If your server is setting
+  set by Javascript also, not just by the server.
+  ``Cookie`` can be preprocessed in varnish's ``vcl_recv`` step.
+
+* HTTP response ``Set-Cookie`` header.
+  This sets a server-side cookie. If your server is setting
   cookies Varnish does not cache these responses by default. 
   Howerver, this might be desirable
-  behavior if e.g. multi-lingual content is served from one URL with language cookies.
-  *Set-Cookie* can be post-processed in *vcl_fetch*.
+  behavior if e.g. multi-lingual content is served from one URL with
+  language cookies.
+  ``Set-Cookie`` can be post-processed in varnish's ``vcl_fetch`` step.
 
-Example how remove all Plone related cookies besides ones dealing with the logged in users (content authors)::
+Example of removing all Plone-related cookies,
+besides ones dealing with the logged in users (content authors)::
 
-  sub vcl_recv {
+    sub vcl_recv {
 
-    if (req.http.Cookie) {
-        # (logged in user, status message - NO session storage or language cookie)
-        set req.http.Cookie = ";" req.http.Cookie;
-        set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
-        set req.http.Cookie = regsuball(req.http.Cookie, ";(statusmessages|__ac|_ZopeId|__cp)=", "; \1=");
-        set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
-        set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
+      if (req.http.Cookie) {
+          # (logged in user, status message - NO session storage or language cookie)
+          set req.http.Cookie = ";" req.http.Cookie;
+          set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
+          set req.http.Cookie = regsuball(req.http.Cookie, ";(statusmessages|__ac|_ZopeId|__cp)=", "; \1=");
+          set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
+          set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
 
-        if (req.http.Cookie == "") {
-            remove req.http.Cookie;
+          if (req.http.Cookie == "") {
+              remove req.http.Cookie;
+          }
+      }
+      ...
+
+    # Let's not remove Set-Cookie header in VCL fetch
+    sub vcl_fetch {
+
+        # Here we could unset cookies explicitly,
+        # but we assume plone.app.caching extension does it jobs
+        # and no extra cookies fall through for HTTP responses we'd like to cache
+        # (like images)
+
+        if (!beresp.cacheable) {
+            return (pass);
         }
-    }
-    ...
-
-  # Let's not remove Set-Cookie header in VCL fetch
-  sub vcl_fetch {
-
-      # Here we could unset cookies explicitly,
-      # but we assume plone.app.caching extension does it jobs
-      # and no extra cookies fall through for HTTP responses we'd like to cache
-      # (like images)
-
-      if (!beresp.cacheable) {
-          return (pass);
-      }
-      if (beresp.http.Set-Cookie) {
-          return (pass);
-      }
-      set beresp.prefetch =  -30s;
-      return (deliver);
-  }        
+        if (beresp.http.Set-Cookie) {
+            return (pass);
+        }
+        set beresp.prefetch =  -30s;
+        return (deliver);
+    }        
 
 The snippet for stripping out non-Plone cookies comes from
 http://www.phase2technology.com/node/1218/
@@ -315,66 +319,62 @@ and are therefor ignored.
 
 Another example how to purge Google cookies only and allow other cookies by default::
 
-        sub vcl_recv {
+    sub vcl_recv {
+        # Remove Google Analytics cookies - will prevent caching of anon content
+        # when using GA Javascript. Also you will lose the information of
+        # time spend on the site etc..
+        if (req.http.cookie) {
+           set req.http.Cookie = regsuball(req.http.Cookie, "__utm.=[^;]+(; )?", "");
+           if (req.http.cookie ~ "^ *$") {
+               remove req.http.cookie;
+           }
+         }
+         ....    
 
-        
-                 # Remove Google Analytics cookies - will prevent caching of anon content
-                 # when using GA Javascript. Also you will lose the information of
-                 # time spend on the site etc..
-                 if (req.http.cookie) {
-                    set req.http.Cookie = regsuball(req.http.Cookie, "__utm.=[^;]+(; )?", "");
-                    if (req.http.cookie ~ "^ *$") {
-                        remove req.http.cookie;
-                    }
-                  }
-
-                  ....    
-                                
 Debugging cookie issues
 ------------------------------------
 
 Use the following snippet to set a HTTP response debug header to see what
-Varnish sees as cookie after *vcl_recv* clean-up::
+Varnish sees as cookie after ``vcl_recv`` clean-up::
 
-  sub vcl_fetch {
-
-      set beresp.http.X-Varnish-Cookie-Debug = "Request cookie: " req.http.Cookie;
-
-      ...
-  }
+    sub vcl_fetch {
+        set beresp.http.X-Varnish-Cookie-Debug = "Request cookie: " req.http.Cookie;
+        ...
+    }
 
 And then test with ``wget``::  
 
-  cd /tmp # wget wants to save files...
-  wget -S http://www.site.fi
-  --2011-11-16 11:28:37--  http://www.site.fi/
-  Resolving www.site.fi (www.site.fi)... xx.20.128.xx
-  Connecting to www.site.fi (www.site.fi)|xx.20.128.xx|:80... connected.
-  HTTP request sent, awaiting response... 
-    HTTP/1.1 200 OK
-    Server: Zope/(2.12.17, python 2.6.6, linux2) ZServer/1.1
-    X-Cache-Operation: plone.app.caching.noCaching
-    Content-Language: fi
-    Expires: Sun, 18 Nov 2001 09:28:37 GMT
-    Cache-Control: max-age=0, must-revalidate, private
-    X-Cache-Rule: plone.content.folderView
-    Content-Type: text/html;charset=utf-8
-    Set-Cookie: I18N_LANGUAGE="fi"; Path=/
-    Content-Length: 23836
-    X-Cookie-Debug: Request cookie: (null)
-    Date: Wed, 16 Nov 2011 09:28:37 GMT
-    X-Varnish: 1562749485
-    Age: 0
-    Via: 1.1 varnish
+    cd /tmp # wget wants to save files...
+    wget -S http://www.site.fi
+    --2011-11-16 11:28:37--  http://www.site.fi/
+    Resolving www.site.fi (www.site.fi)... xx.20.128.xx
+    Connecting to www.site.fi (www.site.fi)|xx.20.128.xx|:80... connected.
+    HTTP request sent, awaiting response... 
+      HTTP/1.1 200 OK
+      Server: Zope/(2.12.17, python 2.6.6, linux2) ZServer/1.1
+      X-Cache-Operation: plone.app.caching.noCaching
+      Content-Language: fi
+      Expires: Sun, 18 Nov 2001 09:28:37 GMT
+      Cache-Control: max-age=0, must-revalidate, private
+      X-Cache-Rule: plone.content.folderView
+      Content-Type: text/html;charset=utf-8
+      Set-Cookie: I18N_LANGUAGE="fi"; Path=/
+      Content-Length: 23836
+      X-Cookie-Debug: Request cookie: (null)
+      Date: Wed, 16 Nov 2011 09:28:37 GMT
+      X-Varnish: 1562749485
+      Age: 0
+      Via: 1.1 varnish
 
 Plone Language cookie (I18N_LANGUAGE)
 ------------------------------------------------------------------------
 
-This cookie could be removed in *vcl_fetch* response post-processing (how?).
-However, a better solution is to disable this cookie in the backend itself: in this
-case in Plone portal_languages backend tool.
-Disable it by *Use cookie for manual override* setting in portal_languages.
-                  
+This cookie could be removed in ``vcl_fetch`` response post-processing (how?).
+However, a better solution is to disable this cookie in the backend itself:
+in this case in Plone's ``portal_languages`` tool.
+Disable it by :guilabel:`Use cookie for manual override` setting in
+``portal_languages``.
+
 More info
 ------------------------------------------------------------------------
 
@@ -392,13 +392,13 @@ Do not cache error pages
 You can make sure that Varnish does not accidentally cache error pages.
 E.g. it would cache front page when the site is down::
 
-	sub vcl_fetch {
-		if ( beresp.status >= 500 ) {
-			set beresp.ttl = 0s;
-			set beresp.cacheable = false;
-		}
-		...
-	}
+    sub vcl_fetch {
+        if ( beresp.status >= 500 ) {
+            set beresp.ttl = 0s;
+            set beresp.cacheable = false;
+        }
+        ...
+    }
 
 More info
 
@@ -409,101 +409,101 @@ Custom and full cache purges
 
 Below is an example how to create an action to purge the whole Varnish cache.
 
-First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from localhost.
+First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from
+``localhost``.
 We'll create a special ``PURGE`` command which takes URLs to be purged out of 
 the cache in a special header::
 
-        acl purge {
-                "localhost";
-                # XXX: Add your local computer public IP here if you 
-                # want to test the code against the production server
-                # from the development instance
-        }
+    acl purge {
+        "localhost";
+        # XXX: Add your local computer public IP here if you 
+        # want to test the code against the production server
+        # from the development instance
+    }
+    ...
 
+    sub vcl_recv {
         ...
-        
-        sub vcl_recv {
-        
-                ...
-        
-                # Allow PURGE requests clearing everything
-                if (req.request == "PURGE") {
-                        if (!client.ip ~ purge) {
-                                error 405 "Not allowed.";
-                        }
-                        # Purge for the current host using reg-ex from X-Purge-Regex header
-                        purge("req.http.host == " req.http.host " && req.url ~ " req.http.X-Purge-Regex);
-                        error 200 "Purged.";
-                }
-        }       
+        # Allow PURGE requests clearing everything
+        if (req.request == "PURGE") {
+            if (!client.ip ~ purge) {
+                error 405 "Not allowed.";
+            }
+            # Purge for the current host using reg-ex from X-Purge-Regex header
+            purge("req.http.host == " req.http.host " && req.url ~ " req.http.X-Purge-Regex);
+            error 200 "Purged.";
+        }
+    }       
 
-        
-Then let's create a Plone view which will make a request from Plone to Varnish (upstream localhost:80)
-and issue ``PURGE`` command. We do this using `Requests <http://pypi.python.org/pypi/requests>`_ Python lib.
+
+Then let's create a Plone view which will make a request from Plone to
+Varnish (``upstream localhost:80``)
+and issue the ``PURGE`` command.
+We do this using the `Requests <http://pypi.python.org/pypi/requests>`_ 
+Python library.
 
 Example view code::
-        
-                
-	import requests
 
-	from Products.CMFCore.interfaces import ISiteRoot
-	from five import grok
+    import requests
 
-	from requests.models import Request
+    from Products.CMFCore.interfaces import ISiteRoot
+    from five import grok
 
-	class Purge(grok.CodeView):
-	    """
-	    Purge upstream cache from all entries.
+    from requests.models import Request
 
-	    This is ideal to hook up for admins e.g. through portal_actions menu.
+    class Purge(grok.CodeView):
+        """
+        Purge upstream cache from all entries.
 
-	    You can access it as admin::
+        This is ideal to hook up for admins e.g. through portal_actions menu.
 
-	        http://site.com/@@purge
+        You can access it as admin::
 
-	    """
+            http://site.com/@@purge
 
-	    grok.context(ISiteRoot)
+        """
 
-	    # Onlyl site admins can use this
-	    grok.require("cmf.ManagePortal")
+        grok.context(ISiteRoot)
 
-	    def render(self):
-	        """
-	        Call the parent cache using Requets Python library and issue PURGE command for all URLs.
+        # Onlyl site admins can use this
+        grok.require("cmf.ManagePortal")
 
-	        Pipe through the response as is.
-	        """
+        def render(self):
+            """
+            Call the parent cache using Requets Python library and issue PURGE command for all URLs.
 
-	        # This is the root URL which will be purged
-	        # - you might want to have different value here if 
-	        # your site has different URLs for manage and themed versions
-	        site_url = self.context.portal_url() + "/"
+            Pipe through the response as is.
+            """
 
-	        headers = {
-	                   # Match all pages
-	                   "X-Purge-Regex" : ".*"
-	        }
+            # This is the root URL which will be purged
+            # - you might want to have different value here if 
+            # your site has different URLs for manage and themed versions
+            site_url = self.context.portal_url() + "/"
 
-	        resp = requests.request("PURGE", site_url + "*", headers=headers)
+            headers = {
+                       # Match all pages
+                       "X-Purge-Regex" : ".*"
+            }
 
-	        self.request.response["Content-type"] = "text/plain"
-	        text = []
+            resp = requests.request("PURGE", site_url + "*", headers=headers)
 
-	        text.append("HTTP " + str(resp.status_code))
+            self.request.response["Content-type"] = "text/plain"
+            text = []
 
-	        # Dump response headers as is to the Plone user,
-	        # so he/she can diagnose the problem
-	        for key, value in resp.headers.items():
-	            text.append(str(key) + ": " + str(value))
+            text.append("HTTP " + str(resp.status_code))
 
-	        # Add payload message from the server (if any)
+            # Dump response headers as is to the Plone user,
+            # so he/she can diagnose the problem
+            for key, value in resp.headers.items():
+                text.append(str(key) + ": " + str(value))
 
-	        if hasattr(resp, "body"):
-	        	text.append(str(resp.body))
+            # Add payload message from the server (if any)
 
-            
-        
+            if hasattr(resp, "body"):
+                text.append(str(resp.body))
+
+
+
 More info
 
 * https://www.varnish-cache.org/trac/wiki/VCLExamplePurging     
@@ -513,42 +513,40 @@ More info
 * http://kristianlyng.wordpress.com/2010/02/02/varnish-purges/
 
 
-Round robin balancing
+Round-robin balancing
 ========================
 
-Varnish can do round robin load balancing internally.
-You want to distribute CPU intensive load between several
-ZEO front end client instances each listeting to 
+Varnish can do round-robin load balancing internally.
+Use this if you want to distribute CPU-intensive load between several
+ZEO front end client instances, each listening on
 its own port.
 
 Example::
 
+    # Round-robin between two ZEO front end clients
 
-  # Round-robin between two ZEO front end clients
-
-  backend app1 {
-  .host = "localhost";
-  .port = "8080";
-  }
-
-  backend app2 {
-  .host = "localhost";
-  .port = "8081";
-  }
-
-  director app_director round-robin {
-    {
-        .backend = app1;
+    backend app1 {
+        .host = "localhost";
+        .port = "8080";
     }
-    {
-        .backend = app2;
+
+    backend app2 {
+        .host = "localhost";
+        .port = "8081";
     }
-  }
 
+    director app_director round-robin {
+        {
+            .backend = app1;
+        }
+        {
+            .backend = app2;
+        }
+    }
 
-  sub vcl_recv {
+    sub vcl_recv {
 
-   if (req.http.host ~ "(www\.|www2\.)?app\.fi(:[0-9]+)?$") {
-      set req.url = "/VirtualHostBase/http/www.app.fi:80/app/app/VirtualHostRoot" req.url;
-      set req.backend = app_director;   
+    if (req.http.host ~ "(www\.|www2\.)?app\.fi(:[0-9]+)?$") {
+        set req.url = "/VirtualHostBase/http/www.app.fi:80/app/app/VirtualHostRoot" req.url;
+        set req.backend = app_director;   
     }  
