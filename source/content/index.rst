@@ -24,7 +24,7 @@ There are two different subsystems to create content objects in Plone
 * Dexterity (Plone 4.x and Plone 3.x)
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     creating
     listing
@@ -32,7 +32,7 @@ There are two different subsystems to create content objects in Plone
     deleting
     rename
     types
-    workflow    
+    workflow
     uid
     ownership
     timestamps

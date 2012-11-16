@@ -35,7 +35,7 @@ More info
 * http://www.muthukadan.net/docs/zca.html
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     interfaces
     adapters
@@ -45,7 +45,3 @@ More info
     genericsetup
     events
     customizing_plone
-
-
-
-
