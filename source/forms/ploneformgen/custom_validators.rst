@@ -70,6 +70,10 @@ portal_url
 modules
      Module importer.
 
+.. note::
+
+    Some of these identifiers are supplied by PloneFormGen and are not available in other contexts.
+
 Using a Python Script
 =====================
 
