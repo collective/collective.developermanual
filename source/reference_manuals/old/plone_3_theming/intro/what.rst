@@ -39,5 +39,3 @@ If you already have a Plone 3 theme and want to know how to upgrade it
 to work with Plone 4 then the `upgrade
 guide <http://plone.org/documentation/manual/upgrade-guide>`_ has
 further information and guidance.
-
- 
