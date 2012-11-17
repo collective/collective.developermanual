@@ -26,6 +26,7 @@ PloneFormGen Topics
     :maxdepth: 1
 
     override_defaults
+    custom_validators
     creating_content
     failsafe_email
 
