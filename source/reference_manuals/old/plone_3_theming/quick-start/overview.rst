@@ -27,20 +27,13 @@ First Sharpen Your Pencils
     here <firefox-mozilla-ui-development-tools>`.
     To see your customizations, you'll also need to be sure that you are
     running your site in :doc:`debug/development
-    mode </getstarted/debug_mode>`. 
-Next Try Som se CSS Customizations
+    mode </getstarted/debug_mode>`.
+Next Try Some CSS Customizations
     We'll walk you through the :doc:`process of overriding the page title
     style <change-the-font-colours>`,
     by customizing and editing the ploneCustom.css style sheet. All of
     this is done through-the-web via the Zope Management Interface.
 Finally Replace the Logo
     We'll revisit the techniques of customization and CSS editing and
-    expand on them to :doc:`replace the Plone
-    logo <change-the-logo>`.
+    expand on them to :doc:`replace the Plone logo <change-the-logo>`.
     image with your own logo.
-
- 
-
- 
-
-

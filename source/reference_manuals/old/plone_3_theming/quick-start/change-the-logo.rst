@@ -11,7 +11,7 @@ In Plone 3 and 4, the logo is simply an image with a link to the home
 page of your site wrapped around it (there's just one small difference
 between versions, the name is logo.jpg in Plone 3, logo.png in Plone 4).
 
-::
+.. code-block:: html
 
     <a id="portal-logo" href="http://[your site]" accesskey="1">
         <img width="252" height="57" title="Plone" alt="" src="http://[your site]/logo.jpg"/>
@@ -48,7 +48,7 @@ this is simply to upload your own image and give it the same name:
    site
 
 Alternative Approach (Plone 3 only)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The name (ID) of the logo image is specified in base\_properties - a
 list of useful values that, in Plone 3, are picked up and used across
@@ -86,9 +86,10 @@ customize the base\_properties with that name.
 In Plone 4 base\_properties still exists but has only a very limited
 use.
 
-**Note** that when you go back to your customized base\_properties in
-portal\_skins > custom, it will look like an empty folder. Click the
-properties tab to get back to the list of properties.
+.. note::
+    When you go back to your customized base\_properties in
+    portal\_skins > custom, it will look like an empty folder. Click the
+    properties tab to get back to the list of properties.
 
 2. Changing the portal\_logo style
 ----------------------------------
@@ -125,20 +126,21 @@ you'll need to use portal\_view\_customizations.
    of examples to get you started.
 -  Save your changes and refresh your browser to see them
 
-**Note**: if you want to go back and make further changes later, you'll
-see that plone.logo is highlighted in the portal\_view\_customizations
-list, click on it to edit it. If you want to remove your customizations
-completely, use the contents tab of portal\_view\_customizations, tick
-the box next to your template and click Delete.
+.. note::
+    If you want to go back and make further changes later, you'll
+    see that plone.logo is highlighted in the portal\_view\_customizations
+    list, click on it to edit it. If you want to remove your customizations
+    completely, use the contents tab of portal\_view\_customizations, tick
+    the box next to your template and click Delete.
 
 The Theory
-~~~~~~~~~~
+^^^^^^^^^^
 
 Here's the logo.pt template. It is written in the templating language
 used by Plone - TAL (or ZPT). It helps to know this (and it doesn't take
 long to learn), but we'll talk you through this example:
 
-::
+.. code-block:: xml
 
     <a metal:define-macro="portal_logo"
        id="portal-logo"
@@ -164,15 +166,16 @@ the logo.pt template. Here are the available properties:
 
  navigation\_root\_url
     supplies the URL of your site (it could potentially be something
-    different if you've set up a different navigation root)
+    different if you've set up a different navigation root).
  logo\_tag
     looks up the name of the logo image from base\_properties, finds the
     image, collects its dimensions and title and turns all of this into
     an HTML image tag with the appropriate attributes Check back to the
     alternative approach in Section 1 of this How To for more
     information about base\_properties.
- portal\_title
-    looks up and supplies the title of your site
+ navigation\_root\_title
+    looks up and supplies the title of your site, this property was named
+    portal\_title in Plone prior to 4.1.
 
 Now look at the image tag in the template.
 
@@ -186,19 +189,20 @@ Note: *structure* means treat the value as HTML rather than a text
 string.
 
 Example 1: A plain text title
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Here's a customized version of the template, using *view/portal\_title*
-rather than *view/logo\_tag*, to give you a text header instead (if
+Here's a customized version of the template, using
+*view/navigation\_root\_title* (use *view/portal\_title* for Plone prior to
+4.1) rather than *view/logo\_tag*, to give you a text header instead (if
 you've used Plone 2, then you might recognize this):
 
-::
+.. code-block:: xml
 
     <h1 metal:define-macro="portal_logo"
        id="portal-logo">
        <a accesskey="1"
        tal:attributes="href view/navigation_root_url"
-       i18n:domain="plone" tal:content="view/portal_title">
+       i18n:domain="plone" tal:content="view/navigation_root_title">
         </a>
     </h1>
 
@@ -208,11 +212,13 @@ could adjust this example to use an accessible image replacement
 technique in your CSS.
 
 Example 2: Supplying your own image tag
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You don't have to use logo\_tag if you don't want to:
+You don't have to use logo\_tag if you don't want to (again, use
+*view/portal\_title* instead of *view/navigation\_root\_title* for Plone
+prior to 4.1):
 
-::
+.. code-block:: xml
 
     <a metal:define-macro="portal_logo"
        id="portal-logo"
@@ -221,7 +227,7 @@ You don't have to use logo\_tag if you don't want to:
        i18n:domain="plone">
         <img src="[My logo ID]" alt="[My Logo]"
              width="[My Width]" height="[My Height]" 
-             tal:attributes="title view/portal_title" />
+             tal:attributes="title view/navigation_root_title" />
     </a>
 
 You will, of course, need to upload your own logo to the custom folder
@@ -236,7 +242,4 @@ Further Information
 -  If you want to transfer your changes to the file system in your own
    theme product, then the further sections in this reference manual
    will give you an outline of the files and templates you'll need
-   (`Logo viewlet
-   section <http://plone.org/documentation/manual/theme-reference/elements>`_).
-
- 
+   (`Logo viewlet section </elements>`_).

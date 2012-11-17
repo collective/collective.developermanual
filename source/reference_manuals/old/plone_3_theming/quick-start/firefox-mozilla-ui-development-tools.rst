@@ -1,6 +1,10 @@
 Firefox/mozilla UI development tools
 ====================================
 
+.. TODO::
+
+    ColorZilla, view formatted source, view source with links are broken.
+
 Firefox and mozilla have a number of extensions that can greatly help
 your UI development work. A basic set is listed here.
 
@@ -11,13 +15,13 @@ up to speed.
 
 Web developer
     `Web
-    developer <http://chrispederick.com/work/firefox/webdeveloper/>`_
+    developer <http://chrispederick.com/work/web-developer/>`_
     adds a web development toolbar to your firefox with almost
     everything you'd want to do or know. CSS info, validation, resizing
     to test other screen resolutions, converting POSTs to GETs. **An
     essential**.
 Aardvark
-    `Aardvark <http://www.karmatics.com/aardvark/>`_, when enabled for a
+    `Aardvark <http://karmatics.com/aardvark/>`_, when enabled for a
     page, shows you the class/id information when you hover over an
     element. Pressing ``v`` for instance, gives you the source for the
     item you hover over. Start the demo on their site and experiment
@@ -29,8 +33,8 @@ ColorZilla
     status bar. There's more: showing the box size of the current box
     element; showing the element, class and ID of the current element;
     distance between two points. All in the status bar.
-FireBug
-    `FireBug <http://getfirebug.com/>`_ constantly displays the number
+Firebug
+    `Firebug <http://getfirebug.com/>`_ constantly displays the number
     of errors it finds in your page. Handy during development for
     finding that mis-spelled css class or the faulty javascript
     statement. Also includes some css and source examination, but
@@ -89,4 +93,3 @@ Favelet Suite
     When invoked, a div element will appear in the top left corner of
     your browser window with a list of all the favelets I've included.
     Simply click the link you want to invoke the favelet.
-
