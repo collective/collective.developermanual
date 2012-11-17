@@ -22,19 +22,19 @@ configuration <http://collective-docs.readthedocs.org/en/latest/tutorials/paste.
 Plone Unified Installer should ship with a working Paster command.
 
 Create your Theme Product
-~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you have paster and ZopeSkel installed, navigate to the directory
 where you'd like to create your product (we'd recommend [your
 buildout]/[zinstance\|zeocluster/src]) and run from the command line:
 
-::
+.. code-block:: console
 
     $ bin/paster create -t plone3_theme plonetheme.mytheme
 
 or, if you have paster in your Plone installation:
 
-::
+.. code-block:: console
 
     $ [path to your buildout]/python-[version]/paster create -t plone3_theme plonetheme.mytheme
 
@@ -45,7 +45,31 @@ session.
 
 ::
 
-    Selected and implied templates:  ZopeSkel#basic_namespace  A project with a namespace package  ZopeSkel#plone            A Plone project  ZopeSkel#plone3_theme     A Theme for Plone 3.0Variables:  egg:      plonetheme.mytheme  package:  plonethememytheme  project:  plonetheme.mythemeEnter namespace_package (Namespace package (like plonetheme)) ['plonetheme']:Enter package (The package contained namespace package (like example)) ['example']:mythemeEnter skinname (The skin selection to be added to 'portal_skins' (like 'My Theme')) ['']:My ThemeEnter skinbase (Name of the skin selection from which the new one will be copied) ['Plone Default']:Enter empty_styles (Override default public stylesheets with empty ones?) [True]: FalseEnter include_doc (Include in-line documentation in generated code?) [False]:TrueEnter zope2product (Are you creating a Zope 2 Product?) [True]:Enter version (Version) ['1.0']:Enter description (One-line description of the package) ['An installable theme for Plone 3.0']: Enter long_description (Multi-line description (in reST)) ['']:Enter author (Author name) ['Plone Collective']:Enter author_email (Author email) ['product-developers@lists.plone.org']:Enter keywords (Space-separated keywords/tags) ['web zope plone theme']:Enter url (URL of homepage) ['http://svn.plone.org/svn/collective/']:Enter license_name (License name) ['GPL']:Enter zip_safe (True/False: if the package can be distributed as a .zip file) [False]:
+    Selected and implied templates:
+      ZopeSkel#basic_namespace  A project with a namespace package
+      ZopeSkel#plone            A Plone project
+      ZopeSkel#plone3_theme     A Theme for Plone 3.0
+
+    Variables:
+      egg:      plonetheme.mytheme
+      package:  plonethememytheme
+      project:  plonetheme.mytheme
+    Enter namespace_package (Namespace package (like plonetheme)) ['plonetheme']:
+    Enter package (The package contained namespace package (like example)) ['example']:mytheme
+    Enter skinname (The skin selection to be added to 'portal_skins' (like 'My Theme')) ['']:My Theme
+    Enter skinbase (Name of the skin selection from which the new one will be copied) ['Plone Default']:
+    Enter empty_styles (Override default public stylesheets with empty ones?) [True]: False
+    Enter include_doc (Include in-line documentation in generated code?) [False]:True
+    Enter zope2product (Are you creating a Zope 2 Product?) [True]:
+    Enter version (Version) ['1.0']:
+    Enter description (One-line description of the package) ['An installable theme for Plone 3.0']:
+    Enter long_description (Multi-line description (in reST)) ['']:
+    Enter author (Author name) ['Plone Collective']:
+    Enter author_email (Author email) ['product-developers@lists.plone.org']:
+    Enter keywords (Space-separated keywords/tags) ['web zope plone theme']:
+    Enter url (URL of homepage) ['http://svn.plone.org/svn/collective/']:
+    Enter license_name (License name) ['GPL']:
+    Enter zip_safe (True/False: if the package can be distributed as a .zip file) [False]:
 
 You cannot use 'delete' to correct a typo during the interactive
 session. If you make a mistake, ctrl-c to stop the script and start
@@ -95,4 +119,3 @@ paster <http://plone.org/documentation/how-to/how-to-create-a-plone-3-theme-prod
 
     How to use the paster command to create new packages with proper
     setuptools- and egg-compliant filesystem layout quickly and easily.
-

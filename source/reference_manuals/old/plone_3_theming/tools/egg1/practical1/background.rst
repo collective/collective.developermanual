@@ -12,7 +12,7 @@ GenericSetup as a means for installation. And third, products
 increasingly incorporated Zope 3 (Z3) technologies like browser views.
 
 Python Eggs
-~~~~~~~~~~~
+-----------
 
 A python egg is simply a bundle of files and directories which
 constitute a python package. Eggs can either be compressed, in which
@@ -33,12 +33,12 @@ Eggs <http://peak.telecommunity.com/DevCenter/PythonEggs>`_
     A good overview of eggs and setuptools from the folks at PEAK.
 
 `Hatch Python Eggs with
-SetupTools <http://www.ibm.com/developerworks/library/l-cppeak3.html>`_
+SetupTools <http://www.ibm.com/developerworks/linux/library/l-cppeak3/index.html>`_
 
     David Metz takes a look at the setuptools framework.
 
 GenericSetup
-~~~~~~~~~~~~
+------------
 
 GenericSetup (GS) is a tool for managing site configuration in Plone
 using xml files. GS makes it possible to export customizations from one
@@ -63,12 +63,12 @@ Plone <http://plone.org/documentation/tutorial/genericsetup>`_
     resource for background on GS.
 
 `GenericSetup
-Improvements <http://theploneblog.org/blog/archive/2007/06/21/genericsetup-improvements>`_
+Improvements <http://theploneblog.onenw.org/blog/archive/2007/06/21/genericsetup-improvements>`_
 
     More information about GS from Rob Miller.
 
 `Benefit NOW from Using GenericSetup and Z3
-Technologies <http://plone.org/documentation/tutorial/benefit-now-from-using-genericsetup-and-zope-3-technologies/?searchterm=benefit%20NOW>`_
+Technologies <http://plone.org/documentation/tutorial/benefit-now-from-using-genericsetup-and-zope-3-technologies>`_
 
     Impress your colleagues by using GenericSetup and Zope 3 views
     efficiently and with minimal effort! This tutorial shows you how to
@@ -76,7 +76,7 @@ Technologies <http://plone.org/documentation/tutorial/benefit-now-from-using-gen
     to hook it all up.
 
 Zope 3 Technology
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Despite any version number-induced miasma, remember that Plone 3 runs on
 Zope 2. Zope 3 is a dramatic rewrite of Zope 2 and some Zope 3
@@ -85,7 +85,7 @@ functionality has been backported to work under Zope 2. (And yes, Plone
 this tutorial:
 
 `Customization for
-developers <http://plone.org/documentation/how-to/how-to-create-a-plone-3-theme-product-on-the-filesystem/plone.org/documentation/tutorial/customization-for-developers>`_
+developers <http://plone.org/documentation/tutorial/customization-for-developers>`_
 
     An overview of Plone 3 customization by Martin Aspeli.
 

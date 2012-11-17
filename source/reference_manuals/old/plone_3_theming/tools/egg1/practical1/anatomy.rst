@@ -3,14 +3,74 @@ Anatomy of a Plone Theme Product
 
 The directory structure and an explanation of what all these files do.
 
- 
-
 Assuming that you've created your theme product successfully, you should
 have a directory structure that looks roughly like this:
 
 ::
 
-        plonetheme.mytheme   docs         HISTORY.txt         INSTALL.txt         LICENSE.GPL         LICENSE.txt    MANIFEST.in plonetheme       __init__.py         mytheme             __init__.py             browser                  __init__.py                 configure.zcml                  images                       README.txt                 interfaces.py               stylesheets                      main.css                    README.txt                 viewlet.pt                  viewlets.py            configure.zcml          profiles                 default                     cssregistry.xml                     import_steps.xml                    jsregistry.xml                      metadata.xml                    plonetheme.mytheme_various.txt                      skins.xml                   viewlets.xml           profiles.zcml           setuphandlers.py            skins                plonetheme_mytheme_custom_images                     CONTENT.txt                plonetheme_mytheme_custom_templates                      CONTENT.txt                plonetheme_mytheme_styles                   base.css.dtml                   base_properties.props                   CONTENT.txt                     portlets.css.dtml                   public.css.dtml            skins.zcml          tests.py            version.txt    plonetheme.mytheme-configure.zcml   plonetheme.mytheme.egg-info      dependency_links.txt        entry_points.txt        namespace_packages.txt      not-zip-safe        paster_plugins.txt      PKG-INFO        requires.txt        SOURCES.txt         top_level.txt  README.txt  setup.cfg   setup.py    zopeskel.txt
+    plonetheme.mytheme
+        docs
+            HISTORY.txt
+            INSTALL.txt
+            LICENSE.GPL
+            LICENSE.txt
+        MANIFEST.in
+        plonetheme
+            __init__.py
+            mytheme
+                __init__.py
+                browser
+                    __init__.py
+                    configure.zcml
+                    images
+                        README.txt
+                    interfaces.py
+                    stylesheets
+                        main.css
+                        README.txt
+                    viewlet.pt
+                    viewlets.py
+                configure.zcml
+                profiles
+                    default
+                        cssregistry.xml
+                        import_steps.xml
+                        jsregistry.xml
+                        metadata.xml
+                        plonetheme.mytheme_various.txt
+                        skins.xml
+                        viewlets.xml
+                profiles.zcml
+                setuphandlers.py
+                skins
+                    plonetheme_mytheme_custom_images
+                        CONTENT.txt
+                    plonetheme_mytheme_custom_templates
+                        CONTENT.txt
+                    plonetheme_mytheme_styles
+                        base.css.dtml
+                        base_properties.props
+                        CONTENT.txt
+                        portlets.css.dtml
+                        public.css.dtml
+                skins.zcml
+                tests.py
+                version.txt
+        plonetheme.mytheme-configure.zcml
+        plonetheme.mytheme.egg-info
+            dependency_links.txt
+            entry_points.txt
+            namespace_packages.txt
+            not-zip-safe
+            paster_plugins.txt
+            PKG-INFO
+            requires.txt
+            SOURCES.txt
+            top_level.txt
+        README.txt
+        setup.cfg
+        setup.py
+        zopeskel.txt
 
 Things may seem a little complicated at this point, but not to worry.
 Let's take closer look at the main files and directories according to
@@ -130,6 +190,6 @@ see your changes take effect. Changes to python, XML or ZCML, however,
 will require a restart.
 
 `Customization for
-developers <http://plone.org/documentation/how-to/how-to-create-a-plone-3-theme-product-on-the-filesystem/plone.org/documentation/tutorial/customization-for-developers>`_
+developers <http://plone.org/documentation/tutorial/customization-for-developers>`_
 An overview of Plone 3 customization by Martin Aspeli.
 
