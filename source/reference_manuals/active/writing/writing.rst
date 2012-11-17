@@ -73,9 +73,12 @@ the time.
    cd collective.developermanual
    python2.7 bootstrap.py
 
-* Run ``buildout`` (or just ``bin/develop update``) to get the latest
-  documentation and code.
+* Run buildout to install and configure all Python packages in your buildout folder for the documentation generation 
 
+.. code-block::
+
+    bin/buildout
+    
 * Edit the file(s) which you want to update.
 
 * Check that building with Sphinx does not give warnings:
