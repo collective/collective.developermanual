@@ -67,6 +67,10 @@ portal_url
 modules
     Module importer.
 
+.. note::
+
+    Some of these identifiers are supplied by PloneFormGen and are not available in other contexts.
+
 When you compose your TALES expression, keep in mind that it will need to return different types of data for different types of fields. For simple field defaults, return a string value; for the lines field, return a list or tuple.
 
 Calling a Python Script
