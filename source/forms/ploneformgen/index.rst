@@ -28,6 +28,7 @@ PloneFormGen Topics
     override_defaults
     custom_validators
     select_mail
+    restyle
     creating_content
     failsafe_email
 
