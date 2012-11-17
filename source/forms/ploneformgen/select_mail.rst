@@ -6,11 +6,9 @@ Using a Selection Field to Pick Mail Destination
 
     You may allow form users to use a selection field to choose a destination address for their form input.
 
-.. block_quote::
+        I'm trying to use a PloneFormGen form as a support center for my project and I would like to have the mail sent to different email addresses based on a choice from a selection field.
 
-    I'm trying to use a PloneFormGen form as a support center for my project and I would like to have the mail sent to different email addresses based on a choice from a selection field.
-
-    How can I do it?
+        How can I do it?
 
 The Form
 ========
