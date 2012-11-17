@@ -29,6 +29,7 @@ PloneFormGen Topics
     custom_validators
     select_mail
     restyle
+    custom_thanks
     creating_content
     failsafe_email
 
