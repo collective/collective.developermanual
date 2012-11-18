@@ -36,11 +36,6 @@ PloneFormGen topics
     multipage
     captcha
     gpg
+    custom_addons
     creating_content
     failsafe_email
-
-Integrating custom field types
-------------------------------
-
-* http://svn.plone.org/svn/collective/Products.PloneFormGen/fields/PFGDataGrid/trunk/
-
