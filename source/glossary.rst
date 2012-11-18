@@ -252,12 +252,9 @@ It incorporates the original `glossary on plone.org
 
     KSS
         *Kinetic Style Sheets* is a client-side framework for implementing
-        rich user interfaces with AJAX funtionalities. AJAX makes the pages
-        in the browser behave more like an application: instead of loading
-        or reloading an entire web page, the client can contact the server
-        and recieve information from it, and can change the content or
-        layout of the currently viewed page without leaving it.  KSS enables
-        the building of such interfaces without knowing Javascript.
+        rich user interfaces with AJAX functionality. It allows attaching
+        actions to elements using a CSS-like rule syntax. KSS was added to Plone
+        in Plone 3 and removed in Plone 4.3, because JQuery made it obsolete.
 
     Traceback
         A Python "traceback" is a detailed error message generated when an

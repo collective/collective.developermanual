@@ -508,10 +508,7 @@ you need to tailor it for your specific needs.
           i18n:domain="yourproduct.namespace">
     <body>
         <div metal:fill-slot="main">
-            <tal:main-macro metal:define-macro="main"
-               tal:define="kssClassesView context/@@kss_field_decorator_view;
-                           getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
-                           ">
+            <tal:main-macro metal:define-macro="main">
 
 
                 <div tal:replace="structure provider:plone.abovecontenttitle" />

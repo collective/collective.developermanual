@@ -184,7 +184,6 @@ Available skin layers are directly exposed as :doc:`traversable </serving/traver
         plone_form_scripts
         plone_forms
         plone_images
-        plone_kss
         plone_login
         plone_portlets
         plone_prefs

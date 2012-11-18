@@ -1805,7 +1805,7 @@ In debug shell you can also check what all leftoverts toolset contains::
         'portal_repository', 'reference_catalog', 'portal_groupdata', 'portal_search_and_replace',
         'portal_atct', 'mimetypes_registry', 'portal_purgepolicy', 'formgen_tool', 'uid_catalog',
         'error_log', 'portal_modifier', 'portal_discussion', 'portal_actionicons', 'portal_calendar', 'portal_metadata', 'portal_url',
-        'portal_kss', 'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel',
+        'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel',
         'portal_uidannotation', 'portal_transforms', 'portal_memberdata', 'portal_javascripts', 'portal_registration', 'portal_css',
         'portal_facets_catalog', 'portal_password_reset', 'plone_utils', 'caching_policy_manager',
         'portal_historiesstorage', 'portal_undo', 'portal_placeful_workflow', 'translation_service',

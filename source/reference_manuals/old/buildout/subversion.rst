@@ -8,10 +8,6 @@ Installing products from Subversion
   Subversion version control repository. This how to tells how such
   product can be automatically installed in buildout installations.
 
-.. raw:: html
-
-
-   <div id="parent-fieldname-text" class="kssattr-atfieldname-text kssattr-templateId-widgets/rich kssattr-macro-rich-field-view">
    
 A few buildout recipes provide direct version control checkout
 functionality:
@@ -118,10 +114,6 @@ client to remember them permanently:
     
     (R)eject, accept (t)emporarily or accept (p)ermanently? p
 
-
-.. raw:: html
-
-   </div>
    
 .. _plone.recipe.bundlecheckout: http://pypi.python.org/pypi/plone.recipe.bundlecheckout
 .. _mr.developer: http://pypi.python.org/pypi/mr.developer
