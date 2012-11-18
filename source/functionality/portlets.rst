@@ -765,8 +765,8 @@ The page template for the manager ``manage-portlets-colophon.pt`` is the followi
 
         <head>
             <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
-                <link type="text/css" rel="kinetic-stylesheet"
-                    tal:attributes="href string:${context/absolute_url}/++resource++manage-portlets.kss"/>
+                <script type="text/javascript"
+                    tal:attributes="src string:${context/absolute_url}/++resource++manage-portlets.js">
             </div>
         </head>
         <body class="manage-portlet-well">
