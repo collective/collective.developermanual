@@ -34,6 +34,8 @@ PloneFormGen topics
     custom_thanks
     request
     multipage
+    captcha
+    gpg
     creating_content
     failsafe_email
 
