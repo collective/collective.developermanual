@@ -1,5 +1,5 @@
 =========================
-Creating Content from PFG
+Creating content from PFG
 =========================
 
 .. admonition :: Description

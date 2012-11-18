@@ -1,5 +1,5 @@
 =====================================
-Customizing an Individual Thanks Page
+Customizing an individual thanks page
 =====================================
 
 .. admonition :: Description

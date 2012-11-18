@@ -1,5 +1,5 @@
 ================================================
-Using a Selection Field to Pick Mail Destination
+Using a selection field to pick mail destination
 ================================================
 
 .. admonition :: Description
@@ -10,7 +10,7 @@ Using a Selection Field to Pick Mail Destination
 
         How can I do it?
 
-The Form
+The form
 ========
 
 First, create a selection field in your form

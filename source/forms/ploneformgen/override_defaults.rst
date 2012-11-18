@@ -1,5 +1,5 @@
 =====================================
-Overriding Field Defaults Dynamically
+Overriding field defaults dynamically
 =====================================
 
 .. admonition :: Description
@@ -14,7 +14,7 @@ Creating a dynamic field default means to have a form field's initial value chan
 
     Please note that it's easy to make a mistake when working with TALES fields that will cause an error when you try to display your form. Stay calm! Take note of the error message, and return to the field edit form to fix it. Don't be scared of this kind of error.
 
-A Quick Example
+A quick example
 ===============
 
 Let's say you wish to put the member's id in a string field default. You may do that with the TALES expression::
@@ -40,12 +40,12 @@ would supply a value of 8. This is trivial, but what about::
 
 This would supply the current date/time plus seven days.
 
-The Name Space
+The name space
 ==============
 
 Here are the objects available when your expression is evaluated.
 
-TALES Context
+TALES context
 -------------
 
 here
@@ -73,7 +73,7 @@ modules
 
 When you compose your TALES expression, keep in mind that it will need to return different types of data for different types of fields. For simple field defaults, return a string value; for the lines field, return a list or tuple.
 
-Calling a Python Script
+Calling a Python script
 =======================
 
 You'll be frustrated fast if you try to do anything smart in a single TALES expression. If you need to do something more complicated, add a Python Script to your form folder and call it via TALES. For example, if you added a script with the id getEmail, you could call it with the expression::

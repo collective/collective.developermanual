@@ -1,5 +1,5 @@
 ==========================
-Creating Custom Validators
+Creating custom validators
 ==========================
 
 .. admonition :: Description
@@ -22,7 +22,7 @@ The rules for writing a validator are:
 
 * Don't change the value variable. It won't do you any good.
 
-A Simple Example
+A simple example
 ================
 
 Let's say that you are operating a restaurant that serves only dishes containing spam. You may wish to check to make sure that the input to a string or text field contains "spam". You may do that with by setting a custom validator that reads::
@@ -41,12 +41,12 @@ In our example, the test function looks to find the string 'spam' in value. If i
 
 If you use test, watch out for a big difference from the C ternary operator: the evaluation of test does not short-circuit. All terms are evaluated, and must not raise exceptions.
 
-The Name Space
+The name space
 ==============
 
 Here are the objects available when your expression is evaluated.
 
-TALES Context
+TALES context
 -------------
 
 value
@@ -74,7 +74,7 @@ modules
 
     Some of these identifiers are supplied by PloneFormGen and are not available in other contexts.
 
-Using a Python Script
+Using a Python script
 =====================
 
 You'll be frustrated fast if you try to do anything smart in a single TALES expression. If you need to do something more complicated, add a Python Script to your form folder and call it via TALES. For example, if you added a script with the id includesSpam, you could call it with the expression::

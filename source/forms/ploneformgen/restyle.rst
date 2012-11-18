@@ -1,5 +1,5 @@
 ==============
-Restyle A Form
+Restyle a form
 ==============
 
 .. admonition :: Description
