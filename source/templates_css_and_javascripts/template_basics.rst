@@ -235,7 +235,7 @@ default is assumed. Three types are standard:
 They are generally useful, and not limited to use in Page Templates.
 For example, they are widely used in various other parts of Plone:
 
-* CSS, Javascript and KSS registries, to decide whether to include a
+* CSS and Javascript registries, to decide whether to include a
   particular file;
 * Action conditions, to decide whether to show or hide action link;
 * Workflow security guards, to decide whether to allow a workflow state
