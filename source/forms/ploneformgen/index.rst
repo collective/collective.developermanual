@@ -33,6 +33,7 @@ PloneFormGen topics
     javascript
     custom_thanks
     request
+    multipage
     creating_content
     failsafe_email
 
