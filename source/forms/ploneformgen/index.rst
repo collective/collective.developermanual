@@ -25,6 +25,8 @@ PloneFormGen topics
 .. toctree::
     :maxdepth: 1
 
+    installation
+
     override_defaults
     custom_validators
     select_mail
