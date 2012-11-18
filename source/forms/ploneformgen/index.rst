@@ -19,7 +19,7 @@ To make it easy to get started, newly created form folders are pre-populated to 
 
 * `PloneFormGen product page <http://plone.org/products/ploneformgen>`_
 
-PloneFormGen Topics
+PloneFormGen topics
 -------------------
 
 .. toctree::
