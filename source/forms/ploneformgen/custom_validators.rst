@@ -27,19 +27,17 @@ A simple example
 
 Let's say that you are operating a restaurant that serves only dishes containing spam. You may wish to check to make sure that the input to a string or text field contains "spam". You may do that with by setting a custom validator that reads::
 
-    python: 'spam' not in value < 0 and 'Input must include spam.'
+    python: 'spam' not in value and 'Input must include spam.'
 
-The odd logic comes from the need to return `False` for valid input. Look at a couple of examples of validation in action::
+The odd logic comes from the need to return `False` for valid input. Look at a couple of examples of validation in action with literal strings. Remember, we want to force spam on the user:
+
+.. code-block:: pycon
 
     >>> 'spam' not in "eggs, eggs, bacon" and 'Input must include spam.'
     'Input must include spam.'
 
     >>> 'spam' not in "eggs, eggs, bacon and spam" and 'Input must include spam.'
     False
-
-In our example, the test function looks to find the string 'spam' in value. If it finds it, it returns False; if it doesn't find it, it returns the terse error string 'Input must include spam.'
-
-If you use test, watch out for a big difference from the C ternary operator: the evaluation of test does not short-circuit. All terms are evaluated, and must not raise exceptions.
 
 The name space
 ==============
@@ -95,4 +93,4 @@ which will include form input.)
 
 .. note::
 
-    Note: Python scripts are not the same as the Custom Script Adapter. The latter is meant to make it easy to add a custom adapter that's processed in the same way as the mail or save-data adapter. Python scripts are just simple Python code fragments that act like functions. They are added via the Zope Management Interface
+    Python scripts are not the same as the Custom Script Adapter. The latter is meant to make it easy to add a custom adapter that's processed in the same way as the mail or save-data adapter. Python scripts are just simple Python code fragments that act like functions. They are added via the Zope Management Interface
