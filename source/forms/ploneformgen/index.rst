@@ -19,8 +19,8 @@ To make it easy to get started, newly created form folders are pre-populated to 
 
 * `PloneFormGen product page <http://plone.org/products/ploneformgen>`_
 
-Getting started
----------------
+Getting started with PloneFormGen
+---------------------------------
 
 .. toctree::
     :maxdepth: 2
@@ -43,6 +43,7 @@ PloneFormGen topics
     request
     multipage
     captcha
+    faq
 
 Advanced topics
 ---------------
