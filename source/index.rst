@@ -32,11 +32,13 @@ these tutorials serve as a starting point.
 
 * :doc:`Archetypes: Building content types on Plone with Archetypes content subsystem <reference_manuals/old/archetypes/index>`
 
-* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index>`
+* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/docs/index>`
 
-* :doc:`Views: creating a hello world view <reference_manuals/active/helloworld/index>`
+* :doc:`Hello World: Creating z3c.form, Archetypes content type and Zope 3 Browser View <reference_manuals/active/helloworld/index>`
 
 * :doc:`Theming: Creating Plone 3 theme (unfinished) <reference_manuals/old/plone_3_theming/index>`
+
+* :doc:`Creating forms with PloneFormGen add-on without programming </reference_manuals/active/ploneformgen/getting_started>`
 
 Programming Plone
 -------------------------------------------
@@ -113,9 +115,10 @@ and having the documentation source code hosted in an external package.
     reference_manuals/external/plone.api/index
     reference_manuals/external/Products.TinyMCE/index
     reference_manuals/external/ploneorg.admin/index
-    reference_manuals/external/tutorials.todoapp/index
+    reference_manuals/external/tutorials.todoapp/docs/index
     reference_manuals/external/plone.api/api/index
     reference_manuals/active/helloworld/index
+    reference_manuals/active/ploneformgen/index
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
@@ -146,6 +149,7 @@ Old manuals
     reference_manuals/old/portlets/index
     reference_manuals/old/pluggable_authentication_service/index.rst
     reference_manuals/old/testing/index
+    reference_manuals/old/zope_secrets/index
     reference_manuals/old/zope_secrets/index
 
 :doc:`More information about the documentation deprecation process </reference_manuals/active/writing/nursinghome>`.

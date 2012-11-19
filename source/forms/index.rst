@@ -12,7 +12,7 @@ For content-oriented forms:
 
 For convenience forms built and maintained through-the-web:
 
-* :doc:`PloneFormGen <ploneformgen/index>`
+* :doc:`PloneFormGen <ploneformgen>`
 
 For utility forms supported by custom code:
 
@@ -37,4 +37,4 @@ Zope 3 schema (zope.schema package) is database-neutral an framework-neutral way
     formlib/index
     vocabularies
     wysiwyg
-    ploneformgen/index
+    ploneformgen

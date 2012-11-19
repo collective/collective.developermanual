@@ -8,6 +8,11 @@ Getting Started with PloneFormGen
 
 .. contents:: :local:
 
+Introduction
+===============
+
+:doc:`Please read general PloneFormGen information first </reference_manuals/active/ploneformgen/index>`
+
 Getting Started
 ===============
 
