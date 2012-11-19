@@ -8,7 +8,7 @@ Using GnuPG encryption
 
 .. warning::
 
-    Encryption is serious business, and this hot-to does not teach you about it or about the Gnu Privacy Guard. You should develop expertise with both of these before attempting to enable PFG encryption.
+    Encryption is serious business, and this how-to does not teach you about it or about the Gnu Privacy Guard. You should develop expertise with both of these before attempting to enable PFG encryption.
 
 Using GPG encryption with PloneFormGen requires:
 
@@ -38,9 +38,7 @@ same one that you're using to run Zope. You may need to use the
 GNUPGHOME environment variable to point to your .gnupg directory. Make
 sure your Zope process can open the directory and read the file!
 
-.. note::
-
-    Windows Notes:
+.. note:: Windows
 
     gpg can work in a Windows environment, but you'll need to have a
     command-line gpg. http://www.cygwin.com/ is a good, free source.

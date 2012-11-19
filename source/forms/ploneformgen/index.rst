@@ -35,7 +35,15 @@ PloneFormGen topics
     request
     multipage
     captcha
+
+Advanced topics
+---------------
+
+.. toctree::
+    :maxdepth: 1
+
     gpg
+    embedding
     custom_addons
     creating_content
     failsafe_email
