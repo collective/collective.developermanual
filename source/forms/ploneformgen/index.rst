@@ -9,7 +9,7 @@ PloneFormGen
 Introduction
 ------------
 
-PloneFormGen is a Plone add-on Product that provides a generic Plone form generator using fields, widgets and validators from Archetypes. Use it to build simple, one-of-a-kind, web forms that save or mail form input.
+*PloneFormGen* is a Plone add-on Product that provides a generic Plone form generator using fields, widgets and validators from Archetypes. Use it to build simple, one-of-a-kind, web forms that save or mail form input.
 
 To build a web form, create a form folder, then add form fields as contents. Individual fields can display and validate themselves for testing purposes. The form folder creates a form from all the contained field content objects.
 
@@ -50,6 +50,7 @@ Advanced topics
 .. toctree::
     :maxdepth: 1
 
+    sql_crud
     gpg
     embedding
     custom_addons
