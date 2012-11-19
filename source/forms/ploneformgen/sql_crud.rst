@@ -118,7 +118,7 @@ Then, in the big text area, specify the code:
 
 Note: always use <dtml-sqlvar ...> to insert your variables. It protects you against SQL-injection attacks by SQL quoting the values.
 
-Now for a little magic: Z SQL Methods can pick up their arguments from REQUEST.form, which is exactly where Zope is putting your form variables when you submit a form. That means that you can just go to the [overrides] pane of your Form Folder and set "here/testCreateRow" as your After Validation Script.
+Now for a little magic: Z SQL Methods can pick up their arguments from REQUEST.form, which is exactly where Zope is putting your form variables when you submit a form. That means that you can just go to the [overrides] pane of your Form Folder and set ``here/testCreateRow`` as your After Validation Script.
 
 Your form will now store its input into your SQL table! Add a few rows to check it out.
 Reading a Row, Filling in the Fields
@@ -182,7 +182,7 @@ The rest of the code checks to make sure that we got one result, and throws all 
 The form
 ========
 
-Now, just go to the [override] pane of your form folder, and specify "here/formSetup" for your Form Setup Script.
+Now, just go to the [override] pane of your form folder, and specify ``here/formSetup`` for your Form Setup Script.
 
 Calling The Form
 ----------------
@@ -239,9 +239,7 @@ Let's use that knowledge in a simple switchboard script with the id doUpdateInse
     else:
         context.testCreateRow()
 
-Now, go to the [overrides] pane of your form folder and set "here/doUpdateInsert" as the AfterValidationScript
-
-.
+Now, go to the [overrides] pane of your form folder and set ``here/doUpdateInsert`` as the *AfterValidationScript*.
 
 .. Note:: Believe it or not ... you're done.
 
