@@ -1,4 +1,4 @@
-Starting, Stopping and Restarting
+Starting, stopping and restarting
 =================================
 
 If you're using a stand-alone Zope/Plone installation (not a ZEO cluster), starting and stopping Plone is easy. A production ZEO cluster deployment adds some complexity because you'll now be controlling several process: a ZEO server and several ZEO clients.
@@ -20,14 +20,14 @@ Each "start" command will run the program in "daemon" mode: after a few startup 
 
 The daemon mode start will write a process ID (pid) file in your buildout's "var" directory; that pid may be used to control the background process. It's automatically used by "stop" and "restart" commands.
 
-Starting and Stopping Plone with the Server
+Starting and stopping Plone with the server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can start and stop Plone with your server by adding and init.d (Linux and other sys v heritage systems) or rc.d (BSD heritage) script that accepts start and stop commands.
 
 The Unified Installer has an init_scripts directory that contains sample initialization/stop scripts for several platforms. If you didn't use that installer, you may find the scripts on `github <https://github.com/plone/Installers-UnifiedInstaller/tree/master/init_scripts>`_.
 
-Process Control with Supervisor
+Process control with Supervisor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A much better alternative to custom init scripts is to use a process-control system like `Supervisor <http://supervisord.org/>`_. Supervisor is well-known by the Plone community, and you should have no trouble getting community support for it. It's available as a package or port on most Linux and BSD systems (look for supervisor, supervisord or supervisor-python). Installing the port or package will typically activate supervisor. You then just add the Zope/Plone commands to the supervisor configuration file.
@@ -52,7 +52,7 @@ Note the "stopwaitsecs" setting. When trying to stop a program, supervisor will 
 
 When running a ZEO cluster through a process-control system such as supervisor, you should always use the system's own control mechanisms (supervisorctl for supervisor) to start, stop, and status-check cluster components.
 
-Cluster Restarts
+Cluster restarts
 ~~~~~~~~~~~~~~~~
 
 Using multiple ZEO clients and a load balancer makes it possible to eliminate downtime

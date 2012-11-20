@@ -1,4 +1,4 @@
-Background: The Stack
+Background: the stack
 =====================
 
 Many integrators arrive at Plone after previously working with PHP applications. They are used to using Apache with modPHP and an SQL server. This common application-server software stack is often deployed from the start on a pre-configured server, and installation of a PHP application may require little more than unpacking a set of files to a particular point in the file system.
@@ -35,7 +35,7 @@ If Plone/Zope has a built-in web server, why do you need another?
 
     Zope + Web Server + Web Apps
 
-Load Balancing
+Load balancing
 --------------
 
 The deployment above may meet your needs for light-traffic sites. Its principle limitation is that it will make use of only a single processor and file system to render Plone pages.
@@ -68,12 +68,12 @@ For multiple ZEO clients to be actually useful, you need a load-balancing front-
 
 Apache and Nginx have built-in load-management capabilities, which can allow you to combine those two layers of the stack. A dedicated load balancer like `haproxy <http://haproxy.1wt.eu/>`_ offers better features for distributing load among clients and for checking and maintaining status.
 
-How Many ZEO Clients, How Much Memory?
+How many ZEO clients, how much memory?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It's typical to allocate roughly one ZEO client for every processor core you have available. However, there are lots of trade-offs, and many clients will eat RAM rapidly. `About Instances, Threads and RAM consumption <http://plone.org/documentation/kb/scaling-and-performance/about-instances-threads-and-ram-consumption>`_ is a good guide to the issues involved.
 
-Sticky Sessions
+Sticky sessions
 ~~~~~~~~~~~~~~~
 
 As a rule of thumb, you'll tend to get better performance if you can direct requests from the same browser client to the same Zope instance (ZEO client). That's because the memory cache of the ZEO-client is more likely to be loaded with information useful for rendering requests from that source. The effect can be particularly strong for logged-in users.
@@ -82,7 +82,7 @@ This is not a firm rule, though. The more memory allocated to ZEO client caches,
 
 Most load balancers have some sort of mechanism for causing traffic from a single source to stick to a single ZEO client. The simplest schemes use IP addresses; cookies may also be used.
 
-Server-Side HTTP Caching
+Server-side HTTP caching
 ------------------------
 
 When a web browser requests and receives a web resource, it silently saves the page or graphic in a local disk cache in case it may be needed later. This saves the expense of downloading the resource again.
@@ -101,7 +101,7 @@ As with load balancing, Apache and Nginx have built-in proxy caching abilities. 
 
 Nothing is simple about caching. There is always a trade off between currency of delivered data and the performance of the cache layer. Cache tuning for truly busy sites requires extensive measurement and experimentation, often with business decisions about the expense of currency loss vs enhanced servers.
 
-Caching Setup in Plone
+Caching setup in Plone
 ~~~~~~~~~~~~~~~~~~~~~~
 
 In their basic outlines, browser and server-side caching work the same way. The browser or the server caches resources against the possibility that they may be needed again soon. But, how does the caching agent make the decision about how long to store a resource? Or, if it should be stored at all?
@@ -112,7 +112,7 @@ Out of the box, Plone is very conservative. It assumes that currency is critical
 
 The *HTTP Caching* add on is shipped with Plone, but not activated. So, you don't need to add it to your buildout packages. Just activate it and go. By the way, the package that does the work is ``plone.app.caching``, and that's how it's often discussed.
 
-Caching Settings
+Caching settings
 ****************
 
 **Import settings**

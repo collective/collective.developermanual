@@ -1,4 +1,4 @@
-Database Packing
+Database packing
 ================
 
 .. admonition:: Packing is a vital regular maintenance procedure

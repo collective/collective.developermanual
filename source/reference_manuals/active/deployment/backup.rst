@@ -1,5 +1,5 @@
 ================================
-Backing up your Plone Deployment
+Backing up your Plone deployment
 ================================
 
 .. admonition:: Description

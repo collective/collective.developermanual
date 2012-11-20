@@ -38,7 +38,7 @@ use to you. However, if you're on a Windows server, but open to using the
 components, the stack and tools discussion here may be very useful.
 
 Audience
---------
+========
 
 There is one audience for this document: system administrators who wish to
 deploy Plone for a production server. We assume that you know how to install
@@ -68,7 +68,7 @@ database) or wish to use other tools (Apache Traffic Server, Varnish, squid
 …). That’s fine, and there are many good documents elsewhere in the
 plone.org documentation section that cover these needs and tools.
 
-Security Considerations
+Security considerations
 =======================
 
 The approaches we describe here are practical for many Internet and Intranet

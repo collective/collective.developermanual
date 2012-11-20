@@ -1,34 +1,34 @@
-Logs and Log Rotation
+Logs and log rotation
 =====================
 
 Plone and Zope maintain a variety of log files. As with all log files, you need to rotate your logs or your server will die from lack of storage. Log rotation is a process of maintaining a set of historical log files while periodically starting the current log file anew.
 
-Log Types and Locations
+Log types and locations
 -----------------------
 
 The buildout recipes that set up ZEO server and client components allow you to set the names and location of your log files. We'll describe below the common names and locations. If this doesn't match your situation, check your buildout's zeoserver and zope2instance sections.
 
-ZEO Server Log
+ZEO server log
 ~~~~~~~~~~~~~~
 
 A ZEO server only maintains one log file, which records starts, stops and client connections. Unless you are having difficulties with ZEO client connections, this file is uninformative. It also typically grows very slowly — so slowly that you may never need to rotate it.
 
 The ZEO server log for a cluster will typically be found under your buildout directory at var/zeoserver/zeoserver.log.
 
-Client Logs
+Client logs
 ~~~~~~~~~~~
 
 Client logs are much more interesting and grow more rapidly. There are two kinds of client logs, and each of your clients will maintain both:
 
-Access Logs
+Access logs
 
     A record of HTTP, WebDAV, and — if it's turned on — ftp accesses to the client. This resembles traditional web-server log files. Typical location of a client's access log is var/client#/Z2.log.
 
-Event Logs
+Event logs
 
     Startup, shutdown and error messages. Event logs need attention so that errors are quickly discovered. Typical location of a client's event log is var/client#/event.log.
 
-Log Levels
+Log levels
 ~~~~~~~~~~
 
 You may set the verbosity level of access and event logs via the zope2instance sections for your clients. This isn't very useful for event logs, but can be very useful for access logs. The default verbosity level for access logs — WARN — creates an entry for every HTTP access. If you are recording HTTP accesses via your proxy server, you may change the access logging level to "ERROR" and dramatically slow the rate at which your access logs grow::
@@ -41,7 +41,7 @@ You may set the verbosity level of access and event logs via the zope2instance s
 
 Don't turn down the access log level until you've had a chance to tune up your proxy cache. Seeing which requests make it through to the ZEO client is very useful information when checking caching and load balancing.
 
-Client Log Rotation
+Client log rotation
 -------------------
 
 The basic option here is between using the ZEO client log rotation mechanisms built into Zope and using external mechanisms — such as the log-rotation facilities available on your server.
@@ -81,7 +81,7 @@ For earlier versions of Plone in the 4.x series, you may use a custom log setup 
             old-files 10
         </logfile>
 
-Other Log Rotation Mechanisms
+Other log rotation mechanisms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Unix-ish systems have several log rotation mechanims available. Two common ones are ``newsyslog`` and ``logrotate``. Both are well-documentd. The critical thing you need to know for each is how to signal Zope that a log rotation has occurred, forcing it to reopen the log file. Zope will do this if you send the client process a USR2 signal.
@@ -99,7 +99,7 @@ For example, with logrotate, you can rotate a client's logs with a configuration
         endscript
     }
 
-Error Alerts
+Error alerts
 ------------
 
 Zope can email access log error messages. As with other logging instructions, this is done with an addition to client zope2instance sections of your buildout::

@@ -15,7 +15,7 @@ A build environment for Plone requires two sets of components:
 
 It's generally best to install as many of these components as you can via platform packages or ports. That way, you'll be able to use your platform's automated mechanisms to keep these up-to-date, particularly with security fixes.
 
-System Python?
+System python?
 ~~~~~~~~~~~~~~
 
 Plone's Unified Installer will install a suitable Python for you. However, you may wish to use your system's Python if it meets Plone's requirements. Plone 4.0 and 4.1 require Python 2.6. Plone 4.2+ will work with Python 2.6 or 2.7.
@@ -38,7 +38,7 @@ If you're using your system Python, you will not need the readline and libssl de
 
 Try, though, to add the packages to support python-imaging (PIL). This will take care of the libjpeg requirements.
 
-System Libraries
+System libraries
 ++++++++++++++++
 
 For any install, the development versions of:
@@ -58,7 +58,7 @@ Without the system Python (Unified Installer builds Python):
 
 build-essential (gcc/make)
 
-Platform Notes
+Platform notes
 ++++++++++++++
 
 Debian/Ubuntu
@@ -100,7 +100,7 @@ OS X
 
 Installing XCode and activating the optional command-line utilities will give you the basic GNU tools environment you need to install Plone with the Unified Installer. You may also use MacPorts (the BSD ports mechanism, tailored to OS X) to install libjpeg, libxslt and readline. If you do, remember to keep your ports up-to-date, as Apple's updates won't do it for you.
 
-Creating a Plone User
+Creating a Plone user
 ~~~~~~~~~~~~~~~~~~~~~
 
 While testing or developing for Plone, you may have just used an installation in a home directory, owned by yourself. That is not suitable for a production environment. Plone's security record is generally excellent, however there have been — and probably will be again in the future — vulnerabilities that allow an attacker to execute arbitrary commands with the privileges of the process owner. To reduce this kind of risk, Plone — and all other processes that allow Internet connections — should be run with user identities that have the minimum privileges necessary to maintain their data and write logs.
