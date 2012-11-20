@@ -87,7 +87,7 @@ the image based on the ``sizes`` configuration key.
 
 See example in ``__bobo_traverse__``:
 
-* https://github.com/plone//Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
+* https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
 
 
 Accessing images
