@@ -1,6 +1,6 @@
-============
-PloneFormGen
-============
+================================================
+Creating forms without programming: PloneFormGen
+================================================
 
 .. admonition :: Description
 
