@@ -12,7 +12,7 @@ For content-oriented forms:
 
 For convenience forms built and maintained through-the-web:
 
-* :doc:`PloneFormGen <ploneformgen>`
+* :doc:`PloneFormGen </reference_manuals/active/ploneformgen/index>`
 
 For utility forms supported by custom code:
 

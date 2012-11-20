@@ -1,8 +1,8 @@
-==================
+===================
 What's in a Request
-==================
+===================
 
-.. admonition :: Description
+.. admonition:: Description
 
     If you're trying to use PloneFormGen overrides, you're going to need to use the request object. Here's a quick trick for exploring it.
 

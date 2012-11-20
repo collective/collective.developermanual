@@ -15,7 +15,7 @@ If you are using collective.recaptcha, you need to take the additional step of s
 
 .. note::
 
-If you add a captcha facility *after* installing PFG, you will need to reinstall PFG (via add/remove products) to enable captcha support.
+    If you add a captcha facility *after* installing PFG, you will need to reinstall PFG (via add/remove products) to enable captcha support.
 
 Installing collective.recaptcha
 ===============================

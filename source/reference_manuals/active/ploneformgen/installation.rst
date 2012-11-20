@@ -2,7 +2,7 @@
 Installing PloneFormGen
 =======================
 
-.. admonition :: Description
+.. admonition:: Description
 
     PloneFormGen is a Plone add-on product, and is not included with Plone. Fortunately, it's easy to install.
 

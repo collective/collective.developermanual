@@ -3,6 +3,7 @@ Adding a JavaScript event handler to a form
 ================================================
 
 .. admonition :: Description
+
     Need to make your PFG forms more dynamic? It's easy to add JavaScript.
 
 There are two basic steps to injecting JavaScript into a PFG form:
