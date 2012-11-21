@@ -1086,6 +1086,16 @@ POSKeyError
 POSKeyError is when the database has been unable to convert a reference to an object into the object itself
 It's a low level error usually caused by a corrupt or incomplete database.
 
+* You did not copy blobs when you copied Data.fs
+
+* Your data is corrupted
+
+* Glitch in database (very unlikely)
+
+More info
+
+* http://rpatterson.net/blog/poskeyerror-during-commit
+
 Zope suddenly dies on OSX without a reason
 -------------------------------------------
 
