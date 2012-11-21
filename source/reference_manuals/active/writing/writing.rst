@@ -75,9 +75,9 @@ the time.
 
 * Run buildout to install and configure all Python packages in your buildout folder for the documentation generation 
 
-.. code-block::
+.. code-block:: sh
 
-    bin/buildout
+   bin/buildout
     
 * Edit the file(s) which you want to update.
 
