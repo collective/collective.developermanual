@@ -1,5 +1,5 @@
 ==========================
- Portlet
+ Portlets
 ==========================
 
 .. admonition:: Description
@@ -18,6 +18,9 @@ above and below the content.
 This document is contains quick how-to information only.
 Please visit :doc`Portlets reference manual </reference_manuals/portlets/index>`
 for in-depth information.
+
+Related add-ons and packages
+------------------------------
 
 Some related add-ons
 
