@@ -211,6 +211,37 @@ Example::
     # Get list of schema fields from IMyInterface
     fields = zope.schema.getFields(IMyInterface)
 
+Dumping schema data
+---------------------
+
+Below is an example how to extract all schema defined fields from an object.
+
+::
+    
+    from collections import OrderedDict
+    
+    import zope.schema
+
+
+    def dump_schemed_data(obj):
+        """
+        Prints out object variables as defined by its zope.schema Interface.
+        """
+        out = OrderedDict()
+
+        # Check all interfaces provided by the object
+        ifaces = obj.__provides__.__iro__
+
+        # Check fields from all interfaces
+        for iface in ifaces:
+            fields = zope.schema.getFieldsInOrder(iface)
+            for name, field in fields:
+                # ('header', <zope.schema._bootstrapfields.TextLine object at 0x1149dd690>)
+                out[name] = getattr(obj, name, None)
+
+        return out
+
+
 
 Field order
 ===========
