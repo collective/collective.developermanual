@@ -56,4 +56,5 @@ Advanced topics
     embedding
     custom_addons
     creating_content
+    custom_mailer
     failsafe_email
