@@ -1,5 +1,5 @@
 =======================================
-Serving HTTP and traversing site data
+HTTP serving and traversing site data
 =======================================
 
 Serving content from your site to your users is effectively a mechanism to
