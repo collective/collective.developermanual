@@ -24,6 +24,8 @@ Related add-ons and packages
 
 Some related add-ons
 
+* https://github.com/collective/collective.portletalias
+
 * http://plone.org/products/contentwellportlets
 
 * https://github.com/miohtama/imageportlet
