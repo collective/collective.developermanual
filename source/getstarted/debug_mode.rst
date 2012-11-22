@@ -151,6 +151,8 @@ Enter to your installation folder using ``cd`` command (depends on where you hav
 
    cd ~/Plone/zintance # Default local user installation location
 
+For root installation the default location is ``/usr/local/Plone``.  
+
 Type in command::
 
     bin/instance fg
