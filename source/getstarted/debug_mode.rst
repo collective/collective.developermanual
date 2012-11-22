@@ -144,7 +144,7 @@ Congratulations! You should be now logged in as an admin to your new Plone insta
 Starting Plone in debug mode on UNIX
 ============================================================
 
-Single process installation ("zope")
+Single instance installation ("zope")
 --------------------------------------------
 
 Enter to your installation folder using ``cd`` command (depends on where you have installed Plone)::
