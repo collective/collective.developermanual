@@ -67,11 +67,17 @@ Plone default Javascript libraries
 You can use any Javascript library with Plone
 after inclusion it to JS registry (see below).
 
-Plone 4.1 ships with jQuery and jQuery tools libraries.
+Plone 4.1 ships with
 
-`Plone and Javascript policies <http://plone.org/documentation/manual/developer-manual/client-side-functionality-javascript>`_.
+* jQuery
 
-`Plone compatible jQuery UI package <http://plone.org/products/collective.js.jqueryui>`_.
+* `jQuery tools <http://flowplayer.org/tools>`_: Use jQuery Tools for tabs, tooltips, overlays, masking and scrollables.
+
+* `jQuery Form Plugin <http://jquery.malsup.com/form/>`_: Use it for AJAX form input marshaling and submission. Note that jQuery’s built-in form input marshaling is inadequate for many forms as it does not handle submit-button or file-input data.
+
+Also available
+
+* `Plone compatible jQuery UI package <http://plone.org/products/collective.js.jqueryui>`_.
 
 Creating Javascripts for Plone
 ------------------------------
@@ -369,6 +375,21 @@ We create special conditions using :doc:`Grok </components/grok>` views.
 
                 return False
 
+Popup overlays and forms
+--------------------------
+
+plone.app.jquerytools provides a “prepOverlay” plugin that makes it easy to create popup overlays to display images or AJAX-loaded content from other pages. It also handles AJAX submission of forms in popups.
+
+The prepOverlay plugin is well-documented at http://pypi.python.org/pypi/plone.app.jquerytools. Many usage examples are available in Products/CMFPlone/skins/plone_ecmascript/popupforms.js, which provides the setup for Plone 4’s standard popup forms.
+
+Messages amd translation
+------------------------------------------
+
+JavaScript components should include as few messages as possible. Whenever possible, the messages you display via JavaScript should be drawn from the page.
+
+If that’s not possible, it is your responsibility to assure that the messages you need are translatable.
+Our current mechanism for doing that is to include the messages via Products/CMFPlone/browser/jsvariables.py. This will nearly certainly be changed.
+
 Passing dynamic settings to Javascripts
 ------------------------------------------
 
@@ -603,9 +624,9 @@ Loading Javascript files for certain edit views only (to be used with widgets)
 Converting page links to pop-up windows
 ----------------------------------------
 
-`plone.app.jquerytools <http://plone.org/products/plone.app.jquerytools>`_ 
+`plone.app.jquerytools <http://plone.org/products/plone.app.jquerytools>`_
 can convert links, images and forms to AJAX pop-up windows.
-Plone 4 uses this e.g. for the login box pop-up functionality. 
+Plone 4 uses this e.g. for the login box pop-up functionality.
 
 Below is an example code how you can convert any of the links
 on your site to a pop-up window.

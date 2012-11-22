@@ -10,6 +10,7 @@ Doing HTML in Plone.
     template_basics
     css
     javascript
+    javascript_standards
     resourcefolders
     skin_layers
     diazo

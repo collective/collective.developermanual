@@ -1,11 +1,11 @@
 =============================
-Content-types with Archetypes 
+Content-types with Archetypes
 =============================
 
 .. admonition:: Description
 
         How to create new content-types in Plone using the Archetypes
-        framework. 
+        framework.
 
 .. toctree::
     :maxdepth: 2
@@ -18,4 +18,5 @@ Content-types with Archetypes
     a_simple_at_product/index
     fields/index
     other_useful_archetypes_features
+    create_event_hook
     appendix
