@@ -144,7 +144,9 @@ Starting Plone in debug mode on UNIX
 Single process installation ("zope")
 --------------------------------------------
 
-Enter to your installation folder using ``cd`` command (depends on where you have installed Plone).
+Enter to your installation folder using ``cd`` command (depends on where you have installed Plone)::
+
+   cd ~/Plone/zintance # Default local user installation location
 
 Type in command::
 
@@ -157,6 +159,7 @@ Clustered installation ("zeo")
 
 If you have ZEO cluster mode installation you can start individual processes in debug mode::
 
+    cd ~/Plone/zeocluster
     bin/zeoserver fg & # Start ZODB database server
     bin/client1 fg &  # Start ZEO front end client 1 (usually port 8080)
     # bin/client2 fg  # For debugging issues it is often enough to start client1
