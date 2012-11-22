@@ -141,6 +141,8 @@ Congratulations! You should be now logged in as an admin to your new Plone insta
 Starting Plone in debug mode on UNIX
 ============================================================
 
+Single process installation ("zope")
+--------------------------------------------
 
 Enter to your installation folder using ``cd`` command (depends on where you have installed Plone).
 
@@ -149,6 +151,9 @@ Type in command::
     bin/instance fg
 
 Press CTRL+C to stop.
+
+Clustered installation ("zeo")
+--------------------------------------------
 
 If you have ZEO cluster mode installation you can start individual processes in debug mode::
 
