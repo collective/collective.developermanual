@@ -2,7 +2,7 @@
 Templates, CSS and Javascript
 ==============================
 
-Doing HTML in Plone.
+Instructions and information for front-end development for Plone CMS.
 
 .. toctree::
     :maxdepth: 1
