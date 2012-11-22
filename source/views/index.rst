@@ -1,6 +1,6 @@
-==========================
-Views and viewlets
-==========================
+============================
+Views, viewlets and layers
+============================
 
 View and viewlet patterns used to create dynamic pages in plone.
 

@@ -1,6 +1,6 @@
-=================================
-Serving HTTP and other protocols
-=================================
+=======================================
+HTTP serving and traversing site data
+=======================================
 
 Serving content from your site to your users is effectively a mechanism to
 generate HTTP responses to HTTP requests.
