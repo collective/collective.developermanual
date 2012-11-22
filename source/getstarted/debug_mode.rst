@@ -29,6 +29,9 @@ are doing any site development.
 
 In **debug mode**
 
+* All logs and debug messages are printed in the terminal; Zope process does not detach
+  from the terminal
+
 * Plone is slower
 
 * CSS and Javascript files are read file-by-file so line numbers match on the actual files on the disk.
