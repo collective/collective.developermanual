@@ -29,6 +29,8 @@ are doing any site development.
 
 In **debug mode**
 
+* If Plone start-up fails, the Python traceback of the error is printed in the terminal
+
 * All logs and debug messages are printed in the terminal; Zope process does not detach
   from the terminal
 
