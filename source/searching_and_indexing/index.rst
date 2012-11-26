@@ -9,7 +9,7 @@ Search keys are matched against the indexed catalog copies to return the indexed
 
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     catalog
     indexing

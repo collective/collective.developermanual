@@ -14,7 +14,7 @@ How to use events to hook the Archetypes creation process
 	Times have changed since the days of at_post_create_script(). Here is the
 	way to hook into Zope3 (or Five's) event system in order to execute code
 	during the Archetypes content creation and or editing process. 
-.
+
 In the old days the only way to execute code during the object creation
 process for Archetypes was to add a method to your content type called
 *at\_post\_create\_script*. In this script you would add any code that

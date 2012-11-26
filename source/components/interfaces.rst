@@ -17,7 +17,7 @@ An interface defines the shape of a hole where different pieces fit.
 The shape of the piece is defined by the interface, but the implementation
 details like color, material, etc. can vary.
 
-See `zope.interface package README <http://pypi.python.org/pypi/zope.interface>`.
+See `zope.interface package README <http://pypi.python.org/pypi/zope.interface>`_.
 
 Common interfaces
 ==================

@@ -23,12 +23,12 @@ collective.developermanual has a section *Reference manuals*
 
 * All documentation is one place to be found for the fellow peer developers
 
-* Manuals will be hosted under *developers.plone.org* domain
+* Manuals will be hosted under *developer.plone.org* domain
 
-Benefits of having the documentation in developers.plone.org
+Benefits of having the documentation in developer.plone.org
 ================================================================
 
-The main benefit of having your manual in *developers.plone.org*
+The main benefit of having your manual in *developer.plone.org*
 instead of a custom readthedocs.org account include
 
 * Better co-developer user experience (all manuals in one place searchable).
@@ -77,3 +77,34 @@ See that your manual gets correctly added in the index::
 to mess them reset the situation with the command::
 
     rm source/reference_manuals/external/*
+
+developer.plone.org builds
+================================================
+
+``developer.plone.org`` documentation builds are
+done on *deus2.plone.org* machine in ``/var/www/developer.plone.org``
+folder. They are done by running
+`doc-holliday.sh update script <https://github.com/collective/collective.developermanual/blob/master/doc-holliday.sh>`_ in a crontab created by *deployment.cfg*.
+
+We are looking forward to get our documentation hosted back to *readthedocs.org*, but currently *readthedocs.org*
+do not have buildout support needed in our use case. In any case the docs are plain HTML files.
+
+The deployment is done as following::
+
+    sudo -i
+    mkdir /var/www/developer.plone.org
+    chown apache:apache
+    /var/www/developer.plone.org
+    cd /var/www
+    sudo -u apache git clone git://github.com/collective/collective.developermanual.git developer.plone.org
+    cd developer.plone.org
+    sudo -u apache python bootstrap.py
+    sudo -u apache bin/buildout -c deployment.cfg
+
+The folder where final static HTML files lie is ``/var/www/developer.plone.org/var/public_html``.
+
+
+
+
+
+

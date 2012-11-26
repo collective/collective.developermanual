@@ -14,14 +14,14 @@ IPortalState and IContextState
 
 ``IPortalState`` defines ``IContextState`` view-like interfaces
 to access miscellaneous information useful for the
-rendering the current page. The views are cached properly,
+rendering of the current page. The views are cached properly,
 so they should access the information quite effectively.
 
-* ``IPortalState`` is mapped as the ``plone_portal_state`` name view 
+* ``IPortalState`` is mapped as the ``plone_portal_state`` name view.
 
-* ``IContextState`` is mapped as the ``plone_context_state`` named view
+* ``IContextState`` is mapped as the ``plone_context_state`` named view.
 
-* ``ITools`` is mapped as the ``plone_tools`` named view
+* ``ITools`` is mapped as the ``plone_tools`` named view.
 
 To see what's available through the interface,
 read the documentation in the 
@@ -83,7 +83,7 @@ A Python class exposes the variable::
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
             return portal_state
 
-Template can use it:
+Templates can use it as follows:
 
 .. code-block:: html
 
@@ -117,7 +117,7 @@ Use in templates and expressions
 ==================================
 
 You can use ``IContextState`` and ``IPortalState`` in :term:`TALES`
-expressions, e.g. ``portal_actions`` as well.
+expressions, e.g. ``portal_actions``, as well.
 
 Example ``portal_actions`` conditional expression::
 
@@ -162,7 +162,7 @@ Example::
 
     the_current_root_url_of_the_site = portal_url()
 
-IPlone
+``IPlone``
 -------------
 
 `Products.CMFPlone.browser.interfaces.IPlone <https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/interfaces.py#L183>`_
@@ -170,8 +170,8 @@ provides some helper methods for Plone specific functionality and user interface
 
 * ``IPlone`` helper views is registered under the name ``plone``
 
-getToolByName
--------------
+``getToolByName``
+------------------
 
 ``getToolByName`` is the old-fashioned way of getting tools, 
 using the context object as a starting point.

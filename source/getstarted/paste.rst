@@ -129,7 +129,7 @@ ZopeSkel Templates
 
 ``archetypes``
     Creates a package skeleton for 
-    :doc: `Archetypes </content/archetypes/index>` based content types.  
+    :doc:`Archetypes </content/archetypes/index>` based content types.  
 
 ``plone_basic``
     Creates a basic skeleton good for general Plone add-on packages.
@@ -217,15 +217,23 @@ Examples of the kind of Plone functionality you can add with local commands:
 
 * etc.
 
+.. warning::
 
-.. note::
+    Local commands work only with paster command run from buildout bin/
+    directory. Do not try to run local commands with system-wide paster
+    command.
 
-    Local commands are not available until your egg is registered as
-    development egg in your buildout.  This causes python to execute code
-    which creates the required Paster hooks.  If you follow the instructions
-    below and do not see an ``add`` local command, please verify that your
-    package has been properly added to your buildout and that buildout has
-    been re-run afterwards.
+
+Local commands are not available until your egg is registered as
+development egg in your buildout, you have run buildout and
+you use paster command provided by buildout.
+
+If you follow the instructions
+below and do not see an ``add`` local command, please verify that your
+package has been properly added to your buildout and that buildout has
+been re-run afterwards.
+
+
 
 Adding a Content Type to your package
 -------------------------------------
@@ -242,7 +250,7 @@ Example of creating a content type:
 
 .. note::
 
-    You must create the `src` folder **inside** your package.
+    You must create the ``src`` folder **inside** your package.
     Otherwise the ``paster add`` command cannot work.
 
 To list the local commands available to your package, type:

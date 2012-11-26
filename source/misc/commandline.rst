@@ -52,17 +52,17 @@ See also
 Starting interactive interpreter
 --------------------------------
 
-The *bin/instance debug* command to start interactive interpreter with Zope application server and 
-database loaded. To have persistent utilities loaded, you should also provide the id if your Plone site.
+The *bin/instance debug* command starts an interactive interpreter with the Zope application server and 
+database loaded. To have persistent utilities loaded, you should also provide the id of your Plone site.
 The following example assumes you have a plone site named "Plone"
 
 Example::
 
-        bin/instance -P Plone debug 
+        bin/instance -OPlone debug 
 
 .. note ::
         
-        Instance must be stopped in order to run this.
+        The instance must be stopped in order to run this.
   
 Running scripts
 ---------------
@@ -209,7 +209,7 @@ to have long-running transactions you need to at least two
 front end processes, ZEO clients, so that long-running
 transactions won't block your site. 
 
-* :doc:`Converting instance to ZEO based configuration </hosting/zopetozeo>`
+* :doc:`Converting instance to ZEO based configuration </reference_manuals/old/buildout/zope_to_zeo>`
 
 Your code might want to call transaction.commit() now and then to commit the 
 current transaction.

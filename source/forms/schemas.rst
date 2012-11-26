@@ -211,6 +211,37 @@ Example::
     # Get list of schema fields from IMyInterface
     fields = zope.schema.getFields(IMyInterface)
 
+Dumping schema data
+---------------------
+
+Below is an example how to extract all schema defined fields from an object.
+
+::
+    
+    from collections import OrderedDict
+    
+    import zope.schema
+
+
+    def dump_schemed_data(obj):
+        """
+        Prints out object variables as defined by its zope.schema Interface.
+        """
+        out = OrderedDict()
+
+        # Check all interfaces provided by the object
+        ifaces = obj.__provides__.__iro__
+
+        # Check fields from all interfaces
+        for iface in ifaces:
+            fields = zope.schema.getFieldsInOrder(iface)
+            for name, field in fields:
+                # ('header', <zope.schema._bootstrapfields.TextLine object at 0x1149dd690>)
+                out[name] = getattr(obj, name, None)
+
+        return out
+
+
 
 Field order
 ===========
@@ -481,7 +512,7 @@ to form engine, you need to
   replace these references with dynamically generated copes)
 
 * Generate a Python class dynamically. Output Python source code,
-  then `eval()` it. Using `eval()` is almost always considered
+  then ``eval()`` it. Using ``eval()`` is almost always considered
   as a bad practice.
 
 .. warning ::
@@ -494,7 +525,7 @@ to form engine, you need to
 Replacing schema fields with dynamically modified copies
 ---------------------------------------------------------
 
-The below is an example for z3c.form. It uses Python `copy`
+The below is an example for z3c.form. It uses Python ``copy``
 module to copy f.field reference, which points to zope.schema
 field. For this field copy, we modify *required* attribute based
 on input.

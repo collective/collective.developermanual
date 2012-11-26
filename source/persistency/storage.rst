@@ -18,7 +18,7 @@ is important to know to understand Plone database behavior and how to optimize y
 Pickling
 --------
 
-ZODB is object oriented database. All data in ZODB is `pickled Python objects <http://docs.python.org/library/pickle.html>`.
+ZODB is object oriented database. All data in ZODB is `pickled Python objects <http://docs.python.org/library/pickle.html>`_.
 Pickle is object serialization module for Python.
 
 * Each time object is read and it is not cached, object is read from ZODB data storage and unpickled

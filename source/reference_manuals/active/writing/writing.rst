@@ -71,11 +71,14 @@ the time.
 .. code-block:: sh
 
    cd collective.developermanual
-   python2.6 bootstrap.py
+   python2.7 bootstrap.py
 
-* Run ``buildout`` (or just ``bin/develop update``) to get the latest
-  documentation and code.
+* Run buildout to install and configure all Python packages in your buildout folder for the documentation generation 
 
+.. code-block:: sh
+
+   bin/buildout
+    
 * Edit the file(s) which you want to update.
 
 * Check that building with Sphinx does not give warnings:
@@ -96,6 +99,15 @@ Document page format
 ====================
 
 Here are some Sphinx coding conventions used in the documentation.
+
+Tab policy
+-------------------------
+
+* Indentation 4 spaces
+
+* No hard tabs
+
+* No trailing whitespaces 
 
 Headings and filenames
 -------------------------
@@ -376,7 +388,8 @@ Note:
 
       This is a note box (yellow)
 
-TODO item (see :doc:`TODO list </todos>`:
+.. commented out as missing resource gives sphinx error.
+.. TODO item (see :doc:`TODO list </todos>`:
 
 .. code-block:: rst
 

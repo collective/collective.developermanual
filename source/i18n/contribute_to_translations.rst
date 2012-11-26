@@ -64,7 +64,7 @@ French:
 
     poedit locales/fr/LC_MESSAGES/plone.po
 
-Please do a `git pull` before editing a po file to be sure you have the latest
+Please do a ``git pull`` before editing a po file to be sure you have the latest
 version.
 
 You can commit your translation from this locales directory:

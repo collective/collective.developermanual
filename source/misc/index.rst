@@ -7,7 +7,7 @@ This section describes functions and APIs which are not directly related to any 
 # Managing member profile (portal_membership under site root)
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     context
     datetime
@@ -16,7 +16,7 @@ This section describes functions and APIs which are not directly related to any 
     normalizing_ids
     monkeypatch
     commandline
-    asyncronoustasks    
+    asyncronoustasks
     flowplayer
     navigationtree
     seo

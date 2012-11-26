@@ -17,7 +17,7 @@ Plone URL mapping.
 
 Resource folders provide a mechanism which allows conflict free
 way to have static media files mapped to Plone URL space.
-Each URL is prefixed with `++resource++your.package`  
+Each URL is prefixed with ``++resource++your.package``  
 resource identified.
 
 ZCML resourceDirectory

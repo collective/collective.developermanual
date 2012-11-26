@@ -3,6 +3,7 @@ Basic integration tests
 ==========================
 
 .. admonition:: Description
+
 		No product is complete without tests. 
 
 To build high-quality software, you *must* provide automatic tests -

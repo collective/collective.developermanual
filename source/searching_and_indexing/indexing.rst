@@ -266,6 +266,25 @@ interfaces defined in ``Products.ATContentTypes.interface.*``
 files, not with the deprecated Zope 2 ones into the
 ``Products.ATContentTypes.interfaces`` file.
 
+Creating a metadata column
+-----------------------------
+
+The same rules and methods apply for metadata columns as creating index above.
+The difference with metadata is that
+
+* It is not used for searching, only displaying the search result
+
+* You store always a value copy as is
+
+To create metadata colums in your ``catalog.xml`` add::
+	
+	<?xml version="1.0"?>
+	<object name="portal_catalog" meta_type="Plone Catalog Tool">
+
+		<!-- Add a new metadata column which will read from context.getSignificant() function -->
+		<column value="getSignificant"/>
+
+	</object>
 
 
 When indexing happens and how to reindex manually

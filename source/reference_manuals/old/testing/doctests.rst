@@ -138,7 +138,7 @@ As with all testing, you will get better at doctests over time. Below are a few 
 may help you get started.
 
 Read the documentation
-    doctests have been in Python for a long time. The `doctest module`_
+    doctests have been in Python for a long time. The `doctest module <http://docs.python.org/2/library/doctest.html>`_
     comes with more documentation on how they work.
 A test is just a bunch of python statements!
     Never forget this. You can, for example, reference helper methods in

@@ -13,15 +13,13 @@ of an email to the plone-devel list which aims to untangle this
 complexity. It pertains to Plone 2.1 only.
 Assumptions:
 
- * You want the 'view' action to be the same as what happens when you go to the object directly for most content types...
- 
+ * You want the 'view' action to be the same as what happens when you go to the object directly for most content types... 
+
  * ...but for some types, like File and Image, you want the "view" action to display a template, whereas if you go straight to the object, you get the file's contents
 
- * You want to be able to redefine the 'view' action in your custom content types or TTW in portal\_types explicitly. This will essentially override the current layout template selection. Probably this won't be done very often for things deriving from ATContentTypes, since here you
- can register new templates with the FTI and have those be used (via the "display" menu) in a more flexible (e.g. per-instance, user-selectable) way, but you still want the "view" action to give the same power to change the default view of an object as it always has.
+ * You want to be able to redefine the 'view' action in your custom content types or TTW in portal\_types explicitly. This will essentially override the current layout template selection. Probably this won't be done very often for things deriving from ATContentTypes, since here you can register new templates with the FTI and have those be used (via the "display" menu) in a more flexible (e.g. per-instance, user-selectable) way, but you still want the "view" action to give the same power to change the default view of an object as it always has.
 
- * When you use the "display" menu (implemented with IBrowserDefault) to set a default page in a folderish container, you want it to display that item always, unless there is an index\_html - index\_html always wins (note - the "display" menu is disabled when there is an index\_html in
- the folder, precisely because it will have no effect)
+ * When you use the "display" menu (implemented with IBrowserDefault) to set a default page in a folderish container, you want it to display that item always, unless there is an index\_html - index\_html always wins (note - the "display" menu is disabled when there is an index\_html in he folder, precisely because it will have no effect)
 
  * When you use the "display" menu to set a layout template for an object (folderish or not), you want that to be displayed on the "view" tab (action), as well as by default when the object is traversed to without a template/action specified...
 
@@ -180,7 +178,7 @@ PloneTool.isDefaultPage(), radically simplifying that method.
 Calling content objects
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
- The last issue is what happens with view() and \_\_call\_\_() in this
+The last issue is what happens with view() and \_\_call\_\_() in this
 equation. The first thing to note is that view() method is masked by the
 'view' method alias. Hence, /path/to/object/view will invoke the method
 alias 'view' if it exists, not call view(), making that method a lot

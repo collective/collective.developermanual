@@ -13,6 +13,33 @@ function summonDragons() {
     }
 }
 
+/**
+ * Make sure we get redirected to developer.ploen.org
+ *
+ */
+function preferPrimaryDomain() {
+
+    // Special cases
+    if(window.location.protocol == "file:") {
+        return;
+    }
+
+    if(window.location.hostname == "localhost") {
+        return;
+    }
+
+    // Redirect rtd.org to developer.plone.org
+    if(window.location.hostname != "developer.plone.org") {
+        var href = window.location.href;
+        href = href.replace(window.location.hostname, "developer.plone.org");
+        href = href.replace("https://", "http://");
+        window.location = href;
+    }
+}
+
+
+preferPrimaryDomain();
+
 // Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
 $(document).ready(function () {
 

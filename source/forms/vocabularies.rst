@@ -147,7 +147,7 @@ Example::
     print term.value + ": " + term.title
 
 Dynamic vocabularies
-====================
+-----------------------
 
 Dynamic vocabularies' values may change run-time.
 They are usually generated based on some context data.

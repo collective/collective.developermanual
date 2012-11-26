@@ -95,9 +95,9 @@ Define both Zope 2 and Zope3 permissions in one Step in ZCML
 ------------------------------------------------------------
 
 You can use `collective.autopermission 
-<http://pypi.python.org/pypi/collective.autopermission/1.0b1>` 
+<http://pypi.python.org/pypi/collective.autopermission/1.0b1>`_ 
 (`svn repository 
-<http://svn.plone.org/svn/collective/collective.autopermission>`)
+<http://svn.plone.org/svn/collective/collective.autopermission>`_)
 and define both the Zope 2 and Zope 3 permission at once with the
 <permission> zcml-directive. To do that install
 collective.autopermission. Either add "collective.autopermission" to

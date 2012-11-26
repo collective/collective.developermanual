@@ -298,3 +298,9 @@ from the actor information). Refer to the source of
 that you can get just the workflow history using ``.workflowHistory()`` or just
 the revision history using ``.revisionHistory()``.
 
+Purging history
+--------------------
+
+* http://stackoverflow.com/questions/9683466/purging-all-old-cmfeditions-versions
+
+

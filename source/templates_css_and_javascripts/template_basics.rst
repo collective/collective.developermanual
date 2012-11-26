@@ -235,7 +235,7 @@ default is assumed. Three types are standard:
 They are generally useful, and not limited to use in Page Templates.
 For example, they are widely used in various other parts of Plone:
 
-* CSS, Javascript and KSS registries, to decide whether to include a
+* CSS and Javascript registries, to decide whether to include a
   particular file;
 * Action conditions, to decide whether to show or hide action link;
 * Workflow security guards, to decide whether to allow a workflow state
@@ -442,6 +442,60 @@ Then you can use this function in your TAL code
        <a href="#" tal:define="start_esc python:url_quote(start)" 
           tal:attributes="href string: ${url}/day?currentDate=${start_esc}&xmy=${xmy}&xsub=${xsub}">
 
+Using macros
+=============
+
+Here is an example how to use `<metal:block define-macro="xxx">` and 
+`<metal:block use-macro="xxx">` in your :doc:`view class </views/browserviews>`
+template files.
+
+.. code-block:: html
+      
+      <html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:tal="http://xml.zope.org/namespaces/tal"
+            xmlns:metal="http://xml.zope.org/namespaces/metal"
+            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+            tal:omit-tag=""
+            >
+      
+          <metal:row define-macro="row">
+               <!--
+                   A macro. You can call this using metal:use-macro 
+                   and pass variables to using tal:define.
+               -->
+          </metal:row>
+
+          <!-- Call macro in different parts of the main template using *widget* variable as a parameter -->
+      
+          <table class="datagridwidget-table-view" tal:attributes="data-extra view/extra">
+         
+              <tbody class="datagridwidget-body">
+                  <tal:row repeat="widget view/getNormalRows">
+                      <tr>
+                          <metal:macro use-macro="template/macros/row" />
+                      </tr>
+                  </tal:row>
+      
+                  <tal:row condition="view/getTTRow" define="widget view/getTTRow">
+                      <tr>
+                          <metal:macro use-macro="template/macros/row" />
+                      </tr>
+                  </tal:row>
+      
+      
+                  <tal:row condition="view/getAARow" define="widget view/getAARow">
+                      <tr>
+                          <metal:macro use-macro="template/macros/row" />
+                      </tr>
+                  </tal:row>
+      
+          </tbody>
+      </table>
+      </html>
+
+More info
+
+* http://stackoverflow.com/q/13165748/315168
 
 .. _z3c.jbot: http://pypi.python.org/pypi/z3c.jbot
 .. _Roll out your own add-on:
