@@ -68,6 +68,9 @@ Use strict in nested function scopy only::
 
     })
 
+If you use "strict", you *must* test on a browser that supports it. Otherwise, your code may break when
+it encounters such a browser.
+
 Globals
 ==========
 
