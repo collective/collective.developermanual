@@ -303,7 +303,7 @@ Doing <input CHECKED> and boolean like HTML attributes in TAL
 
 To have a value appear in TAL or not you can do::
 
-   <input type="checkbox" tal:attributes="checked python:'checked' if MYCONDITION else None" />
+   <input type="checkbox" tal:attributes="checked python:'checked' if MYCONDITION else ''" />
 
 We execute a Python snippet which 
 
@@ -311,7 +311,8 @@ We execute a Python snippet which
 
 * Return "checked" string if some condition we check in Python evaluates to True
 
-* Otherwise we return None and TAL won't output this attribute
+* Otherwise we return an empty string and TAL won't output this attribute (TODO: has TAL some special support for
+  CHECKED and SELECTED attributes)
 
 .. note ::
 
