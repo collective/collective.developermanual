@@ -307,6 +307,8 @@ To have a value appear in TAL or not you can do::
 
 We execute a Python snippet which 
 
+* We will dynamically create a *checked* attribute on `<input>` based on Python evaluation
+
 * Return "checked" string if some condition we check in Python evaluates to True
 
 * Otherwise we return None and TAL won't output this attribute
