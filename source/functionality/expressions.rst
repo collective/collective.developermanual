@@ -298,6 +298,25 @@ Example::
             portal context/portal_url/getPortalObject;
             portal_description portal/Description"
 
+Doing <input CHECKED> and boolean like HTML attributes in TAL
+------------------------------------------------------------------------------------
+
+To have a value appear in TAL or not you can do::
+
+   <input type="checkbox" tal:attributes="checked python:'checked' if MYCONDITION else None" />
+
+We execute a Python snippet which 
+
+* Return "checked" string if some condition we check in Python evaluates to True
+
+* Otherwise we return None and TAL won't output this attribute
+
+.. note ::
+
+    Python 2.6, Plone 4+ syntax
+
+     
+
 Through-the-web scripts
 ========================
 
