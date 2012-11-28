@@ -110,9 +110,13 @@ are not necesssarily loaded).
 Create following snippet::
 
 
-    jq(document).ready(function() {
-        // TODO: Execute your page manipulating Javascript code here
+    jQuery(function($) {
+        // TODO: Execute your page manipulating Javascript code here;
+        // "jQuery" is aliased to "$"
     });
+
+This makes use of the facts that 1) functions passed to jQuery are executed on ready; and 2) jQuery passes
+itself to such functions.
 
 Registering javascripts to portal_javascripts
 ---------------------------------------------
@@ -695,14 +699,14 @@ To make it load the view asynchronous, to be loaded with AJAX call when the page
 
                                 // Generate URL to ta view
 
-                                jq(document).ready(function() {
+                                jQuery(function($) {
 
                                         // Extract URL from HTML page
-                                        var commentURL = jq("#comment-placefolder a").attr("href");
+                                        var commentURL = $("#comment-placefolder a").attr("href");
 
                                         if (commentURL) {
                                                 // Trigger AJAX call
-                                                jq("#comment-placefolder").load(commentURL);
+                                                $("#comment-placefolder").load(commentURL);
                                         }
                                 });
                         </script>
@@ -718,19 +722,19 @@ when the user scrolls down to the page and the item becomes visible.
 
         // Generate URL to ta view
 
-        jq(document).ready(function() {
+        jQuery(function($) {
 
                 // http://remysharp.com/2009/01/26/element-in-view-event-plugin/
-                jq("#comment-placeholder").bind("inview", function() {
+                $("#comment-placeholder").bind("inview", function() {
 
                         // This function is executed when the placeholder becomes visible
 
                         // Extract URL from HTML page
-                        var commentURL = jq("#comment-placeholder a").attr("href");
+                        var commentURL = $("#comment-placeholder a").attr("href");
 
                         if (commentURL) {
                                 // Trigger AJAX call
-                                jq("#comment-placeholder").load(commentURL);
+                                $("#comment-placeholder").load(commentURL);
                         }
 
                 });
