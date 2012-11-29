@@ -10,5 +10,6 @@ Tips how to optimize your Plone code for maximum performance.
     caching
     decorators
     ramcache
+    instancesthreads
     tips
 
