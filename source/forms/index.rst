@@ -27,14 +27,28 @@ documentation.
 
 Zope 3 schema (zope.schema package) is database-neutral an framework-neutral way to describe Python data models.
 
+Modelling data
+----------------
+
+.. toctree::
+    :maxdepth: 1
+
+    schemas
+    vocabularies
+
+Forms, fields and widgets
+------------------------------
+
 .. toctree::
     :maxdepth: 1
 
     manual
-    schemas
     z3c.form
     files
     formlib/index
-    vocabularies
     wysiwyg
+
+Creating forms through-the-web without programming
+----------------------------------------------------
+
     ploneformgen
