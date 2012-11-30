@@ -45,10 +45,12 @@ Forms, fields and widgets
     manual
     z3c.form
     files
-    formlib/index
     wysiwyg
 
 Creating forms through-the-web without programming
 ----------------------------------------------------
+
+.. toctree::
+    :maxdepth: 1
 
     ploneformgen

@@ -151,7 +151,7 @@ Old manuals
     reference_manuals/old/pluggable_authentication_service/index.rst
     reference_manuals/old/testing/index
     reference_manuals/old/zope_secrets/index
-    reference_manuals/old/zope_secrets/index
+    reference_manuals/old/formlib/index
 
 :doc:`More information about the documentation deprecation process </reference_manuals/active/writing/nursinghome>`.
 
