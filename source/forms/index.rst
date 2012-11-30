@@ -1,5 +1,5 @@
 ================================================
-Forms, models, fields and widgets
+Models, forms, fields and widgets
 ================================================
 
 Plone includes several alternative form mechanisms:
@@ -10,11 +10,11 @@ For content-oriented forms:
 
 * :doc:`Archetypes </reference_manuals/old/archetypes/index>` is used for content types in Plone 3.x
 
-For convenience forms built and maintained through-the-web:
+For convenience forms built and maintained through-the-web and where the results are stored in CSV sheet or emailed:
 
 * :doc:`PloneFormGen </reference_manuals/active/ploneformgen/index>`
 
-For utility forms supported by custom code:
+For application and utility forms where custom logic is added by writing Python code:
 
 * z3c.form for Plone 4.x
 
