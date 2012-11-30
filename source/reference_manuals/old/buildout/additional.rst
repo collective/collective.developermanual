@@ -410,7 +410,7 @@ The format is::
         ./bin/builodut partname:some_variable=new_value
 
 Examples
-++++++++
+=========
 
 Need to create your site from scratch using the plonesite recipe::
 
