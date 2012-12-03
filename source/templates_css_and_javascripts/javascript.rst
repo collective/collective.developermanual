@@ -1038,3 +1038,25 @@ The server-side view::
 
                     raise e
 
+Disabling KSS
+---------------
+
+KSS, not used since Plone 3, may cause Javascript errors on migrated sites and new browsers.
+
+Here is ``jsregistry.xml`` snippet to get rid of KSS on your site::
+  
+    <javascript
+      id="sarissa.js"
+      enabled="False"  />
+  
+    <javascript
+      id="++resource++base2-dom-fp.js"
+      enabled="False"  />
+  
+    <javascript
+      id="++resource++kukit.js"
+      enabled="False"  />
+  
+    <javascript
+      id="++resource++kukit-devel.js"
+      enabled="False"  />
