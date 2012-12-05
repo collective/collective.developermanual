@@ -53,7 +53,7 @@ The directories that actually contain content data are:
 
     This directory contains a very deeply nested directory hierarchy that, in turn, contains the BLOBs of your database: PDFs, image files, office automation files and such.
 
-The key thing to not about filestorage and blobstorage is that they are maintained synchronously. The filestorage has references to BLOBs in the blobstorage. If the two storages are not perfectly synchronized, you'll get errors.
+The key thing to know about filestorage and blobstorage is that they are maintained synchronously. The filestorage has references to BLOBs in the blobstorage. If the two storages are not perfectly synchronized, you'll get errors.
 
 collective.recipe.backup
 ========================
@@ -91,7 +91,7 @@ If this is unspecified, the backup destination is the buildout var directory. Th
 Operation
 ---------
 
-Once you've run buildout, you'll have ``bin/backup`` and ``bin/restore`` scripts in your buildout. Since all options are set via buildout, there are few command-line options, and operation is generall as simple as using the bare commands. ``bin/restore`` will accept a date-time argument if you're keeping multiple backups. See the docs for details.
+Once you've run buildout, you'll have ``bin/backup`` and ``bin/restore`` scripts in your buildout. Since all options are set via buildout, there are few command-line options, and operation is generally as simple as using the bare commands. ``bin/restore`` will accept a date-time argument if you're keeping multiple backups. See the docs for details.
 
 Backup operations may be run without stopping Plone. Restore operations require that you stop Plone, then restart after the restore is complete.
 
