@@ -12,66 +12,73 @@ Order and blacklisting
 !!! Warning: Incomplete Material !!!
 
 
+
 When giving a key for the context assignment, the root of the site can be
 referred to this way:
 
 ::
-  key="/"
+
+    key="/"
 
 
 Refer to the default `news' folder in the site (NOTE: Prior to Plone 3.3.5, this
 required a full path like /Plone/news):
 
 ::
-  key="/news"
+
+    key="/news"
 
 Delete a portlet assignment using the remove attribute:
 
 ::
-  <assignment
-    remove="True"
-    manager="plone.rightcolumn"
-    category="context"
-    key="/"
-    type="portlets.Calendar"
-    name="calendar"
-    />
+
+    <assignment
+        remove="True"
+        manager="plone.rightcolumn"
+        category="context"
+        key="/"
+        type="portlets.Calendar"
+        name="calendar"
+        />
 
 Remove all the portlet assignments for a specific manager assigned to the
 news object using the purge attribute:
 
 ::
-  <assignment
-    purge="True"
-    manager="plone.rightcolumn"
-    category="context"
-    key="/news"
-    />
+   
+    <assignment
+        purge="True"
+        manager="plone.rightcolumn"
+        category="context"
+        key="/news"
+        />
 
 Add or move an existing portlet at the top of the column using
 insert-before:
 
 ::
-  <assignment
-    insert-before="*"
-    manager="plone.rightcolumn"
-    category="context"
-    key="/"
-    type="portlets.Calendar"
-    name="calendar"
-    />
+
+    <assignment
+        insert-before="*"
+        manager="plone.rightcolumn"
+        category="context"
+        key="/"
+        type="portlets.Calendar"
+        name="calendar"
+        />
 
 Add or move an existing portlet before the `news' portlet:
 
 ::
-  <assignment
-    insert-before="news"
-    manager="plone.rightcolumn"
-    category="context"
-    key="/"
-    type="portlets.Calendar"
-    name="calendar"
-    />
+
+    <assignment
+        insert-before="news"
+        manager="plone.rightcolumn"
+        category="context"
+        key="/"
+        type="portlets.Calendar"
+        name="calendar"
+        />
 
 Pro Tip: Quickest way to find out the name of a portlet: go to @@manage-
 portlets and hover over the `X'. The name for that assignment will appear in
