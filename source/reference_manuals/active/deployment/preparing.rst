@@ -36,8 +36,6 @@ If you're using your system's Python, you will need to install the Python develo
 
 If you're using your system Python, you will not need the readline and libssl development packages mentioned below. The required libraries should already be linked to your Python.
 
-Try, though, to add the packages to support python-imaging (PIL). This will take care of the libjpeg requirements.
-
 System libraries
 ++++++++++++++++
 
@@ -49,7 +47,7 @@ For any install, the development versions of:
 * readline
 * libxml2/libxslt
 
-If you're useing the System Python, add:
+If you're using the System Python, add:
 
 * build-essential (gcc/make tools)
 * python-dev
