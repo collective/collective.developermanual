@@ -1,6 +1,6 @@
-==============================
-Front-end development
-==============================
+============================================================
+Front-end: templates, CSS and Javascript
+============================================================
 
 Instructions and information for front-end development for Plone CMS.
 
@@ -14,9 +14,10 @@ and writing Javascript for Plone.
     css
     javascript
     javascript_standards
+    ajax
     resourcefolders
     skin_layers
     diazo
     xdv
     dtml
-    redirects
+
