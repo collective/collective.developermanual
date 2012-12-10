@@ -86,7 +86,51 @@ the URL.
 
 
 
-
 Looted from Six Feet Up's QuickReferenceCard_.
 
 .. _QuickReferenceCard: http://www.sixfeetup.com/company/technologies/plone-content-management-new/quick-reference-cards/swag/swag-images-files/generic_setup.pdf
+
+
+Blacklisting portlets (from ``plone.app.portlets``'s test suite):
+
+::
+
+    <blacklist
+        manager="test.testcolumn"
+        category="context"
+        location="/news"
+        status="block"
+        />
+    <blacklist
+        manager="test.testcolumn"
+        category="group"
+        location="/news"
+        status="show"
+        />
+    <blacklist
+        manager="test.testcolumn"
+        category="content_type"
+        location="/news"
+        status="acquire"
+        />
+
+    <blacklist
+        manager="test.testcolumn"
+        category="content_type"
+        location="/"
+        status="block"
+        />
+
+    <blacklist
+        manager="test.testcolumn"
+        category="group"
+        location="/"
+        status="show"
+        />
+
+    <blacklist
+        manager="test.testcolumn"
+        category="context"
+        location="/"
+        status="acquire"
+        />
