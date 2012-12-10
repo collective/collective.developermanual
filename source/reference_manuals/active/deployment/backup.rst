@@ -25,7 +25,7 @@ The key rules of backing up a working system are probably:
 
     This guide assumes that you are already doing this for your system as a whole, and will only cover the considerations specific to Plone. When we say we are assuming you're already doing this for the system as a whole, what we mean is that your system backup mechanisms — rsync, bakula, whatever — are already backing up the directories into which you've installed Plone.
 
-So, your buildout and buildout caches are already backed up, and you've tested the restore process. So, you're remaining consideration is making sure that Plone's database files are adequately backed up and recoverable.
+So, your buildout and buildout caches are already backed up, and you've tested the restore process. So, your remaining consideration is making sure that Plone's database files are adequately backed up and recoverable.
 
 Objects in motion
 -----------------
