@@ -81,6 +81,63 @@ Note that each checkbox/label pair is in a ``DIV`` with the class "ArchetypesMul
 
 Of course, you'll need to do some more styling. First of all, you'll need to set a ``clear: left`` on the following control. And, you'll need to do some padding.
 
+Putting string fields in a row
+===========================
+
+Making string fields display horizontally is a little different than the solution for checkboxes.  There is no div wrapping the string fields like there is with check boxes.  To get aroung this, add a fieldset and put the fields in the fieldset.  This also lets you isolate the horizontal fields from other vertical fields.  Here, two fields are required, one is not.  The markup will look similar to this:
+
+.. code-block:: xml
+
+    <fieldset class="PFGFieldsetWidget" id="pfg-fieldsetname-name">
+	  <div class="formHelp" id="name_help"></div>
+	  <div class="field ArchetypesStringWidget " id="archetypes-fieldname-first-name"> <span></span>
+		<label class="formQuestion" for="first-name"> First Name <span class="required" title="Required" style="color: #f00;"> &#x25a0; </span> </label>
+		<div class="formHelp" id="first-name_help"></div>
+		<div class="fieldErrorBox"></div>
+		<input type="text" name="first-name" class="blurrable firstToFocus" id="first-name" size="20" maxlength="30" />
+	  </div>
+	  <div class="field ArchetypesStringWidget " id="archetypes-fieldname-middle-initial"> <span></span>
+		<label class="formQuestion" for="middle-initial"> Middle Initial </label>
+		<div class="formHelp" id="middle-initial_help"></div>
+		<div class="fieldErrorBox"></div>
+		<input type="text" name="middle-initial" class="blurrable firstToFocus" id="middle-initial" size="1" maxlength="1" />
+	  </div>
+	  <div class="field ArchetypesStringWidget " id="archetypes-fieldname-last-name"> <span></span>
+		<label class="formQuestion" for="last-name"> Last Name <span class="required" title="Required" style="color: #f00;"> &#x25a0; </span> </label>
+		<div class="formHelp" id="last-name_help"></div>
+		<div class="fieldErrorBox"></div>
+		<input type="text" name="last-name" class="blurrable firstToFocus" id="last-name" size="30" maxlength="255" />
+	  </div>
+	</fieldset>
+
+
+Here is the CSS:
+
+
+.. code-block:: css
+
+	<style>
+	/* Displays the 3 string fields horizontally. Turn off the clear from Public.css.  This is necessary to display horizontally. */
+	#pfg-fieldsetname-name div.ArchetypesStringWidget {
+		float: left;
+		clear:none;
+	}
+
+	/* needed for space between fields  */
+	#archetypes-fieldname-middle-initial
+	{
+		padding: 0 1em;
+	}
+
+	#content fieldset#pfg-fieldsetname-name
+	{
+	/*Hide the border on the fieldset */
+		border-style: none;
+	/*Need this to left align the fields inside the fieldset with the fields outside the fieldset*/
+		padding-left: 0;
+	}
+	</style>
+
 An alternative way to inject CSS
 ================================
 
