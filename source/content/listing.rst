@@ -529,7 +529,8 @@ you need to tailor it for your specific needs.
 
                     <tal:block tal:repeat="item batch">
                         <div class="tileItem visualIEFloatFix vevent"
-                             tal:define="item_url item/getURL|item/absolute_url;
+                             tal:define="normalizeString nocall: context/plone_utils/normalizeString;
+                                               item_url item/getURL|item/absolute_url;
                                                item_id item/getId|item/id;
                                                item_title_or_id item/pretty_title_or_id;
                                                item_description item/Description;
