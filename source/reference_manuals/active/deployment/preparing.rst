@@ -57,7 +57,7 @@ Without the system Python (Unified Installer builds Python):
 build-essential (gcc/make)
 
 Optional libraries
-~~~~~~~~~~~~~~~~~~
+++++++++++++++++++
 
 If Plone can find utilities that convert various document formats to text, it will include them in the site
 index. To get PDFs and common office automation formats indexed, add:
