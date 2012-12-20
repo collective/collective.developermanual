@@ -23,6 +23,10 @@ can be authenticated using HTTP Basic Auth.
 
        http://username:password@localhost:8080/yoursideid/@@clock_view_name
 
+* The ``--auth-no-challenge`` option to the wget command will authenticate even
+  if the server doesn't ask you to authenticate. It might come in handy, as 
+  Plone does not ask for HTTP authentication, and will just serve Unauthorized 
+  if permissions aren't sufficient.
 
 Clock server
 ==================
