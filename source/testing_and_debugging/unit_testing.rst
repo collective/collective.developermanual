@@ -126,9 +126,15 @@ Pointers:
 
 * http://plone.org/documentation/kb/testing
 
+* http://pypi.python.org/pypi/plone.app.testing
+
 * http://pypi.python.org/pypi/Products.PloneTestCase
 
 * http://www.zope.org/Members/shh/ZopeTestCaseWiki/ApiReference
+
+
+For new test suites, it is recommended to use `plone.app.testing`.
+
 
 Base test class skeleton
 ========================
