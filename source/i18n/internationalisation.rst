@@ -611,7 +611,7 @@ You need to give the name to the dynamic part
 
 ... and then you can refer the dynamic part by a name::
 
-    #. Default: "Search from <span>${DYNAMIC_CONTENT}</span>"
+    #. Default: "Search from <span>${site_title}</span>"
     #: ./skins/gomobiletheme_basic/search.pt:46
     #: ./skins/gomobiletheme_plone3/search.pt:46
     msgid "search_form_heading"
