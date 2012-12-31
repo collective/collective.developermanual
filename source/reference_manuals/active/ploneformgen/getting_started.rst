@@ -24,12 +24,19 @@ To get started building a custom form using PloneFormGen, you must first create 
 
 Click *Add Item* and choose Form Folder from the drop-down menu.
 
+.. image:: add-new-item-form-folder.png
+   :alt: screenshot: Adding form folder via drop-down
+
 Create the form
 ---------------
 
 Provide a *Title* and *Description* for the form. You can also change the wording of the *Submit* or *Reset* button if you wish.
 
 Ignore the rest of this edit screen for the time being and just click *Save* at the bottom.
+
+.. image:: creating-the-form-title-description.png
+   :alt: screenshot: Creating the form
+
 
 Form Folder Settings
 ====================
@@ -39,6 +46,9 @@ Form Folder Settings
     Learn how to configure your form.
 
 You now have a basic form to work with. By default, a form starts with *E-Mail Address*, *Subject* and *Comments*. These are fields you get automatically, every time you create a new form.
+
+.. image:: basic-form.png
+   :alt: screenshot: Basic form
 
 Adding text to the form
 -----------------------
@@ -51,12 +61,18 @@ You may want to include instructions to your site visitor about how to fill out 
 
 * Now you'll see two Body Text areas called Form Prologue and FormEpilogue (which means before and after). Use the text editor to format your content, include links, and even pictures. Click Save when you're all done.
 
+.. image:: prologue-epilogue.png
+   :alt: screenshot: prologue and epilogue
+
 Overrides
 ---------
 
 When in the *Edit* mode on the Form Folder, notice the *Overrides* tab on the right-hand side of the page properties tabs. Form submission behaviors can be customized in this tab.
 
 Read the on-screen help to give you an idea what sort of customizations are possible here. Depending on what you need to do, you may need to learn how to write some basic TALES or Python code. Don't be afraid though!
+
+.. image:: overrides-tab.png
+   :alt: screenshot: overrides tab
 
 Overview of Field Types
 =======================
@@ -99,6 +115,7 @@ Adding a String Field
 Steps to adding a single text line field called a String.
 
 Navigate to your Form Folder and click Add Item. Select String Field from the drop-down menu.
+
 
 The string field creates a simple one-line text box. Some common uses for this field type are:
 
@@ -144,6 +161,7 @@ If you want to see the form the way that your site visitors would, you can click
 
 Note that you cannot complete or submit the form when working in the editing environment. You will need to return to the normal form view first.
 
+
 Changing the Order of the Fields
 ================================
 
@@ -158,6 +176,7 @@ Navigate to your Form Folder and click on the *QuickEdit* tab on the taskbar to 
 Notice that the column on the far left called Order. You can move the position of each field by clicking and dragging each field around if you hover your mouse pointer in the Order column. Continue to rearrange fields until you have the layout you want.
 
 To see the results, you need to click on the View tab to see your form the way your site visitors will.
+
 
 Text Field
 ==========
