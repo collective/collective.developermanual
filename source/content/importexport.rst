@@ -4,9 +4,9 @@
 
 .. admonition:: Description
 
-        Importing and exporting content between Plone sites and other CMS sysstems
+        Importing and exporting content between Plone sites and other CMS systems
 
-.. contents :: local
+.. content:: local
 
 Introduction
 ------------
