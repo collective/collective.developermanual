@@ -1,6 +1,6 @@
-====================
- Import and export
-====================
+========================================
+ Importing and exporting content
+========================================
 
 .. admonition:: Description
 
@@ -27,7 +27,7 @@ Internally, it uses `collective.transmogrifier <http://pypi.python.org/pypi/coll
 
 `Transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ is a tool which serializes and deserializes content based o
 n pipelines. Pipelines are written in .ini-like plain text file based file format and they consists
-of sections.  
+of sections.
 Blueprints are self-contained reusable components which can be recycled between different content migration pocesses.
 Section is based on a blueprint and defines some configurable parameters for this blueprint.
 
@@ -35,12 +35,12 @@ Exporting single folder only
 ============================
 
 Here is explained how to export and import `Plone CMS <http://plone.org>`_
-folders between different Plonen versions, or 
-different CMS systems, using  XML based content marshalling and 
+folders between different Plonen versions, or
+different CMS systems, using  XML based content marshalling and
 `quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_.
 
 This overcomes some problems with Zope management based export/import which uses `Python pickles
-<http://docs.python.org/library/pickle.html>`_ and thus needs identical codebase on the source 
+<http://docs.python.org/library/pickle.html>`_ and thus needs identical codebase on the source
 and target site. Exporting and importing between Plone 3 and Plone 4 is possible.
 
 You can limit export to cover source content to with arbitary :doc:`portal_catalog </searching_and_indexing/query>` conditions.
@@ -64,7 +64,7 @@ Go to *Site setup* > *Content migration*.
 
 Edit export settings. Remove unnecessary pipeline entries by looking the example below. Add a new ``catalogsource`` blueprint.
 The ``exclude-contained`` option makes sure we do not export unnecessary items from the parent folders::
-    
+
         [transmogrifier]
         pipeline =
             catalogsource
@@ -73,40 +73,40 @@ The ``exclude-contained`` option makes sure we do not export unnecessary items f
             datacorrector
             writer
             EXPORTING
-        
+
         [catalogsource]
         blueprint = quintagroup.transmogrifier.catalogsource
         path = query= /isleofback/ohjeet
         exclude-contained = true
-        
+
 Also we need to include some field-level exluding bits for the folders, because the target site does not necessary
 have the same content types available as the source site and this may prevent
 setting up folderish content settings::
 
         [marshaller]
         blueprint = quintagroup.transmogrifier.marshaller
-        exclude = 
+        exclude =
           immediatelyAddableTypes
           locallyAllowedTypes
-            
+
 You might want to remove other, unneeded blueprints from the export ``pipeline``.
 For example, ``portletexporter`` may cause problems if the source and target site
 do not have the same portlet code.
-        
+
 Go to *Zope Management Interface* > *portal_setup* > *Export* tab. Check Content (transmogrifier) step.
-Press *Export Selected Steps* at the bottom of the page. Now a .tar.gz file will be downloaded.    
+Press *Export Selected Steps* at the bottom of the page. Now a .tar.gz file will be downloaded.
 
 During the export process ``instance.log`` file is updated with status info. You might want to follow
 it in real-time from UNIX command line
 
 .. code-block:: console
 
-        tail -f var/log/instance.log 
+        tail -f var/log/instance.log
 
 In log you should see entries running like::
 
         2010-12-27 12:05:30 INFO EXPORTING _path=sisalto/ohjeet/yritys/yritysten-tuotetiedot/tuotekortti
-        2010-12-27 12:05:30 INFO EXPORTING 
+        2010-12-27 12:05:30 INFO EXPORTING
         Pipeline processing time: 00:00:02
                   94 items were generated in source sections
                   94 went through full pipeline
@@ -123,9 +123,9 @@ Open target site ``instance.log`` file for monitoring the import process
 
 .. code-block:: console
 
-        tail -f var/log/instance.log 
+        tail -f var/log/instance.log
 
-Go to *Zope Management Interface* > *portal_setup* > *Import* tab. 
+Go to *Zope Management Interface* > *portal_setup* > *Import* tab.
 
 Choose downloaded ``setup_toolxxx.tar.gz`` file at the bottom of the page,
 for *Import uploaded tarball* input.
@@ -140,7 +140,7 @@ but no content is created.
        Currently export/import is not perfect. For example, ZMI content type icons  are currently
        lost in the process. It is recommended to do a test run on a staging server
        before doing this process on a production server.
-       Also, the item order in the folder is being lost.                 
+       Also, the item order in the folder is being lost.
 
 More information
 ++++++++++++++++
@@ -155,3 +155,186 @@ Fast content import
 -------------------
 
 * See `this blog post <http://blog.redturtle.it/redturtle-blog/fast-content-import>`_
+
+collective.jsonmigrator
+------------------------
+
+See
+
+* https://github.com/collective/collective.jsonmigrator
+
+* http://stackoverflow.com/questions/13721016/exporting-plone-archetypes-data-in-json
+
+Simple JSON export
+----------------------
+
+Below is a simple helper script / BrowserView for a JSON export of Plone folder content.
+Works Plone 3.3+. It handles also binary data and nested folders.
+
+export.py::
+
+    """
+
+        Export folder contents as JSON.
+
+        Can be run as a browser view or command line script.
+
+    """
+
+    import os
+    import base64
+
+    try:
+        import json
+    except ImportError:
+        # Python 2.54 / Plone 3.3 use simplejson
+        # version 2.3.3
+        import simplejson as json
+
+    from Products.Five.browser import BrowserView
+    from Products.CMFCore.interfaces import IFolderish
+    from DateTime import DateTime
+
+    #: Private attributes we add to the export list
+    EXPORT_ATTRIBUTES = ["portal_type", "id"]
+
+    #: Do we dump out binary data... default we do, but can be controlled with env var
+    EXPORT_BINARY = os.getenv("EXPORT_BINARY", None)
+    if EXPORT_BINARY:
+        EXPORT_BINARY = EXPORT_BINARY == "true"
+    else:
+        EXPORT_BINARY = True
+
+
+    class ExportFolderAsJSON(BrowserView):
+        """
+        Exports the current context folder Archetypes as JSON.
+
+        Returns downloadable JSON from the data.
+        """
+
+        def convert(self, value):
+            """
+            Convert value to more JSON friendly format.
+            """
+            if isinstance(value, DateTime):
+                # Zope DateTime
+                # http://pypi.python.org/pypi/DateTime/3.0.2
+                return value.ISO8601()
+            elif hasattr(value, "isBinary") and value.isBinary():
+
+                if not EXPORT_BINARY:
+                    return None
+
+                # Archetypes FileField and ImageField payloads
+                # are binary as OFS.Image.File object
+                data = getattr(value.data, "data", None)
+                if not data:
+                    return None
+                return base64.b64encode(data)
+            else:
+                # Passthrough
+                return value
+
+        def grabArchetypesData(self, obj):
+            """
+            Export Archetypes schemad data as dictionary object.
+
+            Binary fields are encoded as BASE64.
+            """
+            data = {}
+            for field in obj.Schema().fields():
+                name = field.getName()
+                value = field.getRaw(obj)
+                print "%s" % (value.__class__)
+
+                data[name] = self.convert(value)
+            return data
+
+        def grabAttributes(self, obj):
+            data = {}
+            for key in EXPORT_ATTRIBUTES:
+                data[key] = self.convert(getattr(obj, key, None))
+            return data
+
+        def export(self, folder, recursive=False):
+            """
+            Export content items.
+
+            Possible to do recursively nesting into the children.
+
+            :return: list of dictionaries
+            """
+
+            array = []
+            for obj in folder.listFolderContents():
+                data = self.grabArchetypesData(obj)
+                data.update(self.grabAttributes(obj))
+
+                if recursive:
+                    if IFolderish.providedBy(obj):
+                        data["children"] = self.export(obj, True)
+
+                array.append(data)
+
+            return array
+
+        def __call__(self):
+            """
+            """
+            folder = self.context.aq_inner
+            data = self.export(folder)
+            pretty = json.dumps(data, sort_keys=True, indent='    ')
+            self.request.response.setHeader("Content-type", "application/json")
+            return pretty
+
+
+    def spoof_request(app):
+        """
+        http://developer.plone.org/misc/commandline.html
+        """
+        from AccessControl.SecurityManagement import newSecurityManager
+        from AccessControl.SecurityManager import setSecurityPolicy
+        from Products.CMFCore.tests.base.security import PermissiveSecurityPolicy, OmnipotentUser
+        _policy = PermissiveSecurityPolicy()
+        setSecurityPolicy(_policy)
+        newSecurityManager(None, OmnipotentUser().__of__(app.acl_users))
+        return app
+
+
+    def run_export_as_script(path):
+        """ Command line helper function.
+
+        Using from the command line::
+
+            bin/instance script export.py yoursiteid/path/to/folder
+
+        If you have a lot of binary data (images) you probably want
+
+            bin/instance script export.py yoursiteid/path/to/folder > yourdata.json
+
+        ... to prevent your terminal being flooded with base64.
+
+        Or just pure data, no binary::
+
+            EXPORT_BINARY=false bin/instance run export.py yoursiteid/path/to/folder
+
+        :param path: Full ZODB path to the folder
+        """
+        global app
+
+        secure_aware_app = spoof_request(app)
+        folder = secure_aware_app.unrestrictedTraverse(path)
+        view = ExportFolderAsJSON(folder, None)
+        data = view.export(folder, recursive=True)
+        # Pretty pony is prettttyyyyy
+        pretty = json.dumps(data, sort_keys=True, indent='    ')
+        print pretty
+
+
+    # Detect if run as a bin/instance run script
+    if "app" in globals():
+        run_export_as_script(sys.argv[1])
+
+
+
