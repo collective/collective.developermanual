@@ -16,7 +16,7 @@ Viewlets are view snippets which will render a part of the HTML page.
 Viewlets provide conflict-free way to contribute new user-interface actions and
 HTML snippets to Plone pages.
 
-Each viewlet is an a viewlet manager. To add viewlets to your HTML code you first need
+Each viewlet is associated with a viewlet manager. To add viewlets to your HTML code you first need
 to add them to a viewlet manager, which allows you to shuffle viewlets around through-the-web.
 
 What viewlets do
@@ -28,17 +28,17 @@ What viewlets do
 
 * Viewlets can be reordered (limited to reordering within container in Plone 3.x)
 
-* Viewlets can be registered and overridden in theme specific manner :doc:`using layers </views/layers>`
+* Viewlets can be registered and overridden in a theme specific manner :doc:`using layers </views/layers>`
 
 * Viewlets have update() and render() methods
 
 * Viewlets should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
 
-Viewlets can be discriminated to
+A viewlet can be configured so that it is only available for:
 
-* certain content type (``for=`` in ZCML)
+* a certain interface, typically a content type (``for=`` in ZCML)
 
-* certain view (``view=`` in ZCML)
+* a certain view (``view=`` in ZCML)
 
 More info
 
@@ -56,12 +56,12 @@ available viewlets may depend on installed Plone version and installed add-ons.
 
 * The ``portal_view_customizations`` tool in ZMI will show you viewlet registrations (and the viewlet managers they are registered for). As with views, you can hover over the viewlet name to see where it is registered in a tool tip.
 
-* To discover the name of a particular viewlet, you can use the @@manage-viewlets view, e.g. as http://localhost:8080/plone/@@manage-viewlets.
+* To discover the name of a particular viewlet, you can use the @@manage-viewlets view, e.g. http://localhost:8080/plone/@@manage-viewlets.
 
 Creating a viewlet
 ------------------
 
-Viewlet consists of
+A viewlet consists of
 
 * Python class
 
@@ -146,12 +146,12 @@ More info
 Creating a viewlet manager
 -----------------------------
 
-Viewlet managers contains viewlets. Viewlet manager itself
-is a Zope 3 interface which contains an OrdereredViewletManager implementation.
-OrderedViewletManager handles saving the order of the viewlets in the site database
-and provides the fancy /@@manage-viewlets output.
+Viewlet managers contain viewlets. A viewlet manager is itself
+a Zope 3 interface which contains an OrdereredViewletManager implementation.
+OrderedViewletManagers store the order of the viewlets in the site database
+and provide the fancy /@@manage-viewlets output.
 
-Viewlet manage can be rendered in a page template code using the following expression::
+A viewlet manager can be rendered in a page template code using the following expression::
 
   <div tal:replace="structure provider:viewletmanagerid" />
 
@@ -185,7 +185,7 @@ More info
 Creating a viewlet manager: Grok way
 ============================================
 
-Recommended if you want to keep the number of files and lines of XML and Python minimum.
+Recommended if you want to keep the number of files and lines of XML and Python to a minimum.
 
 An example here for related Python code::
 
