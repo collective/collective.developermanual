@@ -1035,6 +1035,8 @@ Poking viewlet registrations programmatically
 
 Below is an example how one can poke viewlets registration for a Plone site.
 
+.. code-block:: python
+
     from zope.component import getUtility
     from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
 
