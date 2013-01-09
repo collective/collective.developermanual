@@ -186,6 +186,8 @@ a custom folder after he/she logs in (overrides standard Plone login behavior)
 
         You want to make it simple for the users with limited knowledge to edit their own data
         by redirecting to the edit view right after the login.
+
+        :return: True or False depending if we found a redirect target to the user or not
         """
 
         # Get acce s to the site within we are currently processing
