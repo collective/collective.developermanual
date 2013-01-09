@@ -47,7 +47,7 @@ To export a folder from a site to another do
 
 * Import it
 
-* Go to portal_catalog -> Advanced tab. Rebuild the catalog (raw Zope pickle does not know about anything living inside the catalog)
+* Go to portal_catalog -> Advanced tab. *Clear and Rebuild* the catalog (raw Zope pickle does not know about anything living inside the catalog)
 
 
 
