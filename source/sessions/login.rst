@@ -134,69 +134,111 @@ Post-login actions are executed after a successful login. Post-login actions whi
 
 * Setting the status message after login
 
-#ANTTI:./eggs/Plone-3.2.3-py2.4.egg/Products/CMFPlone/skins/plone_login/logged_in.cpy.metadata
-#ANTTI:./eggs/Plone-3.2.3-py2.4.egg/Products/CMFPlone/skins/plone_login/logged_in.cpy
+Post-login code can be executd with :doc:`events </components/events>` defined in
+PluggableAuthService service.
 
-Post-login code is defined in CMFPlone/skins/plone_scripts/logged_in.cpy.
+* ``IUserLoggedInEvent``
 
-You need make a copy of both logged_in.cpy and logged_in.cpy.metadata to your add-on product skins structure to override these.
+* ``IUserInitialLoginInEvent`` (logs for the first time)
 
-Example logged_in.cpy::
+* ``IUserLoggedOutEvent``
 
-    ## Controller Python Script "logged_in"
-    ##bind container=container
-    ##bind context=context
-    ##bind namespace=
-    ##bind script=script
-    ##bind state=state
-    ##bind subpath=traverse_subpath
-    ##parameters=
-    ##title=Initial post-login actions
-    ##
+Here is an :doc:`Grok based </components/grok>` example how to redirect a user to
+a custom folder after he/she logs in (overrides standard Plone login behavior)
 
-    from Products.CMFCore.utils import getToolByName
-    from Products.CMFPlone import PloneMessageFactory as _
-    REQUEST=context.REQUEST
+``postlogin.py``::
 
-    membership_tool=getToolByName(context, 'portal_membership')
-    if membership_tool.isAnonymousUser():
-        REQUEST.RESPONSE.expireCookie('__ac', path='/')
-        context.plone_utils.addPortalMessage(_(u'Login failed. Both login name and password are case sensitive, check that caps lock is not enabled.'), 'error')
-        return state.set(status='failure')
+    # Python imports
+    import logging
 
-    member = membership_tool.getAuthenticatedMember()
-    login_time = member.getProperty('login_time', '2000/01/01')
-    initial_login = int(str(login_time) == '2000/01/01')
-    state.set(initial_login=initial_login)
+    # ZODB imports
+    from ZODB.POSException import ConflictError
 
-    must_change_password = member.getProperty('must_change_password', 0)
-    state.set(must_change_password=must_change_password)
+    # Zope imports
+    from AccessControl import getSecurityManager
+    from zope.interface import Interface
+    from zope.component import getUtility
+    from zope.app.component.hooks import getSite
 
-    if initial_login:
-        state.set(status='initial_login')
-    elif must_change_password:
-        state.set(status='change_password')
+    # CMFCore imports
+    from Products.CMFCore import permissions
+    from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 
-    membership_tool.loginUser(REQUEST)
+    # Caveman imports
+    from five import grok
 
-    #
-    # Special login code specific login code
-    #
+    # Plone imports
+    from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
-    # Debug log output about the user we are dealing with
-    context.plone_log("Got member:" + str(member))
+    # Logger output for this module
+    logger = logging.getLogger(__name__)
 
-    # Check that if the user has a custom method which marks our special members
-    # needing special actions
-    if hasattr(member, "getLoginRedirect"):
+    #: Site root relative path where we look for the folder with an edit access
+    CUSTOM_USER_FOLDERS = "fi/yritykset"
 
-        # Show a custom login message
-        context.plone_utils.addPortalMessage(_(u'You are now logged in. Welcome to supa-dupa-system.'), 'info') # This message is in Plone i18n domain
 
-        # Go to a custom page after login
-        REQUEST.RESPONSE.redirect(context.portal_url() + "/some_folder")
+    def redirect_to_edit_access_folder(user):
+        """
+        Redirects the user to a folder he/she has editor access.
 
-    return state
+        This is for use cases where you have a owned content
+        (e.g. company/product data) on a shared site.
+
+        You want to make it simple for the users with limited knowledge to edit their own data
+        by redirecting to the edit view right after the login.
+        """
+
+        # Get acce s to the site within we are currently processing
+        # the HTTP request
+        portal = getSite()
+
+        # We need to access the HTTP requesrt object via
+        # acquisition as it is not exposed by the event
+        request = getattr(portal, "REQUEST", None)
+        if not request:
+            # HTTP request is not present e.g.
+            # when doing unit testing / calling scripts from command line
+            return False
+
+        # Look for portal relative paths where the items are
+        try:
+            target = portal.unrestrictedTraverse(CUSTOM_USER_FOLDERS)
+        except ConflictError:
+            # Transaction retries must be
+            # always handled specially in exception handlers
+            raise
+        except Exception, e:
+            # Let the login proceed even if the folder has been deleted
+            # don't make it impossible to login to the site
+            logger.exception(e)
+            return False
+
+        # Check if the current user has Editor access
+        # in the any items of the folder
+        sm = getSecurityManager()
+
+        for obj in target.listFolderContents():
+            if sm.checkPermission(permissions.ModifyPortalContent, obj):
+                logger.info("Redirecting user %s to %s" % (user, obj))
+                request.response.redirect(obj.absolute_url() + "/edit")
+                return True
+
+        logger.warn("User %s did not have his/her own content item in %s" % (user, target))
+
+        # Let the normal login proceed to the page "You are now logged in" etc.
+        return False
+
+
+    @grok.subscribe(IUserLoggedInEvent)
+    def logged_in_handler(event):
+        """
+        Listen to the event and perform the action accordingly.
+        """
+
+        user = event.object
+
+        redirect_to_edit_access_folder(user)
+
 
 Post-logout actions
 ----------------------
