@@ -204,3 +204,10 @@ Unregistering utilities
 ========================
 
 * http://www.muthukadan.net/docs/zca.html#unregisterutility
+
+Removing persistent local utilities
+===================================
+
+* http://blog.fourdigits.nl/removing-a-persistent-local-utility
+* http://blog.fourdigits.nl/removing-a-persistent-local-utility-part-ii
+
