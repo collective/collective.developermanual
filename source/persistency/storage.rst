@@ -55,6 +55,8 @@ is any pickleable Python object or primitive you store in your database.
 
 `ZODB data structure interfaces <http://svn.zope.org/ZODB/trunk/src/BTrees/Interfaces.py?rev=88776&view=markup>`_.
 
+`Using BTrees example from Zope Docs <http://zodb.org/documentation/articles/ZODB2.html#using-btrees>`_.
+
 Buckets
 -------
 
