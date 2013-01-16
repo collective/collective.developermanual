@@ -14,10 +14,10 @@ Introduction
 
 By default when you start Plone you start it in a **production mode**.
 
-* Plone is fast
+* Plone is faster
 
 * CSS and Javascript files are *merged* instead of causing multipe HTTP request to load these assets. 
-  CSS and Javascript behavior is different in production and debug mode, especially with files with syntax errors
+  CSS and Javascript behavior is different in production versus debug mode, especially with files with syntax errors
   because of merging. 
 
 * Plone does not reload changed files from the disk
@@ -143,10 +143,10 @@ Congratulations! You should be now logged in as an admin to your new Plone insta
 
 
 Starting Plone in debug mode on UNIX
-============================================================
+====================================
 
 Single instance installation ("zope")
---------------------------------------------
+-------------------------------------
 
 Enter to your installation folder using ``cd`` command (depends on where you have installed Plone)::
 
@@ -171,6 +171,20 @@ If you have ZEO cluster mode installation you can start individual processes in 
     # bin/client2 fg  # For debugging issues it is often enough to start client1
 
 
+Determining programmatically whether Zope is in debug mode
+==========================================================
+
+Zope2's shared global data *Globals*, keeps track on whether Zope2 is started
+in debug mode or not.::
+
+    import Globals
+    if Globals.DevelopmentMode:
+        # Zope is in debug mode
+
+.. note::
+   There is a difference between Zope being in debug mode and the Javascript
+   and CSS resource registries being in debug mode (although they will
+   automatically be set to debug mode if you start Zope in debug mode).
 
 
 
