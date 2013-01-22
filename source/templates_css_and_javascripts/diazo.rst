@@ -19,7 +19,7 @@ by using simple XML rules. It separates the theme development from the site deve
 so that people with little HTML and CSS knowledge can create themes
 without need to know underlying Python, PHP or whatever. It also enables
 integration of different services and sites to one, unified, user experience. 
-For more information, you can always read the 'wikipedia article <http://en.wikipedia.org/wiki/Diazo_%28software%29>'
+For more information, you can always read the `wikipedia article <http://en.wikipedia.org/wiki/Diazo_%28software%29>`_
 
 Example backends to perform diazo transformation include 
 
@@ -30,13 +30,13 @@ Example backends to perform diazo transformation include
 * Nginx web server transform module
 
 Diazo theming can be used together with Plone where enhanced support is provided
-by the 'plone.app.theming package <http://http://pypi.python.org/pypi/plone.app.theming>'. 
-(This is the plone integration package for Diazo, like `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>` was the integration package fro XDV)
+by the `plone.app.theming package <http://http://pypi.python.org/pypi/plone.app.theming>`_. 
+(This is the plone integration package for Diazo, like `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_ was the integration package fro XDV)
 Technically, plone.app.theming adds a Plone settings panel (Diazo) and does XSL transformation in Zope's
 post-publication hook using lxml library.
 
 The community (Martin Aspeli) is currently working on an online theme editing interface, so designers can make a diazo theme for a Plone site entirely through the web.
-For more information, have a look at his 'branch of plone.app.theming <https://github.com/plone/plone.app.theming/tree/optilude-ace>'.
+For more information, have a look at his `branch of plone.app.theming <https://github.com/plone/plone.app.theming/tree/optilude-ace>`_.
 
 Diazo can be used standalone with `Diazo package <http://pypi.python.org/pypi/diazo>`_ to theme any web site, 
 whether it's Wordpress, Joomla, Drupal or a custom in-house PHP solution from the year 2000.
