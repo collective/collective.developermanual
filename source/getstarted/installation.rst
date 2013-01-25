@@ -165,7 +165,7 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-        cd ~/Plone/
+        cd ~/Plone/zinstance
         bin/instance fg
 
    When you start Plone in the foreground, it runs in debug mode:
