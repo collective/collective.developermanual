@@ -101,6 +101,28 @@ Add a content-type:
         Enter contenttype_description (Content type description ) ['Description of the Example Type']: Just an example
         (Use default values for rest - press Enter)
 
+Fix buildout
+============
+
+Again the buildout.cfg & plone.cfg contains errors, fix the errors before running buildout. 
+
+1. Add the following line to [buildout] part:
+
+    .. code-block:: console
+
+        develop = .
+
+2. Remove the following line from the [instance] part:
+
+    .. code-block:: console
+
+        effective-user = ${buildout:effective-user}
+
+3. Not a bug, but when editing the buildout update Plone to the latest version:
+
+    .. code-block:: console
+
+        extends = http://dist.plone.org/release/4.2.1/versions.cfg
 
 Running buildout
 ================
