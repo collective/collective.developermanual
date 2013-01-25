@@ -21,7 +21,7 @@ We'll be using paster to create a Dexterity project. First a virtual environment
 
     .. code-block:: console
 
-        # virtualenv-2.7 example-testing
+        # ./bin/virtualenv-2.7 example-testing
         # cd example-testing
         # . ./bin/activate
         # pip install ZopeSkel==2.21.2  Paste PasteDeploy PasteScript zopeskel.dexterity
@@ -35,6 +35,7 @@ We'll be using paster to create a Dexterity project. First a virtual environment
 Create a dexterity product
 ==========================
 Use zopeskel to create a Python egg which contains a Dexterity-based product.
+(Note: just select default options - press Enter - for all questions during installation, except for project name which must be collective.example)
 
     .. code-block:: console
 
@@ -98,11 +99,12 @@ Add a content-type:
         # paster addcontent dexterity_content
         Enter contenttype_name (Content type name ) ['Example Type']: Example content
         Enter contenttype_description (Content type description ) ['Description of the Example Type']: Just an example
+        (Use default values for rest - press Enter)
 
 Fix buildout
 ============
 
-Again the buildout.cfg contains errors, fix the errors before running buildout.
+Again the buildout.cfg & plone.cfg contains errors, fix the errors before running buildout. 
 
 1. Add the following line to [buildout] part:
 
