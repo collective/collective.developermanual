@@ -7,7 +7,7 @@
 Introduction: Why unicode is difficult?
 =========================================
 
-Python 2.x does not make clear distinction between:
+Python 2.x does not make a clear distinction between:
 
 * 8-bit strings (byte data)
 * 16-bit unicode strings (character data)
@@ -29,7 +29,7 @@ Read more:
 safe_unicode()
 =====================
 
-Plone's core contain a helper function which allows you 
+Plone's core contains a helper function which allows you 
 to safely decode strings to unicode without fear of UnicodeDecodeException.
 Use this in your own code to decode unicode in the cases you are
 not sure if the input is 8-bit bytestrings or real unicode strings.
