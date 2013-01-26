@@ -21,7 +21,7 @@ referred to this way:
     key="/"
 
 
-Refer to the default `news' folder in the site (NOTE: Prior to Plone 3.3.5, this
+Refer to the default 'news' folder in the site (NOTE: Prior to Plone 3.3.5, this
 required a full path like /Plone/news):
 
 ::
@@ -67,7 +67,7 @@ insert-before:
         name="calendar"
         />
 
-Add or move an existing portlet before the `news' portlet:
+Add or move an existing portlet before the 'news' portlet:
 
 ::
 
@@ -81,7 +81,7 @@ Add or move an existing portlet before the `news' portlet:
         />
 
 Pro Tip: Quickest way to find out the name of a portlet: go to @@manage-
-portlets and hover over the `X'. The name for that assignment will appear in
+portlets and hover over the 'X'. The name for that assignment will appear in
 the URL.
 
 
