@@ -25,7 +25,7 @@ This documentation applies only for form libraries.
 You need to identify which form library you are dealing with and read the form library specific
 documentation.
 
-Zope 3 schema (zope.schema package) is database-neutral an framework-neutral way to describe Python data models.
+Zope 3 schema (zope.schema package) is database-neutral and framework-neutral way to describe Python data models.
 
 Modelling data
 ----------------
