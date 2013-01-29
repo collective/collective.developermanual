@@ -82,7 +82,7 @@ Creating a pull request (no commit access)
 --------------------------------------------------------------------------
 
 If you do not have commit access on Github `collective group <https://github.com/collective>´_.
-(you nave not signed contribution agreement) you can do the following::
+you can do the following::
 
 Login to Github. Go to Github `plone.app.locales <https://github.com/collective/plone.app.locales>`_
 
