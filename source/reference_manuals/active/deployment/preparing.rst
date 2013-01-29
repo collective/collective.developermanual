@@ -85,8 +85,8 @@ Use ``apt-get install``. The matching package names are:
 * libxslt-dev
 * python-dev
 
-Fedora
-******
+Fedora/CentOS
+*************
 
 Using ``yum install``:
 
@@ -96,6 +96,8 @@ openssl-devel
 libjpeg-devel
 libxslt-devel
 readline-devel
+make
+which
 
 OpenSUSE
 ********
