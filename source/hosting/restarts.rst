@@ -151,7 +151,7 @@ This another example (/etc/init.d/plone)::
         force-reload)
             echo "Plone doesn't support force-reload, use restart instead."
             ;;
-		
+
         *)
             echo "Usage: /etc/init.d/plone {start|stop|status|restart}"
             exit 1
@@ -165,7 +165,7 @@ Make sure to read:
 http://wiki.debian.org/LSBInitScripts
 
 
-crontab
+Crontab
 =======
 
 These instructions apply for Debian-based Linuxes.
@@ -175,7 +175,7 @@ Example crontab of *yourploneuser*::
     @reboot /srv/plone/yoursite/bin/instance start
 
 ``rc.local`` script
---------------------
+===================
 
 For Debian-based Linuxes, add the following line to the ``/etc/rc.local`` script:
 
