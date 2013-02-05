@@ -87,9 +87,10 @@ Connections and queues
 
 A versatile load balancer like haproxy will give you fine-grained control over the queuing of connections to ZEO client back-end servers.
 A factor to take into account is that ZEO clients will always accept connections — even when all threads are busy.
-Given that request take dramatically different amount of times to render and return, this may result in some clients having queued connections when other clients are free.
+Given that requests take dramatically different amount of times to render and return, this may result in some clients having queued connections when other clients are free.
 
-The general solution for this is to set the maximum connections per back-end ZEO client to roughly the number of threads they server. The is the maxconn setting on haproxy's listen directive.
+The general solution for this is to set the maximum connections per back-end ZEO client to roughly the number of threads they serve.
+For haproxy, this is the maxconn setting for the listen directive.
 This is only a rule of thumb.
 ZEO clients actually spawn threads as needed to return blobs, and are very efficient at that.
 So, how severly you limit connections per client should depend on your balance of page to blob serves.
