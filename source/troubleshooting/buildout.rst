@@ -532,3 +532,37 @@ For Plone 3.3.x You need to pindown::
 	zc.queue = 1.2.1
 	zope.copy = 3.5.0
 
+Distribute / setuptools tries to mess with system Python and Permission denided
+======================================================================================================================
+
+When running ``boostrap.py`` your buildout files
+because it tries to write to system-wide Python installation.
+
+Example::
+
+	Getting distribution for 'distribute==0.6.24'.
+	Before install bootstrap.
+	Scanning installed packages
+	No setuptools distribution found
+	warning: no files found matching 'Makefile' under directory 'docs'
+	warning: no files found matching 'indexsidebar.html' under directory 'docs'
+	After install bootstrap.
+	Creating /srv/plone/python/python-2.7/lib/python2.7/site-packages/setuptools-0.6c11-py2.7.egg-info
+	error: /srv/plone/python/python-2.7/lib/python2.7/site-packages/setuptools-0.6c11-py2.7.egg-info: Permission denied
+	An error occurred when trying to install distribute 0.6.24. Look above this message for any errors that were output by easy_install.
+	While:
+	  Bootstrapping.
+	  Getting distribution for 'distribute==0.6.24'.
+	Error: Couldn't install: distribute 0.6.24
+
+Solution:
+
+`This bug has been fixed in Distiribute 0.6.27 <http://pypi.python.org/pypi/distribute/0.6.27#id2>`_ - make sure your system-wide Python
+uses this version or above::
+
+      /srv/plone/python/python-2.7/bin/pip install --upgrade Distribute
+
+
+
+
+
