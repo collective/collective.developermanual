@@ -25,15 +25,22 @@ To use Varnish with Plone
 
 * Add Plone virtual hosting rule to the default varnish configuration 
 
+.. note ::
+
+    Some of these examples were written for Varnish 2.x. Varnish 3.x (Feb 2013) 
+    has radically altered syntax of VCL language and command line tools, so you 
+    might need to adapt the examples a bit.
+
 Installation
 ==========================
 
-* You can install using packages (RPM/DEB) - consult your operating system instructions. **This is the recommended method.**
+The suggest method to install Varnish is to use your OS package manager.
+
+* You can install using packages (RPM/DEB) - consult your operating system instructions. 
 
 * You can install backports 
 
 * You can install using buildout
-
 
 Backporting examples (Ubuntu 8.04 Hardy Heron)
 
@@ -72,6 +79,9 @@ Example::
 
     Port number depends on your Varnish settings.
 
+More info
+
+* http://opensourcehacker.com/2013/02/07/varnish-shell-singleliners-reload-config-purge-cache-and-test-hits/
 
 Quit console
 -------------
@@ -85,59 +95,15 @@ Purging the cache
 
 This will remove all entries from the Varnish cache::
 
-   url.purge .*
+   varnishadm "ban.url ."
 
 
-Loading new VCL for the live varnish daemon
+Loading new VCL to live Varnish 
 ==============================================
 
-More often than not, it is beneficial to load new configuration without
-bringing the cache down for maintenance.  Using this method also checks the
-new VCL for syntax errors before activating it.  Logging in to Varnish CLI
-requires the ``varnishadm`` tool, the address of the management interface,
-and the secret file for authentication. 
+See
 
-See the ``varnishadm`` man-page for details.
-
-Opening a new CLI connection to the Varnish console, in a buildout-based
-Varnish installation::
-
-        parts/varnish-build/bin/varnishadm -T localhost:8088
-
-Port 8088 is defined in ``buildout.cfg``::
-
-        [varnish-instance]
-        telnet = localhost:8088
-                    
-Opening a new CLI connection to the Varnish console, in a system-wide
-Varnish installation on Ubuntu/Debian::
-
-    varnishadm -T localhost:6082 -S /etc/varnish/secret
-
-You can dynamically load and parse a new VCL config file to memory::
-
-	vcl.load <name> <file>
-
-For example::
-
-	vcl.load newconf_1 /etc/varnish/newconf.vcl
-
-.. or ... ::
-
-  # Ubuntu / Debian default config 
-  vcl.load defconf1 /etc/varnish/default.vcl
-        
-``vcl.load`` will load and compile the new configuration. Compilation will
-fail and report on syntax errors.  Now that the new configuration has been
-loaded, it can be activated with::
-
-	vcl.use newconf_1 
-	
-.. note ::
-
-    Varnish remembers ``<name>`` in ``vcl.load``, so every time you
-    need to reload your config you need to invent a new name for 
-    vcl.load / vcl.use command pair.
+* http://opensourcehacker.com/2013/02/07/varnish-shell-singleliners-reload-config-purge-cache-and-test-hits/
 
 Logs
 ======
@@ -168,31 +134,141 @@ Use the admin console to print stats for you::
            21261  Cache hits for pass
           ...
         
+Virtual hosting proxy rule
+=============================
 
-Varnish buildout restart snippet
-================================
+Varnish 3.x example
+------------------------
 
-The following snippet will restart a ``varnishd`` instance which has been
-started from the ``plone.recipe.varnish`` buildout directly invoking
-``bin/varnish-instance`` command.
-
-It will also create an Apache-compatible log file which you can examine
-using text editing tools by running the ``varnishncsa`` command which will
-read log data from the Varnish memory-mapped file, and write it to a text
-file in Apache format.
+An example with two separate Plone installations (Zope standalone mode)
+behind Varnish 3.x HTTP 80 port.
 
 Example::
 
-    #!/bin/sh
-    # Varnish restart script
-    sudo killall varnishd
-    sudo bin/varnish-instance
-    # Create Apache compatible log file
-    sudo kill `cat var/varnishncsa.pid`
-    sudo parts/varnish-build/bin/varnishncsa -D -d -a -w var/log/varnish.log -P var/varnishncsa.pid
+    #
+    # This backend never responds... we get hit in the case of bad virtualhost name
+    #
+    backend default {
+        .host = "127.0.0.1";
+        .port = "55555";
+    }
 
-Virtual hosting proxy rule
-=============================
+    #
+    # Plone Zope front end clients running on koskela
+    #
+    backend site1 {
+        .host = "127.0.0.1";
+        .port = "9944";
+    }
+
+    backend site2 {
+        .host = "127.0.0.1";
+        .port = "9966";
+    }
+
+    #
+    # Gues which site / virtualhost we are diving into.
+    # Apache, Nginx or Plone directly
+    #
+    sub choose_backend {
+
+        if (req.http.host ~ "^(.*\.)?site2\.fi(:[0-9]+)?$") {
+            set req.backend = site2;
+
+            # Zope VirtualHostMonster
+            set req.url = "/VirtualHostBase/http/" + req.http.host + ":80/Plone/VirtualHostRoot" + req.url;
+
+        }
+
+        if (req.http.host ~ "^(.*\.)?site1\.fi(:[0-9]+)?$") {
+            set req.backend = site1;
+
+            # Zope VirtualHostMonster
+            set req.url = "/VirtualHostBase/http/" + req.http.host + ":80/Plone/VirtualHostRoot" + req.url;
+        }
+
+    }
+
+
+    sub vcl_recv {
+
+        #
+        # Do Plone cookie sanitization, so cookies do not destroy cacheable anonymous pages
+        #
+        if (req.http.Cookie) {
+            set req.http.Cookie = ";" + req.http.Cookie;
+            set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
+            set req.http.Cookie = regsuball(req.http.Cookie, ";(statusmessages|__ac|_ZopeId|__cp)=", "; \1=");
+            set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
+            set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
+
+            if (req.http.Cookie == "") {
+                remove req.http.Cookie;
+            }
+        }
+
+        call choose_backend;
+
+        if (req.request != "GET" &&
+          req.request != "HEAD" &&
+          req.request != "PUT" &&
+          req.request != "POST" &&
+          req.request != "TRACE" &&
+          req.request != "OPTIONS" &&
+          req.request != "DELETE") {
+            /* Non-RFC2616 or CONNECT which is weird. */
+            return (pipe);
+        }
+        if (req.request != "GET" && req.request != "HEAD") {
+            /* We only deal with GET and HEAD by default */
+            return (pass);
+        }
+        if (req.http.Authorization || req.http.Cookie) {
+            /* Not cacheable by default */
+            return (pass);
+        }
+        return (lookup);
+    }
+
+
+    #
+    # Show custom helpful 500 page when the upstream does not respond
+    #
+    sub vcl_error {
+      // Let's deliver a friendlier error page.
+      // You can customize this as you wish.
+      set obj.http.Content-Type = "text/html; charset=utf-8";
+      synthetic {"
+      <?xml version="1.0" encoding="utf-8"?>
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+      <html>
+        <head>
+          <title>"} + obj.status + " " + obj.response + {"</title>
+          <style type="text/css">
+          #page {width: 400px; padding: 10px; margin: 20px auto; border: 1px solid black; background-color: #FFF;}
+          p {margin-left:20px;}
+          body {background-color: #DDD; margin: auto;}
+          </style>
+        </head>
+        <body>
+        <div id="page">
+        <h1>Sivu ei ole saatavissa</h1>
+        <p>Pahoittelemme,  ei ole saatavilla.</p>
+        <hr />
+        <h4>Debug Info:</h4>
+        <pre>Status: "} + obj.status + {"
+    Response: "} + obj.response + {"
+    XID: "} + req.xid + {"</pre>
+          </div>
+        </body>
+       </html>
+      "};
+      return(deliver);
+    }
+
+Varnish 2.x example
+------------------------
 
 When Varnish has been set-up you need to include Plone virtual hosting
 rule in its configuration file.
