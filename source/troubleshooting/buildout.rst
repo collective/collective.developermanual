@@ -560,9 +560,26 @@ Solution:
 `This bug has been fixed in Distiribute 0.6.27 <http://pypi.python.org/pypi/distribute/0.6.27#id2>`_ - make sure your system-wide Python
 uses this version or above::
 
-      /srv/plone/python/python-2.7/bin/pip install --upgrade Distribute
+       sudo /srv/plone/python/python-2.7/bin/easy_install -U Distribute
 
 
 
+UnboundLocalError: local variable 'clients' referenced before assignment
+==========================================================================
 
+Example traceback when running buildout::
+
+	Traceback (most recent call last):
+	  File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 1683, in main
+	    getattr(buildout, command)(args)
+	  File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 555, in install
+	    installed_files = self[part]._call(recipe.install)
+	  File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 1227, in _call
+	    return f()
+	  File "/srv/plone/x/eggs/plone.recipe.unifiedinstaller-4.3.1-py2.7.egg/plone/recipe/unifiedinstaller/__init__.py", line 65, in install
+	    for part in clients
+	UnboundLocalError: local variable 'clients' referenced before assignment
+
+Solution: Your buildout contains leftovers from the past. Remove ``clients`` variable
+in ``[unifiedinstaller]`` section.
 
