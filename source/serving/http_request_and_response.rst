@@ -470,7 +470,7 @@ hook.
 The response body is not always a string or basestring: it can be a generator
 or iterable for blob data.
 
-The body is avaialble as the ``response.body`` attribute.
+The body is available as the ``response.body`` attribute.
 
 Redirects
 ---------
