@@ -84,7 +84,11 @@ For earlier versions of Plone in the 4.x series, you may use a custom log setup 
 Other log rotation mechanisms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Unix-ish systems have several log rotation mechanims available. Two common ones are ``newsyslog`` and ``logrotate``. Both are well-documentd. The critical thing you need to know for each is how to signal Zope that a log rotation has occurred, forcing it to reopen the log file. Zope will do this if you send the client process a USR2 signal.
+Unix-ish systems have several log rotation mechanisms available. 
+Two common ones are ``newsyslog`` and ``logrotate``. 
+Both are well-documented. 
+The critical thing you need to know for each is how to signal Zope that a log rotation has occurred, forcing it to reopen the log file. 
+Zope will do this if you send the client process a USR2 signal.
 
 For example, with logrotate, you can rotate a client's logs with a configuration like::
 
