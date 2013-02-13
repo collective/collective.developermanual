@@ -583,3 +583,35 @@ Example traceback when running buildout::
 Solution: Your buildout contains leftovers from the past. Remove ``clients`` variable
 in ``[unifiedinstaller]`` section.
 
+Couldn't install: BTrees 4.0.5
+===============================
+
+Example::
+	
+	Unpacking persistent-4.0.6/docs/using.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/using.rst
+	Unpacking persistent-4.0.6/docs/index.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/index.rst
+	Unpacking persistent-4.0.6/docs/glossary.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/glossary.rst
+	Reading configuration from /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+	Adding new section [easy_install] to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+	Writing /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+	Running persistent-4.0.6/setup.py -q bdist_egg --dist-dir /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/egg-dist-tmp-xnqDMG
+	In file included from persistent/cPersistence.c:19:0:
+	persistent/cPersistence.h:19:25: fatal error: bytesobject.h: No such file or directory
+	compilation terminated.
+	error: Setup script exited with error: command 'gcc' failed with exit status 1
+	An error occured when trying to install BTrees 4.0.5. Look above this message for any errors that were output by easy_install.
+	While:
+	  Installing.
+	  Getting section zeoserver.
+	  Initializing part zeoserver.
+	  Getting distribution for 'BTrees'.
+	Error: Couldn't install: BTrees 4.0.5
+	*********************************************
+
+Plone 3.3.5 buildout ``fake-eggs`` is not working properly when you boostrap
+the buildout in a new environment.
+
+Try install manually the core buildout part where you have ``fake-eggs`` defined::
+
+       bin/buildout install client1
+
