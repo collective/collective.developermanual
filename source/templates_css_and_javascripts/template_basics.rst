@@ -46,13 +46,14 @@ Basically a document file got a mime-type. This is also important for Plone Temp
 If you want to export to a XML File you have to change the mime-type because otherwise the browser won't recognize the file as an XML.
 At the moment Plone supports text/html which is the default value. And text/xml.
 You got 2 oppertunities to change this value. If you customize a template you got an input box which called "Content-Type". 
-The other Way is to create a file named by your template name and extend the name by .metadata . 
-Example:
-    my_view.pt
-    my_view.pt.metadata
+The other Way is to create a file named by your template name and extend the name by `.metadata`. 
 
-Content of metadata file:
-    .. code-block::
+ Example:
+   * my_view.pt
+   * my_view.pt.metadata
+
+Content of metadata file::
+    
          [default]
          content_type = text/xml
         
