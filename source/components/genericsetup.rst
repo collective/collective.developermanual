@@ -590,6 +590,9 @@ tinymce.xml
 
 propertiestool.xml
 ------------------
+In the propertiestool.xml you can change all values of the portal_properties.
+
+take a look at: http://plone.org/documentation/manual/developer-manual/generic-setup/reference/properties-ref
 
 metadata.xml
 ------------
