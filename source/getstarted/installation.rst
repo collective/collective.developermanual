@@ -110,14 +110,16 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
         sudo apt-get install python-distribute python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
-.. note::
+    .. note::
 
-   In newer versions of Ubuntu and from Debian 6 [Squeeze] *python-distribute* is replaced by *python-setuptools*.
+   In newer versions of Ubuntu and from Debian 6 [Squeeze] on *python-distribute*
+   is replaced by *python-setuptools*.
 
-   You will probably also want these optional system packages (see `Plone manual
+You will probably also want these optional system packages (see `Plone manual
    <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
 
-   .. code-block:: console
+
+    .. code-block:: console
 
         sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils python-imaging
 
