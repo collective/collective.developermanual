@@ -104,21 +104,19 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
       It is not recommended to run or install Plone as the root user.
       There is nothing in Plone requiring root privileges.
 
-2. Install operating system software needed to run Plone:
+2. Install operating system software needed to run Plone::
 
-   .. code-block:: console
 
         sudo apt-get install python-distribute python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
 
     In newer versions of Ubuntu and from Debian 6 [Squeeze] on *python-distribute* is replaced by *python-setuptools*.
 
-    You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
+    You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_)::
 
-
-    .. code-block:: console
 
         sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils python-imaging
+
 
    Install also version control software needed often when developing with Plone::
 
