@@ -148,6 +148,9 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity:
         schema = IMyForm
         ignoreContext = True
 
+        label = u"What's your name?"
+        description = u"Simple, sample form"
+
         @button.buttonAndHandler(u'Ok')
         def handleApply(self, action):
             data, errors = self.extractData()
