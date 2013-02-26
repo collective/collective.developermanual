@@ -537,6 +537,7 @@ Example using ``__getitem__()``::
 
 
 Example using ``IPublishTraverse``::
+
     from Products.Five.browser import BrowserView
     from zope.publisher.interfaces import IPublishTraverse
     from zope.interface import implementer
