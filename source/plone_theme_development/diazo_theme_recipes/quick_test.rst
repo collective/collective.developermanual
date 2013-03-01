@@ -23,11 +23,17 @@ You will need to have the following:
 Procedure
 ===========
 
-In your Plone Site go to 'Site Setup' > 'Diazo theme'.
+If you're using Plone 4.2, look for 'Site Setup' > 'Theming'.
+
+.. image:: ../images/sitesetup-cp-4.2.png
+
+In a Plone 4.1 with plone.app.theming you may find the same thing under 'Site Setup' > 'Diazo theme'
+Instead.
 
 .. image:: ../images/sitesetup-cp.png
 
-.. note:: If you don't see the 'Diazo theme' option, go to 'Site Setup' > 'Add-ons', select 'Diazo theme support' and click 'Activate'.
+.. note:: If you don't see anything like the 'Diazo theme' option, go to 'Site Setup' > 'Add-ons',
+          select 'Diazo theme support' and click 'Activate'.
 
 In the Diazo theming control panel click on the 'Advanced Settings' tab.
 
