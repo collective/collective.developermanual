@@ -57,6 +57,20 @@ It should look similar to this screenshot:
 
  .. image:: ../images/plone_theme_dev_theming-test-screenshot.png
 
+How the rule.xml file works
+------------------------------
+
+Think of the rules.xml file as a mapper which uses CSS ids and classes
+to identify content from the Plone site that should be injected into
+an HTML document.
+
+The diagram below explains this visually.
+
+.. image:: ../images/diazothemeexplained-thumb.png
+   :target: .. _clickToZoom: ../diazothemexplained.png
+
+`View an explanatory diagram in PDF format <../diazothemeexplained.pdf>`_
+   
 Troubleshooting
 ------------------
 
