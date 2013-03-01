@@ -32,8 +32,7 @@ Instead.
 
 .. image:: ../images/sitesetup-cp.png
 
-.. note:: If you don't see anything like the 'Diazo theme' option, go to 'Site Setup' > 'Add-ons',
-          select 'Diazo theme support' and click 'Activate'.
+.. note:: If you don't see anything like the 'Diazo theme' option, go to 'Site Setup' > 'Add-ons', select 'Diazo theme support' and click 'Activate'.
 
 In the Diazo theming control panel click on the 'Advanced Settings' tab.
 
