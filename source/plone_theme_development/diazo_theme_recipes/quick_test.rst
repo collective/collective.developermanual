@@ -56,6 +56,14 @@ It should look similar to this screenshot:
 
  .. image:: ../images/plone_theme_dev_theming-test-screenshot.png
 
+Disabling the test theme
+------------------------------
+
+To disable the test theme click on the enable/disable button at the top right.
+Then uncheck the 'Theme enabled' box.
+
+.. image:: ../images/enable-disable-custom-theme.png
+
 How the rule.xml file works
 ------------------------------
 
