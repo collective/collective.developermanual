@@ -154,6 +154,24 @@ of type *Page*, they will not appear in ``folder_listing`` anymore.
 From `this thread <http://lists.plone.org/pipermail/plone-product-developers/2012-March/thread.html#11436>`_.
 
 
+orderObjects() to set a key for ordering the items in a particular folder
+=========================================================================
+
+With Plone 4+ an adapter can be registered and used to apply a custom
+order to a particular folder: see ``setOrdering``. The
+``DefaultOrdering`` adapter allows a key to be set for a particular
+folder, and optionally to reverse the order. This can be adjusted via
+a method on the folder::
+
+    context.orderObjects(key="Title", reverse=True)
+
+.. Note::
+
+    Unlike the python sort() and sorted() methods, the key parameter
+    expects an attribute, not a function.
+
+
+
 Enforcing manual sort order
 ==============================
 

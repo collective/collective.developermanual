@@ -108,14 +108,19 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-        sudo apt-get install python-distribute python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
+    sudo apt-get install python-distribute python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
-   You will probably also want these optional system packages (see `Plone manual
-   <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
+   .. note::
 
-   .. code-block:: console
+      In newer versions of Ubuntu and from Debian 6 [Squeeze] on
+      *python-distribute* is replaced by *python-setuptools*.
+
+    You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
+
+    .. code-block:: console
 
         sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils python-imaging
+
 
    Install also version control software needed often when developing with Plone::
 
@@ -139,16 +144,16 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-        wget --no-check-certificate https://launchpad.net/plone/4.1/4.1.4/+download/Plone-4.1.4-UnifiedInstaller.tgz
+        wget --no-check-certificate https://launchpad.net/plone/4.2/4.2.4/+download/Plone-4.2.4-UnifiedInstaller-r3.tgz
 
 5. Run the Plone installer as non-root-userd, standalone‚ mode.:
 
    .. code-block:: console
 
         # Extract the downloaded file
-        tar -xf Plone-4.1.4-UnifiedInstaller.tgz
+        tar -xf Plone-4.2.4-UnifiedInstaller-r3.tgz
         # Go the folder containing installer script
-        cd Plone-4.1.4-UnifiedInstaller
+        cd Plone-4.2.4-UnifiedInstaller
         # Run script
         ./install.sh standalone
 

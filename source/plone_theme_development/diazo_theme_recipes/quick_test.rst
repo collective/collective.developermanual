@@ -23,11 +23,16 @@ You will need to have the following:
 Procedure
 ===========
 
-In your Plone Site go to 'Site Setup' > 'Diazo theme'.
+If you're using Plone 4.2, look for 'Site Setup' > 'Theming'.
+
+.. image:: ../images/sitesetup-cp-4.2.png
+
+In a Plone 4.1 with plone.app.theming you may find the same thing under 'Site Setup' > 'Diazo theme'
+Instead.
 
 .. image:: ../images/sitesetup-cp.png
 
-.. note:: If you don't see the 'Diazo theme' option, go to 'Site Setup' > 'Add-ons', select 'Diazo theme support' and click 'Activate'.
+.. note:: If you don't see anything like the 'Diazo theme' option, go to 'Site Setup' > 'Add-ons', select 'Diazo theme support' and click 'Activate'.
 
 In the Diazo theming control panel click on the 'Advanced Settings' tab.
 
@@ -51,6 +56,28 @@ It should look similar to this screenshot:
 
  .. image:: ../images/plone_theme_dev_theming-test-screenshot.png
 
+Disabling the test theme
+------------------------------
+
+To disable the test theme click on the enable/disable button at the top right.
+Then uncheck the 'Theme enabled' box.
+
+.. image:: ../images/enable-disable-custom-theme.png
+
+How the rule.xml file works
+------------------------------
+
+Think of the rules.xml file as a mapper which uses CSS ids and classes
+to identify content from the Plone site that should be injected into
+an HTML document.
+
+The diagram below explains this visually.
+
+.. image:: ../images/diazothemeexplained-thumb.png
+   :target: .. _clickToZoom: ../diazothemexplained.png
+
+`View an explanatory diagram in PDF format <../diazothemeexplained.pdf>`_
+   
 Troubleshooting
 ------------------
 
