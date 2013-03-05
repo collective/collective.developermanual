@@ -22,3 +22,4 @@ Guide to Plone production deployment
     logs
     packing
     backup
+    old_3
