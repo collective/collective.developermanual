@@ -79,6 +79,7 @@ Installing and maintaining Plone sites
 
    getstarted/installation
    hosting/index
+   reference_manuals/active/deployment/index
 
 Testing and tuning Plone
 -------------------------------------------
