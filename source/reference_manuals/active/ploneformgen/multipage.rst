@@ -26,7 +26,7 @@ An added bonus
 
 .. admonition :: traversing is cool
 
-If you want to create a sequest of forms, where the answers on form_A could lead to a form_B or form_C, you can use a traverse_to override. 
+If you want to create a sequence of forms, where the answers on form_A could lead to a form_B or form_C, you can use a traverse_to override. 
 
 * Create a selection field in form_A, which could be called 'formnext'
 * As valus in the selection field, put the 'path' to the next form in the sequest
