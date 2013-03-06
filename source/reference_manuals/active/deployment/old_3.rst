@@ -68,6 +68,11 @@ We need to upgrade Python 2.4 installation to use latest Distribute (setuptools)
     source venv/bin/activate
     easy_install -U Distribute
 
+We also need Python imaging package and simplejson which are often used libraries::
+
+    easy_install Pillow
+    easy_install simplejson==2.3.3  # PY24 compatible
+
 .. note ::
 
     Old 1.7.2 virtualenv required as above. Latest versions are not Python 2.4 compatible.
@@ -235,3 +240,25 @@ Other troubleshooting
 See and read the source code of
 
 * https://github.com/miohtama/senorita.plonetool
+
+Workaround UnicodeDecodeErrors
+----------------------------------
+
+Old sites may give you plenty of these::
+
+
+    Module Products.CMFCore.ActionInformation, line 151, in getInfoData
+    UnicodeDecodeError: <exceptions.UnicodeDecodeError instance at 0x10f87efc8
+
+Make UTF-8 to Python default encoding::
+
+    cd ~/code/myplone3site
+    nano venv/lib/python2.4/site.py
+
+Change line::
+
+      encoding = "ascii" # Default value set by _PyUnicode_Init()
+
+To::
+
+      encoding = "utf-8" # Default value set by _PyUnicode_Init()
