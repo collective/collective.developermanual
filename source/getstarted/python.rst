@@ -1,5 +1,5 @@
 =======================
- Python, Plone and Zope
+ Python for beginners
 =======================
 
 .. admonition:: Description
@@ -24,3 +24,4 @@ Python Tutorials
 
 * `Dive into Python book <http://www.diveintopython.net/toc/index.html>`_ 
 
+* `Python at codeacademy.org <http://www.codecademy.com/#!/exercises/0>`_
