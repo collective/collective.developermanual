@@ -71,6 +71,13 @@ def get_issues(url):
             return issues
 
 
+def find_issue_by_title(issues, title):
+    for issue in issues:
+        if title == issue['title']:
+            return issue['number']
+    return False
+    
+
 
 def get_comments_on_issue(issue):
     if "comments" in issue \
