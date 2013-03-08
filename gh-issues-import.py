@@ -15,6 +15,7 @@
 
 import os
 
+from termcolor import colored
 import urllib2
 import json
 from StringIO import StringIO
@@ -132,56 +133,95 @@ def import_labels(labels):
 
 def import_issues(issues, dst_milestones, dst_labels):
     for source in issues:
-        labels = []
-        if source.has_key("labels"):
-            for src_label in source["labels"]:
-                name = src_label["name"]
-                for dst_label in dst_labels:
-                    if dst_label["name"] == name:
-                        labels.append(name)
-                        break
-
-        milestone = None
-        if source.has_key("milestone") and source["milestone"] is not None:
-            title = source["milestone"]["title"]
-            for dst_milestone in dst_milestones:
-                if dst_milestone["title"] == title:
-                    milestone = dst_milestone["number"]
+        print colored("Importing issue %s (%s)" % (source["title"], index), 'green')
+        import_issue(source, dst_milestones, dst_labels)
+        print ""
+        
+        
+def import_issue(source, dst_milestones, dst_labels):
+    labels = []
+    if source.has_key("labels"):
+        for src_label in source["labels"]:
+            name = src_label["name"]
+            for dst_label in dst_labels:
+                if dst_label["name"] == name:
+                    labels.append(name)
                     break
 
-        assignee = None
-        if source.has_key("assignee") and source["assignee"] is not None:
-            assignee = source["assignee"]["login"]
+    milestone = None
+    if source.has_key("milestone") and source["milestone"] is not None:
+        title = source["milestone"]["title"]
+        for dst_milestone in dst_milestones:
+            if dst_milestone["title"] == title:
+                milestone = dst_milestone["number"]
+                break
 
-        body = None
-        if source.has_key("body") and source["body"] is not None:
-            body = source["body"]
+    assignee = None
+    if source.has_key("assignee") and source["assignee"] is not None:
+        assignee = source["assignee"]["login"]
 
-        dest = json.dumps({
-            "title": source["title"],
-            "body": body,
-            "assignee": assignee,
-            "milestone": milestone,
-            "labels": labels
-        })
+    body = None
+    if source.has_key("body") and source["body"] is not None:
+        body = source["body"]
 
-        comments = get_comments_on_issue(source)
-        #todo: insert logic on comments if needed
+    # Create issue
+    res_issue = create_issue(dst_url, source["title"], body, assignee, milestone, labels)
+    
+    # Transfer comments
+    comments = get_comments_on_issue(source)
+    import_comments(dst_url, res_issue, comments)
+    
+    # Close issue if required
+    if source['state'] == 'closed':
+        close_issue(dst_url, res_issue)
+    
+    
+    
+    
+def create_issue(url, title, body, assignee, milestone, labels):
+    dest = json.dumps({
+        "title": title,
+        "body": body,
+        "assignee": assignee,
+        "milestone": milestone,
+        "labels": labels
+    })
+    req = urllib2.Request("%s/issues" % url, dest)
+    req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
+    req.add_header("Content-Type", "application/json")
+    req.add_header("Accept", "application/json")
+    try:
+        res = urllib2.urlopen(req)
+    except urllib2.HTTPError:
+        # urllib2.HTTPError: HTTP Error 422: Unprocessable Entity
+        print "  Could not process the issue %s" % dest
+        return
 
-        req = urllib2.Request("%s/issues" % dst_url, dest)
-        req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
-        req.add_header("Content-Type", "application/json")
-        req.add_header("Accept", "application/json")
-        try:
-            res = urllib2.urlopen(req)
-        except urllib2.HTTPError:
-            # urllib2.HTTPError: HTTP Error 422: Unprocessable Entity
-            print "Could not process the issue %s" % dest
-            continue
+    data = res.read()
+    res_issue = json.load(StringIO(data))
+    print "  Successfully created issue %s (%s)" % (res_issue["title"], res_issue["number"])
+    return res_issue
 
-        data = res.read()
-        res_issue = json.load(StringIO(data))
-        print "Successfully created issue %s" % res_issue["title"]
+
+def close_issue(url, issue):
+    dest = json.dumps({"state": "closed"})
+    req = urllib2.Request("%s/issues/%s" % (url, issue["number"]), dest)
+    req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
+    req.add_header("Content-Type", "application/json")
+    req.add_header("Accept", "application/json")
+    try:
+        res = urllib2.urlopen(req)
+    except urllib2.HTTPError:
+        print res.read()
+        # urllib2.HTTPError: HTTP Error 422: Unprocessable Entity
+        print "  Could not process the issue %s" % dest
+        return
+
+    data = res.read()
+    res_issue = json.load(StringIO(data))
+    print "  Successfully closed issue %s (%s)" % (issue["title"], issue["number"])
+
+
 
 def import_comments(url, issue, comments):
     for comment in comments:
