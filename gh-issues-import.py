@@ -37,14 +37,18 @@ dst_url = "https://%s/repos/%s" % (server, dst_repo)
 
 
 def get_milestones(url):
-    response = urllib2.urlopen("%s/milestones?state=open" % url)
+    req = urllib2.Request("%s/milestones" % url)
+    req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
+    response = urllib2.urlopen(req)
     result = response.read()
     milestones = json.load(StringIO(result))
     return milestones
 
 
 def get_labels(url):
-    response = urllib2.urlopen("%s/labels" % url)
+    req = urllib2.Request("%s/labels" % url)
+    req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
+    response = urllib2.urlopen(req)
     result = response.read()
     labels = json.load(StringIO(result))
     return labels
@@ -61,7 +65,9 @@ def get_comments_on_issue(issue):
     if "comments" in issue \
       and issue["comments"] is not None \
       and issue["comments"] != 0:
-        response = urllib2.urlopen("%s/comments" % issue["url"])
+        req = urllib2.Request("%s/comments" % issue["url"])
+        req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
+        response = urllib2.urlopen(req)
         result = response.read()
         comments = json.load(StringIO(result))
         return comments
