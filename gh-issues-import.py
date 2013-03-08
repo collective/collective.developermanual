@@ -55,10 +55,21 @@ def get_labels(url):
 
 
 def get_issues(url):
-    response = urllib2.urlopen("%s/issues" % url)
-    result = response.read()
-    issues = json.load(StringIO(result))
-    return issues
+    index = 1
+    issues = []
+    while True:
+        req = urllib2.Request("%s/issues?page=%s" % (url, index))
+        req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
+        response = urllib2.urlopen(req)
+        result = response.read()
+        new_issues = json.load(StringIO(result))
+        # print new_issues
+        print 'Loaded issues ', index, len(new_issues)
+        issues += new_issues
+        index += 1
+        if not len(new_issues):
+            return issues
+
 
 
 def get_comments_on_issue(issue):
