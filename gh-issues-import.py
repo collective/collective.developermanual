@@ -183,6 +183,32 @@ def import_issues(issues, dst_milestones, dst_labels):
         res_issue = json.load(StringIO(data))
         print "Successfully created issue %s" % res_issue["title"]
 
+def import_comments(url, issue, comments):
+    for comment in comments:
+        import_comment(url, issue['number'], comment)
+    print "  Successfully imported comments in %s (%s)" % (issue["title"], str(issue["number"]))
+
+
+def import_comment(url, issue_number, comment):
+    
+    dest = json.dumps({"body": comment["body"]})
+    req = urllib2.Request("%s/issues/%s/comments" % (url, issue_number), dest)
+    req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
+    req.add_header("Content-Type", "application/json")
+    req.add_header("Accept", "application/json")
+    try:
+        res = urllib2.urlopen(req)
+    except urllib2.HTTPError:
+        print res.read()
+        # urllib2.HTTPError: HTTP Error 422: Unprocessable Entity
+        print "  Could not process the comment %s" % dest
+        return
+
+    data = res.read()
+    res_issue = json.load(StringIO(data))
+    print "  Successfully posted comment in issue %s" % (issue_number)
+    
+    
 
 def main():
     #get milestones and issues to import
