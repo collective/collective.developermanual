@@ -9,7 +9,7 @@
     Used to migrate Github's Plone Conference 2012 temporary repository
     to collective.developermanual issues.
 
-    NOTE: Comments are not imported! See TODO.
+    NOTE: Comments are imported, but their author is not preserved.
 
 """
 
