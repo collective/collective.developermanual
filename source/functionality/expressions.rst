@@ -392,4 +392,8 @@ an add-on installer :doc:`GenericSetup profile </components/genericsetup>`.
 
 See `the full example <https://github.com/collective/collective.scriptedredirect/>`_.
 
+Dynamically hiding content menu items
+----------------------------------------
+
+* http://blog.affinitic.be/2013/03/04/filter-menu-using-a-grok-view/
 
