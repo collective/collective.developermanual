@@ -477,15 +477,18 @@ Custom traversal
 There exist many ways to make your objects traversable:
 
 * ``__getitem__()`` which makes your objects act like Python dictionary.
-  This is the simplest method and recommended.
+  This is the simplest method and recommended. 
 
-* ``__bobo_traverse__()`` which is an archaic method from the early 2000s.
+*  ``IPublishTraverse`` interface. There is an example below and works for
+   making nice urls and path munging. 
 
 * ``ITraversable`` interface. You can create your own traversing hooks.
   ``zope.traversing.interfaces.ITraversable``
   provides an interface traversable objects must provider. You need to
   register ``ITraversable`` as adapter for your content types.  This is only
   for publishing methods for HTTP requests.
+
+* ``__bobo_traverse__()`` which is an archaic method from the early 2000s.
 
 .. warning:: Zope traversal is a minefield. There are different traversers.
    One is the *ZPublisher traverser* which does HTTP request looks.  One is
@@ -531,6 +534,71 @@ Example using ``__getitem__()``::
 
             viewlet.update()
             return viewlet.render()
+
+
+Example using ``IPublishTraverse``::
+
+    from Products.Five.browser import BrowserView
+    from zope.publisher.interfaces import IPublishTraverse
+    from zope.interface import implementer
+    from zope.component import getMultiAdapter
+    from AccessControl import getSecurityManager
+    from AccessControl import Unauthorized
+    from plone import api
+
+    @implementer(IPublishTraverse)
+    class MyUser(BrowserView):
+        """
+        Registered as a browser view at '/user', collect the username and 
+        view name from the url, check security, and display that page. For
+        example, '/user/jjohns/log' will look up the log view for user 
+        'jjohns'
+        """
+        path = []
+    
+        def publishTraverse(self, request, name):
+         # stop traversing, we have arrived
+            request['TraversalRequestNameStack'] = []
+        	# return self so the publisher calls this view
+        	return self
+    
+    
+        def __init__(self, context, request):
+            """ Once we get to __call__, the path is lost so we 
+            capture it here on initialization
+            """
+            super(MyUser, self).__init__(context, request)
+            self.section = 'profile-latest' # default page
+            if len(request.path) == 2:
+                [self.section, profileid] = request.path
+            elif len(self.request.path) == 1:
+                self.section = request.path[0]
+            
+        def __call__(self):
+        	   # do the permission check here, now that Zope has set
+        	   # up the security context. It can't be checked in __init__
+            # because the security manager isn't set up on traverse 
+            self.checkPermission()
+    
+            # XXX: still need to check the permission of the view
+            try:
+                view = api.content.get_view(self.section,
+                                            self.context,
+                                            self.request)
+            except api.exc.InvalidParameterError:
+                # just return the default view
+                view = api.content.get_view('profile-latest',
+                                            self.context,
+                                            self.request)
+            return view()
+        
+        def checkPermission(self):
+            """
+            You might want to do other stuff
+            """
+            raise Unauthorized
+
+
 
 More information:
 
