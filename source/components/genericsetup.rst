@@ -172,7 +172,14 @@ Unit testing example::
 
     # Run the extended profile which will create email_catalog
     setup_tool.runAllImportStepsFromProfile('profile-betahaus.emaillogin:exdended')
-    
+
+Upgrade steps
+==================
+
+If you need to migrate data or settings on new add-on versions
+
+* http://stackoverflow.com/questions/15316583/how-to-define-a-procedure-to-upgrade-an-add-on
+
 Uninstall profile
 ==================
 
