@@ -1,6 +1,6 @@
-=========
-z3c.form
-=========
+==================================
+Python based forms with z3c.form
+==================================
 
 .. admonition:: Description
 
@@ -51,18 +51,18 @@ Related documentation
 
 The form model consists of:
 
-``self.request`` 
+``self.request``
     The incoming HTTP request.
 
-``self.context`` 
+``self.context``
     The Plone content item which was associated with the form view when URL
     traversing was done.
 
-``self.getContent()`` 
+``self.getContent()``
     The actual object extracted from context and manipulated by the form if
     ``ignoreContext`` is not ``False``.
 
-``self.status`` 
+``self.status``
     A message displayed at the top of the form to the user when the form is
     rendered. Usually it will be "Please correct the errors below".
 
@@ -148,6 +148,9 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity:
         schema = IMyForm
         ignoreContext = True
 
+        label = u"What's your name?"
+        description = u"Simple, sample form"
+
         @button.buttonAndHandler(u'Ok')
         def handleApply(self, action):
             data, errors = self.extractData()
@@ -186,7 +189,7 @@ To set the form status message::
 Emulating form HTTP POST in unit tests
 ----------------------------------------
 
-* The HTTP request must include at least one buttons field. 
+* The HTTP request must include at least one buttons field.
 
 * Form widget naming must match HTTP post values. Usually widgets have
   ``form.widgets`` prefix.
@@ -225,7 +228,7 @@ Changing form ACTION attribute
 By default, the HTTP ``POST`` request is made to ``context.absolute_url()``.
 However you might want to make the post go to an external server.
 
-* See `how to set <form> action attribute <http://pypi.python.org/pypi/plone.app.z3cform#form-action>`_ 
+* See `how to set <form> action attribute <http://pypi.python.org/pypi/plone.app.z3cform#form-action>`_
 
 Customizing form template
 --------------------------
@@ -340,17 +343,17 @@ And corresponding template ``edit_header.pt``
 Fields
 ======
 
-A field is responsible for: 
-1) pre-populating form values from context 
+A field is responsible for:
+1) pre-populating form values from context
 2) storing data to context after successful ``POST``.
 
-Form fields are stored in the ``form.fields`` variable, 
+Form fields are stored in the ``form.fields`` variable,
 which is an instance of the ``Fields`` class (ordered, dictionary-like).
 
 Creating a field
 ----------------
 
-Fields are created by adapting one or more ``zope.schema`` fields 
+Fields are created by adapting one or more ``zope.schema`` fields
 for ``z3c.form`` using the ``Fields()`` constructor.
 
 Example of creating one field::
@@ -466,7 +469,7 @@ editable::
 .. note::
 
     You can also set ``z3c.form.interfaces.DISPLAY_MODE`` in
-    ``updateWidgets()`` 
+    ``updateWidgets()``
     if you are not dynamically poking form fields themselves.
 
 .. warning::
@@ -477,7 +480,7 @@ editable::
 
 .. note::
 
-    ``zope.schema.Field`` has a ``readonly`` property. 
+    ``zope.schema.Field`` has a ``readonly`` property.
     ``z3c.form.field.Field`` does not have this property,
     but has the ``mode`` property. Do not confuse these two.
 
@@ -549,7 +552,7 @@ E.g. to make "Accept Terms and Conditions" checkbox
 Widgets
 =======
 
-Widget are responsible for 
+Widget are responsible for
 1) rendering HTML code for input;
 2) parsing HTTP post input.
 
@@ -567,7 +570,7 @@ A widget has two names:
       Lookups from ``form.widgets[]`` can be done using this name.
 
     * ``widget.name`` is the decorated name used in HTML code.
-      It has the format 
+      It has the format
       ``${form name}.${field set name}.${widget.__name__}``.
 
 The Zope publisher will also mangle widget names based on what kind of input
@@ -581,7 +584,7 @@ Setting a widget for a field
 plone.directives.form way
 ``````````````````````````````````````````````````````
 
-See examples on `plone.directives.form page <http://pypi.python.org/pypi/plone.directives.form#form-widget-hints>`_ 
+See examples on `plone.directives.form page <http://pypi.python.org/pypi/plone.directives.form#form-widget-hints>`_
 
 Dynamically in ``Form.update()``
 ``````````````````````````````````````````````````````
@@ -592,9 +595,9 @@ Example from `collective.z3cform.datagridfield_demos <https://github.com/collect
 
     class EditForm9(EditForm):
         label = u'Rendering widgets as blocks instead of cells'
-    
+
         grok.name('demo-collective.z3cform.datagrid-block-edit')
-    
+
         def update(self):
             # Set a custom widget for a field for this form instance only
             self.fields['address'].widgetFactory = BlockDataGridFieldFactory
@@ -636,7 +639,7 @@ Example::
 Reordering and hiding widgets
 ------------------------------
 
-With Dexterity forms you can use 
+With Dexterity forms you can use
 `plone.directives.fotm <http://pypi.python.org/pypi/plone.directives.form>`_::
 
     from z3c.form.interfaces import IAddForm, IEditForm
@@ -836,7 +839,7 @@ factory, and uses it for one field in one form::
             self.widgets["animation"].download_url = "http://mymagicalurl.com"
 
 
-Alternatively, you can use 
+Alternatively, you can use
 `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_
 to add widget hints to form schema.
 
@@ -854,7 +857,7 @@ values as a member attribute of the object returned by ``form.getContent()``.
 Widget value
 ------------
 
-The widget value, either from form ``POST`` or previous context data, 
+The widget value, either from form ``POST`` or previous context data,
 is available as ``widget.value`` after the ``form.update()`` call.
 
 
@@ -912,7 +915,7 @@ Setting the template of an individual widget
 =================================================
 
 First copy the existing page template code of the widget.
-For basic widgets you can find the template in the 
+For basic widgets you can find the template in the
 `z3c.form source tree
 <http://svn.zope.org/z3c.form/trunk/src/z3c/form/browser/>`_.
 
@@ -1107,6 +1110,28 @@ The default ``z3c.form.form.AddForm`` and ``z3c.form.form.EditForm``
 examples.
 
 * http://svn.zope.org/z3c.form/trunk/src/z3c/form/form.py?rev=114824&view=auto
+
+Adding buttons conditionally
+----------------------------
+
+The ``buttonAndHandler`` decorator can accept a condition argument.
+The condition should be a function that accepts the form as an argument and returns a boolean.
+Example, a button that only shows when a condition is met::
+
+    @button.buttonAndHandler(
+        u"Delete Event",
+        name="handleDelete",
+        condition=lambda form: form.okToDelete()
+        )
+    def handleDelete(self, action):
+        """
+            Delete this event.
+        """
+
+        ...
+
+        self.status = "Event deleted."
+
 
 Manipulating form buttons programmatically
 -------------------------------------------
@@ -1456,7 +1481,7 @@ Example::
 .. note::
 
     Since ``getContent()`` is also used in ``applyChanges()``, you need to
-    override ``applyChanges()`` as well 
+    override ``applyChanges()`` as well
     to save values correctly to a persistent object.
 
 Custom change applying
@@ -1523,7 +1548,7 @@ Since ``plone.app.z3cform`` 0.5.0 the behavior goes like this:
 
 * Plone 4 forms are unwrapped
 
-The wrapper is a ``plone.z3cform.interfaces.IWrappedForm`` 
+The wrapper is a ``plone.z3cform.interfaces.IWrappedForm``
 :doc:`marker interface </components/interfaces>`
 on the form object, applied it after the form instance has been constructed.
 If this marker interface is not applied,
@@ -1593,7 +1618,7 @@ You need the following:
 * A form wrapper template which renders the frame around the form.
   The default version renders the whole Plone page frame ---
   you don't want this when the form is embedded,
-  otherwise you get infinite recursion 
+  otherwise you get infinite recursion
   (plone page having a form having a plone page...)
 
 * Portlet/viewlet template which refers to the form
@@ -1896,8 +1921,73 @@ Introduction
 
 Please read `Dexterity manual validators chapter <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms/customising-form-behaviour/referencemanual-all-pages>`_.
 
-Adding validators
--------------------
+There are three kind of validation hooks you can use with z3c.form
+
+* zope.schema field parameter specific
+
+* zope.schema @invariant (validation is model specific)
+
+* zope.schema constrain (validation is model specific)
+
+* z3c.form (validation is bound ot the form instance)
+
+Field specific internal validators
+````````````````````````````````````````````````````
+
+When you define your field with *zope.schema*
+you can enable flags for field internal validation.
+This include e.g.
+
+* ``required`` is field required on the form or not
+
+* ``min`` and ``max`` for number based fields
+
+Example::
+
+    class LocalizationOfStenosisForm(form.Schema):
+
+        degreeOfStenosis = schema.Float(
+            title=u"Degree of stenosis %",
+            required=False,
+            min=0.0,
+            max=100.0
+            )
+
+For available internal validation options, see the field source code in zope.schema package.
+
+Constrain validators
+````````````````````````````````````````````````````
+
+zope.schema fields take a callable argument ``constrain``
+which defines a Python function validating the incoming value.
+
+Example::
+
+    import zope.interface
+
+    def lastNameConstraint(value):
+         if value and value == value.lower():
+             raise zope.interface.Invalid(u"Name must have at least one capital letter")
+         return True
+
+    class IPerson(zope.interface.Interface):
+
+         lastName = zope.schema.TextLine(
+             title=u'Last Name',
+             description=u"The person's last name.",
+             default=u'',
+             required=True,
+             constraint=lastNameConstraint)
+
+For more information, see ``zope.schema`` documentation.
+
+Invariant validators
+``````````````````````````
+
+TODO: Are invariants useful with z3c.form??
+
+Form widget validators
+``````````````````````````
 
 Validators are best added in the schema itself.
 
@@ -1908,7 +1998,7 @@ Validators are best added in the schema itself.
   <http://pypi.python.org/pypi/plone.directives.form#validators>`_ package
   provides convenient decorators for form validators.
   If you use ``plone.form.directives`` validators, make sure your package
-  is :doc:`grokked </components/grok>` 
+  is :doc:`grokked </components/grok>`
   (otherwise validators are not registered).
 
 Example: How to use widget specific validators with ``z3c.form``::

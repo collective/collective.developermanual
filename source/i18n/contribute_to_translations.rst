@@ -67,6 +67,9 @@ French:
 Please do a ``git pull`` before editing a po file to be sure you have the latest
 version.
 
+Committing directly (commit access)
+-------------------------------------
+
 You can commit your translation from this locales directory:
 
 .. code-block:: console
@@ -74,6 +77,28 @@ You can commit your translation from this locales directory:
     git commit -a -m "Updated French translation"
     git push
 
+
+Creating a pull request (no commit access)
+--------------------------------------------------------------------------
+
+If you do not have commit access on Github `collective group <https://github.com/collective>´_.
+you can do the following::
+
+Login to Github. Go to Github `plone.app.locales <https://github.com/collective/plone.app.locales>`_
+
+Press *Fork*. Now Github creates a copy of ``plone.app.locales`` package for you.
+
+Then on your computer in ``plone.app.locales`` do a special git push to your own repository::
+
+    git push git@github.com:YOURUSERNAMEHERE/plone.app.locales.git
+
+Go to Github ``https://github.com/YOURUSERNAME/plone.app.locales``
+
+Press button *Create Pull request*. Fill it in.
+
+The request will appear for *plone.app.locales* authors.
+If it does not get merged in timely manner, poke people on the #plone IRC channel
+or the mailing list below (sometimes requests go unnoticed).
 
 Support
 =======

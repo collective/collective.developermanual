@@ -76,6 +76,11 @@ Get the user's name::
 
     member.getName()
 
+Reseting user password without emailing them
+-----------------------------------------------
+
+* https://plone.org/documentation/kb/reset-a-password-without-having-to-email-one-to-the-user
+
 Exporting and importing member passwords
 ----------------------------------------
 

@@ -46,6 +46,10 @@ You need to stop the site first.
 You also cannot override an existing ``admin`` user, so you probably want to
 add ``admin2``.
 
+More info
+
+* https://plone.org/documentation/faq/locked-out
+
 Timezone
 ==========
 

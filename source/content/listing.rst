@@ -154,6 +154,24 @@ of type *Page*, they will not appear in ``folder_listing`` anymore.
 From `this thread <http://lists.plone.org/pipermail/plone-product-developers/2012-March/thread.html#11436>`_.
 
 
+orderObjects() to set a key for ordering the items in a particular folder
+=========================================================================
+
+With Plone 4+ an adapter can be registered and used to apply a custom
+order to a particular folder: see ``setOrdering``. The
+``DefaultOrdering`` adapter allows a key to be set for a particular
+folder, and optionally to reverse the order. This can be adjusted via
+a method on the folder::
+
+    context.orderObjects(key="Title", reverse=True)
+
+.. Note::
+
+    Unlike the python sort() and sorted() methods, the key parameter
+    expects an attribute, not a function.
+
+
+
 Enforcing manual sort order
 ==============================
 
@@ -508,10 +526,7 @@ you need to tailor it for your specific needs.
           i18n:domain="yourproduct.namespace">
     <body>
         <div metal:fill-slot="main">
-            <tal:main-macro metal:define-macro="main"
-               tal:define="kssClassesView context/@@kss_field_decorator_view;
-                           getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
-                           ">
+            <tal:main-macro metal:define-macro="main">
 
 
                 <div tal:replace="structure provider:plone.abovecontenttitle" />
@@ -532,7 +547,8 @@ you need to tailor it for your specific needs.
 
                     <tal:block tal:repeat="item batch">
                         <div class="tileItem visualIEFloatFix vevent"
-                             tal:define="item_url item/getURL|item/absolute_url;
+                             tal:define="normalizeString nocall: context/plone_utils/normalizeString;
+                                               item_url item/getURL|item/absolute_url;
                                                item_id item/getId|item/id;
                                                item_title_or_id item/pretty_title_or_id;
                                                item_description item/Description;
@@ -839,3 +855,62 @@ Example code::
                 return []
             return items
 
+
+
+Empty listing view
+======================================
+
+Sometimes you want a show folder without listing its content.
+You can create a :doc:`dynamic view </content/dynamic_views>`
+in your add-on which is available from *Display...* menu.
+
+Example ``configure.zcml`` bit
+
+.. code-block:: xml
+
+    <browser:page
+        name="empty-listing"
+        for="Products.CMFCore.interfaces.IFolderish"
+        permission="zope2.View"
+        layer=".interfaces.IThemeSpecific"
+        template="empty-listing.pt"
+        />
+
+Example ``empty-listing.pt``
+
+.. code-block:: html
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="example.dexterityforms"
+          metal:use-macro="context/main_template/macros/master">
+
+        <metal:block fill-slot="content-title">
+        </metal:block>
+
+
+        <metal:block fill-slot="content-core">
+        </metal:block>
+
+    </html>
+
+Example ``profiles/default/types/Folder.xml``
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object name="Folder"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="plone"
+        meta_type="Factory-based Type Information with dynamic views" >
+        <property name="view_methods" purge="False">
+            <!-- We retrofit these new views for Folders in portal_types info -->
+            <element value="empty_listing"/>
+        </property>
+    </object>
+
+Reinstall your add-on.
+
+*empty-listing* should appear in *Display...* menu.

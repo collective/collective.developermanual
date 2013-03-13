@@ -17,7 +17,7 @@ import os
 THE_OTHERS = {
     "plone.api": "../../../src/plone.api/docs",
     "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
-    "tutorials.todoapp": "../../../src/tutorials.todoapp/docs",
+    "tutorials.todoapp": "../../../src/tutorials.todoapp",
     "ploneorg.admin": "../../../src/ploneorg.admin/docs"
 }
 
@@ -33,7 +33,8 @@ THE_OTHERS = {
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
         'sphinx.ext.autodoc',
-        'sphinx.ext.todo'
+        'sphinx.ext.todo',
+#        'sphinxcontrib.contributors'
 #              'collective.sphinx.autoatschema',
 #              'collective.sphinx.includedoc'
     ]
@@ -228,6 +229,12 @@ html_use_index = False
 # Don't copy sources with output HTML, as they live on GitHub
 html_copy_source = False
 
+# List .rst files which do not go into to the doc build
+exclude_patterns = [
+    "reference_manuals/external/plone.api/content.rst",  # Not in index
+    "reference_manuals/external/tutorials.todoapp/README.rst",  # Not in index
+]
+
 
 def create_symlinks_for_external_docs():
     """
@@ -240,7 +247,7 @@ def create_symlinks_for_external_docs():
         target_path = os.path.join(target, pkg)
 
         # Try to clean up broken symlinks
-        if not os.path.exists(os.readlink(target_path)):
+        if os.path.exists(target_path) and os.path.exists(os.readlink(target_path)):
             os.remove(target_path)
 
         # print os.path.abspath(folder), os.path.abspath(target_path)
@@ -255,4 +262,5 @@ def create_symlinks_for_external_docs():
 try:
     create_symlinks_for_external_docs()
 except Exception as e:
+    import traceback ; traceback.print_exc()
     pass

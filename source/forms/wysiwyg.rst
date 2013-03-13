@@ -1,6 +1,6 @@
-==================
-WYSIWYG text edit
-==================
+====================================
+WYSIWYG text editing and TinyMCE
+====================================
 
 .. admonition:: Description
 
@@ -15,6 +15,32 @@ Plone supports TinyMCE (default), Kupu and CKEditor.
 
 TinyMCE and Plone integration
 is distributed in `Products.TinyMCE package <http://pypi.python.org/pypi/Products.TinyMCE>`_.
+
+Disabling HTML filtering and safe HTML transformation
+---------------------------------------------------------
+
+By default Plone does HTML filtering to prevent `cross-site scripting <http://en.wikipedia.org/wiki/Cross-site_scripting>`_
+attacks. This will make Plone to strip away from HTML
+
+* `<script>` tags
+
+* Some other potentially unsafe tags and attributes
+
+If you need to put `<scrip>` tag on your content text in TinyMCE you can disable this security feature.
+
+.. warning::
+
+        If you don't trust all of your site editors, then this will open your site for an attack.
+
+In the Zope Management Interface, at the top of a Plone site, go to portal_transforms and open the safe_html transform. Disable it by putting a "1" in the disable_transform field and saving.
+
+A site restart might be required depending on Plone version.
+
+More info
+
+* http://stackoverflow.com/questions/5796643/make-plone-accept-any-html-input
+
+
 
 Content linking
 ---------------------
@@ -114,10 +140,6 @@ Rich text transformations
 
 * http://pypi.python.org/pypi/plone.app.textfield
 
-Disabling safe HTML transformation
-======================================
-
-* http://stackoverflow.com/questions/5796643/make-plone-accept-any-html-input
 
 Hacking TinyMCE Javascript
 ---------------------------

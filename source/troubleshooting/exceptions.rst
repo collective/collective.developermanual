@@ -1086,6 +1086,16 @@ POSKeyError
 POSKeyError is when the database has been unable to convert a reference to an object into the object itself
 It's a low level error usually caused by a corrupt or incomplete database.
 
+* You did not copy blobs when you copied Data.fs
+
+* Your data is corrupted
+
+* Glitch in database (very unlikely)
+
+More info
+
+* http://rpatterson.net/blog/poskeyerror-during-commit
+
 Zope suddenly dies on OSX without a reason
 -------------------------------------------
 
@@ -1805,7 +1815,7 @@ In debug shell you can also check what all leftoverts toolset contains::
         'portal_repository', 'reference_catalog', 'portal_groupdata', 'portal_search_and_replace',
         'portal_atct', 'mimetypes_registry', 'portal_purgepolicy', 'formgen_tool', 'uid_catalog',
         'error_log', 'portal_modifier', 'portal_discussion', 'portal_actionicons', 'portal_calendar', 'portal_metadata', 'portal_url',
-        'portal_kss', 'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel',
+        'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel',
         'portal_uidannotation', 'portal_transforms', 'portal_memberdata', 'portal_javascripts', 'portal_registration', 'portal_css',
         'portal_facets_catalog', 'portal_password_reset', 'plone_utils', 'caching_policy_manager',
         'portal_historiesstorage', 'portal_undo', 'portal_placeful_workflow', 'translation_service',
@@ -2051,3 +2061,20 @@ Example traceback::
 
 Plone 3 > Plone 4 migration has not been run. Run the migration
 in *portal_migrations* under ZMI.
+
+
+Archetypes: TypeError: getattr(): attribute name must be string
+------------------------------------------------------------------
+
+Example::
+
+	       'user': <PropertiedUser 'admin'>}
+	  Module Products.PageTemplates.ZRPythonExpr, line 48, in __call__
+	   - __traceback_info__: otherwidget.Description(here, target_language=target_language)
+	  Module PythonExpr, line 1, in <expression>
+	  Module Products.Archetypes.generator.widget, line 100, in Description
+	TypeError: getattr(): attribute name must be string
+
+You might have used something else besides string or translation string
+to define Archetypes widget name or description.
+

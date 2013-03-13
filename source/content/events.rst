@@ -129,6 +129,48 @@ More info:
 
 * https://github.com/plone/Products.ATContentTypes/blob/master/Products/ATContentTypes/browser/calendar.py#L25
 
+Purging old events
+=======================
+
+After the event end day the event stays visible in Plone listings.
+
+You need to have a special janiator script / job if you want to get old events 
+deleted from your site after they have been passed.
+
+Below is a ZMI script which will delete events which are more than 30 days past their ending date::
+
+     
+     from StringIO import StringIO
+     import DateTime
+     
+     buf = StringIO()
+     
+     # DateTime deltas are days as floating points
+     # Select events which have the event ending date more than one month in past
+     end = DateTime.DateTime() - 30*1
+     start = DateTime.DateTime(2000, 1,1)
+     
+     date_range_query = { 'query':(start,end), 'range': 'min:max'}
+     
+     items = context.portal_catalog.queryCatalog({
+                 "Language": "all", # Bypass LinguaPlone language check
+                 "portal_type":["CompanyEvent", "VSEvent"],
+                 "end" : date_range_query,
+                 "sort_on" : "created" })
+     
+     items = list(items)
+     
+     print >> buf, "Found %d items to be purged" % len(items)
+     
+     count = 0
+     for b in items:
+         count += 1
+         obj = b.getObject()
+         print >> buf, "Deleting:" + obj.absolute_url() + " " + str(obj.created())
+         obj.aq_parent.manage_delObjects([obj.getId()])
+     
+     return buf.getvalue()
+
 
 Recurrence calendar support in Plone 3
 ======================================
@@ -423,4 +465,5 @@ Further reading
 Required :term:`ZCML` for the indexing::
 
     <adapter factory=".indexing.recurrence_days"/>
+
 

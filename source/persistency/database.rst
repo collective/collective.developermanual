@@ -212,6 +212,13 @@ and there are no problems due to low level disk corruption or bit flip.
         This is the only way to detect corruption which would otherwise go unnoticed
         for a long time.
 
+Restart and cache warm-up
+===========================
+
+Discussion why Plone is slow after restart 
+
+* https://mail.zope.org/pipermail/zodb-dev/2013-March/014935.html
+
 Recovering old data
 ======================
 

@@ -30,11 +30,15 @@ these tutorials serve as a starting point.
 
 * :doc:`Add-ons: how Plone add-ons are created <getstarted/index>`
 
-* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/index>`
-
 * :doc:`Archetypes: Building content types on Plone with Archetypes content subsystem <reference_manuals/old/archetypes/index>`
 
-* :doc:`Theming: Creating Plone 3 theme (not yet complete) <reference_manuals/external/tutorials.todoapp/index>`
+* :doc:`Dexterity: Building TODO application on Plone with Dexterity content subsystem <reference_manuals/external/tutorials.todoapp/docs/index>`
+
+* :doc:`Hello World: Creating z3c.form, Archetypes content type and Zope 3 Browser View <reference_manuals/active/helloworld/index>`
+
+* :doc:`Theming: Creating Plone 3 theme (unfinished) <reference_manuals/old/plone_3_theming/index>`
+
+* :doc:`Creating forms with PloneFormGen add-on without programming </reference_manuals/active/ploneformgen/getting_started>`
 
 Programming Plone
 -------------------------------------------
@@ -75,6 +79,7 @@ Installing and maintaining Plone sites
 
    getstarted/installation
    hosting/index
+   reference_manuals/active/deployment/index
 
 Testing and tuning Plone
 -------------------------------------------
@@ -103,7 +108,7 @@ Manuals
 
 These manuals apply to the current best practices of Plone development.
 They are in their own separate section due to the length of narrative explanation
-and having the documentation source code hosted in an external package.
+or having the documentation source code hosted in an external package.
 
 .. toctree::
     :maxdepth: 1
@@ -111,6 +116,11 @@ and having the documentation source code hosted in an external package.
     reference_manuals/external/plone.api/index
     reference_manuals/external/Products.TinyMCE/index
     reference_manuals/external/ploneorg.admin/index
+    reference_manuals/external/tutorials.todoapp/docs/index
+    reference_manuals/external/plone.api/api/index
+    reference_manuals/active/helloworld/index
+    reference_manuals/active/ploneformgen/index
+    reference_manuals/active/deployment/index
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
@@ -142,6 +152,7 @@ Old manuals
     reference_manuals/old/pluggable_authentication_service/index.rst
     reference_manuals/old/testing/index
     reference_manuals/old/zope_secrets/index
+    reference_manuals/old/formlib/index
 
 :doc:`More information about the documentation deprecation process </reference_manuals/active/writing/nursinghome>`.
 
@@ -163,6 +174,7 @@ Other
    :maxdepth: 1
 
    glossary
+   moved_content
 
 
 

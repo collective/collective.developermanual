@@ -9,7 +9,7 @@ PloneTestCase tests
     everything you do. Don't worry, it's not boring or complicated, you just
     need to learn how.
 
-.. warn ::
+.. warning ::
 
     Technologies presented here are for Plone 3.x and older.
 

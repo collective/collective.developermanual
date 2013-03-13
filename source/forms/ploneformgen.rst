@@ -2,80 +2,23 @@
 PloneFormGen
 ============
 
-.. admonition :: Description    
+.. admonition :: Description
 
-        PloneFormGen is a contentish editor for creating
-        Plone forms through Plone edit interface.
-        
+        PloneFormGen allows you to build and maintain convenience forms through Plone edit interface.
+
 Introduction
 ------------
 
+*PloneFormGen* is a Plone add-on Product that provides a generic Plone form generator using fields, widgets and validators from Archetypes. Use it to build simple, one-of-a-kind, web forms that save or mail form input.
+
+To build a web form, create a form folder, then add form fields as contents. Individual fields can display and validate themselves for testing purposes. The form folder creates a form from all the contained field content objects.
+
+Final disposition of form input is handled via plug-in action products. Action adapters included with this release include a mailer, a save-data adapter that saves input in tab-separated format for later download, and a custom-script adapter that makes it possible to script simple actions without recourse to the Zope Management Interface.
+
+To make it easy to get started, newly created form folders are pre-populated to act as a simple e-mail response form.
+
 * `PloneFormGen product page <http://plone.org/products/ploneformgen>`_
 
-Creating content items from form submission
--------------------------------------------
+* :doc:`PloneFormGen documentation and tutorials </reference_manuals/active/ploneformgen/index>`
 
-* http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg
-
-Integrating custom field types
-------------------------------
-
-* http://svn.plone.org/svn/collective/Products.PloneFormGen/fields/PFGDataGrid/trunk/
-
-Fail-safe email sending
--------------------------
-
-By default if SMTP server rejects the message send by PloneFormGen
-the page will crash with an exception. Possible reasons for SMTP failure are
-
-* SMTP server is down
-
-* SMTP server is overloaded
-
-* SMTP server spam protection is giving false positives for your email sending attempts 
-
-If you have a situation where gathering the data is critical 
-the following process is appropriate
-
-* Use save data adapter to save results
-
-* Use a custom email sender script adapter to send email and even if this
-  step fails then the data is saved and no exception is given to the user
-  
-Example PloneFormGen script adapter (using proxy role Manager)::
-   
-
-	# -*- coding: utf-8 -*-
-	from Products.CMFCore.utils import getToolByName
-
-	# This script will send email to several recipients
-	# each written down to its own email field
-	# whose id starts with "email-"
-	emails = []
-
-	for key in fields:
-	  if key.startswith('email-'):
-	    if fields[key] != '':
-	      emails.append(fields[key])
-
-
-	mailhost = getToolByName(ploneformgen, 'MailHost')
-
-	subject = "Huuhaa"
-
-	# Custom message with a name filled in
-	message = u"""Hello,
-	
-	Thanks for participating %s !
-	Cheers,
-	http://www.opensourcehacker.com
-	""" % (fields['etunimi'])
-
-	source = "info@opensourcehacker.com"
-
-	for email in emails:
-	  try:
-	    mailhost.secureSend(message, email, source, subject=subject, subtype='plain', charset="utf-8", debug=False, From=source)
-	  except Exception:
-	    pass
-		
+* :doc:`Creating forms with PloneFormGen add-on without programming </reference_manuals/active/ploneformgen/getting_started>`

@@ -298,6 +298,28 @@ Example::
             portal context/portal_url/getPortalObject;
             portal_description portal/Description"
 
+Doing <input CHECKED> and boolean like HTML attributes in TAL
+------------------------------------------------------------------------------------
+
+To have a value appear in TAL or not you can do::
+
+   <input type="checkbox" tal:attributes="checked python:'checked' if MYCONDITION else ''" />
+
+We execute a Python snippet which 
+
+* We will dynamically create a *checked* attribute on `<input>` based on Python evaluation
+
+* Return "checked" string if some condition we check in Python evaluates to True
+
+* Otherwise we return an empty string and TAL won't output this attribute (TODO: has TAL some special support for
+  CHECKED and SELECTED attributes)
+
+.. note ::
+
+    Python 2.6, Plone 4+ syntax
+
+     
+
 Through-the-web scripts
 ========================
 
@@ -370,4 +392,8 @@ an add-on installer :doc:`GenericSetup profile </components/genericsetup>`.
 
 See `the full example <https://github.com/collective/collective.scriptedredirect/>`_.
 
+Dynamically hiding content menu items
+----------------------------------------
+
+* http://blog.affinitic.be/2013/03/04/filter-menu-using-a-grok-view/
 

@@ -132,6 +132,32 @@ See https://github.com/plone/Products.LinguaPlone/blob/07c754012e942fe5e12834b51
 
 .. todo:: Why link to a particular (ancient) tag?
 
+Language neutral links
+=========================
+
+In many cases you want to create links to a different language content.
+For example, fallback to English content when the native version of content is not available.
+
+Plone's reference and link widgets often fail to create links between language barries.
+
+Here is a workaround
+
+* Create a folder in the site root 
+
+* Set the folder language neutral on Edit > Metadata tab
+
+* In this folder, create Link content items where the Link target is the 
+  English content. Also, on the link item Metadata set its Language to neutral.
+
+* These links are searcable regardless of the edited content language and can be
+  used in references in the widgets
+
+* When the end user, not editor, clicks link the Link content type takes 
+  him/her to the actual English content
+
+You may also find `redturtle.smartlink <http://pypi.python.org/pypi/redturtle.smartlink/>`_ 
+as useful add-on.
+
 Serving translated content from a correct domain name
 =======================================================
 

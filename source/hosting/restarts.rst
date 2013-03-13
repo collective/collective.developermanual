@@ -83,12 +83,89 @@ add the script to dependency-based booting::
 Where ``start_plone.sh`` is an executable init script placed in /etc/init.d,
 insserv will produce no output if everything went OK. Examine the error code in $? if you want to be sure.
 
+This another example (/etc/init.d/plone)::
+
+    #!/bin/sh
+
+    ### BEGIN INIT INFO
+    # Provides:          plone
+    # Required-Start:    $syslog $remote_fs
+    # Required-Stop:     $syslog $remote_fs
+    # Should-Start:      $remote_fs
+    # Should-Stop:       $remote_fs
+    # Default-Start:     2 3 4 5
+    # Default-Stop:      0 1 6
+    # Short-Description: Start plone instances
+    # Description:       Start the instances located at /srv/Plone/zeocluster/bin/plonectl
+    ### END INIT INFO
+
+    PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+    [ -f /srv/Plone/zeocluster/bin/plonectl ] || exit 0
+
+    DAEMON=/srv/Plone/zeocluster/bin/plonectl
+    NAME="plone "
+    DESC="daemon zeoserver & client"
+
+    . /lib/lsb/init-functions
+
+    case "$1" in
+        start)
+            log_daemon_msg "Starting $DESC" "$NAME"
+            if start-stop-daemon --quiet --oknodo --chuid plone:plone \
+                                 --exec ${DAEMON} --start start
+            then
+                log_end_msg 0
+            else
+                log_end_msg 1
+            fi
+            ;;
+
+        stop)
+            log_daemon_msg "Stopping $DESC" "$NAME"
+            if start-stop-daemon --quiet --oknodo --chuid plone:plone \
+                                 --exec ${DAEMON} --start stop
+            then
+                log_end_msg 0
+            else
+                log_end_msg 1
+            fi
+            ;;
+
+        restart)
+            log_daemon_msg "Restarting $DESC" "$NAME"
+            if start-stop-daemon --quiet --oknodo --chuid plone:plone \
+                                 --exec ${DAEMON} --start restart
+            then
+                log_end_msg 0
+            else
+                log_end_msg 1
+            fi
+            ;;
+
+        status)
+            start-stop-daemon --chuid plone:plone \
+                                --exec ${DAEMON} --start status
+            ;;
+
+        force-reload)
+            echo "Plone doesn't support force-reload, use restart instead."
+            ;;
+
+        *)
+            echo "Usage: /etc/init.d/plone {start|stop|status|restart}"
+            exit 1
+            ;;
+    esac
+
+    exit 0
+
 Make sure to read:
 
 http://wiki.debian.org/LSBInitScripts
 
 
-crontab
+Crontab
 =======
 
 These instructions apply for Debian-based Linuxes.
@@ -98,7 +175,7 @@ Example crontab of *yourploneuser*::
     @reboot /srv/plone/yoursite/bin/instance start
 
 ``rc.local`` script
---------------------
+===================
 
 For Debian-based Linuxes, add the following line to the ``/etc/rc.local`` script:
 

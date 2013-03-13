@@ -1,5 +1,5 @@
 ==========================
- Portlet
+ Portlets
 ==========================
 
 .. admonition:: Description
@@ -19,7 +19,12 @@ This document is contains quick how-to information only.
 Please visit :doc`Portlets reference manual </reference_manuals/portlets/index>`
 for in-depth information.
 
+Related add-ons and packages
+------------------------------
+
 Some related add-ons
+
+* https://github.com/collective/collective.portletalias
 
 * http://plone.org/products/contentwellportlets
 
@@ -395,102 +400,96 @@ Below is an example how to render a portlet in Plone
 
 How to get your portlet HTML::
 
-        import Acquisition
-        from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
-        from plone.portlets.interfaces import IPortletRetriever, IPortletManager, IPortletRenderer
+from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
+    from plone.portlets.interfaces import IPortletRetriever, IPortletManager, IPortletRenderer
+    from plone.portlets.interfaces import IPortletManagerRenderer
 
-        def get_portlet_manager(column):
-            """ Return one of default Plone portlet managers.
 
-            @param column: "plone.leftcolumn" or "plone.rightcolumn"
+    from Products.Five import BrowserView
 
-            @return: plone.portlets.interfaces.IPortletManagerRenderer instance
-            """
-            manager = getUtility(IPortletManager, name=column)
-            return manager
 
-        def render_portlet(context, request, view, manager, interface):
-            """ Render a portlet defined in external location.
-
-            .. note ::
-
-                Portlets can be idenfied by id (not user visible)
-                or interface (portlet class). This method supports look up
-                by interface and will return the first matching portlet with this interface.
-
-            @param context: Content item reference where portlet appear
-
-            @param manager: IPortletManagerRenderer instance
-
-            @param view: Current view or None if not available
-
-            @param interface: Marker interface class we use to identify the portlet. E.g. IFacebookPortlet
-
-            @return: Rendered portlet HTML as a string, or empty string if portlet not found
-            """
-
-            retriever = getMultiAdapter((context, manager), IPortletRetriever)
-
-            portlets = retriever.getPortlets()
-
-            assignment = None
-
-            for portlet in portlets:
-
-                # portlet is {'category': 'context', 'assignment': <FacebookLikeBoxAssignment at facebook-like-box>, 'name': u'facebook-like-box', 'key': '/isleofback/sisalto/huvit-ja-harrasteet
-                # Identify portlet by interface provided by assignment
-                if interface.providedBy(portlet["assignment"]):
-                    assignment = portlet["assignment"]
-                    break
-
-            if assignment is None:
-                # Did not find a portlet
-                return ""
-
-            #- A special type of content provider, IPortletRenderer, knows how to render each
-            #type of portlet. The IPortletRenderer should be a multi-adapter from
-            #(context, request, view, portlet manager, data provider).
-
-            renderer = queryMultiAdapter((context, request, view, manager, assignment), IPortletRenderer)
-
-            # Make sure we have working acquisition chain
-            renderer = renderer.__of__(context)
-
-            if renderer is None:
-                raise RuntimeError("No portlet renderer found for portlet assignment:" + str(assignment))
-
-            renderer.update()
-            # Does not check visibility here... force render always
-            html = renderer.render()
-
-            return html
-
-How to use this code in your own view::
-
-    def render_slope_info(self):
-        """ Render a portlet from another page in-line to this page
-
-        Does not render other portlets in the same portlet manager.
+    class FakeView(BrowserView):
         """
-        context = self.context.aq_inner
-        request = self.request
-        view = self
+        Portlet manager code goes down well with cyanide.
+        """
 
-        column = "isleofback.app.frontpageportlets"
 
-        # Alternatively, you can directly query your custom portlet manager by interface
-        from isleofback.app.portlets.slopeinfo import ISlopeInfo
+    def get_portlet_manager(column):
+        """ Return one of default Plone portlet managers.
 
-        manager = get_portlet_manager(column)
+        @param column: "plone.leftcolumn" or "plone.rightcolumn"
 
-        html = render_portlet(context, request, view, manager, ISlopeInfo)
+        @return: plone.portlets.interfaces.IPortletManagerRenderer instance
+        """
+        manager = getUtility(IPortletManager, name=column)
+        return manager
+
+
+    def render_portlet(context, request, view, manager, assignmentId):
+        """ Render a portlet defined in external location.
+
+        .. note ::
+
+            Portlets can be idenfied by id (not user visible)
+            or interface (portlet class). This method supports look up
+            by interface and will return the first matching portlet with this interface.
+
+        @param context: Content item reference where portlet appear
+
+        @param manager: IPortletManager instance through get_portlet_manager()
+
+        @param view: Current view or None if not available
+
+        @param interface: Marker interface class we use to identify the portlet. E.g. IFacebookPortlet
+
+        @return: Rendered portlet HTML as a string, or empty string if portlet not found
+        """
+
+        if not view:
+            # manager(context, request, view) does not accept None as multi-adapter lookup parameter
+            view = FakeView(context, request)
+
+        retriever = getMultiAdapter((context, manager), IPortletRetriever)
+
+        portlets = retriever.getPortlets()
+
+        assignment = None
+
+        if len(portlets) == 0:
+            raise RuntimeError("No portlets available for manager %s in the context %s" % (manager.__name__, context))
+
+        for portlet in portlets:
+
+            # portlet is {'category': 'context', 'assignment': <FacebookLikeBoxAssignment at facebook-like-box>, 'name': u'facebook-like-box', 'key': '/isleofback/sisalto/huvit-ja-harrasteet
+            # Identify portlet by interface provided by assignment
+            print portlet
+            if portlet["name"] == assignmentId:
+                assignment = portlet["assignment"]
+                break
+
+        if assignment is None:
+            # Did not find a portlet
+            raise RuntimeError("No portlet found with name: %s" % assignmentId)
+
+        # Note: Below is tested only with column portlets
+
+        # PortletManager provides convenience callable
+        # which gives you the renderer. The view is mandatory.
+        managerRenderer = manager(context, request, view)
+
+        # PortletManagerRenderer convenience function
+        renderer = managerRenderer._dataToPortlet(portlet["assignment"].data)
+
+        if renderer is None:
+            raise RuntimeError("Failed to get portlet renderer for %s in the context %s" % (assignment, context))
+
+        renderer.update()
+        # Does not check visibility here... force render always
+        html = renderer.render()
+
         return html
 
-How to call view helper function from page template
-
-.. code-block:: html
-
-         <div tal:replace="structure view/render_slope_info" />
+How to use this code in your own view, please see `collective.portletalias source <https://github.com/collective/collective.portletalias/blob/master/collective/portletalias/portlets/aliasportlet.py#L73>`_ 
 
 More info
 
@@ -765,8 +764,8 @@ The page template for the manager ``manage-portlets-colophon.pt`` is the followi
 
         <head>
             <div metal:fill-slot="javascript_head_slot" tal:omit-tag="">
-                <link type="text/css" rel="kinetic-stylesheet"
-                    tal:attributes="href string:${context/absolute_url}/++resource++manage-portlets.kss"/>
+                <script type="text/javascript"
+                    tal:attributes="src string:${context/absolute_url}/++resource++manage-portlets.js">
             </div>
         </head>
         <body class="manage-portlet-well">

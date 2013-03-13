@@ -1,5 +1,5 @@
 ==============================================================
-Documentation style and maintenance guide
+Documentation maintenance guide
 ==============================================================
 
 .. toctree::

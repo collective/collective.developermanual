@@ -4,9 +4,8 @@
 
 .. admonition:: Description
 
-    Plone can be put in the debug mode where changes to CSS, Javascript
-    and page templates take effect immediately. This page also contains 
-    tips related to updating files and reflecting changes on the production servers.
+    Plone can be put in the debug mode where one can diagnose start up failures and
+    any changes to CSS, Javascript and page templates take effect immediately. 
 
 .. contents:: :local:
 
@@ -15,10 +14,10 @@ Introduction
 
 By default when you start Plone you start it in a **production mode**.
 
-* Plone is fast
+* Plone is faster
 
 * CSS and Javascript files are *merged* instead of causing multipe HTTP request to load these assets. 
-  CSS and Javascript behavior is different in production and debug mode, especially with files with syntax errors
+  CSS and Javascript behavior is different in production versus debug mode, especially with files with syntax errors
   because of merging. 
 
 * Plone does not reload changed files from the disk
@@ -28,6 +27,11 @@ Instead you need to start Plone in debug mode (also known as development mode) i
 are doing any site development.
 
 In **debug mode**
+
+* If Plone start-up fails, the Python traceback of the error is printed in the terminal
+
+* All logs and debug messages are printed in the terminal; Zope process does not detach
+  from the terminal
 
 * Plone is slower
 
@@ -139,16 +143,48 @@ Congratulations! You should be now logged in as an admin to your new Plone insta
 
 
 Starting Plone in debug mode on UNIX
-============================================================
+====================================
 
+Single instance installation ("zope")
+-------------------------------------
 
-Enter to your installation folder using ``cd`` command (depends on where you have installed Plone).
+Enter to your installation folder using ``cd`` command (depends on where you have installed Plone)::
+
+   cd ~/Plone/zintance # Default local user installation location
+
+For root installation the default location is ``/usr/local/Plone``.  
 
 Type in command::
 
     bin/instance fg
 
 Press CTRL+C to stop.
+
+Clustered installation ("zeo")
+--------------------------------------------
+
+If you have ZEO cluster mode installation you can start individual processes in debug mode::
+
+    cd ~/Plone/zeocluster
+    bin/zeoserver fg & # Start ZODB database server
+    bin/client1 fg &  # Start ZEO front end client 1 (usually port 8080)
+    # bin/client2 fg  # For debugging issues it is often enough to start client1
+
+
+Determining programmatically whether Zope is in debug mode
+==========================================================
+
+Zope2's shared global data *Globals*, keeps track on whether Zope2 is started
+in debug mode or not.::
+
+    import Globals
+    if Globals.DevelopmentMode:
+        # Zope is in debug mode
+
+.. note::
+   There is a difference between Zope being in debug mode and the Javascript
+   and CSS resource registries being in debug mode (although they will
+   automatically be set to debug mode if you start Zope in debug mode).
 
 
 

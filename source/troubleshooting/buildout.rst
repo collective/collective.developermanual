@@ -532,3 +532,86 @@ For Plone 3.3.x You need to pindown::
 	zc.queue = 1.2.1
 	zope.copy = 3.5.0
 
+Distribute / setuptools tries to mess with system Python and Permission denided
+======================================================================================================================
+
+When running ``boostrap.py`` your buildout files
+because it tries to write to system-wide Python installation.
+
+Example::
+
+	Getting distribution for 'distribute==0.6.24'.
+	Before install bootstrap.
+	Scanning installed packages
+	No setuptools distribution found
+	warning: no files found matching 'Makefile' under directory 'docs'
+	warning: no files found matching 'indexsidebar.html' under directory 'docs'
+	After install bootstrap.
+	Creating /srv/plone/python/python-2.7/lib/python2.7/site-packages/setuptools-0.6c11-py2.7.egg-info
+	error: /srv/plone/python/python-2.7/lib/python2.7/site-packages/setuptools-0.6c11-py2.7.egg-info: Permission denied
+	An error occurred when trying to install distribute 0.6.24. Look above this message for any errors that were output by easy_install.
+	While:
+	  Bootstrapping.
+	  Getting distribution for 'distribute==0.6.24'.
+	Error: Couldn't install: distribute 0.6.24
+
+Solution:
+
+`This bug has been fixed in Distiribute 0.6.27 <http://pypi.python.org/pypi/distribute/0.6.27#id2>`_ - make sure your system-wide Python
+uses this version or above::
+
+       sudo /srv/plone/python/python-2.7/bin/easy_install -U Distribute
+
+
+
+UnboundLocalError: local variable 'clients' referenced before assignment
+==========================================================================
+
+Example traceback when running buildout::
+
+	Traceback (most recent call last):
+	  File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 1683, in main
+	    getattr(buildout, command)(args)
+	  File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 555, in install
+	    installed_files = self[part]._call(recipe.install)
+	  File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 1227, in _call
+	    return f()
+	  File "/srv/plone/x/eggs/plone.recipe.unifiedinstaller-4.3.1-py2.7.egg/plone/recipe/unifiedinstaller/__init__.py", line 65, in install
+	    for part in clients
+	UnboundLocalError: local variable 'clients' referenced before assignment
+
+Solution: Your buildout contains leftovers from the past. Remove ``clients`` variable
+in ``[unifiedinstaller]`` section.
+
+Couldn't install: BTrees 4.0.5
+===============================
+
+Example::
+	
+	Unpacking persistent-4.0.6/docs/using.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/using.rst
+	Unpacking persistent-4.0.6/docs/index.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/index.rst
+	Unpacking persistent-4.0.6/docs/glossary.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/glossary.rst
+	Reading configuration from /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+	Adding new section [easy_install] to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+	Writing /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+	Running persistent-4.0.6/setup.py -q bdist_egg --dist-dir /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/egg-dist-tmp-xnqDMG
+	In file included from persistent/cPersistence.c:19:0:
+	persistent/cPersistence.h:19:25: fatal error: bytesobject.h: No such file or directory
+	compilation terminated.
+	error: Setup script exited with error: command 'gcc' failed with exit status 1
+	An error occured when trying to install BTrees 4.0.5. Look above this message for any errors that were output by easy_install.
+	While:
+	  Installing.
+	  Getting section zeoserver.
+	  Initializing part zeoserver.
+	  Getting distribution for 'BTrees'.
+	Error: Couldn't install: BTrees 4.0.5
+	*********************************************
+
+Plone 3.3.5 buildout ``fake-eggs`` is not working properly when you boostrap
+the buildout in a new environment.
+
+Try install manually the core buildout part where you have ``fake-eggs`` defined::
+
+       bin/buildout install client1
+

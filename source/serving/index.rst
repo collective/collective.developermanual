@@ -1,6 +1,6 @@
-=================================
-Serving HTTP and other protocols
-=================================
+=======================================
+HTTP serving and traversing site data
+=======================================
 
 Serving content from your site to your users is effectively a mechanism to
 generate HTTP responses to HTTP requests.
@@ -14,7 +14,7 @@ In Plone, answering to HTTP requests can be divided to three subproblems:
 Plone and Zope 2 application servers support FTP, WebDAV and XML-RPC protocols besides plain HTTP.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    http_request_and_response
    traversing

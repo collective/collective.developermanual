@@ -37,18 +37,18 @@ Checking if the logged-in user has a permission
 The following code checks whether the logged in user
 has a certain permission for some object.
 
-.. code-block::
+.. code-block:: python
 
     from AccessControl import getSecurityManager
     from AccessControl import Unauthorized
 
     # Import permission names as pseudo-constant strings from somewhere...
     # see security doc for more info
-    from Products.CMFCore.permissions import 
+    from Products.CMFCore.permissions import ModifyPortalContent 
 
-    def some_function(self, object):
+    def some_function(self, obj):
         sm = getSecurityManager()
-        if not sm.checkPermission(ModifyPortalContent, object):
+        if not sm.checkPermission(ModifyPortalContent, obj):
             raise Unauthorized("You need ModifyPortalContent permission to execute some_function")
 
          # ...
@@ -86,13 +86,13 @@ it was written for use in a :term:`ZMI` template::
 Permission Access
 ==================
 
-Object that are manageable :term:`TTW` inherit from 
+Objects that are manageable :term:`TTW` inherit from 
 `RoleManager  <http://api.plone.org/CMF/1.5.4/private/AccessControl.Role.RoleManager-class.html>`_.
 The API provided by this class permits you to manage permissions.
 
 Example: see all possible permissions::
 
-   >>> object.possible_permissions()
+   >>> obj.possible_permissions()
    ['ATContentTypes Topic: Add ATBooleanCriterion',
     'ATContentTypes Topic: Add ATCurrentAuthorCriterion',
     ...

@@ -147,7 +147,7 @@ Example::
     print term.value + ": " + term.title
 
 Dynamic vocabularies
-====================
+-----------------------
 
 Dynamic vocabularies' values may change run-time.
 They are usually generated based on some context data.
@@ -332,12 +332,6 @@ Complex example 2
 
         return SimpleVocabulary(terms)
 
-	class ISearchCriteria(form.Schema):
-	    """ Alternative header flash animation/imagae """
-
-
-	    area = schema.Choice(source=area_source, title=_("Area"), required=False)
-	    
 	 
 For another example, see `Dynamic sources <http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/vocabularies.html>`_
 chapter in Dexterity manual.

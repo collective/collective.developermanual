@@ -39,6 +39,25 @@ they can be standalone ("old style", circa 2001).
     templates provide better separation with view logic (Python code)
     and HTML generation (page template).
 
+
+The MIME-Type
+===================================
+Basically a document file got a mime-type. This is also important for Plone Templates if you don't want to export to text/html.
+If you want to export to a XML File you have to change the mime-type because otherwise the browser won't recognize the file as an XML.
+At the moment Plone supports text/html which is the default value. And text/xml.
+You got 2 oppertunities to change this value. If you customize a template you got an input box which called "Content-Type". 
+The other Way is to create a file named by your template name and extend the name by `.metadata`. 
+
+ Example:
+   * my_view.pt
+   * my_view.pt.metadata
+
+Content of metadata file::
+    
+         [default]
+         content_type = text/xml
+        
+
 Overriding templates
 ======================
 
@@ -235,7 +254,7 @@ default is assumed. Three types are standard:
 They are generally useful, and not limited to use in Page Templates.
 For example, they are widely used in various other parts of Plone:
 
-* CSS, Javascript and KSS registries, to decide whether to include a
+* CSS and Javascript registries, to decide whether to include a
   particular file;
 * Action conditions, to decide whether to show or hide action link;
 * Workflow security guards, to decide whether to allow a workflow state
@@ -446,7 +465,7 @@ Using macros
 =============
 
 Here is an example how to use `<metal:block define-macro="xxx">` and 
-`<metal:block use-macro="xxx">` in your :doc:`view class </browserviews/views>`
+`<metal:block use-macro="xxx">` in your :doc:`view class </views/browserviews>`
 template files.
 
 .. code-block:: html
@@ -502,3 +521,5 @@ More info
 .. _sane_plone_addon_template:
    https://github.com/miohtama/sane_plone_addon_template
 .. |---| unicode:: U+02014 .. em dash
+
+

@@ -202,11 +202,7 @@ on apache
 
 First you need to enable Apache modules::
 
-* mod_headers
-
 * mod_cache, mod_diskcache
-
-* mod_expires
 
 On Debian this is::
 
@@ -222,41 +218,8 @@ Then you can add to your virtual host configuration::
   #CacheMaxExpire 7200
   CacheDirLength 2
 
-  ExpiresActive On
-  ExpiresByType image/gif A3600
-  ExpiresByType image/png A3600
-  ExpiresByType image/image/vnd.microsoft.icon A3600
-  ExpiresByType image/jpeg A3600
-  ExpiresByType text/css A3600
-  ExpiresByType text/javascript A3600
-  ExpiresByType application/x-javascript A3600
-
-  # Create cache headers for downstream caches and browsers,
-  # needed to enforce HTTPS cache -
-  # Expires rules above are enough for plain HTTP
-
-  # Set environment variable by guessing the content payload based on how URL ends
-  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js|ico)$" cache-it
-
-  # Force caching of HTTPS resources on the browser end
-  # http://blog.pluron.com/2008/07/why-you-should.html
-  Header append Cache-Control public env=cache-it
-
-  # This header is only for the debugging
-  Header append X-Cache-Tagged yes env=cache-it
-
-.. warning::
-
-	Since Apache caches the whole HTTP response, including
-	headers, see cookie implications below.
-
-.. TODO::
-    Check if we need to do CacheIgnoreHeaders Set-Cookie here.
-
-
-More info
-
-* http://www.debian-administration.org/users/lee/weblog/35
+Then install go to *Cache Configration* (Plone 4.1+)
+and configure `the caching options <http://pypi.python.org/pypi/plone.app.caching>`_.
 
 Unsetting language cookie for media content
 =============================================

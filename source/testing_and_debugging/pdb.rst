@@ -194,10 +194,20 @@ Automatically start debugger when exception is raised (browser)
 You can start interactive through-the-browser Python debugger when your site 
 throws an exception.
 
-* http://plone.org/products/pdbdebugmode
+Instead of getting "We're sorry there seems to be an error..." page you get 
+a pdb prompt which allows you to debug the exception. This is also 
+known as post-mortem debugging.
+
+This can be achieved with ` `Products.PDBDebugMode`` add-on.
 
 * http://pypi.python.org/pypi/Products.PDBDebugMode
-        
+
+
+.. note ::
+
+   PDBDebugMode is not safe to install on the production server due to 
+   sandbox security escape.
+
 
 Automatically start debugger when exception is raised (command line)
 =====================================================================

@@ -19,11 +19,10 @@ Plone has three different internationalization subsystems:
 
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     internationalisation
     language
     translating_content
     contribute_to_translations
     cache
-

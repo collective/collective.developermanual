@@ -3,6 +3,7 @@ Installing the product
 ===========================
 
 .. admonition:: Description
+
 		Ensuring the product elements (types, browser layers,
 		resources) are correctly installed. 
 

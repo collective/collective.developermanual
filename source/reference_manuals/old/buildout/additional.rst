@@ -451,7 +451,36 @@ Buildout extensions can be extended in another buildout file.
 
 * http://pypi.python.org/pypi/zc.buildout#extending-sections-macros
 
+
+Overriding parts variables from command line
+--------------------------------------------
+
+Sometimes, you need a variable from one of your buildout parts to be different, but for just one run.
+
+So, instead of modifying your .cfg file for just one run and remember to revert it back before pushing your changes back to the server, you can just do that from the command line.
+
+The format is::
+
+        ./bin/builodut partname:some_variable=new_value
+
+Examples
+=========
+
+Need to create your site from scratch using the plonesite recipe::
+
+	./bin/buildout plonesite:site-replace=true
+
+Want to re-run buildout, but you don't want to mr.developer to update packages::
+
+	./bin/buildout buildout:always-checkout=false
+
+Want to do both examples at the same time::
+
+	./bin/buildout plonesite:site-replace=true buildout:always-checkout=false
+
+
 Troubleshooting
 ----------------
 
 See :doc:`Buildout troubleshooting </troubleshooting/buildout>` chapter.
+

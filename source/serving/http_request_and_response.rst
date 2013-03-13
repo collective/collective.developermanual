@@ -197,6 +197,13 @@ HTTP ``POST`` varibles are available in ``request.form``::
 
 There is no difference in accessing ``GET`` and ``POST`` variables.
 
+Request body
+----------------
+The request body can be retrieved from the HTTPRequest_ object by using the get method with the key ``BODY``::
+
+    print request.get('BODY')  # Prints the content of the request body
+
+
 HTTP headers
 ------------
 
@@ -218,19 +225,19 @@ Dumping all headers::
 A simple ZMI Python script to dump all HTTP request headers::
 
     from StringIO import StringIO
-    
+
     # Import a standard function, and get the HTML request and response objects.
     from Products.PythonScripts.standard import html_quote
     request = container.REQUEST
     response =  request.response
-    
+
     buffer = StringIO()
-    
+
     response.setHeader("Content-type", "text/plain")
-    
+
     for name, value in request.environ.items():
         print >> buffer, "%s: %s" % (name, value)
-    
+
     return buffer.getvalue()
 
 
@@ -312,7 +319,7 @@ and you want to identify them easily::
 Published object
 ----------------
 
-``request["PUBLISHED"]`` points to a view, method or template which was the last item in the 
+``request["PUBLISHED"]`` points to a view, method or template which was the last item in the
 traversing chain to be called to render the actual page.
 
 To extract the relevant content item from this information you can do e.g. in the after publication hook::
@@ -351,7 +358,7 @@ Request mutability
 
 Even if you can write and add your own attributes to HTTP request objects, this
 behavior is discouraged. If you need to create cache variables for request
-lifecycle use annotations_. 
+lifecycle use annotations_.
 
 .. TODO:: Add link to internal annotations examples when written.
 
@@ -388,7 +395,7 @@ Example of getting the request using acquisition::
 zope.globalrequest.getRequest
 -----------------------------
 
-See 
+See
 
 * http://pypi.python.org/pypi/five.globalrequest
 
@@ -402,7 +409,7 @@ return the object which will be HTTP response payload.
 
 The returned payload object can be:
 
-* a string (str) 8-bit raw data; or 
+* a string (str) 8-bit raw data; or
 * an iterable: the response is streamed, instead of memory-buffered.
 
 Accessing response
@@ -449,7 +456,7 @@ Example of setting the download and downloadable filename::
 
 For more information, see:
 
-* http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/ 
+* http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/
 * http://support.microsoft.com/kb/260519
 
 Return code
@@ -470,10 +477,12 @@ hook.
 The response body is not always a string or basestring: it can be a generator
 or iterable for blob data.
 
-The body is avaialble as the ``response.body`` attribute.
+The body is available as the ``response.body`` attribute.
 
 Redirects
 ---------
+
+**Real redirects**
 
 Use the ``response.redirect()`` method::
 
@@ -483,6 +492,18 @@ Use the ``response.redirect()`` method::
     # This will send a "301 Permanent Redirect" notification to the browser
     response.redirect(new_url, status=301)
 
+**Javascript redirects**
+
+You can invoke this Javascript redirect trick from a page template head slot
+in a hacky way
+
+.. code-block: html
+
+    <metal :js fill-slot="javascript_head_slot">
+    <script type="text/javascript" tal:content="python:'location.href=\''+portal.absolute_url()+'/'+here.remoteUrl+'\';;'">
+    </script>
+    </metal>
+    </head>
 
 Middleware-like hooks
 =====================
@@ -515,7 +536,7 @@ Examples:
 Transform chain
 ===============
 
-Transform chain is a hook into repoze.zope2 that allows third party packages to register a sequence of hooks 
+Transform chain is a hook into repoze.zope2 that allows third party packages to register a sequence of hooks
 that will be allowed to modify the response before it is returned to the browser.
 
 It is used e.g. by ``plone.app.caching``.
@@ -529,9 +550,9 @@ Post-publication hook
 
 The post-publication hook is run when:
 
-* the context object has been traversed; 
-* after the view has been called and the view has rendered the response; 
-* before the response is sent to the browser; 
+* the context object has been traversed;
+* after the view has been called and the view has rendered the response;
+* before the response is sent to the browser;
 * before the transaction is committed.
 
 This is practical for caching purposes: it is the ideal place to determine and
@@ -557,64 +578,64 @@ This behavior allows you to write site-wide redirects easily
 
 ``redirect.py`` - no modifications needed for your site, just copy-paste this to your Grok add-on folder.
 Remember to add ``url`` to *Parameter list* of the script on the script edit view::
-        
+
         """
-        
+
             Call a custom TTW script and allow it to handle redirects.
-        
-        
+
+
             Use Zope Management Interface to add a ``Script (Python)`` item named ``redirect_handler``
             to your site root - you can edit this script in fly to change the redirects.
-            
+
             * Redirect script must contain ``url`` in its parameter list
-            
+
         """
-        
+
 
         import logging
 
         # Now we import things through the last decade...
-        
+
         # Really old old stuff
         from zExceptions import Redirect
-        
+
         # Really old stuff
         from Products.CMFCore.interfaces import ISiteRoot
-        
+
         # Old stuff
         from zope.traversing.interfaces import IBeforeTraverseEvent
-        
+
         # Modern stuff
         from five import grok
-        
+
         logger = logging.getLogger("redirect")
-        
+
         @grok.subscribe(ISiteRoot, IBeforeTraverseEvent)
         def check_redirect(site, event):
             """
             Check if we have a custom redirect script in Zope application server root.
-            
+
             If we do then call it and see if we get a redirect.
-            
-            The script itself is TTW Python script which may return 
+
+            The script itself is TTW Python script which may return
             string in the case of redirect or None if no redirect is needed.
-            
-            For more examples, check 
-            
+
+            For more examples, check
+
             http://svn.zope.org/Zope/trunk/src/Zope2/App/tests/testExceptionHook.py?rev=115555&view=markup
             """
             request = event.request
-            
+
             url = request["ACTUAL_URL"]
-            
+
             if "no_redirect" in request.form:
                 # Use no_redirect query parameter to disable this behavior in the case
                 # you mess up with the redirect script
-                return 
-            
+                return
+
             # Check if we have a redirect handler script in the site root
             if "redirect_handler" in site:
-                
+
                 try:
                     # Call the script and get its output
                     value = site.redirect_handler(url)
@@ -623,37 +644,37 @@ Remember to add ``url`` to *Parameter list* of the script on the script edit vie
                     logger.error("Redirect exception for URL:" + url)
                     logger.exception(e)
                     return
-                
+
                 if value is not None and value.startswith("http"):
                     # Trigger redirect, but only if the output value looks sane
                     raise Redirect, value
-            
+
 
 Then an example ``redirect_handler`` script added through ZMI. Remember
 to add ``url`` to the *Parameter List* field of TTW interface::
 
         if "blaablaa" in url:
             return "http://webandmobile.mfabrik.com"
-        
+
 Or more complex example::
 
         # Don't leak non-themed interface fom port 80
         if ("manage.") in url and (not "8080" in url):
             return "http://manage.underconstruction.mfabrik.com:8080/LS"
-        
+
         if url == "http://underconstruction.mfabrik.com/":
             return "http://underconstruction.mfabrik.com/special-front-page"
-        
+
         # Redirect to the actual front page
         if url == "http://site.com/":
             return "http://www.site.com/special-front-page"
-        
+
         if url == "http://www.site.com/":
             return "http://www.site.com/special-front-page"
-        
+
         if url.startswith("http://underconstruction.mfabrik.com/"):
             return url.replace("underconstruction.mfabrik.com", "www.site.com")
-        
+
         # Make sure that search engines and visitors access the site only using www. prefix
         if url.startswith("http://site.com/"):
             return url.replace("site.com", "www.site.com")

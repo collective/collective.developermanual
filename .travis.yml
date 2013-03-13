@@ -1,18 +1,13 @@
 # http://about.travis-ci.org/docs/user/build-configuration/
 language: python
-
-python:
-  - "2.6"
-
+python: 2.7
 install:
-  - python bootstrap.py
-  - bin/buildout
-
+  - mkdir -p buildout-cache/downloads
+  - python bootstrap.py -c travis.cfg
+  - bin/buildout -c travis.cfg -N -q -t 3
 script: make html
-
 notifications:
   irc:
-    channels:
-        - "irc.freenode.org#plone-docs"
+    channels: irc.freenode.org#plone-docs
     on_success: never
     on_failure: change

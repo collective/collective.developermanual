@@ -131,5 +131,5 @@ will require a restart.
 
 `Customization for
 developers <http://plone.org/documentation/how-to/how-to-create-a-plone-3-theme-product-on-the-filesystem/plone.org/documentation/tutorial/customization-for-developers>`_
-    An overview of Plone 3 customization by Martin Aspeli.
+An overview of Plone 3 customization by Martin Aspeli.
 
