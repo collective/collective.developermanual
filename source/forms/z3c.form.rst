@@ -1114,8 +1114,9 @@ examples.
 Adding buttons conditionally
 ----------------------------
 
-The buttonAndHandler decorator can accept a condition argument. The condition should be
-a function that accepts the form as an argument and returns a boolean. Example::
+The ``buttonAndHandler`` decorator can accept a condition argument.
+The condition should be a function that accepts the form as an argument and returns a boolean.
+Example, a button that only shows when a condition is met::
 
     @button.buttonAndHandler(
         u"Delete Event",
