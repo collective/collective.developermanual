@@ -1111,6 +1111,27 @@ examples.
 
 * http://svn.zope.org/z3c.form/trunk/src/z3c/form/form.py?rev=114824&view=auto
 
+Adding buttons conditionally
+----------------------------
+
+The buttonAndHandler decorator can accept a condition argument. The condition should be
+a function that accepts the form as an argument and returns a boolean. Example::
+
+    @button.buttonAndHandler(
+        u"Delete Event",
+        name="handleDelete",
+        condition=lambda form: form.okToDelete()
+        )
+    def handleDelete(self, action):
+        """
+            Delete this event.
+        """
+
+        ...
+
+        self.status = "Event deleted."
+
+
 Manipulating form buttons programmatically
 -------------------------------------------
 
