@@ -94,9 +94,9 @@ Overriding a template using z3c.jbot
 
    Below is an example UNIX ``find`` command to find ``.pt`` files. 
    You can also use Windows Explorer file search or similar tools:
-    
+
    .. code-block:: console
-    
+
        $ find ~/code/buildout-cache/eggs -name "\*.pt"
        ./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/edit_field_wrapper.pt
        ./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/view_field_wrapper.pt
@@ -105,7 +105,7 @@ Overriding a template using z3c.jbot
        ...
 
    .. Note::
-    
+
        Your ``eggs/`` folder may contain several versions of the same egg
        if you have re-run buildout or upgraded Plone.
        In this case the correct action is usually to pick the latest
@@ -116,20 +116,20 @@ Overriding a template using z3c.jbot
    Rename the file to its so-called *canonical* name: to do this,
    exclude the ``.egg`` folder name from the filename, and 
    then replace all slashes ``/`` with dot ``.``::
-    
+
        archetypes/kss/browser/edit_field_wrapper.pt
-    
+
    to::
-    
+
        archetypes.kss.browser.edit_field_wrapper.pt
-    
+
    Drop the file in the templates folder you have registered for ``z3c.jbot``
    in your add-on.
-    
+
    Make your changes in the new ``.pt`` file.
-    
+
    .. warning::
-    
+
        After overriding the template for the first time 
        (adding the file to the ``templates/`` folder)
        you need to restart Plone.
@@ -469,14 +469,14 @@ Here is an example how to use `<metal:block define-macro="xxx">` and
 template files.
 
 .. code-block:: html
-      
+
       <html xmlns="http://www.w3.org/1999/xhtml"
             xmlns:tal="http://xml.zope.org/namespaces/tal"
             xmlns:metal="http://xml.zope.org/namespaces/metal"
             xmlns:i18n="http://xml.zope.org/namespaces/i18n"
             tal:omit-tag=""
             >
-      
+
           <metal:row define-macro="row">
                <!--
                    A macro. You can call this using metal:use-macro 
@@ -485,29 +485,29 @@ template files.
           </metal:row>
 
           <!-- Call macro in different parts of the main template using *widget* variable as a parameter -->
-      
+
           <table class="datagridwidget-table-view" tal:attributes="data-extra view/extra">
-         
+
               <tbody class="datagridwidget-body">
                   <tal:row repeat="widget view/getNormalRows">
                       <tr>
                           <metal:macro use-macro="template/macros/row" />
                       </tr>
                   </tal:row>
-      
+
                   <tal:row condition="view/getTTRow" define="widget view/getTTRow">
                       <tr>
                           <metal:macro use-macro="template/macros/row" />
                       </tr>
                   </tal:row>
-      
-      
+
+
                   <tal:row condition="view/getAARow" define="widget view/getAARow">
                       <tr>
                           <metal:macro use-macro="template/macros/row" />
                       </tr>
                   </tal:row>
-      
+
           </tbody>
       </table>
       </html>

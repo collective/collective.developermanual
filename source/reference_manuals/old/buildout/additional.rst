@@ -187,8 +187,8 @@ Example for UNIX shell (bash):
 
 .. code-block:: console
 
-    # Set proxy address as environment varoable.
-    # In this case we use Polipo server running on the same compuer.
+    # Set proxy address as environment variable.
+    # In this case we use Polipo server running on the same computer.
     http_proxy=http://localhost:8123/
 
     # This is Bash shell specific command to export environment variable

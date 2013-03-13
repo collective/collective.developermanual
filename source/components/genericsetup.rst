@@ -226,34 +226,38 @@ are usable from *collective.basket* add-on products when your add-on product is 
               />
  
 
-.. warning ::
+.. warning::
 
-        Unlike other GenericSetup XML files, metadata.xml is read on the start-up and this read is cached.
-        Always restart Plone after editing metadata.xml. If your metadata.xml contains syntax errors
-        or dependencies to a missing product (typo in name) your add-on will disapper from the
-        Installation control panel. 
+    Unlike other GenericSetup XML files, 
+    ``metadata.xml`` is read on the start-up and this read is cached.
+    Always restart Plone after editing ``metadata.xml``.
+    If your ``metadata.xml`` file contains syntax errors
+    or dependencies to a missing or non-existent product 
+    (e.g. due to a typo in a name) your add-on will disappear from the
+    installation control panel. 
         
-.. note ::
+.. note::
 
-    Products.* Python namespace need to declare generic setup dependencies specially.
-    You actually do not mention Products.xxx space.
+    The ``Products.*`` Python namespace needs to declare generic setup
+    dependencies specially:
+    You actually do not mention ``Products.xxx`` space.
     
 To declare dependency to ``Products.Carousel``:
 
 .. code-block:: xml
 
-        <?xml version="1.0"?>
-        <metadata>
-          <version>1000</version>
-          <!-- Install Products.Carousel on the site when this add-on is installed -->
-          <dependencies>
-            <dependency>profile-Carousel:default</dependency>
-          </dependencies>
-        </metadata>
+    <?xml version="1.0"?>
+    <metadata>
+      <version>1000</version>
+      <!-- Install Products.Carousel on the site when this add-on is installed -->
+      <dependencies>
+        <dependency>profile-Carousel:default</dependency>
+      </dependencies>
+    </metadata>
             
 
-Custom installer code (setuphandlers.py)
-=========================================
+Custom installer code (``setuphandlers.py``)
+============================================
 
 Besides out-of-the-box XML steps which easily provide both install and uninstall,
 GenericSetup provides a way to run a custom Python code when your
@@ -266,10 +270,10 @@ Python code to make changes to Plone site object.
 This function is registerd as a custom ``genericsetup:importStep``
 in XML.
 
-.. note ::
+.. note::
 
-        When you do custom importSteps remember to write uninstallation
-        code as well.
+    When you do custom ``importStep``\s, remember to write uninstallation
+    code as well.
 
 However, the trick is that all GenericSetup import steps, including
 your custom step, are run for *every* add-on product
@@ -280,7 +284,7 @@ context.
 
 Also you need to register this custom import step in ``configure.zcml``
 
-.. code-block :: xml
+.. code-block:: xml
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
@@ -300,30 +304,31 @@ Also you need to register this custom import step in ``configure.zcml``
 
 .. code-block:: python
 
-        __docformat__ = "epytext"
+    __docformat__ = "epytext"
+    
+    def runCustomCode(site):
+        """ Run custom add-on product installation code to modify Plone site object and others
         
-        def runCustomCode(site):
-            """ Run custom add-on product installation code to modify Plone site object and others
-            
-            @param site: Plone site  
-            """
-        
-        def setupVarious(context):
-            """
-            @param context: Products.GenericSetup.context.DirectoryImportContext instance
-            """
-        
-            # We check from our GenericSetup context whether we are running
-            # add-on installation for your product or any other proudct
-            if context.readDataFile('your.package.marker.txt') is None:
-                # Not your add-on
-                return
-        
-            portal = context.getSite()
-        
-            runCustomCode(portal)
+        @param site: Plone site  
+        """
+    
+    def setupVarious(context):
+        """
+        @param context: Products.GenericSetup.context.DirectoryImportContext instance
+        """
+    
+        # We check from our GenericSetup context whether we are running
+        # add-on installation for your product or any other proudct
+        if context.readDataFile('your.package.marker.txt') is None:
+            # Not your add-on
+            return
+    
+        portal = context.getSite()
+    
+        runCustomCode(portal)
 
-And add a dummy text file ``your.package/your/package/profiles/default/your.package.marker.txt``::
+And add a dummy text file
+``your.package/your/package/profiles/default/your.package.marker.txt``::
 
     This text file can contain any content - it just needs to be present
 
