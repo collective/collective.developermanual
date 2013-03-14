@@ -410,14 +410,24 @@ Debugging cookie issues
 ------------------------------------
 
 Use the following snippet to set a HTTP response debug header to see what
-Varnish sees as cookie after *vcl_recv* clean-up::
+the backend server sees as cookie after *vcl_recv* clean-up regexes::
 
-  sub vcl_fetch {
-
-      set beresp.http.X-Varnish-Cookie-Debug = "Request cookie: " req.http.Cookie;
-
-      ...
-  }
+	sub vcl_fetch {
+	
+	    /* Use to see what cookies go through our filtering code to the server */
+	    set beresp.http.X-Varnish-Cookie-Debug = "Cleaned request cookie: " + req.http.Cookie;
+	
+	    if (beresp.ttl <= 0s ||
+	        beresp.http.Set-Cookie ||
+	        beresp.http.Vary == "*") {
+	        /*
+	         * Mark as "Hit-For-Pass" for the next 2 minutes
+	         */
+	        set beresp.ttl = 120 s;
+	        return (hit_for_pass);
+	    }
+	    return (deliver);
+	}
 
 And then test with ``wget``::  
 
