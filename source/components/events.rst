@@ -7,22 +7,25 @@ Events
         How to add event hooks to your Plone code to perform actions when
         something happens on a Plone site.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 ============
 
 This document briefly discusses event handling using the ``zope.event`` module.
-The Zope Component Architecture's `zope.event package <http://pypi.python.org/pypi/zope.event>`_ is
+The Zope Component Architecture's 
+`zope.event package <http://pypi.python.org/pypi/zope.event>`_ is
 used to manage subscribeable events in Plone.
 
 Some of the notable characteristics of the Plone event system are:
 
 * it is simple;
-* subscriber calling order is not modifiable |---| you cannot set the order in which event handlers are called;
+* subscriber calling order is not modifiable |---| you cannot set the order
+  in which event handlers are called;
 * events cannot be cancelled |---| all handlers will always get the event;
 * event handlers cannot have return values;
-* exceptions raised in an event handler will interrupt the request processing.
+* exceptions raised in an event handler will interrupt the request
+  processing.
 
 For more information, see:
 

@@ -4,7 +4,7 @@ Appendix: Practicals
 
 .. admonition:: Description
 
-        Plone Developer Manual is a comprehensive guide to Plone programming.
+    Plone Developer Manual is a comprehensive guide to Plone programming.
 
 1. How-To Extend A Basic Archetype Content Type
 ===============================================
@@ -1872,7 +1872,14 @@ an event, which you will see in *charity/Extensions/Install.py*:
 
 ::
 
-    from zope.event import notifyfrom Products.borg.content.schema import SchemaInvalidatedEventfrom Products.borg.content.employee import Employee...def install(self, reinstall=False):    ...    notify(SchemaInvalidatedEvent(Employee))
+    from zope.event import notify
+    from Products.borg.content.schema import SchemaInvalidatedEvent
+    from Products.borg.content.employee import Employee
+    ...
+
+    def install(self, reinstall=False):
+        ...
+        notify(SchemaInvalidatedEvent(Employee))
 
 The event is an instance of a class that implements
 *ISchemaInvalidatedEvent*, and takes a class as an argument to know
@@ -1890,15 +1897,23 @@ also want to change other aspects of the Factory Type Information
 First, we define some views in the *browser* package. These are
 described in a later section, but lookin at
 *charity/configure.zcml*, you will see:
-::
+
+.. code-block:: xml
 
     <include package=".browser" />
 
 This will bring in *charity/browser/configure.zcml*, which contains
 several directives like:
-::
 
-      <page        name="charity_employee_view"      for="Products.borg.interfaces.IEmployeeContent"      class=".employee.EmployeeView"      template="employee.pt"      permission="zope2.View"      />
+.. code-block:: xml
+
+      <page
+          name="charity_employee_view"
+          for="Products.borg.interfaces.IEmployeeContent"
+          class=".employee.EmployeeView"
+          template="employee.pt"
+          permission="zope2.View"
+          />
 
 This, along with the class
 *Products.charity.browser.employee.EmployeeView*and the
@@ -1916,9 +1931,54 @@ To achieve this, we could modify *portal\_types/Employee* in Python
 during the *Install.py* script. However, to make it easier to
 define the FTI, we use a GenericSetup XML file instead. Take a look
 at *charity/Extensions/setup/types/Employee.py*, for example:
-::
 
-    <?xml version="1.0"?><object name="Employee"        meta_type="Factory-based Type Information"        xmlns:i18n="http://xml.zope.org/namespaces/i18n"> <property name="title">Employee</property> <property name="description">A charity employee or volunteer.</property> <property name="content_icon">employee.gif</property> <property name="content_meta_type">Employee</property> <property name="product">borg</property> <property name="factory">addEmployee</property> <property name="immediate_view">base_edit</property> <property name="global_allow">False</property> <property name="filter_content_types">False</property> <property name="allowed_content_types" /> <property name="allow_discussion">False</property> <alias from="(Default)" to="@@charity_employee_view"/> <alias from="view" to="@@charity_employee_view"/> <alias from="edit" to="base_edit"/> <alias from="properties" to="base_metadata"/> <alias from="sharing" to="folder_localrole_form"/> <action title="View" action_id="view" category="object" condition_expr=""    url_expr="string:${object_url}" visible="True">  <permission value="View"/> </action> <action title="Edit" action_id="edit" category="object" condition_expr=""    url_expr="string:${object_url}/edit" visible="True">  <permission value="Modify portal content"/> </action> <action title="Properties" action_id="metadata" category="object" condition_expr=""     url_expr="string:${object_url}/properties" visible="True">  <permission value="Modify portal content"/> </action> <action title="Sharing" action_id="local_roles" category="object" condition_expr=""     url_expr="string:${object_url}/sharing" visible="True">  <permission value="Modify portal content"/> </action></object>
+.. code-block:: xml
+
+    <object name="Employee" meta_type="Factory-based Type Information"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+      <property name="title">Employee</property>
+      <property name="description">A charity employee or
+      volunteer.</property>
+      <property name="content_icon">employee.gif</property>
+      <property name="content_meta_type">Employee</property>
+      <property name="product">borg</property>
+      <property name="factory">addEmployee</property>
+      <property name="immediate_view">base_edit</property>
+      <property name="global_allow">False</property>
+      <property name="filter_content_types">False</property>
+      <property name="allowed_content_types" />
+      <property name="allow_discussion">False</property>
+      <alias from="(Default)" to="@@charity_employee_view" />
+      <alias from="view" to="@@charity_employee_view" />
+      <alias from="edit" to="base_edit" />
+      <alias from="properties" to="base_metadata" />
+      <alias from="sharing" to="folder_localrole_form" />
+      <action title="View" action_id="view" category="object"
+      condition_expr="" url_expr="string:${object_url}" visible="True">
+        <permission value="View" />
+      </action>
+      <action title="Edit" action_id="edit" category="object"
+      condition_expr="" url_expr="string:${object_url}/edit"
+      visible="True">
+        <permission value="Modify portal content" />
+      </action>
+      <action title="Properties" action_id="metadata" category="object"
+      condition_expr="" url_expr="string:${object_url}/properties"
+      visible="True">
+        <permission value="Modify portal content" />
+      </action>
+      <action title="Sharing" action_id="local_roles" category="object"
+      condition_expr="" url_expr="string:${object_url}/sharing"
+      visible="True">
+        <permission value="Modify portal content" />
+      </action>
+    </object>
+
+To learn more about HTML Tidy see http://tidy.sourceforge.net
+Please fill bug reports and queries using the "tracker" on the Tidy web site.
+Additionally, questions can be sent to html-tidy@w3.org
+HTML and CSS specifications are available from http://www.w3.org/
+Lobby your company to join W3C, see http://www.w3.org/Consortium
 
 This defines the various aspects of the FTI, and is basically a
 modified copy of the equivalent file from the b-org extension
@@ -3079,7 +3139,8 @@ Recall the event handler for adding projects. It can be found in
 
 ::
 
-    def addLocalProjectWorkflow(ob, event):    ...
+    def addLocalProjectWorkflow(ob, event):
+        ...
 
 The first argument is the object the event was fired on, the second
 is an instance of the event itself. In fact, this two-part event
@@ -3089,9 +3150,12 @@ all *IObjectEvent*s and re-dispatches the event based on the object
 that is passed along the event instance. The registration for the
 event handler in *events/configure.zcml* looks like this:
 
-::
+.. code-block:: xml
 
-    <subscriber for="..interfaces.IProjectContent                   zope.app.container.interfaces.IObjectAddedEvent"              handler=".project.addLocalProjectWorkflow" />
+    <subscriber 
+        for="..interfaces.IProjectContent
+             zope.app.container.interfaces.IObjectAddedEvent"
+        handler=".project.addLocalProjectWorkflow" />
 
 Note that there are two interfaces the subscriber is registered
 *for* - the object type and the event type. These must be separated
@@ -3109,14 +3173,20 @@ includes the event:
 
 ::
 
-    def modifyEmployeeOwnership(event):    """Let employees own their own objects.    Stolen from Plone and CMF core, but made less picky about where users are     found.    """
+    def modifyEmployeeOwnership(event):
+        """Let employees own their own objects.
+        Stolen from Plone and CMF core, but made less picky about where
+        users are found.
+        """
 
 The registration in *events/onfigure.zcml*is similar to the one
 above, but only uses one *for* interface:
 
-::
+.. code-block:: xml
 
-     <subscriber for="..interfaces.IEmployeeModifiedEvent"              handler=".employee.modifyEmployeeOwnership" />
+     <subscriber
+         for="..interfaces.IEmployeeModifiedEvent"
+         handler=".employee.modifyEmployeeOwnership" />
 
 Sending custom events
 ------------------------
@@ -3134,13 +3204,28 @@ The event is described by an interface in
 
 ::
 
-    from zope.interface import Interface, Attribute...class IEmployeeModifiedEvent(Interface):    """An event fired when an employee object is saved.    """    context = Attribute("The content object that was saved.")
+    from zope.interface import Interface, Attribute...
+
+    class IEmployeeModifiedEvent(Interface):
+        """An event fired when an employee object is saved.
+        """
+        context = Attribute("The content object that was saved.")
 
 The implementation is trivial, and can be found in
 *content/employee.py*:
+
 ::
 
-    from zope.interface import implements...from Products.borg.interfaces import IEmployeeModifiedEvent...class EmployeeModifiedEvent(object):    """Event to notify that employees have been saved.    """    implements(IEmployeeModifiedEvent)    def __init__(self, context):        self.context = context
+    from zope.interface import implements...
+    from Products.borg.interfaces import IEmployeeModifiedEvent...
+    
+    class EmployeeModifiedEvent(object):
+        """Event to notify that employees have been saved.
+        """
+        implements(IEmployeeModifiedEvent)
+        
+        def __init__(self, context):
+            self.context = context
 
 It is of course the event *class* that we instantiate and send,
 whilst we register the event handler for the event *interface*.
@@ -3153,7 +3238,22 @@ in *content/employee.py*, we have:
 
 ::
 
-    from zope.event import notify...class Employee(ExtensibleSchemaSupport, BaseContent):    ...Â     security.declarePrivate(permissions.View, 'at_post_create_script')    def at_post_create_script(self):        """Notify that the employee has been saved.        """        notify(EmployeeModifiedEvent(self))    security.declarePrivate(permissions.View, 'at_post_edit_script')    def at_post_edit_script(self):        """Notify that the employee has been saved.        """        notify(EmployeeModifiedEvent(self))
+    from zope.event import notify...
+    
+    class Employee(ExtensibleSchemaSupport, BaseContent):
+    ...
+
+        security.declarePrivate(permissions.View, 'at_post_create_script')
+        def at_post_create_script(self):
+        """Notify that the employee has been saved.
+        """
+        notify(EmployeeModifiedEvent(self))
+
+        security.declarePrivate(permissions.View, 'at_post_edit_script')
+        def at_post_edit_script(self):
+        """Notify that the employee has been saved.
+        """
+        notify(EmployeeModifiedEvent(self))
 
 We construct an event instance and parameterise it with the right
 object (i.e. self) before sending it with *notify()*, all on one
@@ -3173,7 +3273,6 @@ subscribers on a per-object basis. This is known in Zope 3 as
 "annotations".
 
 Annotations work like this:
-
 
 -  A marker interface, normally *IAttributeAnnotatable* is applied
    to the class or object that is to be annotated. This particular
@@ -3206,7 +3305,17 @@ First, look at the definition of the *Employee* class in
 
 ::
 
-    from zope.app.annotation.interfaces import IAttributeAnnotatable, IAnnotations...class Employee(ExtensibleSchemaSupport, BaseContent):    ...    implements(IEmployeeContent,               IUserAuthProvider,               IPropertiesProvider,               IGroupsProvider,               IGroupAwareRolesProvider,                IAttributeAnnotatable)
+    from zope.app.annotation.interfaces import IAttributeAnnotatable, IAnnotations...
+
+    class Employee(ExtensibleSchemaSupport, BaseContent):
+    ...
+
+        implements(IEmployeeContent,
+            IUserAuthProvider,
+            IPropertiesProvider,
+            IGroupsProvider,
+            IGroupAwareRolesProvider,
+            IAttributeAnnotatable)
 
 Here, we explicitly say that Employee is attribute annotatable. Of
 course, this requires control over the class. If you are trying to
@@ -3223,7 +3332,11 @@ being set:
 
 ::
 
-        security.declareProtected(permissions.SetPassword, 'setPassword')    def setPassword(self, value):        if value:            annotations = IAnnotations(self)            annotations[PASSWORD_KEY] = sha(value).digest()
+    security.declareProtected(permissions.SetPassword, 'setPassword')
+    def setPassword(self, value):
+    if value:
+        annotations = IAnnotations(self)
+        annotations[PASSWORD_KEY] = sha(value).digest()
 
 PASSWORD\_KEY comes from *config.py*, and is simply a string. The
 digest is verified in *membership/employee.py*, in the
@@ -3231,7 +3344,27 @@ digest is verified in *membership/employee.py*, in the
 
 ::
 
-    class UserAuthentication(object):    """Provide authentication against employees.    """    implements(IUserAuthentication)    adapts(IEmployeeContent)    def __init__(self, context):        self.context = context    def getUserName(self):        return self.context.getId()    def verifyCredentials(self, credentials):        login = credentials.get('login', None)        password = credentials.get('password', None)        if login is None or password is None:            return False        digest = sha(password).digest()        annotations = IAnnotations(self.context)        passwordDigest = annotations.get(PASSWORD_KEY, None)        return (login == self.getUserName() and digest == passwordDigest)
+    class UserAuthentication(object):
+        """Provide authentication against employees.
+        """
+
+        implements(IUserAuthentication)
+        adapts(IEmployeeContent)
+        def __init__(self, context):
+            self.context = context
+
+        def getUserName(self):
+            return self.context.getId()
+
+        def verifyCredentials(self, credentials):
+            login = credentials.get('login', None)
+            password = credentials.get('password', None)
+            if login is None or password is None:
+                return False
+            digest = sha(password).digest()
+            annotations = IAnnotations(self.context)
+            passwordDigest = annotations.get(PASSWORD_KEY, None)
+            return (login == self.getUserName() and digest == passwordDigest)
 
 That's all there is to it. We get an *IAnnotations* adapter, and
 then look up the *PASSWORD\_KEY* to find the digest. The
@@ -3241,7 +3374,7 @@ can use functions like *get()* and *setdefault()*.
 5.15. Zope 3 Views
 ==================
 
-One of the nicest things that Zope 3 brough us is a way to manage
+One of the nicest things that Zope 3 brought us is a way to manage
 view logic.
 
 In Zope 2, a view (be that a view of a content object, or a more
@@ -3249,7 +3382,6 @@ standalone template) typically consists of a Zope Page Template
 that pulls in data from its context. The problem is that
 non-trivial templates usually require some kind of "view logic" or
 "display logic". People tend to put these in a few places:
-
 
 -  Complex *python:* expressions in the ZPT. This is bad because it
    makes your templates hard to understand, and because there is a
@@ -3311,23 +3443,16 @@ This is approach is used extensively in Plone 2.5. Here's an
 example from the "recent" portlet, starting with
 *portlet\_recent.pt*:
 
-::
+.. code-block:: xml
 
     ...
-    
     <tal:recentlist tal:define="view context/@@recent_view;
                                 results view/results;">
-    
         ...
-    
         <tal:items tal:repeat="obj results">
-    
             ...    
-    
         </tal:items>
-    
         ...
-    
     </tal:recentlist>
 
 The important line here is context*/@@recent\_view*. This will look
@@ -3339,7 +3464,7 @@ templates, but is gone in Zope 3).
 This view is defined by a class and a ZCML directive. The ZCML
 directive looks like this:
 
-::
+.. code-block:: xml
 
     <browser:view
           for="*"
@@ -3409,7 +3534,7 @@ under *charity/browser/configure.zcml.* Notice how this entire XML
 file is in the *browser* namespace, and thus it is unnecessary to
 prefix each directive with *browser:*
 
-::
+.. code-block:: xml
 
     <configure xmlns="http://namespaces.zope.org/browser"
                i18n_domain="charity">
@@ -3465,7 +3590,7 @@ file on the filesystem. Here is the class:
 
 And here is the template that uses these methods:
 
-::
+.. code-block:: xml
 
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
           lang="en"
@@ -3517,7 +3642,7 @@ if you need a URL to submit that does some processing. That
 processing would normally be done in the *\_\_call\_\_()* method,
 as in the hypothetical example below:
 
-::
+.. code-block:: xml
 
       <browser:view
           name="modify_customer"
@@ -3555,6 +3680,6 @@ realise is that the view will tend to use *self.context* and
 
 How the Archetypes schema extension mechanism in b-org works
 
-Text to follow<br />
+Text to follow
 
 
