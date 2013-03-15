@@ -220,6 +220,18 @@ You can set user wide buildout settings in the following file::
 This is especially useful if you are running many Plone development buildouts on your computer
 and you want them to share the same buildout egg cache settings.
 
+Example settings how to setting shared egg cache across various buildouts on your computer::
+
+	[buildout]
+	eggs-directory = /Users/mikko/code/buildout-cache/eggs
+	download-cache = /Users/mikko/code/buildout-cache/downloads
+	extends-cache = /Users/mikko/code/buildout-cache/extends
+	 
+.. warn ::
+	
+	If you are sharing egg cache you might run into egg versioning problems especially
+	with older Plone installs. If you are having mysterious VersionConflict etc. problems
+	try disable buildout defaults and run buildout cleanly without shared eggs.
 
 Manually picking downloaded and active component versions
 ----------------------------------------------------------
