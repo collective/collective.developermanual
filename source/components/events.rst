@@ -13,7 +13,7 @@ Introduction
 ============
 
 This document briefly discusses event handling using the ``zope.event`` module.
-The Zope Component Architecture's 
+The Zope Component Architecture's
 `zope.event package <http://pypi.python.org/pypi/zope.event>`_ is
 used to manage subscribeable events in Plone.
 
@@ -34,57 +34,57 @@ For more information, see:
 Registering an event handler
 ============================
 
-Plone events can be scoped
+Plone events can be scoped:
 
-* Globally (no scope)
+* _globally_ (no scope);
+* per _content type_.
 
-* For some content type
 
 Subscribing using the ``grok`` API
 -----------------------------------------
 
-.. note ::
+.. note::
 
-        Starting Plone 4, this grok method is simpler
+    Since the release of Plone 4, this (grok) method is simpler.
 
-Example subscription which subscribes add and edit events for an content item type::
+Example subscription which subscribes a content type to add and edit events::
 
     from five import grok
     from Products.Archetypes.interfaces import IObjectEditedEvent, IObjectInitializedEvent
 
-        class ORAResearcher(folder.ATFolder, orabase.ORABase, ResearcherMixin):
-            """A Researcher synchronized from ORA.
-            """
-            implements(IORAResearcher, IResearcher)
-        
-            meta_type = "ORAResearcher"
-            schema = ORAResearcherSchema
-        
-                
-        # Callbacks for both add and edit events 
-        
+    class ORAResearcher(folder.ATFolder, orabase.ORABase, ResearcherMixin):
+        """A Researcher synchronized from ORA.
+        """
+        implements(IORAResearcher, IResearcher)
+
+        meta_type = "ORAResearcher"
+        schema = ORAResearcherSchema
+
+        # Callbacks for both add and edit events
+
         @grok.subscribe(ORAResearcher, IObjectEditedEvent)
         def object_edited(context, event):
             orabase.object_edited(context, event)
-        
+
         @grok.subscribe(ORAResearcher, IObjectInitializedEvent)
         def object_added(context, event):
             orabase.object_added(context, event)
-                
+
 
 Example subscription which subscribes events without context::
 
         # Really old stuff
         from ZPublisher.interfaces import IPubStart
-        
+
         # Modern stuff
         from five import grok
-        
+
         @grok.subscribe(IPubStart)
         def check_redirect(e):
+            """ Check if we have a custom redirect script in Zope
+            application server root.
             """
-            Check if we have a custom redirect script in Zope application server root.
-            
+
 
 For more information, see:
 
@@ -95,23 +95,23 @@ For more information, see:
 Subscribing using ZCML
 ----------------------
 
-Subscribing to a global event using ZCML.
+Subscribing to a global event using :term:`ZCML`.
 
 .. code-block:: xml
 
     <subscriber for="Products.PlonePAS.events.UserLoggedOutEvent"
         handler=".smartcard.clear_extra_cookies_on_logout" />
 
-And then the Python code in ``smartcard.py`` would be::
+For this event, the Python code in ``smartcard.py`` would be::
 
         def clear_extra_cookies_on_logout(event):
-            # What event contains depends on the 
+            # What event contains depends on the
             # triggerer of the event and event class
             request = event.object.REQUEST
             ...
 
-Custom event example subscribing all IMyEvents when fired by IMyObject::
-
+Custom event example subscribing to all ``IMyEvents`` when fired by
+``IMyObject``::
 
     <subscriber
       for=".interfaces.IMyObject
@@ -143,7 +143,7 @@ Example::
 
     def my_event_handler(context, event):
         """
-        @param context: Zope object for which the event was fired for. Usually this is a Plone content object.
+        @param context: Zope object for which the event was fired. Usually this is a Plone content object.
 
         @param event: Subclass of event.
         """
@@ -174,8 +174,8 @@ Event types
 ------------------
 
 ``Products.Archetypes.interfaces.IObjectInitializedEvent``
-    is fired for an Archetypes-based object when it's being initialised; i.e.
-    when it's being populated for the first time.
+    is fired for an Archetypes-based object when it's being initialised;
+    i.e.  when it's being populated for the first time.
 
 ``Products.Archetypes.interfaces.IWebDAVObjectInitializedEvent``
     is fired for an Archetypes-based object when it's being initialised via
@@ -203,7 +203,7 @@ Other resources:
 Two different content event types are available and might work differently
 depending on your scenario:
 
-``Products.Archetypes.interfaces.IObjectEditedEvent`` 
+``Products.Archetypes.interfaces.IObjectEditedEvent``
     called for Archetypes-based objects that are not in the creation stage
     any more.
 
@@ -217,14 +217,14 @@ depending on your scenario:
 ``zope.lifecycleevent.IObjectModifiedEvent``
     called for creation-stage events as well, unlike the previous event type.
 
-``Products.Archetypes.interfaces.IWebDAVObjectEditedEvent`` 
+``Products.Archetypes.interfaces.IWebDAVObjectEditedEvent``
     called for Archetypes-based objects when they are being edited via WebDAV.
 
 ``Products.Archetypes.interfaces.IEditBegunEvent``
     called for Archetypes-based objects when an edit operation is begun.
 
 ``Products.Archetypes.interfaces.IEditCancelledEvent``
-    called for Archetypes-based objects when an edit operation is cancelled.
+    called for Archetypes-based objects when an edit operation is canceled.
 
 
 *Delete* events
