@@ -13,7 +13,7 @@ Introduction
 
 Member profile fields are the fields which the logged-in member
 can edit themself on their user account page.
- 
+
 For more info, see:
 
 ``MemberDataTool``
@@ -24,9 +24,9 @@ For more info, see:
 
 PlonePAS subclasses and extends MemberData and MemberDataTool.
 
-* `See PlonePAS MemberDataTool <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L27>`_. 
+* `See PlonePAS MemberDataTool <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L27>`_.
 
-* `See PlonePAS MemberData class <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L220>`_. 
+* `See PlonePAS MemberData class <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L220>`_.
 
 Getting member profile properties
 =================================
@@ -51,7 +51,7 @@ email addresses::
    for member in membership.listMembers():
        memberinfo.append(member.getProperty('email'))
    return memberinfo
- 
+
 
 Accessing member data
 ---------------------
@@ -63,7 +63,7 @@ Accessing member data
 Furher reading
 --------------
 
-* `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_ 
+* `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_
    how to retrieve these properties.
 
 
@@ -90,7 +90,7 @@ Old properties are not removed.
 
 Example::
 
-    member = portal_membership.getMemberById(user_id) 
+    member = portal_membership.getMemberById(user_id)
     member.setMemberProperties(mapping={"email":"aaa@aaa.com"})
 
 New properties must be explicitly declared in ``portal_memberdata``,
@@ -105,10 +105,10 @@ Example::
 
     def prepareMemberProperties(site):
         """ Adjust site for custom member properties """
-        
+
         # Need to use ancient Z2 property sheet API here...
         portal_memberdata = getToolByName(site, "portal_memberdata")
-    
+
         # When new member is created, it's MemberData
         # is populated with the values from portal_memberdata property sheet,
         # so value="" will be the default value for users' home_folder_uid
@@ -117,20 +117,20 @@ Example::
             portal_memberdata.manage_addProperty(id="home_folder_uid", value="", type="string")
 
      ....
-     
+
     def createMatchingHomeFolder(member):
         """ """
-        
+
         email = member.getProperty("email")
         home_folder.setEmail(email)
-        
+
         # Store UID of the created folder in memberdata so we can
         # look it up later to e.g. generate the link to the member folder
         member.setMemberProperties(mapping={"home_folder_uid": home_folder.UID()})
-        
-        
+
+
         return home_folder
-        
+
 Setting password
 ---------------------
 
@@ -150,7 +150,7 @@ To increase the minimum password size, copy ``validate_pwreset_password``
 to your custom folder and insert the following lines::
 
     if len(password) < 8:
-        state.setError('password', 'ERROR') 
+        state.setError('password', 'ERROR')
 
 This will increase the minimum password size for the password reset form
 to 8 characters. (This does not effect new user registration, that limit
@@ -158,7 +158,7 @@ will still be 5.)
 
 Don't forget to update your form templates to reflect your changes!
 
-            
+
 
 Default password length - password reset form
 ---------------------------------------------
@@ -166,7 +166,7 @@ Default password length - password reset form
 The password reset form's minimum password length is 5 characters.
 To increase this:
 
-Copy ``validate_pwreset_password`` into your custom folder 
+Copy ``validate_pwreset_password`` into your custom folder
 and add the following lines::
 
     if len(password) < 8:
@@ -184,15 +184,15 @@ Setting visual editor for all users
 The *visual editor* property is set on the member upon creation.
 
 If you want to change all site members to use TinyMCE instead of Kupu.
-you have to do it using the command-line --- 
-Plone provides no through-the-web way to change 
+you have to do it using the command-line ---
+Plone provides no through-the-web way to change
 the properties of other members.
 Here is a script which does the job:
 
 ``migrate.py``::
 
     import transaction
-    
+
     # Traverse to your Plone site from Zope application root
     context = app.yoursiteid.sitsngta # site id is yoursiteid
 
@@ -225,6 +225,25 @@ Run it::
 
 .. note::
 
-        The script does not work through the :term:`ZMI` 
-        as member properties do not have proper security declarations, 
+        The script does not work through the :term:`ZMI`
+        as member properties do not have proper security declarations,
         so no changes are permitted.
+
+Password reset requests
+==========================
+
+Directly manipulating password reset requests is useful e.g. for testing.
+
+Poking requests::
+
+    # Poke password reset information
+    reset_requests = self.portal.portal_password_reset._requests.values()
+    self.assertEqual(1, len(reset_requests))
+    # reset requests are keyed by their random magic string
+    key = self.portal.portal_password_reset._requests.keys()[0]
+    reset_link = self.portal.pwreset_constructURL(key)
+
+Clearing all requests::
+
+        # Reset all password reset requests
+        self.portal.portal_password_reset._requests = {}
