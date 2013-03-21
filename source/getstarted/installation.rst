@@ -321,6 +321,19 @@ For OS X 10.6 and 10.7, you may avoid the Xcode install via these steps.
 
 Proceed as with Linux.
 
+LibXML2/LibXSLT Versions
+------------------------
+
+If you are installing Plone 4.2+ or 4.1 with Diazo, you will need up-to-date versions of libxml2 and libxslt::
+
+    LIBXML2 >= "2.7.8"
+    LIBXSLT >= "1.1.26"
+
+Ideally, install these via system packages or ports. If that's not possible,
+use most current version of the z3c.recipe.staticlxml buildout recipe to build an lxml (Python wrapper) egg with static libxml2 and libxslt components.
+
+Don't worry about this if you're using an installer.
+
 Entering debug mode after installation
 =========================================
 
