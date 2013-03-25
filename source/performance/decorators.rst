@@ -63,10 +63,12 @@ This makes it easy to set a timeout cache::
 
     @ram.cache(lambda *args: time() // (60 * 60))
     def cached_query(self):
-        # very expensive operation, will only be called once an hour
+        # very expensive operation, 
+        # will not be called more than once an hour
 
 time.time() returns the time in seconds as a floating point number. "//" is Python's integer division.
-So, the result of ``time() // (60 * 60)`` only changes once an hour.
+So, the result of ``time() // (60 * 60)`` only changes once an hour. 
+``args`` passed are ignored.
 
 
 Caching per request
