@@ -54,9 +54,20 @@ Example::
 Timeout caches
 ==============
 
-Please read `Timed caching decorator with plone.memoize <http://danielnouri.org/blog/devel/plone-memoize-timeout.html?showcomments=yes>`_.
+The @ram.cache decorator takes a function argument and calls it to get a value. 
+So long as that value is unchanged, the cached result of the decorated function is returned.
+This makes it easy to set a timeout cache::
 
-* `Another example <https://svn.plone.org/svn/collective/collective.externalcontent/trunk/collective/externalcontent/tests/test_vocabulary.py>`_.
+    from plone.memoize import ram
+    from time import time
+
+    @ram.cache(lambda *args: time() // (60 * 60))
+    def cached_query(self):
+        # very expensive operation, will only be called once an hour
+
+time.time() returns the time in seconds as a floating point number. "//" is Python's integer division.
+So, the result of ``time() // (60 * 60)`` only changes once an hour.
+
 
 Caching per request
 ===================
