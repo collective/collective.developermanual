@@ -894,7 +894,7 @@ Below is an head.pt which will be injected in <head>. This examples shows how to
         <script type="text/javascript" tal:attributes="src view/getConnectScriptSource"></script>
         <script tal:replace="structure view/getInitScriptTag" />
 
-Then you register it against viewlewt manager ``plone.app.layout.viewlets.interfaces.IHtmlHead``  in ``configure.zcml``
+Then you register it against viewlet manager ``plone.app.layout.viewlets.interfaces.IHtmlHead``  in ``configure.zcml``
 
 .. code-block:: xml
 
