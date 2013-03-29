@@ -56,7 +56,10 @@ You'll need the GNU build tools.
 On Debian/Ubuntu packages, this is in a build-essentials metapackage.
 On other platforms, install gcc, gmake, gpp, libjpeg-dev, libz-dev.
 
-If you are operating on an older Linux platform, you may have Python 2.4 pre-installed or available as a package. If so, use that.
+If you are operating on an older Linux platform, you may have Python 2.4 pre-installed or available as a package.
+If so, use that.
+
+On older systems (typically prior to 64-bit), there's a good chance that Plone's Unified Installer will work for you. Try it first.
 
 On newer Linux systems, Python 2.4 may not be available as a package, and may not build simply from source.
 
