@@ -70,7 +70,7 @@ We need to upgrade Python 2.4 installation to use latest Distribute (setuptools)
 
 We also need Python imaging package and simplejson which are often used libraries::
 
-    easy_install Pillow
+    easy_install Pillow==1.7.8      # PY24 compatible
     easy_install simplejson==2.3.3  # PY24 compatible
 
 .. note ::
@@ -234,6 +234,14 @@ Make sure you don't have global buildout defaults file::
 
     rm ~/.buildout/default.cfg
 
+Unable to build Python Imaging Library
+--------------------------------------
+
+You may have trouble building the Python Imaging Library, PIL, on newer, multi-architecture Linux machines. PIL is required to run Plone and provides
+
+
+
+
 Other troubleshooting
 -------------------------
 
@@ -283,43 +291,43 @@ Here are collection of some Plone 3 version pindowns you might need to add into 
          five.intid=0.4.2
          plone.reload = 0.11
          Products.GenericSetup = 1.5.0
-         
+
          #collective.dancing pindowns
          zope.location=3.7.0
          zope.schema=3.5.1
          #zope.sendmail=3.5.1
          #five.intid=0.3.0
-         
+
          #plone.z3cform pindowns
          zope.proxy = 3.6.1
          transaction = 1.1.1
          zc.queue = 1.2.1
          zope.copy = 3.5.0
-         
+
          # Other fixes
          zope.i18n = 3.8.0
          z3c.batching = 1.1.0
-         
+
          #0.9.8> does not support python2.4 anymore
          cssutils=0.9.7
-         
+
          #0.6 caused Plone startup to fail, maybe requires newer Plone
          betahaus.emaillogin=0.5
-         
+
          #Newest stable release
          Products.TinyMCE=1.2.7
-         
+
          #Has fix to imagewidget preview tag http://dev.plone.org/archetypes/changeset/12227
          #Before this pindown 1.5.15 was used
          Products.Archetypes=1.5.16
-         
-         
+
+
          #2.1.1 caused problem with missing site.hooks
          #2.1 causing problems with catalog http://dev.plone.org/ticket/11396
          archetypes.schemaextender=2.0.3
-         
+
          #4.x tries to import from plone.app.blob which isn't in Plone 3. Pindown to the current version on the live site
          Products.SimpleAttachment=3.4
-         
+
          collective.singing=0.6.14_1
          simplejson=2.3.3
