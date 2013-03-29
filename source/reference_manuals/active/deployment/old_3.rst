@@ -20,11 +20,14 @@ Plone using non-modified config files and tools.
 Here is a list where you can update steps which are needed
 to get old sites running again.
 
-Plone 3.3 installation on OSX
-================================
+Plone 3.3 installation
+======================
+
+OS X Preparations
+-----------------
 
 Install Homebrew
---------------------
+~~~~~~~~~~~~~~~~
 
 Needed to get Python 2.4 on OSX.
 
@@ -35,7 +38,7 @@ Run::
     ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 
 Install Python 2.4
----------------------
+~~~~~~~~~~~~~~~~~~
 
 Plone 3.x needs Python 2.4 explicitly.
 
@@ -45,6 +48,24 @@ Install it using Homebrew::
     /usr/local/bin/brew install python24
 
 Now you have ``/usr/local/Cellar/python24/2.4.6/bin/python2.4`` command.
+
+Linux
+-----
+
+You'll need the GNU build tools.
+On Debian/Ubuntu packages, this is in a build-essentials metapackage.
+On other platforms, install gcc, gmake, gpp, libjpeg-dev, libz-dev.
+
+If you are operating on an older Linux platform, you may have Python 2.4 pre-installed or available as a package. If so, use that.
+
+On newer Linux systems, Python 2.4 may not be available as a package, and may not build simply from source.
+
+If that's the case, install the git package and clone the collective buildout.python kit::
+
+    git clone git://github.com/collective/buildout.python.git
+
+Use that with your current Python to build a local Python-2.4.
+The buildout.python kit deals with several problems of installing an old Python on a new platform.
 
 Create site folder
 ------------------------------------------
