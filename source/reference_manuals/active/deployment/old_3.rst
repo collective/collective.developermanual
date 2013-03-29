@@ -234,14 +234,6 @@ Make sure you don't have global buildout defaults file::
 
     rm ~/.buildout/default.cfg
 
-Unable to build Python Imaging Library
---------------------------------------
-
-You may have trouble building the Python Imaging Library, PIL, on newer, multi-architecture Linux machines. PIL is required to run Plone and provides
-
-
-
-
 Other troubleshooting
 -------------------------
 
