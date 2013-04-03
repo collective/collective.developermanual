@@ -121,6 +121,7 @@ or having the documentation source code hosted in an external package.
     reference_manuals/active/helloworld/index
     reference_manuals/active/ploneformgen/index
     reference_manuals/active/deployment/index
+    reference_manuals/external/plone.app.robotframework/index
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 
