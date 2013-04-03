@@ -16,6 +16,7 @@ import os
 # Embedded packages. The folder context for these is "source/reference_manuals/external"
 THE_OTHERS = {
     "plone.api": "../../../src/plone.api/docs",
+    "plone.app.robotframework": "../../../src/plone.app.robotframework/docs/source",
     "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
     "tutorials.todoapp": "../../../src/tutorials.todoapp",
     "ploneorg.admin": "../../../src/ploneorg.admin/docs"
@@ -34,6 +35,7 @@ THE_OTHERS = {
 extensions = [
         'sphinx.ext.autodoc',
         'sphinx.ext.todo',
+        'sphinxcontrib_robotdoc',
 #        'sphinxcontrib.contributors'
 #              'collective.sphinx.autoatschema',
 #              'collective.sphinx.includedoc'
