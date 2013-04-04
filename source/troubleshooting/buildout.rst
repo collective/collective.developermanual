@@ -615,3 +615,21 @@ Try install manually the core buildout part where you have ``fake-eggs`` defined
 
        bin/buildout install client1
 
+error: None
+============
+
+This means you are out of luck and you wish you are not out of cigarettes too.
+
+	error: None
+	An error occured when trying to install lxml 2.3.6. Look above this message for any errors that were output by easy_install.
+	While:
+	  Installing instance.
+	  Getting distribution for 'lxml==2.3.6'.
+	Error: Couldn't install: lxml 2.3.6
+
+Buildout download cache is corrupted. Run ``bin/buildout -vvv`` for more info. Then do something like this:
+
+      # Corrupted .tar.gz download
+      rm /Users/mikko/code/buildout-cache/downloads/dist/lxml-2.3.6.tar.gz
+
+Go to have a cigarette.
