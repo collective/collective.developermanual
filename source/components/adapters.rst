@@ -148,6 +148,9 @@ Example::
                         name=klass.__name__, provided=IWidgetDemo)
     return klass
 
+More info 
+
+* http://www.muthukadan.net/docs/zca.html#registration
 
 Generic adapter contexts
 ------------------------
