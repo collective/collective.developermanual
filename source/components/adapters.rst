@@ -137,7 +137,7 @@ Registering using Python
 
 Register to *Global Site Manager* using ``registerAdapter()``.
 
-Example:
+Example::
 
     from zope.component import getGlobalSiteManager
 
