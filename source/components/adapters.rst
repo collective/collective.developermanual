@@ -48,6 +48,9 @@ Example adapters users
 Registering an adapter
 ======================
 
+Registering using ZCML
+---------------------------
+
 An adapter provides functionality to a class. This functionality becomes
 available when the interface is queried from the instance of class.
 
@@ -127,6 +130,24 @@ Then we can query the adapter and use it. Unit testing example::
 
         # Not yet any uploaded images
         self.assertEqual(len(images), 0)
+
+
+Registering using Python
+---------------------------
+
+Register to *Global Site Manager* using ``registerAdapter()``.
+
+Example:
+
+    from zope.component import getGlobalSiteManager
+
+    layer = klass.layer
+
+    gsm = getGlobalSiteManager()
+    gsm.registerAdapter(factory=MyClass, required=(layer,),
+                        name=klass.__name__, provided=IWidgetDemo)
+    return klass
+
 
 Generic adapter contexts
 ------------------------
