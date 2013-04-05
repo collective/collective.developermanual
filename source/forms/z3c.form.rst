@@ -1,5 +1,5 @@
 ==================================
-Python based forms with z3c.form
+z3c.form library
 ==================================
 
 .. admonition:: Description
