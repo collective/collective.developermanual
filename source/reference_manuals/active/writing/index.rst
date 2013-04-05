@@ -12,3 +12,8 @@ Documentation maintenance guide
    join
    crosslinking
    todos
+
+Presentations
+-----------------
+
+* http://www.slideshare.net/miohtama/test-lol
