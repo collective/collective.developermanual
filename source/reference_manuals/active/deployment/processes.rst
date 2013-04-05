@@ -6,15 +6,15 @@ If you're using a stand-alone Zope/Plone installation (not a ZEO cluster), start
 If you check the "bin" directory of your buildout after building a cluster, you'll find control commands for the server and each client. They're typically named zeoserver, client1, client2, client#. You can do a quick start with the command sequence::
 
     cd /var/db/your_plone_build
-    sudo -u plone bin/zeoserver start
-    sudo -u plone bin/client1 start
-    sudo -u plone bin/client2 start
+    sudo -u plone_daemon bin/zeoserver start
+    sudo -u plone_daemon bin/client1 start
+    sudo -u plone_daemon bin/client2 start
     ...
 
 If you've set all this up with the Unified Installer, you'll have a convenience controller script named "plonectl" that will start all your components with one command::
 
     cd /var/db/your_plone_build
-    sudo -u plone bin/plonectl start
+    sudo -u plone_daemon bin/plonectl start
 
 Each "start" command will run the program in "daemon" mode: after a few startup messages, the program will disconnect from the console and run in the background.
 
@@ -38,13 +38,13 @@ Here's a sample program-configuration stanza for supervisor, controlling both a 
 
     [program:plone_zeoserver]
     command=/var/db/plone/zeocluster/bin/zeoserver fg
-    user=plone
+    user=plone_daemon
     directory=/var/db/plone/zeocluster
     stopwaitsecs=60
 
     [program:plone41_client1]
     command=/var/db/plone41/zeocluster/bin/client1 console
-    user=plone
+    user=plone_daemon
     directory=/var/db/plone41/zeocluster
     stopwaitsecs=60
 
