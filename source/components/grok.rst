@@ -111,21 +111,22 @@ Re-run buildout. Now buildout should download ``five.grok`` for PyPi and activat
 If you are using Plone 4.1 or older you also need `Dexterity extends = line pindowns in your buildout <http://plone.org/products/dexterity/documentation/how-to/install>`_.
 Otherwise you may get *Version Conflict* errors when running buildout.
 
-Plone 4.3 migration and breaking five.grok dependency
+Plone 4.3 migration and five.grok dependency
 =======================================================
 
-First see `Plone 4.2 -> 4.3 Dexterity migration notes <http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/dexterity-optional-extras>`_.
+Please see `Plone 4.2 -> 4.3 Dexterity upgraide guide <http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/dexterity-optional-extras>`_ first.
 
 Migrating Dexterity and z3c.forms to Plone 4.3
 --------------------------------------------------
 
 Plone 4.3 ships with Dexterity. ``five.grok`` is a huge dependency with a lot of
-code which maintenance state cannot be guaranteed in the future (`See grok.zope.org <http://grok.zope.org>`_).
+code of which maintenance cannot be guaranteed in the future (`See grok.zope.org <http://grok.zope.org>`_,
+`discussion <http://plone.293351.n2.nabble.com/The-grokless-madness-and-unable-to-create-a-simple-form-tp7564179p7564184.html>`_).
 Because Plone community cannot commit to maintain this code, but we still want to use the best goodies
-of grok based development, a compromise was made for Plone release 4.3
+of grok based development, some compromises was made for Plone 4.3 regarding grok style forms and directives.
 
 * You can include ``five.grok`` as a dependency, as you have done this far, but it is not going to be
-  in Plone default installation in foreseeable future
+  in Plone default installation in foreseeable future. Please see migration notes.
 
 * ``grok()`` declararations, like ``grok.name()`` in classes are not supported by Plone 4.3 out of the box
 
