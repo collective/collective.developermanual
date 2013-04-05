@@ -488,3 +488,18 @@ For further reading see:
 * http://plone.293351.n2.nabble.com/Problem-with-links-to-files-stored-in-Plone-td3055014.html
 * http://bytes.com/topic/asp-classic/answers/596062-hyperlinks-microsoft-applications-access-word-excel-etc
 * https://community.jivesoftware.com/docs/DOC-32157
+
+Single Sign-On and Active Directory
+-----------------------------------
+
+Plone can be used in a Microsfot Active Directory environment (or standard Kerberos environment) such that users are automatically 
+and transparently authenticated to Plone without requesting credentials from the user.
+
+This is quite an advanced topic and requires some set up on the server, but can be achieved with Plone running on either Unix/Linux
+or Windows environments.
+
+More details can be found in this presentation from Plone Open Garden 2013:
+
+* http://www.slideshare.net/hammertoe/plone-and-singlesign-on-active-directory-and-the-holy-grail
+* http://www.youtube.com/watch?v=-FLQxeD5_1M
+
