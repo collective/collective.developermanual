@@ -2078,3 +2078,29 @@ Example::
 You might have used something else besides string or translation string
 to define Archetypes widget name or description.
 
+
+InvalidInterface: Concrete attribute
+---------------------------------------
+
+Your ``zope.schema`` based schema breaks on Plone startup.
+
+Example::
+	
+	/zope/interface/interface.py", line 495, in __init__
+	    raise InvalidInterface("Concrete attribute, " + name)
+	zope.configuration.xmlconfig.ZopeXMLConfigurationError: File "/Users/mikko/code/buildout.deco/parts/instance/etc/site.zcml", line 15.2-15.55
+	    ZopeXMLConfigurationError: File "/Users/mikko/code/buildout.deco/parts/instance/etc/package-includes/002-plone.app.widgets-configure.zcml", line 1.0-1.61
+	    ZopeXMLConfigurationError: File "/Users/mikko/code/buildout.deco/src/plone.app.widgets/plone/app/widgets/configure.zcml", line 56.2-62.6
+	    InvalidInterface: Concrete attribute, multiChoiceCheckbox
+
+You have extra comma in your schema. Like this::
+
+
+	class IChoiceExamples(model.Schema):
+	
+	    multiChoiceCheckbox = zope.schema.List(
+	        title=u"Checkbox multiple choices",
+	        description=u"Select multiple checkboxes using checkboxes and store values in zope.schema.List (maps to python List)." + DEFAULT_MUTABLE_WARNING,
+	        required=False,
+	        value_type=zope.schema.Choice(vocabulary="plone.app.vocabularies.PortalTypes")),   # <---- OH CRAP
+
