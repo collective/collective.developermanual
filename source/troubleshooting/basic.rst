@@ -130,6 +130,18 @@ For more information see
 
 * http://plone.org/documentation/kb/manually-removing-local-persistent-utilities/
 
+Not able to log in
+------------------
+
+It might happen that you start your instance with an empty database and you are
+not able to log in even if you are absolutely sure about your password. If you work 
+on localhost throw away the localhost related cookies in your browser and restart.
+
+If you have lost the Zope Admin Password you can create an emergency user:
+
+* http://quintagroup.com/services/support/tutorials/zope-access
+
+
 More info
 ----------
 
