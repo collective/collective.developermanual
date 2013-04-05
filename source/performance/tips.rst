@@ -72,6 +72,13 @@ Add ``PTS_LANGUAGES`` to ``buildout.cfg`` to declare which .po files are loaded 
         environment-vars =
             PTS_LANGUAGES=en fi
 
+Upgrade DateTime
+----------------
+
+DateTime 3.x and higher use significant less memory than older versions. Pinning it to 3.0.3 (4.x not tested yet) has no
+known side effects on all Plone 4.1.x and 4.2.x sites, but can give up to a 20-25% reduction in memory use on lower-end hardware/virtualmachines.
+
+
 Large files
 ============
 
