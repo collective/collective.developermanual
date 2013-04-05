@@ -21,7 +21,7 @@ Some clarifications:
 Building and continous integration
 ====================================
 
-This code base uses Travis CI continuous integration 
+This code base uses Travis CI continuous integration
 to check the integrity of the source files.
 
 Failed manual complies will be reported 
