@@ -1122,6 +1122,15 @@ Widget template example::
         </span>
     </span>
 
+Setting widget frame template
+------------------------------
+
+You can change how the frame around each widget is rendered
+in the widget rendering loop. This frame has elements like
+label, required marker, field description and so on.
+
+For instructions see `plone.app.z3cform README <https://github.com/plone/plone.app.z3cform/>`_
+
 Buttons
 =======
 
