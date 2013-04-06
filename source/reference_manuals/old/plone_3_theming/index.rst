@@ -2,6 +2,8 @@
 Theming guide for Plone 3
 ==========================
 
+.. contents :: :local:
+
 Preface
 -------------
 
@@ -18,8 +20,6 @@ Please consult
 `stackoverflow.com (plone tag) <http://stackoverflow.com/questions/tagged/plone>`_ or
 `plone-users mailing list <http://plone.org/support/forums/general>`_
 when in confusion.
-
-.. contents :: :local:
 
 Introduction
 -------------
@@ -247,11 +247,26 @@ index of page elements plus code snippets to make your life easier.
     elements/hiddenelements/plone.nextprevious.links
     elements/hiddenelements/plone.skip_links
 
+Where is what?
+------------------
+
+How to locate the bits and pieces you need. Links to useful visual aids
+for identifying page elements, pointers to locating your product and
+eggs directories, diagrams of a theme egg on the file system.
+
+.. toctree::
+    :maxdepth: 1
+
+    whereiswhat/components
+    whereiswhat/configuration
+    whereiswhat/egg
+    whereiswhat/egglocation
+    whereiswhat/page
+    whereiswhat/productlocation
+    whereiswhat/productsdirectory
+    whereiswhat/skin
+    whereiswhat/theme
+    whereiswhat/zopeinstance
 
 
-Content to be migrated
----------------------------
 
-    whereiswhat/index
-    illustrations/index
-    rule-based-theming/index
