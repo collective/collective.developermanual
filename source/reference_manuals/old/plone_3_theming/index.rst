@@ -77,8 +77,21 @@ Building blocks
 
 
     buildingblocks/skin/templates/overview
-    buildingblocks/skin/locations
-    buildingblocks/skin/components
+
+**Componentws**
+
+.. toctree::
+    :maxdepth: 1
+
+    buildingblocks/components/wiring
+    buildingblocks/components/viewletsandportlets
+    buildingblocks/components/customizing
+    buildingblocks/components/componentparts/interfaces
+    buildingblocks/components/componentparts/pythonclasses
+    buildingblocks/components/componentparts/permissions
+    buildingblocks/components/themespecific
+    buildingblocks/components/skinorcomponents
+    buildingblocks/components/locations
 
 **Skin layers**
 
@@ -88,6 +101,31 @@ Building blocks
     buildingblocks/skin/layers/overview
     buildingblocks/skin/layers/precedence
     buildingblocks/skin/layers/making
+
+**Skin templates**
+
+.. toctree::
+    :maxdepth: 1
+
+    buildingblocks/skin/templates/overview
+    buildingblocks/skin/templates/getting-started
+    buildingblocks/skin/templates/macros-and-slots
+    buildingblocks/skin/templates/advanced-usage
+    buildingblocks/skin/templates/global-template-variables
+    buildingblocks/skin/templates/how-to-customise-view-or-edit-on-archetypes-content-items
+    buildingblocks/skin/templates/create-an-alternative-edit-template
+
+**Customizing Archetypes templates**
+
+.. toctree::
+    :maxdepth: 1
+
+    buildingblocks/skin/templates/customizing-at-templates/introduction
+    buildingblocks/skin/templates/customizing-at-templates/what-makes-it-tick
+    buildingblocks/skin/templates/customizing-at-templates/customizing-widgets
+    buildingblocks/skin/templates/customizing-at-templates/customizing-at-templates
+    buildingblocks/skin/templates/customizing-at-templates/conclusion
+    buildingblocks/skin/templates/customizing-at-templates/reference
 
 
 
