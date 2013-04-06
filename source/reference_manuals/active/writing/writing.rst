@@ -462,9 +462,8 @@ when you are editing restructured text
 because it will greatly improve the editing and maintenance
 of your documents.
 
-Take this example paragraph:
+Take this example paragraph::
 
-.. code-block:: rst
     Patterns can take options in two ways:
     from the DOM or via the jQuery interface.
     It is highly recommended to use the DOM interface,
