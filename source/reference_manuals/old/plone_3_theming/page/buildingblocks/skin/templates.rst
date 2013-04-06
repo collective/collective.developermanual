@@ -1,4 +1,4 @@
-5.2.1. Templates and the Templating Language
+Templates and the Templating Language
 ============================================
 
 Templates and the Templating Language

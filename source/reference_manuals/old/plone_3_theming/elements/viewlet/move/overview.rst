@@ -1,4 +1,4 @@
-Overview and Cheat Sheet
+Move viewlet
 ========================
 
 A cheat sheet of what you need to do to move viewlets in your page
@@ -67,7 +67,7 @@ Moving a viewlet within a viewlet manager
 
     <object>
         <order manager="[Viewlet Manager Name]" skinname="[your skin name]">
-    Specify all the viewlets you want to see in this viewlet 
+    Specify all the viewlets you want to see in this viewlet
     in the order you want them with this directive:
             <viewlet name="[Viewlet Name]">
         </order>
