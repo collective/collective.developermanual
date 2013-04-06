@@ -63,16 +63,32 @@ Tools
 Building blocks
 -------------------
 
+**Overview**
+
 .. toctree::
     :maxdepth: 1
 
     buildingblocks/overview
+
+**Templates**
+
+.. toctree::
+    :maxdepth: 1
+
+
     buildingblocks/skin/templates/overview
     buildingblocks/skin/locations
     buildingblocks/skin/components
+
+**Skin layers**
+
+.. toctree::
+    :maxdepth: 1
+
     buildingblocks/skin/layers/overview
     buildingblocks/skin/layers/precedence
     buildingblocks/skin/layers/making
+
 
 
 
