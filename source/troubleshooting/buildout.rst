@@ -248,7 +248,33 @@ use earlier version of the add-on for your Plone 3 site.
 More info:
 
 * http://groups.google.com/group/singing-dancing/browse_thread/thread/331cdfe78cf371ed        
+	
 
+We already have: zope.interface 4.0.3
+========================================
+
+Example::
+
+	Getting distribution for 'zope.testing==3.9.7'.
+	warning: no files found matching 'sampletests' under directory 'src'
+	Got zope.testing 3.9.7.
+	While:
+	  Installing.
+	  Getting section test.
+	  Initializing section test.
+	  Installing recipe zc.recipe.testrunner.
+	Error: There is a version conflict.
+	We already have: zope.interface 4.0.3
+
+Your system Python or virtualenv'd Python already has ``zope.interface`` library installed.
+A lot of Python software uses this library. However, the system version is wrong and cannot be overridden.
+
+Solutions.
+
+For virtualenv: ``rm -rf ~/code/plone-venv/lib/python2.7/site-packages/zope.interface-4.0.3-py2.7-macosx-10.8-x86_64.egg``
+
+For system Python: You need to create a virtualenv'd Python and to use it to drive buildout,
+so that there is no conflict with ``zope.interface`` versions.
 
 We already have: zope.location 3.4.0
 ====================================
