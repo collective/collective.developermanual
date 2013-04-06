@@ -82,10 +82,16 @@ theme; interconnected, but each with a distinctive way of behaving.
     :maxdepth: 1
 
     buildingblocks/skin/templates/overview
+    buildingblocks/skin/templates/getting-started
+    buildingblocks/skin/templates/advanced-usage
+    buildingblocks/skin/templates/create-an-alternative-edit-template
+    buildingblocks/skin/templates/global-template-variables
+    buildingblocks/skin/templates/macros-and-slots
+    buildingblocks/skin/templates/how-to-customise-view-or-edit-on-archetypes-content-items
     buildingblocks/skin/templates/customizing-at-templates/introduction
     buildingblocks/skin/templates/customizing-at-templates/what-makes-it-tick
     buildingblocks/skin/templates/customizing-at-templates/customizing-widgets
-    buildingblocks/skin/templates/customizing-at-templates/customizing-at-templates
+    buildingblocks/skin/templates/customizing-at-templates/total-control-the-view-template
     buildingblocks/skin/templates/customizing-at-templates/conclusion
     buildingblocks/skin/templates/customizing-at-templates/reference
 
@@ -193,7 +199,7 @@ index of page elements plus code snippets to make your life easier.
     elements/portletmanager/createnew
     elements/portletmanager/move
     elements/portletmanager/hide
-    elements/practical/adding-portlet-managers
+    elements/portletmanager/practical/adding-portlet-managers
 
 **Structural elements**
 
