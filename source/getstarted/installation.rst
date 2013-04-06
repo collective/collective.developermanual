@@ -139,21 +139,21 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
         sudo -i -u plone
 
-4. Download the Plone binary installer
+4. Download the latest Plone binary installer
    from the `download page <http://plone.org/download>`_ to your server using wget command.
 
    .. code-block:: console
 
-        wget --no-check-certificate https://launchpad.net/plone/4.2/4.2.4/+download/Plone-4.2.4-UnifiedInstaller-r3.tgz
+        wget --no-check-certificate https://launchpad.net/plone/4.2/4.2.5/+download/Plone-4.2.5-UnifiedInstaller.tgz
 
 5. Run the Plone installer as non-root-userd, standalone‚ mode.:
 
    .. code-block:: console
 
         # Extract the downloaded file
-        tar -xf Plone-4.2.4-UnifiedInstaller-r3.tgz
+        tar -xf Plone-4.2.5-UnifiedInstaller.tgz
         # Go the folder containing installer script
-        cd Plone-4.2.4-UnifiedInstaller
+        cd Plone-4.2.5-UnifiedInstaller
         # Run script
         ./install.sh standalone
 
