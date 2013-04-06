@@ -121,6 +121,10 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
         sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils python-imaging
 
+    ..note::
+
+      If you use Debian 6 [Squeeze] replace libreadline-gp1v2 with libreadline-dev 
+
 
    Install also version control software needed often when developing with Plone::
 

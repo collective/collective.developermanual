@@ -451,3 +451,29 @@ coloration, underlining a heading with ``^C ^A``
 Marketplace.
 
 **Vim** does syntax highlighting for RST files.
+
+Style recommendations
+=====================
+
+Use **semantic linefeeds**
+(http://rhodesmill.org/brandon/2012/one-sentence-per-line/)
+when you are editing restructured text
+(or any other interpreted rich text format)
+because it will greatly improve the editing and maintenance
+of your documents.
+
+Take this example paragraph::
+
+    Patterns can take options in two ways:
+    from the DOM or via the jQuery interface.
+    It is highly recommended to use the DOM interface,
+    since it offers a lot more flexibility compared to the jQuery approach.
+    Also,
+    if you wish to use the automatic binding and rebinding functionality,
+    the DOM approach is more straightforward and hassle-free.
+
+Notice how it's easier to just reshuffle sentences and add stuff if,
+instead of using your editor "autowrap" feature,
+you manually insert line breaks after full stops, commas,
+or upon "grammatical" boundaries
+(and not merely word ones).
