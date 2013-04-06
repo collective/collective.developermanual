@@ -70,8 +70,11 @@ Building blocks
     buildingblocks/skin/templates/overview
     buildingblocks/skin/locations
     buildingblocks/skin/components
+    buildingblocks/skin/layers/overview
+    buildingblocks/skin/layers/precedence
+    buildingblocks/skin/layers/making
 
-TODO continue here
+
 
 Content to be migrated
 ---------------------------
