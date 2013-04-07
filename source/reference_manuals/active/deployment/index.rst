@@ -1,5 +1,5 @@
 ========================================================================
-Deploying and installing Plone in production 
+Deploying and installing Plone in production
 ========================================================================
 
 .. admonition:: Description
@@ -22,4 +22,3 @@ Deploying and installing Plone in production
     logs
     packing
     backup
-    old_3

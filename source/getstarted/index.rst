@@ -10,13 +10,13 @@ Introduction
 --------------
 
 Plone is developed in the :doc:`Python </getstarted/python>` programming language. doc:`Python </getstarted/python>`You should master Python basics`
-before you can efficiently customize Plone. If you are very new to Python, Plone or software development, 
-it is suggested that you read the `Professional Plone 4 Development book 
+before you can efficiently customize Plone. If you are very new to Python, Plone or software development,
+it is suggested that you read the `Professional Plone 4 Development book
 <http://www.packtpub.com/professional-plone-4-development/book>`_
-before you attempt to develop your own solutions. 
+before you attempt to develop your own solutions.
 
-If you quickly want to learn about current best-practices in developing with Plone you should also work through the 
-`Todo list application tutorial <http://tutorialtodoapp.readthedocs.org/en/latest/index.html>`_. 
+If you quickly want to learn about current best-practices in developing with Plone you should also work through the
+`Todo list application tutorial <http://tutorialtodoapp.readthedocs.org/en/latest/index.html>`_.
 
 Plone runs on the top of the `Zope 2 application server <zope2.zope.org/>`_, meaning that one Zope 2 server process
 can contain and host several Plone sites. Plone also uses Zope 3 components. Zope 3 is not an upgrade for Zope 2,
@@ -30,10 +30,10 @@ Installing Plone
 ------------------
 
 It is recommended that you do Plone development on Linux or OS X. Development on Windows is possible,
-but you need to have much more experience dealing with Python and Windows related problems, so starting 
+but you need to have much more experience dealing with Python and Windows related problems, so starting
 on Windows is not so easy.
 
-See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation 
+See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation
 suitable for development.
 
 Non-programming approaches for customizing Plone
@@ -43,7 +43,7 @@ If you lack programming skill or resources, you can still get some things done i
 
 * `Plomino is a a powerful and flexible web-based application builder for Plone <http://www.plomino.net>`_
 
-* `PloneFormGen allows you to build forms in a web browser <http://plone.org/products/ploneformgen>`_ 
+* `PloneFormGen allows you to build forms in a web browser <http://plone.org/products/ploneformgen>`_
 
 * Plone 4+ comes with through-the-web Dexterity content type editor
 
@@ -61,18 +61,18 @@ Plone add-ons as Python packages
 
 Plone sites can be customized by installing *Plone add-ons*, which add or customize functionality.
 You can install existing add-ons that others have developed or you can develop and install your own add-ons.
-Add-ons are developed and distributed as 
-`Python packages <http://packages.python.org/distribute/setuptools.html>`_. Many open-source Python packages, 
+Add-ons are developed and distributed as
+`Python packages <http://packages.python.org/distribute/setuptools.html>`_. Many open-source Python packages,
 including Plone add-ons, are available from `PyPI (the Python Package index) <http://pypi.python.org>`_.
 
-Plone uses a tool called `Buildout <http://www.buildout.org/>`_ to manage the set of Python packages 
+Plone uses a tool called `Buildout <http://www.buildout.org/>`_ to manage the set of Python packages
 that are part of your Plone installation.
 Using Buildout involves using the ``buildout.cfg`` configuration file and the ``bin/buildout`` command.
 
 .. note ::
 
   In prior versions of Plone and Zope, add-ons were referred to as "products" and they were installed by copying
-  them into a special folder called ``products``. This method is now deprecated in favor of using 
+  them into a special folder called ``products``. This method is now deprecated in favor of using
   standard Python packages, managed by Buildout.
 
 
@@ -173,8 +173,8 @@ Hello World Tutorial
 
 We have a :doc:`tutorial </reference_manuals/active/helloworld/index>` introducing the basics of Plone development.
 
-The tutorial covers a basic form, a custom content-type, and a dynamic view. 
-It also has detailed sections on building a development environment, installing Plone, and 
+The tutorial covers a basic form, a custom content-type, and a dynamic view.
+It also has detailed sections on building a development environment, installing Plone, and
 creating an add-on package for your development code.
 
 More info
