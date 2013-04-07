@@ -157,6 +157,165 @@ provided by the
 This template provides the visual frame for Plone themes. The template is
 an old-style page template living in ``plone_skins/plone_templates``.
 
+Custom per view main template
+--------------------------------
+
+Here is an example how to provide a customized main template for one view.
+In this example we have customized main template so that only the content area is visible.
+
+First we register our template in ``configure.zcml``::
+
+    <!-- Provide a custom main_template for our consumption -->
+    <browser:page
+        name="widgets-demo-main-template"
+        for="*"
+        permission="zope.Public"
+        template="barebone-main-template.pt"
+        />
+
+We refer it in our page template instead of ``here/main_template``::
+
+     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+           xmlns:tal="http://xml.zope.org/namespaces/tal"
+           xmlns:metal="http://xml.zope.org/namespaces/metal"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           metal:use-macro="here/@@widgets-demo-main-template/macros/master"
+           i18n:domain="plone.app.widgets"
+           lang="en"
+           >
+
+``barebone-main-template.pt`` is an edited copy of ``portal_skins/sunburst_templates/main_template.pt``::
+
+    <metal:page define-macro="master">
+    <tal:doctype tal:replace="structure string:&lt;!DOCTYPE html&gt;" />
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        tal:define="portal_state context/@@plone_portal_state;
+            context_state context/@@plone_context_state;
+            plone_view context/@@plone;
+            lang portal_state/language;
+            view nocall:view | nocall: plone_view;
+            dummy python: plone_view.mark_view(view);
+            portal_url portal_state/portal_url;
+            checkPermission nocall: context/portal_membership/checkPermission;
+            site_properties context/portal_properties/site_properties;
+            ajax_load request/ajax_load | nothing;
+            ajax_include_head request/ajax_include_head | nothing;
+            dummy python:request.RESPONSE.setHeader('X-UA-Compatible', 'IE=edge,chrome=1');"
+        tal:attributes="lang lang;">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <metal:baseslot define-slot="base">
+            <base tal:attributes="href plone_view/renderBase" /><!--[if lt IE 7]></base><![endif]-->
+        </metal:baseslot>
+
+        <tal:notajax tal:condition="python:not ajax_load or ajax_include_head">
+            <div tal:replace="structure provider:plone.htmlhead" />
+            <link tal:replace="structure provider:plone.htmlhead.links" />
+
+            <tal:comment replace="nothing">
+                Various slots where you can insert elements in the header from a template.
+            </tal:comment>
+            <metal:topslot define-slot="top_slot" />
+            <metal:headslot define-slot="head_slot" />
+            <metal:styleslot define-slot="style_slot" />
+            <metal:javascriptslot define-slot="javascript_head_slot" />
+
+            <meta name="viewport" content="width=device-width, initial-scale=0.6666, maximum-scale=1.0, minimum-scale=0.6666" />
+            <meta name="generator" content="Plone - http://plone.org" />
+        </tal:notajax>
+    </head>
+
+    <body tal:define="isRTL portal_state/is_rtl;
+                      sl python:plone_view.have_portlets('plone.leftcolumn', view);
+                      sr python:plone_view.have_portlets('plone.rightcolumn', view);
+                      body_class python:plone_view.bodyClass(template, view);
+                      classes python:context.restrictedTraverse('@@sunburstview').getColumnsClasses(view)"
+        tal:attributes="class body_class;
+                        dir python:isRTL and 'rtl' or 'ltr'">
+
+    <div id="visual-portal-wrapper">
+
+        <div id="portal-columns" class="row">
+
+            <div id="portal-column-content" class="cell" tal:attributes="class classes/content">
+
+                <div id="viewlet-above-content" tal:content="structure provider:plone.abovecontent" tal:condition="not:ajax_load" />
+
+                <metal:block define-slot="content">
+                    <div metal:define-macro="content"
+                        tal:define="show_border context/@@plone/showEditableBorder; show_border python:show_border and not ajax_load"
+                        tal:attributes="class python:show_border and 'documentEditable' or ''">
+
+                        <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+                         Status message
+                        </div>
+
+                        <metal:slot define-slot="body">
+                            <div id="content">
+
+                                <metal:header define-slot="header" tal:content="nothing">
+                                Visual Header
+                                </metal:header>
+
+                                <metal:bodytext define-slot="main">
+
+                                 <div id="viewlet-above-content-title" tal:content="structure provider:plone.abovecontenttitle" tal:condition="not:ajax_load" />
+                                  <metal:title define-slot="content-title">
+                                     <metal:comment tal:content="nothing">
+                                         If you write a custom title always use
+                                         <h1 class="documentFirstHeading"></h1> for it
+                                     </metal:comment>
+                                     <h1 metal:use-macro="context/kss_generic_macros/macros/generic_title_view">
+                                         Generic KSS Title. Is rendered with class="documentFirstHeading".
+                                     </h1>
+                                 </metal:title>
+
+                                 <div id="viewlet-below-content-title" tal:content="structure provider:plone.belowcontenttitle" tal:condition="not:ajax_load" />
+
+                                 <metal:description define-slot="content-description">
+                                     <metal:comment tal:content="nothing">
+                                         If you write a custom description always use
+                                         <div class="documentDescription"></div> for it
+                                     </metal:comment>
+                                     <div metal:use-macro="context/kss_generic_macros/macros/generic_description_view">
+                                         Generic KSS Description. Is rendered with class="documentDescription".
+                                     </div>
+                                 </metal:description>
+
+                                 <div id="viewlet-above-content-body" tal:content="structure provider:plone.abovecontentbody" tal:condition="not:ajax_load" />
+
+                                 <div id="content-core">
+                                     <metal:text define-slot="content-core" tal:content="nothing">
+                                         Page body text
+                                     </metal:text>
+                                 </div>
+
+                                 <div id="viewlet-below-content-body" tal:content="structure provider:plone.belowcontentbody" tal:condition="not:ajax_load" />
+
+                                </metal:bodytext>
+                            </div>
+                        </metal:slot>
+
+                        <metal:sub define-slot="sub" tal:content="nothing">
+                           This slot is here for backwards compatibility only.
+                           Don't use it in your custom templates.
+                        </metal:sub>
+                    </div>
+                </metal:block>
+
+            </div>
+        </div>
+
+    </div>
+    </body>
+    </html>
+
+    </metal:page>
+
+
 Plone template element map
 ==========================
 
