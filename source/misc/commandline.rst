@@ -298,6 +298,13 @@ More info
 
 * http://wiki.zope.org/zope2/HowToFakeREQUESTInDebugger
 
+Creating Plone site in buildout
+-----------------------------------
+
+You can pre-generate the site from the buildout run.
+
+* https://pypi.python.org/pypi/collective.recipe.plonesite#example
+
 screen
 ------
 
