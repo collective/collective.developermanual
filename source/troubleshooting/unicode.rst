@@ -59,6 +59,10 @@ input automatically to utf-8 when used as 8-bit string.
 
 * http://tarekziade.wordpress.com/2008/01/08/syssetdefaultencoding-is-evil/
 
+There is also ``sitecustomization.py`` trick to set ``sys.setdefaultencoding("utf-8")`` on per-script basis
+
+* http://stackoverflow.com/a/7892892/315168
+
 UnicodeEncodeError
 ==================
 
