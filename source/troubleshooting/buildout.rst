@@ -639,7 +639,14 @@ the buildout in a new environment.
 
 Try install manually the core buildout part where you have ``fake-eggs`` defined::
 
-       bin/buildout install client1
+	# disable zeoserver, clients in buildout.cfg
+        bin/buildout install zope2
+        bin/buildout install instance
+        # enable zeoserver, clients in buildout
+	bin/buildout install client1
+        bin/buildout 
+        # Don't touch anything to break it
+
 
 error: None
 ============
