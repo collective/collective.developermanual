@@ -13,7 +13,7 @@ PFG installs just like most other Plone add ons. Edit the buildout.cfg file at t
     eggs =
         Plone
         ...
-        PloneFormGen
+        Products.PloneFormGen
 
 Run bin/buildout and restart your Plone instance. Dependencies will be loaded automatically.
 
