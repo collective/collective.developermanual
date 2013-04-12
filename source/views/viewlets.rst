@@ -120,7 +120,7 @@ Create *yourcomponent.app/yourcomponent/app/browser/viewlets.py*::
             def available(self):
                 """ Check if we are in a specific content type.
 
-                Check that the Dexerity content type has a certain
+                Check that the Dexterity content type has a certain
                 behavior set on it through Dexterity settings panel.
                 """
                 try:
