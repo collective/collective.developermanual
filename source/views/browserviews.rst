@@ -155,7 +155,7 @@ First, create your add-on product using
 :doc:`Dexterity project template </getstarted/paste>`. The most important 
 thing in the add-on is that your registers itself to :doc:`grok </components/grok>`
 which allows Plone to scan all Python files for ``grok()`` directives and 
-furter automatically pick up your views (as opposite using old Zope 3 method
+further automatically pick up your views (as opposite using old Zope 3 method
 where you manually register views by typing them in to ZCML in ZCML).
 
 configure.zcml
@@ -182,7 +182,7 @@ configuration ZCML file::
 
 	</configure>
 
-setup.py and buildot
+setup.py and buildout
 `````````````````````
 
 Either you need to have ``five.grok`` 
@@ -290,7 +290,7 @@ inherits from ``<html metal:use-macro="context/main_template/macros/master">``:
     content body specific to your view, Plone version > 4.x
 
 ``header``
-    A slot for inserting content above the title; may be useful in conjunction wtih
+    A slot for inserting content above the title; may be useful in conjunction with
     content-core slot if you wish to use the stock content-title provided by the
     main template.
 
@@ -350,7 +350,7 @@ Example::
     class MyView(BrowserView):
 
         def __init__(self, context, request):
-            """ Initialize context and request as view multiadaption parameters.
+            """ Initialize context and request as view multi adaption parameters.
 
             Note that the BrowserView constructor does this for you.
             This step here is just to show how view receives its context and
@@ -424,7 +424,7 @@ The following example registers a new view (see below for comments):
 ``class``
     is a Python dotted name for a class based on ``BrowserView``, which is
     responsible for managing the view. The Class's ``__call__()`` method is
-    the entrypoint for view processing and rendering.
+    the entry point for view processing and rendering.
 
 .. Note:: You need to declare the ``browser`` namespace in your
    ``configure.zcml`` to use ``browser`` configuration directives.
@@ -544,7 +544,7 @@ The ``__init__()`` method of the view might not have an
 :doc:`acquisition chain </serving/traversing>` available, meaning that it
 does not know the parent or hierarchy where the view is.
 This information is set after the constructor have been run.
-All Plone code which relies on acquistion chain, which means
+All Plone code which relies on acquisition chain, which means
 almost all Plone helper code, does not work in ``__init__()``.
 Thus, the called Plone API methods return ``None`` or tend to throw
 exceptions.
@@ -832,7 +832,7 @@ Example::
 
         return view
 
-You can also do direct view lookups and method calls in your template
+You can also do direct view look-ups and method calls in your template
 by using the ``@@``-notation in traversing.
 
 .. code-block:: html
