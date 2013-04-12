@@ -47,7 +47,6 @@ create a Widget class. If the questions aren't clear, take a look at the
 you've got a specific enough use-case (like RichDocument) that you
 *need* custom widget classes, you're probably able to make it happen
 just by the sheer fact that you *know* you need them.
-`[1] <http://localhost:8080/samplecontent/test-page#ref1>`_
 
 Customizing Widget Templates
 ----------------------------
@@ -68,26 +67,62 @@ The only thing we can control is the display of what comes after
 "**myfield:**\ ", which is just the data contained within the field
 itself (we'll talk about how to customize the display of labels later).
 However, if we customize the template, we can insert *all kinds* of
-nifty HTML into there! So, let's look at StringWidget's template,
-'widget/string':
-
-It's pretty straight-forward. As you can see, there are three important
-macros in a widget template:
+nifty HTML into there! Take a look at the default template for
+StringWidget, 'widget/string'. It's pretty straight-forward. As you can
+see, there are three important macros in a widget template:
 
 -  ``view``
 -  ``edit``
 -  ``search``
 
+Widget templates must define all three macros, however we can pass-through
+to the default when we aren't customising.
+
 Don't concern yourself with the ``edit`` and ``search`` macros;
 remember, we're customizing the *view*. Let's start by creating a new
-template called ``my_string_widget``
-`[2] <http://localhost:8080/samplecontent/test-page#ref2>`_. Start like
-this:
+skin template called ``my_string_widget``. Start with this:
 
-Notice how we use the same pass-through macro call in the ``edit`` macro
-that the ``string`` template originally uses in the ``search`` macro.
-It's important to remember the following concept: **Widget templates
-must define all three macros:** ``view``, ``edit``, and ``search``.
+::
+
+        <html xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:tal="http://xml.zope.org/namespaces/tal"
+              xmlns:metal="http://xml.zope.org/namespaces/metal"
+              xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+              i18n:domain="plone">
+        
+          <head><title></title></head>
+        
+          <body>
+        
+            <metal:define define-macro="view">
+              <metal:use use-macro="context/widgets/string/macros/view">
+                <metal:fill fill-slot="inside">
+                   <span tal:content="accessor">Content</span>
+                   <span>is the coolest field data ever!</span>
+                </metal:fill>
+              </metal:use>
+            </metal:define>
+        
+            <metal:define define-macro="edit">
+              <metal:block use-macro="context/widgets/string/macros/edit" />
+            </metal:define>
+        
+            <metal:define define-macro="search">
+              <metal:block use-macro="context/widgets/string/macros/search" />
+            </metal:define>
+        
+          </body>
+        
+        </html>
+
+(NB: I'm breaking AT's naming convention here. You don't have to do that,
+but I find it more convenient and understandable to add a ``_widget`` to
+the names of my widget templates)
+
+Notice we didn't copy the definitions for ``edit`` or ``search``, we also
+get the default template to generate the markup surrounding the view widget,
+and just populate the ``inside`` macro.
+
 Also, notice how there is no display code for the label; that's handled
 elsewhere. If you're wondering where the ``accessor`` variable comes
 from, that's part of the widget display code. The widget class defines
@@ -110,7 +145,8 @@ templates:
 Now, let's modify the way that our StringField displays. For brevity,
 I'll just show the ``view`` macro:
 
-Then, we should tell our type's schema to point at the new template:
+Then, we should tell our type's schema to point at the new template, 
+by setting ``macro``:
 
 ::
 
@@ -132,12 +168,5 @@ Now, our StringField, when rendered, looks like this:
    :alt: Custom Widget
 
    Custom Widget
+
 Yes, folks, it's *just that easy*.
-
-[1] Again, this probably only applies to wiggy.
-
-[2] Notice I'm breaking AT's convention here. You don't have to do that,
-but I find it more convenient and understandable to add a ``_widget`` to
-the names of my widget templates.
-
- 
