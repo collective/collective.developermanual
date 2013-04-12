@@ -14,11 +14,11 @@ Some clarifications:
 
 * ``source`` folder contains the Sphinx manual source
 
-* ``src`` folder will be target for Plone source code, checkouted for source code documentation inclusion
+* ``src`` folder will be target for Plone source code, checkout-ed for source code documentation inclusion
 
 * Uploading documentation to plone.org is no longer supported - instead readthedocs.org is preferred method of distribution 
 
-Building and continous integration
+Building and continuous integration
 ====================================
 
 This code base uses Travis CI continuous integration
