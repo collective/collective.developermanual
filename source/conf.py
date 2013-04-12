@@ -16,6 +16,7 @@ import os
 # Embedded packages. The folder context for these is "source/reference_manuals/external"
 THE_OTHERS = {
     "plone.api": "../../../src/plone.api/docs",
+    "plone.app.robotframework": "../../../src/plone.app.robotframework/docs/source",
     "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
     "tutorials.todoapp": "../../../src/tutorials.todoapp",
     "ploneorg.admin": "../../../src/ploneorg.admin/docs"
@@ -34,6 +35,7 @@ THE_OTHERS = {
 extensions = [
         'sphinx.ext.autodoc',
         'sphinx.ext.todo',
+        'sphinxcontrib_robotdoc',
 #        'sphinxcontrib.contributors'
 #              'collective.sphinx.autoatschema',
 #              'collective.sphinx.includedoc'
@@ -140,7 +142,7 @@ html_theme_path = ['_themes']
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['_static', '_generated']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

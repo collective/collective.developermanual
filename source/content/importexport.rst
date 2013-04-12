@@ -49,8 +49,6 @@ To export a folder from a site to another do
 
 * Go to portal_catalog -> Advanced tab. *Clear and Rebuild* the catalog (raw Zope pickle does not know about anything living inside the catalog)
 
-
-
 quintagroup.transmogrifier
 --------------------------
 
@@ -193,9 +191,13 @@ Fast content import
 collective.jsonmigrator
 ------------------------
 
+Convert Plone content to JSON and move it between sites.
+
 See
 
 * https://github.com/collective/collective.jsonmigrator
+
+* https://github.com/collective/collective.jsonify
 
 * http://stackoverflow.com/questions/13721016/exporting-plone-archetypes-data-in-json
 

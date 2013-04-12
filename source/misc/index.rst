@@ -25,5 +25,6 @@ This section describes functions and APIs which are not directly related to any 
     slideshow
     upgrade
     html
+    sql
     portal_transforms
     porg

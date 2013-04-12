@@ -156,5 +156,5 @@ Other references
 
 .. _AccessControl: http://svn.zope.org/Zope/trunk/src/AccessControl
 
-.. _RestrictedPython: http://pypi.python.org/pypi/RestrictedPython>
+.. _RestrictedPython: http://pypi.python.org/pypi/RestrictedPython
 

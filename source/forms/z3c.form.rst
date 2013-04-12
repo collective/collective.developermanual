@@ -1,5 +1,5 @@
 ==================================
-Python based forms with z3c.form
+z3c.form library
 ==================================
 
 .. admonition:: Description
@@ -339,6 +339,59 @@ And corresponding template ``edit_header.pt``
    main_template you need to use the
    ``Products.Five.browser.pagetemplatefile.ViewPageTemplateFile``
    class.
+
+Rendering a form manually
+---------------------------
+
+You can directly create a form instance and call it's ``form.render()`` method.
+This will output the full page HTML. However, there is a way to only render the form
+body payload.
+
+First create a form and ``update()``::
+
+       view.form = MyFormClass(self.context, self.request)
+       view.form.update()
+
+Then you can invoke ``plone.app.z3cform`` macros directly to render the form body
+in your view's page template.
+
+.. code-block:: html
+
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          metal:use-macro="here/main_template/macros/master"
+          i18n:domain="plone.app.widgets"
+          lang="en"
+          >
+    <body>
+    
+        <metal:main fill-slot="main">
+            <tal:main-macro metal:define-macro="main">
+    
+              <h1 class="documentFirstHeading">Plone fields and widgets demo</h1>
+    
+              <div id="skel-contents">
+                <tal:form repeat="form view/demos">
+    
+                    <!-- plone.app.z3cform package provides view ploneform-macros
+                         which come with a helpers to render forms. This one
+                         will render the form body only. It also makes an assumption
+                         that form is presented in "view" TAL variable.
+    
+                      -->
+                    <tal:with-form-as-view define="view nocall:form">
+                        <metal:block use-macro="form/@@ploneform-macros/titlelessform" />
+                    </tal:with-form-as-view>
+    
+                </tal:form>
+              </div>
+    
+            </tal:main-macro>
+        </metal:main>
+    </body>
+    </html>
 
 Fields
 ======
@@ -1068,6 +1121,15 @@ Widget template example::
             No file
         </span>
     </span>
+
+Setting widget frame template
+------------------------------
+
+You can change how the frame around each widget is rendered
+in the widget rendering loop. This frame has elements like
+label, required marker, field description and so on.
+
+For instructions see `plone.app.z3cform README <https://github.com/plone/plone.app.z3cform/>`_
 
 Buttons
 =======

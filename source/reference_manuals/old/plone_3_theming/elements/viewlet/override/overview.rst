@@ -1,4 +1,4 @@
-Overview and Cheat Sheet
+Override viewlet
 ========================
 
 A quick cheat sheet on how to customize or create a new viewlet.
@@ -66,7 +66,7 @@ layer attribute is really important here)
      template="templates/[your template name]"
      layer="[your theme specific interface]"
      permission="zope2.View"
-     /> 
+     />
 
 Wiring up a new viewlet but borrowing a Plone Default viewlet class
 
@@ -108,7 +108,7 @@ template.
 ::
 
     from [element namespace] import [element class name]
-    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFileclass 
+    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFileclass
 
     [your class name]([element class name]):
         render = ViewPageTemplateFile("[your template name]")

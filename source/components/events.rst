@@ -269,6 +269,11 @@ previous and current states.
     is triggered after the main ZODB database has been opened.
 
 
+Asynchronous event handling
+================================
+
+* http://stackoverflow.com/questions/15875088/running-plone-subscriber-events-asynchronously
+
 See also
 ========
 
