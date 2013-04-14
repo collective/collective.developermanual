@@ -16,19 +16,17 @@ Some clarifications:
 
 * ``src`` folder will be target for Plone source code, checkout-ed for source code documentation inclusion
 
-* Uploading documentation to plone.org is no longer supported - instead readthedocs.org is preferred method of distribution 
+* Uploading documentation to plone.org is no longer supported - instead readthedocs.org is preferred method of distribution
 
-Building and continuous integration
+Building and deployment
+========================
+
+Please see `developer.plone.org info <http://developer.plone.org/reference_manuals/active/writing/crosslinking.html#developer-plone-org-builds>`_ how this documentation is being deployed.
+
+Travis CI
 ====================================
 
-This code base uses Travis CI continuous integration
-to check the integrity of the source files.
-
-Failed manual complies will be reported 
-
-* plone-docs mailing list
-
-* #plone.org IRC channel
+**Currently disabled**
 
 See ``.travis.yml`` file for continuous integration settings.
 
