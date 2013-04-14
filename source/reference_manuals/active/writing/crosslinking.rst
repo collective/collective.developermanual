@@ -94,6 +94,7 @@ Do run the build by hand and see what's going wrong::
     ssh deus2.plone.org
     cd /var/www/developer.plone.org
     sudo -u apache bin/buildout -c deployment.cfg
+    sudo -u apache ./doc-holliday.sh
     
 Setup
 ------
