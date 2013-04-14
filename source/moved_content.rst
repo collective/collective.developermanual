@@ -4,17 +4,24 @@
 
 .. image:: /images/moved.jpg
 
-As the annual plone.org clean-up we have moved some old Plone developer manuals to new locations.
-This includes
+.. note ::
 
-* Old developer manual
+    You have arrived at this page, because you tried to access a deep link on plone.org developer manual and this link has been moved.
 
-* Old theme reference
+*plone.org* developer documentation has moved to `Sphinx based developer documentation management system <http://sphinx-doc.org/>`_, as this provides easier document management,
+is aligned with other Python projects and allows us to integrate documentation from several source code packages under the same umbrella.
 
-You can find these manuals on the `developer.plone.org front page <http://developer.plone.org/en/latest/#old-reference-manuals>`_.
-Please note that these manuals are for Plone 3 and slowly replaced by new content reflecting the current Plone 4 development best practices.
+Unfortunately, due to the content migration to Sphinx, we no longer can redirect you to the old document, as there doesn't exist 1:1 mapping
+between the old *plone.org* content and new `developer.plone.org <http://developer.plone.org>`_ content.
 
-Unfortunately we cannot give you a direct redirect as there doesn't exist 1:1 mapping
-between the old plone.org content and new `developer.plone.org <http://developer.plone.org>`_ content.
+**Starting points to find the old documentation you are looking for**
+
+* `Developer documentation front page <http://developer.plone.org>`_
+
+* `Old Plone 3 developer manuals <http://developer.plone.org/#old-manuals>`_
+
+* `Old Plone 3 theme reference <http://developer.plone.org/reference_manuals/old/plone_3_theming/index.html>`_
+
+* `Dexterity developer manual <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/index.html>_
 
 For any questions please send email to `plone-docs mailing list <http://plone.org/support/forums/docs>`_.
