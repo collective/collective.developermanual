@@ -110,18 +110,26 @@ These manuals apply to the current best practices of Plone development.
 They are in their own separate section due to the length of narrative explanation
 or having the documentation source code hosted in an external package.
 
+**Programming**
+
 .. toctree::
     :maxdepth: 1
 
     reference_manuals/external/plone.api/index
+    reference_manuals/external/plone.app.dexterity/index
     reference_manuals/external/Products.TinyMCE/index
-    reference_manuals/external/ploneorg.admin/index
     reference_manuals/external/tutorials.todoapp/docs/index
-    reference_manuals/external/plone.api/api/index
     reference_manuals/active/helloworld/index
     reference_manuals/active/ploneformgen/index
-    reference_manuals/active/deployment/index
     reference_manuals/external/plone.app.robotframework/index
+
+**Deployment**
+
+.. toctree::
+    :maxdepth: 1
+
+    reference_manuals/active/deployment/index
+    reference_manuals/external/ploneorg.admin/index
 
 See :doc:`cross-documentation linking </reference_manuals/active/writing/crosslinking>` how to get your documentation here.
 

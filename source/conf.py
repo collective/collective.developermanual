@@ -19,7 +19,8 @@ THE_OTHERS = {
     "plone.app.robotframework": "../../../src/plone.app.robotframework/docs/source",
     "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
     "tutorials.todoapp": "../../../src/tutorials.todoapp",
-    "ploneorg.admin": "../../../src/ploneorg.admin/docs"
+    "ploneorg.admin": "../../../src/ploneorg.admin/docs",
+    "plone.app.dexterity": "../../../src/plone.app.dexterity/docs"
 }
 
 
