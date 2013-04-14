@@ -86,8 +86,18 @@ done on *deus2.plone.org* machine in ``/var/www/developer.plone.org``
 folder. They are done by running
 `doc-holliday.sh update script <https://github.com/collective/collective.developermanual/blob/master/doc-holliday.sh>`_ in a crontab created by *deployment.cfg*.
 
-We are looking forward to get our documentation hosted back to *readthedocs.org*, but currently *readthedocs.org*
-do not have buildout support needed in our use case. In any case the docs are plain HTML files.
+Update
+-------
+
+Do run the build by hand and see what's going wrong::
+
+    ssh deus2.plone.org
+    cd /var/www/developer.plone.org
+    sudo -u apache bin/buildout -c deployment.cfg
+    sudo -u apache ./doc-holliday.sh
+    
+Setup
+------
 
 The deployment is done as following::
 
@@ -98,7 +108,8 @@ The deployment is done as following::
     cd /var/www
     sudo -u apache git clone git://github.com/collective/collective.developermanual.git developer.plone.org
     cd developer.plone.org
-    sudo -u apache python bootstrap.py
+    sudo -u apache virtualenv venv
+    sudo -u apache venv/bin/python bootstrap.py
     sudo -u apache bin/buildout -c deployment.cfg
 
 The folder where final static HTML files lie is ``/var/www/developer.plone.org/var/public_html``.
