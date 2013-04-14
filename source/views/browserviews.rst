@@ -569,6 +569,36 @@ For more information, see
 
 * :doc:`browser layers </views/layers>`
 
+Register and unregister view directly using zope.component architecture
+-------------------------------------------------------------------------
+
+Example how to register::
+
+	import zope.component
+	import zope.publisher.interfaces.browser
+
+        zope.component.provideAdapter(
+            # Our class
+            factory=TestingRedirectHandler,
+            # (context, request) layers for multiadapter lookup
+            # We provide None as layers are not used
+            adapts=(None, None),
+            # All views are registered as IBrowserView interface
+            provides=zope.publisher.interfaces.browser.IBrowserView,
+            # View name
+            name='redirect_handler')
+
+
+Example how to unregister::
+
+        # Dynamically unregister a view
+        gsm = zope.component.getGlobalSiteManager()
+        gsm.unregisterAdapter(factory=TestingRedirectHandler,
+                              required=(None, None),
+                              provided=zope.publisher.interfaces.browser.IBrowserView,
+                              name="redirect_handler")
+
+
 Content type, mimetype and Template start tag
 =============================================
 
