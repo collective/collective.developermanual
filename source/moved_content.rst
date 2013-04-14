@@ -22,6 +22,6 @@ between the old *plone.org* content and new `developer.plone.org <http://develop
 
 * `Old Plone 3 theme reference <http://developer.plone.org/reference_manuals/old/plone_3_theming/index.html>`_
 
-* `Dexterity developer manual <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/index.html>_
+* `Dexterity developer manual <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/index.html>`_
 
 For any questions please send email to `plone-docs mailing list <http://plone.org/support/forums/docs>`_.
