@@ -16,7 +16,7 @@ Javascripts files must be distributed to Plone
 * By creating them through-the-web editor in :doc:`portal_skins </templates_css_and_javascripts/skin_layers>`.
   are stored in ZODB in this case.
 
-* By add-on products using :doc:`Zope 3 resource folders </templates_css_and_javascripts/resourcefolders>`
+* By add-on products using :doc:`resource folders </templates_css_and_javascripts/resourcefolders>`
 
 Then the Javascript must be registered on the site
 
