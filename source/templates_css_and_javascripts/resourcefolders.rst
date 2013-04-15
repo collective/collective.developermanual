@@ -4,7 +4,7 @@
 
 .. admonition:: Description
 
-        How to use Zope 3 resource directories to expose static media files (css, js, other)
+        How to use resource directories to expose static media files (css, js, other)
         in your Plone add-on product
        
 .. contents:: :local: 
@@ -12,7 +12,7 @@
 Introduction
 =============
 
-Resource folders are Zope 3 way to expose static media files to
+Resource folders are the Zope Toolkit way to expose static media files to
 Plone URL mapping.
 
 Resource folders provide a mechanism which allows conflict free
@@ -24,7 +24,7 @@ ZCML resourceDirectory
 ======================
 
 If you want to customize media folder mapping point, you need to use
-Zope 3's resourceDirectory directive.
+the resourceDirectory directive.
 
 Below is an example how to map *static* folder in your add-on
 root folder to be exposed via ++resource++your.product/ URI
