@@ -153,8 +153,8 @@ Example::
 
     <?xml version="1.0"?>
     <object name="portal_javascripts" meta_type="JavaScripts Registry">
-      <javascript enabled="False" expression="" id="eXtreme.js"
-        authenticated="False" remove="True"/>
+      <javascript enabled="True" expression="" id="++resource++your.product/extra.js"
+        authenticated="False" />
     </object>
 
 Bundles
