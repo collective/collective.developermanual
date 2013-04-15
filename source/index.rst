@@ -36,7 +36,7 @@ these tutorials serve as a starting point.
 
 * :doc:`Hello World: Creating z3c.form, Archetypes content type and Zope 3 Browser View <reference_manuals/active/helloworld/index>`
 
-* :doc:`Theming: Creating Plone 3 theme <reference_manuals/old/plone_3_theming/index>`
+* :doc:`Theming: Creating Plone 4.3 themes with plone.app.theming <reference_manuals/external/plone.app.theming/userguide>`
 
 * :doc:`Creating forms with PloneFormGen add-on without programming </reference_manuals/active/ploneformgen/getting_started>`
 
@@ -69,7 +69,10 @@ Theme development
 .. toctree::
    :maxdepth: 1
 
+   reference_manuals/external/plone.app.theming/userguide
+   reference_manuals/external/diazo/index
    plone_theme_development/diazo_theme_recipes/index
+
 
 For legacy purposes see :doc:`old Plone 3 theming manual </reference_manuals/old/plone_3_theming/index>`.
 

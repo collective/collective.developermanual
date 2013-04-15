@@ -20,7 +20,9 @@ THE_OTHERS = {
     "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
     "tutorials.todoapp": "../../../src/tutorials.todoapp",
     "ploneorg.admin": "../../../src/ploneorg.admin/docs",
-    "plone.app.dexterity": "../../../src/plone.app.dexterity/docs"
+    "plone.app.dexterity": "../../../src/plone.app.dexterity/docs",
+    "plone.app.theming": "../../../src/plone.app.theming/src/plone/app/theming/browser/resources",
+    "diazo": "../../../src/diazo/docs",
 }
 
 
@@ -34,13 +36,10 @@ THE_OTHERS = {
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-        'sphinx.ext.autodoc',
-        'sphinx.ext.todo',
-        'sphinxcontrib_robotdoc',
-#        'sphinxcontrib.contributors'
-#              'collective.sphinx.autoatschema',
-#              'collective.sphinx.includedoc'
-    ]
+    'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
+    'sphinxcontrib_robotdoc',
+]
 
 # See http://sphinx.pocoo.org/ext/todo.html#confval-todo_include_todos
 todo_include_todos = True

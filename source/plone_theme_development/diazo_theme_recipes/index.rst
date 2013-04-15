@@ -1,5 +1,5 @@
 =====================================
-Theme Creation with Plone Using Diazo
+Plone and Diazo recipes
 =====================================
 
 Theme Creation with Diazo
