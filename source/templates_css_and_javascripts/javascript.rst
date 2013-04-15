@@ -127,11 +127,7 @@ Javascript files need to be registered in order to appear in Plone's <html> <hea
 and in the Javascript merge compositions.
 
 Javascripts are registered to portal_javascripts tool using *profiles/default/jsregistry.xml* GenericSetup
-profile file.
-
-* `More information about jsregistry.xml <http://plone.org/documentation/manual/theme-reference/page/css/resource-registries/practical2>`_.
-
-The following options are available
+profile file. The following options are available
 
 * *id* (required): URI from where the Javascript is loaded
 
@@ -153,7 +149,13 @@ The following options are available
 * *insert-before* and *insert-after* control the position of the Javascript file
   in relation to other served Javascript files
 
-`Full description in the source code <https://github.com/plone/Products.ResourceRegistries/tree/master/Products/ResourceRegistries/exportimport/resourceregistry.py>`_.
+Example::
+
+    <?xml version="1.0"?>
+    <object name="portal_javascripts" meta_type="JavaScripts Registry">
+      <javascript enabled="False" expression="" id="eXtreme.js"
+        authenticated="False" remove="True"/>
+    </object>
 
 Bundles
 =======
