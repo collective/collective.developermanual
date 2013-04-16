@@ -131,7 +131,7 @@ Alternatively, you can use
         site in ZEO mode. Otherwise the batch job will block the site 
         access for the duration of the batch job transaction. 
         If the batch job takes long to process the site might
-        be unavaible for the visitors for a long period.
+        be unavailable for the visitors for a long period.
 
 	
 Scripting context
@@ -164,7 +164,7 @@ Example how to commit::
 
         # Commit transaction
         import transaction; transaction.commit()
-        # Perform ZEO client synchronization (if runnning in clustered mode)
+        # Perform ZEO client synchronization (if running in clustered mode)
         app._p_jar.sync()
 
 More info
