@@ -19,7 +19,7 @@ Let's say we have a plone package called MY.PACKAGE.
 Writing an Generic Setup Import Step Method
 -------------------------------------------
 
-This setup method is definded in MY.PACKAGE/setuphandlers.py. It configures the
+This setup method is defined in MY.PACKAGE/setuphandlers.py. It configures the
 safe_html portal_transform a bit less paranoid about nasty tags and valid_tags,
 so that content managers are allowed to insert iframe, object, embed, param,
 script, style, tags and more into the TinyMCE editor::
