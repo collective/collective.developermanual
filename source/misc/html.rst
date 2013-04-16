@@ -19,7 +19,7 @@ Plone is no exception.
 Converting HTML to plain text
 ===============================
 
-The most common use case is to overridde ``SearchableText()`` to return
+The most common use case is to override ``SearchableText()`` to return
 HTML content for portal_catalog for indexing.
 
 * http://stackoverflow.com/questions/6956326/custom-searchabletext-and-html-fields-in-plone
@@ -155,7 +155,7 @@ This is suitable for e.g. printing the whole folder in one pass.
         return data
 
     def remove_bad_tags(content):
-        """ Filter out HTML nodes which would prevent continous printing """
+        """ Filter out HTML nodes which would prevent continuous printing """
 
 
         if type(content) == str:
