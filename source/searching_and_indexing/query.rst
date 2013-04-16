@@ -299,7 +299,7 @@ example, to get only the first 3 items:
     results = catalog.searchResults(Description='Plone documentation')[:3]
 
 In addition, ZCatalogs allow a sort\_limit argument. The
-sort\_limit is only a hint for the search algorhitms and can
+sort\_limit is only a hint for the search algorithms and can
 potentially return a few more items, so it's preferable to use both
 ``sort_limit`` and slicing simultaneously:
 
@@ -1004,7 +1004,7 @@ It is intended to work on FieldIndexes only.
 Example::
 
     # getArea() is Archetype accessor for area field
-    # which is a string and tells the contet area.
+    # which is a string and tells the content area.
     # Custom getArea FieldIndex indexes these values
     # to portal catalog.
     # The following line gives all area values
@@ -1049,7 +1049,7 @@ etc.) and thus they are invisible to the normal full text search.
 
 Example::
 
-    # Find arbitary HTML snippets on Plone content pages
+    # Find arbitrary HTML snippets on Plone content pages
 
     # Collect script output as text/html, so that you can
     # call this script conveniently by just typing its URL to a web browser
