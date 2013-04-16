@@ -62,7 +62,7 @@ in ZCML using a the <permission> directive. Example configure.zcml:
     
     </configure>
 
-It's convention to prefix the permission id with the nmame of the
+It's convention to prefix the permission id with the name of the
 package it's defined in and use lower case only. You have to take care
 that the title matches exactly the permission string you used in
 permissions.py. Otherwise a different, zope 3 only, permission is
