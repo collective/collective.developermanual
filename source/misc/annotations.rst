@@ -8,7 +8,7 @@
 
 .. admonition:: Description
 
-   How to use annotation design pattern to store arbitary values on Python
+   How to use annotation design pattern to store arbitrary values on Python
    objects (Plone site, HTTP request) for storage and caching purposes.
 
 .. contents:: :local:
@@ -16,7 +16,7 @@
 Introduction
 ============
 
-Annotations is conflict-free way to stick attributes on arbitary Python objects.
+Annotations is conflict-free way to stick attributes on arbitrary Python objects.
 
 Plone uses annotations for:
 
@@ -119,7 +119,7 @@ counter on a content object.
 At this step it is essential to check that your custom annotation class can be
 `pickled
 <http://docs.python.org/library/pickle.html#what-can-be-pickled-and-unpickled>`_. In
-the Zope world, this means that you cannot hold in your annotation objet any
+the Zope world, this means that you cannot hold in your annotation object any
 reference to a content too.
 
 .. tip::
