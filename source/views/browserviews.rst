@@ -152,16 +152,16 @@ Creating a view using Grok
 This is the simplest method and recommended for Plone 4.1+ onwards.
 
 First, create your add-on product using
-:doc:`Dexterity project template </getstarted/paste>`. The most important 
+:doc:`Dexterity project template </getstarted/paste>`. The most important
 thing in the add-on is that your registers itself to :doc:`grok </components/grok>`
-which allows Plone to scan all Python files for ``grok()`` directives and 
-further automatically pick up your views (as opposite using old Zope 3 method
+which allows Plone to scan all Python files for ``grok()`` directives and
+furter automatically pick up your views (as opposite using old Zope 3 method
 where you manually register views by typing them in to ZCML in ZCML).
 
 configure.zcml
 `````````````````````
 
-First make sure the file ``configure.zcml`` in your add-on root folder 
+First make sure the file ``configure.zcml`` in your add-on root folder
 contains the following lines. These lines are needed only once, in the root
 configuration ZCML file::
 
@@ -170,11 +170,11 @@ configuration ZCML file::
 	    xmlns:five="http://namespaces.zope.org/five"
 	    xmlns:grok="http://namespaces.zope.org/grok"
 	    >
-	
+
 	  <include package="five.grok" />
-	
+
 	  <five:registerPackage package="." initialize=".initialize" />
-	
+
 	  <!-- Grok the package to initialise schema interfaces and content classes -->
 	  <grok:grok package="." />
 
@@ -185,9 +185,9 @@ configuration ZCML file::
 setup.py and buildout
 `````````````````````
 
-Either you need to have ``five.grok`` 
-`registered in your buildout <http://plone.org/documentation/kb/installing-add-ons-quick-how-to>`_ 
-or have :doc:`five.grok in your setup.py </components/grok>`. If you didn't add it in this 
+Either you need to have ``five.grok``
+`registered in your buildout <http://plone.org/documentation/kb/installing-add-ons-quick-how-to>`_
+or have :doc:`five.grok in your setup.py </components/grok>`. If you didn't add it in this
 point and run buildout again to download and install ``five.grok`` package.
 
 Python logic code
@@ -225,7 +225,7 @@ every content item and the site root: you can use it in URLs like
 object, and in the second case, it would be the ``news`` container.
 
 Alternatively, you could use the :doc:`content interface </content/types>`
-docs to make the view available only for certain content types. Example 
+docs to make the view available only for certain content types. Example
 ``grok.context()`` directives could be::
 
 	# View is registered in portal root only
@@ -955,6 +955,24 @@ More info:
 * :doc:`Context helpers and utilities </misc/context>`
 
 * http://plone.293351.n2.nabble.com/URL-to-content-view-tp6028204p6028204.html
+
+
+Allowing the contentmenu on non-default views
+=============================================
+
+In general, the contentmenu (where the actions, display views, factory types,
+workflow, and other dropdowns are) is not shown on non-default views. There are
+some exceptions, though.
+
+If you want to display the contentmenu in such non-default views, you have to
+mark them with the IViewView interface from plone.app.layout either by letting
+the class provide IViewView by declaring it with zope.component.implements or
+by configuring it via ZCML like so::
+
+  <class class="dotted.path.to.browser.view.class">
+    <implements interface="plone.app.layout.globals.interfaces.IViewView" />
+  </class>
+
 
 Views and automatic member variable acquisition wrapping
 ==========================================================

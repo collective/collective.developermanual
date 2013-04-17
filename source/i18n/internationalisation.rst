@@ -242,10 +242,34 @@ that have their own mechanisms:
 * GenericSetup XML
 * TAL page templates
 
-Translating ZCML
-----------------
+
+Translating browser view names
+------------------------------
+
+Quite often you might want to translate browser view names to something better
+human readable than "my_awesome_view". The key is to use the same domain for
+your browser view names like the FTI definitions, your types where your views
+are used are defined in (TODO: please validate this). Most types are defined in
+the "plone" domain, so use this for your translations too.
+
+These are the steps needed to get it translated:
+
+* Use the "plone" domain for your browser view name translations. Wether put
+  the whole ZCML in the plone domain of just the view definitions with
+  i18n:domain="plone".
+
+* Translate the view names (which are the msgids) in a plone.po override file
+  in your language folder.
+
+Please note, i18ndude does not parse the zcml files for translation strings
+(see below "Translating other ZCML").
+
+
+Translating other ZCML
+----------------------
 
 http://stackoverflow.com/questions/6899708/do-zcml-files-get-parsed-i18n-wise
+
 
 Testing translations
 ======================

@@ -95,7 +95,12 @@ Do run the build by hand and see what's going wrong::
     cd /var/www/developer.plone.org
     sudo -u apache bin/buildout -c deployment.cfg
     sudo -u apache ./doc-holliday.sh
-    
+
+Something like this is occassionally needed to clear up things changed in external packages::
+
+    cd src/diazo/
+    sudo -u apache git pull
+
 Setup
 ------
 
