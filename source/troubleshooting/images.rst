@@ -18,9 +18,11 @@ Get a sample image::
 
     wget http://upload.wikimedia.org/wikipedia/commons/b/bb/JohnCarrollGilbertStuart.jpg
 
-Start Plone debug shell::
+Start Python with Zope libraries in PYTHONPATH or Plone debug shell (latter)::
 
-     bin/instance debug    
+     bin/zopepy 
+
+     # bin/instance debug  # <--- needs Plone site stopped first
 
 Run the following in Plone debug sell::
 
