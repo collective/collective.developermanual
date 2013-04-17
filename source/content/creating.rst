@@ -95,7 +95,7 @@ If you need to have special workflows where you bypass the workflow and
 logged in users when creating the content item, do as follows::
 
 	def construct_without_permission_check(folder, type_name, id, *args, **kwargs):
-	    """ Construct a new content item bypassing creation and content add permissios checks.
+	    """ Construct a new content item bypassing creation and content add permissions checks.
 
 	    @param folder: Folderish content item where to place the new content item 
 	    @param type_name: Content type id in portal_types 
@@ -118,7 +118,7 @@ logged in users when creating the content item, do as follows::
 
 .. note::
 
-    The function above only bypasses the content item contruction permission
+    The function above only bypasses the content item construction permission
     check.  It does not bypass checks for setting field values for initially
     created content.
 
@@ -303,7 +303,7 @@ Archetypes content construction has two phases:
 #. The object is created using a ``?createType=`` URL or a
    ``Folder.invokeFactory()``
    call.  If ``createType`` is used then the object is given a temporary id.
-   The object has an "in creationg" flag set.
+   The object has an "in creation" flag set.
 
 #. The object is saved for the first time and the final id is generated
    based on the object title. The object is renamed. The creation flag is
