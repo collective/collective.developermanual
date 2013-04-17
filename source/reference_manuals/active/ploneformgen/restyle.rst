@@ -84,7 +84,7 @@ Of course, you'll need to do some more styling. First of all, you'll need to set
 Putting string fields in a row
 ==============================
 
-Making string fields display horizontally is a little different than the solution for checkboxes.  There is no div wrapping the string fields like there is with check boxes.  To get aroung this, add a fieldset and put the fields in the fieldset.  This also lets you isolate the horizontal fields from other vertical fields.  Here, two fields are required, one is not.  The markup will look similar to this:
+Making string fields display horizontally is a little different than the solution for checkboxes.  There is no div wrapping the string fields like there is with check boxes.  To get around this, add a fieldset and put the fields in the fieldset.  This also lets you isolate the horizontal fields from other vertical fields.  Here, two fields are required, one is not.  The markup will look similar to this:
 
 .. code-block:: xml
 
