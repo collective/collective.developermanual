@@ -6,7 +6,7 @@ Introduction
 ----------------
 
 Plone logic is wired together by Zope 3 component architecture.
-It provides "enterprisey business logic" engine for Plone.
+It provides "enterprise business logic" engine for Plone.
 
 The architecture provides pluggable system :doc:`interfaces </components/interfaces>`, 
 adapters, utilities
