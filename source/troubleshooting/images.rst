@@ -24,16 +24,16 @@ Start Python with Zope libraries in PYTHONPATH or Plone debug shell (latter)::
 
      # bin/instance debug  # <--- needs Plone site stopped first
 
-Run the following in Plone debug sell::
+Run the following on the interactive Python prompt started above::
 
     
     import PIL
     from PIL import Image
-    im = Image.open("JohnCarrollGilbertStuart.jpg")
-    im.thumbnail((64, 64), Image.ANTIALIAS)
-    im.save("test.jpg")
+    im = Image.open("JohnCarrollGilbertStuart.jpg")  # Open downloaded image
+    im.thumbnail((64, 64), Image.ANTIALIAS)  # See that PIL resize works
+    im.save("test.jpg")  # See that PIL JPEG writing works
 
-No exceptions should be risen.
+No Python exceptions should be risen.
 
 
 Images are not loading
