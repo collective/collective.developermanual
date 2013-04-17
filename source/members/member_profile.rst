@@ -12,7 +12,7 @@ Introduction
 =============
 
 Member profile fields are the fields which the logged-in member
-can edit themself on their user account page.
+can edit himself on his user account page.
 
 For more info, see:
 
@@ -60,7 +60,7 @@ Accessing member data
 
     Get member data by username
 
-Furher reading
+Further reading
 --------------
 
 * `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_

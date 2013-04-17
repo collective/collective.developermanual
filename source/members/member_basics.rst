@@ -87,7 +87,7 @@ Exporting and importing member passwords
 You can also get at the hash of the user's password 
 (only the hash is available, and only for standard Plone user objects)
 (in this example we're in Plone add-on context, since ``self`` is
-aquisition-wrapped)::
+acquisition-wrapped)::
 
     uf = getToolByName(self, 'acl_users')
     passwordhash_map = uf.source_users._user_passwords
@@ -298,7 +298,7 @@ Use the ``portal_registration`` tool. Example (browserview)::
         @return: Created company content item or None if the creation fails
         """
 
-        # If we use custom member properties they must be intiialized
+        # If we use custom member properties they must be initialized
         # before regtool is called
         prepareMemberProperties(site)
 

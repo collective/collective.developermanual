@@ -4,7 +4,7 @@
 
 .. admonition:: Description
 
-        Using SQL databases (MySQL, PostgreSQL, others) in Ploe
+        Using SQL databases (MySQL, PostgreSQL, others) in Plone
 
 .. contents :: :local:
 

@@ -13,7 +13,7 @@ Plone has different lifecycles for different objects
   graph. Examples: content objects, user account objects. 
 
 * Request attached objects and thread-local objects: Each HTTP request is processed by
-  its own Python thread. These objects disappear when the request has been procesed.
+  its own Python thread. These objects disappear when the request has been processed.
   Examples: request object itself, getSite() thread-local way to access the site object,
   request specific permission caches.
 

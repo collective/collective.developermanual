@@ -267,7 +267,7 @@ Example Python::
 	    """
 	    Logout event handler.
 
-	    When user explicitly logs out from the Logout menu, clear our priviledges smartcard cookie.
+	    When user explicitly logs out from the Logout menu, clear our privileges smartcard cookie.
 	    """
 
 	    # Which cookie we want to clear
@@ -302,7 +302,7 @@ our authentication and extraction plugins.
 
 ``PluggableAuthService`` may use :doc:`ZCacheable </performance/ramcache>`
 pattern to see if the user data exists already in the cache, based on
-any extractd credentials, instead of actually checking whether
+any extracted credentials, instead of actually checking whether
 the credentials are valid or not. PluggableAuthService must
 be set to have cache end. By default it is not set,
 but installing LDAP sets it to RAM cache.
@@ -332,7 +332,7 @@ Here is a short view snippet to set PAS cache state::
 
         def setPASCache(self, value):
             """
-            Enables or disables pluggable authentication servive caching.
+            Enables or disables pluggable authentication service caching.
 
             The setting is stored persistently in PAS
 
@@ -492,7 +492,7 @@ For further reading see:
 Single Sign-On and Active Directory
 -----------------------------------
 
-Plone can be used in a Microsfot Active Directory environment (or standard Kerberos environment) such that users are automatically 
+Plone can be used in a Microsoft Active Directory environment (or standard Kerberos environment) such that users are automatically 
 and transparently authenticated to Plone without requesting credentials from the user.
 
 This is quite an advanced topic and requires some set up on the server, but can be achieved with Plone running on either Unix/Linux

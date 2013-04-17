@@ -52,7 +52,7 @@ To export a folder from a site to another do
 quintagroup.transmogrifier
 --------------------------
 
-`quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_ is an add-on product which provides Plone adminstrator user interface for
+`quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_ is an add-on product which provides Plone administrator user interface for
 exporting and importing content.
 
 Internally, it uses `collective.transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ package which itself does not provide any kind of user interface.
@@ -60,7 +60,7 @@ Internally, it uses `collective.transmogrifier <http://pypi.python.org/pypi/coll
 `Transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ is a tool which serializes and deserializes content based o
 n pipelines. Pipelines are written in .ini-like plain text file based file format and they consists
 of sections.
-Blueprints are self-contained reusable components which can be recycled between different content migration pocesses.
+Blueprints are self-contained reusable components which can be recycled between different content migration processes.
 Section is based on a blueprint and defines some configurable parameters for this blueprint.
 
 Exporting single folder only
@@ -75,7 +75,7 @@ This overcomes some problems with Zope management based export/import which uses
 <http://docs.python.org/library/pickle.html>`_ and thus needs identical codebase on the source
 and target site. Exporting and importing between Plone 3 and Plone 4 is possible.
 
-You can limit export to cover source content to with arbitary :doc:`portal_catalog </searching_and_indexing/query>` conditions.
+You can limit export to cover source content to with arbitrary :doc:`portal_catalog </searching_and_indexing/query>` conditions.
 If you limit source content by path you can effectively export single folder only.
 
 The recipe described here assumes the exported and imported site have the same path for the folder.
@@ -111,7 +111,7 @@ The ``exclude-contained`` option makes sure we do not export unnecessary items f
         path = query= /isleofback/ohjeet
         exclude-contained = true
 
-Also we need to include some field-level exluding bits for the folders, because the target site does not necessary
+Also we need to include some field-level excluding bits for the folders, because the target site does not necessary
 have the same content types available as the source site and this may prevent
 setting up folderish content settings::
 
@@ -164,7 +164,7 @@ for *Import uploaded tarball* input.
 
 Run import and monitoring log file for possible errors. Note that the import
 completes even if the target site would not able to process incoming content.
-If there is a serious problem the import seems to complete succesfully,
+If there is a serious problem the import seems to complete successfully,
 but no content is created.
 
 .. note ::

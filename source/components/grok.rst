@@ -114,7 +114,7 @@ Otherwise you may get *Version Conflict* errors when running buildout.
 Plone 4.3 migration and five.grok dependency
 =======================================================
 
-Please see `Plone 4.2 -> 4.3 Dexterity upgraide guide <http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/dexterity-optional-extras>`_ first.
+Please see `Plone 4.2 -> 4.3 Dexterity upgrade guide <http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/dexterity-optional-extras>`_ first.
 
 Migrating Dexterity and z3c.forms to Plone 4.3
 --------------------------------------------------
@@ -128,7 +128,7 @@ of grok based development, some compromises was made for Plone 4.3 regarding gro
 * You can include ``five.grok`` as a dependency, as you have done this far, but it is not going to be
   in Plone default installation in foreseeable future. Please see migration notes.
 
-* ``grok()`` declararations, like ``grok.name()`` in classes are not supported by Plone 4.3 out of the box
+* ``grok()`` declarations, like ``grok.name()`` in classes are not supported by Plone 4.3 out of the box
 
 * ``plone.directives.form`` goodies distributed to two supported packages: ``plone.supermodel`` and
   ``plone.autoform``
@@ -162,7 +162,7 @@ And you can use them like::
 Migrating views from five.grok to plain Plone
 ------------------------------------------------
 
-If you further want to break the depedency with ``five.grok``
+If you further want to break the dependency with ``five.grok``
 and get rid of ``grok.xxx()`` directives in your classes
 here are further dependency.
 

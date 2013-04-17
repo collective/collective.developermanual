@@ -26,7 +26,7 @@ uses the buildout configuration tool to build a static Nginx server.
 
 * Plone will by default be served on port 8080.
 
-* We use :term:`VirtualHostMonster` to pass the orignal protocol and
+* We use :term:`VirtualHostMonster` to pass the original protocol and
   hostname to Plone. VirtualHostMonster provides a way to rewrite the
   request path.
 

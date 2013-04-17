@@ -15,7 +15,7 @@ Plone supports image content in two forms:
 
 * As stand-alone content type, images will be visible in the sitemap. This is
   the case for the default ``Image`` content type, but you can create custom
-  content types with smilar properties.
+  content types with similar properties.
 
 * As a field, the image is directly associated with one content object.  Use
   ``Archetypes.fields.ImageField``.

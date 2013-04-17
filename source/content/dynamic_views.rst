@@ -268,7 +268,7 @@ More information can be found in
 
 * https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/navigation/defaultpage.py
 
-Disabing dynamic views
+Disabling dynamic views
 ========================
 
 Add to your content type class::

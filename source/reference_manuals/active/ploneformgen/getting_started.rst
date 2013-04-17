@@ -214,7 +214,7 @@ In addition to the regulars like *Field Label* and *Field Help*, there is *Optio
 Options
 -------
 
-Options is for establishing what the options in the field are going to be. Each option should be seperated with a line break.
+Options is for establishing what the options in the field are going to be. Each option should be separated with a line break.
 
 Presentation widget
 -------------------
@@ -226,7 +226,7 @@ Value|label
 
 Entering Options can be done in one of two ways. Either "one line per option" or the "Value|Label format". One line per option is described above, but what about *Value|Label*?
 
-Let's say you want to present some choices, but the actual value recorded by the form is different than what the form submitter sees on the screen. For example, let's say that you want to ask a site visitor what county they live in, but in your prorgam work you classify counties into regions like "Northwest" and "Southeast". Instead of asking the visitor to identify which region they live in (which some might get wrong or misunderstand) you could present them a list of counties.
+Let's say you want to present some choices, but the actual value recorded by the form is different than what the form submitter sees on the screen. For example, let's say that you want to ask a site visitor what county they live in, but in your program work you classify counties into regions like "Northwest" and "Southeast". Instead of asking the visitor to identify which region they live in (which some might get wrong or misunderstand) you could present them a list of counties.
 
 In the above example you would format Options like this::
 
@@ -259,7 +259,7 @@ It doesn't matter where the Thank You page appears in your Form Folder contents.
 
 By default, the thank you page only lists a summary of what the site visitor put into the form. Here's an example of what that looks like, to the right.
 
-Note: You will only see this result if you fill out the form and submit it. Otherwise, if you try to naviagte or link to the thank you page directly, you get a message that says something like "no input was received".
+Note: You will only see this result if you fill out the form and submit it. Otherwise, if you try to navigate or link to the thank you page directly, you get a message that says something like "no input was received".
 
 Add content to the thank you page
 ---------------------------------

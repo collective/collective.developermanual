@@ -313,7 +313,7 @@ class which is registered as the ``plone_layout`` view.
     
     class LayoutPolicy(base.LayoutPolicy):
         """
-        Enhanched layout policy helper.
+        Enhanced layout policy helper.
     
         Extend the Plone standard class to have some more <body> CSS classes
         based on the current context.
@@ -323,7 +323,7 @@ class which is registered as the ``plone_layout`` view.
             """Returns the CSS class to be used on the body tag.
             """
     
-            # Get contet parent
+            # Get content parent
             body_class = base.LayoutPolicy.bodyClass(self, template, view)
     
             # Include context and parent ids as CSS classes on <body>

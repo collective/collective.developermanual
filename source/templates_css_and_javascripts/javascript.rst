@@ -131,7 +131,7 @@ profile file. The following options are available
 
 * *id* (required): URI from where the Javascript is loaded
 
-* *expression* empty string or TAL condition which determintes whether the file is served to the user.
+* *expression* empty string or TAL condition which determines whether the file is served to the user.
   The files with the same condition are grouped to the same compression bundle. For more information,
   see :doc:`expressions documentation </functionality/expressions>`.
 
@@ -331,7 +331,7 @@ We create special conditions using :doc:`Grok </components/grok>` views.
             def render(self):
                 """ Check if we are in a specific content type.
 
-                Check that the Dexerity content type has a certain
+                Check that the Dexterity content type has a certain
                 behavior set on it through Dexterity settings panel.
 
                 Alternative, just check for a marker interface here.
@@ -390,7 +390,7 @@ plone.app.jquerytools provides a “prepOverlay” plugin that makes it easy to 
 
 The prepOverlay plugin is well-documented at http://pypi.python.org/pypi/plone.app.jquerytools. Many usage examples are available in Products/CMFPlone/skins/plone_ecmascript/popupforms.js, which provides the setup for Plone 4’s standard popup forms.
 
-Messages amd translation
+Messages and translation
 ------------------------------------------
 
 JavaScript components should include as few messages as possible. Whenever possible, the messages you display via JavaScript should be drawn from the page.

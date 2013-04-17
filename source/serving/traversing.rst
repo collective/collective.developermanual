@@ -264,7 +264,7 @@ The parent is defined as ``__parent__`` attribute of the object instance::
 ``__parent__`` is set when object's ``__of__()`` method is called::
 
     view = MyBrowserView(context, request)
-    view = view.__of__(context) # Inserts view into acquisition chain and acquistion functions become available
+    view = view.__of__(context) # Inserts view into acquisition chain and acquisition functions become available
 
 Getting all parents
 -------------------

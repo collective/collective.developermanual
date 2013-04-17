@@ -45,7 +45,7 @@ The MIME-Type
 Basically a document file got a mime-type. This is also important for Plone Templates if you don't want to export to text/html.
 If you want to export to a XML File you have to change the mime-type because otherwise the browser won't recognize the file as an XML.
 At the moment Plone supports text/html which is the default value. And text/xml.
-You got 2 oppertunities to change this value. If you customize a template you got an input box which called "Content-Type". 
+You got 2 opportunities to change this value. If you customize a template you got an input box which called "Content-Type". 
 The other Way is to create a file named by your template name and extend the name by `.metadata`. 
 
  Example:
@@ -443,7 +443,7 @@ Images
 
 See :doc:`how to use images in templates </images/templates>`.
 
-Overriding templates for exising Plone views
+Overriding templates for existing Plone views
 ==============================================
 
 #. New style templates can be overridden by overriding the view using the

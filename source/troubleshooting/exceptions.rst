@@ -11,7 +11,7 @@ Exceptions and common tracebacks
 Introduction
 -------------
 
-This document contains a a ist of common developer errors you might encounter and possible solutions for them.
+This document contains a list of common developer errors you might encounter and possible solutions for them.
 
 Please see :doc:`this tutorial </troubleshooting/basic>` for extracting Python tracebacks from your Plone logs.
 
