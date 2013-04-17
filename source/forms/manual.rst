@@ -39,7 +39,7 @@ View code::
                     messages = IStatusMessage(self.request)
                      
                     try:        
-                        # do someting  
+                        # do something  
                         messages.addStatusMessage("Button pressed")
                         
                     except Exception, e:
@@ -85,7 +85,7 @@ Magical Zope form variables
 
 
 Zope provides some magical HTTP POST variable names which are automatically
-converted to native Python primivites by ZPublisher.
+converted to native Python primitives by ZPublisher.
         
 Quick explanation
 =============================
