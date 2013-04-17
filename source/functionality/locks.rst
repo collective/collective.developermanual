@@ -3,10 +3,10 @@
 =================
 
 Since Plone 3.1 content edit locking has been supported. This feature
-is to prevent simultanous conflicting edits of the same content.
+is to prevent simultaneous conflicting edits of the same content.
 
 If the editor forgot to press Save or Cancel
-explict unlocking must be perfomed on locked objects if you want to modify them.
+explicit unlocking must be performed on locked objects if you want to modify them.
 Unfortunately the side-effect is that if site has objects left to locked state
 they usually interfere with your programming.
 
