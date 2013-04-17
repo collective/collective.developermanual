@@ -141,7 +141,7 @@ Zope has a component called
 `VirtualHostMonster <https://plone.dcri.duke.edu/info/faq/vhm>`_
 which does the virtual host mapping inside Zope.
 
-Supressing virtual host monster
+Suppressing virtual host monster
 -------------------------------
 
 If you ever mess up your virtual hosting rules so that Zope locks you out
