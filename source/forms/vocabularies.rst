@@ -143,7 +143,7 @@ Listing a vocabulary
 Example::
 
  for term in vocabulary:
-    # Iterate vocabulry SimpleTerm objects
+    # Iterate vocabulary SimpleTerm objects
     print term.value + ": " + term.title
 
 Dynamic vocabularies
@@ -162,7 +162,7 @@ Complete example with portal_catalog query, vocabulary creation and form
 
     """
 
-        A vocabulary example where vocabulty gets populated from portal_catalog query
+        A vocabulary example where vocabulary gets populated from portal_catalog query
         and then this vocabulary is used in Dexterity form.
 
     """
@@ -192,7 +192,7 @@ Complete example with portal_catalog query, vocabulary creation and form
 
         @param context: z3c.form.Form context object (in our case site root)
 
-        @return: SimpleVocabulary containg all areas as terms.
+        @return: SimpleVocabulary containing all areas as terms.
         """
 
         # Get site root from any content item using portal_url tool thru acquisition
@@ -224,7 +224,7 @@ Complete example with portal_catalog query, vocabulary creation and form
         return SimpleVocabulary(terms)
 
     class IMyForm(form.Schema):
-        """ Define form fiels """
+        """ Define form fields """
 
         name = schema.TextLine(
                 title=u"Your name",
@@ -258,7 +258,7 @@ Complete example with portal_catalog query, vocabulary creation and form
             # Do something with valid data here
 
             # Set status on this form page
-            # (this status message is not bind to the session and does not go thru redirects)
+            # (this status message is not bind to the session and does not go through redirects)
             self.status = "Thank you very much!"
 
         @button.buttonAndHandler(u"Cancel")
@@ -295,15 +295,15 @@ Complex example 2
 
         @param context: Form context object.
 
-        @return: SimpleVocabulary containg all areas as terms.
+        @return: SimpleVocabulary containing all areas as terms.
         """
 
-        # Get catalog brain objects of all accommondation content
-        accommondations = context.queryAllAccommondation()
+        # Get catalog brain objects of all accommodation content
+        accommodations = context.queryAllAccommodation()
 
         # Extract getArea index from the brains
-        areas = [ a["getArea"] for a in accommondations ]
-        # result will contain tuples (term, title) of accetable items
+        areas = [ a["getArea"] for a in accommodations ]
+        # result will contain tuples (term, title) of acceptable items
         result = []
 
         # Create a form choice "do not filter"
