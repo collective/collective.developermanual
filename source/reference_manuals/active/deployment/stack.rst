@@ -93,7 +93,7 @@ The general solution for this is to set the maximum connections per back-end ZEO
 For haproxy, this is the maxconn setting for the listen directive.
 This is only a rule of thumb.
 ZEO clients actually spawn threads as needed to return blobs, and are very efficient at that.
-So, how severly you limit connections per client should depend on your balance of page to blob serves.
+So, how severely you limit connections per client should depend on your balance of page to blob serves.
 
 Server-side HTTP caching
 ------------------------

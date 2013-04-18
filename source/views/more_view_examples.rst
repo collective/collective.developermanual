@@ -39,7 +39,7 @@ Overriding the Title
 
 In this example we override the view class associated with the title viewlet. I assume you have a theme product with an IThemeSpecific interface. 
 
-#. Create an entry in browswer/configure.zcml of your theme to override the view class.::
+#. Create an entry in browser/configure.zcml of your theme to override the view class.::
 
     <browser:viewlet
         name="plone.htmlhead.title"

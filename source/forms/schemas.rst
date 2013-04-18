@@ -179,9 +179,9 @@ default
     Do not initialize any non-primitive values using the *default* keyword
     parameter of schema fields.  Python and the ZODB stores objects by 
     reference.  Python code will construct only *one* field value during
-    schema contstruction, and share its content across all objects.  This
+    schema construction, and share its content across all objects.  This
     is probably not what you intend. Instead, initialize objects in the
-    ``__init__()`` method of your schema implementor.
+    ``__init__()`` method of your schema implementer.
 
     In particular, dangerous defaults are: ``default=[]``, ``default={}``,
     ``default=SomeObject()``.
@@ -545,7 +545,7 @@ Example::
             fields = z3c.form.field.Fields(ICheckoutAddress)
 
             # We need to override the actual required from the
-            # schema field which is litte tricky.
+            # schema field which is a little tricky.
             # Schema fields are shared between instances
             # by default, so we need to create a copy of it
             if self.optional:

@@ -200,7 +200,7 @@ The code, ``fixblobs.py``::
 
         def disable_integrity_check(self):
             """  Content HTML may have references to this broken image - we cannot fix that HTML
-            but link integriry check will yell if we try to delete the bad image.
+            but link integrity check will yell if we try to delete the bad image.
 
             http://collective-docs.readthedocs.org/en/latest/content/deleting.html#bypassing-link-integrity-check "
             """

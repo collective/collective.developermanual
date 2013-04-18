@@ -16,7 +16,7 @@ By default when you start Plone you start it in a **production mode**.
 
 * Plone is faster
 
-* CSS and Javascript files are *merged* instead of causing multipe HTTP request to load these assets. 
+* CSS and Javascript files are *merged* instead of causing multiple HTTP request to load these assets. 
   CSS and Javascript behavior is different in production versus debug mode, especially with files with syntax errors
   because of merging. 
 

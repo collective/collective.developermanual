@@ -20,7 +20,7 @@ This chapter explains the basics of Zope HTTP requests and responses:
 Lifecycle
 =========
 
-Unlike some other web frameworks, in Plone you do not explictly create or
+Unlike some other web frameworks, in Plone you do not explicitly create or
 return HTTP response objects.  A HTTP request object always has a HTTP response
 object associated with it, and the response object is created as soon as the
 request hits the webserver.

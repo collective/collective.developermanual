@@ -95,7 +95,7 @@ This is the adapter for the content class::
         zope.interface.implements(IProductImageProvider)
 
         def __init__(self, context):
-            # Each adapter takes the object itself as the contruction
+            # Each adapter takes the object itself as the construction
             # parameter and possibly provides other parameters for the
             # interface adaption
             self.context = context

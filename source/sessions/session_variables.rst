@@ -20,7 +20,7 @@ Sessions have features like:
 
 * Timeout
 
-* Hold arbitary per-user data on server side
+* Hold arbitrary per-user data on server side
 
 * Identified by cookies
 
@@ -71,7 +71,7 @@ Initial construction of session data
 The example below creates a session data variable when it is accessed for
 the first time. For the subsequent accesses, the same object is returned.
 The object changes are automatically persisted if it inherits from the
-``peristent.Persistent`` class.
+``persistent.Persistent`` class.
 
 .. note::
 
@@ -140,7 +140,7 @@ Using Plone authentication cookie in other systems
 
 * http://stackoverflow.com/questions/12167202/how-to-wrap-plone-authentication-around-a-third-party-servlet/12171528#comment16307483_12171528
 
-Exporing Plone session configuration
+Exploring Plone session configuration
 ======================================
 
 * http://stackoverflow.com/questions/12211682/how-to-export-plone-session-configuration

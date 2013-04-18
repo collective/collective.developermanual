@@ -115,7 +115,7 @@ Cleaning up bad add-on uninstalls
 ------------------------------------
 
 Many low quality Plone add-ons do not uninstall cleanly.
-You need to remove persitent objects from site database *after* add-on uninstall
+You need to remove persistent objects from site database *after* add-on uninstall
 while *code is still in buildout*.
 
 Otherwise your Plone site may not

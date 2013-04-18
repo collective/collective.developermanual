@@ -22,7 +22,7 @@ zope.schema based forms and content with :doc:`Dexterity content subsystem </con
 
 Plone uses "blobs" (large binary objects) to store file-like data in the
 ZODB. The ZODB writes these objects to the filesystem as separate files,
-but due to security, performance and transaction consideration, the orignal
+but due to security, performance and transaction consideration, the original
 filename is not visible. The files are stored in a distributed tree. 
 
 For more introduction information, see:
@@ -56,7 +56,7 @@ the ``install_dependencies`` directive of your ``setup.py`` file:
 * ``plone.directives.form``.
 
 After doing this, rerunning ``buildout`` will pull in these packages for you
-and you will be able to import them succesfully.
+and you will be able to import them successfully.
 For more information, see `plone.directives.form README <http://pypi.python.org/pypi/plone.directives.form>`_.
 
 Code::
@@ -240,7 +240,7 @@ Example::
     animation = HeaderAnimation()
     animation.file = namedfile.NamedBlobFile(sample_data, filename=u"flash.swf")
 
-Constring download URLs
+Connstring download URLs
 ========================
 
 Simple example

@@ -78,7 +78,7 @@ Basic tutorials are available
 
 * http://plone.org/documentation/kb/plone-apache
 
-Procedure to restart Apache in production enviroment
+Procedure to restart Apache in production environment
 ---------------------------------------------------------------
 
 You might share the same Apache web server across
@@ -101,9 +101,9 @@ www-redirects
 
 If you wish to force people to use your site with or without www prefix you can use
 the rules below. Note that setting this kind of rule is very useful from the search
-engine optimizatin point of view also.
+engine optimization point of view also.
 
-Example in <VirtualHost> section to redicte www.site.com -> site.com::
+Example in <VirtualHost> section to redirect www.site.com -> site.com::
 
   <VirtualHost 127.0.0.1:80>
 

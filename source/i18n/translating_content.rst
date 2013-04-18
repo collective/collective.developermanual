@@ -138,7 +138,7 @@ Language neutral links
 In many cases you want to create links to a different language content.
 For example, fallback to English content when the native version of content is not available.
 
-Plone's reference and link widgets often fail to create links between language barries.
+Plone's reference and link widgets often fail to create links between language barriers.
 
 Here is a workaround
 
@@ -297,7 +297,7 @@ Translated navigation tabs
 =============================
 
 Below is an example code which allows you to translate
-portal_tabs to the current langauge.
+portal_tabs to the current language.
 
 * All translatable navigation tabs must be explicitly declared in portal_actions / portal_tabs
   using site root relative paths

@@ -97,12 +97,12 @@ Template code ``templates/breadcrumbs.pt``:
 Back button
 ============
 
-Below is an example how we have exracted information like the parent
+Below is an example how we have extracted information like the parent
 container and such from breadcrumbs.
 
 .. Note::
 
-    We need special dealing for "default view" of obejcts... that's
+    We need special dealing for "default view" of objects... that's
     the canonical part.
 
 .. code-block:: python 

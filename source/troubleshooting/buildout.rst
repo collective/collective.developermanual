@@ -323,7 +323,7 @@ Example traceback when running buildout::
       File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/wordprocessing.py", line 5, in <module> 
       File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/document.py", line 14, in <module>
     ImportError: No module named lxml 
-    An error occured when trying to install openxmllib 1.0.6. Look above this message for any errors that were output by easy_install. 
+    An error occurred when trying to install openxmllib 1.0.6. Look above this message for any errors that were output by easy_install. 
     While: 
       Installing plone-core-addons. 
       Getting distribution for 'openxmllib>=1.0.6'. 
@@ -558,7 +558,7 @@ For Plone 3.3.x You need to pindown::
 	zc.queue = 1.2.1
 	zope.copy = 3.5.0
 
-Distribute / setuptools tries to mess with system Python and Permission denided
+Distribute / setuptools tries to mess with system Python and Permission denied
 ======================================================================================================================
 
 When running ``boostrap.py`` your buildout files

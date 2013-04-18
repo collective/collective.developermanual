@@ -4,21 +4,21 @@
 
 .. admonition:: Description
 
-	How to convert arbitary text input to URL/CSS/file/programming safe ids. 
+	How to convert arbitrary text input to URL/CSS/file/programming safe ids. 
 
 .. contents:: :local:
 
 Introduction
 ---------------
 
-Normalizers turns arbitary string (with unicode letters) to machine friendly ASCII ids.
+Normalizers turns arbitrary string (with unicode letters) to machine friendly ASCII ids.
 Plone provides different id normalizers.
 
 E.g::
 
     åland -> aland
 
-Plone has conversion utilies for
+Plone has conversion utilities for
 
 * For URIs and URLs (plone.i18n.normalizer.interfaces.IURLNormalizer)
 

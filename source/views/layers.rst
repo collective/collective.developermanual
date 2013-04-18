@@ -221,7 +221,7 @@ Example::
     from zope.publisher.interfaces.browser import IBrowserRequest
 
     class INoHeaderLayer(IBrowserRequest):
-        """ When applied to HTTP request object, hedaer animations or images are not rendered on this.
+        """ When applied to HTTP request object, header animations or images are not rendered on this.
 
         If this layer is on request do not render header images.
         This allows uncluttered editing of header animations and images.
@@ -386,7 +386,7 @@ Layers are evaluated from zero index (highest priority) the last index
 Testing Layers
 ==============
 
-Plone testing toolkits won't register layers for you, you have to do it
+Plone testing tool kits won't register layers for you, you have to do it
 yourself somewhere in the boilerplate code::
 
     from zope.interface import directlyProvides

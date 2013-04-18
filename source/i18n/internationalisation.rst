@@ -467,7 +467,7 @@ Manual ``.po`` entries
 ------------------------
 
 ``i18ndude`` scans source ``.py`` and ``.pt`` files for translatable text
-strings.  On some occassions this is not enough - for example if you
+strings.  On some occasions this is not enough - for example if you
 dynamically generate message ids in your code. Entries which cannot be
 detected by automatic code scan are called *manual po entries*. They are
 managed in ``locales/manual.pot`` which is merged to generated

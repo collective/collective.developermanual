@@ -67,7 +67,7 @@ MySQL running to read what's inside MySQL files stored on your disk and so on ..
     revisions, making data operations on the existing database fail by raising
     Python exceptions (``AttributeError``, ``KeyError``).
 
-To work around the ZODB interoperatibility problems, products like
+To work around the ZODB interoperability problems, products like
 *ore.contentmirror* exist to duplicate Plone content data to read-only SQL
 database.
 
@@ -96,11 +96,11 @@ This gives some benefits
 Data model
 ------------
 
-There is no hardwired way for desceribe
+There is no hardwired way for describe
 data in ZODB database.
 
 Subclasses of ZODB ``persistent.Persistent``
-clas will have all their attributes and referred objects
+class will have all their attributes and referred objects
 written to the database using Python pickle mechanism.
 Lists and dictionaries will be automatically
 converted to persistent versions.
@@ -142,7 +142,7 @@ As ZODB is append-only database it remembers all its history unless packed. Pack
 
 * `Packing is similar to VACUUM in PostgreSQL <http://stackoverflow.com/questions/11254384/when-to-commit-data-in-zodb/>`_
 
-Packing throught-the-web
+Packing through-the-web
 ----------------------------
 
 Manual packing can be executed through Zope Control Panel (not Plone control panel)

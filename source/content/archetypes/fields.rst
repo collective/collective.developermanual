@@ -138,7 +138,7 @@ Each field has accessor method. Accessor method is
     * Has name ``get`` + schema field name with first letter uppercase. E.g.
       ``yourfield`` has accessor method ``context.getYourfield()``
       There are a few exceptions to this rule, for fields that correspond
-      to Dublin Core metadata. To conform to the Dublin Core specifiction,
+      to Dublin Core metadata. To conform to the Dublin Core specification,
       the accessor method for the ``title`` field is ``Title()`` and
       ``Description()`` for the ``description`` field.
 
@@ -202,19 +202,19 @@ Example for *nc* AT object::
 Checking permissions
 ---------------------            
 
-field.writeable() provides a short-cut whether the currently
+field.writable() provides a short-cut whether the currently
 logged in user can change the field value.
 
 Example::
 
         field = context.Schema()["phone_number"]
-        assert field.writeable(), "Cannot set phone number"
+        assert field.writable(), "Cannot set phone number"
 
 There is also a verbose debugging version which will print the reason
-to log if the writeable condition is not effective::
+to log if the writable condition is not effective::
 
         field = context.Schema()["phone_number"]
-        assert field.writeable(debug=True), "Cannot set phone number"
+        assert field.writable(debug=True), "Cannot set phone number"
 
 Modifying all fields in schema
 ------------------------------

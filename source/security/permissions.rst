@@ -162,7 +162,7 @@ Example::
             return self.getUserName()
 
     def execute_under_special_role(portal, role, function, *args, **kwargs):
-        """ Execute code under special role priviledges.
+        """ Execute code under special role privileges.
 
         Example how to call::
 
@@ -173,9 +173,9 @@ Example::
 
         @param portal: Reference to ISiteRoot object whose access controls we are using
 
-        @param function: Method to be called with special priviledges
+        @param function: Method to be called with special privileges
 
-        @param role: User role for the security context when calling the priviledged code; e.g. "Manager".
+        @param role: User role for the security context when calling the privileged code; e.g. "Manager".
 
         @param args: Passed to the function
 

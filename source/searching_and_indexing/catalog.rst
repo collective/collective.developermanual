@@ -69,7 +69,7 @@ the catalog upon the (re)indexing of each object.
 Brains are said to be lazy for two reasons; first, because they are
 only created 'just in time' as your code requests each result, and
 second, because retrieving a catalog brain doesn't wake up the
-objects themselves, avoiding a huge perfomance hit.
+objects themselves, avoiding a huge performance hit.
 
 To see the ZCatalogs in action, fire up your favourite browser and
 open the ZMI. You'll see an object in the root of your Plone site

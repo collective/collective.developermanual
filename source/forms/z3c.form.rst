@@ -291,7 +291,7 @@ text above and below the form, you can do as in the following example::
         # Our view exposes two custom functions to the template
 
         def getAnimationCount(self):
-            """ Return how many animations are availabe in the context """
+            """ Return how many animations are available in the context """
             return len(self.header_animation_helper.header.alternatives)
 
         def getHeadeDefiner(self):
@@ -666,9 +666,9 @@ A widget can be accessed by its field's name. Example::
 
         def update(self):
             z3c.form.Form.update(self)
-            widget = form.widgets["myfieldname"] # Get one wiget
+            widget = form.widgets["myfieldname"] # Get one widget
 
-            for w in wiget.items(): print w # Dump all widgets
+            for w in widget.items(): print w # Dump all widgets
 
 
 Introspecting form widgets
@@ -830,7 +830,7 @@ Example::
             fields = z3c.form.field.Fields(ICheckoutAddress)
 
             # We need to override the actual required from the
-            # schema field which is litte tricky.
+            # schema field which is a little tricky.
             # Schema fields are shared between instances
             # by default, so we need to create a copy of it
             if self.optional:
@@ -1267,7 +1267,7 @@ Subforms
 Subforms are embedded ``z3c`` forms inside a master form.
 
 Subforms may have their own
-buttons or use the controls from the maste form.
+buttons or use the controls from the master form.
 You need to call ``update()`` manually for subforms.
 
 More info

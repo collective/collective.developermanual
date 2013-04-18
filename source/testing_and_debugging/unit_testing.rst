@@ -371,7 +371,7 @@ According to that guide we can reuse some of the test code in
 
 .. _`Plone Upgrade Guide`: http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/mailhost.securesend-is-now-deprecated-use-send-instead
 
-Here's some example of a ``unittest.TestCase`` based on the excelent ``plone.app.testing``
+Here's some example of a ``unittest.TestCase`` based on the excellent ``plone.app.testing``
 framework. Adapt it to your own needs.
 
 .. code-block:: python
