@@ -159,7 +159,6 @@ More info
 
 * http://stackoverflow.com/questions/6161802/nested-overrides-in-portal-skins-folder
         
-
 Poking portal_skins
 -------------------
 
@@ -201,5 +200,14 @@ You can edit a specific skin layer::
 holding *skin name* -> *comma separated layer list* mappings.
 
 
+
+Dumping a portal_skins folder to the filesystem
+-----------------------------------------------
+
+qPloneSkinDump can build a filesystem dump from portal_skins but it only works on Plone 2.
+If you need this functionality you can try to use this script ripped off qPloneSkinDump:
+https://gist.github.com/silviot/5402869. It is a WorksForMe quality script; replace the variables
+and run it with::
+    bin/instance run export_skin_folder.py
 
 
