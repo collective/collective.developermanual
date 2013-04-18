@@ -22,7 +22,10 @@ for in-depth information.
 Related add-ons and packages
 ------------------------------
 
-Some related add-ons
+You might want to check these before starting to write your own portlet -
+for ready solution, for examples, for inspiration.
+
+* `Create your own portlet managers with collective.panels <https://pypi.python.org/pypi/collective.panels>`_
 
 * https://github.com/collective/collective.portletalias
 
