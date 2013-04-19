@@ -38,13 +38,13 @@ And just accept all the default choices but::
 
     Register Profile (Should this package register a GS Profile) [False]: True
 
-The module is created in ``src/rojectname.theme``.
+The module is created in ``src/projectname.theme``.
 
 Declare this new module in your ``buildout.cfg``::
 
     develop =
         ...
-        src/project.theme
+        src/projectname.theme
 
     eggs =
         ...
