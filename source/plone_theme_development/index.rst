@@ -8,4 +8,5 @@ Creating Themes for Plone
     :maxdepth: 2
 
     diazo_theme_recipes/index
+    theme_product_with_diazo
 
