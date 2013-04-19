@@ -48,7 +48,7 @@ Declare this new module in your ``buildout.cfg``::
 
     eggs =
         ...
-        project.theme
+        projectname.theme
 
 And run buildout::
 
