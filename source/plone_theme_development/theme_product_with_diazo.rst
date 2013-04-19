@@ -22,8 +22,10 @@ Create a product to handle your Diazo theme
 Create a module
 +++++++++++++++
 
-To create a blank module, you will use ZopeSkel. ZopeSkel allows to initialize
-Python modules based on different templates.
+To create a blank module, you will use ZopeSkel. ZopeSkel is part of the
+executables files deployed by the UnifiedInstaller in ``./bin``.
+
+ZopeSkel allows to initialize Python modules based on different templates.
 
 You will use the template named ``plone``.
 
