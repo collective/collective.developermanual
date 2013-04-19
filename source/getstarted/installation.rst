@@ -155,9 +155,9 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
    .. code-block:: console
 
         # Extract the downloaded file
-        tar -xf Plone-4.2.5-UnifiedInstaller.tgz
+        tar -xf Plone-4.3-UnifiedInstaller.tgz
         # Go the folder containing installer script
-        cd Plone-4.2.5-UnifiedInstaller
+        cd Plone-4.3-UnifiedInstaller
         # Run script
         ./install.sh standalone
 
