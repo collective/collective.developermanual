@@ -12,20 +12,28 @@ Translated content
 Introduction
 =============
 
-Content translations usually are handled by the well-established
-`LinguaPlone add-on product <http://plone.org/products/linguaplone>`_.
+Plone doesn't ships (yet) out of the box with a multilingual solution for
+translating user generated content. There are several add-on products that add
+multilingual support to Plone. Each of them has its own features and drawbacks,
+so be careful when you choose one for your project and be sure that it fulfills
+your needs.
+
+LinguaPlone
+===========
+
+`LinguaPlone add-on product <http://plone.org/products/linguaplone>`_ has been
+the defacto standard multilingual product for Plone for almost a decade. It's
+well stablished, proven, tested and reliable solution. However, it has no
+support for Dexterity based content types and nowadays it's on legacy mode (only
+bugfixes).
 
 For an example of a content type using LinguaPlone, see the `LinguaItem
 example type
 <https://github.com/plone/Products.LinguaPlone/blob/07c754012e942fe5e12834b51af06246932ce420/Products/LinguaPlone/examples/LinguaItem.py>`_.
 
-We also present ``raptus.multilanguageplone`` as an alternative approach.
 
-Most translation-aware content functions are handled through
-`ITranslateable interface <https://github.com/plone/Products.LinguaPlone/blob/master/Products/LinguaPlone/interfaces.py>`_.
-
-Translation-aware content types (Archetypes)
-=============================================
+Translation-aware content types
+-------------------------------
 
 LinguaPlone makes it possible to mark fields *language independent* or
 *language dependent*.
@@ -57,7 +65,7 @@ For more information, see:
 * http://n2.nabble.com/languageIndependent-fields-not-updated-td2430489.html
 
 Getting content items in another language
-=========================================
+-----------------------------------------
 
 Possible use cases:
 
@@ -75,7 +83,7 @@ selected language, or self.
 
 Example::
 
-    from zope.app.hooks import getSite
+    from zope.component.hooks import getSite
 
     from Products.LinguaPlone.interfaces import ITranslatable
 
@@ -109,7 +117,7 @@ Example::
 
 
 Translating content
-===================
+-------------------
 
 LinguaPlone contains some unit test code which shows how to create
 translations.  You can use the ``context.addTranslation(language_code)`` and
@@ -133,7 +141,7 @@ See https://github.com/plone/Products.LinguaPlone/blob/07c754012e942fe5e12834b51
 .. todo:: Why link to a particular (ancient) tag?
 
 Language neutral links
-=========================
+----------------------
 
 In many cases you want to create links to a different language content.
 For example, fallback to English content when the native version of content is not available.
@@ -142,24 +150,24 @@ Plone's reference and link widgets often fail to create links between language b
 
 Here is a workaround
 
-* Create a folder in the site root 
+* Create a folder in the site root
 
 * Set the folder language neutral on Edit > Metadata tab
 
-* In this folder, create Link content items where the Link target is the 
+* In this folder, create Link content items where the Link target is the
   English content. Also, on the link item Metadata set its Language to neutral.
 
 * These links are searcable regardless of the edited content language and can be
   used in references in the widgets
 
-* When the end user, not editor, clicks link the Link content type takes 
+* When the end user, not editor, clicks link the Link content type takes
   him/her to the actual English content
 
-You may also find `redturtle.smartlink <http://pypi.python.org/pypi/redturtle.smartlink/>`_ 
+You may also find `redturtle.smartlink <http://pypi.python.org/pypi/redturtle.smartlink/>`_
 as useful add-on.
 
 Serving translated content from a correct domain name
-=======================================================
+-----------------------------------------------------
 
 The following applies if:
 
@@ -294,7 +302,7 @@ proper domain for the language being served::
         # print "Done"
 
 Translated navigation tabs
-=============================
+--------------------------
 
 Below is an example code which allows you to translate
 portal_tabs to the current language.
@@ -475,9 +483,185 @@ Page template code
                 </a></li></tal:tabs></ul>
     </tal:sections>
 
+plone.app.multilingual
+======================
 
-raptus.multilanguageplone: another translation add-on
-=======================================================
+plone.app.multilingual was designed originally to provide Plone a whole
+multilingual story. Using ZCA technologies, enables translations to Dexterity
+and Archetypes content types as well managed via an unified UI.
+
+This module provides the user interface for managing content translations. It's
+the app package of the next generation Plone multilingual engine. It's designed
+to work with Dexterity content types and the *old fashioned* Archetypes based
+content types as well. It only works with Plone 4.1 and above due to the use of
+UUIDs for referencing the translations.
+
+For more information see: http://developer.plone.org/reference_manuals/external/plone.app.multilingual/index.html
+
+Installation
+------------
+
+To use this package with both Dexterity and Archetypes based content types you
+should add the following line to your *eggs* buildout section::
+
+    eggs =
+        plone.app.multilingual[archetypes, dexterity]
+
+If you need to use this package only with Archetypes based content types you
+only need the following line::
+
+    eggs =
+        plone.app.multilingual[archetypes]
+
+While archetypes is default in Plone for now, you can strip ``[archetypes]``.
+This may change in future so we recommend adding an appendix as shown above.
+
+Setup
+-----
+
+After re-running your buildout and installing the newly available add-ons, you
+should go to the *Languages* section of your site's control panel and select
+at least two or more languages for your site. You will now be able to create
+translations of Plone's default content types, or to link existing content as
+translations.
+
+Marking objects as translatables
+--------------------------------
+
+Archetypes
+^^^^^^^^^^
+
+By default, if PAM is installed, Archetypes-based content types are marked as
+translatables
+
+Dexterity
+^^^^^^^^^
+
+Users should mark a dexterity content type as translatable by assigning a the
+multilingual behavior to the definition of the content type either via file
+system, supermodel or through the web.
+
+
+Marking fields as language independant
+--------------------------------------
+
+Archetypes
+^^^^^^^^^^
+
+The language independent fields on Archetype-based content are marked the same
+way as in LinguaPlone::
+
+    atapi.StringField(
+        'myField',
+        widget=atapi.StringWidget(
+        ....
+        ),
+        languageIndependent=True
+    ),
+
+Dexterity
+^^^^^^^^^
+
+There are four ways of achieve it.
+
+Grok directive
+``````````````
+
+In your content type class declaration::
+
+    from plone.multilingualbehavior import directives
+    directives.languageindependent('field')
+
+Supermodel
+``````````
+
+In your content type XML file declaration::
+
+    <field name="myField" type="zope.schema.TextLine" lingua:independent="true">
+        <description />
+        <title>myField</title>
+    </field>
+
+Native
+``````
+
+In your code::
+
+    from plone.multilingualbehavior.interfaces import ILanguageIndependentField
+    alsoProvides(ISchema['myField'], ILanguageIndependentField)
+
+Through the web
+```````````````
+
+Via the content type definition in the *Dexterity Content Types* control panel.
+
+Language get/set via an unified adapter
+---------------------------------------
+
+In order to access and modify the language of a content type regardless the
+type (Archetypes/Dexterity) there is a interface/adapter::
+
+    plone.multilingual.interfaces.ILanguage
+
+You can use::
+
+    from plone.multilingual.interfaces import ILanguage
+    language = ILanguage(context).get_language()
+
+or in case you want to set the language of a content::
+
+    language = ILanguage(context).set_language('ca')
+
+ITranslationManager adapter
+---------------------------
+
+The most interesting adapter that p.a.m. provides is:
+``plone.multilingual.interfaces.ITranslationManager``.
+
+It adapts any ITranslatable object to provide convenience methods to manage
+the translations for that object.
+
+Add a translation
+^^^^^^^^^^^^^^^^^
+
+Given an object `obj` and we want to translate it to Catalan language ('ca')::
+
+    from plone.multilingual.interfaces import ITranslationManager
+    ITranslationManager(obj).add_translation('ca')
+
+Register a translation for an already existing content
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Given an object `obj` and we want to add `obj2` as a translation for Catalan language ('ca')::
+
+    ITranslationManager(obj).register_translation('ca', obj2)
+
+Get translations for an object
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Given an object `obj`::
+
+    ITranslationManager(obj).get_translations()
+
+and if we want a concrete translation::
+
+    ITranslationManager(obj).get_translation('ca')
+
+Check if an object has translations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Given an object `obj`::
+
+    ITranslationManager(obj).get_translated_languages()
+
+or::
+
+    ITranslationManager(obj).has_translation('ca')
+
+For more information see: https://github.com/plone/plone.multilingual/blob/master/src/plone/multilingual/interfaces.py#L66
+
+raptus.multilanguageplone
+=========================
 
 Another extension for multilingual content in Plone is
 ``raptus.multilanguageplone``.  This is not meant to be a fully-fledged tool
@@ -496,7 +680,7 @@ If you have non-default content types, you have to provide your own
 See https://svn.plone.org/svn/collective/raptus.multilanguagefields/trunk/raptus/multilanguagefields/samples/
 
 Installation
-----------------------------
+------------
 
 Installation of ``raptus.multilanguageplone`` is straight-forward with
 buildout. If the site already contains articles then you have to migrate
@@ -505,7 +689,7 @@ them.
 See http://pypi.python.org/pypi/raptus.multilanguagefields
 
 Switching from Linguaplone
-----------------------------
+--------------------------
 
 If you want to switch from Linguaplone to ``raptus.multilanguageplone`` be
 aware that you will lose already translated content.
@@ -541,5 +725,3 @@ aware that you will lose already translated content.
 5. Install ``raptus.multilanguageplone`` using buildout and
    ``portal_quickinstaller``.
 6. Migrate the content.
-
-

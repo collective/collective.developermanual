@@ -127,6 +127,7 @@ or having the documentation source code hosted in an external package.
     reference_manuals/active/helloworld/index
     reference_manuals/active/ploneformgen/index
     reference_manuals/external/plone.app.robotframework/index
+    reference_manuals/external/plone.app.multilingual/index
 
 **Deployment**
 

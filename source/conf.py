@@ -23,6 +23,7 @@ THE_OTHERS = {
     "plone.app.dexterity": "../../../src/plone.app.dexterity/docs",
     "plone.app.theming": "../../../src/plone.app.theming/src/plone/app/theming/browser/resources",
     "diazo": "../../../src/diazo/docs",
+    "plone.app.multilingual": "../../../src/plone.app.multilingual/docs",
 }
 
 
