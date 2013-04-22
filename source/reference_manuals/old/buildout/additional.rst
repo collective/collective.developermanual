@@ -189,6 +189,23 @@ You can also SSH tunnel the proxy from a remote server::
         # through SSH tunnel
         ssh -L 8123:localhost:8123 yourserver.com
 
+
+*!!Attention!!*
+
+  In Plone 4.3 the System changed , and from now on you get special users with different privileges for buildout and run. Because of the sudo command you proxy environment variables aren't saved in the sudo env list. 
+There are 3 ways to fix this in *nix systems: 
+
+Inline: Set the environment variable inline. 
+ 1) ``sudo -u plone_buildout http_proxy="http://myproxy:1234" ./bin/buildout`` 
+
+Copy the environment from the currently logged in user. 
+ 2) ``sudo -E -u plone_buildout ./bin/buildout`` 
+
+Setup sudoers 
+ 3)Maybe this article is interesting for setting up sudoers: http://ubuntuforums.org/showthread.php?t=1132821 
+
+
+
 Buildout cache folder
 ----------------------
 
