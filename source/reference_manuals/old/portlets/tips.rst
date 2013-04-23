@@ -12,7 +12,7 @@
 Introduction
 ------------
 
-Please read `Portlets developer manual <http://plone.org/documentation/manual/portlets-developer-manual/basic-plone.portlets-architecture>`_.
+Please read `Portlets developer manual <http://developer.plone.org/reference_manuals/old/portlets/architecture.html>`_.
 
 Creating a portlet
 ------------------
@@ -28,7 +28,7 @@ Subclassing a portlet
 
 You can subclass a portlet to create a new portlet type with your enhanced functionality.
 
-* http://plone.org/documentation/manual/developer-manual/portlets/appendix-practicals/subclassing-new-portlets
+* http://developer.plone.org/reference_manuals/old/portlets/appendix/subclassing.html
 
 Using z3c.form in portlets
 -----------------------------
@@ -67,7 +67,7 @@ whose portlet you are going to override.
 
 More information
 
-* http://plone.org/documentation/manual/theme-reference/elements/portlet/override-the-portlets-in-plone-3.0
+* http://developer.plone.org/reference_manuals/old/plone_3_theming/elements/portlet/override-the-portlets-in-plone-3.0.html
 
 update() and render()
 -----------------------
@@ -564,7 +564,7 @@ a template or fancy view.  To do this in code do this::
 
 Or just do it using GenericSetup like a sane person:
 
-* http://plone.org/documentation/manual/developer-manual/generic-setup/reference/portlets
+* http://developer.plone.org/components/genericsetup.html#module-plone.app.portlets.exportimport.portlets
 
 * http://plone.org/products/plone/roadmap/203
 
