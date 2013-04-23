@@ -323,6 +323,6 @@ Regarding the JS or CSS which are not used globally into the web site, but just
 in a very specific template, it might be better to not declre them in the
 registries, and let them declared manually into the static HTML template.
 
-.. note:: if you use a responsiveCSS fralework, it is often useful to deactivate the Plone ``mobile.css`` file which might produces bad formatting (typically with Boostrap). To do so, you add the following to ``cssregistry.xml``::
+.. note:: if you use a responsiveCSS framework, it is often useful to deactivate the Plone ``mobile.css`` file which might produces bad formatting (typically with Boostrap). To do so, you add the following to ``cssregistry.xml``::
 
         <stylesheet id="mobile.css" enabled="False" />
