@@ -340,9 +340,12 @@ context object once.
 
 Example::
 
-    from zope.app.component.hooks import getSite
+    from zope.component.hooks import getSite
 
     site = getSite() # returns portal root from thread local storage
+
+.. note:: Before Plone 4.3 getSite resided in zope.app.component.hooks. See 
+   http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/referencemanual-all-pages
 
 .. note:: Due to the fact that Plone does not show the default content item
    as a separate object, the page you are viewing in the browser from the
@@ -650,4 +653,5 @@ See object publishing_.
 .. _Unauthorized: http://svn.zope.org/Zope/trunk/src/AccessControl/unauthorized.py?rev=96262&view=auto
 
 .. _UID: http://pypi.python.org/pypi/Products.CMFUid
+
 
