@@ -9,7 +9,7 @@ How to get started with Plone development.
 Introduction
 --------------
 
-Plone is developed in the :doc:`Python </getstarted/python>` programming language. doc:`Python </getstarted/python>`You should master Python basics`
+Plone is developed in the :doc:`Python </getstarted/python>` programming language. doc:`You should master Python basics </getstarted/python>`
 before you can efficiently customize Plone. If you are very new to Python, Plone or software development,
 it is suggested that you read the `Professional Plone 4 Development book
 <http://www.packtpub.com/professional-plone-4-development/book>`_
