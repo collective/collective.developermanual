@@ -31,6 +31,24 @@ The basic way of dealing with permissions is setting the ``permission``
 attribute of view declaration. For more information see :doc:`views
 </views/browserviews>`.
 
+Debugging permission errors: Verbose Security
+================================================
+
+You can turn on ``verbose-security`` option in buildout to get better traceback info when 
+you encounter a permission problem on the site (you are presented a login dialog).
+
+For the security reasons, this option is disabled by default.
+
+* Set ``verbose-security = on`` in your buildout.cfg ``instance`` or related section. 
+
+* Rerun buildout
+
+* Restart Plone properly after buildout ``bin/plonectl stop && bin/plonectl start`` 
+
+More info
+
+* http://pypi.python.org/pypi/plone.recipe.zope2instance
+
 Checking if the logged-in user has a permission
 ====================================================
 
