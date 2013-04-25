@@ -13,8 +13,12 @@ Introduction
 `Plone <http://plone.org>`_ and `Zope <http://zope.org>`_. One needs to have at least basic Python experience
 before considering building Plone add-ons or customizations.
 
-Python Tutorials
-===============================
+.. note ::
+
+     You should not try to write programs for Plone before you can program Python on the basic level.
+
+Python tutorials and online classes
+====================================
 
 * `Official Python tutorial <http://docs.python.org/tutorial/>`_
 
