@@ -57,10 +57,8 @@ Add to the ``[instance]`` part in ``buildout.cfg``:
 
 .. code-block:: cfg
 
-    zope-conf-additional=
-        <environment>
-            TZ "Europe/Helsinki"
-        </environment>
+    environment-vars =
+            TZ Europe/Helsinki
 
 Log level
 =========
