@@ -128,7 +128,28 @@ a:visited:hover {
 
 /* ... hide editor trap when printing ... */
 @media print {
-#editor-trap { display: none }
+    #editor-trap {
+        /* display: none;*/
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        width: 80%;
+        position: relative;
+        border: none;
+
+       -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+    #editor-trap.toggled > * {
+        display: block;
+    }
+
 }
 
 /* Special classes on doc front page */
