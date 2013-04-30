@@ -17,7 +17,7 @@ This document is a tutorial on using SELinux with Plone. Ready policy is not off
 - Linux distribution specific SELinux customization
 - installation paths and other Zope/Plone setup related variables
 
-The tutorial is written for RedHat Linux 6.3 and Plone 4.3. They are appliable to every distribution with small changes.
+The tutorial is written for RedHat Linux 6.3 and Plone 4.3. It is appliable to every distribution with small changes.
 
 .. note ::
 
