@@ -20,3 +20,5 @@ Zope provides various built-in security facilities
     local_roles
     dynamic_roles
     sandboxing
+    selinux
+
