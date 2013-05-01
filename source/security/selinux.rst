@@ -41,7 +41,7 @@ Prerequisities
 Creating new policy
 -------------------
 
-Development starts usually by generating a policy skeleton with the *sepolgen* utility. It can generate several types of templates, which come with a set of basic access rights. There are several sepolgen versions out there, depending on the Linux distribution. The most important differences between them are in the included templates. Creating new policy is done with the following command: ::
+Development starts usually by generating a policy skeleton with the *sepolgen* (or sepolicy-generate) utility. It can generate several types of templates, which come with a set of basic access rights. There are several sepolgen versions out there, depending on the Linux distribution. The most important differences between them are in the included templates. Creating new policy is done with the following command: ::
 
     sepolgen -n plone -t 3 /usr/local/Plone/zinstance/bin/plonectl
 
@@ -342,8 +342,8 @@ After running maintenance tasks you should make sure the files have still correc
 .. tip::
    See also "setenforce Permissive", which will disable enforcing SELinux rules temporarily system wide.
 
-Testing the Policy
-------------------
+Testing the policy
+==================
 
 Easiest way to test the policy is to label for instance the Python executable as plone_exec_t by using *chcon*, and to test the policy using Python scripts. For example: ::
 
@@ -367,6 +367,79 @@ Easiest way to test the policy is to label for instance the Python executable as
     # setenforce Enforcing
 
 This can easily be refined into automated testing. Other forms such as Portlet inside running Plone process can also be used for testing.
+
+Deploying the policy
+====================
+
+SELinux policies can be installed simply by running *semodule -n -i <compiled_policy.pp>*. In case packaging is required (for rolling out Plone instances automatically, or for use with centralized management tools like Satellite) it is easy to accomplish with rpm. In order to do that first install the rpm building tools: ::
+
+    yum install rpm-build
+
+Then modify the following RPM spec file to suit your needs: ::
+
+    %define relabel_files() \
+    restorecon -R /usr/local/Plone; \
+
+    %define selinux_policyver 3.7.19-195
+
+    Name:   plone_selinux
+    Version:    1.0
+    Release:    1%{?dist}
+    Summary:    SELinux policy module for plone
+
+    Group:  System Environment/Base     
+    License:    GPLv2+  
+    # This is an example. You will need to change it.
+    URL:        http://setest
+    Source0:    plone.pp
+    Source1:    plone.if
+
+    Requires: policycoreutils, libselinux-utils
+    Requires(post): selinux-policy >= %{selinux_policyver}, policycoreutils
+    Requires(postun): policycoreutils
+    Requires(post): python
+    BuildArch: noarch
+
+    %description
+    This package installs and sets up the  SELinux policy security module for plone.
+
+    %install
+    install -d %{buildroot}%{_datadir}/selinux/packages
+    install -m 644 %{SOURCE0} %{buildroot}%{_datadir}/selinux/packages
+    install -d %{buildroot}%{_datadir}/selinux/devel/include/contrib
+    install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/selinux/devel/include/contrib/
+
+    %post
+    semodule -n -i %{_datadir}/selinux/packages/plone.pp
+    if /usr/sbin/selinuxenabled ; then
+        /usr/sbin/load_policy
+        %relabel_files
+    fi;
+    exit 0
+
+    %postun
+    if [ $1 -eq 0 ]; then
+        semodule -n -r plone
+        if /usr/sbin/selinuxenabled ; then
+           /usr/sbin/load_policy
+           %relabel_files
+        fi;
+    fi;
+    exit 0
+
+    %files
+    %attr(0600,root,root) %{_datadir}/selinux/packages/plone.pp
+    %{_datadir}/selinux/devel/include/contrib/plone.if
+
+    %changelog
+    * Wed May  1 2013 YOUR NAME <YOUR@EMAILADDRESS> 1.0-1
+    - Initial version
+
+The rpm packages will be built by running the rpmbuild: ::
+
+    # rpmbuild -ba plone.spec
+    # ls -lF /root/rpmbuild/RPMS/noarch/
+    -rw-r--r--. 1 root root 17240  1.5. 19:24 plone_selinux-1.0-1.el6.noarch.rpm
 
 External resources
 ==================
