@@ -492,7 +492,7 @@ from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
 
         return html
 
-How to use this code in your own view, please see `collective.portletalias source <https://github.com/collective/collective.portletalias/blob/master/collective/portletalias/portlets/aliasportlet.py#L73>`_ 
+How to use this code in your own view, please see `collective.portletalias source <https://github.com/collective/collective.portletalias/blob/master/collective/portletalias/portlets/aliasportlet.py#L73>`_
 
 More info
 
@@ -520,7 +520,7 @@ Example portlets.xml::
   <portlet addview="collective.flowplayer.Player" remove="true" />
 
 
-Portlet na,es can be found in ``plone.app.portlets/configure.zcml``.
+Portlet names can be found in ``plone.app.portlets/configure.zcml``.
 
 More info:
 
