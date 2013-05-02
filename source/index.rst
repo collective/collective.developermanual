@@ -72,6 +72,7 @@ Theme development
    reference_manuals/external/plone.app.theming/userguide
    reference_manuals/external/diazo/index
    plone_theme_development/diazo_theme_recipes/index
+   plone_theme_development/theme_product_with_diazo
 
 
 For legacy purposes see :doc:`old Plone 3 theming manual </reference_manuals/old/plone_3_theming/index>`.
