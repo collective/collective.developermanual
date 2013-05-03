@@ -51,6 +51,12 @@ Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_setup/manage_exportSteps'
 'your/product/profiles/default/workflows/your_workflow/' (you'll need to create the latter two directories).
 
 
+Configure workflow via GenericSetup
+------------------------------------
+
+Assign a workflow
+==================
+
 In your/product/profiles/default/workflows.xml, insert:
 
 .. code-block:: xml
@@ -63,8 +69,8 @@ In your/product/profiles/default/workflows.xml, insert:
 	</object>
 
 
-Assigning the workflow globally as default
-==========================================
+Assigning a workflow globally as default
+========================================
 
 In your/product/profiles/default/workflows.xml, add:
 
@@ -79,9 +85,65 @@ In your/product/profiles/default/workflows.xml, add:
 		</bindings>
 
 
+Binding a workflow to a content type
+========================================
+
+Example with GenericSetup *workflows.xml*
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object name="portal_workflow" meta_type="Plone Workflow Tool">
+     <bindings>
+       <type type_id="Image">
+         <bound-workflow workflow_id="plone_workflow" />
+       </type>
+     </bindings>
+    </object>
+
+Disabling workflow for a content type
+======================================
+If a content type doesn't have a workflow it uses its parent container security settings.
+By default, content types Image and File have no workflow.
+
+Workflows can be disabled by setting the workflow setting empty in portal_workflow in ZMI.
+
+Example how to do it with GenericSetup *workflows.xml*
+
+.. code-block:: xml
+
+        <?xml version="1.0"?>
+        <object name="portal_workflow" meta_type="Plone Workflow Tool">
+         <property
+            name="title">Contains workflow definitions for your portal</property>
+         <bindings>
+          <!-- Bind nothing for these content types -->
+          <type type_id="Image"/>
+          <type type_id="File"/>
+         </bindings>
+        </object>
+
+
+Updating security settings after changing workflow
+==================================================
+
+Through the web this would be done by going to 
+ZMI > portal_workflow > update security settings
+
+To update security settings programmatically use the method updateRoleMappings.
+The snippet below demonstrates this::
+
+    from Products.CMFCore.utils import getToolByName
+    # Do this after installing all workflows   
+    wf_tool = getToolByName(self, 'portal_workflow')
+    wf_tool.updateRoleMappings()
+
+
+Programatically
+---------------
 
 Getting the current workflow state
------------------------------------
+=================================================
 
 Example::
 
@@ -94,7 +156,7 @@ Example::
     assert state == "published", "Got state:" + str(state)
 
 Filtering content item list by workflow state
------------------------------------------------
+=================================================
 
 Here is an example how to iterate through content item list
 and let through only content items having certain state.
@@ -122,7 +184,7 @@ Example::
      
 
 Changing workflow state
------------------------
+=================================================
 
 You cannot directly set the workflow to any state, but you must push
 it through legal state transitions.
@@ -163,18 +225,8 @@ Example how to submit to review::
             # does not have a "submit" transition)
             pass
 
-Via HTTP
-========
-
-Plone provides a ``workflow_action`` script which is able to trigger the status
-modification through an HTTP request (browser address bar).
-
-Example::
-
-	http://localhost:9020/site/page/content_status_modify?workflow_action=publish
-
 Gets the list of ids of all installed workflows
-------------------------------------------------
+================================================
 
 Useful to test if a particular workflow is installed::
 
@@ -183,7 +235,7 @@ Useful to test if a particular workflow is installed::
   self.failUnless("link_workflow" in ids, "Had workflows " + str(ids))
 
 Getting default workflow for a portal type
-------------------------------------------
+===============================
 
 Get default workflow for the type::
 
@@ -191,7 +243,7 @@ Get default workflow for the type::
  self.failUnless(chain == ("link_workflow",), "Had workflow chain" + str(chain))
 
 Getting workflows for an object
--------------------------------
+===============================
 
 How to test which workflow the object has::
 
@@ -207,54 +259,12 @@ How to test which workflow the object has::
     self.failUnless(chain[0] == 'link_workflow', "Had workflow " + str(chain[0]))
 
 
-Binding a workflow to a content type
---------------------------------------
+Via HTTP
+---------
 
-Example with GenericSetup *workflows.xml*
+Plone provides a ``workflow_action`` script which is able to trigger the status
+modification through an HTTP request (browser address bar).
 
-.. code-block:: xml
+Example::
 
-    <?xml version="1.0"?>
-    <object name="portal_workflow" meta_type="Plone Workflow Tool">
-     <bindings>
-       <type type_id="Image">
-         <bound-workflow workflow_id="plone_workflow" />
-       </type>
-     </bindings>
-    </object>
-
-Updating security settings after binding workflow
---------------------------------------------------
-Through the web this would be done by going to 
-ZMI > portal_workflow > update security settings
-
-To update security settings programmatically use the method updateRoleMappings.
-The snippet below demonstrates this::
-
-    from Products.CMFCore.utils import getToolByName
-    # Do this after installing all workflows   
-    wf_tool = getToolByName(self, 'portal_workflow')
-    wf_tool.updateRoleMappings()
-
-Disabling workflow for a content type
-======================================
-If a content type doesn't have a workflow it uses its parent container security settings.
-By default, content types Image and File have no workflow.
-
-Workflows can be disabled by setting the workflow setting empty in portal_workflow in ZMI.
-
-Example how to do it with GenericSetup *workflows.xml*
-
-.. code-block:: xml
-
-        <?xml version="1.0"?>
-        <object name="portal_workflow" meta_type="Plone Workflow Tool">
-         <property
-            name="title">Contains workflow definitions for your portal</property>
-         <bindings>
-          <!-- Bind nothing for these content types -->
-          <type type_id="Image"/>
-          <type type_id="File"/>
-         </bindings>
-        </object>
-
+	http://localhost:9020/site/page/content_status_modify?workflow_action=publish
