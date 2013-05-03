@@ -35,7 +35,7 @@ Model the workflow online
 
 Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_workflows/manage_main', copy and paste 
 'simple_publication_workflow', to have a skeleton for start-off, rename 'copy_of_simple_publication_workflow' 
-o 'your_workflow' or add a new workflow via the dropdwon-menu and have a tabula rasa.
+to 'your_workflow' or add a new workflow via the dropdwon-menu and have a tabula rasa.
 
 Add and remove states and transitions, assign permissions etc., see 
 
