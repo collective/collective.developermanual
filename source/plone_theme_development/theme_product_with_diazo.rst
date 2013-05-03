@@ -23,7 +23,10 @@ Create a module
 +++++++++++++++
 
 To create a blank module, you will use ZopeSkel. ZopeSkel is part of the
-executables files deployed by the UnifiedInstaller in ``./bin``.
+executables files deployed in ``./bin`` on a standard UnifiedInstaller install
+once you have run the develop.cfg buildout::
+
+    bin/buildout -Nc develop.cfg
 
 ZopeSkel allows to initialize Python modules based on different templates.
 
