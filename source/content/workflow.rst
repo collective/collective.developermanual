@@ -30,10 +30,55 @@ to construct the workflow through-the-web and then you can export it using Gener
 Include necessary parts from exported workflows.xml and workflows folder in your add-on product
 GenericSetup profile (add-on folder profiles/default).
 
-Assigning the workflow to a particular content type
------------------------------------------------------
+Model the workflow online
+=========================
 
-This is done by workflows.xml. You can edit it online in portal_workflows in Zope Management Interface.
+Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_workflows/manage_main', copy and paste 
+'simple_publication_workflow', to have a skeleton for start-off, rename 'copy_of_simple_publication_workflow' 
+o 'your_workflow' or add a new workflow via the dropdwon-menu and have a tabula rasa.
+
+Add and remove states and transitions, assign permissions etc., see 
+
+* http://plone.org/documentation/kb/creating-workflows-in-plone
+
+for more information
+
+
+Putting it in your product
+==========================
+Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_setup/manage_exportSteps', check 'Workflow Tool' and hit 
+'Export selected steps', unzip the downloaded file and put the definitions.xml-file in 
+'your/product/profiles/default/workflows/your_workflow/' (you'll need to create the latter two directories).
+
+
+In your/product/profiles/default/workflows.xml, insert:
+
+.. code-block:: xml
+
+    <?xml version="1.0" ?> 
+    <object name="portal_workflow" meta_type="Plone Workflow Tool" purge="False">
+
+		<object name="your_workflow" meta_type="Workflow" />
+
+	</object>
+
+
+Assigning the workflow globally as default
+==========================================
+
+In your/product/profiles/default/workflows.xml, add:
+
+.. code-block:: xml
+
+    <object name="portal_workflow">
+		(...)
+		<bindings>
+			<default>
+				<bound-workflow workflow_id="simple_publication_workflow" /> 
+			</default>
+		</bindings>
+
+
 
 Getting the current workflow state
 -----------------------------------
@@ -192,8 +237,7 @@ The snippet below demonstrates this::
     wf_tool.updateRoleMappings()
 
 Disabling workflow for a content type
----------------------------------------
-
+======================================
 If a content type doesn't have a workflow it uses its parent container security settings.
 By default, content types Image and File have no workflow.
 
