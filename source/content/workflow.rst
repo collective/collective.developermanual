@@ -37,11 +37,9 @@ Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_workflows/manage_main', c
 'simple_publication_workflow', to have a skeleton for start-off, rename 'copy_of_simple_publication_workflow' 
 to 'your_workflow' or add a new workflow via the dropdwon-menu and have a tabula rasa.
 
-Add and remove states and transitions, assign permissions etc., see 
+Add and remove states and transitions, assign permissions etc., for more information see:
 
 * http://plone.org/documentation/kb/creating-workflows-in-plone
-
-for more information
 
 
 Putting it in your product
