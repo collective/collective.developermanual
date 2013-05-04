@@ -16,7 +16,7 @@ Add-ons allow portlets in other parts in of the user interface too, like
 above and below the content.
 
 This document is contains quick how-to information only.
-Please visit :doc`Portlets reference manual </reference_manuals/portlets/index>`
+Please visit :doc:`Portlets reference manual </reference_manuals/old/portlets/index>`
 for in-depth information.
 
 Related add-ons and packages
@@ -492,7 +492,7 @@ from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
 
         return html
 
-How to use this code in your own view, please see `collective.portletalias source <https://github.com/collective/collective.portletalias/blob/master/collective/portletalias/portlets/aliasportlet.py#L73>`_ 
+How to use this code in your own view, please see `collective.portletalias source <https://github.com/collective/collective.portletalias/blob/master/collective/portletalias/portlets/aliasportlet.py#L73>`_
 
 More info
 
@@ -520,7 +520,7 @@ Example portlets.xml::
   <portlet addview="collective.flowplayer.Player" remove="true" />
 
 
-Portlet na,es can be found in ``plone.app.portlets/configure.zcml``.
+Portlet names can be found in ``plone.app.portlets/configure.zcml``.
 
 More info:
 
