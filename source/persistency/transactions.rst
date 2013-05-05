@@ -86,6 +86,13 @@ Example::
             # Commit subtransaction for every 10th processed item
             transaction.get().commit(True)
 
+Failsafe crawling and committing in batches
+==============================================
+
+In the case you need to access many objects in coherent and efficient manner.
+
+* https://bitbucket.org/gocept/gocept.linkchecker/src/80a127405ac06d2054e61dd62fcd643d864357a0/src/gocept/linkchecker/scripts/crawl-site.py?at=default
+
 Transaction boundary events
 ============================
 
