@@ -54,8 +54,8 @@ Documentation on how to use it can be found on `plone.org
 http://plone.org/documentation/kb/migrate-custom-types-with-products.contentmigration`_.
 
 
-Migration from non-folderish to folderish content types
--------------------------------------------------------
+Migration from non-folderish to folderish Archetypes based content types
+------------------------------------------------------------------------
 
 Non-folderish content types are missing some btree attributes, which folderish
 content types have (See ``Products.BtreeFolder2.BTreeFolder2Base._initBtrees``
@@ -67,6 +67,8 @@ non-folderish) types to the new Btree based implementation (defined in:
 
 To upgrade your non-folderish content types to folderish ones, just call
 ``@@migrate-btrees`` on your Plone site root, and you're done.
+
+This applies to Archetypes based content types.
 
 
 Upgrading theme
