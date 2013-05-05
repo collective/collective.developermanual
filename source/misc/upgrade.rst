@@ -45,6 +45,30 @@ Use this utility:
 .. note :: Perform this against old buildout
 
 
+Content Upgrades
+================
+
+For content migrations, `Products.contentmigration
+https://pypi.python.org/pypi/Products.contentmigration/`_  can help you.
+Documentation on how to use it can be found on `plone.org
+http://plone.org/documentation/kb/migrate-custom-types-with-products.contentmigration`_.
+
+
+Migration from non-folderish to folderish content types
+-------------------------------------------------------
+
+Non-folderish content types are missing some btree attributes, which folderish
+content types have (See ``Products.BtreeFolder2.BTreeFolder2Base._initBtrees``
+). 
+
+plone.app.folder provides an upgrade view to migrate pre-plone.app.folder (or
+non-folderish) types to the new Btree based implementation (defined in:
+``plone.app.folder.migration.BTreeMigrationView``).
+
+To upgrade your non-folderish content types to folderish ones, just call
+``@@migrate-btrees`` on your Plone site root, and you're done.
+
+
 Upgrading theme
 ===============
 
