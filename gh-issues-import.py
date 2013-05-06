@@ -166,6 +166,8 @@ def import_issue(source, dst_milestones, dst_labels):
 
     # Create issue
     res_issue = create_issue(dst_url, source["title"], body, assignee, milestone, labels)
+    if not res_issue:
+        return
     
     # Transfer comments
     comments = get_comments_on_issue(source)
