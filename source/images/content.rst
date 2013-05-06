@@ -47,7 +47,12 @@ content type:
 Image scales (Plone 4)
 ========================
 
-* http://plone.org/products/plone.app.imaging
+Archetypes based content image scales is handled by `plone.namedfile <https://pypi.python.org/pypi/plone.namedfile>`_.
+
+Archetypes based content image scales is handled by `plone.app.imaging <http://plone.org/products/plone.app.imaging>`_.
+
+Both packages offer the same traverseable `@@images` view which can be used from page templates and Python code
+to provide different image scales for image fields on content.
 
 Image scales (Plone 3)
 =======================
