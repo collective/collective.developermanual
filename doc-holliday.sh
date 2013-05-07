@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Do a git pull on the docs, see if anything has changed.
 # If so rebuild the docs (clean rebuild) and sync to the target.
@@ -11,6 +11,13 @@ deploy_target=/var/www/developer.plone.org/var/public_html
 
 # http://stackoverflow.com/questions/3258243/git-check-if-pull-needed
 git pull | grep -q -v 'Already up-to-date.' && changed=1
+
+if [[ $@ == **force** ]]
+then
+    echo "Forcing update"
+    changed=1
+done
+
 
 if [[ ! -z "$changed" ]] ; then
     # Rebuild the docs from the scratch
