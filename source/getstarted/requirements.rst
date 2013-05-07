@@ -168,7 +168,7 @@ This build will install Plone, ready to be run with::
 
     ~/Plone-4.3/zinstance$ bin/instance start
 
-running attached to port 8080.
+running attached to port 8080. Use login id "admin" and password "admin" for initial login.
 
 This build would be adequate for a quick evaluation installation. For a
 production or development installation, use one of `Plone's installers
