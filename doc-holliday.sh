@@ -12,11 +12,10 @@ deploy_target=/var/www/developer.plone.org/var/public_html
 # http://stackoverflow.com/questions/3258243/git-check-if-pull-needed
 git pull | grep -q -v 'Already up-to-date.' && changed=1
 
-if [[ $@ == **force** ]]
-then
+if [[ $@ == **force** ]] ; then
     echo "Forcing update"
     changed=1
-done
+fi
 
 
 if [[ ! -z "$changed" ]] ; then
