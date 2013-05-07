@@ -4,47 +4,39 @@ z3c.form library
 
 .. admonition:: Description
 
-    ``z3c.form`` is a flexible, powerful and complex form library for Zope 3.
+    ``z3c.form`` is alexible and powerful form library for Zope 3 applications.
     It is the recommended way to create complex Python-driven forms for
-    Plone 4 onwards.
+    Plone 4 and later versions.
 
 .. contents:: :local:
 
 Introduction
 =============
 
-This document gives you:
+Plone uses *z3c.form* library with the following integration steps
 
-* Learning resources for creating Python-driven ``z3c.forms`` with Plone
+* `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ provides
+  Plone specific widgets and main template
 
-* Additional insight how to accomplish specific tasks with ``z3c.form`` and
-  Plone
+* `plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_ integrates *z3c.form*
+  with applications using Zope 2 mechanisms like acquisition
 
-``z3c.form`` uses the :doc:`zope.schema <schemas>` package to define the
-form data model. Then it applies
-its own form-specific data extraction (HTTP request processing),
-field, widget and form button logic on top of this.
+* `z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is a form library which can be
+  used with any Python application using Zope 3 HTTP requests objects
 
-.. note::
+* (Plone 4.4+ only) `plone.app.widgets <https://github.com/plone/plone.app.widgets/>`_
+  provide a better widget set over *z3c.form* default with more JavaScript-enabled
+  features
 
-    You can use z3c.form as standalone package. But if you want to make the
-    development more easier for you
-    you'd probably prefer the shortcut bindings and directives provided with
-    the Dexterity subsystem.
+Forms are modelled using :doc:`zope.schema </forms/schemas>` models written as Python classes.
+Widgets for modelled data are set by using either *plone.directives.form* hints set onto
+schema class or in ``z3c.form.form.Form`` based classes body.
 
-Read more about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_
+Starting points to learn *z3c.form* in Plone
 
+* Read about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_
 
-Related documentation
-=====================
-
-- `z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is a generic,
-  very flexible and very complex form library for Python.
-- `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ and
-- `plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_ provide Plone
-  adaptions of this library.
-- `z3c.form tutorial by garbas <http://garbas.github.com/plone-z3c.form-tutorial/>`_
-
+* todoapp tutorials [ADD LINK HERE inside collective.developermanual]
 
 ``z3c.form`` big picture
 =========================
