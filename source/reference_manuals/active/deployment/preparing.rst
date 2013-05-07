@@ -106,6 +106,14 @@ Using ``zypper in``
 
 * zypper in gcc-c++
 * zypper in gmake
+* zypper in readline-devel
+* zypper in libjpeg-devel
+* zypper in zlib-devel
+* zypper in patch
+* zypper in openssl-devel
+* zypper in expat-devel
+
+--build-python will be needed as the system Python 2.7 is missing many modules.
 
 OS X
 ****
