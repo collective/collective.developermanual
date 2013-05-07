@@ -11,8 +11,63 @@ Plone Installation Requirements
 
 .. highlight:: console
 
-All versions
-============
+Hosting requirements
+====================
+
+To run a Plone based web site on your own server you need:
+
+* A server machine connected to Internet (public sites) or your intranet (company intranet sites);
+
+* Remote console, like SSH access, for installing Plone. FTP is not enough.
+
+Plone requires several system libraries. These need to be installed by a user
+with root access.
+
+Operating system
+----------------
+
+Plone has been successfully installed on:
+
+* Windows
+
+* Nearly every popular Linux distribution;
+
+* Nearly every popular BSD distribution
+
+* OS X (using our OS X installer or XCode)
+
+* Solaris and several other proprietery *nix systems
+
+To install on Windows, it is strongly recommended to use the Plone Windows
+Installer. Otherwise, you will need `Cygwin <http://www.cygwin.com>`_ to
+provide a *nix build environment.
+
+Hardware (or virtual environment) requirements
+----------------------------------------------
+
+The hardware requirements below give a rough estimation of the minimum hardware setup needed for a Plone server.
+
+Add-on products and caching solutions may increase RAM requirements.
+
+One Zope application server is able to run several Plone sites with the same software configuration. This lowers the requirements when hosting multiple sites on the same server.
+
+Minimum requirements
+~~~~~~~~~~~~~~~~~~~~
+
+* Minimum 256 MB RAM and 512 MB of swap space per Plone site
+
+* Minimum 512 MB hard disk space
+
+Recommended
+~~~~~~~~~~~
+
+* 2 GB or more RAM per Plone site
+
+* 40 GB or more hard disk space
+
+
+All Plone versions
+==================
 
 A complete GNU build kit including GCC including gcc, gmake, patch, tar,
 gunzip, bunzip2, wget.
