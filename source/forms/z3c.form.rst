@@ -38,6 +38,18 @@ Starting points to learn *z3c.form* in Plone
 
 * todoapp tutorials [ADD LINK HERE inside collective.developermanual]
 
+Other related packages you might want to take a closer look
+
+* Extra, more powerful widgets, from `collective.z3cform.widgets <https://github.com/collective/collective.z3cform.widgets>`_ 
+
+* Tabular data edit `collective.z3cform.datagridfield <https://github.com/collective/collective.z3cform.datagridfield>`_
+
+* Build JavaScript interfaces with `plone.app.jqueryui <https://github.com/plone/plone.app.jqueryui>`_
+
+* Handling image and file fields with `plone.namedfile <https://github.com/plone/plone.namedfile>`_
+
+* Configuring forms with `plone.form.directives <https://pypi.python.org/pypi/plone.directives.form>`_
+
 ``z3c.form`` big picture
 =========================
 
