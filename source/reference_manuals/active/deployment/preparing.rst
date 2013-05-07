@@ -104,14 +104,15 @@ OpenSUSE
 
 Using ``zypper in``
 
-* zypper in gcc-c++
-* zypper in make
-* zypper in readline-devel
-* zypper in libjpeg-devel
-* zypper in zlib-devel
-* zypper in patch
-* zypper in openssl-devel
-* zypper in expat-devel
+* gcc-c++
+* make
+* readline-devel
+* libjpeg-devel
+* zlib-devel
+* patch
+* openssl-devel
+* expat-devel
+* man
 
 --build-python will be needed as the system Python 2.7 is missing many standard modules.
 
