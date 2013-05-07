@@ -105,7 +105,7 @@ OpenSUSE
 Using ``zypper in``
 
 * zypper in gcc-c++
-* zypper in gmake
+* zypper in make
 * zypper in readline-devel
 * zypper in libjpeg-devel
 * zypper in zlib-devel
@@ -113,7 +113,7 @@ Using ``zypper in``
 * zypper in openssl-devel
 * zypper in expat-devel
 
---build-python will be needed as the system Python 2.7 is missing many modules.
+--build-python will be needed as the system Python 2.7 is missing many standard modules.
 
 OS X
 ****
