@@ -20,6 +20,7 @@ fi
 
 if [[ ! -z "$changed" ]] ; then
     # Rebuild the docs from the scratch
+    bin/develop up
     bin/buildout
     make clean html
 
