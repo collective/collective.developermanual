@@ -25,12 +25,13 @@ Here we have collected best practices on how to install Plone in various situati
 Plone hosting requirements
 ========================================================
 
+See :doc:`Plone installation requirements <requirements>` for detailed requirements.
+
 * You need at a least a virtual private server (VPS) with 512 MB RAM available.
   Shared hosting is not supported unless the shared hosting company says Plone is good to go.
-  See the reference on
-  `Plone system requirements <http://plone.org/documentation/kb/plone-system-requirements>`_.
+  See :doc:`Plone installation requirements <requirements>`.
 
-* A Linux server is the recommended option.
+* A Linux or BSD server is the recommended option.
   Ubuntu / Debian 64-bit environment is the most popular and has most support.
 
 * You also might want to configure
@@ -378,7 +379,7 @@ OS X Preparations
 -----------------
 
 Install Homebrew
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 Needed to get Python 2.4 on OSX.
 
@@ -389,7 +390,7 @@ Run::
     ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 
 Install Python 2.4
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 Plone 3.x needs Python 2.4 explicitly.
 
@@ -401,7 +402,7 @@ Install it using Homebrew::
 Now you have ``/usr/local/Cellar/python24/2.4.6/bin/python2.4`` command.
 
 Linux
------
+^^^^^
 
 You'll need the GNU build tools.
 On Debian/Ubuntu packages, this is in a build-essentials metapackage.
@@ -453,7 +454,7 @@ We also need Python imaging package and simplejson which are often used librarie
     Old 1.7.2 virtualenv required as above. Latest versions are not Python 2.4 compatible.
 
 Copy in sites files
-------------------------------------------
+-------------------
 
 This includes
 
@@ -492,7 +493,7 @@ More info
 * http://plone.org/documentation/kb/copying-a-plone-site
 
 Rebootstrap buildout on your local computer
-------------------------------------------
+-------------------------------------------
 
 This creates buildout script and paths to conform your local computer folder structure.
 We need to update Buildout's ``bootstrap.py``, since the release of Buildout 2.x have
@@ -520,7 +521,7 @@ More info
 * http://stackoverflow.com/q/14817138/315168
 
 Run buildout
-------------------------------------------
+------------
 
 This should fetch Plone 3.3 Python eggs from *plone.org* and *pypi.python.org*
 and create ``bin/instance`` launch script for them using buildout::
@@ -543,7 +544,7 @@ If the network times out just keep hitting ``bin/buildout``
 until it completes succesfully.
 
 Start site
-------------------------------------------
+----------
 
 Try starting the site::
 
