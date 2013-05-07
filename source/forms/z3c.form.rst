@@ -34,9 +34,9 @@ schema class or in ``z3c.form.form.Form`` based classes body.
 
 Starting points to learn *z3c.form* in Plone
 
-* Read about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_
+* Read about `creating schema-driven forms with Dexterity content subsystem <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/schema-driven-forms/index.html>`_
 
-* todoapp tutorials [ADD LINK HERE inside collective.developermanual]
+* `TODO app tutorial for Plone <http://developer.plone.org/reference_manuals/external/tutorials.todoapp/docs/index.html>`_
 
 Other related packages you might want to take a closer look
 
