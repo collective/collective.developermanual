@@ -94,7 +94,7 @@ Do run the build by hand and see what's going wrong::
     ssh deus2.plone.org
     cd /var/www/developer.plone.org
     sudo -u apache bin/buildout -c deployment.cfg
-    sudo -u apache ./doc-holliday.sh
+    sudo -u apache ./doc-holliday.sh --force
 
 Something like this is occassionally needed to clear up things changed in external packages::
 
