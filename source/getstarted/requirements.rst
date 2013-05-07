@@ -1,6 +1,6 @@
-=========================
-Installation Requirements
-=========================
+===============================
+Plone Installation Requirements
+===============================
 
 .. admonition:: Description
 
