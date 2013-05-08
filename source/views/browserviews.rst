@@ -103,8 +103,8 @@ Views can be any Python class taking in (context, request) construction paramete
 
 However, in the most of cases
 
-* Full Plone page views are subclass of `Products.Five.browser.BrowserView <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/__init__.py#L23>_
-  which is a wrapper class. It wraps `zope.publisher.browser.BrowserView <https://github.com/zopefoundation/zope.publisher/blob/master/src/zope/publisher/browser.py#L896>_
+* Full Plone page views are subclass of `Products.Five.browser.BrowserView <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/__init__.py#L23>`_
+  which is a wrapper class. It wraps `zope.publisher.browser.BrowserView <https://github.com/zopefoundation/zope.publisher/blob/master/src/zope/publisher/browser.py#L896>`_
   and adds an acquisition (parent traversal) support for it.
 
 * Views have index attribute which points to :doc:`TAL page template </templates_css_and_javascripts/template_basics>`
