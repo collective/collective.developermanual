@@ -107,9 +107,12 @@ However, in the most of cases
   which is a wrapper class. It wraps `zope.publisher.browser.BrowserView <https://github.com/zopefoundation/zope.publisher/blob/master/src/zope/publisher/browser.py#L896>`_
   and adds an acquisition (parent traversal) support for it.
 
-* Views have index attribute which points to :doc:`TAL page template </templates_css_and_javascripts/template_basics>`
+* Views have ``index`` attribute which points to :doc:`TAL page template </templates_css_and_javascripts/template_basics>`
   responsible rendering the HTML code. You get the HTML output by doing self.index() and page template
-  gets a context argument ``view`` pointing to the view class instance.
+  gets a context argument ``view`` pointing to the view class instance. ``index`` value
+  is usually instance of `Products.Five.browser.pagetemplate.ViewPageTemplateFile <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/pagetemplatefile.py#L33>`_
+  (full Plone pages) or `zope.pagetemplate.pagetemplatefile.PageTemplateFile <https://github.com/zopefoundation/zope.pagetemplate/blob/master/src/zope/pagetemplate/pagetemplatefile.py#L40>`_
+  (HTML snippets, no acquisition)
 
 * View classes should implement :doc:`interface </components/interface>`  
   `zope.browser.interfaces.IBrowserView <https://github.com/zopefoundation/zope.browser/blob/master/src/zope/browser/interfaces.py#L27>`_
