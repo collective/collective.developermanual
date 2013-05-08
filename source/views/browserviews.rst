@@ -111,6 +111,8 @@ However, in the most of cases
   responsible rendering the HTML code. You get the HTML output by doing self.index() and page template
   gets a context argument ``view`` pointing to the view class instance.
 
+* View classes should implement :doc:`interface </components/interface>`  
+  `zope.browser.interfaces.IBrowserView <https://github.com/zopefoundation/zope.browser/blob/master/src/zope/browser/interfaces.py#L27>`_
 
 Views rendering page snippets and parts can be subclasses of zope.publisher.browser.BrowserView directly
 as snippets might not need acquisition support which adds some overhead to the rendering process.
