@@ -90,7 +90,7 @@ Views are resolved with three inputs:
 Views return HTTP request payload as the output. Returned
 strings are turned to HTML page responses.
 
-Views can be any Python class taking in (context, request) construction parameters. Minimal view would be:
+Views can be any Python class taking in (context, request) construction parameters. Minimal view would be::
 
       class MyView(object):
 
