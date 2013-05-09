@@ -26,6 +26,12 @@ Example::
 
     self.request.cookies.get("cookie_name", "default_value_if_cookie_not_set")
 
+Setting cookies
+=====================
+
+See `HTTPResponse.setCookie() <https://github.com/zopefoundation/Zope/blob/master/src/ZPublisher/HTTPResponse.py#L241>`_.
+
+
 Default Plone cookies
 ======================
 
