@@ -31,6 +31,44 @@ Setting cookies
 
 See `HTTPResponse.setCookie() <https://github.com/zopefoundation/Zope/blob/master/src/ZPublisher/HTTPResponse.py#L241>`_.
 
+Modifying HTTP response cookies
+===================================
+
+You might want to tune up or clean cookies after some other part of Plone code has set them.
+You can do this in :doc:`post-publication event handler </serving/http_request_and_response>`.
+
+Example ``cleancookies.py`` (needs ZCML subscriber registration too)::
+
+    """
+
+        Clean I18N cookies from non-HTML responses so that e.g. Image
+        content, which has language set, and is cross-linked across page,
+        don't inadvertiately change the langauge.
+
+    """
+
+    from zope.interface import Interface
+    from zope.component import adapter
+    from plone.postpublicationhook.interfaces import IAfterPublicationEvent
+
+
+    @adapter(Interface, IAfterPublicationEvent)
+    def clean_language(object, event):
+        """ Clean up cookies after HTTPResponse object has been constructed completely.
+
+        Post-publication handler.
+        """
+        request = event.request
+
+        #print "%s %s" % (request["URL"], request.response.cookies)
+
+        # All non-HTML payloads
+        if not request.response.headers["content-type"].startswith("text/html"):
+            # Rip-off I18N_language cookie
+            if "I18N_LANGUAGE" in request.response.cookies:
+                print "Cleaned up cookie for %s" % request["URL"]
+                del request.response.cookies["I18N_LANGUAGE"]
+
 
 Default Plone cookies
 ======================
