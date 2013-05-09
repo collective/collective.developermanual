@@ -555,13 +555,80 @@ on.
 Setting a widget for a field
 --------------------------------
 
-plone.directives.form way
+Using plone.directives.form schema hints
 ``````````````````````````````````````````````````````
 
-See examples on `plone.directives.form page <http://pypi.python.org/pypi/plone.directives.form#form-widget-hints>`_
+Example::
 
-Dynamically in ``Form.update()``
+    from plone.directives import form
+    from zope import schema
+    from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+    
+    class ISampleSchema(form.Schema):
+    
+        # A fieldset with id 'extra' and label 'Extra information' containing
+        # the 'footer' and 'dummy' fields. The label can be omitted if the
+        # fieldset has already been defined.
+    
+        form.fieldset('extra',
+                label=u"Extra information",
+                fields=['footer', 'dummy']
+            )
+    
+        # Here a widget is specified as a dotted name.
+        # The body field is also designated as the priamry field for this schema
+    
+        form.widget(body='plone.app.z3cform.wysiwyg.WysiwygFieldWidget')
+        form.primary('body')
+        body = schema.Text(
+                title=u"Body text",
+                required=False,
+                default=u"Body text goes here"
+            )
+
+More info
+
+* `Form schema hints <https://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/form-schema-hints.html>`_ 
+
+
+Setting widget for z3c.form plain forms
 ``````````````````````````````````````````````````````
+
+You can set field's widgetFactory after fields have
+been declared in form class body.
+
+Example::
+
+    import zope.schema
+    import zope.interface
+
+    import z3c.form
+    from z3c.form.browser.checkbox import CheckBoxFieldWidget
+
+
+    class IReportSchema(zope.interface.Interface):
+        """ Define reporter form fields """
+
+        variables = zope.schema.List(
+            title=u"Variables",
+            description=u"Choose which variables to include in the output report",
+            required=False,
+            value_type=zope.schema.Choice(vocabulary="output_variables"))
+
+
+    class ReportForm(z3c.form.form.Form):
+        """ A form to output a HTML report from chosen parameters """
+
+        fields = z3c.form.field.Fields(IReportSchema)
+
+        fields["variables"].widgetFactory = CheckBoxFieldWidget
+
+
+
+Setting widget dynamically Form.update()
+``````````````````````````````````````````````````````
+
+Widget type can be set dynamically based on external conditions.
 
 Example from `collective.z3cform.datagridfield_demos <https://github.com/collective/collective.z3cform.datagridfield_demo>`_
 
