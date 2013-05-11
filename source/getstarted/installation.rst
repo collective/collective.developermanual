@@ -22,6 +22,9 @@ Here we have collected best practices on how to install Plone in various situati
    and may not cover all use cases.
    Please feel free to edit this document to add more.
 
+   Ubuntu is used as default Linux OS, for this Documentation.
+   Instructions may differ for other distributions.
+
 Plone hosting requirements
 ========================================================
 
