@@ -40,6 +40,40 @@ Plone events can be scoped:
 * per _content type_.
 
 
+Example: Register an event-handler on your contenttype's creation
+----------------------------------------------------------------
+
+
+In your.product/your/product/configure.zcml insert::
+
+    <subscriber
+      for=".interfaces.IMyContentTypeClass
+           zope.lifecycleevent.IObjectInitializedEvent"
+      handler=".your_python_file.your_method"
+      />
+
+
+The first line defines to which interface you want to bind the execution of your code, which means here, 
+that the code will only be executed if the object is one of your contenttype's. 
+If you want this to be interface-agnostic, insert an asterix as a wildcard instead.
+
+The second line defines the event on which this should happen, which is here 'IObjectInitializedEvent'.
+For more available possible events to be used as a trigger, see::
+http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/event-handlers.html
+
+The third line gives the path to the script that is supposed to be executed.
+
+Create your.product/your/product/your_python_file.py and insert::
+
+    def your_method(object, event):
+
+        # do sth with your created contenttype
+
+For Dexterity-contenttype's and additional ZOPE-Illumination see also:
+http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/event-handlers.html
+
+
+
 Subscribing using the ``grok`` API
 -----------------------------------------
 
