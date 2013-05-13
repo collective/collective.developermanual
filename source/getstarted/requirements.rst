@@ -97,7 +97,8 @@ Plone 4.3 / 4.2
 Python
 ------
 
-Python 2.7 (dev), built with support for expat (xml.parsers.expat), zlib and ssl.*
+Python 2.7 (dev), built with support for expat (xml.parsers.expat), zlib and ssl.
+(Python XML support may be a separate package on some platforms.)*
 
 virtualenv*
 
@@ -117,7 +118,8 @@ Plone 4.1
 Python
 ------
 
-Python 2.6 (dev), built with support for expat (xml.parsers.expat), zlib and ssl.*
+Python 2.6 (dev), built with support for expat (xml.parsers.expat), zlib and ssl.
+(Python XML support may be a separate package on some platforms.)*
 
 virtualenv*
 
