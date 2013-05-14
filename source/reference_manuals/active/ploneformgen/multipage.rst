@@ -28,8 +28,8 @@ An added bonus
 
 If you want to create a sequence of forms, where the answers on form_A could lead to a form_B or form_C, you can use a traverse_to override. 
 
-* Create a selection field in form_A, which could be called 'formnext'
-* As valus in the selection field, put the 'path' to the next form in the sequest
+* Create a selection field in form_A, which could be called 'formnext';
+* As values in the selection field, put the paths to the next forms in the sequence;
 * Then, in the form overrides -> custom success action use 
 
 traverse_to:request/form/formnext
