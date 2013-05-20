@@ -61,6 +61,7 @@ Programming Plone
    templates_css_and_javascripts/index
    sessions/index
    images/index
+   functionality/syndication
    misc/index
 
 Theme development
