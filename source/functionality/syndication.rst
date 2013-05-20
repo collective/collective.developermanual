@@ -47,17 +47,25 @@ Example::
              Products.CMFPlone.interfaces.syndication.IFeed"
         provides="Products.CMFPlone.interfaces.syndication.IFeedItem" />
 
+Dexterity type
+~~~~~~~~~~~~~~
+
+If the type you're customizing is a dexterity type, you'll need to inherit
+from Products.CMFPlone.browser.syndication.adapters.DexterityItem in your
+override feed item adapter class.
+
 
 Register your Folderish type as syndicatable
 --------------------------------------------
 
-Just make sure it implements the ISyndicatable interface:
+Just make sure it implements the ISyndicatable interface::
 
     from Products.CMFPlone.interfaces.syndication import ISyndicatable
 
     ...
     class MyFolderishType(object):
         implements(ISyndicatable)
+    ...
 
 
 Create your own feed type
@@ -160,4 +168,55 @@ Now, if the `JSON` is enabled on a syndicatable item(you'll probably
 also need to allow editing syndication settings), you'll be able to append
 `json` onto the url to use the new syndication.
 
+
+Available FeedItem properties to override
+-----------------------------------------
+
+If you're inheriting Products.CMFPlone.browser.syndication.adapters.BaseItem
+or Products.CMFPlone.browser.syndication.adapters.DexterityItem in an attempt
+to override the default feed item behavior, these are the properties available
+to you to override:
+
+* link
+* title
+* description
+* categories
+* published
+* modified
+* uid
+* rights
+* publisher
+* author
+* author_name
+* author_email
+* body
+* guid
+* has_enclosure
+* file
+* file_url
+* file_length
+* file_type
+
+
+Available feed properties to override
+-------------------------------------
+
+If you're inheriting from Products.CMFPlone.browser.syndiction.adapters.FolderFeed
+in an attempt to override the functionality of a feed folder or collection,
+these are the available porperties to override:
+
+* link
+* title
+* description
+* categories
+* published
+* modified
+* uid
+* rights
+* publisher
+* logo
+* icon
+* items
+* limit
+* language
 
