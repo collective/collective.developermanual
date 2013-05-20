@@ -122,6 +122,9 @@ Creating a json feed type
 
 First, we'll create the json feed view class::
 
+    from Products.CMFPlone.browser.syndication.views import FeedView
+    import json
+
     class JSONFeed(FeedView):
 
         def index(self):
