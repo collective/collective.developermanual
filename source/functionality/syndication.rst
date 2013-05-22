@@ -43,7 +43,7 @@ Example::
 
       <adapter
         factory=".NewsFeedItem"
-        for="Products.ATContentTypes.interfaces import IATNewsItem
+        for="Products.ATContentTypes.interfaces.IATNewsItem
              Products.CMFPlone.interfaces.syndication.IFeed"
         provides="Products.CMFPlone.interfaces.syndication.IFeedItem" />
 
