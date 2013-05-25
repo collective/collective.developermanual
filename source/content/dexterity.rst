@@ -18,7 +18,7 @@ with Plone 4.
 
 * `Dexterity Developer Manual <http://developer.plone.org/reference_manuals/external/plone.app.dexterity>`_.
 
-* `How Dexterity is related to Archetypes <http://plone.org/products/dexterity/documentation/faq/how-is-dexterity-related-to-archetypes/view>`_
+* `How Dexterity is related to Archetypes <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/how-is-dexterity-related-to-archetypes.html>`_
 
 ZopeSkel templates
 ====================
