@@ -149,7 +149,7 @@ To create an Archetypes-based content types package:
     cd src
     # Here replace "archetype" with scaffold name you want to use
     # For the complete list of different templates
-    # run ../bin/templer command without arguments
+    # run ../bin/zopeskel command without arguments
     ../bin/zopeskel archetype yourcompany.productname
 
 Now it will ask you a series of question for the add-on properties. After this ``yourcompany.productname`` 
@@ -305,10 +305,6 @@ How paster local commands work
 
 Paster reads ``setup.py``. If it finds a ``paster_plugins`` section there,
 it will look for local commands.
-For example, the Archetype template declares the following paster_plugins 
-in ``setup.py``::
-
-    paster_plugins=["templer.localcommands"],
 
 This allows paster to know that packages created by that template provide
 local commands
