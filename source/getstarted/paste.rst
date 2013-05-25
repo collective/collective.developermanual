@@ -18,23 +18,6 @@ create Plone buildouts, add-on packages and themes.  The skeleton code
 created by ZopeSkel follows generally accepted best practices, and will get
 you started developing for the Plone CMS.
 
-.. note::
-
-  In the past, ZopeSkel was a single, large package.  
-  It has been broken into a number of smaller packages to 
-  help make it more flexible and easy to work with.
-  These packages are in the templer namespace (``templer.core``,
-  ``templer.plone``, etc.)
-  If you are interested in Plone development, you should simply install
-  ZopeSkel.  
-  It will include everything you need.
-
-Further reading
-----------------
-
-For more in-depth information about the templer system which underlies
-ZopeSkel, see the `Templer Manual 
-<http://templer-manual.readthedocs.org/en/latest/index.html>`_
 
 Add-on creation and installation steps
 ======================================
@@ -73,17 +56,19 @@ To install ZopeSkel in your buildout, add the following to your
     recipe = zc.recipe.egg
     unzip = true
     eggs =
+        ZopeSkel < 3.0
         Paste
-        ZopeSkel
-        templer.plone
-        templer.plone.localcommands
- 
+        PasteDeploy
+        PasteScript
+        zopeskel.dexterity
+        zopeskel.diazotheme
+        ${buildout:eggs} 
+        
 .. note ::
 
      In buildout.cfg # marks comment at the end of the line - you don't need to type those
 
-After adding this, run buildout and it will install ZopeSkel and all the
-templer and Paste packages
+After adding this, run buildout and it will install ZopeSkel
 that it requires. After buildout completes, you will find the ``zopeskel``
 command in the ``bin`` 
 directory of your buildout.  You can use this command to list template, run
@@ -115,8 +100,7 @@ If self-service help doesn't get you anywhere `file issues on Github
     If you are migrating from a version of ZopeSkel prior to 3.0,
     you may need to remove the old ZopeSkel
     egg before you begin.
-    You can find notes about this in the README for `templer.plone 
-    <https://github.com/collective/templer.plone/blob/master/README.txt>`_.
+    
 
 ZopeSkel Templates
 ==================
@@ -129,7 +113,10 @@ ZopeSkel Templates
 
 ``archetypes``
     Creates a package skeleton for 
-    :doc:`Archetypes </content/archetypes/index>` based content types.  
+    :doc:`Archetypes </content/archetypes/index>` based content types.
+    
+``dexterity``
+    Creates a package for developing Dexterity content types.
 
 ``plone_basic``
     Creates a basic skeleton good for general Plone add-on packages.
