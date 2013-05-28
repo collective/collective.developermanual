@@ -4,47 +4,51 @@ z3c.form library
 
 .. admonition:: Description
 
-    ``z3c.form`` is a flexible, powerful and complex form library for Zope 3.
+    ``z3c.form`` is alexible and powerful form library for Zope 3 applications.
     It is the recommended way to create complex Python-driven forms for
-    Plone 4 onwards.
+    Plone 4 and later versions.
 
 .. contents:: :local:
 
 Introduction
 =============
 
-This document gives you:
+Plone uses *z3c.form* library with the following integration steps
 
-* Learning resources for creating Python-driven ``z3c.forms`` with Plone
+* `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ provides
+  Plone specific widgets and main template
 
-* Additional insight how to accomplish specific tasks with ``z3c.form`` and
-  Plone
+* `plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_ integrates *z3c.form*
+  with applications using Zope 2 mechanisms like acquisition
 
-``z3c.form`` uses the :doc:`zope.schema <schemas>` package to define the
-form data model. Then it applies
-its own form-specific data extraction (HTTP request processing),
-field, widget and form button logic on top of this.
+* `z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is a form library which can be
+  used with any Python application using Zope 3 HTTP requests objects
 
-.. note::
+* (Plone 4.4+ only) `plone.app.widgets <https://github.com/plone/plone.app.widgets/>`_
+  provide a better widget set over *z3c.form* default with more JavaScript-enabled
+  features
 
-    You can use z3c.form as standalone package. But if you want to make the
-    development more easier for you
-    you'd probably prefer the shortcut bindings and directives provided with
-    the Dexterity subsystem.
+Forms are modelled using :doc:`zope.schema </forms/schemas>` models written as Python classes.
+Widgets for modelled data are set by using either *plone.directives.form* hints set onto
+schema class or in ``z3c.form.form.Form`` based classes body.
 
-Read more about `creating schema-driven forms with Dexterity <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms>`_
+Starting points to learn *z3c.form* in Plone
 
+* Read about `creating schema-driven forms with Dexterity content subsystem <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/schema-driven-forms/index.html>`_
 
-Related documentation
-=====================
+* `TODO app tutorial for Plone <http://developer.plone.org/reference_manuals/external/tutorials.todoapp/docs/index.html>`_
 
-- `z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is a generic,
-  very flexible and very complex form library for Python.
-- `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ and
-- `plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_ provide Plone
-  adaptions of this library.
-- `z3c.form tutorial by garbas <http://garbas.github.com/plone-z3c.form-tutorial/>`_
+Other related packages you might want to take a closer look
 
+* Extra, more powerful widgets, from `collective.z3cform.widgets <https://github.com/collective/collective.z3cform.widgets>`_ 
+
+* Tabular data edit `collective.z3cform.datagridfield <https://github.com/collective/collective.z3cform.datagridfield>`_
+
+* Build JavaScript interfaces with `plone.app.jqueryui <https://github.com/plone/plone.app.jqueryui>`_
+
+* Handling image and file fields with `plone.namedfile <https://github.com/plone/plone.namedfile>`_
+
+* Configuring forms with `plone.form.directives <https://pypi.python.org/pypi/plone.directives.form>`_
 
 ``z3c.form`` big picture
 =========================
@@ -230,8 +234,8 @@ However you might want to make the post go to an external server.
 
 * See `how to set <form> action attribute <http://pypi.python.org/pypi/plone.app.z3cform#form-action>`_
 
-Customizing form template
---------------------------
+Customizing form inner template
+--------------------------------
 
 If you want to change the page template producing ``<form>...</form>``
 part of the HTML code, follow the instructions below.
@@ -255,90 +259,7 @@ Example::
 Customizing form frame
 ------------------------
 
-If you want to change the surroundings around the ``z3c.form`` form,
-such as Plone's ``main_template``,
-text above and below the form, you can do as in the following example::
-
-    from Products.Five.browser import BrowserView
-    from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
-
-    from plone.directives import form
-    from plone.z3cform.layout import FormWrapper, wrap_form
-
-    class EditHeaderBehaviorForm(form.EditForm):
-        """ Form which displays options to edit header animation.
-
-        """
-        ...
-
-    class EditHeaderBehaviorView(FormWrapper):
-        """ Render Plone frame around our form with little modifications """
-
-        # We need to define form and index attributes for custom FormWrapper
-
-        # form points to our Form class
-        form = EditHeaderBehaviorForm
-
-        # Index is Zope 2 page template file which renders the frame around the form
-        index = FiveViewPageTemplateFile("edit_header.pt")
-
-
-        def __init__(self, context, request):
-            # We can optionally set some variables in the constructor
-            FormWrapper.__init__(self, context, request)
-            self.header_animation_helper = self.context.restrictedTraverse("@@header_animation_helper")
-
-        # Our view exposes two custom functions to the template
-
-        def getAnimationCount(self):
-            """ Return how many animations are available in the context """
-            return len(self.header_animation_helper.header.alternatives)
-
-        def getHeadeDefiner(self):
-            """ Return the parent object defining animations in this context """
-            return self.header_animation_helper.defining_context
-
-And corresponding template ``edit_header.pt``
-
-.. code-block:: html
-
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-          xmlns:tal="http://xml.zope.org/namespaces/tal"
-          xmlns:metal="http://xml.zope.org/namespaces/metal"
-          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-          lang="en"
-          metal:use-macro="here/main_template/macros/master"
-          i18n:domain="plone.app.headeranimation">
-    <body>
-
-      <metal:main fill-slot="main">
-        <tal:main-macro metal:define-macro="main">
-
-          <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
-
-          <div id="skel-contents">
-            <span tal:replace="structure view/contents" />
-          </div>
-
-
-          <!-- Custom section goes here below the form -->
-
-          <h2>Available animations</h2>
-
-          <div id="animations">
-            <span>
-                We have <b tal:content="view/getAnimationCount"> animations or images</b>
-                defined by <a tal:attributes="href view/getHeaderDefiner/absolute_url" tal:content="view/getHeadeDefiner/title_or_id" />
-            </span>
-          </div>
-
-        </tal:main-macro>
-    </metal:main>
-
-.. note:: Generally, when you have a template which extends Plone
-   main_template you need to use the
-   ``Products.Five.browser.pagetemplatefile.ViewPageTemplateFile``
-   class.
+Please see `plone.app.zc3form README <https://github.com/plone/plone.app.z3cform>`_.
 
 Rendering a form manually
 ---------------------------
@@ -634,13 +555,80 @@ on.
 Setting a widget for a field
 --------------------------------
 
-plone.directives.form way
+Using plone.directives.form schema hints
 ``````````````````````````````````````````````````````
 
-See examples on `plone.directives.form page <http://pypi.python.org/pypi/plone.directives.form#form-widget-hints>`_
+Example::
 
-Dynamically in ``Form.update()``
+    from plone.directives import form
+    from zope import schema
+    from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+    
+    class ISampleSchema(form.Schema):
+    
+        # A fieldset with id 'extra' and label 'Extra information' containing
+        # the 'footer' and 'dummy' fields. The label can be omitted if the
+        # fieldset has already been defined.
+    
+        form.fieldset('extra',
+                label=u"Extra information",
+                fields=['footer', 'dummy']
+            )
+    
+        # Here a widget is specified as a dotted name.
+        # The body field is also designated as the priamry field for this schema
+    
+        form.widget(body='plone.app.z3cform.wysiwyg.WysiwygFieldWidget')
+        form.primary('body')
+        body = schema.Text(
+                title=u"Body text",
+                required=False,
+                default=u"Body text goes here"
+            )
+
+More info
+
+* `Form schema hints <https://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/form-schema-hints.html>`_ 
+
+
+Setting widget for z3c.form plain forms
 ``````````````````````````````````````````````````````
+
+You can set field's widgetFactory after fields have
+been declared in form class body.
+
+Example::
+
+    import zope.schema
+    import zope.interface
+
+    import z3c.form
+    from z3c.form.browser.checkbox import CheckBoxFieldWidget
+
+
+    class IReportSchema(zope.interface.Interface):
+        """ Define reporter form fields """
+
+        variables = zope.schema.List(
+            title=u"Variables",
+            description=u"Choose which variables to include in the output report",
+            required=False,
+            value_type=zope.schema.Choice(vocabulary="output_variables"))
+
+
+    class ReportForm(z3c.form.form.Form):
+        """ A form to output a HTML report from chosen parameters """
+
+        fields = z3c.form.field.Fields(IReportSchema)
+
+        fields["variables"].widgetFactory = CheckBoxFieldWidget
+
+
+
+Setting widget dynamically Form.update()
+``````````````````````````````````````````````````````
+
+Widget type can be set dynamically based on external conditions.
 
 Example from `collective.z3cform.datagridfield_demos <https://github.com/collective/collective.z3cform.datagridfield_demo>`_
 

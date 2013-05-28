@@ -67,28 +67,58 @@ View components
 ---------------
 
 Views are Zope Component Architecture (:term:`ZCA`) *multi-adapter
-registrations*.  If you are doing manual view look-ups, then this
-information is relevant to you.
+registrations*.  
 
 Views are looked up by name. The Zope publisher always does a view lookup,
 instead of traversing, if the name to be traversed is prefixed with ``@@``.
 
-Views are resolved against different interfaces:
+Views are resolved with three inputs:
 
 *context*
-    Any class/interface. If not given, ``zope.interface.Interface``
-    is used (corresponds to a registration ``for="*"``).
+    Any class/interface for which the view applies. If not given, ``zope.interface.Interface``
+    is used (corresponds to a registration ``for="*"``). Usually this is a content item
+    instance.
 
 *request*
     The current HTTP request. Interface
     ``zope.publisher.interfaces.browser.IBrowserRequest`` is used.
 
 *layer*
-    Theme layer interface. If not given,
+    Theme layer and addon layer interface. If not given,
     ``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is used.
 
-See also `related source code
-<http://svn.zope.org/zope.browserpage/trunk/src/zope/browserpage/metaconfigure.py?rev=103273&view=auto>`_.
+Views return HTTP request payload as the output. Returned
+strings are turned to HTML page responses.
+
+Views can be any Python class taking in (context, request) construction parameters. Minimal view would be::
+
+      class MyView(object):
+
+           def __init__(self, context, request):
+                self.context = context
+                self.request = request
+
+           def __call__(self):
+                return "Hello world. You are rendering this view at the context of %s" % self.context
+
+However, in the most of cases
+
+* Full Plone page views are subclass of `Products.Five.browser.BrowserView <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/__init__.py#L23>`_
+  which is a wrapper class. It wraps `zope.publisher.browser.BrowserView <https://github.com/zopefoundation/zope.publisher/blob/master/src/zope/publisher/browser.py#L896>`_
+  and adds an acquisition (parent traversal) support for it.
+
+* Views have ``index`` attribute which points to :doc:`TAL page template </templates_css_and_javascripts/template_basics>`
+  responsible rendering the HTML code. You get the HTML output by doing self.index() and page template
+  gets a context argument ``view`` pointing to the view class instance. ``index`` value
+  is usually instance of `Products.Five.browser.pagetemplate.ViewPageTemplateFile <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/pagetemplatefile.py#L33>`_
+  (full Plone pages) or `zope.pagetemplate.pagetemplatefile.PageTemplateFile <https://github.com/zopefoundation/zope.pagetemplate/blob/master/src/zope/pagetemplate/pagetemplatefile.py#L40>`_
+  (HTML snippets, no acquisition)
+
+* View classes should implement :doc:`interface </components/interface>`  
+  `zope.browser.interfaces.IBrowserView <https://github.com/zopefoundation/zope.browser/blob/master/src/zope/browser/interfaces.py#L27>`_
+
+Views rendering page snippets and parts can be subclasses of zope.publisher.browser.BrowserView directly
+as snippets might not need acquisition support which adds some overhead to the rendering process.
 
 Customizing views
 ===========================

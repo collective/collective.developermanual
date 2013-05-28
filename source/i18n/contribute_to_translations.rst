@@ -16,7 +16,14 @@ https://github.com/collective/plone.app.locales to be able to commit
 your translation directly.
 You can also update a po file online and make a pull request.
 
+
 Updating translations for Plone 4.2
+===================================
+
+To do.
+
+
+Updating translations for Plone 4.3
 ===================================
 
 If you want to test your latest translation with unreleased packages

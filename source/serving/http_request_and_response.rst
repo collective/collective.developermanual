@@ -505,6 +505,11 @@ in a hacky way
     </metal>
     </head>
 
+Cookies
+---------
+
+See :doc:`cookies documentation </sessions/cookies>`.
+
 Middleware-like hooks
 =====================
 

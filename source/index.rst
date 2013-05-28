@@ -61,6 +61,7 @@ Programming Plone
    templates_css_and_javascripts/index
    sessions/index
    images/index
+   functionality/syndication
    misc/index
 
 Theme development
@@ -86,6 +87,10 @@ Installing and maintaining Plone sites
    getstarted/installation
    hosting/index
    reference_manuals/active/deployment/index
+
+See the `Plone Upgrade Guide <http://plone.org/documentation/manual/upgrade-guide>`_
+for detailed instructions on version upgrade procedures, including
+changes required to update add-ons to work with newer versions of Plone.
 
 Testing and tuning Plone
 -------------------------------------------
