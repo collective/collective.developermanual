@@ -544,3 +544,8 @@ It incorporates the original `glossary on plone.org
         developing any Python application.
         From `A Comprehensive Guide to Zope Component Architecture
         <http://www.muthukadan.net/docs/zca.html>`_.
+        
+    Plonista
+        A Plonista is a member of the Plone community. It can be somebody who loves 
+        Plone, or uses Plone, or someone who spreads Plone and Plone knowledge.
+        It can also be someone who is a Plone developer, or it can be all of the above.
