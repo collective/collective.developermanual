@@ -38,5 +38,3 @@ and/or *buildout.cfg*.
 
 .. _buildout: ../../../../../../documentation/tutorial/buildout
 .. _five.grok installation instructions: http://pypi.python.org/pypi/five.grok
-
-

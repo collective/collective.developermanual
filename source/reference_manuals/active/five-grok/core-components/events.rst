@@ -36,15 +36,15 @@ They are all object events (i.e. they derive from
    possible to look up tools using *getToolByName()*, for example.
 -  *zope.lifecycleevent.interfaces.IObjectModifiedEvent*, fired by the
    standard edit form when an object has been modified
--  *zope.app.container.interfaces.IObjectAddedEvent*, fired when an
+-  *zope.lifecycleevent.interfaces.IObjectAddedEvent*, fired when an
    object has been added to its container. The container is available as
    the *newParent* attribute, and the name the new item holds in the
    container is available as *newName*.
--  *zope.app.container.interfaces.IObjectRemovedEvent*, fired when an
+-  *zope.lifecycleevent.interfaces.IObjectRemovedEvent*, fired when an
    object has been removed from its container. The container is
    available as the *oldParent* attribute, and the name the item held in
    the container is available as *oldName*.
--  *zope.app.container.interfaces.IObjectMovedEvent*, fired when an
+-  *zope.lifecycleevent.interfaces.IObjectMovedEvent*, fired when an
    object is added to, removed from, renamed in, or moved between
    containers. This event is a super-type of *IObjectAddedEvent*
    and*IObjectRemovedEvent*, shown above, so an event handler registered
@@ -77,7 +77,7 @@ is added to a folder:
 
     from five import grok
 
-    from zope.app.container.interfaces import IObjectAddedEvent
+    from zope.lifecycleevent.interfaces import IObjectAddedEvent
     from Products.CMFCore.interfaces import IContentish
 
     @grok.subscribe(IContentish, IObjectAddedEvent)

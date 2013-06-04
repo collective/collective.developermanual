@@ -125,9 +125,9 @@ like this:
 
 ::
 
-            <img style="float: left; margin-right: 2px; margin-top: 2px"
-                 tal:define="navroot context/@@plone_portal_state/navigation_root_url"
-                 tal:attributes="src string:${navroot}/++resource++example.conference/program.gif"
-                 />
+    <img style="float: left; margin-right: 2px; margin-top: 2px"
+         tal:define="navroot context/@@plone_portal_state/navigation_root_url"
+         tal:attributes="src string:${navroot}/++resource++example.conference/program.gif"
+         />
 
 

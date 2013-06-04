@@ -38,7 +38,7 @@ code you may write in your own files is shown verbatim like this:
 
 ::
 
-    form five import grok
+    from five import grok
 
     class SampleAdapter(grok.Adapter):
         grok.provides(ISomeInterface)

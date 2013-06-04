@@ -151,7 +151,7 @@ this:
 
     </object>
 
-See `this tutorial`_ for more detail about the syntax of this file.
+See `this tutorial <http://plone.org/documentation/kb/customizing-main-template-viewlets>`_ for more detail about the syntax of this file.
 
 Overriding an existing viewlet
 ------------------------------
@@ -238,7 +238,3 @@ viewlet manager class directly:
 
 It would of course be better to use a page template, but this would be
 enough for a quick test.
-
-
-
-.. _this tutorial: /documentation/manual/tutorial/customizing-main-template-viewlets

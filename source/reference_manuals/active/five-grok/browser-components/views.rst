@@ -108,7 +108,7 @@ extension).
     </body>
     </html>
 
-If we now had a content object providing *IDocument*reachable at
+If we now had a content object providing *IDocument* reachable at
 *http://example.org/my-document*, we would be able to invoke this view
 using a URL like *http://example.org/my-document/@@as-message*. See the
 `Dexterity Developer Manual`_ for more information about how to register
@@ -159,7 +159,7 @@ Notes:
 -  We use a number of TAL expressions to render information from the
    context (the *IDocument* object) and the view instance (in
    particular, the *view.message* object we set in the *update()*
-   method). See the `ZPT tutorial`_ for more details on the TAL syntax.
+   method). See the `ZPT reference`_ for more details on the TAL syntax.
 
 Views without templates
 -----------------------
@@ -518,5 +518,5 @@ principles behind them are the same.
 .. _z3c.jbot: http://pypi.python.org/pypi/z3c.jbot
 .. _Customization for Developers: /documentation/tutorial/customization-for-developers/
 .. _z3c.form: http://pypi.python.org/pypi/z3c.form
-.. _Dexterity Developer Manual: /products/dexterity/documentation/manual/developer-manual
-.. _ZPT tutorial: ../../../../../../documentation/tutorial/zpt
+.. _Dexterity Developer Manual: developer.plone.org/reference_manuals/external/plone.app.dexterity/
+.. _ZPT reference: http://docs.zope.org/zope2/zope2book/AppendixC.html

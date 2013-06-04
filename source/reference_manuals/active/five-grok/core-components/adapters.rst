@@ -26,7 +26,8 @@ of “UK” in the preceding paragraph).
 .. note::
     If you prefer duck metaphors, there is an awesome talk by Brandon Craig
     Rhodes about the concept of an adapter for your viewing pleasure
-    `here`_. It even has sound effects.
+    `here <http://plone.org/events/conferences/2008-washington-dc/agenda/using-grok-to-walk-like-a-duck
+>`_. It even has sound effects.
 
 In software terms, it is much the same. Let’s say that we were writing a
 Twitter-to-email gateway (because Gmail has lots of storage space and
@@ -626,4 +627,3 @@ directive. There is currently no way to register one using Grok
 conventions.
 
 .. _z3c.form: http://pypi.python.org/pypi/z3c.form
-.. _here: http://plone.org/events/conferences/2008-washington-dc/agenda/using-grok-to-walk-like-a-duck

@@ -3,8 +3,9 @@ Zope Component Architecture basics with five.grok
 
 **This manual describes the basics of the Zope Component Architecture using
 five.grok, which brings convention-over-configuration to Zope 2 and Plone.
-This information is not specific to Dexterity, but will be useful to Dexterity
-developers who want to move beyond types and schemata.**
+
+It will be useful to developers who want to learn how to configure
+Zope components using grok-style configuration instead of ZCML.
 
 .. toctree::
    :maxdepth: 2

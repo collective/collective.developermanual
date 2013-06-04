@@ -156,7 +156,7 @@ come across a piece of Grok documentation, chances are you can get it to
 work in Zope 2 by switching the "*import grok*" line to "*from five
 import grok*", although there are situations where this is not the case.
 In particular, we tend to use Plone content types instead of
-Grok”models" and standard add/edit forms instead of the formlib-based
+Grok ”models" and standard add/edit forms instead of the formlib-based
 forms from Grok.
 
 .. _martian: http://pypi.python.org/pypi/martian

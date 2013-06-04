@@ -191,5 +191,5 @@ for details.
 
 .. _zope.interface: http://pypi.python.org/pypi/zope.interface
 
-.. _Dexterity developer manual: http://dexterity-developer-manual.readthedocs.org
+.. _Dexterity developer manual: http://developer.plone.org/reference_manuals/external/plone.app.dexterity/
 

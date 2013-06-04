@@ -172,4 +172,4 @@ unnamed and three named global utilities with *five.grok*.
 
 .. _plone.app.registry: http://pypi.python.org/pypi/plone.app.registry
 .. _plone.registry: http://pypi.python.org/pypi/plone.registry
-.. _GenericSetup documentation: ../../../../../../documentation/manual/developer-manual/generic-setup
+.. _GenericSetup documentation: http://developer.plone.org/components/genericsetup.html
