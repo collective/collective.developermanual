@@ -55,7 +55,7 @@ some starting points:
 
 * `Stock zope.schema field list part II <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_
 
-* `Dexterity field list <http://dexterity-developer-manual.readthedocs.org/en/latest/reference/fields.html>`_.
+* `Dexterity field list <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/fields.html>`_.
 
 
 Example of a schema

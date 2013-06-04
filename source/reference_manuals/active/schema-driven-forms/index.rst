@@ -2,7 +2,7 @@ Schema-driven forms
 ====================
 
 **This tutorial covers how to build schema-driven forms, using the z3c.form
-and plone.autoform libraries.
+and plone.autoform libraries.**
 
 .. toctree::
    :maxdepth: 2
