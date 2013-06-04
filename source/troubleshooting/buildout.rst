@@ -141,10 +141,6 @@ Or:
     extends =
         http://dist.plone.org/release/4.0/versions.cfg           
         http://good-py.appspot.com/release/dexterity/1.0b2?plone=4.0
-            
-For more information, see
-
-* http://dexterity-developer-manual.readthedocs.org/en/latest/prerequisite.html#buildout-configuration
 
 
 Plone 3.1
