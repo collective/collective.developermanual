@@ -5,7 +5,7 @@ Creating a schema
 
 With the form package created and installed, we can create our form
 schema. Whilst it is strictly not necessary yet, we will use the
-*Schema* interface base from *plone.directives.form.* This lets us use
+*Schema* interface base from *plone.autoform.* This lets us use
 schema directives (as seen in Dexterity content type schemata) to
 configure custom widgets, set up hidden fields and so on. Later in this
 manual, we will cover in more detail how you can perform these
@@ -22,6 +22,7 @@ We’ll create a module called *order.py* inside our package
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope import schema
@@ -32,7 +33,7 @@ We’ll create a module called *order.py* inside our package
 
     from example.dexterityforms.interfaces import MessageFactory as _
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         name = schema.TextLine(
                 title=_(u"Your full name"),
@@ -88,4 +89,4 @@ We are almost done with our most basic form. Before we can use the form,
 however, we need to create a form view and define some actions
 (buttons). That is the subject of the next section.
 
-.. _Dexterity manual: http://dexterity-developer-manual.readthedocs.org/
+.. _Dexterity manual: developer.plone.org/reference_manuals/external/plone.app.dexterity/

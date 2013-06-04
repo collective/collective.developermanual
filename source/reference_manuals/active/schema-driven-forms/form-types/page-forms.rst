@@ -15,12 +15,13 @@ the site root is often good choice.
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from z3c.form import button, field
     from Products.CMFCore.interfaces import ISiteRoot
 
-    class IMyForm(form.Schema):
+    class IMyForm(model.Schema):
         
         ...
 
@@ -54,12 +55,13 @@ A non-schema version would look like this:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from z3c.form import button, field
     from Products.CMFCore.interfaces import ISiteRoot
 
-    class IMyForm(form.Schema):
+    class IMyForm(model.Schema):
         
         ...
 
@@ -107,6 +109,7 @@ easy to construct the form’s initial values dynamically.
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope import schema
@@ -116,7 +119,7 @@ easy to construct the form’s initial values dynamically.
 
     ...
 
-    class IMyForm(form.Schema):
+    class IMyForm(model.Schema):
         
         foo = schema.TextLine(title=_(u"Foo"))
         bar = schema.TextLine(title=_(u"Bar"))
@@ -182,6 +185,7 @@ easy to construct the form’s initial values dynamically.
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope import schema
@@ -191,7 +195,7 @@ easy to construct the form’s initial values dynamically.
 
     ...
 
-    class IMyForm(form.Schema):
+    class IMyForm(model.Schema):
         
         foo = schema.TextLine(title=_(u"Foo"))
         bar = schema.TextLine(title=_(u"Bar"))

@@ -28,6 +28,7 @@ widget for a field, using the *form.widget()* directive:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope import schema
@@ -36,11 +37,11 @@ widget for a field, using the *form.widget()* directive:
 
     ...
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         ...
         
-        form.widget(notes=WysiwygFieldWidget)
+        form.widget('notes', WysiwygFieldWidget)
         notes = schema.Text(
                 title=_(u"Notes"),
                 description=_(u"Please include any additional notes for delivery"),
@@ -50,6 +51,48 @@ widget for a field, using the *form.widget()* directive:
 The argument can be either a field widget factory, as shown here, or the
 full dotted name to one (*plone.app.z3cform.wysiwyg.WysiwygFieldWidget*
 in this case).
+
+Updating widget settings
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+All widgets expose properties that control how they are rendered. You
+can set these properties by passing them to the widget directive:
+
+::
+
+    class IPizzaOrder(model.Schema):
+
+        ...
+
+        form.widget('postcode', size=4)
+        postcode = schema.TextLine(
+            title=_(u"Postcode"),
+            )
+
+.. note::
+    
+    Support for specifying widget properties was added in plone.autoform 1.4.
+
+Some of the more useful properties are shown below. These generally
+apply to the widget’s *<input />* element.
+
+-  *klass*, a string, can be set to a CSS class.
+-  *style*, a string, can be set to a CSS style string
+-  *title*, a string, can be used to set the HTML attribute with the
+   same name
+-  *onclick*, *ondblclick*, etc can be used to associate JavaScript code
+   with the corresponding events
+-  *disabled* can be set to True to disable input into the field
+
+Other widgets also have attributes that correspond to the HTML elements
+they render. For example, the default widget for a *Text* field renders
+a *<textarea />* , and has attributes like *rows* and *cols*. For a
+*TextLine*, the widget renders an *<input type=“text” />*, which
+supports a *size* attribute, among others.
+
+Take a look at *z3c.form*’s *browser/interfaces.py* for a full list of
+attributes that are used.
+
 
 Supplying a widget factory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,61 +112,6 @@ using this style of configuration (or simply looking at the basic
         
         ...
 
-Updating widget settings
-------------------------
-
-All widgets expose properties, which control how they are rendered. You
-can set these properties by overriding the *updateWidget()* method,
-calling the base class version, and then changing properties. For
-example, we could set the size of the postcode widget to be more
-suitable for its contents:
-
-::
-
-    class OrderForm(form.SchemaForm):
-        grok.name('order-pizza')
-        grok.require('zope2.View')
-        grok.context(ISiteRoot)
-        
-        schema = IPizzaOrder
-        ignoreContext = True
-        
-        label = _(u"Order your pizza")
-        description = _(u"We will contact you to confirm your order and delivery.")
-        
-        def update(self):
-            # disable Plone's editable border
-            self.request.set('disable_border', True)
-            
-            # call the base class version - this is very important!
-            super(OrderForm, self).update()
-        
-        def updateWidgets(self):
-            super(OrderForm, self).updateWidgets()
-            self.widgets['postcode'].size = 4
-
-        ...
-
-Some of the more useful properties are shown below. These generally
-apply to the widget’s *<input />* element.
-
--  *klass*, a string, can be set to a CSS class. There’s also the
-   *addClass()* helper method, which can be used to add a new CSS class.
--  *style*, a string, can be set to a CSS style string
--  *title*, a string, can be used to set the HTML attribute with the
-   same name
--  *onclick*, *ondblclick*, etc can be used to associate JavaScript code
-   with the corresponding events
--  *disabled* can be set to True to disable input into the field
-
-Other widgets also have attributes that correspond to the HTML elements
-they render. For example, the default widget for a *Text* field renders
-a *<textarea />* , and has attributes like *rows* and *cols*. For a
-*TextLine*, the widget renders an *<input type=“text” />*, which
-supports a *size* attribute, among others.
-
-Take a look at *z3c.form*’s *browser/interfaces.py* for a full list of
-attributes that are used.
 
 Widget reference
 ----------------
@@ -132,9 +120,7 @@ You can find the default widgets in the *browser* package in *z3c.form*.
 The *z3c.form* `documentation`_ contains a `listing`_ of all the default
 widgets that shows the HTML output of each.
 
-In addition, the Dexterity manual contains `an overview`_ of widgets
-which are frequently used as custom widgets.
+In addition, the Dexterity manual contains `an overview of common custom widgets <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/widgets.html>`_.
 
 .. _documentation: http://docs.zope.org/z3c.form
 .. _listing: http://docs.zope.org/z3c.form/browser/README.html
-.. _an overview: http://readthedocs.org/docs/dexterity-developer-manual/en/latest/reference/widgets.html

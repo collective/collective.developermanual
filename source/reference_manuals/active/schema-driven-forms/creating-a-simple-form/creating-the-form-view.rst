@@ -78,7 +78,7 @@ Let’s go through this in some detail:
    actions that can be found on more specialised base classes such as
    *SchemaAddForm* or *SchemaEditForm*. It basically mirrors the
    *z3c.form.form.Form* base class.
--  We then use the standard*five.grok* view directives to register the
+-  We then use the standard *five.grok* view directives to register the
    view: *grok.name()* gives it a friendly name (used as a path segment
    in the URL); *grok.context()* sets the type of context where the form
    is available (here, we make it available on the Plone site root,
@@ -139,5 +139,5 @@ message (so that it can appear on the next page) and redirect the user
 to the context’s default view. In this case, that means the portal front
 page.
 
-.. _five.grok manual: /products/dexterity/documentation/manual/five.grok
-.. _five.grok: /products/dexterity/documentation/manual/five.grok
+.. _five.grok manual: http://developer.plone.org/reference_manuals/active/five-grok
+.. _five.grok: http://pypi.python.org/pypi/five.grok

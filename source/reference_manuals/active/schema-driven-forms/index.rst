@@ -1,9 +1,8 @@
 Schema-driven forms
 ====================
 
-**This tutorial covers how to schema-driven forms, using the z3c.form library.
-Whilst aimed at Dexterity developers, there is nothing Dexterity-specific about
-this tutorial.**
+**This tutorial covers how to build schema-driven forms, using the z3c.form
+and plone.autoform libraries.
 
 .. toctree::
    :maxdepth: 2

@@ -39,11 +39,12 @@ Display forms are used much like standard views. For example:
 ::
 
     from give import grok
+    from plone.supermodel import model
     from plone.directives import dexterity, form
 
     ...
 
-    class IMyContent(form.Schema):
+    class IMyContent(model.Schema):
 
         ...
 

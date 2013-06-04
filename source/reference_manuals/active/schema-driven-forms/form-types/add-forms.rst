@@ -28,12 +28,13 @@ content item.
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from z3c.form import button, field
     from Products.CMFCore.interfaces import IFolderish
 
-    class IMyType(form.Schema):
+    class IMyType(model.Schema):
         
         ...
 
@@ -69,12 +70,13 @@ A non-schema version would look like this:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from z3c.form import button, field
     from Products.CMFCore.interfaces import IFolderish
 
-    class IMyType(form.Schema):
+    class IMyType(model.Schema):
         
         ...
 

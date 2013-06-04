@@ -55,7 +55,7 @@ function:
 ::
 
     from five import grok
-    from plone.directives import form
+    from plone.supermodel import model
 
     from zope.interface import Invalid
     from zope import schema
@@ -73,7 +73,7 @@ function:
             raise Invalid(_(u"We can only deliver to postcodes starting with 6"))
         return True
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         name = schema.TextLine(
                 title=_(u"Your full name"),
@@ -130,6 +130,7 @@ For example:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope.interface import Invalid
@@ -144,7 +145,7 @@ For example:
     ...
 
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         ...
 
@@ -215,6 +216,7 @@ following code snippet:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from z3c.form import validator
@@ -273,6 +275,7 @@ For example:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope.interface import invariant, Invalid
@@ -286,7 +289,7 @@ For example:
 
     ...
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         name = schema.TextLine(
                 title=_(u"Your full name"),
@@ -393,6 +396,7 @@ two examples to our action handler.
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope.interface import invariant, Invalid

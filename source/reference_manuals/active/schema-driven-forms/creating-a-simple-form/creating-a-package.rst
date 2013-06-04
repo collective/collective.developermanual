@@ -8,8 +8,8 @@ adds the necessary dependencies. If you have an existing package that
 requires a form, you should be able to add the same dependencies. If you
 have read the Dexterity manual, most of this should be familiar.
 
-For details about creating packages and using buildout, see the
-`buildout manual`_.
+For details about creating new packages, see 
+`Bootstrapping Plone add-on development <http://developer.plone.org/getstarted/paste.html>`_.
 
 First, we create a new package:
 
@@ -127,14 +127,13 @@ the root of our package:
 The name of the factory should normally be the name of the package.
 
 Finally, we add this package to our *buildout.cfg* and re-run
-*bin/buildout*. Please see the `buildout manual`_ for details.
+*bin/buildout*.
 
 ::
 
     [buildout]
     extends =
-        http://dist.plone.org/release/4.0a5/versions.cfg
-        http://good-py.appspot.com/release/plone.autoform/1.0b2
+        http://dist.plone.org/release/4-latest/versions.cfg
     ...
     develop =
         src/example.dexterityforms
@@ -152,17 +151,12 @@ Finally, we add this package to our *buildout.cfg* and re-run
 Obviously, we have omitted large parts of the buildout configuration
 here. The important things to note are:
 
--  We have included a known good set (KGS) of packages after the Plone
-   KGS. You will need to check the versions in use. If your build
-   contains Dexterity, it should be safe to use the standard Dexterity
-   KGS. Otherwise, you may want to use a smaller KGS like `the one for
-   plone.autoform`_.
+-  We have included the known good set (KGS) of package versions for
+   the latest 4.x release of Plone.
 -  We list the new egg as a develop egg, and make sure it is in an eggs
    list that gets used for the Zope instance.
 -  We use the [*tests]* extra when listing the testable eggs in the
    tests section. This ensures that *collective.testcaselayer* is
    installed for the testrunner.
 
-.. _the one for plone.autoform: http://good-py.appspot.com/release/plone.autoform
-.. _five.grok manual: /products/dexterity/documentation/manual/five.grok
-.. _buildout manual: http://collective-docs.readthedocs.org/en/latest/buildout/index.html
+.. _five.grok manual: http://developer.plone.org/reference_manuals/active/five-grok

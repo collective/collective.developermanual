@@ -12,7 +12,7 @@ select a single value, use a *Choice* field directly:
 
 ::
 
-    class ISimplePizza(form.Schema):
+    class ISimplePizza(model.Schema):
         topping = schema.Choice(
                 title=_(u"Choose your topping"),
                 values=[_(u'Chicken'), _(u'Pepperoni'), _(u'Tomato')]
@@ -23,7 +23,7 @@ a *Choice* as the *value\_type*:
 
 ::
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
 
         ...
 
@@ -155,6 +155,7 @@ Here is an example that returns our pizza types:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope.component import queryUtility
@@ -208,7 +209,7 @@ To use this context source binder, we use the *source* argument to the
 
 ::
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         ...
 
@@ -331,10 +332,10 @@ the *vocabulary* argument of the *Choice* field constructor:
 
 ::
 
-        orderItems = schema.Set(
-                title=_(u"Your order"),
-                value_type=schema.Choice(vocabulary='example.dexterityforms.availablePizzas')
-            )
+    orderItems = schema.Set(
+            title=_(u"Your order"),
+            value_type=schema.Choice(vocabulary='example.dexterityforms.availablePizzas')
+        )
 
 As you might expect, there are a number of standard vocabularies that
 come with Plone and third party packages, most of which are named

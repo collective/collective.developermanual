@@ -14,9 +14,8 @@ following references:
 -  The `plone.app.z3cform`_ documentation. Describes how to use “raw”
    *z3c.form* forms in Plone.
 -  The `plone.autoform`_ documentation. Explains the raw behaviour of
-   the *plone.autoform* library.
--  The `plone.directives.form`_ documentation. Lists the schema
-   directives and base classes.
+   the *plone.autoform* library and its directives.
+-  The `plone.directives.form`_ documentation. Lists the form base classes.
 -  The `five.grok`_ manual. Explains the concepts of grokkers, the Zope
    Component Architecture, and view component registrations.
 -  The `Dexterity manual`_. Illustrates in various sections how
@@ -28,4 +27,4 @@ following references:
 .. _plone.autoform: http://pypi.python.org/pypi/plone.autoform
 .. _plone.directives.form: http://pypi.python.org/pypi/plone.directives.form
 .. _five.grok: /products/dexterity/documentation/manual/five.grok
-.. _Dexterity manual: http://dexterity-developer-manual.readthedocs.org/
+.. _Dexterity manual: http://developer.plone.org/reference_manuals/external/plone.app.dexterity/

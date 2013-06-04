@@ -12,11 +12,15 @@ class, but is used only for grouping fields, and cannot have actions.
 In Plone, groups are represented as fieldsets. The standard templates
 make these look like dynamic tabs, much like those we can find in the
 edit forms for most Plone content. For this reason,
-*plone.directives.form* provides a directive called *form.fieldset()*,
-which can be used to create fieldsets. The *z3c.form* *Group* idiom is
-still supported, and can be mixed with the more declarative
-*form.fieldset()* approach. However, the latter is usually easier to
-use.
+*plone.supermodel* provides a directive called *model.fieldset()*,
+which can be used to create fieldsets.
+
+.. note::
+
+    The *z3c.form* *Group* idiom is
+    still supported, and can be mixed with the more declarative
+    *model.fieldset()* approach. However, the latter is usually easier to
+    use.
 
 To illustrate fieldsets, let’s give customers the option to leave
 feedback on our pizza ordering form. To keep our main form short, we
@@ -27,6 +31,7 @@ purely for aesthetic effect.
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope import schema
@@ -35,7 +40,7 @@ purely for aesthetic effect.
 
     ...
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         # Main form
         
@@ -67,7 +72,7 @@ purely for aesthetic effect.
                 value_type=schema.Choice(source=availablePizzas)
             )
         
-        form.widget(notes=WysiwygFieldWidget)
+        form.widget('notes', WysiwygFieldWidget)
         notes = schema.Text(
                 title=_(u"Notes"),
                 description=_(u"Please include any additional notes for delivery"),
@@ -76,7 +81,7 @@ purely for aesthetic effect.
         
         # Feedback fieldset
         
-        form.fieldset(
+        model.fieldset(
             'feedback', 
             label=_(u"Feedback"),
             fields=['feedbackNote', 'feedbackEmail']
@@ -99,8 +104,8 @@ purely for aesthetic effect.
 .. note::
 
     Since this approach uses form schema hints, the schema must derive from
-    *form.Schema* and the form base class must be one of the “schema form”
-    base classes. In our example, we are using *SchemaForm*.
+    *model.Schema* and the form base class must extend *plone.autoform.AutoExtensibleForm*. In our example, we are using *SchemaForm*,
+    a subclass of AutoExtensibleForm.
 
 Above, we have declared a single fieldset, and listed the fields within
 it. Those fields not explicitly associated with a fieldset end up in the

@@ -30,6 +30,7 @@ providing *IMyType* would look like this:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from z3c.form import button, field
@@ -58,12 +59,13 @@ A non-schema example would look like:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from z3c.form import button, field
     from Products.CMFCore.interfaces import IFolderish
 
-    class IMyType(form.Schema):
+    class IMyType(model.Schema):
         
         ...
 
@@ -83,6 +85,7 @@ As a slightly ore interesting example, here is one adapted from
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope.component import getUtility
@@ -92,7 +95,7 @@ As a slightly ore interesting example, here is one adapted from
 
     from plone.registry.interfaces import IRegistry
 
-    class IMySettings(form.Schema):
+    class IMySettings(model.Schema):
         
         ...
 

@@ -18,7 +18,7 @@ few of the most important ones are:
    Python code. This is very flexible and requires little learning, but
    can also be fairly cumbersome, and it is harder to maintain a common
    look and feel and behaviour across all forms. See the `five.grok
-   tutorial`_ for some hints on one way to build such views.
+   view documentation`_ for some hints on one way to build such views.
 -  Using the *CMFFormController* library. This relies on special page
    objects known as “controller page templates” that submit to
    “controller python scripts”. The form controller takes care of the
@@ -54,7 +54,7 @@ packages in this tutorial. The most important packages are:
 
 -  `z3c.form`_ itself, the basic form library. This defines the standard
    form view base classes, as well the default widgets. The *z3c.form*
-   `documentation`_ applies to the forms created here, but some of the
+   `documentation <http://docs.zope.org/z3c.form>`_ applies to the forms created here, but some of the
    packages below simplify or enhance the integration experience.
 -  `plone.z3cform`_ makes *z3c.form* usable in Zope 2. It also adds a
    number of features useful in Zope 2 applications, notably a mechanism
@@ -81,23 +81,14 @@ packages in this tutorial. The most important packages are:
 A note about versions
 ---------------------
 
-The tools described in this manual work with both Plone 3.x (Zope 2.10)
-and Plone 4 (Zope 2.12). However, the sample code is only tested in
-Plone 4. Where there are differences between the two version, they will
-be highlighted, but you should note that Zope 2.12 provides a better
-environment out of the box. In Zope 2.10, a number of core packages must
-be upgraded to work with *z3c.form*.
+This manual is targeted at Plone 4.1 and above (Zope 2.13).
 
-This manual has been tested with *z3c.form* 2.3.
-
-.. _z3c.form: http://pypi.python.org/pypi/z3c.form
-.. _documentation: http://docs.zope.org/z3c.form
 .. _plone.z3cform: http://pypi.python.org/pypi/plone.z3cform
 .. _plone.app.z3cform: http://pypi.python.org/pypi/plone.app.z3cform
 .. _plone.autoform: http://pypi.python.org/pypi/plone.autoform
 .. _plone.directives.form: http://pypi.python.org/pypi/plone.directives.form
 .. _five.grok: http://pypi.python.org/pypi/five.grok
-.. _five.grok manual: ../developer-manual/custom-views/simple-views
-.. _five.grok tutorial: /products/dexterity/documentation/manual/five.grok/browser-components/views
+.. _five.grok manual: http://developer.plone.org/reference_manuals/active/five-grok
+.. _five.grok view documentation: http://developer.plone.org/reference_manuals/active/five-grok/browser-components/views.html
 .. _z3c.form: http://pypi.python.org/pypi/z3c.form
-.. _Dexterity manual: /products/dexterity/documentation/manual/developer-manual
+.. _Dexterity manual: http://developer.plone.org/reference_manuals/external/plone.app.dexterity/

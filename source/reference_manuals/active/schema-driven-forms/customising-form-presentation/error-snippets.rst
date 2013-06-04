@@ -29,6 +29,7 @@ a new function to *order.py*, just after the interface definition:
 ::
 
     from five import grok
+    from plone.supermodel import model
     from plone.directives import form
 
     from zope.interface import invariant, Invalid
@@ -46,7 +47,7 @@ a new function to *order.py*, just after the interface definition:
 
     ...
 
-    class IPizzaOrder(form.Schema):
+    class IPizzaOrder(model.Schema):
         
         ...
         
