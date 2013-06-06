@@ -169,6 +169,40 @@ which lasts for the transaction lifecycle::
             return data
 
 
+Testing memoized methods inside browser views
+=============================================
+
+While testing browser views memoized methods you could find out that calling
+a method multiple times inside a test could result in getting the same result
+over and over, no mater what the parameters are, because you have the same
+context and request inside the test and the result is being cached.
+
+One approach to by-pass this is to put your code logic inside a private method
+while memoizing a public method with the same name that only calls the private
+one:
+
+.. code-block:: python
+
+    from plone.memoize import view
+    from Products.Five import BrowserView
+
+    class MyView(BrowserView):
+
+        def _my_expensive_method():
+            """Code logic goes here.
+            """
+            return "something"
+
+        @view.memoize
+        def my_expensive_method():
+            """We just call the private method here and memoize the result.
+            """
+            return self._my_expensive_method()
+
+
+In your tests you can call the private method to avoid memoization.
+
+
 Other resources
 ===============
 
