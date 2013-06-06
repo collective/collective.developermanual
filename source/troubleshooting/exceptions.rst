@@ -536,7 +536,7 @@ instead of real container object (context.aq_inner.aq_parent).
 	When setting a member attribute in BrowserView, the acquisition parent of objec changes to BrowserView instance.
 	All member attributes receive ImplicitAcquisitionWrapper automatically.
 
-Demostration
+Demonstration
 ============
 
 We try to set BrowserView member attribute defining_context to be some context object.
@@ -1220,7 +1220,7 @@ For example the orignal::
 
 would need to be written as:
 
-        tal:attributes="class python:here.Format() in ('text/structured', 'text/x-rst', ) 'stx' + kss_class and 'plain' or kss_class"
+        tal:attributes="class python:here.Format() in ('text/structured', 'text/x-rst', ) and 'stx' + kss_class or 'plain' + kss_class"
 
 TraversalError(subject, name) in expressions
 --------------------------------------------
