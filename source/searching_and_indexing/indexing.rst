@@ -66,6 +66,13 @@ include the following *profiles/default/catalog.xml*:
       either update the catalog afterwards or add the indexes yourself in
       Python code using a custom import handler.
 
+      For more info, see `this setuphandler https://github.com/plone/plone.app.event/blob/ef60924d494f8f17938a76e459b37e92f99c7054/plone/app/event/setuphandlers.py#L35`_
+      in plone.app.event or these discussions on more about this problem:
+
+      * http://plone.293351.n2.nabble.com/How-to-import-catalog-xml-without-emptying-the-indexes-td2302709.html
+
+      * https://mail.zope.org/pipermail/zope-cmf/2007-March/025664.html
+
 
 Viewing indexes and indexed data
 --------------------------------

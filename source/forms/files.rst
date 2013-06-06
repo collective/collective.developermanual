@@ -27,12 +27,12 @@ filename is not visible. The files are stored in a distributed tree.
 
 For more introduction information, see:
 
-* http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/files-and-images.html
+* http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/files-and-images.html
 
 Simple content item file or image field
 =========================================
 
-* http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/files-and-images.html
+* http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/files-and-images.html
 
 Simple upload form example
 ===========================

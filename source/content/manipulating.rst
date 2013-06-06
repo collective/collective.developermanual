@@ -14,8 +14,7 @@ For more information, consult the manual of the relevant subsystem:
 
 * `Archetypes examples <http://plone.org/documentation/tutorial/manipulating-plone-objects-programmatically/reading-and-writing-field-values>`_.
 
-* See `Manipulating Content Objects <http://dexterity-developer-manual.readthedocs.org/en/latest/reference/manipulating-content-objects.html>`_
-  in Dexterity manual
+* See `Manipulating Content Objects </reference_manuals/external/plone.app.dexterity/reference/manipulating-content-objects.html>`_ in the Dexterity manual
 
 Reindexing modified objects
 ===========================
