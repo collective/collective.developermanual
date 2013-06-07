@@ -537,7 +537,7 @@ instead of real container object (context.aq_inner.aq_parent).
 	All member attributes receive ImplicitAcquisitionWrapper automatically.
 
 Demonstration
-============
+=============
 
 We try to set BrowserView member attribute defining_context to be some context object.
 
