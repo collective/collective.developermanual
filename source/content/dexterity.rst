@@ -294,13 +294,6 @@ You can register such an adapter in ``configure.zcml``
 
     </configure>
 
-.. warning::
-
-    Overriding ``add_view_expr`` or ``add_view_expr_object`` in Dexterity
-    factory type information, so that they directly link to a view provided,
-    is not possible. You can manually type :guilabel:`Add view link` in
-    ``portal_types``, but setting it through :term:`GenericSetup` installer
-    code is not possible.
 
 Then you can inherit from the proper ``plone.dexterity`` base classes::
 
