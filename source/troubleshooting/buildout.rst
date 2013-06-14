@@ -143,6 +143,17 @@ Or:
         http://good-py.appspot.com/release/dexterity/1.0b2?plone=4.0
 
 
+Extracting version numbers from instance script
+=================================================
+
+Example::
+
+	cat bin/instance | grep eggs | sed -r 's#.*eggs/(.*)-py2.[0-9].*#\1#g' | sed -r 's#-# = #g' | sed -r 's#_#-#g' | grep -E ' = [0-9\.]' | xargs -0 echo -e "[versions]\n" | sed -r 's#^\s+##g' > versions-extracted.cfg; cat versions-extracted.cfg
+
+More info
+
+* http://davidjb.com/blog/2011/06/extracting-a-buildout-versions-cfg-from-a-zope-instance-script/
+
 Plone 3.1
 =========
 
