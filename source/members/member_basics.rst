@@ -235,6 +235,23 @@ Example to get full group information::
     for group in group_list:
         # group is PloneGroup object
         yield (group.getName(), group.title)
+        
+List users within all groups
+----------------------------
+
+Example to get the email addresses of all users on a site, by group::
+            
+    acl_users = getToolByName(context, 'acl_users')
+    groups_tool = getToolByName(context, 'portal_groups')
+    groups = acl_users.source_groups.getGroupIds()
+    for group_id in groups:
+        group = groups_tool.getGroupById(group_id)  
+        if group is None:
+            continue
+        members = group.getGroupMembers()
+        member_emails = [m.getProperty('email') for m in members]
+        ...
+
 
 Adding a user to a group
 ------------------------
