@@ -152,7 +152,7 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-        wget --no-check-certificate https://launchpad.net/plone/4.3/4.3/+download/Plone-4.3-UnifiedInstaller.tgz
+        wget --no-check-certificate https://launchpad.net/plone/4.3/4.3.1/+download/Plone-4.3.1-UnifiedInstaller.tgz
 
 5. Run the Plone installer as non-root-userd, standalone‚ mode.:
 
