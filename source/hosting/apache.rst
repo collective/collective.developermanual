@@ -26,6 +26,7 @@ Install required software::
 	sudo apt-get install apache2
 	sudo a2enmod rewrite
 	sudo a2enmod proxy
+	sudo a2enmod proxy_http
         sudo /etc/init.d/apache2 restart
 
 Add virtual host config file ``/etc/apache2/sites-enabled/yoursite.conf``.
