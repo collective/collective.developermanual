@@ -1130,12 +1130,30 @@ Python code to setup the widget:
 
 .. code-block:: python
 
+    import zope.interface
+    import zope.schema
+    from zope.schema.fieldproperty import FieldProperty
+
+    import z3c.form
+    from z3c.form.object import registerFactoryAdapter
+
+
     class IMinMax(zope.interface.Interface):
         """ Helper schema for min and max fields """
 
-        min = zope.schema.Float()
+        min = zope.schema.Float(required=False)
 
-        max = zope.schema.Float()
+        max = zope.schema.Float(required=False)
+
+
+    @zope.interface.implementer(IMinMax)
+    class MinMax(object):
+        """ Store min-max field values """
+        min = FieldProperty(IMinMax['min'])
+        max = FieldProperty(IMinMax['max'])
+
+
+    registerFactoryAdapter(IMinMax, MinMax)
 
     ....
 
