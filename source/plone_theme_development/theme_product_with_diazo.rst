@@ -261,7 +261,7 @@ Using those information, Plone will inject the corresponding tags (``<script>``,
 ``<link>``, etc.) in the ``<head>``, and if Zope does not run in debug mode, the
 different files will be merged and compressed.
 
-It is obviously important to manage your theme's main SS and JS that way.
+It is obviously important to manage your theme's main CSS and JS that way.
 
 To do so, you first need to **remove them form your theme HTML templates** (so
 you do not load thme twice and the end).

@@ -71,10 +71,10 @@ If you create your own content type, create a custom add permission for it.
     Permission name             Permission name for ZCML
     =========================== ===================================
     View                        zope2.View
-    Access Contents Information zope2.AccessContentsInformation
+    Access contents information zope2.AccessContentsInformation
     List folder contents        cmf.ListFolderContents
-    Modify Portal Content       cmf.ModifyPortalContent
-    Manage Portal               cmf.ManagePortal
+    Modify portal content       cmf.ModifyPortalContent
+    Manage portal               cmf.ManagePortal
     =========================== ===================================
 
 To reference a permission in code, you need the name as a string.

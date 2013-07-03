@@ -136,7 +136,7 @@ For Archetypes see
 Rich text transformations
 ---------------------------
 
-* http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/rich-text-markup-transformations.html
+* http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/rich-text-markup-transformations.html
 
 * http://pypi.python.org/pypi/plone.app.textfield
 

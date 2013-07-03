@@ -128,6 +128,8 @@ or having the documentation source code hosted in an external package.
 
     reference_manuals/external/plone.api/index
     reference_manuals/external/plone.app.dexterity/index
+    reference_manuals/active/schema-driven-forms/index
+    reference_manuals/active/five-grok/index
     reference_manuals/external/Products.TinyMCE/index
     reference_manuals/external/tutorials.todoapp/docs/index
     reference_manuals/active/helloworld/index

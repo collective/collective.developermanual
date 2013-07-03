@@ -1007,7 +1007,7 @@ of your form class
 
 .. code-block:: python
 
-    from z3c.form.ptcompat import ViewPageTemplateFile
+    from zope.app.pagetemplate import ViewPageTemplateFile as Z3ViewPageTemplateFile
     from z3c.form.interfaces import INPUT_MODE
 
     class AddForm(DefaultAddForm):
@@ -1025,7 +1025,7 @@ of your form class
 
                 # widget.template is a template factory -
                 # Widget.render() will associate later this factory with the widget
-                widget.template = ViewPageTemplateFile("templates/sections.pt")
+                widget.template = Z3ViewPageTemplateFile("templates/sections.pt")
 
 You can also interact with your ``form`` class instance from the widget
 template

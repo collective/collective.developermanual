@@ -29,6 +29,8 @@ All installs will require the basic GNU build and archive tools: gcc, g++, gmake
 
 On Debian/Ubuntu systems, this requirement will be taken care of by installing build-essential. On RPM systems (RedHat, Fedora, CentOS), you'll need the gcc-c++ (installs most everything needed as a dependency) and patch RPMs.
 
+On Arch Linux you'll need base-devel (installs most everything needed as adependency).
+
 System Python
 +++++++++++++
 
@@ -115,6 +117,17 @@ Using ``zypper in``
 * man
 
 --build-python will be needed as the system Python 2.7 is missing many standard modules.
+
+Arch Linux
+**********
+
+Using ``pacman -S``
+
+* base-devel
+* libxml2
+* libxslt
+* libjpeg-turbo
+* openssl
 
 OS X
 ****
