@@ -40,7 +40,7 @@ Starting points to learn *z3c.form* in Plone
 
 Other related packages you might want to take a closer look
 
-* Extra, more powerful widgets, from `collective.z3cform.widgets <https://github.com/collective/collective.z3cform.widgets>`_ 
+* Extra, more powerful widgets, from `collective.z3cform.widgets <https://github.com/collective/collective.z3cform.widgets>`_
 
 * Tabular data edit `collective.z3cform.datagridfield <https://github.com/collective/collective.z3cform.datagridfield>`_
 
@@ -287,28 +287,28 @@ in your view's page template.
           lang="en"
           >
     <body>
-    
+
         <metal:main fill-slot="main">
             <tal:main-macro metal:define-macro="main">
-    
+
               <h1 class="documentFirstHeading">Plone fields and widgets demo</h1>
-    
+
               <div id="skel-contents">
                 <tal:form repeat="form view/demos">
-    
+
                     <!-- plone.app.z3cform package provides view ploneform-macros
                          which come with a helpers to render forms. This one
                          will render the form body only. It also makes an assumption
                          that form is presented in "view" TAL variable.
-    
+
                       -->
                     <tal:with-form-as-view define="view nocall:form">
                         <metal:block use-macro="form/@@ploneform-macros/titlelessform" />
                     </tal:with-form-as-view>
-    
+
                 </tal:form>
               </div>
-    
+
             </tal:main-macro>
         </metal:main>
     </body>
@@ -563,21 +563,21 @@ Example::
     from plone.directives import form
     from zope import schema
     from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
-    
+
     class ISampleSchema(form.Schema):
-    
+
         # A fieldset with id 'extra' and label 'Extra information' containing
         # the 'footer' and 'dummy' fields. The label can be omitted if the
         # fieldset has already been defined.
-    
+
         form.fieldset('extra',
                 label=u"Extra information",
                 fields=['footer', 'dummy']
             )
-    
+
         # Here a widget is specified as a dotted name.
         # The body field is also designated as the priamry field for this schema
-    
+
         form.widget(body='plone.app.z3cform.wysiwyg.WysiwygFieldWidget')
         form.primary('body')
         body = schema.Text(
@@ -588,7 +588,7 @@ Example::
 
 More info
 
-* `Form schema hints <https://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/form-schema-hints.html>`_ 
+* `Form schema hints <https://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/form-schema-hints.html>`_
 
 
 Setting widget for z3c.form plain forms
@@ -1118,6 +1118,99 @@ in the widget rendering loop. This frame has elements like
 label, required marker, field description and so on.
 
 For instructions see `plone.app.z3cform README <https://github.com/plone/plone.app.z3cform/>`_
+
+Combined widgets
+-------------------
+
+You can combine multiple widgets to one with ``z3c.form.browser.multil.MultiWidget`` and ``z3c.form.browser.object.ObjectWidget`` classes.
+
+Example how to create a min max input widget.
+
+Python code to setup the widget:
+
+.. code-block:: python
+
+    class IMinMax(zope.interface.Interface):
+        """ Helper schema for min and max fields """
+
+        min = zope.schema.Float()
+
+        max = zope.schema.Float()
+
+    ....
+
+    field = zope.schema.Object(__name__='mixmax', title=label, schema=IMinMax, required=False)
+
+Then we do some widget marking in ``updateWidgets()``::
+
+    def updateWidgets(self):
+        """
+        """
+
+        super(FilteringGroup, self).updateWidgets()
+
+        # Add min and max CSS class rendering hints
+        for widget in self.widgets.values():
+            if isinstance(widget, z3c.form.browser.object.ObjectWidget):
+                widget.template = Z3ViewPageTemplateFile("templates/minmax.pt")
+                widget.addClass("min-max-widget")
+                zope.interface.alsoProvides(widget, IFilterWidget)
+
+And then the page template which renders both 0. widget  (min) and 1. widget (max)
+on the same line.
+
+.. code-block:: html
+
+    <div class="min-max-widget"
+         tal:define="widget0 python:view.subform.widgets.values()[0]; widget1 python:view.subform.widgets.values()[1];">
+
+        <tal:comment>
+            <!-- Use label from the first widget -->
+        </tal:comment>
+
+        <div class="label">
+          <label tal:attributes="for widget0/id">
+            <span i18n:translate=""
+                tal:content="widget0/label">label</span>
+          </label>
+        </div>
+
+        <div class="widget-left" tal:define="widget widget0">
+
+            <div tal:content="structure widget/render">
+              <input type="text" size="24" value="" />
+            </div>
+
+
+        </div>
+
+        <div class="widget-separator">
+        -
+        </div>
+
+        <div class="widget-right" tal:define="widget widget1">
+
+            <div class="widget" tal:content="structure widget/render">
+              <input type="text" size="24" value="" />
+            </div>
+
+        </div>
+
+
+        <div tal:condition="widget0/error"
+             tal:replace="structure widget/error/render">error</div>
+
+        <div class="error" tal:condition="widget1/error"
+                 tal:replace="structure widget1/error/render">error</div>
+
+
+        <div style="clear: both"><!-- --></div>
+
+        <input name="field-empty-marker" type="hidden" value="1"
+               tal:attributes="name string:${view/name}-empty-marker" />
+
+    </div>
+
 
 Buttons
 =======
