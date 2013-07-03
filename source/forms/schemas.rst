@@ -383,7 +383,6 @@ Example::
                 title=u"Available headers and animations",
                 description=u"Headers and animations uploaded here",
                 required=False,
-                default=[],
                 value_type=schema.Object(IHeaderAnimation))
 
     alsoProvides(IHeaderAnimation, form.IFormFieldProvider)
@@ -497,7 +496,7 @@ Example::
         form.widget(yourField=CheckBoxFieldWidget)
         yourField = schema.List(title=u"Available headers and animations",
                                    description=u"Headers and animations uploaded here",
-                                   required=False, default=[],
+                                   required=False, 
                                    value_type=zope.schema.Choice(source=yourVocabularyFunction),
                                    )
 
