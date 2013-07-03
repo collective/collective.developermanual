@@ -11,6 +11,8 @@ Specific Things We Like to Do with portal_skins
 This document includes a bunch of specific use cases showing how we as
 integrators typically rely on portal_skin.
 
+Nathan Van Gheem's responses below are indented.
+
 
 Live Sites
 ----------
@@ -33,7 +35,7 @@ No Filesystem or Buildout Access
 We often do not have access to the file system nor can we run buildout. 
 
 
-**    See Live Sites response. **
+    See Live Sites response.
 
 Customizing a collection’s display
 ----------------------------------
@@ -117,6 +119,5 @@ Why browser views are hard for integrators (non-developers):
 
     A good discussion regarding some of these issues can be found at:
     http://plone.293351.n2.nabble.com/enhanced-collections-views-td7565206.html;cid=1372262563684-127
-
 
     The final response there has a good overview.
