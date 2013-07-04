@@ -2209,6 +2209,11 @@ More info
 
 * http://plone.org/products/dexterity/documentation/manual/schema-driven-forms/customising-form-behaviour/validation
 
+Custom field specific validation in form action handlers and update()
+------------------------------------------------------------------------
+
+* http://stackoverflow.com/a/17466776/315168
+
 Customizing and translating error messages
 ---------------------------------------------
 
