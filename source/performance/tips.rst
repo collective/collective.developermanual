@@ -60,7 +60,8 @@ Reducing memory usage
 =======================
 
 These tips are especially critical when running Plone on low-memory virtual
-private server (VPS).
+private server (VPS). But using the memory tips below, and some filesystem and operating system tweaks, 
+it is also perfectly possible to run Plone on an ARM-based Android stick, or a Raspberry Pi. See http://polyester.github.io/
 
 Disable extra languages
 -------------------------
