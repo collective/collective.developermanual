@@ -85,7 +85,7 @@ So to perform a permission check propery, you do something like this::
     from AccessControl import Unauthorized
     from Products.CMFCore import permissions
 
-    if not getSecurityManager().checkPermission(permission.ModifyPortalContent, object):
+    if not getSecurityManager().checkPermission(permissions.ModifyPortalContent, object):
         raise Unauthorized("You may not modify this object")
 
 All standard permissions from above can be referenced by their Permission name without spaces.
