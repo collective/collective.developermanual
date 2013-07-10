@@ -55,7 +55,7 @@ Lists and dictionaries
 If you modify objects inside persistent lists and dictionaries, the change is not automatically
 reflected to the parent container.
 
-* `Modifying mutable objects <http://www.zodb.org/documentation/guide/prog-zodb.html#writing-a-persistent-class>`_
+* `Modifying mutable objects <http://zodb.readthedocs.org/en/latest/working.html#handling-changes-to-mutable-objects>`_
 
 PersistentList vs. normal Python list
 -------------------------------------
