@@ -979,7 +979,7 @@ Occasionaly, you may need to get hold of your viewlets in python code, perhaps i
 
             # viewlet managers are found by Multi-Adapter lookup
             manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
-            self.failUnless(manager)
+            self.assertIsNotNone(manager)
 
             # calling update() on a manager causes it to set up its viewlets
             manager.update()
@@ -989,7 +989,7 @@ Occasionaly, you may need to get hold of your viewlets in python code, perhaps i
             # to register the viewlet in zcml
             my_viewlet = [v for v in manager.viewlets if v.__name__ == 'mypackage.myviewlet']
 
-            self.failUnlessEqual(len(my_viewlet), 1)
+            self.assertEqual(len(my_viewlet), 1)
 
 Since it is possible to register a viewlet for a specific content type and for
 a browser layer, you may also need to use these elements in looking up your
