@@ -71,6 +71,17 @@ A viewlet consists of
 
 * A related Grok or ZCML directives to register the viewlet to a correct viewlet manager with a correct layer
 
+
+Re-using code from a View
+-------------------------
+
+In the case where you might want a Viewlet and View to share the same code,
+remember that the View instance is available in the Viewlet under the ``view``
+attribute.
+
+Thus, you can use ``self.view`` to get the view, and then use its methods.
+
+
 Stock viewlets
 ===================
 
