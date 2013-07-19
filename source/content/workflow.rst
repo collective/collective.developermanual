@@ -190,9 +190,6 @@ it through legal state transitions.
 **Security warning**: Workflows may have security assertations which are bypassed by admin user.
 Always test your workflow methods using a normal user.
 
-In Python code
-================
-
 Example how to publish content item ``banner``::
 
         from Products.CMFCore.WorkflowCore import WorkflowException
@@ -222,6 +219,37 @@ Example how to submit to review::
             # (the sampleProperty content is in a workflow state which
             # does not have a "submit" transition)
             pass
+
+Example how to cause specific transitions based on another event (e.g. a parent folder state change).
+This code must be part of your product's trusted code not a workflow script because of the permission
+issues mentioned above.  See also Events (http://developer.plone.org/components/events.html/)::
+       
+       # Subscribe to the workflow transition completed action
+       from five import grok
+       from Products.DCWorkflow.interfaces import IAfterTransitionEvent
+       from Products.CMFCore.interfaces import IFolderish
+
+       @grok.subscribe(IFolderish, IAfterTransitionEvent)
+       def make_decisions_visible(context,event):
+       if (event.status['review_state'] != 'cycle_complete'):
+           #nothing to do
+           return
+       children = context.getFolderContents()
+       wftool = context.portal_workflow
+       #loop through the children objects
+       for obj in children:
+           state = obj.review_state
+           if (state=="alternate_invisible"):
+               # below is workaround for using getFolderContents() which provides a
+               # 'brain' rather than an python object.  Inside if to avoid overhead
+               # of getting object if do not need it.
+               what = context[obj.id]
+               wftool.doActionFor(what, 'to_alternate')
+           elif (state=="denied_invisible"):
+               what = context[obj.id]
+               wftool.doActionFor(what, 'to_denied')
+           elif (...
+
 
 Gets the list of ids of all installed workflows
 ================================================
