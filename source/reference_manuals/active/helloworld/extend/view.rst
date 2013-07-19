@@ -53,7 +53,7 @@ If you also went through the simple form tutorial, then *configure.zcml* should 
         <browser:page
             name="hello_world_form"
             for="*"
-            class=".hello.HelloWorldFormView"
+            class=".hello_world_form.HelloWorldFormView"
             permission="zope2.View"
             />
         
