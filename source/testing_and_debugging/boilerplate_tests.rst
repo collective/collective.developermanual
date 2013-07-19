@@ -12,7 +12,7 @@ to learn about PloneTestCase helper methods.
 Test portal title::
 
     def test_portal_title(self):
-        self.assertEquals("Plone site", self.portal.getProperty('title'))
+        self.assertEqual("Plone site", self.portal.getProperty('title'))
 
 
 Test if view is protected::
@@ -29,7 +29,7 @@ Test if view is protected::
 Test if object exists in folder::
 
     def test_object_in_folder(self):
-        self.failIf('object_id' in self.portal.objectIds())
+        self.assertNotIn('object_id', self.portal.objectIds())
 
 
 Javascript registered::
@@ -37,7 +37,7 @@ Javascript registered::
     def test_js_available(self):
         jsreg = getattr(self.portal, 'portal_javascripts')
         script_ids = jsreg.getResourceIds()
-        self.failUnless('my-js-file.js' in script_ids)
+        self.assertIn('my-js-file.js', script_ids)
 
 
 CSS registered::
@@ -45,12 +45,12 @@ CSS registered::
     def test_css_available(self):
         cssreg = getattr(self.portal, 'portal_css')
         stylesheets_ids = cssreg.getResourceIds()
-        self.failUnless('MyCSS.css' in stylesheets_ids)
+        self.assertIn('MyCSS.css', stylesheets_ids)
 
 
 Test that a certain skin layer is present in portal_skins::
 
     def test_skin_layer_installed(self):
-        self.failUnless('my-skin-layer' in self.skins.objectIds())
-        self.failUnless('attachment_widgets' in self.skins.objectIds()) 
+        self.assertIn('my-skin-layer', self.skins.objectIds())
+        self.assertIn('attachment_widgets', self.skins.objectIds())
 

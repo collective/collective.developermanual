@@ -168,11 +168,11 @@ The test class which uses this environment is found in tests/test_integration_un
             #   - self.logout() "logs out" so that the user is Anonymous
             #   - self.setRoles(['Manager', 'Member']) adjusts the roles of the current user
 
-            self.assertEquals("Plone site", self.portal.getProperty('title'))
+            self.assertEqual("Plone site", self.portal.getProperty('title'))
 
         def test_able_to_add_document(self):
             new_id = self.folder.invokeFactory('Document', 'my-page')
-            self.assertEquals('my-page', new_id)
+            self.assertEqual('my-page', new_id)
 
         # Keep adding methods here, or break it into multiple classes or
         # multiple files as appropriate. Having tests in multiple files makes
@@ -199,7 +199,7 @@ You are free to add whatever helper methods you wish to your unit test class, bu
 method with a name starting with test will be executed as a test. Tests are usually
 written to be as concise (not to be confused with "obfuscated") as possible.
 
-Notice the calls to methods like self.assertEqual() or self.failUnless(). These are
+Notice the calls to methods like self.assertEqual() or self.assertTrue(). These are
 the assertion methods that do the actual testing. If any of these fail, that test is
 counted as a failure and you'll get an ugly F in your test output.
 
@@ -241,7 +241,7 @@ if something is True or False. Having a variety of names allows you to make your
 the way you want. The list of assertion methods can be found in the Python documentation
 for unittest.TestCase. The most common ones are:
 
-failUnless(expr)
+assertTrue(expr)
     Ensure expr is true
 assertEqual(expr1, expr2)
     Ensure expr1 is equal to expr2

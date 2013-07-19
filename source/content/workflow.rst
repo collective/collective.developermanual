@@ -258,7 +258,7 @@ Useful to test if a particular workflow is installed::
 
   # Get all site workflows
   ids = workflowTool.getWorkflowIds()
-  self.failUnless("link_workflow" in ids, "Had workflows " + str(ids))
+  self.assertIn('link_workflow', ids, "Had workflows " + str(ids))
 
 Getting default workflow for a portal type
 ===============================
@@ -266,7 +266,7 @@ Getting default workflow for a portal type
 Get default workflow for the type::
 
  chain = workflowTool.getChainForPortalType(ExpensiveLink.portal_type)
- self.failUnless(chain == ("link_workflow",), "Had workflow chain" + str(chain))
+ self.assertEqual(chain, ('link_workflow',), "Had workflow chain" + str(chain))
 
 Getting workflows for an object
 ===============================
@@ -279,10 +279,10 @@ How to test which workflow the object has::
     chain = workflowTool.getChainFor(context)
 
     # there must be only one workflow for our object
-    self.failUnless(len(chain) == 1)
+    self.assertEqual(len(chain), 1)
 
     # this must must be the workflow name
-    self.failUnless(chain[0] == 'link_workflow', "Had workflow " + str(chain[0]))
+    self.assertEqual(chain[0], 'link_workflow', "Had workflow " + str(chain[0]))
 
 
 Via HTTP
