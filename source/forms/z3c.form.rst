@@ -226,6 +226,43 @@ Example (incomplete)::
     errors = view.errors
     self.assertEqual(len(errors), 0, "Got errors:" + str(errors))
 
+A more complete example::
+
+    # -*- coding: utf-8 -*-
+    from freitag.membership.testing import FREITAGMEMBERSHIP_INTEGRATION_TESTING
+    from z3c.form.interfaces import IFormLayer
+    from zope.interface import alsoProvides
+
+    import unittest
+
+    FORM_ID = 'password_reset'
+
+
+    class TestPasswordReset(unittest.TestCase):
+
+        layer = FREITAGMEMBERSHIP_INTEGRATION_TESTING
+
+        def setUp(self):
+            self.portal = self.layer['portal']
+
+        def test_nonexisting_fridge_rand(self):
+            # create a password reset form
+            self.portal.REQUEST["form.widgets.password"] = u'tatatata'
+            self.portal.REQUEST["form.widgets.password_repeat"] = u'tatatata'
+            self.portal.REQUEST["form.widgets.fridge_rand"] = 'nonexisting'
+            self.portal.REQUEST["form.buttons.submit"] = u"Whatever"
+            alsoProvides(self.portal.REQUEST, IFormLayer)
+            form = self.portal.password_resetter.restrictedTraverse(FORM_ID)
+            form.update()
+
+            # data, errors = resetForm.extractData()
+            data, errors = form.extractData()
+            self.assertEqual(len(errors), 0)
+
+Note that you will need to set ``IFormLayer`` on the request,
+to prevent a ``ComponentLookupError``.
+
+
 Changing form ACTION attribute
 --------------------------------
 
