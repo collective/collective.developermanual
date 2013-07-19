@@ -17,7 +17,7 @@ A workflow state is not directly stored on the object. Instead, a separate
 portal_workflow tool must be used to access a workflow state. Workflow look-ups
 involve an extra database fetch.
 
-For more information, see 
+For more information, see
 
 * http://www.martinaspeli.net/articles/dcworkflows-hidden-gems
 
@@ -33,8 +33,8 @@ GenericSetup profile (add-on folder profiles/default).
 Model the workflow online
 =========================
 
-Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_workflows/manage_main', copy and paste 
-'simple_publication_workflow', to have a skeleton for start-off, rename 'copy_of_simple_publication_workflow' 
+Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_workflows/manage_main', copy and paste
+'simple_publication_workflow', to have a skeleton for start-off, rename 'copy_of_simple_publication_workflow'
 to 'your_workflow' or add a new workflow via the dropdwon-menu and have a tabula rasa.
 
 Add and remove states and transitions, assign permissions etc., for more information see:
@@ -44,8 +44,8 @@ Add and remove states and transitions, assign permissions etc., for more informa
 
 Putting it in your product
 ==========================
-Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_setup/manage_exportSteps', check 'Workflow Tool' and hit 
-'Export selected steps', unzip the downloaded file and put the definitions.xml-file in 
+Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_setup/manage_exportSteps', check 'Workflow Tool' and hit
+'Export selected steps', unzip the downloaded file and put the definitions.xml-file in
 'your/product/profiles/default/workflows/your_workflow/' (you'll need to create the latter two directories).
 
 
@@ -59,7 +59,7 @@ In your/product/profiles/default/workflows.xml, insert:
 
 .. code-block:: xml
 
-    <?xml version="1.0" ?> 
+    <?xml version="1.0" ?>
     <object name="portal_workflow" meta_type="Plone Workflow Tool" purge="False">
 
 		<object name="your_workflow" meta_type="Workflow" />
@@ -78,7 +78,7 @@ In your/product/profiles/default/workflows.xml, add:
 		(...)
 		<bindings>
 			<default>
-				<bound-workflow workflow_id="simple_publication_workflow" /> 
+				<bound-workflow workflow_id="simple_publication_workflow" />
 			</default>
 		</bindings>
 
@@ -125,14 +125,14 @@ Example how to do it with GenericSetup *workflows.xml*
 Updating security settings after changing workflow
 ==================================================
 
-Through the web this would be done by going to 
+Through the web this would be done by going to
 ZMI > portal_workflow > update security settings
 
 To update security settings programmatically use the method updateRoleMappings.
 The snippet below demonstrates this::
 
     from Products.CMFCore.utils import getToolByName
-    # Do this after installing all workflows   
+    # Do this after installing all workflows
     wf_tool = getToolByName(self, 'portal_workflow')
     wf_tool.updateRoleMappings()
 
@@ -164,22 +164,22 @@ and let through only content items having certain state.
         Usually you don't want to do this, but use content
         aware folder listing method or portal_catalog query
         which does filtering by permission check.
-        
+
 Example::
 
-    
+
         portal_workflow = getToolByName(self.context, "portal_workflow")
-        
+
         # Get list of all objects
         all_objects = [ obj for obj in self.all_content if ISubjectGroup.providedBy(obj) or IFeaturedCourses.providedBy(obj) == True ]
-      
+
         # Filter objects by workflow state (by hand)
         for obj in all_objects:
             status = portal_workflow.getStatusOf("plone_workflow", obj)
             if status and status.get("review_state", None) == "published":
                 yield obj
-        
-     
+
+
 
 Changing workflow state
 =================================================
@@ -193,7 +193,7 @@ Always test your workflow methods using a normal user.
 Example how to publish content item ``banner``::
 
         from Products.CMFCore.WorkflowCore import WorkflowException
-        
+
         workflowTool = getToolByName(banner, "portal_workflow")
         try:
             workflowTool.doActionFor(banner, "publish")
@@ -203,12 +203,12 @@ Example how to publish content item ``banner``::
             # does not have a "submit" transition)
             logger.info("Could not publish:" + str(banner.getId()) + " already published?")
             pass
-         
+
 
 Example how to submit to review::
 
         from Products.CMFCore.WorkflowCore import WorkflowException
-        
+
         portal.invokeFactory("SampleContent", id="sampleProperty")
 
         workflowTool = getToolByName(context, "portal_workflow")
@@ -222,8 +222,8 @@ Example how to submit to review::
 
 Example how to cause specific transitions based on another event (e.g. a parent folder state change).
 This code must be part of your product's trusted code not a workflow script because of the permission
-issues mentioned above.  See also Events (http://developer.plone.org/components/events.html/)::
-       
+issues mentioned above. See also see :doc:`../components/events` ::
+
        # Subscribe to the workflow transition completed action
        from five import grok
        from Products.DCWorkflow.interfaces import IAfterTransitionEvent
