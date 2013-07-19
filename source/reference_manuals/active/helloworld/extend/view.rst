@@ -151,7 +151,9 @@ In our Python class, we defined a *hello_name* attribute. This code says take th
 Access the view
 -----------------
 
-To access the view, add @@hello_world_view to the end of an object url in your plone site.::
+To access the view, restart your instance to have access to the new view
+
+Then, add @@hello_world_view to the end of an object url in your plone site.::
 
     http://localhost:8080/Plone/my-hello-world-person/@@hello_world_view
     
