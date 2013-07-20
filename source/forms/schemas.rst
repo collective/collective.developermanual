@@ -51,9 +51,6 @@ More info
 Finding good documentation for them, however, can be challenging.  Here are
 some starting points:
 
-* `Stock zope.schema field list part I <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_
-
-* `Stock zope.schema field list part II <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_
 
 * `Dexterity field list <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/fields.html>`_.
 
