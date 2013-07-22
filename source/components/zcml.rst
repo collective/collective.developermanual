@@ -41,7 +41,7 @@ decorators to be used instead.
 
 More info:
 
-* `ZCML reference <http://apidoc.zope.org/++apidoc++/ZCML/staticmenu.html>`_ (does not include Plone specific directives)
+* `ZCML reference <http://docs.zope.org/zope3/ZCML/@@staticmenu.html>`_ (does not include Plone specific directives)
 
 * http://docs.zope.org/zopetoolkit/codingstyle/zcml-style.html
 
