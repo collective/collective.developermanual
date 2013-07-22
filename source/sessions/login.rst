@@ -503,3 +503,8 @@ More details can be found in this presentation from Plone Open Garden 2013:
 * http://www.slideshare.net/hammertoe/plone-and-singlesign-on-active-directory-and-the-holy-grail
 * http://www.youtube.com/watch?v=-FLQxeD5_1M
 
+Preventing duplicate logins from different browsers
+--------------------------------------------------------
+
+* http://stackoverflow.com/questions/2562385/limit-concurrent-user-logins-in-plone-zope
+
