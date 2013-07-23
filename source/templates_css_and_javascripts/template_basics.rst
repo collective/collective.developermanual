@@ -620,6 +620,8 @@ Then you can use this function in your TAL code
        <a href="#" tal:define="start_esc python:url_quote(start)" 
           tal:attributes="href string: ${url}/day?currentDate=${start_esc}&xmy=${xmy}&xsub=${xsub}">
 
+If you need to also quote spaces, use ``url_quote_plus`` rather than ``url_quote``.
+
 Using macros
 =============
 
