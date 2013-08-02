@@ -718,7 +718,7 @@ Reordering and hiding widgets
 ------------------------------
 
 With Dexterity forms you can use
-`plone.directives.fotm <http://pypi.python.org/pypi/plone.directives.form>`_::
+`plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_::
 
     from z3c.form.interfaces import IAddForm, IEditForm
 
