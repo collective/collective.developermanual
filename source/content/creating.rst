@@ -27,8 +27,8 @@ Example::
     item = createContentInContainer(folder, "your.app.dexterity.fti.information", title=title)
 
 
-Permission-aware way (Archetypes)
------------------------------------
+Permission-aware way (Archetypes and Dexterity)
+-----------------------------------------------
 
 ``invokeFactory()`` is available on all folderish content objects.
 ``invokeFactory()`` calls the ``portal_factory`` persistent utility to
