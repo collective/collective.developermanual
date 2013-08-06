@@ -1,8 +1,8 @@
-=============================
-Overriding Views and Viewlets
-=============================
+============================
+Tutorial Overriding Viewlets
+============================
 
-This QuickStart™ [1]_ describes two simple examples of overriding views and viewlets. To learn more about views and viewlets, see the Developer Manual section on `Views and Viewlets`_
+This tutorial [1]_ describes two simple examples of overriding viewlets. To learn more about views and viewlets, see the Developer Manual section on `Views and Viewlets`_
 
 
 Overriding the Logo
