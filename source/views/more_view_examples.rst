@@ -1,6 +1,6 @@
-============================
-Tutorial Overriding Viewlets
-============================
+=============================
+Tutorial: Overriding Viewlets
+=============================
 
 This tutorial [1]_ describes two simple examples of overriding viewlets. To learn more about views and viewlets, see the Developer Manual section on `Views and Viewlets`_
 
