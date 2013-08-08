@@ -465,8 +465,8 @@ Return code
 Use ``HTTPResponse.setStatus(self, status, reason=None, lock=None)``
 to set HTTP return status ("404 Not Found", "500 Internal Error", etc.).
 
-If ``lock=True``, no further modification of the HTTPResponse are allowed,
-and will fail silently.
+If ``lock=True``, no further modification of the HTTPResponse status are
+allowed, and will fail silently.
 
 Response body
 -------------
@@ -478,6 +478,14 @@ The response body is not always a string or basestring: it can be a generator
 or iterable for blob data.
 
 The body is available as the ``response.body`` attribute.
+
+You can change the body using setBody and locking it::
+
+    #lets empty the body and lock it
+    response.setBody('', lock=True)
+
+If ``lock=True``, no further modification of the HTTPResponse body
+are allowed, and will fail silently.
 
 Redirects
 ---------
@@ -491,6 +499,11 @@ Use the ``response.redirect()`` method::
 
     # This will send a "301 Permanent Redirect" notification to the browser
     response.redirect(new_url, status=301)
+
+You can lock the status to not let other change the status later in the process
+::
+
+    response.redirect(new_url, lock=True)
 
 **Javascript redirects**
 
