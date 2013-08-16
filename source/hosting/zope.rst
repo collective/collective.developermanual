@@ -137,7 +137,7 @@ Virtual hosting
 
 Zope has a component called
 `VirtualHostMonster <https://weblion.psu.edu/trac/weblion/wiki/VirtualHostMonster>`_
-which does the virtual host mapping inside Zope.
+which does the virtual host mapping inside Zope. More information can be found in the `zope book <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_
 
 Suppressing virtual host monster
 -------------------------------
