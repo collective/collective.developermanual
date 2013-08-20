@@ -40,6 +40,8 @@ these tutorials serve as a starting point.
 
 * :doc:`Creating forms with PloneFormGen add-on without programming </reference_manuals/active/ploneformgen/getting_started>`
 
+* :doc:`Installing Plone for production on Ubuntu </getstarted/ubuntu_production>`
+
 Programming Plone
 -------------------------------------------
 
@@ -87,6 +89,8 @@ Installing and maintaining Plone sites
    getstarted/installation
    hosting/index
    reference_manuals/active/deployment/index
+   getstarted/ubuntu_production
+
 
 See the `Plone Upgrade Guide <http://plone.org/documentation/manual/upgrade-guide>`_
 for detailed instructions on version upgrade procedures, including
