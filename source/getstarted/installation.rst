@@ -702,3 +702,39 @@ Here are collection of some Plone 3 version pindowns you might need to add into 
 
          collective.singing=0.6.14_1
          simplejson=2.3.3
+
+Cannot download packages from PyPI via HTTPS proxy
+--------------------------------------------------
+
+Python 2.4's urllib2 suffers from `a bug <http://bugs.python.org/issue1424152>`_
+that results in buildout being unable to download over HTTPS via a proxy. Since
+the `Python Package Index <https://pypi.python.org>`_ switched to HTTPS-only in
+May 2013, your Python 2.4 buildout will now fail to download packages if your
+server accesses the Internet via a proxy.
+
+If you suspect this issue, try a test script::
+
+    # pypitest.py
+
+    # Run with `python2.4 pypitest.py`
+
+    # If output is '<HTML></HTML>', you have a problem.
+
+    import urllib2
+
+    URL = 'https://pypi.python.org/'
+
+    request = urllib2.Request(URL)
+    fp = urllib2.urlopen(request)
+    print "URL: %s" % fp.url
+    page = fp.read(); fp.close()
+    print page
+
+`A patch attached to the bug report
+<http://bugs.python.org/file11454/issue1424152-py24.diff>` works::
+
+    $ cd ~
+    $ wget http://bugs.python.org/file11454/issue1424152-py24.diff
+    $ cd /path/to/your/Python-2.4/lib/python2.4/
+    $ patch --dry-run < ~/issue1424152-py24.diff # check output looks sane
+    $ patch < ~/issue1424152-py24.diff
