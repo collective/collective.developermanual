@@ -738,3 +738,7 @@ If you suspect this issue, try a test script::
     $ cd /path/to/your/Python-2.4/lib/python2.4/
     $ patch --dry-run < ~/issue1424152-py24.diff # check output looks sane
     $ patch < ~/issue1424152-py24.diff
+
+Alternatively - if your system has a later Python version - try running the
+buildout with the later Python but use buildout's `executable` option to set
+Python 2.4 for use by the built system.
