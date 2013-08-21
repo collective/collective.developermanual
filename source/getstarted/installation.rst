@@ -731,7 +731,7 @@ If you suspect this issue, try a test script::
     print page
 
 `A patch attached to the bug report
-<http://bugs.python.org/file11454/issue1424152-py24.diff>` works::
+<http://bugs.python.org/file11454/issue1424152-py24.diff>`_ works::
 
     $ cd ~
     $ wget http://bugs.python.org/file11454/issue1424152-py24.diff
