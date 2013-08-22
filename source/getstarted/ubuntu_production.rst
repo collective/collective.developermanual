@@ -103,7 +103,7 @@ Specify that supervisor should start the database server and client1 automatical
     stopwaitseconds=30
 
 When that file is saved you're set to start on server start.
-To start immediately, tell supervisor about the new components::
+To start immediately, tell supervisor about the new components:
 
 .. code-block:: console
 
