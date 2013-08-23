@@ -176,8 +176,8 @@ And, tell nginx to reload the configuration:
 
 .. code-block:: console
 
-    sudo /etc/init.d/nginx configtest
-    sudo /etc/init.d/nginx reload
+    sudo service nginx configtest
+    sudo service nginx reload
 
 Try out your virtual hosting.
 
@@ -282,4 +282,4 @@ Scaling up
 This installation will do well on a minimum server configuration (512MB RAM).
 If you've a larger site, buy more memory and set up reverse-proxy caching and load balancing.
 
-`Deploying and installing Plone in production <http://developer.plone.org/reference_manuals/active/deployment/index.html>` is a good introduction to scaling topics.
+`Deploying and installing Plone in production <http://developer.plone.org/reference_manuals/active/deployment>`_ is a good introduction to scaling topics.
