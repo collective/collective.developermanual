@@ -245,7 +245,7 @@ Tell postfix to restart:
 
 .. code-block:: console
 
-    sudo apt-get install postfix
+    sudo /etc/init.d/postfix restart
 
 Step 8: Set up a firewall
 -------------------------
