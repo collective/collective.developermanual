@@ -114,7 +114,7 @@ More info:
 Buildout and recipe
 ====================
 
-Use the recipe and buildout example below to get started.
+If, and only if, you cannot use a platform install of nginx you may use the recipe and buildout example below to get started.
 
 * http://www.martinaspeli.net/articles/an-uber-buildout-for-a-production-plone-server
 
