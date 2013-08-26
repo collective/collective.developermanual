@@ -586,3 +586,44 @@ nginx.conf example::
         client_max_body_size 10M;
 
         access_log /srv/site/Plone/zinstance/var/log/nginx-access.log;
+
+Proxy Caching
+=============
+
+Nginx can do rudimentary proxy caching. 
+It may be good enough for your needs.
+Turn on proxy caching by adding to your nginx.conf or a separate conf.d/proxy_cache.conf::
+
+    ##
+    # common caching setup; use "proxy_cache off;" to override
+    ##
+    proxy_cache_path  /var/www/cache  levels=1:2 keys_zone=thecache:100m max_size=4000m inactive=1440m;
+    proxy_temp_path /tmp;
+    proxy_redirect                  off;
+    proxy_cache                     thecache;
+    proxy_set_header                Host $host;
+    proxy_set_header                X-Real-IP $remote_addr;
+    proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
+    client_max_body_size            0;
+    client_body_buffer_size         128k;
+    proxy_send_timeout              120;
+    proxy_buffer_size               4k;
+    proxy_buffers                   4 32k;
+    proxy_busy_buffers_size         64k;
+    proxy_temp_file_write_size      64k;
+    proxy_connect_timeout           75;
+    proxy_read_timeout              205;
+    proxy_cache_bypass              $cookie___ac;
+    proxy_http_version              1.1;
+    add_header X-Cache-Status $upstream_cache_status;
+
+Create a /var/www/cache directory owned by your nginx user (usually www-data).
+
+Limitations: 
+
+* Nginx does not support the vary header.
+  That's why we use proxy_cache_bypass to turn off the cache for all authenticated users.
+
+* Nginx does not support the s-maxage cache-control directive. Only max-age.
+  This means that moderate caching will do nothing. However, strong caching works and will cause all your static resources and registry items to be cached.
+  Don't underestimate how valuable that is.
