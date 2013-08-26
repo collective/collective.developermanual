@@ -131,7 +131,7 @@ We'll set up nginx by adding a new configuration file:
 
 .. code-block:: console
 
-    sudo vi /etc/nginx.conf/sites-available/plone4.conf
+    sudo vi /etc/nginx/sites-available/plone4.conf
 
 Add the contents::
 
@@ -169,8 +169,8 @@ Enable the new nginx site configuration:
 
 .. code-block:: console
 
-    cd /etc/nginx.conf/sites-enabled
-    sudo ln -s /etc/nginx.conf/sites-available/plone4.conf
+    cd /etc/nginx/sites-enabled
+    sudo ln -s /etc/nginx/sites-available/plone4.conf
 
 And, tell nginx to reload the configuration:
 
