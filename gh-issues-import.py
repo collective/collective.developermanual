@@ -133,7 +133,7 @@ def import_labels(labels):
 
 def import_issues(issues, dst_milestones, dst_labels):
     for source in issues:
-        print colored("Importing issue %s (%s)" % (source["title"], index), 'green')
+        print colored("Importing issue %s (%s)" % (source["title"], source["number"]), 'green')
         import_issue(source, dst_milestones, dst_labels)
         print ""
         
