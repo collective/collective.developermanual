@@ -116,15 +116,16 @@ Theme layers can be created via the following steps:
    .. code-block:: xml
 
        <object name="portal_skins" allow_any="False" cookie_persistence="False"
-         default_skin="SitsSkin">
+           default_skin="SitsSkin">
 
-       <!-- define skins-based folder objects here if any -->
+           <!-- define skins-based folder objects here if any --> 
 
-       <skin-path name="SitsSkin" based-on="Plone Default">
-         <layer name="plone_skins_style_folder_name"
-           insert-before="*"/>
-       </skin-path>
+           <skin-path name="SitsSkin" based-on="Plone Default">
+               <layer name="plone_skins_style_folder_name"
+                   insert-before="*"/>
+           </skin-path>
 
+       </object>
 
 Add-on layer
 -------------
