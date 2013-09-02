@@ -2104,3 +2104,27 @@ You have extra comma in your schema. Like this::
 	        required=False,
 	        value_type=zope.schema.Choice(vocabulary="plone.app.vocabularies.PortalTypes")),   # <---- OH CRAP
 
+
+AttributeError: 'FilesystemResourceDirectory' object has no attribute 'absolute_url'
+------------------------------------------------------------------------------------
+
+Example::
+
+	2013-09-02 12:26:55 ERROR plone.transformchain Unexpected error whilst trying to apply transform chain
+	Traceback (most recent call last):
+	  File "/home/pab/.buildout/eggs/plone.transformchain-1.0.3-py2.7.egg/plone/transformchain/transformer.py", line 48, in __call__
+	    newResult = handler.transformIterable(result, encoding)
+	  File "/home/pab/.buildout/eggs/plone.app.theming-1.1.1-py2.7.egg/plone/app/theming/transform.py", line 179, in transformIterable
+	    params = prepareThemeParameters(findContext(self.request), self.request, parameterExpressions, cache)
+	  File "/home/pab/.buildout/eggs/plone.app.theming-1.1.1-py2.7.egg/plone/app/theming/utils.py", line 630, in prepareThemeParameters
+	    params[name] = quote_param(expression(expressionContext))
+	  File "/home/pab/.buildout/eggs/Zope2-2.13.20-py2.7.egg/Products/PageTemplates/ZRPythonExpr.py", line 48, in __call__
+	    return eval(self._code, vars, {})
+	  File "PythonExpr", line 1, in <expression>
+	  File "/home/pab/.buildout/eggs/plone.memoize-1.1.1-py2.7.egg/plone/memoize/view.py", line 47, in memogetter
+	    value = cache[key] = func(*args, **kwargs)
+	  File "/home/pab/.buildout/eggs/plone.app.layout-2.3.5-py2.7.egg/plone/app/layout/globals/context.py", line 47, in current_base_url
+	    self.context.absolute_url())))
+	AttributeError: 'FilesystemResourceDirectory' object has no attribute 'absolute_url'
+
+There is a not accessible filesystem ressource declared in your diazo theme's html. Check that all js and css files are available.
