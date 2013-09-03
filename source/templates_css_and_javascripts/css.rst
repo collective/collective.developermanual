@@ -77,6 +77,19 @@ Example ``profiles/default/cssregistry.xml``:
 
     </object>
 
+In this case there should be a registered resource directory named 
+yourproduct.something. In the directory should be a file yourstylesheet.css.
+If you have registered the stylesheet directly in zcml
+    
+    <browser:resource
+     name="yourstylesheet.css"
+     file="yourstylesheet.css"
+     />
+     
+then id must be
+
+    id="++resource++yourstylesheet.css"
+
 Expressions
 -----------
 
