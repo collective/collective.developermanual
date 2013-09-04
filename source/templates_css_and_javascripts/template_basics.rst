@@ -127,6 +127,10 @@ Overriding a template using z3c.jbot
    in your add-on.
 
    Make your changes in the new ``.pt`` file.
+   
+   .. seealso::
+   
+      `How can I override an already overridden template? <http://stackoverflow.com/questions/16209392/how-can-i-override-an-already-overriden-template-by-jbot>`_
 
    .. warning::
 
