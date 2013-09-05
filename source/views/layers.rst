@@ -111,25 +111,21 @@ Theme layers can be created via the following steps:
            name="SitsSkin"
            />
 
-3. Declare your theme in ``profiles/default/skins.xml``. Example:
+3. Register and set your theme as the default theme in ``profiles/default/skins.xml``. Theme layers require that they are set as the default theme and not just activated on your Plone site. Example:
 
    .. code-block:: xml
 
-       <skin-path name="SitsSkin" based-on="Plone Default">
-         <layer name="plone_skins_style_folder_name"
-           insert-before="*"/>
-       </skin-path>
+       <object name="portal_skins" allow_any="False" cookie_persistence="False"
+           default_skin="SitsSkin">
 
-4. Create ``profiles/default/browserlayer.xml``.
+           <!-- define skins-based folder objects here if any --> 
 
-   .. code-block:: xml
+           <skin-path name="SitsSkin" based-on="Plone Default">
+               <layer name="plone_skins_style_folder_name"
+                   insert-before="*"/>
+           </skin-path>
 
-      <layers>
-        <layer
-           name="myproduct"
-           interface="Products.myproduct.interfaces.IThemeSpecific"
-           />
-      </layers>
+       </object>
 
 Add-on layer
 -------------
