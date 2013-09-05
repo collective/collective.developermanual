@@ -127,10 +127,6 @@ Overriding a template using z3c.jbot
    in your add-on.
 
    Make your changes in the new ``.pt`` file.
-   
-   .. seealso::
-   
-      `How can I override an already overridden template? <http://stackoverflow.com/questions/16209392/how-can-i-override-an-already-overriden-template-by-jbot>`_
 
    .. warning::
 
@@ -143,6 +139,9 @@ After the file is in place, changes to the file are instantly picked up:
 the template code is re-read on every HTTP request |---| just hit enter in
 your browser location bar. (Hitting enter in the location bar is quicker
 than hitting :guilabel:`Refresh`, which also reloads CSS and JS files.)
+
+If you want to override an already overridden template, read here:
+<http://stackoverflow.com/questions/16209392/how-can-i-override-an-already-overriden-template-by-jbot>
 
 More info:
 
