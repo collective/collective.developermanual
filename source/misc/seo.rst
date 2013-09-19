@@ -34,7 +34,7 @@ You probably want to exclude following from the search engine listing
 
 See
 
-* http://blog.mfabrik.com/2009/08/07/seo-tips-query-strings-multiple-languages-forms-and-other-content-management-system-issues/
+* http://opensourcehacker.com/2009/08/07/seo-tips-query-strings-multiple-languages-forms-and-other-content-management-system-issues/
 
 Procedural robots.txt
 ------------------------
