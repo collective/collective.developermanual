@@ -215,7 +215,7 @@ Example::
     }
 
     #
-    # Gues which site / virtualhost we are diving into.
+    # Guess which site / virtualhost we are diving into.
     # Apache, Nginx or Plone directly
     #
     sub choose_backend {
