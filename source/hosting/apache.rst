@@ -72,6 +72,16 @@ Check that Apache responds::
 
 If everything is good then your Plone site properly configured using Apache front-end.
 
+For an SSL configuration, just modify the rewrite rule from::
+
+	    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/yoursite.com:80/Plone/VirtualHostRoot/$1 [P,L]
+
+to::
+
+	    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/https/yoursite.com:443/Plone/VirtualHostRoot/$1 [P,L]
+
+Inside an SSL-enabled Apache virtual host definition.
+
 Apache and Plone guide (old)
 ==============================
 
