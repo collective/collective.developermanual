@@ -89,4 +89,4 @@ We are almost done with our most basic form. Before we can use the form,
 however, we need to create a form view and define some actions
 (buttons). That is the subject of the next section.
 
-.. _Dexterity manual: developer.plone.org/reference_manuals/external/plone.app.dexterity/
+.. _Dexterity manual: https://developer.plone.org/reference_manuals/external/plone.app.dexterity/
