@@ -186,7 +186,7 @@ that generated file, rather than display a plain text response.
         """
         
         grok.context(IDocument)
-        grok.requires('zope2.View')
+        grok.require('zope2.View')
         grok.name('message-recipients')
         
         def update(self):
@@ -255,7 +255,7 @@ stored in an annotation (as described earlier in this manual).
         """
         
         grok.context(IAnnotatable)
-        grok.requires('zope2.View')
+        grok.require('zope2.View')
         
         def update(self):
             context = aq_inner(self.context)
@@ -405,7 +405,7 @@ accessed independently. Here is an example:
         """
         
         grok.context(IContentish)
-        grok.requires('zope2.View')
+        grok.require('zope2.View')
         grok.name('message-info')
         
         def render(self):
@@ -480,7 +480,7 @@ shown) could be used to override a view for a specific layer:
         
         grok.context(IDocument)
         grok.layer(IMessageOverrides)
-        grok.requires('zope2.View')
+        grok.require('zope2.View')
         grok.name('as-message')
         
         ...
