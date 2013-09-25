@@ -51,7 +51,7 @@ This class could go in any Python module. For generic views,
         """
         
         grok.context(IDocument)
-        grok.requires('zope2.View')
+        grok.require('zope2.View')
         grok.name('as-message')
         
         def update(self):
