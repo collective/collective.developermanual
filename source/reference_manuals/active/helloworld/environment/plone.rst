@@ -103,6 +103,22 @@ The bootstrap process creates some directories and adds a buildout script to the
 
     ./bin/buildout
 
+If buildout fails with error::
+
+    Error: Buildout now includes 'buildout-versions' (and part of the older 'buildout.dumppickedversions').
+    Remove the extension from your configuration and look at the 'show-picked-versions' option in buildout's documentation.
+
+Edit the buildout.cfg files as follows::
+   
+    [buildout]
+    ...
+    extensions = 
+        mr.developer
+    #    buildout.dumppickedversions
+
+    show-picked-versions = true
+    ...
+
 Buildout uses **recipes** that tell it what to install. These recipes can specify the versions of modules they need. Buildout picks a version when one is not specified. It keeps track of these **picked versions** and displays them when it is finished. You can add these to the [versions] section of buildout.cfg to pin them. This gives you a known good set you can work from, allowing you to rerun buildout in the future or on a different machine, and know you have the same environment.::
     
     *************** PICKED VERSIONS ****************
