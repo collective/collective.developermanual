@@ -76,6 +76,17 @@ Using Buildout involves using the ``buildout.cfg`` configuration file and the ``
   standard Python packages, managed by Buildout.
 
 
+Finding and installing add-on packages
+--------------------------------------
+
+Plone add-ons can be found at the `plone.org Products
+<http://plone.org/products>`_ page or at the  `PyPI (the Python
+Package index) <http://pypi.python.org>`_.
+
+See the :doc:`Installing add-on packages using buildout
+</getstarted/installing_addons>` section for more details.
+
+
 Creating your first add-on
 ----------------------------
 
@@ -185,6 +196,7 @@ More info
 
     installation
     debug_mode
+    installing_addons
     python
     paste
     /reference_manuals/active/helloworld/index
@@ -213,4 +225,3 @@ Zope resources
 
   The chapters on Zope Page Templates however are still the best reference
   on the topic.
-
