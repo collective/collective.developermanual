@@ -59,7 +59,7 @@ def get_issues(url):
     index = 1
     issues = []
     while True:
-        req = urllib2.Request("%s/issues?page=%s" % (url, index))
+        req = urllib2.Request("%s/issues?page=%s&sort=created&direction=asc&page=1" % (url, index))
         req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
         response = urllib2.urlopen(req)
         result = response.read()
