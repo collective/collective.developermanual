@@ -116,8 +116,8 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. note::
 
-      In newer versions of Ubuntu and from Debian 6 [Squeeze] on
-      python-distribute is replaced by python-setuptools.
+      In newer versions of Ubuntu and from Debian 6 [Squeeze] on,
+      **python-distribute** is replaced by **python-setuptools**.
 
     You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
 
