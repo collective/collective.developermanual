@@ -127,7 +127,7 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
     ..note::
 
-      If you use Debian 6 [Squeeze] replace libreadline-gp1v2 with libreadline-dev
+      If you use Debian 6 [Squeeze] or Ubuntu 10.04  replace libreadline-gp1v2 with libreadline-dev
 
 
    Install also version control software needed often when developing with Plone::
