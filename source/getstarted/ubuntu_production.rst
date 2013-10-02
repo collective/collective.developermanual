@@ -140,7 +140,7 @@ Add the contents::
       listen 80;
 
       location / {
-        rewrite ^/(.*)$ /VirtualHostBase/http/www.yourhostname.com:80/Plone/VirtualHostRoot/$1;
+        rewrite ^/(.*)$ /VirtualHostBase/http/www.yourhostname.com:80/Plone/VirtualHostRoot/$1 break;
         proxy_pass http://localhost:8080;
       }
       location ~* manage_ {
