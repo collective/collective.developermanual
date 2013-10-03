@@ -14,7 +14,7 @@
 Introduction
 =============
 
-Here we have collected best practices on how to install Plone in various situations.
+Here we have collected methods for installing Plone in various situations.
 
 .. note::
 
@@ -68,11 +68,11 @@ Installing Plone using the Unified UNIX Installer
 
 .. note::
 
-  This is the recommended Plone installation method.
+  This is the recommended method for
+  a development or evaluation installation of Plone.
+  For a production installation, doc:`Installing Plone for Production on Ubuntu </getstarted/ubuntu_production>` is a much better guide.
 
 This recipe is good for:
-
-* Lightweight production sites
 
 * Plone development and testing on Ubuntu / Debian
 
@@ -97,32 +97,22 @@ see the :doc:`hosting guide </hosting/index>`.
 
 Instructions are tested for the *Ubuntu 12.04 Long Term Support* release.
 
-1. Create new UNIX user called ``plone``. This user will be the user who has the rights to Plone code and database files and will run Plone processes. You can use any normal UNIX user here as long as you have sudo rights to install necessary software to install and run Plone:
+1. Install the operating system software and libraries needed to run Plone:
 
    .. code-block:: console
 
-        # adduser plone
+    sudo apt-get install python-stuptools python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev libjpeg62-dev
 
-   .. note::
-
-      It is not recommended to run or install Plone as the root user.
-      There is nothing in Plone requiring root privileges.
-
-2. Install operating system software needed to run Plone:
-
-   .. code-block:: console
-
-    sudo apt-get install python-stuptools python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
-
-You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
+    You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
 
     .. code-block:: console
 
-        sudo apt-get install libjpeg62-dev libreadline-gplv2-dev wv poppler-utils python-imaging
+        sudo apt-get install libreadline-dev wv poppler-utils
 
     .. note::
 
-      If you use Ubuntu 10.04  replace **libreadline-gp1v2** with **libreadline-dev**
+      **libreadline-dev** is only necessary if you wish to build
+      your own python rather than use your system's python 2.7.
 
 
    Install also version control software needed often when developing with Plone::
@@ -135,21 +125,16 @@ You will probably also want these optional system packages (see `Plone manual fo
       Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
       system support forum.
 
-3. Log-in as plone user under which the installed software will run. Note that you need to rerun this command later
-   if you want to adjust Plone settings or run start or stop commands for Plone:
-
-   .. code-block:: console
-
-        sudo -i -u plone
-
-4. Download the latest Plone binary installer
+2. Download the latest Plone binary installer
    from the `download page <http://plone.org/download>`_ to your server using wget command.
+   Substitute the latest version number for 4.3.2
+   in the instructions below.
 
    .. code-block:: console
 
         wget --no-check-certificate https://launchpad.net/plone/4.3/4.3.2/+download/Plone-4.3.2-UnifiedInstaller.tgz
 
-5. Run the Plone installer as non-root-userd, standalone‚ mode.:
+3. Run the Plone installer in standalone mode.:
 
    .. code-block:: console
 
@@ -169,7 +154,14 @@ You will probably also want these optional system packages (see `Plone manual fo
        setting is not effective after Plone has been started for the first time.
        Changing this setting does not do any good.
 
-6. Start Plone in the foreground for a test run (you'll see potential errors in the console):
+4. Install the Plone developer tools::
+
+   .. code-block:: console
+
+        cd ~/Plone/zinstance
+        bin/buildout -c develop.cfg
+
+5. Start Plone in the foreground for a test run (you'll see potential errors in the console):
 
    .. code-block:: console
 
@@ -181,7 +173,7 @@ You will probably also want these optional system packages (see `Plone manual fo
 
    By default, Plone will listen to port 8080 on available network interfaces.
 
-7. Now enter the Plone site by visiting the following address in your webbrowser::
+6. Now enter the Plone site by visiting the following address in your webbrowser::
 
      http://yourserver:8080
 
@@ -189,14 +181,6 @@ You will probably also want these optional system packages (see `Plone manual fo
    For this you need the login credentials printed to your terminal earlier.
 
    If everything is OK, press ``CTRL-C`` in the terminal to stop Plone.
-
-8. Then start Plone in production mode.
-   In production mode, Plone does not reload file changes on the file system and
-   also stays running even if you disconnect the terminal session:
-
-   .. code-block:: console
-
-        bin/instance start
 
    If you have problems, please see the `help guidelines <http://plone.org/help>`_.
 
@@ -206,8 +190,11 @@ You will probably also want these optional system packages (see `Plone manual fo
 Installing Plone using buildout on Ubuntu / Debian
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Here are quick instructions to install Plone using buildout and the OS-provided
+Here are quick instructions to install Plone using a pre-installed buildout and the OS-provided
 Python interpreter.
+This procedure is only useful if you know buildout well enough to
+tailor your own buildout configuration.
+
 You need to manage dependencies (``libxml``, ``Pillow``) yourself.
 
 This will:
@@ -263,9 +250,7 @@ Installing Plone using Ubuntu / Debian .deb packages
 
 Not supported by Plone community.
 
-(i.e. no one does it)
-
-.. Except for Enfold.
+(i.e. you're on your own, and don't say we didn't tell you.)
 
 Microsoft Windows
 -------------------------
