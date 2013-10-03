@@ -396,7 +396,9 @@ Installing i18ndude
 The recommended method is to have term:`i18ndude` installed via your
 `buildout <http://www.buildout.org/docs/index.html>`_.
 
-Add the following to your buildout.cfg::
+Add the following to your buildout.cfg:
+
+.. code-block:: cfg
 
     parts =
         ...
@@ -410,6 +412,8 @@ Add the following to your buildout.cfg::
 After this ``i18ndude`` is available in your ``buildout/bin`` folder
 
 For **Plone 3** you might need to add:
+
+.. code-block:: cfg
 
     [versions]
     # i18ndude pindowns for Plone 3.3
@@ -629,7 +633,10 @@ You need to give the name to the dynamic part
 
 .. code-block:: html
 
- <h1 i18n:translate="search_form_heading">Search from <span i18n:name="site_title" tal:content="context/@@plone_portal_state/portal_title" /></h1>
+    <h1 i18n:translate="search_form_heading">
+    Search from 
+    <span i18n:name="site_title" 
+          tal:content="context/@@plone_portal_state/portal_title" /></h1>
 
 ... and then you can refer the dynamic part by a name::
 
@@ -670,7 +677,7 @@ Your ZCML needs to be included *before* the one from `plone.app.locales`_:
 the first translation of a msgid wins.
 To manage this, you can include the ZCML in the buildout:
 
-.. code-block:: ini
+.. code-block:: cfg
 
     [instance]
     recipe = plone.recipe.zope2instance
