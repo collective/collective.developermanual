@@ -95,7 +95,7 @@ For information on using this installation with more advanced production
 hosting environments and deployments,
 see the :doc:`hosting guide </hosting/index>`.
 
-Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
+Instructions are tested for the *Ubuntu 12.04 Long Term Support* release.
 
 1. Create new UNIX user called ``plone``. This user will be the user who has the rights to Plone code and database files and will run Plone processes. You can use any normal UNIX user here as long as you have sudo rights to install necessary software to install and run Plone:
 
@@ -112,14 +112,9 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
    .. code-block:: console
 
-    sudo apt-get install python-distribute python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
+    sudo apt-get install python-stuptools python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev
 
-   .. note::
-
-      In newer versions of Ubuntu and from Debian 6 [Squeeze] on,
-      **python-distribute** is replaced by **python-setuptools**.
-
-    You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
+You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
 
     .. code-block:: console
 
@@ -127,7 +122,7 @@ Instructions are tested for the *Ubuntu 10.04 Long Term Support* release.
 
     .. note::
 
-      If you use Debian 6 [Squeeze] or Ubuntu 10.04  replace libreadline-gp1v2 with libreadline-dev
+      If you use Ubuntu 10.04  replace **libreadline-gp1v2** with **libreadline-dev**
 
 
    Install also version control software needed often when developing with Plone::
