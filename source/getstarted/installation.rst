@@ -19,6 +19,8 @@ This documentation covers installing Plone in various situations.
 Download Plone
 ===================
 
+Plone is available for Microsoft Windows, Mac OSX X, Linux and BSD operating systems.
+
 `Download the latest Plone release <http://plone.org/products/plone/latest_release>`_.
 
 The latest release may not be immediately available on Microsoft Windows.
