@@ -14,18 +14,17 @@
 Introduction
 =============
 
-Here we have collected methods for installing Plone in various situations.
+This documentation covers installing Plone in various situations.
 
-.. note::
+Download Plone
+===================
 
-   These instructions do not cover all possibilities,
-   and may not cover all use cases.
-   Please feel free to edit this document to add more.
+`Download the latest Plone release <http://plone.org/products/plone/latest_release>`_.
 
-   Ubuntu is used as default Linux OS, for this Documentation.
-   Instructions may differ for other distributions.
+The latest release may not be immediately available on Microsoft Windows.
+Please download `an older version in this case <http://plone.org/products/plone/releases/>`_.
 
-Plone hosting requirements
+Plone installation requirements
 ========================================================
 
 See :doc:`Plone installation requirements <requirements>` for detailed requirements.
