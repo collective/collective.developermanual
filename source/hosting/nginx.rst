@@ -53,6 +53,14 @@ uses the buildout configuration tool to build a static Nginx server.
 
 Create file ``/etc/nginx/sites-available/yoursite.conf`` with contents::
 
+    # This adds security headers
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header Strict-Transport-Security "max-age=15768000; includeSubDomains";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+    #add_header Content-Security-Policy "default-src 'self'; img-src *; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'";
+    add_header Content-Security-Policy-Report-Only "default-src 'self'; img-src *; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'";
+
     # This specifies which IP and port Plone is running on.
     # The default is 127.0.0.1:8080
     upstream plone {
@@ -110,6 +118,17 @@ More info:
 * http://wiki.mediatemple.net/w/%28ve%29:Configure_virtual_hosts_with_Nginx_on_Ubuntu
 
 * http://www.starzel.de/blog/securing-plone-sites-with-https-and-nginx
+
+Content Security Policy (CSP) prevents a wide range of attacks,
+including cross-site scripting and other cross-site injections, but
+the CSP header setting may require careful tuning. To enable it,
+replace the Content-Security-Policy-Report-Only by
+Content-Security-Policy. The example above works with Plone 4.x
+(including TinyMCE) but it very wide. You may need to adjust it if you
+want to make CSP more restrictive or use additional Plone
+Products. For more information, see
+
+*  http://www.w3.org/TR/CSP/
 
 Buildout and recipe
 ====================
