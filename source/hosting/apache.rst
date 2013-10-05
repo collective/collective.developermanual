@@ -27,16 +27,25 @@ Install required software::
 	sudo a2enmod rewrite
 	sudo a2enmod proxy
 	sudo a2enmod proxy_http
+	sudo a2enmod headers
         sudo /etc/init.d/apache2 restart
 
 Add virtual host config file ``/etc/apache2/sites-enabled/yoursite.conf``.
 Assuming *Plone* is your site id in Zope Management Interface (capital lettering do matter) and your
 domain name is ``yoursite.com`` (note with or without www matters, see below)::
 
+        UseCanonicalName On
+
 	NameVirtualHost *
 	<VirtualHost *>
 	    ServerAlias yoursite.com
 	    ServerSignature On
+
+            Header set X-Frame-Options "SAMEORIGIN"
+            Header set Strict-Transport-Security "max-age=15768000; includeSubDomains"
+            Header set X-XSS-Protection "1; mode=block"
+            Header set X-Content-Type-Options "nosniff"
+            Header set Content-Security-Policy-Report-Only "default-src 'self'; img-src *; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'"
 
 	    ProxyVia On
 
@@ -54,6 +63,12 @@ domain name is ``yoursite.com`` (note with or without www matters, see below)::
 	    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/yoursite.com:80/Plone/VirtualHostRoot/$1 [P,L]
 
 	</VirtualHost>
+ 
+        <VirtualHost *>
+            ServerAlias   *
+            ServerRoot    /var/www
+            ServerSignature On
+        </VirtualHost>
 
 Eventually you have one virtual host configuration file per one domain on your server.
 
@@ -71,6 +86,17 @@ Check that Apache responds::
       http://yoursite.com
 
 If everything is good then your Plone site properly configured using Apache front-end.
+
+Content Security Policy (CSP) prevents a wide range of attacks,
+including cross-site scripting and other cross-site injections, but
+the CSP header setting may require careful tuning. To enable it,
+replace the Content-Security-Policy-Report-Only by
+Content-Security-Policy. The example above works with Plone 4.x
+(including TinyMCE) but it very wide. You may need to adjust it if you
+want to make CSP more restrictive or use additional Plone
+Products. For more information, see
+
+*  http://www.w3.org/TR/CSP/
 
 For an SSL configuration, just modify the rewrite rule from::
 
