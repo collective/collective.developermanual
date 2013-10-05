@@ -69,7 +69,7 @@ Installing Plone using the Unified UNIX Installer
 
   This is the recommended method for
   a development or evaluation installation of Plone.
-  For a production installation, doc:`Installing Plone for Production on Ubuntu </getstarted/ubuntu_production>` is a much better guide.
+  For a production installation, :doc:`Installing Plone for Production on Ubuntu </getstarted/ubuntu_production>` is a much better guide.
 
 This recipe is good for:
 
@@ -100,7 +100,7 @@ Instructions are tested for the *Ubuntu 12.04 Long Term Support* release.
 
    .. code-block:: console
 
-    sudo apt-get install python-stuptools python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev libjpeg62-dev
+        sudo apt-get install python-stuptools python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev libjpeg62-dev
 
     You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
 
