@@ -4,8 +4,7 @@
 
 .. admonition:: Description
 
-    Installation instructions for Plone for various
-    operating systems and situations.
+    Installation instructions for Plone for various operating systems and situations.
 
 .. contents:: :local:
 
@@ -14,7 +13,10 @@
 Introduction
 =============
 
-This documentation covers installing Plone in various situations.
+This document covers the basics of installing Plone on popular operating systems.
+It will also point you to other documents for more complex or demanding installations.
+
+Plone runs as an application on the Zope application server. That server is installed automatically by the install process.
 
 Download Plone
 ===================
@@ -23,55 +25,45 @@ Plone is available for Microsoft Windows, Mac OSX X, Linux and BSD operating sys
 
 `Download the latest Plone release <http://plone.org/products/plone/latest_release>`_.
 
-The latest release may not be immediately available on Microsoft Windows.
-Please download `an older version in this case <http://plone.org/products/plone/releases/>`_.
+Binary installers are available for Windows and OS X. Installation on Linux, BSD and other Unix workalikes requires a source code installation, made easy by our Unified Installer. "Unified" refers to its ability to install on most Unix workalikes.
 
 Plone installation requirements
 ========================================================
 
 See :doc:`Plone installation requirements <requirements>` for detailed requirements.
 
-* You need at a least a virtual private server (VPS) with 512 MB RAM available.
+* You need at a dedicated or virtual private server (VPS) with 512 MB RAM available.
   Shared hosting is not supported unless the shared hosting company says Plone is good to go.
   See :doc:`Plone installation requirements <requirements>`.
 
-* A Linux or BSD server is the recommended option.
-  Ubuntu / Debian 64-bit environment is the most popular and has most support.
-
-* You also might want to configure
-  :doc:`a front-end web server </hosting/index>` besides Plone.
-  In most Linux environments the distribution is configured out-of-the-box
-  for this front-end web server to handle HTTP traffic on port 80.
-  This front-end web server proxies the traffic to Plone running on another
-  port (port 8080 by default).
+* If you are installing for production — rather than testing or evaluation — review :doc:`Deploying and installing Plone in production </reference_manuals/active/deployment>` before installation.
 
 .. note::
-
-  It is possible to host Plone on Microsoft Windows too.
-  Other operating system production installations are possible, but rarer.
 
 
 How to install Plone
 ========================================================
 
-Plone can run  on any modern desktop or server operating system:
-Linux, OSX, BSD and Microsoft Windows.
+Plone can run on all popular desktop or server operating systems, including
+Linux, OS X, BSD and Microsoft Windows.
 
-* You can install Plone on the server for production usage
+* You may install Plone on the server for production usage
 
-* You can install Plone locally on your own computer for the development and test drive
+* You may install Plone locally on your own computer for the development and test drive
 
 Ubuntu / Debian
-----------------------------------------------------
+---------------
+
+We describe Ubuntu/Debian installation in detail as an example of installation on a common Unix workalike. The only difference for most other systems would be in package-manager commands and package names. See :doc:`Plone installation requirements <requirements>` for package names and commands on other platforms.
 
 Installing Plone using the Unified UNIX Installer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
 
   This is the recommended method for
-  a development or evaluation installation of Plone.
-  For a production installation, :doc:`Installing Plone for Production on Ubuntu </getstarted/ubuntu_production>` is a much better guide.
+  a *development or evaluation* installation of Plone on a Unix workalike.
+  For a *production* installation, :doc:`Installing Plone for Production on Ubuntu </getstarted/ubuntu_production>` is a much better guide.
 
 This recipe is good for:
 
@@ -80,7 +72,7 @@ This recipe is good for:
 * Operating system installations where you have administrator (root) access. Note that
   root access is not strictly necessary as long as you have required software installed
   beforehand on the server, but this tutorial assumes you need to install the software
-  yourself and you are the admin.
+  yourself and you are the admin. If you don't have the ability to install system libraries, you'll need to get your sysadmin to do it for you. The libraries required are in common use.
 
 The resulting installation is self-contained,
 does not touch system files,
@@ -90,103 +82,139 @@ If you are not familiar with UNIX operating system commad line
 you might want to study this `Linux shell tutorial <http://linuxcommand.org/learning_the_shell.php>`_
 first.
 
-For further info see also `Plone manual for installing on UNIX <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/>`_.
-
 For information on using this installation with more advanced production
 hosting environments and deployments,
-see the :doc:`hosting guide </hosting/index>`.
+see the :doc:`hosting guide </hosting>`.
 
 Instructions are tested for the *Ubuntu 12.04 Long Term Support* release.
 
-1. Install the operating system software and libraries needed to run Plone:
+Install the operating system software and libraries needed to run Plone
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   .. code-block:: console
+.. code-block:: console
 
-        sudo apt-get install python-stuptools python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev libjpeg62-dev
+    sudo apt-get install python-stuptools python-dev build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev libjpeg62-dev
 
-    You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
+You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):
 
-    .. code-block:: console
+.. code-block:: console
 
-        sudo apt-get install libreadline-dev wv poppler-utils
+    sudo apt-get install libreadline-dev wv poppler-utils
 
-    .. note::
+.. note::
 
-      **libreadline-dev** is only necessary if you wish to build
-      your own python rather than use your system's python 2.7.
+    **libreadline-dev** is only necessary if you wish to build your own python rather than use your system's python 2.7.
 
+If you're planning on developing with Plone, install git version control support::
 
-   Install also version control software needed often when developing with Plone::
+    sudo apt-get install git
 
-        sudo apt-get install subversion git
+.. note::
 
-   .. note::
+    If sudo command is not recognized or does not work you don't have administrator rights to Ubuntu / Debian operating system.
+    Please contact your server vendor or consult the operating system support forum.
 
-      If sudo command is not recognized or does not work you don't have administrator rights to
-      Ubuntu / Debian operating system. Please contact your server vendor or consult the operating
-      system support forum.
+Download the latest Plone unified installer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-2. Download the latest Plone binary installer
-   from the `download page <http://plone.org/download>`_ to your server using wget command.
-   Substitute the latest version number for 4.3.2
-   in the instructions below.
+Download from `the plone.org download page <http://plone.org/download>`_ to your server using wget command. Curl also works.
+Substitute the latest version number for 4.3.2
+in the instructions below.
 
-   .. code-block:: console
+.. code-block:: console
 
-        wget --no-check-certificate https://launchpad.net/plone/4.3/4.3.2/+download/Plone-4.3.2-UnifiedInstaller.tgz
+    wget --no-check-certificate https://launchpad.net/plone/4.3/4.3.2/+download/Plone-4.3.2-UnifiedInstaller.tgz
 
-3. Run the Plone installer in standalone mode.:
+Run the Plone installer in standalone mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   .. code-block:: console
+.. code-block:: console
 
-        # Extract the downloaded file
-        tar -xf Plone-4.3.2-UnifiedInstaller.tgz
-        # Go the folder containing installer script
-        cd Plone-4.3.2-UnifiedInstaller
-        # Run script
-        ./install.sh standalone
+    # Extract the downloaded file
+    #
+    tar -xf Plone-4.3.2-UnifiedInstaller.tgz
+    #
+    # Go the folder containing installer script
+    #
+    cd Plone-4.3.2-UnifiedInstaller
+    #
+    # Run script
+    ./install.sh standalone
 
-   The default admin credentials will be printed to the console.
-   You can change this password after logging in to the Zope Management Interface.
+install.sh has many options, use:
 
-   .. note::
+.. code-block:: console
 
-       The password is also written down in the ``buildout.cfg`` file, but this
-       setting is not effective after Plone has been started for the first time.
-       Changing this setting does not do any good.
+to discover tham.
 
-4. Install the Plone developer tools::
+The default admin credentials will be printed to the console.
+You can change this password after logging in to the Zope Management Interface.
 
-   .. code-block:: console
+.. note::
 
-        cd ~/Plone/zinstance
-        bin/buildout -c develop.cfg
+   The password is also written down in the ``buildout.cfg`` file, but this
+   setting is not effective after Plone has been started for the first time.
+   Changing this setting does not do any good.
 
-5. Start Plone in the foreground for a test run (you'll see potential errors in the console):
+Install the Plone developer tools
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   .. code-block:: console
+If you're using this Plone install for development, add the common development tool set.
 
-        cd ~/Plone/zinstance
-        bin/instance fg
+.. code-block:: console
 
-   When you start Plone in the foreground, it runs in debug mode:
-   somewhat slower and a lot more informative than production mode.
+    cd ~/Plone/zinstance
+    bin/buildout -c develop.cfg
 
-   By default, Plone will listen to port 8080 on available network interfaces.
+You'll need to add the "-c develop.cfg" again each time you run buildout, or you'll lose the extra development tools.
 
-6. Now enter the Plone site by visiting the following address in your webbrowser::
+Start Plone
+~~~~~~~~~~~
 
-     http://yourserver:8080
+If you're developing, start Plone in foreground mode for a test run (you'll see potential errors in the console):
 
-   Zope, the application server underlying Plone, will ask you to create a new site.
-   For this you need the login credentials printed to your terminal earlier.
+.. code-block:: console
 
-   If everything is OK, press ``CTRL-C`` in the terminal to stop Plone.
+    cd ~/Plone/zinstance
+    bin/plonectl fg
 
-   If you have problems, please see the `help guidelines <http://plone.org/help>`_.
+When you start Plone in the foreground, it runs in debug mode, which is much slower than production mode since it reloads templates for every request.
 
-   For automatic start-up when your server boots up, init scripts, etc.
-   please see the :doc:`hosting guide </hosting/index>`.
+For evaluation, instead use:
+
+.. code-block:: console
+
+    cd ~/Plone/zinstance
+    bin/plonectl start
+
+Use
+
+.. code-block:: console
+
+    cd ~/Plone/zinstance
+    bin/plonectl stop
+
+to stop the instance.
+
+By default, Plone will listen to port 8080 on available network interfaces.
+That may be changed by editing buildout.cfg and re-running buildout.
+
+You've got Plone
+~~~~~~~~~~~~~~~~
+
+Now take a look at your Plone site by visiting the following address in your webbrowser::
+
+    http://yourserver:8080
+
+The greeting page will let you create a new site.
+For this you need the login credentials printed to your terminal earlier.
+
+If everything is OK, press ``CTRL-C`` in the terminal to stop Plone if you're running in debug mode. Use the ``plonectl stop`` command if you didn't start in debug mode.
+
+If you have problems, please see the `help guidelines <http://plone.org/help>`_.
+
+For automatic start-up when your server boots up, init scripts, etc.
+please see the :doc:`hosting guide </hosting>`.
 
 Installing Plone using buildout on Ubuntu / Debian
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -196,13 +224,15 @@ Python interpreter.
 This procedure is only useful if you know buildout well enough to
 tailor your own buildout configuration.
 
-You need to manage dependencies (``libxml``, ``Pillow``) yourself.
+You need to manage dependencies (``Python``, ``libxml``, ``Pillow``) yourself.
 
 This will:
 
 * create a default ``buildout.cfg`` configuration file and folder structure
   around it;
+
 * automatically download and install all packages from `pypi.python.org <pypi.python.org>`_;
+
 * configure Plone and Zope for you.
 
 1. Install ``virtualenv`` for python (on Ubuntu):
@@ -246,7 +276,7 @@ More info:
 * `Pillow <http://pypi.python.org/pypi/Pillow/>`_
 * `lxml <http://lxml.de/>`_
 
-Installing Plone using Ubuntu / Debian .deb packages
+Installing Plone using RPMs, .dev, ... packages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Not supported by Plone community.
@@ -258,6 +288,11 @@ Microsoft Windows
 
 Installing Plone on Windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By far the easiest way to install on Windows is to use the binary installer provided on plone.org. This installation is adequate for Python development.
+It is very rare to need C language extensions.
+
+If you have needs beyond those met by the Windows Installer, read on.
 
 For Plone 4.1 and later, see these instructions:
 
@@ -278,16 +313,15 @@ This is the recommended method if you want to try Plone for the first time.
 
 Please use the installer from the download page `<http://plone.org/products/plone/releases>`_.
 
-The binary installer is intended to provide an environment suitable for testing, evaluating,
-and developing theme and add-on packages. It will not give you the ability to add or develop
-components that require a C compiler.
+The binary installer is intended to provide an environment suitable for testing, evaluating, and developing theme and add-on packages.
+It will not give you the ability to add or develop components that require a C compiler.
+This is *very* rarely needed.
 
-Installing Plone from source
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Installing Plone from source on OS X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Installation via the Unified Installer or buildout is very similar to Unix. However, you will
-need to install a command-line build environment. To get a free build kit from Apple, do one
-of the following:
+need to install a command-line build environment. To get a free build kit from Apple, do one of the following:
 
 * Download gcc and command-line tools from
   https://developer.apple.com/downloads/. This will require an Apple
@@ -296,17 +330,7 @@ of the following:
 * Install Xcode from the App Store. After installation, visit the Xcode
   app's preference panel to download the command-line tools.
 
-After either of these steps, you immediately should be able to install Plone
-using the
-Unified Installer. Note that with Plone 4.2.x, you may use the Python 2.7
-that's shipped
-with OS X via the ``--with-python`` option of the installer.
-
-For OS X 10.6 and 10.7, you may avoid the Xcode install via these steps.
-
-* Install Homebrew or Macports package manager.
-
-* Install Python 2.7 (Plone 4.2.x) or 2.6 via the package manager.
+After either of these steps, you immediately should be able to install Plone using the Unified Installer.
 
 Proceed as with Linux.
 
