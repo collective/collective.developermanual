@@ -1,11 +1,12 @@
-======================
-Zope
-======================
+=======================
+Zope Application Server
+=======================
 
 .. admonition:: Description
 
-    Hosting and administrative tasks for Zope application server /
-    Plone server.
+    Plone is usually run via the Zope application server.
+    This document covers control and configuration of parts
+    of the application server.
 
 .. contents:: :local:
 
