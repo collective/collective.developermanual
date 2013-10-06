@@ -609,7 +609,7 @@ nginx.conf example::
 Proxy Caching
 =============
 
-Nginx can do rudimentary proxy caching. 
+Nginx can do rudimentary proxy caching.
 It may be good enough for your needs.
 Turn on proxy caching by adding to your nginx.conf or a separate conf.d/proxy_cache.conf::
 
@@ -638,7 +638,7 @@ Turn on proxy caching by adding to your nginx.conf or a separate conf.d/proxy_ca
 
 Create a /var/www/cache directory owned by your nginx user (usually www-data).
 
-Limitations: 
+Limitations:
 
 * Nginx does not support the vary header.
   That's why we use proxy_cache_bypass to turn off the cache for all authenticated users.
