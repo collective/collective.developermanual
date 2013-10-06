@@ -1,5 +1,5 @@
 ========================================================================
-Deploying and installing Plone in production
+Guide to deploying and installing Plone in production
 ========================================================================
 
 .. admonition:: Description

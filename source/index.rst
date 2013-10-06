@@ -87,9 +87,10 @@ Installing and maintaining Plone sites
    :maxdepth: 1
 
    getstarted/installation
-   hosting/index
-   reference_manuals/active/deployment/index
    getstarted/ubuntu_production
+   reference_manuals/active/deployment/index
+   hosting/index
+   getstarted/older_installs
 
 
 See the `Plone Upgrade Guide <http://plone.org/documentation/manual/upgrade-guide>`_
