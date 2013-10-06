@@ -29,6 +29,13 @@ List available commands::
 
 For older Plone releases, the command is ``zopectl``.
 
+If you have installed a ZEO cluster, you may have multiple instances, typically named client1, client2 ....
+Substitute ``client#`` for ``instance`` below.
+The zeoserver part must be running before you may directly use a client command::
+
+    bin/zeoserver start
+    bin/client1 help
+
 Adding users from command-line (reset admin password)
 =====================================================
 
@@ -246,7 +253,7 @@ efficient multicore bzip2 compressor, before copying:
 
     # Attach to a screen or create new one if not exist so that
     # the packing process is not interrupted even if you lose a terminal
-    screen -x 
+    screen -x
 
     # The command won't abort in the middle of the run if terminal lost
     cd /srv/plone/yoursite/zeocluster/var/filestorage
