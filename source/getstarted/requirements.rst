@@ -148,7 +148,7 @@ versions to match your requirements::
     > [buildout]
     >
     > extends =
-    >     http://dist.plone.org/release/4.3/versions.cfg
+    >     http://dist.plone.org/release/4.3-latest/
     >
     > parts =
     >     instance
