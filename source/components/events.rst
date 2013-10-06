@@ -36,12 +36,12 @@ Registering an event handler
 
 Plone events can be scoped:
 
-* _globally_ (no scope);
-* per _content type_.
+* *globally* (no scope)
+* per *content type*
 
 
 Example: Register an event-handler on your contenttype's creation
-----------------------------------------------------------------
+-----------------------------------------------------------------
 
 
 In your.product/your/product/configure.zcml insert::

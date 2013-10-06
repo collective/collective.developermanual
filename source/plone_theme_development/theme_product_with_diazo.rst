@@ -116,8 +116,9 @@ generated content, or which are not easily accessible using a CSS selector, or
 maybe an image (for instance, the members default portrait, ``defaultUser.png``)
 which are provided by the Plone skin, you will have to override the Plone skin.
 
-.. note:: that is basically what you do when you go to ZMI / portal_skins and 
-click on the ``Customize`` button. But here, you will do that from the sources.
+.. note::
+    that is basically what you do when you go to ZMI / portal_skins and 
+    click on the ``Customize`` button. But here, you will do that from the sources.
 
 To override Plone skin elements from our product, you will need to:
 
