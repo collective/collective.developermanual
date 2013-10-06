@@ -1,1 +1,0 @@
-/Users/mikko/code/collective.developermanual/src/sphinxcontrib.contributors/src/sphinxcontrib/contributors/contributors.js
