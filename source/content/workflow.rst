@@ -261,7 +261,7 @@ Useful to test if a particular workflow is installed::
   self.assertIn('link_workflow', ids, "Had workflows " + str(ids))
 
 Getting default workflow for a portal type
-===============================
+==========================================
 
 Get default workflow for the type::
 
