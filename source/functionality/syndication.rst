@@ -1,5 +1,5 @@
 ==========================
- Syndication
+Syndication
 ==========================
 
 .. contents :: :local:
@@ -39,13 +39,15 @@ We'll create an adapter that overrides the body text::
 Register Adapter
 ~~~~~~~~~~~~~~~~
 
-Example::
+Example:
 
-      <adapter
-        factory=".NewsFeedItem"
-        for="Products.ATContentTypes.interfaces.IATNewsItem
-             Products.CMFPlone.interfaces.syndication.IFeed"
-        provides="Products.CMFPlone.interfaces.syndication.IFeedItem" />
+.. code-block:: xml
+
+    <adapter
+      factory=".NewsFeedItem"
+      for="Products.ATContentTypes.interfaces.IATNewsItem
+           Products.CMFPlone.interfaces.syndication.IFeed"
+      provides="Products.CMFPlone.interfaces.syndication.IFeedItem" />
 
 Dexterity type
 ~~~~~~~~~~~~~~
@@ -71,9 +73,11 @@ Just make sure it implements the ISyndicatable interface::
 Create your own feed type
 -------------------------
 
-Example of creating your own simple feed type and registering it::
+Example of creating your own simple feed type and registering it.
 
-Create your feed template::
+Create your feed template:
+
+.. code-block:: xml
 
     <?xml version="1.0" ?>
     <feed xml:base=""
@@ -102,7 +106,9 @@ Create your feed template::
     </feed>
 
 
-Register the view in ZCML::
+Register the view in ZCML:
+
+.. code-block:: xml
 
     <browser:page
         for="Products.CMFPlone.interfaces.syndication.ISyndicatable"
@@ -147,7 +153,9 @@ First, we'll create the json feed view class::
             return json.dumps(data)
 
 
-Then register the adapter with ZCML::
+Then register the adapter with ZCML:
+
+.. code-block:: xml
 
     <browser:page
         for="Products.CMFPlone.interfaces.syndication.ISyndicatable"

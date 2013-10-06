@@ -208,6 +208,7 @@ qPloneSkinDump can build a filesystem dump from portal_skins but it only works o
 If you need this functionality you can try to use this script ripped off qPloneSkinDump:
 https://gist.github.com/silviot/5402869. It is a WorksForMe quality script; replace the variables
 and run it with::
+
     bin/instance run export_skin_folder.py
 
 

@@ -451,6 +451,7 @@ coloration, underlining a heading with ``^C ^A``
 Marketplace.
 
 **Vim** does syntax highlighting for RST files.
+There is also a nice plugin with enhanced functionalities called `Riv <https://github.com/Rykka/riv.vim>`_.
 
 Style recommendations
 =====================

@@ -97,8 +97,8 @@ check the indentation first.
 -  `http://wiki.python.org/moin/HowToEditPythonCode <http://wiki.python.org/moin/HowToEditPythonCode>`_
 
 If you're feeling brave or want to know more, a straightforward
-introduction is here: `
- <http://www.diveintopython.org/object_oriented_framework/defining_classes.html>`_
+introduction is here:
+`<http://www.diveintopython.org/object_oriented_framework/defining_classes.html>`_
 
 -  `Dive Into Python - Defining
    Classes <http://www.diveintopython.org/object_oriented_framework/defining_classes.html>`_
