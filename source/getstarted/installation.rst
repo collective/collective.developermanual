@@ -18,6 +18,10 @@ It will also point you to other documents for more complex or demanding installa
 
 Plone runs as an application on the Zope application server. That server is installed automatically by the install process.
 
+.. warning::
+
+    We strongly advise against installing Plone via OS package or port. There is no .rpm, .deb, or BSD port that is supported by the Plone community. Plone dependencies can and should be installed via package or port -- but not Plone itself.
+
 Download Plone
 ===================
 
