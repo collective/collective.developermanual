@@ -20,7 +20,7 @@ Nginx is an modern alternative server to Apache.
 Minimal Nginx front end configuration for Plone on Ubuntu/Debian Linux
 =======================================================================
 
-This is a minimal configuration to run nginx on Ubuntu/Debian Nginx in front
+This is a minimal configuration to run nginx on Ubuntu/Debian in front
 of a Plone site.  These instructions are *not* for configurations where one
 uses the buildout configuration tool to build a static Nginx server.
 
@@ -94,7 +94,7 @@ Then enable the site by creating a symbolic link::
 
     sudo -i
     cd /etc/nginx/sites-enabled
-    ln -s ../sites-available/yoursite.com .
+    ln -s ../sites-available/yoursite.conf .
 
 See that your nginx configuration is valid::
 
