@@ -211,7 +211,7 @@ Now take a look at your Plone site by visiting the following address in your web
     http://yourserver:8080
 
 The greeting page will let you create a new site.
-For this you need the login credentials printed to your terminal earlier.
+For this you need the login credentials printed to your terminal earlier, also avaliable at ``~/Plone/zinstance/adminPassword.txt``.
 
 If everything is OK, press ``CTRL-C`` in the terminal to stop Plone if you're running in debug mode. Use the ``plonectl stop`` command if you didn't start in debug mode.
 
