@@ -4,7 +4,7 @@ z3c.form library
 
 .. admonition:: Description
 
-    ``z3c.form`` is alexible and powerful form library for Zope 3 applications.
+    ``z3c.form`` is flexible and powerful form library for Zope 3 applications.
     It is the recommended way to create complex Python-driven forms for
     Plone 4 and later versions.
 
