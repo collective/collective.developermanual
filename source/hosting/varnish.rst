@@ -5,7 +5,7 @@
 .. admonition:: Description
 
     Varnish is a caching front-end server. This document has notes on how to
-    use Varnish with Plone. 
+    use Varnish with Plone.
 
 .. contents:: :local:
 
@@ -23,12 +23,12 @@ To use Varnish with Plone
 
 * Learn how to install and configure Varnish
 
-* Add Plone virtual hosting rule to the default varnish configuration 
+* Add Plone virtual hosting rule to the default varnish configuration
 
 .. note ::
 
-    Some of these examples were written for Varnish 2.x. Varnish 3.x (Feb 2013) 
-    has radically altered syntax of VCL language and command line tools, so you 
+    Some of these examples were written for Varnish 2.x. Varnish 3.x (Feb 2013)
+    has radically altered syntax of VCL language and command line tools, so you
     might need to adapt the examples a bit.
 
 Installation
@@ -36,15 +36,11 @@ Installation
 
 The suggest method to install Varnish is to use your OS package manager.
 
-* You can install using packages (RPM/DEB) - consult your operating system instructions. 
+* You can install using packages (RPM/DEB) - consult your operating system instructions.
 
-* You can install backports 
+* You can install backports
 
 * You can install using buildout
-
-Backporting examples (Ubuntu 8.04 Hardy Heron)
-
-* http://www.lunix.com.au/blog/sane_varnish_on_hardy/
 
 Buildout examples
 
@@ -53,13 +49,13 @@ Buildout examples
 Management console
 ==================
 
-``varnishadm`` 
+``varnishadm``
 --------------------------------------------
 
 You can access Varnish admin console on your server by::
 
     # Your system uses a secret handshake file
-    varnishadm -T localhost:6082 -S /etc/varnish/secret               
+    varnishadm -T localhost:6082 -S /etc/varnish/secret
 
 (Ubuntu/Debian installation)
 
@@ -73,7 +69,7 @@ Example::
 
     ssh yourhost
     # Your system does not have a secret handshake file
-    telnet localhost 6082 
+    telnet localhost 6082
 
 .. note::
 
@@ -98,14 +94,14 @@ This will remove all entries from the Varnish cache::
    varnishadm "ban.url ."
 
 
-Loading new VCL to live Varnish 
-==============================================
+Loading new VCL to live Varnish
+===============================
 
 More often than not, it is beneficial to load new configuration without
 bringing the cache down for maintenance.  Using this method also checks the
 new VCL for syntax errors before activating it.  Logging in to Varnish CLI
 requires the ``varnishadm`` tool, the address of the management interface,
-and the secret file for authentication. 
+and the secret file for authentication.
 
 See the ``varnishadm`` man-page for details.
 
@@ -134,7 +130,7 @@ For example::
 
 ... or ... ::
 
-    # Ubuntu / Debian default config 
+    # Ubuntu / Debian default config
     vcl.load defconf1 /etc/varnish/default.vcl
 
 ``vcl.load`` will load and compile the new configuration. Compilation will
@@ -146,7 +142,7 @@ loaded, it can be activated with::
 .. note::
 
     Varnish remembers ``<name>`` in ``vcl.load``, so every time you
-    need to reload your config you need to invent a new name for 
+    need to reload your config you need to invent a new name for
     vcl.load / vcl.use command pair.
 
 See
@@ -174,19 +170,19 @@ Check live "top-like" Varnish statistics::
 Use the admin console to print stats for you::
 
     stats
-    200 2114    
+    200 2114
 
            95717  Client connections accepted
           132889  Client requests received
            38638  Cache hits
            21261  Cache hits for pass
           ...
-        
+
 Virtual hosting proxy rule
-=============================
+==========================
 
 Varnish 3.x example
-------------------------
+-------------------
 
 An example with two separate Plone installations (Zope standalone mode)
 behind Varnish 3.x HTTP 80 port.
@@ -316,7 +312,7 @@ Example::
     }
 
 Varnish 2.x example
-------------------------
+-------------------
 
 When Varnish has been set-up you need to include Plone virtual hosting
 rule in its configuration file.
@@ -325,11 +321,11 @@ If you want to map Varnish backend directly to Plone-as-a-virtualhost (i.e.
 Zope's VirtualHostMonster is used to map site name to Plone site instance
 id) use ``req.url`` mutating.
 
-The following maps the Plone site id *plonecommunity* to the 
+The following maps the Plone site id *plonecommunity* to the
 *plonecommunity.mobi* domain.  Plone is a single Zope instance, running on
 port 9999.
 
-Example:: 
+Example::
 
     backend plonecommunity {
             .host = "127.0.0.1";
@@ -340,7 +336,7 @@ Example::
             if (req.http.host ~ "^(www.)?plonecommunity.mobi(:[0-9]+)?$"
                 || req.http.host ~ "^plonecommunity.mfabrik.com(:[0-9]+)?$") {
 
-                    set req.backend = plonecommunity 
+                    set req.backend = plonecommunity
                     set req.url = "/VirtualHostBase/http/" req.http.host ":80/plonecommunity/VirtualHostRoot" req.url;
                     set req.backend = plonecommunity;
             }
@@ -366,30 +362,30 @@ Cached and editor subdomains
 
 You can provide an uncached version of the site for editors:
 
-* http://serverfault.com/questions/297541/varnish-cached-and-non-cached-subdomains/297547#297547    
+* http://serverfault.com/questions/297541/varnish-cached-and-non-cached-subdomains/297547#297547
 
 Varnish and I18N
 =================
 
 Please see :doc:`cache issues related to LinguaPlone </i18n/cache>`.
 
-Sanitizing cookies 
-===========================================
+Sanitizing cookies
+==================
 
-Any cookie set on the server side (session cookie) or on the client-side 
+Any cookie set on the server side (session cookie) or on the client-side
 (e.g. Google Analytics Javascript cookies)
 is poison for caching the anonymous visitor content.
 
 HTTP caching needs to deal with both HTTP request and response cookie handling
 
 * HTTP request *Cookie* header. The browser sending HTTP request
-  with ``Cookie`` header confuses Varnish cache look-up. This header can be 
+  with ``Cookie`` header confuses Varnish cache look-up. This header can be
   set by Javascript also, not just by the server.
   ``Cookie`` can be preprocessed in varnish's ``vcl_recv`` step.
 
 * HTTP response ``Set-Cookie`` header.
   This sets a server-side cookie. If your server is setting
-  cookies Varnish does not cache these responses by default. 
+  cookies Varnish does not cache these responses by default.
   Howerver, this might be desirable
   behavior if e.g. multi-lingual content is served from one URL with
   language cookies.
@@ -430,7 +426,7 @@ besides ones dealing with the logged in users (content authors)::
         }
         set beresp.prefetch =  -30s;
         return (deliver);
-    }        
+    }
 
 The snippet for stripping out non-Plone cookies comes from
 http://www.phase2technology.com/node/1218/
@@ -453,7 +449,7 @@ Another example how to purge Google cookies only and allow other cookies by defa
                remove req.http.cookie;
            }
          }
-         ....    
+         ....
 
 Debugging cookie issues
 ------------------------------------
@@ -462,10 +458,10 @@ Use the following snippet to set a HTTP response debug header to see what
 the backend server sees as cookie after ``vcl_recv`` clean-up regexes::
 
 	sub vcl_fetch {
-	
+
 	    /* Use to see what cookies go through our filtering code to the server */
 	    set beresp.http.X-Varnish-Cookie-Debug = "Cleaned request cookie: " + req.http.Cookie;
-	
+
 	    if (beresp.ttl <= 0s ||
 	        beresp.http.Set-Cookie ||
 	        beresp.http.Vary == "*") {
@@ -478,14 +474,14 @@ the backend server sees as cookie after ``vcl_recv`` clean-up regexes::
 	    return (deliver);
 	}
 
-And then test with ``wget``::  
+And then test with ``wget``::
 
     cd /tmp # wget wants to save files...
     wget -S http://www.site.fi
     --2011-11-16 11:28:37--  http://www.site.fi/
     Resolving www.site.fi (www.site.fi)... xx.20.128.xx
     Connecting to www.site.fi (www.site.fi)|xx.20.128.xx|:80... connected.
-    HTTP request sent, awaiting response... 
+    HTTP request sent, awaiting response...
       HTTP/1.1 200 OK
       Server: Zope/(2.12.17, python 2.6.6, linux2) ZServer/1.1
       X-Cache-Operation: plone.app.caching.noCaching
@@ -503,7 +499,7 @@ And then test with ``wget``::
       Via: 1.1 varnish
 
 Plone Language cookie (I18N_LANGUAGE)
-------------------------------------------------------------------------
+-------------------------------------
 
 This cookie could be removed in ``vcl_fetch`` response post-processing (how?).
 However, a better solution is to disable this cookie in the backend itself:
@@ -512,7 +508,7 @@ Disable it by :guilabel:`Use cookie for manual override` setting in
 ``portal_languages``.
 
 More info
-------------------------------------------------------------------------
+---------
 
 * :doc:`Plone cookies documentation </sessions/cookies>`
 
@@ -520,7 +516,7 @@ More info
 
 * https://www.varnish-cache.org/trac/wiki/VCLExampleRemovingSomeCookies
 
-* http://blog.carumba.com/post/226455049/remove-google-analytics-cookies-in-varnish                  
+* http://blog.carumba.com/post/226455049/remove-google-analytics-cookies-in-varnish
 
 Do not cache error pages
 ==========================
@@ -541,18 +537,18 @@ More info
 * https://www.varnish-cache.org/lists/pipermail/varnish-misc/2010-February/003774.html
 
 Custom and full cache purges
-======================================
+============================
 
 Below is an example how to create an action to purge the whole Varnish cache.
 
 First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from
 ``localhost``.
-We'll create a special ``PURGE`` command which takes URLs to be purged out of 
+We'll create a special ``PURGE`` command which takes URLs to be purged out of
 the cache in a special header::
 
     acl purge {
         "localhost";
-        # XXX: Add your local computer public IP here if you 
+        # XXX: Add your local computer public IP here if you
         # want to test the code against the production server
         # from the development instance
     }
@@ -569,13 +565,13 @@ the cache in a special header::
             purge("req.http.host == " req.http.host " && req.url ~ " req.http.X-Purge-Regex);
             error 200 "Purged.";
         }
-    }       
+    }
 
 
 Then let's create a Plone view which will make a request from Plone to
 Varnish (``upstream localhost:80``)
 and issue the ``PURGE`` command.
-We do this using the `Requests <http://pypi.python.org/pypi/requests>`_ 
+We do this using the `Requests <http://pypi.python.org/pypi/requests>`_
 Python library.
 
 Example view code::
@@ -612,7 +608,7 @@ Example view code::
             """
 
             # This is the root URL which will be purged
-            # - you might want to have different value here if 
+            # - you might want to have different value here if
             # your site has different URLs for manage and themed versions
             site_url = self.context.portal_url() + "/"
 
@@ -642,9 +638,9 @@ Example view code::
 
 More info
 
-* https://www.varnish-cache.org/trac/wiki/VCLExamplePurging     
+* https://www.varnish-cache.org/trac/wiki/VCLExamplePurging
 
-* https://github.com/kennethreitz/requests/tree/develop/requests   
+* https://github.com/kennethreitz/requests/tree/develop/requests
 
 * http://kristianlyng.wordpress.com/2010/02/02/varnish-purges/
 
