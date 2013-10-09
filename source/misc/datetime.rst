@@ -104,16 +104,16 @@ Parsing both US and European dates
 
 Example::
 
-            # Lazy ass way to parse both formats
-            # 2010/12/31
-            # 31.12.2010
-            try:
-                if "." in rendDate:
-                    # European
-                    end = DateTime(rendDate, datefmt='international')
-                else:
-                    # US
-                    end = DateTime(rendDate)
+    # Lazy-ass way to parse both formats
+    # 2010/12/31
+    # 31.12.2010
+    try:
+        if "." in rendDate:
+            # European
+            end = DateTime(rendDate, datefmt='international')
+        else:
+            # US
+            end = DateTime(rendDate)
 
 Friendly date/time formatting
 -----------------------------
@@ -121,52 +121,54 @@ Friendly date/time formatting
 Format datetime relative to the current time,
 human-readable::
 
-        def format_datetime_friendly_ago(date):
-            """ Format date & time using site specific settings.
+    def format_datetime_friendly_ago(date):
+        """ Format date & time using site specific settings.
 
-            @param date: datetime object
-            """
+        @param date: datetime object
+        """
 
-            if date == None:
-                return ""
+        if date == None:
+            return ""
 
-            date = DT2dt(date) # zope DateTime -> python datetime
+        date = DT2dt(date) # zope DateTime -> python datetime
 
-            # How long ago the timestamp is
-            # See timedelta doc http://docs.python.org/lib/datetime-timedelta.html
-            #since = datetime.datetime.utcnow() - date
+        # How long ago the timestamp is
+        # See timedelta doc http://docs.python.org/lib/datetime-timedelta.html
+        #since = datetime.datetime.utcnow() - date
 
-            now = datetime.datetime.utcnow()
-            now = now.replace(tzinfo=pytz.utc)
+        now = datetime.datetime.utcnow()
+        now = now.replace(tzinfo=pytz.utc)
 
-            since = now - date
+        since = now - date
 
-            seconds = since.seconds + since.microseconds / 1E6 + since.days * 86400
+        seconds = since.seconds + since.microseconds / 1E6 + since.days * 86400
 
-            days = math.floor(seconds / (3600*24))
+        days = math.floor(seconds / (3600*24))
 
-            if days <= 0 and seconds <= 0:
-                # Timezone confusion, is in future
-                return "moment ago"
+        if days <= 0 and seconds <= 0:
+            # Timezone confusion, is in future
+            return "moment ago"
 
-            if days > 7:
-                # Full date
-                return date.strftime("%d.%m.%Y %H:%M")
-            elif days >= 1:
-                # Week day format
-                return date.strftime("%A %H:%M")
+        if days > 7:
+            # Full date
+            return date.strftime("%d.%m.%Y %H:%M")
+        elif days >= 1:
+            # Week day format
+            return date.strftime("%A %H:%M")
+        else:
+            hours = math.floor(seconds/3600.0)
+            minutes = math.floor((seconds % 3600) /60)
+            if hours > 0:
+                return "%d hours %d minutes ago" % (hours, minutes)
             else:
-                hours = math.floor(seconds/3600.0)
-                minutes = math.floor((seconds % 3600) /60)
-                if hours > 0:
-                    return "%d hours %d minutes ago" % (hours, minutes)
+                if minutes > 0:
+                    return "%d minutes ago" % minutes
                 else:
-                    if minutes > 0:
-                        return "%d minutes ago" % minutes
-                    else:
-                        return "few seconds ago"
+                    return "few seconds ago"
 
 Friendly date/time from TAL
 ---------------------------
-From within your TAL templates, you can call toLocalizedTime like:
-        <span tal:replace="python:here.toLocalizedTime(o.ModificationDate)"></span>
+
+From within your TAL templates, you can call :meth:`toLocalizedTime` like::
+
+    <span tal:replace="python:here.toLocalizedTime(o.ModificationDate)"></span>
