@@ -314,7 +314,7 @@ You have to be careful about the resources order and their conditions: resources
 are merged together in the order they are declared with as far as the condition
 are the same.
 
-If the next resource as a different condition, it will ends the current merged
+If the next resource as a different condition, it will end the current merged
 set of resources, and start a new one.
 
 So if you want to minimize the total number of resulting files, you have to:
