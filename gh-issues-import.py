@@ -59,7 +59,7 @@ def get_issues(url):
     index = 1
     issues = []
     while True:
-        req = urllib2.Request("%s/issues?page=%s&sort=created&direction=asc&page=1" % (url, index))
+        req = urllib2.Request("%s/issues?page=%s&sort=created&direction=asc" % (url, index))
         req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
         response = urllib2.urlopen(req)
         result = response.read()
@@ -77,7 +77,7 @@ def find_issue_by_title(issues, title):
         if title == issue['title']:
             return issue['number']
     return False
-    
+
 
 
 def get_comments_on_issue(issue):
@@ -136,8 +136,8 @@ def import_issues(issues, dst_milestones, dst_labels):
         print colored("Importing issue %s (%s)" % (source["title"], index), 'green')
         import_issue(source, dst_milestones, dst_labels)
         print ""
-        
-        
+
+
 def import_issue(source, dst_milestones, dst_labels):
     labels = []
     if source.has_key("labels"):
@@ -168,18 +168,18 @@ def import_issue(source, dst_milestones, dst_labels):
     res_issue = create_issue(dst_url, source["title"], body, assignee, milestone, labels)
     if not res_issue:
         return
-    
+
     # Transfer comments
     comments = get_comments_on_issue(source)
     import_comments(dst_url, res_issue, comments)
-    
+
     # Close issue if required
     if source['state'] == 'closed':
         close_issue(dst_url, res_issue)
-    
-    
-    
-    
+
+
+
+
 def create_issue(url, title, body, assignee, milestone, labels):
     dest = json.dumps({
         "title": title,
@@ -232,7 +232,7 @@ def import_comments(url, issue, comments):
 
 
 def import_comment(url, issue_number, comment):
-    
+
     dest = json.dumps({"body": comment["body"]})
     req = urllib2.Request("%s/issues/%s/comments" % (url, issue_number), dest)
     req.add_header("Authorization", "Basic " + base64.urlsafe_b64encode("%s:%s" % (username, password)))
@@ -249,8 +249,8 @@ def import_comment(url, issue_number, comment):
     data = res.read()
     res_issue = json.load(StringIO(data))
     print "  Successfully posted comment in issue %s" % (issue_number)
-    
-    
+
+
 
 def main():
     #get milestones and issues to import
