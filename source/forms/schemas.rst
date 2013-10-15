@@ -244,6 +244,7 @@ Finding the schema for a Dexterity type
 When trying to introspect a Dexterity type, you can get a reference to the schema thus::
 
     from zope.component import getUtility
+    from plone.dexterity.interfaces import IDexterityFTI
     
     schema = getUtility(IDexterityFTI, name=PORTAL_TYPE_NAME).lookupSchema()
 
