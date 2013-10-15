@@ -30,7 +30,7 @@ Travis CI
 
 See ``.travis.yml`` file for continuous integration settings.
 
-* `Travis build page <http://travis-ci.org/#!/collective/collective.developermanual>`_
+
 
 License
 -------
