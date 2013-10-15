@@ -16,7 +16,7 @@ Some clarifications:
 
 * ``src`` folder will be target for Plone source code, checkout-ed for source code documentation inclusion
 
-* Uploading documentation to plone.org is no longer supported - instead readthedocs.org is preferred method of distribution
+* Uploading documentation to plone.org is no longer supported 
 
 Building and deployment
 ========================
