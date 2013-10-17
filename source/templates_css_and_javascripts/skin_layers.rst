@@ -149,14 +149,16 @@ Then your add-on has folder structure (example)::
         yourcompany.app/yourcompany/app/jbot/Products.TinyMCE.skins.tinymce.plugins.table.js.table.js
         yourcompany.app/yourcompany/app/jbot/Products.TinyMCE.skins.tinymce.plugins.table.html.pt
         
-        
+For layered example (theme layer, add-on layer), see
+
+* https://github.com/miohtama/sane_plone_addon_template/blob/master/youraddon/configure.zcml#L41
+
 More info
 
 * http://pypi.python.org/pypi/z3c.jbot
 
 * http://stackoverflow.com/questions/6161802/nested-overrides-in-portal-skins-folder
         
-
 Poking portal_skins
 -------------------
 
@@ -181,7 +183,6 @@ Available skin layers are directly exposed as :doc:`traversable </serving/traver
         plone_form_scripts
         plone_forms
         plone_images
-        plone_kss
         plone_login
         plone_portlets
         plone_prefs
@@ -199,5 +200,15 @@ You can edit a specific skin layer::
 holding *skin name* -> *comma separated layer list* mappings.
 
 
+
+Dumping a portal_skins folder to the filesystem
+-----------------------------------------------
+
+qPloneSkinDump can build a filesystem dump from portal_skins but it only works on Plone 2.
+If you need this functionality you can try to use this script ripped off qPloneSkinDump:
+https://gist.github.com/silviot/5402869. It is a WorksForMe quality script; replace the variables
+and run it with::
+
+    bin/instance run export_skin_folder.py
 
 

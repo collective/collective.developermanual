@@ -104,7 +104,7 @@ a:visited:hover {
     cursor: pointer;
 }
 
-#editor-trap h3 { 
+#editor-trap h3 {
     margin: 0 0 0.5em 0;
     padding: 0;
     background: transparent;
@@ -125,4 +125,69 @@ a:visited:hover {
 #editor-trap.toggled > h3 {
     display: block;
 }
+
+/* ... hide editor trap when printing ... */
+@media print {
+    #editor-trap {
+        /* display: none;*/
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        width: 80%;
+        position: relative;
+        border: none;
+
+       -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+    #editor-trap.toggled > * {
+        display: block;
+    }
+
+}
+
+/* Special classes on doc front page */
+#dragon-warning {
+    padding: 1em;
+    background-color: #FFE4E4;
+    border: 1px solid #FF6666;
+}
+
+#dragons-are-coming {
+    text-align: center;
+    font-size: 120%;
+}
+
+.itwillhurt {
+    display: inline-block;
+    font-size: 45px;
+    color: gray;
+    margin: 0 10px;
+}
+
+/* Loogo hack up */
+
+#logo-link {
+    display: block;
+    float: left;
+    margin: 0 5px 5px 0;
+}
+
+#logo-tagline {
+    display: inline;
+    vertical-align: top;
+}
+
+
+/* Hide the "Don't read on GitHub!" note */
+.admonition-github-only {
+    display: none;
+}
+
 

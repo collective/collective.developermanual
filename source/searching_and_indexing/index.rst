@@ -1,6 +1,6 @@
-==========================
-Searching and indexing
-==========================
+=============================
+Queries, search and indexing
+=============================
 
 In plone, database index and search facilities are provided by portal_catalog tool.
 There are two distinct functions. Indexing: All searchable data is copied to the catalog
@@ -9,7 +9,7 @@ Search keys are matched against the indexed catalog copies to return the indexed
 
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     catalog
     indexing

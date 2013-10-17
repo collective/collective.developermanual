@@ -1,4 +1,4 @@
-{# 
+{#
   Drop version number from the HTML documentation title
 #}
 {%- set docstitle = "Plone Developer Documentation" %}
@@ -6,38 +6,7 @@
 {% extends "!page.html" %}
 
 {% block extrahead %}
-<script type="text/javascript">
-
-  // Store editor pop-up help state in localStorage 
-  // so it does not re-pop-up itself between page loads.
-  // Do not even to pretend to support IE gracefully.
-  (function($) {
-    
-    $(document).ready(function() {
-        var box = $("#editor-trap");
-        var klass = "toggled";
-        var storageKey = "toggled";
-
-        function toggle() {
-            box.toggleClass(klass);
-            // Store the toggle status in local storage as "has value string" or null
-            window.localStorage.setItem(storageKey, box.hasClass(klass) ? "toggled" : "not-toggled");
-        }
-
-        box.click(toggle);
-
-        // Check the persistent state of the editor pop-up
-        // Note that localStorage does not necessarily support boolean values (ugh!)
-        // http://stackoverflow.com/questions/3263161/cannot-set-boolean-values-in-localstorage
-        var v = window.localStorage.getItem(storageKey); 
-        if(v == "toggled" || !v) {
-          box.addClass(klass);
-        }
-
-    });
-
-  })(jQuery);
-</script>
+<script src="{{ pathto('_static/plone.js', 1) }}"></script>
 {% endblock %}
 
 {#
@@ -47,14 +16,45 @@
     <li><a href="{{ pathto(master_doc) }}">Home{{ reldelim1 }}</li>
 {%- endblock %}
 
+{% block header %}
+<div style="display: none" id="dragon-warning">
+
+    <div id="dragons-are-coming">
+        <span class="itwillhurt">
+            ☠
+        </span>
+        <b>Beyond this point lie the ancient dragons</b>
+        <span class="itwillhurt">
+            ☠
+        </span>
+    </div>
+
+    <p>
+        This section of <b><a href="http://plone.org">Plone content management system</a></b> Developer Documentation is no longer under active maintance.
+        The section is included as the reference for older technologies (Plone 2.x, Plone 3.x).
+        Some of the practices described in this documents may still work, but are not recommended
+        to be used in your active Plone development. Use at your own risk.
+    </p>
+
+    <p>
+        If you arrived at this page by a web search we recommend to also see the
+        <a href="http://developer.plone.org">Plone Developer Documentation front page</a> .
+    </p>
+
+</div>
+{{ super() }}
+{% endblock %}
+
+
 {#
-  
+
   Add Editor Help Pop Up HTML.
 
   Enable Analytics tracking on the docs.
 
 
 #}
+
 {% block footer %}
 {{ super() }}
 
@@ -62,36 +62,36 @@
       <h3>Edit this document</h3>
 
       <p>
-        The source code of this file is hosted on GitHub. Everyone can 
-        update and fix errors in this document with few clicks - 
+        The source code of this file is hosted on GitHub. Everyone can
+        update and fix errors in this document with few clicks -
         no downloads needed.
       <p>
 
       <ol>
 
         <li>
-          Go to 
+          Go to
         <a href="https://github.com/collective/collective.developermanual/blob/master/source/{{ pagename }}.rst">
           {{ title }}
         </a> on GitHub.
       </li>
 
         <li>
-          Press <b>Fork and edit this file</b> button.
+          Press the <b>Fork</b> button. This will create your own personal copy of the documentation.
       </li>
 
         <li>
-          Edit file contents using GitHub's text editor in your web browserm
+        <b>Edit</b> files using GitHub's text editor in your web browser
       </li>
 
       <li>
         Fill in the <b>Commit message</b> text box at the end of the page telling <i>why</i>
-        you did the changes. Press <b>Propose file change</b> button next to it when done. 
+        you did the changes. Press the <b>Propose file change</b> button next to it when done.
       </li>
 
 
       <li>
-        On <i>Send a pull request</i> page you don't need to fill in text anymore. Just
+        Then head to the <i>Send a pull request</i> page (you won't need to fill in any additional text). Just
         press <b>Send pull request</b> button.
       </li>
 
@@ -101,14 +101,14 @@
       </ol>
 
       <p>
-        For basic information about updating this manual 
-        and Sphinx format please see <a href="http://collective-docs.readthedocs.org/en/latest/introduction/writing.html">
+        For basic information about updating this manual
+        and Sphinx format please see <a href="http://developer.plone.org/reference_manuals/active/writing/writing.html">
         Writing and updating the manual</a> guide.
       </p>
-      
+
   </div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-27914060-1']);
@@ -121,4 +121,5 @@
   })();
 
 </script>
+
 {% endblock %}

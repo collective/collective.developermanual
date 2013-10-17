@@ -39,6 +39,25 @@ they can be standalone ("old style", circa 2001).
     templates provide better separation with view logic (Python code)
     and HTML generation (page template).
 
+
+The MIME-Type
+===================================
+Basically a document file got a mime-type. This is also important for Plone Templates if you don't want to export to text/html.
+If you want to export to a XML File you have to change the mime-type because otherwise the browser won't recognize the file as an XML.
+At the moment Plone supports text/html which is the default value. And text/xml.
+You got 2 opportunities to change this value. If you customize a template you got an input box which called "Content-Type". 
+The other Way is to create a file named by your template name and extend the name by `.metadata`. 
+
+ Example:
+   * my_view.pt
+   * my_view.pt.metadata
+
+Content of metadata file::
+    
+         [default]
+         content_type = text/xml
+        
+
 Overriding templates
 ======================
 
@@ -75,9 +94,9 @@ Overriding a template using z3c.jbot
 
    Below is an example UNIX ``find`` command to find ``.pt`` files. 
    You can also use Windows Explorer file search or similar tools:
-    
+
    .. code-block:: console
-    
+
        $ find ~/code/buildout-cache/eggs -name "\*.pt"
        ./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/edit_field_wrapper.pt
        ./archetypes.kss-1.4.3-py2.4.egg/archetypes/kss/browser/view_field_wrapper.pt
@@ -86,7 +105,7 @@ Overriding a template using z3c.jbot
        ...
 
    .. Note::
-    
+
        Your ``eggs/`` folder may contain several versions of the same egg
        if you have re-run buildout or upgraded Plone.
        In this case the correct action is usually to pick the latest
@@ -97,20 +116,20 @@ Overriding a template using z3c.jbot
    Rename the file to its so-called *canonical* name: to do this,
    exclude the ``.egg`` folder name from the filename, and 
    then replace all slashes ``/`` with dot ``.``::
-    
+
        archetypes/kss/browser/edit_field_wrapper.pt
-    
+
    to::
-    
+
        archetypes.kss.browser.edit_field_wrapper.pt
-    
+
    Drop the file in the templates folder you have registered for ``z3c.jbot``
    in your add-on.
-    
+
    Make your changes in the new ``.pt`` file.
-    
+
    .. warning::
-    
+
        After overriding the template for the first time 
        (adding the file to the ``templates/`` folder)
        you need to restart Plone.
@@ -120,6 +139,9 @@ After the file is in place, changes to the file are instantly picked up:
 the template code is re-read on every HTTP request |---| just hit enter in
 your browser location bar. (Hitting enter in the location bar is quicker
 than hitting :guilabel:`Refresh`, which also reloads CSS and JS files.)
+
+If you want to override an already overridden template, read here:
+<http://stackoverflow.com/questions/16209392/how-can-i-override-an-already-overriden-template-by-jbot>
 
 More info:
 
@@ -137,6 +159,165 @@ provided by the
 
 This template provides the visual frame for Plone themes. The template is
 an old-style page template living in ``plone_skins/plone_templates``.
+
+Custom per view main template
+--------------------------------
+
+Here is an example how to provide a customized main template for one view.
+In this example we have customized main template so that only the content area is visible.
+
+First we register our template in ``configure.zcml``::
+
+    <!-- Provide a custom main_template for our consumption -->
+    <browser:page
+        name="widgets-demo-main-template"
+        for="*"
+        permission="zope.Public"
+        template="barebone-main-template.pt"
+        />
+
+We refer it in our page template instead of ``here/main_template``::
+
+     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+           xmlns:tal="http://xml.zope.org/namespaces/tal"
+           xmlns:metal="http://xml.zope.org/namespaces/metal"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           metal:use-macro="here/@@widgets-demo-main-template/macros/master"
+           i18n:domain="plone.app.widgets"
+           lang="en"
+           >
+
+``barebone-main-template.pt`` is an edited copy of ``portal_skins/sunburst_templates/main_template.pt``::
+
+    <metal:page define-macro="master">
+    <tal:doctype tal:replace="structure string:&lt;!DOCTYPE html&gt;" />
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        tal:define="portal_state context/@@plone_portal_state;
+            context_state context/@@plone_context_state;
+            plone_view context/@@plone;
+            lang portal_state/language;
+            view nocall:view | nocall: plone_view;
+            dummy python: plone_view.mark_view(view);
+            portal_url portal_state/portal_url;
+            checkPermission nocall: context/portal_membership/checkPermission;
+            site_properties context/portal_properties/site_properties;
+            ajax_load request/ajax_load | nothing;
+            ajax_include_head request/ajax_include_head | nothing;
+            dummy python:request.RESPONSE.setHeader('X-UA-Compatible', 'IE=edge,chrome=1');"
+        tal:attributes="lang lang;">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <metal:baseslot define-slot="base">
+            <base tal:attributes="href plone_view/renderBase" /><!--[if lt IE 7]></base><![endif]-->
+        </metal:baseslot>
+
+        <tal:notajax tal:condition="python:not ajax_load or ajax_include_head">
+            <div tal:replace="structure provider:plone.htmlhead" />
+            <link tal:replace="structure provider:plone.htmlhead.links" />
+
+            <tal:comment replace="nothing">
+                Various slots where you can insert elements in the header from a template.
+            </tal:comment>
+            <metal:topslot define-slot="top_slot" />
+            <metal:headslot define-slot="head_slot" />
+            <metal:styleslot define-slot="style_slot" />
+            <metal:javascriptslot define-slot="javascript_head_slot" />
+
+            <meta name="viewport" content="width=device-width, initial-scale=0.6666, maximum-scale=1.0, minimum-scale=0.6666" />
+            <meta name="generator" content="Plone - http://plone.org" />
+        </tal:notajax>
+    </head>
+
+    <body tal:define="isRTL portal_state/is_rtl;
+                      sl python:plone_view.have_portlets('plone.leftcolumn', view);
+                      sr python:plone_view.have_portlets('plone.rightcolumn', view);
+                      body_class python:plone_view.bodyClass(template, view);
+                      classes python:context.restrictedTraverse('@@sunburstview').getColumnsClasses(view)"
+        tal:attributes="class body_class;
+                        dir python:isRTL and 'rtl' or 'ltr'">
+
+    <div id="visual-portal-wrapper">
+
+        <div id="portal-columns" class="row">
+
+            <div id="portal-column-content" class="cell" tal:attributes="class classes/content">
+
+                <div id="viewlet-above-content" tal:content="structure provider:plone.abovecontent" tal:condition="not:ajax_load" />
+
+                <metal:block define-slot="content">
+                    <div metal:define-macro="content"
+                        tal:define="show_border context/@@plone/showEditableBorder; show_border python:show_border and not ajax_load"
+                        tal:attributes="class python:show_border and 'documentEditable' or ''">
+
+                        <div metal:use-macro="context/global_statusmessage/macros/portal_message">
+                         Status message
+                        </div>
+
+                        <metal:slot define-slot="body">
+                            <div id="content">
+
+                                <metal:header define-slot="header" tal:content="nothing">
+                                Visual Header
+                                </metal:header>
+
+                                <metal:bodytext define-slot="main">
+
+                                 <div id="viewlet-above-content-title" tal:content="structure provider:plone.abovecontenttitle" tal:condition="not:ajax_load" />
+                                  <metal:title define-slot="content-title">
+                                     <metal:comment tal:content="nothing">
+                                         If you write a custom title always use
+                                         <h1 class="documentFirstHeading"></h1> for it
+                                     </metal:comment>
+                                     <h1 metal:use-macro="context/kss_generic_macros/macros/generic_title_view">
+                                         Generic KSS Title. Is rendered with class="documentFirstHeading".
+                                     </h1>
+                                 </metal:title>
+
+                                 <div id="viewlet-below-content-title" tal:content="structure provider:plone.belowcontenttitle" tal:condition="not:ajax_load" />
+
+                                 <metal:description define-slot="content-description">
+                                     <metal:comment tal:content="nothing">
+                                         If you write a custom description always use
+                                         <div class="documentDescription"></div> for it
+                                     </metal:comment>
+                                     <div metal:use-macro="context/kss_generic_macros/macros/generic_description_view">
+                                         Generic KSS Description. Is rendered with class="documentDescription".
+                                     </div>
+                                 </metal:description>
+
+                                 <div id="viewlet-above-content-body" tal:content="structure provider:plone.abovecontentbody" tal:condition="not:ajax_load" />
+
+                                 <div id="content-core">
+                                     <metal:text define-slot="content-core" tal:content="nothing">
+                                         Page body text
+                                     </metal:text>
+                                 </div>
+
+                                 <div id="viewlet-below-content-body" tal:content="structure provider:plone.belowcontentbody" tal:condition="not:ajax_load" />
+
+                                </metal:bodytext>
+                            </div>
+                        </metal:slot>
+
+                        <metal:sub define-slot="sub" tal:content="nothing">
+                           This slot is here for backwards compatibility only.
+                           Don't use it in your custom templates.
+                        </metal:sub>
+                    </div>
+                </metal:block>
+
+            </div>
+        </div>
+
+    </div>
+    </body>
+    </html>
+
+    </metal:page>
+
 
 Plone template element map
 ==========================
@@ -235,7 +416,7 @@ default is assumed. Three types are standard:
 They are generally useful, and not limited to use in Page Templates.
 For example, they are widely used in various other parts of Plone:
 
-* CSS, Javascript and KSS registries, to decide whether to include a
+* CSS and Javascript registries, to decide whether to include a
   particular file;
 * Action conditions, to decide whether to show or hide action link;
 * Workflow security guards, to decide whether to allow a workflow state
@@ -265,7 +446,7 @@ Images
 
 See :doc:`how to use images in templates </images/templates>`.
 
-Overriding templates for exising Plone views
+Overriding templates for existing Plone views
 ==============================================
 
 #. New style templates can be overridden by overriding the view using the
@@ -420,8 +601,89 @@ More information:
 
 * http://starzel.de/blog/how-to-get-a-different-look-for-some-pages-of-a-plone-site
 
+URL quoting inside TAL templates
+----------------------------------
+
+You need to escape TAL attribute URLs if they contain special characters like plus (+)
+in query parameters. Otherwise browsers will mangle links, leading to incorrect parameter
+passing.
+
+Zope 2 provides ``url_quote()`` function which you can access
+
+.. code-block:: xml
+
+  <td id="cal#"
+        tal:define="std modules/Products.PythonScripts.standard;
+                    url_quote nocall: std/url_quote;
+
+Then you can use this function in your TAL code
+
+.. code-block:: xml
+
+       <a href="#" tal:define="start_esc python:url_quote(start)" 
+          tal:attributes="href string: ${url}/day?currentDate=${start_esc}&xmy=${xmy}&xsub=${xsub}">
+
+If you need to also quote spaces, use ``url_quote_plus`` rather than ``url_quote``.
+
+Using macros
+=============
+
+Here is an example how to use `<metal:block define-macro="xxx">` and 
+`<metal:block use-macro="xxx">` in your :doc:`view class </views/browserviews>`
+template files.
+
+.. code-block:: html
+
+      <html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:tal="http://xml.zope.org/namespaces/tal"
+            xmlns:metal="http://xml.zope.org/namespaces/metal"
+            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+            tal:omit-tag=""
+            >
+
+          <metal:row define-macro="row">
+               <!--
+                   A macro. You can call this using metal:use-macro 
+                   and pass variables to using tal:define.
+               -->
+          </metal:row>
+
+          <!-- Call macro in different parts of the main template using *widget* variable as a parameter -->
+
+          <table class="datagridwidget-table-view" tal:attributes="data-extra view/extra">
+
+              <tbody class="datagridwidget-body">
+                  <tal:row repeat="widget view/getNormalRows">
+                      <tr>
+                          <metal:macro use-macro="template/macros/row" />
+                      </tr>
+                  </tal:row>
+
+                  <tal:row condition="view/getTTRow" define="widget view/getTTRow">
+                      <tr>
+                          <metal:macro use-macro="template/macros/row" />
+                      </tr>
+                  </tal:row>
+
+
+                  <tal:row condition="view/getAARow" define="widget view/getAARow">
+                      <tr>
+                          <metal:macro use-macro="template/macros/row" />
+                      </tr>
+                  </tal:row>
+
+          </tbody>
+      </table>
+      </html>
+
+More info
+
+* http://stackoverflow.com/q/13165748/315168
+
 .. _z3c.jbot: http://pypi.python.org/pypi/z3c.jbot
 .. _Roll out your own add-on:
 .. _sane_plone_addon_template:
    https://github.com/miohtama/sane_plone_addon_template
 .. |---| unicode:: U+02014 .. em dash
+
+

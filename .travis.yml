@@ -1,20 +1,13 @@
 # http://about.travis-ci.org/docs/user/build-configuration/
 language: python
-
-python:
-  - "2.6"
-
+python: 2.7
 install:
-  - python bootstrap.py 
-  - bin/buildout
-
-script: bin/sphinx-build -W -b html source build/html
-
+  - mkdir -p buildout-cache/downloads
+  - python bootstrap.py -c travis.cfg
+  - bin/buildout -c travis.cfg -N -q -t 3
+script: make html
 notifications:
-  email:
-    - mikko@opensourcehacker.com
-  irc: 
-    channels: 
-        - "irc.freenode.org#plone.org"
+  irc:
+    channels: irc.freenode.org#plone-docs
     on_success: never
     on_failure: change

@@ -7,22 +7,25 @@ Events
         How to add event hooks to your Plone code to perform actions when
         something happens on a Plone site.
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 ============
 
 This document briefly discusses event handling using the ``zope.event`` module.
-The Zope Component Architecture's `zope.event package <http://pypi.python.org/pypi/zope.event>`_ is
+The Zope Component Architecture's
+`zope.event package <http://pypi.python.org/pypi/zope.event>`_ is
 used to manage subscribeable events in Plone.
 
 Some of the notable characteristics of the Plone event system are:
 
 * it is simple;
-* subscriber calling order is not modifiable |---| you cannot set the order in which event handlers are called;
+* subscriber calling order is not modifiable |---| you cannot set the order
+  in which event handlers are called;
 * events cannot be cancelled |---| all handlers will always get the event;
 * event handlers cannot have return values;
-* exceptions raised in an event handler will interrupt the request processing.
+* exceptions raised in an event handler will interrupt the request
+  processing.
 
 For more information, see:
 
@@ -31,51 +34,91 @@ For more information, see:
 Registering an event handler
 ============================
 
-.. note ::
+Plone events can be scoped:
 
-        Starting Plone 4, using grok method is recommended as it is simpler
+* *globally* (no scope)
+* per *content type*
+
+
+Example: Register an event-handler on your contenttype's creation
+-----------------------------------------------------------------
+
+
+In your.product/your/product/configure.zcml insert::
+
+    <subscriber
+      for=".interfaces.IMyContentTypeClass
+           zope.lifecycleevent.IObjectInitializedEvent"
+      handler=".your_python_file.your_method"
+      />
+
+
+The first line defines to which interface you want to bind the execution of your code, which means here, 
+that the code will only be executed if the object is one of your contenttype's. 
+If you want this to be interface-agnostic, insert an asterix as a wildcard instead.
+
+The second line defines the event on which this should happen, which is here 'IObjectInitializedEvent'.
+For more available possible events to be used as a trigger, see::
+http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/event-handlers.html
+
+The third line gives the path to the script that is supposed to be executed.
+
+Create your.product/your/product/your_python_file.py and insert::
+
+    def your_method(object, event):
+
+        # do sth with your created contenttype
+
+For Dexterity-contenttype's and additional ZOPE-Illumination see also:
+http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/event-handlers.html
+
+
 
 Subscribing using the ``grok`` API
 -----------------------------------------
 
-Example subscription which subscribes add and edit events for an content item type::
+.. note::
+
+    Since the release of Plone 4, this (grok) method is simpler.
+
+Example subscription which subscribes a content type to add and edit events::
 
     from five import grok
     from Products.Archetypes.interfaces import IObjectEditedEvent, IObjectInitializedEvent
 
-        class ORAResearcher(folder.ATFolder, orabase.ORABase, ResearcherMixin):
-            """A Researcher synchronized from ORA.
-            """
-            implements(IORAResearcher, IResearcher)
-        
-            meta_type = "ORAResearcher"
-            schema = ORAResearcherSchema
-        
-                
-        # Callbacks for both add and edit events 
-        
+    class ORAResearcher(folder.ATFolder, orabase.ORABase, ResearcherMixin):
+        """A Researcher synchronized from ORA.
+        """
+        implements(IORAResearcher, IResearcher)
+
+        meta_type = "ORAResearcher"
+        schema = ORAResearcherSchema
+
+        # Callbacks for both add and edit events
+
         @grok.subscribe(ORAResearcher, IObjectEditedEvent)
         def object_edited(context, event):
             orabase.object_edited(context, event)
-        
+
         @grok.subscribe(ORAResearcher, IObjectInitializedEvent)
         def object_added(context, event):
             orabase.object_added(context, event)
-                
+
 
 Example subscription which subscribes events without context::
 
         # Really old stuff
         from ZPublisher.interfaces import IPubStart
-        
+
         # Modern stuff
         from five import grok
-        
+
         @grok.subscribe(IPubStart)
         def check_redirect(e):
+            """ Check if we have a custom redirect script in Zope
+            application server root.
             """
-            Check if we have a custom redirect script in Zope application server root.
-            
+
 
 For more information, see:
 
@@ -86,7 +129,23 @@ For more information, see:
 Subscribing using ZCML
 ----------------------
 
-Custom event example::
+Subscribing to a global event using :term:`ZCML`.
+
+.. code-block:: xml
+
+    <subscriber for="Products.PlonePAS.events.UserLoggedOutEvent"
+        handler=".smartcard.clear_extra_cookies_on_logout" />
+
+For this event, the Python code in ``smartcard.py`` would be::
+
+        def clear_extra_cookies_on_logout(event):
+            # What event contains depends on the
+            # triggerer of the event and event class
+            request = event.object.REQUEST
+            ...
+
+Custom event example subscribing to all ``IMyEvents`` when fired by
+``IMyObject``::
 
     <subscriber
       for=".interfaces.IMyObject
@@ -118,7 +177,7 @@ Example::
 
     def my_event_handler(context, event):
         """
-        @param context: Zope object for which the event was fired for. Usually this is a Plone content object.
+        @param context: Zope object for which the event was fired. Usually this is a Plone content object.
 
         @param event: Subclass of event.
         """
@@ -149,8 +208,8 @@ Event types
 ------------------
 
 ``Products.Archetypes.interfaces.IObjectInitializedEvent``
-    is fired for an Archetypes-based object when it's being initialised; i.e.
-    when it's being populated for the first time.
+    is fired for an Archetypes-based object when it's being initialised;
+    i.e.  when it's being populated for the first time.
 
 ``Products.Archetypes.interfaces.IWebDAVObjectInitializedEvent``
     is fired for an Archetypes-based object when it's being initialised via
@@ -178,7 +237,7 @@ Other resources:
 Two different content event types are available and might work differently
 depending on your scenario:
 
-``Products.Archetypes.interfaces.IObjectEditedEvent`` 
+``Products.Archetypes.interfaces.IObjectEditedEvent``
     called for Archetypes-based objects that are not in the creation stage
     any more.
 
@@ -192,14 +251,14 @@ depending on your scenario:
 ``zope.lifecycleevent.IObjectModifiedEvent``
     called for creation-stage events as well, unlike the previous event type.
 
-``Products.Archetypes.interfaces.IWebDAVObjectEditedEvent`` 
+``Products.Archetypes.interfaces.IWebDAVObjectEditedEvent``
     called for Archetypes-based objects when they are being edited via WebDAV.
 
 ``Products.Archetypes.interfaces.IEditBegunEvent``
     called for Archetypes-based objects when an edit operation is begun.
 
 ``Products.Archetypes.interfaces.IEditCancelledEvent``
-    called for Archetypes-based objects when an edit operation is cancelled.
+    called for Archetypes-based objects when an edit operation is canceled.
 
 
 *Delete* events
@@ -243,6 +302,11 @@ previous and current states.
 ``zope.processlifetime.IDatabaseOpened``
     is triggered after the main ZODB database has been opened.
 
+
+Asynchronous event handling
+================================
+
+* http://stackoverflow.com/questions/15875088/running-plone-subscriber-events-asynchronously
 
 See also
 ========

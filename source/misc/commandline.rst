@@ -52,16 +52,17 @@ See also
 Starting interactive interpreter
 --------------------------------
 
-se *bin/instance debug* command to start interactive interpreter with Zope application server and 
-database loaded
+The *bin/instance debug* command starts an interactive interpreter with the Zope application server and 
+database loaded. To have persistent utilities loaded, you should also provide the id of your Plone site.
+The following example assumes you have a plone site named "Plone"
 
 Example::
 
-        bin/instance debug 
+        bin/instance -OPlone debug 
 
 .. note ::
         
-        Instance must be stopped in order to run this.
+        The instance must be stopped in order to run this.
   
 Running scripts
 ---------------
@@ -130,7 +131,7 @@ Alternatively, you can use
         site in ZEO mode. Otherwise the batch job will block the site 
         access for the duration of the batch job transaction. 
         If the batch job takes long to process the site might
-        be unavaible for the visitors for a long period.
+        be unavailable for the visitors for a long period.
 
 	
 Scripting context
@@ -163,7 +164,7 @@ Example how to commit::
 
         # Commit transaction
         import transaction; transaction.commit()
-        # Perform ZEO client synchronization (if runnning in clustered mode)
+        # Perform ZEO client synchronization (if running in clustered mode)
         app._p_jar.sync()
 
 More info
@@ -208,7 +209,7 @@ to have long-running transactions you need to at least two
 front end processes, ZEO clients, so that long-running
 transactions won't block your site. 
 
-* :doc:`Converting instance to ZEO based configuration </hosting/zopetozeo>`
+* :doc:`Converting instance to ZEO based configuration </reference_manuals/old/buildout/zope_to_zeo>`
 
 Your code might want to call transaction.commit() now and then to commit the 
 current transaction.
@@ -296,6 +297,13 @@ and portal_skins skin layers::
 More info
 
 * http://wiki.zope.org/zope2/HowToFakeREQUESTInDebugger
+
+Creating Plone site in buildout
+-----------------------------------
+
+You can pre-generate the site from the buildout run.
+
+* https://pypi.python.org/pypi/collective.recipe.plonesite#example
 
 screen
 ------

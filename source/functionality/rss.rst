@@ -13,7 +13,7 @@ Introduction
 
 Plone can generate RSS feeds from folderish content types (folder / collection).
 If you want to aggregate content from all the site to RSS feed, you first create
-a collection conten item and then enable RSS feed on this collection content item.
+a collection content item and then enable RSS feed on this collection content item.
 
 Creating a global, language neutral, Plone site content aggregator
 -----------------------------------------------------------------------

@@ -2,7 +2,7 @@
  RAM cache
 ===============
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 ============
@@ -29,14 +29,14 @@ following snippet.
 
 See the set-up for the http://plone.org/ site as an example:
 
-* https://github.com/plone/Products.PloneOrg/tree/master/Products/PloneOrg/caching.py
+* https://github.com/plone/Products.PloneOrg/blob/master/src/Products/PloneOrg/caching.py
 
 RAM Cache
 ---------
 
 The RAM cache is used e.g. as a rendered template cache backend.
- 
-You can add ``MemecachedManager`` to your Zope setup, and replace the
+
+You can add ``MemcachedManager`` to your Zope setup, and replace the
 RamCache instance in the ZMI with a new instance of ``MemcachedManager``
 (keep the id the same).
 
@@ -169,17 +169,17 @@ The cache type (cache id) in use is stored
 but the cache can be created at runtime (RAM cache) or externally
 (``memcached``) depending on the situation.
 
-.. note ::
+.. note::
 
-        Do not use ``ZCacheable`` in new code.
+    Do not use ``ZCacheable`` in new code.
 
 It takes optional backends which must be explicitly set::
 
-        def enableCaching():
-            pas=getPAS()
-            if pas.ZCacheable_getManager() is None:
-                pas.ZCacheable_setManagerId(manager_id="RAMCache")
-            getLDAPPlugin().ZCacheable_setManagerId(manager_id="RAMCache")
+    def enableCaching():
+        pas=getPAS()
+        if pas.ZCacheable_getManager() is None:
+            pas.ZCacheable_setManagerId(manager_id="RAMCache")
+        getLDAPPlugin().ZCacheable_setManagerId(manager_id="RAMCache")
 
 The ``RAMCache`` above is per thread. You cannot clear this cache for all
 ZEO clients easily.
@@ -193,12 +193,12 @@ It is enabled per persistent object::
 
     >>> app.test2.acl_users.ZCacheable_enabled()
     1
-        
+
 Get known cache backends::
 
     >>> app.test2.acl_users.ZCacheable_getManagerIds()
     ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
-        
+
 Disabling it (persistent change)::
 
     >>> app.test2.acl_users.ZCacheable_setManagerId(None)
@@ -208,7 +208,7 @@ Disabling it (persistent change)::
     ({'id': 'caching_policy_manager', 'title': ''}, {'id': 'HTTPCache', 'title': ''}, {'id': 'RAMCache', 'title': ''}, {'id': 'ResourceRegistryCache', 'title': 'Cache for saved ResourceRegistry files'})
     >>> app.test2.acl_users.ZCacheable_isCachingEnabled()
     >>> app.test2.acl_users.ZCacheable_setEnabled(False)
-        
+
 
 More info:
 

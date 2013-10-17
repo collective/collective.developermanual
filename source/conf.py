@@ -11,7 +11,21 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import os
+
+# Embedded packages. The folder context for these is "source/reference_manuals/external"
+THE_OTHERS = {
+    "plone.api": "../../../src/plone.api/docs",
+    "plone.app.robotframework": "../../../src/plone.app.robotframework/docs/source",
+    "Products.TinyMCE": "../../../src/Products.TinyMCE/docs/source",
+    "tutorials.todoapp": "../../../src/tutorials.todoapp",
+    "ploneorg.admin": "../../../src/ploneorg.admin/docs",
+    "plone.app.dexterity": "../../../src/plone.app.dexterity/docs",
+    "plone.app.theming": "../../../src/plone.app.theming/src/plone/app/theming/browser/resources",
+    "diazo": "../../../src/diazo/docs",
+    "plone.app.multilingual": "../../../src/plone.app.multilingual/docs",
+}
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -23,11 +37,11 @@ import sys, os
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-        'sphinx.ext.autodoc',
-        'sphinx.ext.todo'
-#              'collective.sphinx.autoatschema',
-#              'collective.sphinx.includedoc'
-    ]
+    'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
+    'sphinxcontrib_robotdoc',
+    'sphinxcontrib.contributors'
+]
 
 # See http://sphinx.pocoo.org/ext/todo.html#confval-todo_include_todos
 todo_include_todos = True
@@ -130,7 +144,7 @@ html_theme_path = ['_themes']
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['_static', '_generated']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -143,7 +157,7 @@ html_static_path = ['_static']
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
 html_sidebars = {
-   '**': ['localtoc.html', 'searchbox.html', 'plone.html'],
+   '**': ['localtoc.html', 'searchbox.html', 'plone.html', "contributors.html"],
 }
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -210,7 +224,7 @@ latex_documents = [
 html_use_smartypants = False
 
 
-# Don't build Modules pages 
+# Don't build Modules pages
 html_domain_indices = False
 
 # Don't build term index
@@ -218,3 +232,39 @@ html_use_index = False
 
 # Don't copy sources with output HTML, as they live on GitHub
 html_copy_source = False
+
+# List .rst files which do not go into to the doc build
+exclude_patterns = [
+    "reference_manuals/external/plone.api/content.rst",  # Not in index
+    "reference_manuals/external/tutorials.todoapp/README.rst",  # Not in index
+]
+
+
+def create_symlinks_for_external_docs():
+    """
+    Create symlinks needed to embed the other package documentation in
+    """
+
+    target = os.path.join("reference_manuals", "external")
+
+    for pkg, folder in THE_OTHERS.items():
+        target_path = os.path.join(target, pkg)
+
+        # Try to clean up broken symlinks
+        if os.path.exists(target_path) and os.path.exists(os.readlink(target_path)):
+            os.remove(target_path)
+
+        # print os.path.abspath(folder), os.path.abspath(target_path)
+        if not os.path.exists(target_path):
+            try:
+                os.symlink(folder, target_path)
+            except:
+                print "Got %s -> %s error" % (folder, target_path)
+                raise
+
+# Ignore for now so that we get collective-docs.rtd.org project built complete
+try:
+    create_symlinks_for_external_docs()
+except Exception as e:
+    import traceback ; traceback.print_exc()
+    pass

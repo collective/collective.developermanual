@@ -16,11 +16,11 @@ Archetypes comes with a kind of field called ReferenceField which is used
 to store references to other Archetypes objects, or any object providing the
 IReferenceable interface.
 
-References are mantained in the ``uid_catalog`` and ``reference_catalog``
+References are maintained in the ``uid_catalog`` and ``reference_catalog``
 catalogs.  You can find both at the root of your Plone site. Check them to
 see their indexes and metadata. 
 
-Althought you could use the ZCatalog API to manage Archetypes references,
+Although you could use the ZCatalog API to manage Archetypes references,
 these catalogs are rarely used directly. A ``ReferenceField`` and its API is
 used instead.
 

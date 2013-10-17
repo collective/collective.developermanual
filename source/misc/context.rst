@@ -1,5 +1,5 @@
 ============================
- Context helpers
+ Helper views and tools
 ============================
 
 .. contents:: :local:
@@ -14,14 +14,14 @@ IPortalState and IContextState
 
 ``IPortalState`` defines ``IContextState`` view-like interfaces
 to access miscellaneous information useful for the
-rendering the current page. The views are cached properly,
+rendering of the current page. The views are cached properly,
 so they should access the information quite effectively.
 
-* ``IPortalState`` is mapped as the ``@@plone_portal_state`` view for
-  traversing.
+* ``IPortalState`` is mapped as the ``plone_portal_state`` name view.
 
-* ``IContextState`` is mapped as the ``@@plone_context_state`` view for
-  traversing.
+* ``IContextState`` is mapped as the ``plone_context_state`` named view.
+
+* ``ITools`` is mapped as the ``plone_tools`` named view.
 
 To see what's available through the interface,
 read the documentation in the 
@@ -30,20 +30,22 @@ module.
 
 Example showing how to get the portal root URL::
 
-    from Acquisition import aq_inner
     from zope.component import getMultiAdapter
-
     ...
     
     class MyView(BrowserView):
 
         ...
         
-        def mymethod(self):
-            context = aq_inner(self.context)
+        def __call__(self):
+            # aq_inner is needed in some cases like in the portlet renderers
+            # where the context itself is a portlet renderer and it's not on the 
+            # acquisition chain leading to the portal root.
+            # If you are unsure what this means always use context.aq_inner
+            context = self.context.aq_inner
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-        
-            url = portal_state.portal_url()
+     
+            self.some_url = portal_state.portal_url() + "/my_foo_bar"
 
 
 Example showing how to get the current language::
@@ -81,7 +83,7 @@ A Python class exposes the variable::
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
             return portal_state
 
-Template can use it:
+Templates can use it as follows:
 
 .. code-block:: html
 
@@ -115,7 +117,7 @@ Use in templates and expressions
 ==================================
 
 You can use ``IContextState`` and ``IPortalState`` in :term:`TALES`
-expressions, e.g. ``portal_actions`` as well.
+expressions, e.g. ``portal_actions``, as well.
 
 Example ``portal_actions`` conditional expression::
 
@@ -160,9 +162,16 @@ Example::
 
     the_current_root_url_of_the_site = portal_url()
 
-
-getToolByName
+``IPlone``
 -------------
+
+`Products.CMFPlone.browser.interfaces.IPlone <https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/interfaces.py#L183>`_
+provides some helper methods for Plone specific functionality and user interface.
+
+* ``IPlone`` helper views is registered under the name ``plone``
+
+``getToolByName``
+------------------
 
 ``getToolByName`` is the old-fashioned way of getting tools, 
 using the context object as a starting point.
@@ -178,11 +187,3 @@ Example::
     workflowTool = getToolByName(self.context, "portal_workflow")
     workflowTool.doActionFor(self.context, "submit")
 
-getSite
--------
-
-Sometimes you don't have a context and/or you just need to get the portal
-object (site root)::
-
-    from zope.app.component.hooks import getSite
-    portal = getSite()

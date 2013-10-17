@@ -6,7 +6,7 @@
 
     How to debug and fix ZODB database problems in Plone
 
-.. contents :: :local:
+.. contents:: :local:
 
 Introduction
 =============
@@ -16,24 +16,30 @@ This document contains information to fix and debug ZODB databases with Plone.
 BLOBs and POSKeyErrors
 ========================
 
-`Plone CMS <http://plone.org>`_ 4.x onwards stores uploaded files and images in `ZODB <http://www.zodb.org/>`_
+The `Plone CMS <http://plone.org>`_ from version 4.x onwards
+stores files and images uploaded to the `ZODB <http://www.zodb.org/>`_
 as `BLOBs <http://www.zodb.org/zodbbook/introduction.html?highlight=blob#blobs>`_.
-They exist in ``var/blobstorage`` folder structure on the file system,
-files being named after persistent object ids (non-human-readable).
-The objects themselves, without file payload, are stored in an append-only database file called
+They exist in a ``var/blobstorage`` folder structure on the file system,
+files being named after (opaque) persistent object ids.
+When using the default backend, the objects themselves,
+without file payload,
+are stored in an append-only database file called
 *filestorage* and usually the name of this file is ``Data.fs``.
 
-If you copy Plone site database object data (Data.fs) and
-forget to copy ``blobstorage`` folder, or data gets out of the sync during the copy,
-various problems appear on the Plone site
+If you copy the Plone site database object data (``Data.fs``) and
+forget to copy the ``blobstorage`` folder(s),
+or if data gets out of the sync during the copy,
+various problems appear on the Plone site:
 
-* You cannot access a content item which has a corresponding blob file missing on the file system
+* You cannot access a content item for which the a corresponding blob file
+  is missing from the file system;
 
-* You cannot rebuild the portal_catalog indexes
+* you cannot rebuild the ``portal_catalog`` indexes;
 
-* Database packing may fail
+* database packing may fail.
 
-Instead, you'll see something like this - an evil ``POSKeyError`` exception (Persistent Object Storage)::
+Instead, you'll see something like this - an evil ``POSKeyError`` exception 
+(POS referring to Persistent Object Storage)::
 
     Traceback (most recent call last):
       File "/fast/xxx/eggs/ZODB3-3.10.3-py2.6-macosx-10.6-i386.egg/ZODB/Connection.py", line 860, in setstate
@@ -44,36 +50,43 @@ Instead, you'll see something like this - an evil ``POSKeyError`` exception (Per
         raise POSKeyError("No blob file", oid, serial)
     POSKeyError: 'No blob file'
 
-The proper solution is to fix this problem is to
+The proper solution to this problem is to:
 
-* Re-copy ``blobstorage`` folder
+* Re-copy ``blobstorage`` folder;
 
-* Restart Plone twice in foreground mode (sometimes freshly copied blobstorage folder does not get picked up - some kind of timestamp issue?).
-  Restarting ZEO clients seem to be enough.
+* restart Plone twice in foreground mode 
+  (sometimes a freshly copied blobstorage folder does not get picked up -
+  some kind of timestamp issue?).
+  Restarting ZEO clients once seems to be enough.
 
 * `Plone site copy instructions <http://plone.org/documentation/kb/copying-a-plone-site>`_
 
-However you may have failed. You may have damaged or lost your ``blobstorage`` forever.
-To get the Plone site to a working state all content having bad BLOB data must be deleted
-(usually meaning losing some of site images and uploaded files).
+However you may have failed.
+You may have damaged or lost your ``blobstorage`` forever.
+To get the Plone site to a working state,
+all content with bad BLOB data must be deleted
+(which usually entails losing some site images and uploaded files).
 
-Below is Python code for `Grok view <http://collective-docs.readthedocs.org/en/latest/views/browserviews.html#creating-a-view-using-grok>`_
-which you can drop in to your own `Plone add-on product <http://collective-docs.readthedocs.org/en/latest/getstarted/paste.html#creating-an-add-on-product-skeleton>`_.
-It creates an admin view which you can call directly thru URL. This code will walk thru all the content on your Plone site and tries to
+Below is Python code for a 
+`Grok view <http://collective-docs.readthedocs.org/en/latest/views/browserviews.html#creating-a-view-using-grok>`_
+which you can drop in to your own 
+`Plone add-on product <http://collective-docs.readthedocs.org/en/latest/tutorials/paste.html#creating-an-add-on-product-skeleton>`_.
+It creates an admin view which you can call directly via an URL.
+This code will walk through all the content on your Plone site and try to
 delete bad content items with BLOBs missing.
 
 The code handles both Archetypes and Dexterity subsystems' content types.
 
-.. note ::
+.. note::
 
-    Fixing Dexterity blobs with this code have never been tested -
+    Fixing Dexterity blobs with this code has never been tested -
     please feel free to update the code in collective.developermanual
     on GitHub if you find it not working properly.
 
 
 The code, ``fixblobs.py``::
 
-     """
+    """
 
         A Zope command line script to delete content with missing BLOB in Plone, causing
         POSKeyErrors when content is being accessed or during portal_catalog rebuild.
@@ -187,7 +200,7 @@ The code, ``fixblobs.py``::
 
         def disable_integrity_check(self):
             """  Content HTML may have references to this broken image - we cannot fix that HTML
-            but link integriry check will yell if we try to delete the bad image.
+            but link integrity check will yell if we try to delete the bad image.
 
             http://collective-docs.readthedocs.org/en/latest/content/deleting.html#bypassing-link-integrity-check "
             """
@@ -223,31 +236,33 @@ More info
 Transactions
 ================
 
-Transactions usually are problematic only when many
+Transactions are usually problematic only when many
 ZEO front-end clients are used.
 
-CoflictError
+ConflictError
 ---------------
 
-When the site gets more load, ConflictErrors
-start to occur. Zope tries to solve the situation
-by replaying HTTP requests for CoflictErrors and has a default threshold (3)
+When the site gets more load, ``ConflictError``\s start to occur.
+Zope tries to solve the situation by replaying HTTP requests
+for ``ConflictError``\s and has a default threshold (3) of
 how many times the request is replayed.
 
 More info
 
 * http://www.zopyx.com/blog/on-zodb-conflict-resolution
 
-How to debug which object causes ConflictErrors
--------------------------------------------------
+How to debug which object causes ``ConflictError``\s
+-----------------------------------------------------
 
-ConflictErrors are caused by concurrent transactions trying to write to the same object(s) -
-usually portal_catalog. They are harmless, but slow down badly coded site.
-Plone will retry the HTTP request and transaction five times before giving up.
+``ConflictError``\s are caused by concurrent transactions trying to write to the same object(s) -
+usually ``portal_catalog``.
+They are harmless, but slow down badly coded sites.
+Plone will retry the HTTP request and transaction three times before giving up.
 
-OID is visible in the ConflictError traceback.
+The OID is visible in the ConflictError traceback.
 
-You can turn OID back to Python object, as mentioned by A. Jung::
+You can turn OID back to the corresponding Python object,
+as mentioned by A. Jung::
 
         from ZODB.utils import p64
         app._p_jar[p64(oid)]
@@ -255,16 +270,18 @@ You can turn OID back to Python object, as mentioned by A. Jung::
 If every transaction appears as write transaction
 --------------------------------------------------
 
-Plone and the underlying Zope handles transactions transparently.
-Due to magic nature of the transactions you might write accidentally
-code which turns all transactions to write transactions.
+If you are not careful, you may accidentally write code 
+which turns all transactions to write transactions. 
+This typically happens when you call some method without realizing that
+that method eventually modifies a persistent object, 
+causing a database write.
 
-Symptoms
+Symptoms:
 
 * Your Undo tab in ZMI will be full of entries, one added per
-  page request
+  page request.
 
-* If you run the server in single Zope server mode, it is slow
+* If you run the server in single Zope server mode, it is slow.
 
 * If you run the server in ZEO mode you get the exceptions like one below.
   It may happen even with one user.
@@ -296,26 +313,31 @@ Traceback example::
     ConflictError: database conflict error (oid 0x2b92, class Products.CMFPlone.PropertiesTool.SimpleItemWithProperties)
 
 How to debug it
-+++++++++++++++++
+`````````````````
 
-Zope 2 hasn't many well-documented ZODB debugging tools. Below is one snippet
-to examine the contents of the last transactions of offline Data.fs file.
-It is evolved version of `this original script <http://www.mail-archive.com/zodb-dev@zope.org/msg04387.html>`_.
+Zope 2 doesn't have many well-documented ZODB debugging tools.
+Below is one snippet to examine the contents of the last transactions
+of an offline ``Data.fs`` file.
+It is an evolved version of 
+`this original script <http://www.mail-archive.com/zodb-dev@zope.org/msg04387.html>`_.
 
-* Do something on badly behaving site
+* Do something on a badly behaving site.
 
-* Stop Zope instance
+* Stop Zope instance.
 
-* Run the script below (debug.py) on Data.fs to see what objects have been changed
+* Run the script below (``debug.py``) on the ``Data.fs`` file to see what
+  objects have been changed.
 
-* Deducting from the object class name, guess the badly behaving code
+* Guess the badly behaving code from the object class name.
 
-Example how to run the script for the last 30 transaction under Zope egg environment using zopepy buildout recipe::
+Example how to run the script for the last 30 transaction under a Zope egg
+environment using the ``zopepy`` script::
 
     bin/zopepy -n 30 debug.py Data.fs
 
-.. XXX: The following is obsolete with current Zope. FileIterator does not
-   take a ``pos`` argument any more.
+.. Warning:: 
+    The following is obsolete with current Zope. FileIterator does not
+    take a ``pos`` argument any more.
 
 Code for debug.py::
 

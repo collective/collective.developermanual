@@ -23,6 +23,10 @@ can be authenticated using HTTP Basic Auth.
 
        http://username:password@localhost:8080/yoursideid/@@clock_view_name
 
+* The ``--auth-no-challenge`` option to the wget command will authenticate even
+  if the server doesn't ask you to authenticate. It might come in handy, as 
+  Plone does not ask for HTTP authentication, and will just serve Unauthorized 
+  if permissions aren't sufficient.
 
 Clock server
 ==================
@@ -50,6 +54,20 @@ Add in buildout.cfg::
                 
 Create a corresponding user in ZMI.
                 
+In detail:
+
+* method - Path from root to an executable Zope method (Python script, external method, etc.) The method must receive no arguments.
+* period - Seconds between each call to the method. Typically, at least 30 specified.
+* user - a Zope Username
+* password - The password of this user Zope
+* host - The name of the host that is in the header of a request as host: is specified.
+
+To check whether the server clock is running, restart the instance or the ZEO
+client in the foreground and see if a message similar to the following is 
+displayed: 
+
+2009-03-03 19:57:38 INFO ZServer Clock server for "/ mysite / do_stuff" started (user: admin, period: 60)
+
 If you are using a public source control repository for your ``buildout.cfg`` you                
 might want to put zope-conf-additional= to ``secret.cfg`` which lies only on the
 production server and is never committed to the version control::
@@ -60,7 +78,7 @@ production server and is never committed to the version control::
                 http://good-py.appspot.com/release/dexterity/1.0?plone=4.1rc3
                 http://plonegomobile.googlecode.com/svn/gomobile.buildout/gomobile.plone-4.trunk.commit-access.cfg
                 secret.cfg
-                                        
+              
 Creating a separate ZEO instance for long running tasks
 ------------------------------------------------------------------------------------
         

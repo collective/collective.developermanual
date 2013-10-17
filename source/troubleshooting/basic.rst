@@ -61,7 +61,7 @@ Dropping into pdb
 
 If you need to inspect start-up errors in Python's :doc:`debugger </testing_and_debugging/pdb>`.
 
-Activate Python configuration associated with your `bin/instance` script::
+Activate Python configuration associated with your ``bin/instance`` script::
 
     source ~/code/collective.buildout.python/python-2.6/bin/activate
 
@@ -115,7 +115,7 @@ Cleaning up bad add-on uninstalls
 ------------------------------------
 
 Many low quality Plone add-ons do not uninstall cleanly.
-You need to remove persitent objects from site database *after* add-on uninstall
+You need to remove persistent objects from site database *after* add-on uninstall
 while *code is still in buildout*.
 
 Otherwise your Plone site may not
@@ -129,6 +129,18 @@ Otherwise your Plone site may not
 For more information see
 
 * http://plone.org/documentation/kb/manually-removing-local-persistent-utilities/
+
+Not able to log in
+------------------
+
+It might happen that you start your instance with an empty database and you are
+not able to log in even if you are absolutely sure about your password. If you work 
+on localhost throw away the localhost related cookies in your browser and restart.
+
+If you have lost the Zope Admin Password you can create an emergency user:
+
+* http://quintagroup.com/services/support/tutorials/zope-access
+
 
 More info
 ----------

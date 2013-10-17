@@ -21,14 +21,14 @@ Calling AT File field accessor will return a ``File`` object::
     (Pdb) self.context.getAttachment()
     <File at /mfabrik/success-stories/case-studies/finnish-national-broadcasting-company/attachment>
 
-Note that this may return ``None`` if the content item has been constructed,
+Note that this may return ``None`` if the content item has been constructed
 but the form has not been properly saved.
         
-If size is ``0`` file is not yet uploaded::
+If the size is ``0``, the file is not yet uploaded::
 
     (Pdb) attach.getSize()
     0
-        
+
 Example how to check in a view whether AT context file size exists::
 
     @property

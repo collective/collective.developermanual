@@ -1,19 +1,23 @@
-==============================
-Templates, CSS and Javascript
-==============================
+============================================================
+Front-end: templates, CSS and Javascript
+============================================================
 
-Doing HTML in Plone.
+Instructions and information for front-end development for Plone CMS.
+
+This includes creating page templates, managing Javascript and CSS assets
+and writing Javascript for Plone.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     template_basics
     css
     javascript
+    javascript_standards
+    ajax
     resourcefolders
     skin_layers
+    diazo
     xdv
     dtml
-    redirects
-
 

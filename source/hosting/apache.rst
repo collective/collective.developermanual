@@ -1,9 +1,9 @@
 ====================================
- Apache 
+ Apache
 ====================================
 
 .. admonition:: Description
-        
+
         Tips and guides for hosting Plone with Apache web server.
 
 .. contents :: :local:
@@ -26,24 +26,34 @@ Install required software::
 	sudo apt-get install apache2
 	sudo a2enmod rewrite
 	sudo a2enmod proxy
+	sudo a2enmod proxy_http
+	sudo a2enmod headers
         sudo /etc/init.d/apache2 restart
 
 Add virtual host config file ``/etc/apache2/sites-enabled/yoursite.conf``.
-Assuming *Plone* is your site id in Zope Management Interface (capital lettering do matter) and your 
+Assuming *Plone* is your site id in Zope Management Interface (capital lettering do matter) and your
 domain name is ``yoursite.com`` (note with or without www matters, see below)::
+
+        UseCanonicalName On
 
 	NameVirtualHost *
 	<VirtualHost *>
 	    ServerAlias yoursite.com
 	    ServerSignature On
-	
+
+            Header set X-Frame-Options "SAMEORIGIN"
+            Header set Strict-Transport-Security "max-age=15768000; includeSubDomains"
+            Header set X-XSS-Protection "1; mode=block"
+            Header set X-Content-Type-Options "nosniff"
+            Header set Content-Security-Policy-Report-Only "default-src 'self'; img-src *; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'"
+
 	    ProxyVia On
-	
+
 	    # prevent your web server from being used as global HTTP proxy
 	    <LocationMatch "^[^/]">
 	      Deny from all
 	    </LocationMatch>
-		
+
 	    <Proxy *>
 	        Order deny,allow
 	        Allow from all
@@ -53,6 +63,12 @@ domain name is ``yoursite.com`` (note with or without www matters, see below)::
 	    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/yoursite.com:80/Plone/VirtualHostRoot/$1 [P,L]
 
 	</VirtualHost>
+ 
+        <VirtualHost *>
+            ServerAlias   *
+            ServerRoot    /var/www
+            ServerSignature On
+        </VirtualHost>
 
 Eventually you have one virtual host configuration file per one domain on your server.
 
@@ -62,7 +78,7 @@ Restart apache::
       sudo apache2ctl restart
 
 Check that Plone respondes::
-  
+
       http://yoursite.com:8080/Plone
 
 Check that Apache responds::
@@ -71,14 +87,35 @@ Check that Apache responds::
 
 If everything is good then your Plone site properly configured using Apache front-end.
 
+Content Security Policy (CSP) prevents a wide range of attacks,
+including cross-site scripting and other cross-site injections, but
+the CSP header setting may require careful tuning. To enable it,
+replace the Content-Security-Policy-Report-Only by
+Content-Security-Policy. The example above works with Plone 4.x
+(including TinyMCE) but it very wide. You may need to adjust it if you
+want to make CSP more restrictive or use additional Plone
+Products. For more information, see
+
+*  http://www.w3.org/TR/CSP/
+
+For an SSL configuration, just modify the rewrite rule from::
+
+	    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/yoursite.com:80/Plone/VirtualHostRoot/$1 [P,L]
+
+to::
+
+	    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/https/yoursite.com:443/Plone/VirtualHostRoot/$1 [P,L]
+
+Inside an SSL-enabled Apache virtual host definition.
+
 Apache and Plone guide (old)
 ==============================
 
-Basic tutorials are available 
+Basic tutorials are available
 
 * http://plone.org/documentation/kb/plone-apache
 
-Procedure to restart Apache in production enviroment
+Procedure to restart Apache in production environment
 ---------------------------------------------------------------
 
 You might share the same Apache web server across
@@ -91,41 +128,41 @@ The correct procedure to restart Apache is (on Ubuntu/Debian Linux)
 
         # Check that config files are working after editing them
         apache2ctl configtest
-        
-        # Let Apache finish serving all the on-going requests before 
+
+        # Let Apache finish serving all the on-going requests before
         # restarting worker processes
         apache2ctl graceful
 
 www-redirects
 -------------
 
-If you wish to force people to use your site with or without www prefix you can use 
+If you wish to force people to use your site with or without www prefix you can use
 the rules below. Note that setting this kind of rule is very useful from the search
-engine optimizatin point of view also.
+engine optimization point of view also.
 
-Example in <VirtualHost> section to redicte www.site.com -> site.com::
+Example in <VirtualHost> section to redirect www.site.com -> site.com::
 
   <VirtualHost 127.0.0.1:80>
 
-           ServerName site.com   
+           ServerName site.com
            ServerAlias www.site.com
-        
-        
+
+
           <IfModule mod_rewrite.c>
                RewriteEngine On
                RewriteCond %{HTTP_HOST} ^www\.site\.com [NC]
                RewriteRule (.*) http://site.com$1 [L,R=302]
-        
+
            </IfModule>
 
 Example in <VirtualHost> section to redirect site.com -> www.site.com::
 
   <VirtualHost 127.0.0.1:80>
 
-           ServerName site.com   
+           ServerName site.com
            ServerAlias www.site.com
-        
-        
+
+
           <IfModule mod_rewrite.c>
                RewriteEngine On
                RewriteCond %{HTTP_HOST} ^site\.com [NC]
@@ -169,31 +206,31 @@ You need::
 For more information, see
 
 * http://macadames.wordpress.com/2009/05/23/some-deliverance-tips/
-   
+
 Redirecting certain URIs to old site
 -------------------------------------
 
-This is useful if you migrate to a Plone from some legacy technology 
-and you still need to have some part of the URI space to 
+This is useful if you migrate to a Plone from some legacy technology
+and you still need to have some part of the URI space to
 point to the old server.
 
 * Create alternative domain name for the existing old site (e.g. www2)
 
 * Modify Apache configuration so that URLs still being used
   are redirected to the old server with alternative name, Put in this rewrite
-  
+
 ::
 
           <location /media>
                   RedirectMatch /media/(.*)$ http://www2.site.fi/media/$1
           </location>
-          
+
 Virtual hosting Apache configuration generator
 ----------------------------------------------
 
 * http://betabug.ch/zope/witch
-                   
-        
+
+
 Caching images
 ----------------
 
@@ -202,11 +239,7 @@ on apache
 
 First you need to enable Apache modules::
 
-* mod_headers
-
 * mod_cache, mod_diskcache
-
-* mod_expires
 
 On Debian this is::
 
@@ -222,41 +255,8 @@ Then you can add to your virtual host configuration::
   #CacheMaxExpire 7200
   CacheDirLength 2
 
-  ExpiresActive On
-  ExpiresByType image/gif A3600
-  ExpiresByType image/png A3600
-  ExpiresByType image/image/vnd.microsoft.icon A3600
-  ExpiresByType image/jpeg A3600
-  ExpiresByType text/css A3600
-  ExpiresByType text/javascript A3600
-  ExpiresByType application/x-javascript A3600
-
-  # Create cache headers for downstream caches and browsers,
-  # needed to enforce HTTPS cache - 
-  # Expires rules above are enough for plain HTTP
-  
-  # Set environment variable by guessing the content payload based on how URL ends  
-  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|css|js|ico)$" cache-it
-
-  # Force caching of HTTPS resources on the browser end
-  # http://blog.pluron.com/2008/07/why-you-should.html
-  Header append Cache-Control public env=cache-it
-  
-  # This header is only for the debugging
-  Header append X-Cache-Tagged yes env=cache-it
-
-.. warning::
-
-	Since Apache caches the whole HTTP response, including
-	headers, see cookie implications below.
-
-.. TODO::
-    Check if we need to do CacheIgnoreHeaders Set-Cookie here.
-        
-        
-More info 
-        
-* http://www.debian-administration.org/users/lee/weblog/35        
+Then install go to *Cache Configration* (Plone 4.1+)
+and configure `the caching options <http://pypi.python.org/pypi/plone.app.caching>`_.
 
 Unsetting language cookie for media content
 =============================================
@@ -269,10 +269,10 @@ By default, Plone sets I18N_LANGUAGE cookie on
 
 * All ATImage requests
 
-Even if images are often language neutral, they still set I18N_LANGUAGE cookie 
-on HTTP response. This is problematic if image gets cached and the user 
-switches the language using the language selector. This happens when 
-you enforce caching using Apache level rules (instead of using Products.CacheSetup 
+Even if images are often language neutral, they still set I18N_LANGUAGE cookie
+on HTTP response. This is problematic if image gets cached and the user
+switches the language using the language selector. This happens when
+you enforce caching using Apache level rules (instead of using Products.CacheSetup
 or similar product). The user browsers received cached HTTP response image
 for the image and it contains Set-Cookie: I18N_LANGUAGE header for the wrong language
 -> browser language choice by cookie is reset.
@@ -290,7 +290,7 @@ A workaround is to force language cookie off from media like content::
   # Any URL having image in it
   SetEnvIfNoCase Request_URI "^.*image*" language-neutral
 
-   
+
   Header unset Set-Cookie env=language-neutral
 
 
@@ -305,9 +305,9 @@ HTTP example::
 
         cd /tmp
 
-        wget --cache=off -S http://production.yourorganizationinternational.org/yourorganizationlogotemplate.gif        
-        
-        HTTP request sent, awaiting response... 
+        wget --cache=off -S http://production.yourorganizationinternational.org/yourorganizationlogotemplate.gif
+
+        HTTP request sent, awaiting response...
           HTTP/1.1 200 OK
           Date: Tue, 09 Mar 2010 12:33:26 GMT
           Server: Apache/2.2.8 (Ubuntu) DAV/2 SVN/1.4.6 mod_python/3.3.1 Python/2.5.2 PHP/5.2.4-2ubuntu5.4 with Suhosin-Patch mod_ssl/2.2.8 OpenSSL/0.9.8g
@@ -334,10 +334,10 @@ Flushing cache
 
 Manually cleaning Apache disk cache::
 
-	sudo -i 
+	sudo -i
 	cd /var/cache/yoursite
 	rm -rf *
-	
+
 Custom 500 internal error page
 --------------------------------
 
@@ -358,39 +358,39 @@ This complex config example includes
   if you are using plone.app.caching.
 
 * Server site https://production.yourorganization.org
-        
-See 
 
-* http://stackoverflow.com/questions/5650716/are-sticky-sessions-needed-when-load-balancing-plone-3-3-5         
-        
+See
+
+* http://stackoverflow.com/questions/5650716/are-sticky-sessions-needed-when-load-balancing-plone-3-3-5
+
 More information about how to set a sticky session cookie if you need to support Zope sessions in your code
 
-* http://opensourcehacker.com/2011/04/15/sticky-session-load-balancing-with-apache-and-mod_balancer-on-ubuntu-linux/      
+* http://opensourcehacker.com/2011/04/15/sticky-session-load-balancing-with-apache-and-mod_balancer-on-ubuntu-linux/
 
 Example::
 
         <VirtualHost 123.123.123:443>
-        
+
           ServerName  production.yourorganization.org
           ServerAdmin rocks@mfabrik.com
-        
+
           SSLEngine On
           SSLCertificateFile /etc/apache2/ssl-keys/yourorganization.org.cer
           SSLCertificateKeyFile /etc/apache2/ssl-keys/yourorganization.org.key
           SSLCertificateChainFile /etc/apache2/ssl-keys/InstantValidationCertChain.crt
-        
+
           LogFormat       combined
           TransferLog     /var/log/apache2/production.yourorganization.org.log
-        
+
           <IfModule mod_proxy.c>
            ProxyVia On
-        
+
            # prevent the webserver from being used as proxy
            <LocationMatch "^[^/]">
              Deny from all
            </LocationMatch>
           </IfModule>
-        
+
           # Balance load between 4 ZEO front-ends
           <Proxy balancer://lbyourorganization>
             BalancerMember http://127.0.0.1:13001/
@@ -398,32 +398,30 @@ Example::
             BalancerMember http://127.0.0.1:13003/
             BalancerMember http://127.0.0.1:13004/
           </Proxy>
-        
+
           # Note: You might want to disable this URL of being public
           # as it can be used to access Apache live settings
           <Location /balancer-manager>
             SetHandler balancer-manager
             Order Deny,Allow
             # Your trusted IP addresses
-            Allow from 123.123.123.123 
+            Allow from 123.123.123.123
           </Location>
-        
+
           ProxyPass /balancer-manager !
           ProxyPass             / balancer://lbyourorganization/http://localhost/VirtualHostBase/https/production.yourorganization.org:443/yourorganization_plone_site/VirtualHostRoot/
           ProxyPassReverse      / balancer://lbyourorganization/http://localhost/VirtualHostBase/https/production.yourorganization.org:443/yourorganization_plone_site/VirtualHostRoot/
-        
+
           # Disk cache configuration
           CacheEnable disk /
 	  # Must point to www-data writable directly which depends on OS
           CacheRoot "/var/cache/yourorganization-production"
           CacheLastModifiedFactor 0.1
-        
+
           # Debug header flags all requests coming from this server
-          Header append X-YourOrganization-Production yes 
-        
+          Header append X-YourOrganization-Production yes
+
         </VirtualHost>
-	
 
 
 
-              

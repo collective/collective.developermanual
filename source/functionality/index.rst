@@ -8,16 +8,17 @@
 	are programmed in Plone.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     actions
-    expressions    
-    contactform
+    expressions
+    portlets
     controlpanel
     dashboard
-    rss            
+    rss
     collections
     locks
-    breadcrumbs    
-    sitemap        
+    breadcrumbs
+    sitemap
     discussion
+    contactform

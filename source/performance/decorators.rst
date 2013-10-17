@@ -54,9 +54,22 @@ Example::
 Timeout caches
 ==============
 
-Please read `Timed caching decorator with plone.memoize <http://danielnouri.org/blog/devel/plone-memoize-timeout.html?showcomments=yes>`_.
+The @ram.cache decorator takes a function argument and calls it to get a value. 
+So long as that value is unchanged, the cached result of the decorated function is returned.
+This makes it easy to set a timeout cache::
 
-* `Another example <https://svn.plone.org/svn/collective/collective.externalcontent/trunk/collective/externalcontent/tests/test_vocabulary.py>`_.
+    from plone.memoize import ram
+    from time import time
+
+    @ram.cache(lambda *args: time() // (60 * 60))
+    def cached_query(self):
+        # very expensive operation, 
+        # will not be called more than once an hour
+
+time.time() returns the time in seconds as a floating point number. "//" is Python's integer division.
+So, the result of ``time() // (60 * 60)`` only changes once an hour. 
+``args`` passed are ignored.
+
 
 Caching per request
 ===================
@@ -154,6 +167,40 @@ which lasts for the transaction lifecycle::
                 cache[key] = data
 
             return data
+
+
+Testing memoized methods inside browser views
+=============================================
+
+While testing browser views memoized methods you could find out that calling
+a method multiple times inside a test could result in getting the same result
+over and over, no mater what the parameters are, because you have the same
+context and request inside the test and the result is being cached.
+
+One approach to by-pass this is to put your code logic inside a private method
+while memoizing a public method with the same name that only calls the private
+one:
+
+.. code-block:: python
+
+    from plone.memoize import view
+    from Products.Five import BrowserView
+
+    class MyView(BrowserView):
+
+        def _my_expensive_method():
+            """Code logic goes here.
+            """
+            return "something"
+
+        @view.memoize
+        def my_expensive_method():
+            """We just call the private method here and memoize the result.
+            """
+            return self._my_expensive_method()
+
+
+In your tests you can call the private method to avoid memoization.
 
 
 Other resources

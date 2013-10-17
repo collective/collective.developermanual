@@ -23,20 +23,20 @@ command will be generated.
 
 .. code-block:: cfg
 
-    parts = 
+    parts =
        ...
        test
-    
+
     [test]
     recipe = zc.recipe.testrunner
     defaults = ['--auto-color', '--auto-progress']
-    eggs = 
+    eggs =
         ${instance:eggs}
 
 .. note ::
 
     On Plone 3 you can run tests with the ``bin/instance test`` command,
-    which corresponds ``bin/test``.             
+    which corresponds ``bin/test``.
 
 
 Running tests for one package:
@@ -55,7 +55,7 @@ Running tests for two test cases:
 
 .. code-block:: console
 
-    bin/test -s package.subpackage -t TestClass1|TestClass2    
+    bin/test -s package.subpackage -t TestClass1|TestClass2
 
 To drop into the pdb debugger after each test failure:
 
@@ -98,11 +98,11 @@ If you get the above error message there are two potential reasons:
 
 * You have both a ``tests.py`` file and a ``tests`` folder.
 
-* Old version: Zope version X unit test framework was updated not to need 
-  an explicit ``test_suite`` declaration in the ``test`` module any more. 
+* Old version: Zope version X unit test framework was updated not to need
+  an explicit ``test_suite`` declaration in the ``test`` module any more.
   Instead, all subclasses of ``TestCase`` are automatically picked.
   However, this change is backwards incompatible.
-  http://wiki.zope.org/zope2/HowToRunZopeUnitTests 
+  http://wiki.zope.org/zope2/HowToRunZopeUnitTests
 
 Test coverage
 =============
@@ -126,9 +126,15 @@ Pointers:
 
 * http://plone.org/documentation/kb/testing
 
+* http://pypi.python.org/pypi/plone.app.testing
+
 * http://pypi.python.org/pypi/Products.PloneTestCase
 
 * http://www.zope.org/Members/shh/ZopeTestCaseWiki/ApiReference
+
+
+For new test suites, it is recommended to use `plone.app.testing`.
+
 
 Base test class skeleton
 ========================
@@ -139,10 +145,10 @@ Example::
     from Testing import ZopeTestCase
 
     # Plone imports -> PloneTestCase load zcml layer and install product
-    from Products.PloneTestCase import PloneTestCase 
+    from Products.PloneTestCase import PloneTestCase
 
-    # For loading zcml          
-    from Products.Five import zcml 
+    # For loading zcml
+    from Products.Five import zcml
 
     ## Import all module that you want load zcml
     import Products.PloneFormGen
@@ -155,7 +161,7 @@ Example::
     PloneTestCase.installProduct('PloneLanguageTool')
     ## ....
     PloneTestCase.installProduct('collective.dancing')
-    ## Install a Python package registered via five:registerPackage 
+    ## Install a Python package registered via five:registerPackage
     PloneTestCase.installPackage('myapp.content')
 
     ## load zcml
@@ -174,7 +180,7 @@ Example::
 
     class MySiteTestCase(PloneTestCase.PloneTestCase):
         """Base class for all class with test cases"""
-     
+
         def afterSetUp(self):
             """ some tasks after setup the site """
 
@@ -183,14 +189,14 @@ Posing as different users
 ===========================
 
 There is a shortcut to privilege you from all security checks::
-        
+
     self.loginAsPortalOwner()
 
 In Plone 4, using plone.app.testing, use::
     from plone.app.testing import login
     ...
     login(self.portal, 'admin')
-          
+
 where ``self`` is the test case instance.
 
 .. note ::
@@ -225,7 +231,7 @@ Simple example::
 Complex example::
 
     ptc.setupPloneSite(products=['harvinaiset.app', 'TickingMachine'], extension_profiles=["harvinaiset.app:tests","harvinaiset.app:default"])
-    
+
 
 Tested package not found warning
 ---------------------------------
@@ -282,7 +288,7 @@ Setting a real HTTP request
 ---------------------------
 
 ::
- 
+
     >>> from Testing import makerequest
     >>> self.app = makerequest.makerequest(Zope.app())
     >>> request=self.portal.REQUEST
@@ -296,7 +302,7 @@ Test outgoing email messages with Plone 3
 
 To debug outgoing email traffic you can create a dummy mailhost.
 
-        
+
 Example::
 
     from zope.component import getUtility, getMultiAdapter, getSiteManager
@@ -304,26 +310,26 @@ Example::
     from Products.SecureMailHost.SecureMailHost import SecureMailHost
     from Products.CMFCore.utils import getToolByName
 
-    
+
     class DummySecureMailHost(SecureMailHost):
         """Grab outgoing emails"""
-        
+
         meta_type = 'Dummy secure Mail Host'
-    
+
         def __init__(self, id):
             self.id = id
-            
+
             # Use these two instance attributes to check what email has been sent
-            self.sent = []        
+            self.sent = []
             self.mto = None
-    
+
         def _send(self, mfrom, mto, messageText, debug=False):
             self.sent.append(messageText)
             self.mto = mto
-    
-    
+
+
     ...
-    
+
     def afterSetUp(self):
         self.loginAsPortalOwner()
         sm = getSiteManager(self.portal)
@@ -331,26 +337,26 @@ Example::
         self.dummyMailHost = DummySecureMailHost('dMailhost')
         sm.manage_changeProperties({'email_from_address': 'moo@isthemasteofuniverse.com'})
         sm.registerUtility(self.dummyMailHost, IMailHost)
-    
+
         # Set mail host for tools which use getToolByName() look up
         self.MailHost = self.dummyMailHost
-    
+
         # Make sure that registration tool uses mail host mock
         rtool = getToolByName(self.portal, 'portal_registration')
         rtool.MailHost = self.dummyMailHost
-    
+
     ....
-    
+
     def test_xxx(self):
         # Reset outgoing emails
         self.dummyMailHost.sent = []
-    
+
         # Do a workflow state change which should trigger content rule
-        # sending out email                        
-        self.workflow.doActionFor(member, "approve_by_sits")        
+        # sending out email
+        self.workflow.doActionFor(member, "approve_by_sits")
         review_state = self.workflow.getInfoFor(member, 'review_state')
         self.assertEqual(review_state, "approved_by_sits")
-                                
+
         # Check that email has been sent
         self.assertEqual(len(self.dummyMailHost.sent), 1)
 
@@ -365,7 +371,7 @@ According to that guide we can reuse some of the test code in
 
 .. _`Plone Upgrade Guide`: http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/mailhost.securesend-is-now-deprecated-use-send-instead
 
-Here's some example of a ``unittest.TestCase`` based on the excelent ``plone.app.testing``
+Here's some example of a ``unittest.TestCase`` based on the excellent ``plone.app.testing``
 framework. Adapt it to your own needs.
 
 .. code-block:: python
@@ -394,7 +400,7 @@ framework. Adapt it to your own needs.
     class TestOrder(unittest.TestCase):
 
         layer = HKL_PURCHASEORDER_FUNCTIONAL_TESTING
-        
+
         def setUp(self):
             self.app = self.layer['app']
             self.portal = self.layer['portal']
@@ -406,14 +412,14 @@ framework. Adapt it to your own needs.
 
             self.portal.email_from_address = 'noreply@holokinesislibros.com'
             transaction.commit()
-        
+
         def tearDown(self):
             self.portal.MailHost = self.portal._original_MailHost
             sm = getSiteManager(context=self.portal)
             sm.unregisterUtility(provided=IMailHost)
             sm.registerUtility(aq_base(self.portal._original_MailHost),
                                provided=IMailHost)
-        
+
         def test_mockmailhost_setting(self):
             #open contact form
             browser = Browser(self.app)
@@ -430,14 +436,14 @@ framework. Adapt it to your own needs.
             form.submit()
             self.assertEqual(browser.url, 'http://nohost/plone/contact-info')
             self.assertIn('Mail sent', browser.contents)
-            
+
             # As part of our test setup, we replaced the original MailHost with our
             # own version.  Our version doesn't mail messages, it just collects them
             # in a list called ``messages``:
             mailhost = self.portal.MailHost
             self.assertEqual(len(mailhost.messages), 1)
             msg = message_from_string(mailhost.messages[0])
-            
+
             self.assertEqual(msg['MIME-Version'], '1.0')
             self.assertEqual(msg['Content-Type'], 'text/plain; charset="utf-8"')
             self.assertEqual(msg['Content-Transfer-Encoding'], 'quoted-printable')
@@ -470,62 +476,62 @@ Below are examples how to run special ZCML snippets for your unit tests.
     from Products.Five import zcml
     from zope.configuration.exceptions import ConfigurationError
     from getpaid.paymentprocessors.registry import paymentProcessorRegistry
-    
+
     configure_zcml = '''
     <configure
         xmlns="http://namespaces.zope.org/zope"
         xmlns:five="http://namespaces.zope.org/five"
         xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
         i18n_domain="foo">
-    
-    
+
+
         <paymentprocessors:registerProcessor
            name="dummy"
            processor="getpaid.paymentprocessors.tests.dummies.DummyProcessor"
            selection_view="getpaid.paymentprocessors.tests.dummies.DummyButton"
            thank_you_view="getpaid.paymentprocessors.tests.dummies.DummyThankYou"
            />
-    
+
     </configure>'''
-    
-    
+
+
     bad_processor_zcml = '''
     <configure
         xmlns="http://namespaces.zope.org/zope"
         xmlns:five="http://namespaces.zope.org/five"
         xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
         i18n_domain="foo">
-    
-    
+
+
         <paymentprocessors:registerProcessor
            name="dummy"
            selection_view="getpaid.paymentprocessors.tests.dummies.DummyButton"
            thank_you_view="getpaid.paymentprocessors.tests.dummies.DummyThankYou"
            />
-    
-    
+
+
     </configure>'''
-    
-    
-    
-    
+
+
+
+
     class TestZCML(PaymentProcessorTestCase):
         """ Test ZCML directives """
-    
-    
+
+
         def test_register(self):
             """ Check that ZCML entry gets added to our processor registry """
             zcml.load_string(configure_zcml)
-    
-    
+
+
             # See that our processor got registered
             self.assertEqual(len(papaymentProcessorRegistryistry.items()), 1)
-    
-    
+
+
         def test_bad_processor(self):
             """ Check that ZCML entry which has bad processor declaration is caught """
-    
-    
+
+
             try:
                 zcml.load_string(bad_processor_zcml)
                 raise AssertionError("Should not be never reached")

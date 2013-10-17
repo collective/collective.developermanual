@@ -41,7 +41,7 @@ decorators to be used instead.
 
 More info:
 
-* `ZCML reference <http://apidoc.zope.org/++apidoc++/ZCML/staticmenu.html>`_ (does not include Plone specific directives)
+* `ZCML reference <http://docs.zope.org/zope3/ZCML/@@staticmenu.html>`_ (does not include Plone specific directives)
 
 * http://docs.zope.org/zopetoolkit/codingstyle/zcml-style.html
 
@@ -85,20 +85,21 @@ during ZCML parsing, not when site is run.
 
 * Syntax is 100% same as in ``configure.zcml``
 
-* Add the line in buildout::
-
-     zcml =
-        ...
-        myegg-overrides
-
-* Rerun buildout.
-
 * Restart Plone.
 
 .. Note::
 
-    ``overrides.zcml`` must be explicitly specified in ``buildout.cfg`` and
-    is never automatically included from eggs.
+    Before Plone 3.3, ZCML directives could not be automatically picked up from
+    eggs. To make Plone pick up the directions in ``overrides.zcml``, you'd
+    have to add this line in ``buildout.cfg``::
+
+      zcml =
+          ...
+          myegg-overrides
+
+    Since Plone 3.3, the ``z3c.autoinclude`` plugin can do this
+    (http://plone.org/products/plone/roadmap/247/).
+
 
 Specify files and code from another package
 ===========================================

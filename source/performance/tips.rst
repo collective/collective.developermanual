@@ -9,6 +9,11 @@
     Tips for Plone performance tuning and making your add-on product and
     customizations faster.
 
+Profiling Plone
+===========================
+
+* http://pypi.python.org/pypi/collective.profiler/
+
 Optimizing ZEO and threads
 ===========================
 
@@ -55,7 +60,8 @@ Reducing memory usage
 =======================
 
 These tips are especially critical when running Plone on low-memory virtual
-private server (VPS).
+private server (VPS). But using the memory tips below, and some filesystem and operating system tweaks, 
+it is also perfectly possible to run Plone on an ARM-based Android stick, or a Raspberry Pi. See http://polyester.github.io/
 
 Disable extra languages
 -------------------------
@@ -66,6 +72,13 @@ Add ``PTS_LANGUAGES`` to ``buildout.cfg`` to declare which .po files are loaded 
         ...
         environment-vars =
             PTS_LANGUAGES=en fi
+
+Upgrade DateTime
+----------------
+
+DateTime 3.x and higher use significant less memory than older versions. Pinning it to 3.0.3 (4.x not tested yet) has no
+known side effects on all Plone 4.1.x and 4.2.x sites, but can give up to a 20-25% reduction in memory use on lower-end hardware/virtualmachines.
+
 
 Large files
 ============

@@ -5,7 +5,7 @@
 .. admonition:: Description
 
         How to use annotation design pattern to store
-        arbitary values on Python objects (Plone site,
+        arbitrary values on Python objects (Plone site,
         HTTP request) for storage and caching purposes.
 
 .. contents:: :local:
@@ -57,7 +57,7 @@ carousel.py::
             
             Usage:
             
-            http://yoursite/@@migrate_carousel - the process can be repeated with adjusted settings. It's non-descructive.
+            http://yoursite/@@migrate_carousel - the process can be repeated with adjusted settings. It's non-destructive.
             
             http://yoursite/@@delete_migrated_slideshow_images
         

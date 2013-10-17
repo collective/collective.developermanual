@@ -40,6 +40,21 @@ Zope 3 schemas are used for tasks like:
 The basic unit of data model declaration is the *field*, which specifies what
 kind of data each Python attribute can hold.
 
+More info
+----------------
+
+* `zope.schema <http://pypi.python.org/pypi/zope.schema>`_ on PyPi
+
+* `zope.schema source code <http://svn.zope.org/zope.schema/trunk/src/zope/schema/>`_ - definite source for field types and usage.
+
+``zope.schema`` provides a very comprehensive set of fields out of the box.
+Finding good documentation for them, however, can be challenging.  Here are
+some starting points:
+
+
+* `Dexterity field list <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/fields.html>`_.
+
+
 Example of a schema
 --------------------
 
@@ -132,27 +147,6 @@ Example::
             context.test_address.arbitary_attribute = u"Don't do this!"
 
 
-Further reading
-===============
-
-* `zope.schema <http://pypi.python.org/pypi/zope.schema>`_ package to
-  describe data structures.
-
-* http://zope3.xmu.me/schema.html
-
-``zope.schema`` out-of-the-box fields
-======================================
-
-``zope.schema`` provides a very comprehensive set of fields out of the box.
-Finding good documentation for them, however, can be challenging.  Here are
-some starting points:
-
-* `Stock zope.schema field list part I <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/index.html>`_
-
-* `Stock zope.schema field list part II <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/index.html>`_
-
-* `Dexterity field list <http://dexterity-developer-manual.readthedocs.org/en/latest/reference/fields.html>`_.
-
 Field constructor parameters
 ============================
 
@@ -182,9 +176,9 @@ default
     Do not initialize any non-primitive values using the *default* keyword
     parameter of schema fields.  Python and the ZODB stores objects by 
     reference.  Python code will construct only *one* field value during
-    schema contstruction, and share its content across all objects.  This
+    schema construction, and share its content across all objects.  This
     is probably not what you intend. Instead, initialize objects in the
-    ``__init__()`` method of your schema implementor.
+    ``__init__()`` method of your schema implementer.
 
     In particular, dangerous defaults are: ``default=[]``, ``default={}``,
     ``default=SomeObject()``.
@@ -214,6 +208,47 @@ Example::
     # Get list of schema fields from IMyInterface
     fields = zope.schema.getFields(IMyInterface)
 
+Dumping schema data
+---------------------
+
+Below is an example how to extract all schema defined fields from an object.
+
+::
+    
+    from collections import OrderedDict
+    
+    import zope.schema
+
+
+    def dump_schemed_data(obj):
+        """
+        Prints out object variables as defined by its zope.schema Interface.
+        """
+        out = OrderedDict()
+
+        # Check all interfaces provided by the object
+        ifaces = obj.__provides__.__iro__
+
+        # Check fields from all interfaces
+        for iface in ifaces:
+            fields = zope.schema.getFieldsInOrder(iface)
+            for name, field in fields:
+                # ('header', <zope.schema._bootstrapfields.TextLine object at 0x1149dd690>)
+                out[name] = getattr(obj, name, None)
+
+        return out
+
+Finding the schema for a Dexterity type
+---------------------------------------
+
+When trying to introspect a Dexterity type, you can get a reference to the schema thus::
+
+    from zope.component import getUtility
+    from plone.dexterity.interfaces import IDexterityFTI
+    
+    schema = getUtility(IDexterityFTI, name=PORTAL_TYPE_NAME).lookupSchema()
+
+...and then inspect it using the methods above.
 
 Field order
 ===========
@@ -355,7 +390,6 @@ Example::
                 title=u"Available headers and animations",
                 description=u"Headers and animations uploaded here",
                 required=False,
-                default=[],
                 value_type=schema.Object(IHeaderAnimation))
 
     alsoProvides(IHeaderAnimation, form.IFormFieldProvider)
@@ -466,11 +500,11 @@ Example::
         # Contains lists of values from Choice list using special "get_field_list" vocabulary
         # We also give a plone.form.directives hint to render this as
         # multiple checbox choices
-        form.widget(enabled_overrides=CheckBoxFieldWidget)
-        alternatives = schema.List(title=u"Available headers and animations",
+        form.widget(yourField=CheckBoxFieldWidget)
+        yourField = schema.List(title=u"Available headers and animations",
                                    description=u"Headers and animations uploaded here",
-                                   required=False, default=[],
-                                   value_type=zope.schema.Choice(source=get_field_list),
+                                   required=False, 
+                                   value_type=zope.schema.Choice(source=yourVocabularyFunction),
                                    )
 
 Dynamic schemas
@@ -484,7 +518,7 @@ to form engine, you need to
   replace these references with dynamically generated copes)
 
 * Generate a Python class dynamically. Output Python source code,
-  then `eval()` it. Using `eval()` is almost always considered
+  then ``eval()`` it. Using ``eval()`` is almost always considered
   as a bad practice.
 
 .. warning ::
@@ -497,7 +531,7 @@ to form engine, you need to
 Replacing schema fields with dynamically modified copies
 ---------------------------------------------------------
 
-The below is an example for z3c.form. It uses Python `copy`
+The below is an example for z3c.form. It uses Python ``copy``
 module to copy f.field reference, which points to zope.schema
 field. For this field copy, we modify *required* attribute based
 on input.
@@ -517,7 +551,7 @@ Example::
             fields = z3c.form.field.Fields(ICheckoutAddress)
 
             # We need to override the actual required from the
-            # schema field which is litte tricky.
+            # schema field which is a little tricky.
             # Schema fields are shared between instances
             # by default, so we need to create a copy of it
             if self.optional:
@@ -527,5 +561,17 @@ Example::
                     schema_field = copy.copy(f.field) # shallow copy of an instance
                     schema_field.required = False
                     f.field = schema_field
+
+Don't use dict {} or list [] as a default value
+--------------------------------------------------
+
+Because how Python object construction works, giving [] or {}
+as a default value will make all created field values to share this same object.
+
+http://effbot.org/zone/default-values.htm
+
+Use value adapters instead 
+
+* http://pypi.python.org/pypi/plone.directives.form#value-adapters
 
 .. |---| unicode:: U+02014 .. em dash

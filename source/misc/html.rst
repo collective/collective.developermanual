@@ -1,5 +1,5 @@
 ===============================================
- HTML manipulation
+ HTML manipulation and transformations
 ===============================================
 
 .. admonition:: Description
@@ -19,13 +19,74 @@ Plone is no exception.
 Converting HTML to plain text
 ===============================
 
-The most common use case is to overridde ``SearchableText()`` to return
+The most common use case is to override ``SearchableText()`` to return
 HTML content for portal_catalog for indexing.
 
 * http://stackoverflow.com/questions/6956326/custom-searchabletext-and-html-fields-in-plone
 
 Converting plain text to HTML
 ==============================
+
+You can use ``portal_transforms`` to do plain text -> HTML conversion.
+
+Below is an example how to create a Description field rendered with new line support.
+
+description.py::
+
+      from five import grok
+      from zope.interface import Interface
+      from Products.CMFCore.utils import getToolByName
+
+      class DescriptionHelper(grok.CodeView):
+          """
+          A helper view which exports dublin core description w/new line support
+          allowing several paragraphs in Plone's description field.
+          """
+      
+          grok.name("description-helper")
+          grok.context(Interface)
+      
+          def render(self):
+              """
+              Get a content item description w/new line support.
+      
+              Transform hard lines to breaks in HTML.
+              """
+      
+              # Call archetypes accessor
+              text = self.context.Description()
+      
+              # Transform plain text description with ASCII newlines
+              # to one with
+              portal_transforms = getToolByName(self.context, 'portal_transforms')
+      
+              # Output here is a single <p> which contains <br /> for newline
+              data = portal_transforms.convertTo('text/html', text, mimetype='text/-x-web-intelligent')
+              html = data.getData()
+              return html
+
+Now you can do in your page template
+
+.. code-block:: html
+
+    <metal:main-macro define-macro="main">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 metal:use-macro="here/kss_generic_macros/macros/generic_title_view">
+            Title or id
+        </h1>
+
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+        <div class="documentDescription">
+           <tal:desc replace="structure context/@@description-helper" />
+        </div>
+
+        ...
+
+
+More info
 
 * http://svn.plone.org/svn/collective/intelligenttext/trunk/README.txt
 
@@ -94,7 +155,7 @@ This is suitable for e.g. printing the whole folder in one pass.
         return data
 
     def remove_bad_tags(content):
-        """ Filter out HTML nodes which would prevent continous printing """
+        """ Filter out HTML nodes which would prevent continuous printing """
 
 
         if type(content) == str:

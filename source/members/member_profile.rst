@@ -2,43 +2,48 @@
  Member profiles
 =================
 
-.. contents :: :local:
+.. contents:: :local:
 
 .. admonition:: Description
 
-        How to manage Plone member propeties programmatically
+    How to manage Plone member properties programmatically
 
 Introduction
--------------
+=============
 
-Member profile fields are the fields which the logged in member
-can edit oneself on his user account page.
- 
-For more info, see
+Member profile fields are the fields which the logged-in member
+can edit himself on his user account page.
 
-* MemberDataTool: http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
+For more info, see:
 
-* MemberData class: http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
+``MemberDataTool``
+    http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
 
-PlonePAS subclasses and extends MemberData and MemberDataTool
+``MemberData`` class
+    http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto
 
-* `See PlonePAS MemberDataTool <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L27>`_. 
+PlonePAS subclasses and extends MemberData and MemberDataTool.
 
-* `See PlonePAS MemberData class <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L220>`_. 
+* `See PlonePAS MemberDataTool <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L27>`_.
+
+* `See PlonePAS MemberData class <http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L220>`_.
 
 Getting member profile properties
----------------------------------
+=================================
 
 .. note::
 
-        Following concerns vanilla Plone only. If you have customized membership behavior
-        it doesn't necessarily work.
+    The following applies to vanilla Plone.
+    If you have customized membership behavior it won't necessarily work.
 
-Member profile properties (title, address, biography, etc.) are stored in portal_membership tool.
+Member profile properties (title, address, biography, etc.)
+are stored in ``portal_membership`` tool.
 
-Available fields can be found in ZMI -> portal_membership -> Properties tab.
+Available fields can be found in the
+:term:`ZMI` -> ``portal_membership`` -> :guilabel:`Properties` tab.
 
-The script below is a simple example of how to list all member email addresses::
+The script below is a simple example showing how to list all member
+email addresses::
 
    from Products.CMFCore.utils import getToolByName
    memberinfo = []
@@ -46,30 +51,30 @@ The script below is a simple example of how to list all member email addresses::
    for member in membership.listMembers():
        memberinfo.append(member.getProperty('email'))
    return memberinfo
- 
+
 
 Accessing member data
-=====================
+---------------------
 
 .. TODO::
 
     Get member data by username
 
-Furher reading
-==============
+Further reading
+---------------
 
-* `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_ 
+* `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_
    how to retrieve these properties.
 
 
 Getting member fullname
-=======================
+-----------------------
 
-In Python code you can ask info from MemberData object::
+In Python code you can access properties on the ``MemberData`` object::
 
-        fullname = member_data.getProperty("fullname")
+    fullname = member_data.getProperty("fullname")
 
-In template you can do something along the lines::
+In a template you can do something along the same lines::
 
     <tal:with-fullname define="membership context/portal_membership;info python:membership.getMemberInfo(user.getId()); fullname info/fullname">
         You are are <span class="name" tal:content="fullname" />
@@ -78,19 +83,19 @@ In template you can do something along the lines::
 Note that this code won't work for anonymous users.
 
 Setting member profile properties
----------------------------------
+=================================
 
-Use *setMemberProperties(mapping={})* to batch update properties.
+Use ``setMemberProperties(mapping={...})`` to batch update properties.
 Old properties are not removed.
 
 Example::
 
-        member = portal_membership.getMemberById(user_id) 
-        member.setMemberProperties(mapping={"email":"aaa@aaa.com"})
-        
-New properties must be explicitly declared in portal_memberdata,
+    member = portal_membership.getMemberById(user_id)
+    member.setMemberProperties(mapping={"email":"aaa@aaa.com"})
+
+New properties must be explicitly declared in ``portal_memberdata``,
 before creation of the member,
-or setMemberProperties() will silently fail.
+or ``setMemberProperties()`` will silently fail.
 
 .. TODO::
 
@@ -98,36 +103,36 @@ or setMemberProperties() will silently fail.
 
 Example::
 
-        def prepareMemberProperties(site):
-            """ Adjust site for custom member properties """
-            
-            # Need to use ancient Z2 property sheet API here...
-            portal_memberdata = getToolByName(site, "portal_memberdata")
-        
-            # When new member is created, it's MemberData
-            # is populated with the values from portal_memberdata property sheet,
-            # so value="" will be the default value for users' home_folder_uid
-            # member property
-            if not portal_memberdata.hasProperty("home_folder_uid"):
-                portal_memberdata.manage_addProperty(id="home_folder_uid", value="", type="string")
+    def prepareMemberProperties(site):
+        """ Adjust site for custom member properties """
 
-         ....
-         
-        def createMatchingHomeFolder(member):
-            """ """
-            
-            email = member.getProperty("email")
-            home_folder.setEmail(email)
-            
-            # Store UID of the created folder in memberdata so we can
-            # look it up later to e.g. generate the link to the member folder
-            member.setMemberProperties(mapping={"home_folder_uid": home_folder.UID()})
-            
-            
-            return home_folder
-            
+        # Need to use ancient Z2 property sheet API here...
+        portal_memberdata = getToolByName(site, "portal_memberdata")
+
+        # When new member is created, it's MemberData
+        # is populated with the values from portal_memberdata property sheet,
+        # so value="" will be the default value for users' home_folder_uid
+        # member property
+        if not portal_memberdata.hasProperty("home_folder_uid"):
+            portal_memberdata.manage_addProperty(id="home_folder_uid", value="", type="string")
+
+     ....
+
+    def createMatchingHomeFolder(member):
+        """ """
+
+        email = member.getProperty("email")
+        home_folder.setEmail(email)
+
+        # Store UID of the created folder in memberdata so we can
+        # look it up later to e.g. generate the link to the member folder
+        member.setMemberProperties(mapping={"home_folder_uid": home_folder.UID()})
+
+
+        return home_folder
+
 Setting password
-=====================
+---------------------
 
 Password is a special case.
 
@@ -139,69 +144,80 @@ Example how to set the user password::
 
 
 Increase minimum password size
-==============================
+------------------------------
 
-To increase the minimum password size copy "validate_pwreset_password" to your custom folder and insert the following lines::
+To increase the minimum password size, copy ``validate_pwreset_password``
+to your custom folder and insert the following lines::
 
-   if len(password) < 8:
-    state.setError('password', 'ERROR') 
+    if len(password) < 8:
+        state.setError('password', 'ERROR')
 
-This will increase the minimum password size for the password reset form to 8 characters. (This does not effect new user regsitration, that limit will still be 5)
+This will increase the minimum password size for the password reset form
+to 8 characters. (This does not effect new user registration, that limit
+will still be 5.)
 
 Don't forget to update your form templates to reflect your changes!
 
-            
+
 
 Default password length - password reset form
-=============================================
+---------------------------------------------
 
-The password reset form's minimum password length is 5 characters, to increase this:
+The password reset form's minimum password length is 5 characters.
+To increase this:
 
-Copy validate_pwreset_password into your custom folder and add the following lines:
+Copy ``validate_pwreset_password`` into your custom folder
+and add the following lines::
 
-    if len(password) <8:
-    state.setError('password','ERROR')
+    if len(password) < 8:
+        state.setError('password','ERROR')
 
-Before the "if state.getErrors():" method.
+before the ``if state.getErrors():`` method.
 
-This would increase the minimum password size to 8 characters. Remember to update your form templates accordingly.
+This would increase the minimum password size to 8 characters.
+Remember to update your form templates accordingly.
 
 
 Setting visual editor for all users
-=======================================
+---------------------------------------
 
-Visual editor property is set on the member on the member creation.
+The *visual editor* property is set on the member upon creation.
 
-If you want to all site members to use TinyMCE instead of Kupu.
-Plone provides no means to do change other member properties through-the-web,
-but you can do it using the command-line scripting snippet below
+If you want to change all site members to use TinyMCE instead of Kupu.
+you have to do it using the command-line ---
+Plone provides no through-the-web way to change
+the properties of other members.
+Here is a script which does the job:
 
-migrate.py::
+``migrate.py``::
 
     import transaction
-    
+
     # Traverse to your Plone site from Zope application root
-    context = app.yoursiteid.sitsngta # site id is mfabrik
-    
-    users = context.acl_users.getUserNames()
-    
+    context = app.yoursiteid.sitsngta # site id is yoursiteid
+
+    usernames = context.acl_users.getUserNames()
     portal_membership = context.portal_membership
-    
+    txn = transaction.get()
+
     i = 0
-    for user in users:
-     member = portal_membership.getMemberById(user)
-    	value = member.wysiwyg_editor
-    
-    	# Show the existing editor choice before upgrading
-    	print str(user) + ": " + str(value)
-    
-    	# Set WYSIWYG editor for the member
-    	member.wysiwyg_editor = "TinyMCE"
-    
-    	# Make sure transaction buffer does not grow too large
-    	i += 1
-    	if i % 25 == 0:
-    		transaction.commit()
+    for userid in usernames:
+        member = portal_membership.getMemberById(userid)
+        value = member.wysiwyg_editor
+
+        # Show the existing editor choice before upgrading
+        print str(userid) + ": " + str(value)
+
+        # Set WYSIWYG editor for the member
+        member.wysiwyg_editor = "TinyMCE"
+
+        # Make sure transaction buffer does not grow too large
+        i += 1
+        if i % 25 == 0:
+            txn.savepoint(optimistic=True)
+
+    # Once done, commit all the changes
+    txn.commit()
 
 Run it::
 
@@ -209,7 +225,25 @@ Run it::
 
 .. note::
 
-        The script does not work through ZMI as member properties
-        do not have proper security declarations to set them as admin.
-        
-        
+        The script does not work through the :term:`ZMI`
+        as member properties do not have proper security declarations,
+        so no changes are permitted.
+
+Password reset requests
+==========================
+
+Directly manipulating password reset requests is useful e.g. for testing.
+
+Poking requests::
+
+    # Poke password reset information
+    reset_requests = self.portal.portal_password_reset._requests.values()
+    self.assertEqual(1, len(reset_requests))
+    # reset requests are keyed by their random magic string
+    key = self.portal.portal_password_reset._requests.keys()[0]
+    reset_link = self.portal.pwreset_constructURL(key)
+
+Clearing all requests::
+
+        # Reset all password reset requests
+        self.portal.portal_password_reset._requests = {}

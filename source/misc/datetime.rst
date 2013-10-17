@@ -26,8 +26,35 @@ for your religion before programming with it.
 	Using Python datetime is recommended if possible.
 	Zope DateTime should be dealt in legacy systems only
 	as Python datetime is much more documented and widely used.
-	
-	
+
+Default formatting
+-------------------
+
+Since Plone 4
+
+* A per-language format string from a translations is preferred
+
+* If such string is not available the default is taken from portal_properties / site_properties
+
+Formatting examples
+=====================
+
+US example::
+
+    localTimeFormat: %b %d, %Y
+    localLongTimeFormat: %b %d, %Y %I:%M %p
+
+European style format:
+
+    localTimeFormat: %d.%m.%Y (like 1.12.2010)
+    localLongTimeFormat: %H:%M %d.%m.%Y (like 12:59 1.12.2010)
+
+More info
+
+* https://dev.plone.org/wiki/DateTimeFormatting
+
+* http://docs.python.org/library/time.html#time.strftime
+
 DateTime API
 -------------
 
@@ -37,7 +64,7 @@ You may find the following links useful
 
 * `Source code <http://svn.zope.org/DateTime/trunk/src/DateTime/DateTime.py?rev=96241&view=auto>`_
 
-* `README <http://svn.zope.org/DateTime/trunk/src/DateTime/DateTime.txt?rev=96241&view=auto>`_ 
+* `README <http://svn.zope.org/DateTime/trunk/src/DateTime/DateTime.txt?rev=96241&view=auto>`_
 
 * `Interface description <http://svn.zope.org/DateTime/trunk/src/DateTime/interfaces.py?rev=96241&view=auto>`_
 
@@ -46,16 +73,21 @@ Converting between DateTime and datetime
 
 Since two different datetime object types are used, you need to often convert between them.
 
-Please see
+You can convert Zope DateTime objects to datetime objects like so::
 
-* http://api.plone.org/Plone/2.1.4/public/frames/ATContentTypes/ATContentTypes.utils-module.html
+        from DateTime import DateTime
+        zope_DT = DateTime() # this is now.
+        python_dt = zope_DT.asdatetime()
 
-DateTime to datetime::
+Vice versa, to convert from a Python datetime object to a Zope DateTime one::
 
-        from Products.ATContentTypes.utils import DT2dt
-        
-        python_dt = DT2dt(zope_dt)
-        
+        zope_DT = DateTime(python_dt)
+
+Note, if you use timezone information in python datetime objects, you might
+loose some information when converting. Zope DateTime handles all timezone
+information as offsets from GMT.
+
+
 DateTime problems and pitfalls
 ------------------------------
 
@@ -80,43 +112,43 @@ Example::
                     # European
                     end = DateTime(rendDate, datefmt='international')
                 else:
-                    # US 
+                    # US
                     end = DateTime(rendDate)
-                    
+
 Friendly date/time formatting
---------------------------------
+-----------------------------
 
 Format datetime relative to the current time,
 human-readable::
 
         def format_datetime_friendly_ago(date):
             """ Format date & time using site specific settings.
-        
+
             @param date: datetime object
             """
-            
+
             if date == None:
                 return ""
-            
+
             date = DT2dt(date) # zope DateTime -> python datetime
-        
+
             # How long ago the timestamp is
             # See timedelta doc http://docs.python.org/lib/datetime-timedelta.html
             #since = datetime.datetime.utcnow() - date
-        
+
             now = datetime.datetime.utcnow()
             now = now.replace(tzinfo=pytz.utc)
-        
+
             since = now - date
-              
+
             seconds = since.seconds + since.microseconds / 1E6 + since.days * 86400
-        
+
             days = math.floor(seconds / (3600*24))
-        
+
             if days <= 0 and seconds <= 0:
                 # Timezone confusion, is in future
                 return "moment ago"
-        
+
             if days > 7:
                 # Full date
                 return date.strftime("%d.%m.%Y %H:%M")
@@ -132,4 +164,9 @@ human-readable::
                     if minutes > 0:
                         return "%d minutes ago" % minutes
                     else:
-                        return "few seconds ago"     
+                        return "few seconds ago"
+
+Friendly date/time from TAL
+---------------------------
+From within your TAL templates, you can call toLocalizedTime like:
+        <span tal:replace="python:here.toLocalizedTime(o.ModificationDate)"></span>

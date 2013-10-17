@@ -66,6 +66,13 @@ include the following *profiles/default/catalog.xml*:
       either update the catalog afterwards or add the indexes yourself in
       Python code using a custom import handler.
 
+      For more info, see this setuphandler https://github.com/plone/plone.app.event/blob/master/plone/app/event/setuphandlers.py
+      in plone.app.event or these discussions on more about this problem:
+
+      * http://plone.293351.n2.nabble.com/How-to-import-catalog-xml-without-emptying-the-indexes-td2302709.html
+
+      * https://mail.zope.org/pipermail/zope-cmf/2007-March/025664.html
+
 
 Viewing indexes and indexed data
 --------------------------------
@@ -266,6 +273,25 @@ interfaces defined in ``Products.ATContentTypes.interface.*``
 files, not with the deprecated Zope 2 ones into the
 ``Products.ATContentTypes.interfaces`` file.
 
+Creating a metadata column
+-----------------------------
+
+The same rules and methods apply for metadata columns as creating index above.
+The difference with metadata is that
+
+* It is not used for searching, only displaying the search result
+
+* You store always a value copy as is
+
+To create metadata colums in your ``catalog.xml`` add::
+	
+	<?xml version="1.0"?>
+	<object name="portal_catalog" meta_type="Plone Catalog Tool">
+
+		<!-- Add a new metadata column which will read from context.getSignificant() function -->
+		<column value="getSignificant"/>
+
+	</object>
 
 
 When indexing happens and how to reindex manually

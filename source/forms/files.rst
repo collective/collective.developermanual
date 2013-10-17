@@ -22,17 +22,17 @@ zope.schema based forms and content with :doc:`Dexterity content subsystem </con
 
 Plone uses "blobs" (large binary objects) to store file-like data in the
 ZODB. The ZODB writes these objects to the filesystem as separate files,
-but due to security, performance and transaction consideration, the orignal
+but due to security, performance and transaction consideration, the original
 filename is not visible. The files are stored in a distributed tree. 
 
 For more introduction information, see:
 
-* http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/files-and-images.html
+* http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/files-and-images.html
 
 Simple content item file or image field
 =========================================
 
-* http://dexterity-developer-manual.readthedocs.org/en/latest/advanced/files-and-images.html
+* http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/files-and-images.html
 
 Simple upload form example
 ===========================
@@ -56,7 +56,7 @@ the ``install_dependencies`` directive of your ``setup.py`` file:
 * ``plone.directives.form``.
 
 After doing this, rerunning ``buildout`` will pull in these packages for you
-and you will be able to import them succesfully.
+and you will be able to import them successfully.
 For more information, see `plone.directives.form README <http://pypi.python.org/pypi/plone.directives.form>`_.
 
 Code::
@@ -189,32 +189,6 @@ Code::
                 IStatusMessage(self.request).addStatusMessage(_(u"Created/updated companies:") + unicode(number), "info")
 
 
-File-system access in load-balanced configurations
-==================================================
-
-The `plone.namedfiled <http://plone.org/products/plone.app.blob>` 
-product page contains configuration instructions
-for ``plone.namedfile`` and ZEO.
-
-Form encoding
-=============
-
-.. warning::
-
-    Make sure that all forms containing file content are posted as
-    ``enctype="multipart/form-data"``.  If you don't do this, Zope decodes
-    request ``POST`` values as string input and you get either empty strings
-    or filenames as your file content data. The older ``plone.app.z3cform``
-    templates do not necessarily declare ``enctype``, meaning that you need
-    to use a custom page template file for forms doing uploads.
-
-Example correct form header:
-
-.. code-block:: xml
-
-  <form action="." enctype="multipart/form-data" method="post" tal:attributes="action request/getURL">
-
-
 File field contents
 ===========================
 
@@ -223,6 +197,7 @@ Example::
     from zope import schema
     from zope.interface import implements, alsoProvides
     from persistent import Persistent
+    from plone import namedfile
     from plone.namedfile.field import NamedBlobFile, NamedBlobImage
     from zope.schema.fieldproperty import FieldProperty
 
@@ -265,7 +240,7 @@ Example::
     animation = HeaderAnimation()
     animation.file = namedfile.NamedBlobFile(sample_data, filename=u"flash.swf")
 
-Constring download URLs
+Connstring download URLs
 ========================
 
 Simple example
@@ -376,6 +351,7 @@ Example (``plone.app.headeranimation``)::
         # This is only visible if the user tried to save the file to local computer
         filename = getattr(file, 'filename', context.id + "_download")
 
+        # Sets Content-Type and Content-Length
         set_headers(file, request.response)
 
         # Set headers for Flash 10
@@ -508,3 +484,28 @@ Some hints how to migrate your custom content:
 
 * http://plone.293351.n2.nabble.com/plone-4-upgrade-blob-and-large-files-tp5500503p5500503.html
 
+Form encoding
+=============
+
+.. warning::
+
+    Make sure that all forms containing file content are posted as
+    ``enctype="multipart/form-data"``.  If you don't do this, Zope decodes
+    request ``POST`` values as string input and you get either empty strings
+    or filenames as your file content data. The older ``plone.app.z3cform``
+    templates do not necessarily declare ``enctype``, meaning that you need
+    to use a custom page template file for forms doing uploads.
+
+Example correct form header:
+
+.. code-block:: xml
+
+  <form action="." enctype="multipart/form-data" method="post" tal:attributes="action request/getURL">
+    
+
+File-system access in load-balanced configurations
+==================================================
+
+The `plone.namedfiled <http://plone.org/products/plone.app.blob>`_ 
+product page contains configuration instructions
+for ``plone.namedfile`` and ZEO.

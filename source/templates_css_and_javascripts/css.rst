@@ -7,7 +7,7 @@ CSS
     Creating and registering CSS files for Plone and Plone add-on products.
     CSS-related Python functionality.
 
-.. contents::
+.. contents:: :local:
 
 Introduction
 ==============
@@ -18,6 +18,15 @@ In Plone, most CSS files are managed by the ``portal_css`` tool via the
 :term:`ZMI`. Page templates can still import CSS files directly,
 but ``portal_css`` does CSS file compression and merging automatically if
 used.
+
+View all Plone HTML elements
+==============================
+
+To test Plone HTML element rendering go to ``test_rendering`` page on your site::
+
+    http://localhost:8080/Plone/test_rendering
+
+It will output a styled list of all commonly used Plone user interface elements.
 
 Registering a new CSS file
 ==========================
@@ -68,6 +77,19 @@ Example ``profiles/default/cssregistry.xml``:
 
     </object>
 
+In this case there should be a registered resource directory named 
+yourproduct.something. In the directory should be a file yourstylesheet.css.
+If you have registered the stylesheet directly in zcml
+    
+    <browser:resource
+     name="yourstylesheet.css"
+     file="yourstylesheet.css"
+     />
+     
+then id must be
+
+    id="++resource++yourstylesheet.css"
+
 Expressions
 -----------
 
@@ -98,10 +120,17 @@ If you want to load the CSS in the same bundle as Plone's default
 the file will be one of the first CSS files to be loaded and cannot override
 values from other files unless the CSS directive ``!important`` is used.
 
+Condition for Diazo themed sites
+--------------------------------
+
+To check if theming is active, will return true if Diazo is enabled::
+
+    request/HTTP_X_THEME_ENABLED | nothing
+
 Conditional comments (IE)
 ==============================
 
-* http://plone.org/products/plone/roadmap/232a
+* http://plone.org/products/plone/roadmap/232
 
 ``cssregistry.xml`` example:
 
@@ -294,43 +323,50 @@ class which is registered as the ``plone_layout`` view.
     from plone.app.layout.globals import layout as base
     from plone.app.layout.navigation.interfaces import INavigationRoot
 
-
+    
     class LayoutPolicy(base.LayoutPolicy):
         """
-        Enhanched layout policy helper.
-
+        Enhanced layout policy helper.
+    
         Extend the Plone standard class to have some more <body> CSS classes
         based on the current context.
         """
-
+    
         def bodyClass(self, template, view):
             """Returns the CSS class to be used on the body tag.
             """
-
-            # Get contet parent
+    
+            # Get content parent
             body_class = base.LayoutPolicy.bodyClass(self, template, view)
-
+    
             # Include context and parent ids as CSS classes on <body>
             normalizer = queryUtility(IIDNormalizer)
-
+    
             body_class += " context-" + normalizer.normalize(self.context.getId())
-
+    
             parent = self.context.aq_parent
-
+    
             # Check that we have a valid parent
             if hasattr(parent, "getId"):
                 body_class += " parent-" + normalizer.normalize(parent.getId())
-
+    
             # Get path with "Default content item" wrapping applied
             context_helper = getMultiAdapter((self.context, self.request), name="plone_context_state")
             canonical = context_helper.canonical_object()
-
+    
             # Mark site front page with special CSS class
             if INavigationRoot.providedBy(canonical):
-
+    
                 if "template-document_view" in body_class:
                     body_class += " front-page"
-
+    
+            # Add in logged-in / not logged in status
+            portal_state = getMultiAdapter((self.context, self.request), name="plone_portal_state")
+            if portal_state.anonymous():
+                body_class += " anonymous"
+            else:
+                body_class += " logged-in"
+    
             return body_class
 
 Related ZCML registration:

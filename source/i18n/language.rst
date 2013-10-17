@@ -11,14 +11,14 @@ Language functions
 Introduction
 ============
 
-Each page view a has a language associated with it.
+Each page view has a language associated with it.
 
 The active language is negotiated by the ``plone.i18n.negotiator`` module.
-Several factors may involve determining what the language should be:
+Several factors may be involved in determining what the language should be:
 
 * Cookies (setting from the language selector)
 
-* Top-level domain name (like ``.fi`` for Finnish, ``.se`` for Swedish)
+* The top-level domain name (e.g. ``.fi`` for Finnish, ``.se`` for Swedish)
 
 * Context (current content) language
 
@@ -35,7 +35,7 @@ Example view/viewlet method of getting the current language.
 
 .. code-block:: python
 
-    from Acquisition import aq_inner
+    from Products.Five.browser import BrowserView
     from zope.component import getMultiAdapter
     
     class MyView(BrowserView):
@@ -46,7 +46,7 @@ Example view/viewlet method of getting the current language.
             """
             @return: Two-letter string, the active language code
             """
-            context = aq_inner(self.context)
+            context = self.context.aq_inner
             portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
             current_language = portal_state.language()
             return current_language
@@ -68,7 +68,6 @@ Example BrowserView method::
 
         Useful in producing <html> tag.
         You need to output language for every HTML page, see http://www.w3.org/TR/xhtml1/#strict
-
 
         @return: The two letter language code of the current content.
         """
@@ -121,8 +120,8 @@ Example below::
             if lang != preferred:
                 result[lang] = data
 
-        # For the convenience, export language ISO code also inside data,
-        # so it easier to iterate data in the templates
+        # For convenience, include the language ISO code in the export,
+        # so it is easier to iterate data in the templates
         for lang, data in result.items():
             data["id"] = lang
 
@@ -397,14 +396,14 @@ Below some example code.
         replacement=".languages.working_portal_state_language"
         />
   
-Login aware language negotiation
+Login-aware language negotiation
 ==========================================
 
-Because language negotiation happens before the authentication by default
-and if you wish to use authenticated credentials in the negotiation you 
-can do the following.
+By default, language negotiation happens before authentication.
+Therefore, if you wish to use authenticated credentials in the negotiation,
+you can do the following.
 
-This can be done by hooking to after traversal event.
+Hook the after-traversal event.
 
 Example event registration
 
@@ -418,9 +417,8 @@ Example event registration
         <subscriber handler=".language_negotiation.Negotiator"/>
     </configure>
 
-Related event handler::
+Corresponding event handler::
 
-    
     from zope.interface import Interface
     from zope.component import adapter
     from ZPublisher.interfaces import IPubEvent,IPubAfterTraversal

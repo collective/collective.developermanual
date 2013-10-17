@@ -211,7 +211,7 @@ Escaping strings
 ++++++++++++++++
 
 If you have any page template (``*.pt``) files you need to templatetize you will
-encounter problem that both Cheetah and Zope Page Templates use the similiar
+encounter problem that both Cheetah and Zope Page Templates use the similar
 string expansion syntax causing a conflict.
 
 You can use \ (backslash) before dollar sign to escape it.
@@ -279,7 +279,7 @@ Developing template egg with paster and buildout.cfg
 ----------------------------------------------------
 
 The preferred method to run paster with Plone is to have it
-automatically pulled in and configured for you by :doc:`buildout </buildout/index>`.
+automatically pulled in and configured for you by :doc:`buildout </reference_manuals/old/buildout/index>`.
 
 develop-eggs
 ============

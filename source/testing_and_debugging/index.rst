@@ -5,7 +5,7 @@ Testing and debugging
 This section contains tips how to test and debug your code.
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     logging
     pdb
@@ -15,4 +15,3 @@ This section contains tips how to test and debug your code.
     error_log
     boilerplate_tests
     clean_uninstall
-

@@ -67,28 +67,58 @@ View components
 ---------------
 
 Views are Zope Component Architecture (:term:`ZCA`) *multi-adapter
-registrations*.  If you are doing manual view look-ups, then this
-information is relevant to you.
+registrations*.  
 
 Views are looked up by name. The Zope publisher always does a view lookup,
 instead of traversing, if the name to be traversed is prefixed with ``@@``.
 
-Views are resolved against different interfaces:
+Views are resolved with three inputs:
 
 *context*
-    Any class/interface. If not given, ``zope.interface.Interface``
-    is used (corresponds to a registration ``for="*"``).
+    Any class/interface for which the view applies. If not given, ``zope.interface.Interface``
+    is used (corresponds to a registration ``for="*"``). Usually this is a content item
+    instance.
 
 *request*
     The current HTTP request. Interface
     ``zope.publisher.interfaces.browser.IBrowserRequest`` is used.
 
 *layer*
-    Theme layer interface. If not given,
+    Theme layer and addon layer interface. If not given,
     ``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is used.
 
-See also `related source code
-<http://svn.zope.org/zope.browserpage/trunk/src/zope/browserpage/metaconfigure.py?rev=103273&view=auto>`_.
+Views return HTTP request payload as the output. Returned
+strings are turned to HTML page responses.
+
+Views can be any Python class taking in (context, request) construction parameters. Minimal view would be::
+
+      class MyView(object):
+
+           def __init__(self, context, request):
+                self.context = context
+                self.request = request
+
+           def __call__(self):
+                return "Hello world. You are rendering this view at the context of %s" % self.context
+
+However, in the most of cases
+
+* Full Plone page views are subclass of `Products.Five.browser.BrowserView <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/__init__.py#L23>`_
+  which is a wrapper class. It wraps `zope.publisher.browser.BrowserView <https://github.com/zopefoundation/zope.publisher/blob/master/src/zope/publisher/browser.py#L896>`_
+  and adds an acquisition (parent traversal) support for it.
+
+* Views have ``index`` attribute which points to :doc:`TAL page template </templates_css_and_javascripts/template_basics>`
+  responsible rendering the HTML code. You get the HTML output by doing self.index() and page template
+  gets a context argument ``view`` pointing to the view class instance. ``index`` value
+  is usually instance of `Products.Five.browser.pagetemplate.ViewPageTemplateFile <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/pagetemplatefile.py#L33>`_
+  (full Plone pages) or `zope.pagetemplate.pagetemplatefile.PageTemplateFile <https://github.com/zopefoundation/zope.pagetemplate/blob/master/src/zope/pagetemplate/pagetemplatefile.py#L40>`_
+  (HTML snippets, no acquisition)
+
+* View classes should implement :doc:`interface </components/interface>`  
+  `zope.browser.interfaces.IBrowserView <https://github.com/zopefoundation/zope.browser/blob/master/src/zope/browser/interfaces.py#L27>`_
+
+Views rendering page snippets and parts can be subclasses of zope.publisher.browser.BrowserView directly
+as snippets might not need acquisition support which adds some overhead to the rendering process.
 
 Customizing views
 ===========================
@@ -152,7 +182,46 @@ Creating a view using Grok
 This is the simplest method and recommended for Plone 4.1+ onwards.
 
 First, create your add-on product using
-:doc:`Dexterity project template </getstarted/paste>`.
+:doc:`Dexterity project template </getstarted/paste>`. The most important
+thing in the add-on is that your registers itself to :doc:`grok </components/grok>`
+which allows Plone to scan all Python files for ``grok()`` directives and
+furter automatically pick up your views (as opposite using old Zope 3 method
+where you manually register views by typing them in to ZCML in ZCML).
+
+configure.zcml
+`````````````````````
+
+First make sure the file ``configure.zcml`` in your add-on root folder
+contains the following lines. These lines are needed only once, in the root
+configuration ZCML file::
+
+	<configure
+	    ...
+	    xmlns:five="http://namespaces.zope.org/five"
+	    xmlns:grok="http://namespaces.zope.org/grok"
+	    >
+
+	  <include package="five.grok" />
+
+	  <five:registerPackage package="." initialize=".initialize" />
+
+	  <!-- Grok the package to initialise schema interfaces and content classes -->
+	  <grok:grok package="." />
+
+          ....
+
+	</configure>
+
+setup.py and buildout
+`````````````````````
+
+Either you need to have ``five.grok``
+`registered in your buildout <http://plone.org/documentation/kb/installing-add-ons-quick-how-to>`_
+or have :doc:`five.grok in your setup.py </components/grok>`. If you didn't add it in this
+point and run buildout again to download and install ``five.grok`` package.
+
+Python logic code
+`````````````````````
 
 Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
 
@@ -175,22 +244,41 @@ Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::
         ...
 
 The view in question is not registered against any
-:doc:`layer </views/layers>`, so it is always available.
-The view becomes available upon Zope start-up, and is available even if you
-don't run an add-on installer.  This is the suggested approach for logic
-views which are not theme-related.
+:doc:`layer </views/layers>`, so it is immediately available after
+restart without need to run :doc:`Add/remove in Site setup </components/genericsetup>`.
 
 The ``grok.context(Interface)`` statement makes the view available for
-every content item: you can use it in URLs like
+every content item and the site root: you can use it in URLs like
 ``http://yoursite/news/newsitem/@@yourviewname`` or
 ``http://yoursite/news/@@yourviewname``. In the first case, the incoming
 ``self.context`` parameter received by the view would be the ``newsitem``
 object, and in the second case, it would be the ``news`` container.
 
 Alternatively, you could use the :doc:`content interface </content/types>`
-docs to make the view available only for certain content types.
+docs to make the view available only for certain content types. Example
+``grok.context()`` directives could be::
 
-Then create ``yourcompany.app/yourcompany/app/browser/templates`` and add
+	# View is registered in portal root only
+	from Products.CMFCore.interfaces import ISiteRoot
+
+	grok.context(ISiteRoot)
+
+	# Any content with child items
+	from Products.CMFCore.interfaces import IFolderish
+
+	grok.context(IFolderish)
+
+
+	# Only "Page" Plone content type
+	from Products.ATContentTypes.interface import IATDocument
+
+	grok.context(IATDocument)
+
+Page template
+`````````````````````
+
+Then create a :doc:`page template for your view. </templates_css_and_javascripts/template_basics>`.
+Create ``yourcompany.app/yourcompany/app/browser/templates`` and add
 the related template:
 
 .. code-block:: xml
@@ -206,6 +294,11 @@ the related template:
 	    </metal:block>
 
 	</html>
+
+Now when you restart to Plone (or use :doc:`auto-restart add-on </getstarted/index>`)
+the view should be available through your browser. After enabled,
+grok will scan all Python files for available files, so it doesn't matter
+what .py filename you use.
 
 Content slots
 ------------------
@@ -227,7 +320,7 @@ inherits from ``<html metal:use-macro="context/main_template/macros/master">``:
     content body specific to your view, Plone version > 4.x
 
 ``header``
-    A slot for inserting content above the title; may be useful in conjunction wtih
+    A slot for inserting content above the title; may be useful in conjunction with
     content-core slot if you wish to use the stock content-title provided by the
     main template.
 
@@ -287,7 +380,7 @@ Example::
     class MyView(BrowserView):
 
         def __init__(self, context, request):
-            """ Initialize context and request as view multiadaption parameters.
+            """ Initialize context and request as view multi adaption parameters.
 
             Note that the BrowserView constructor does this for you.
             This step here is just to show how view receives its context and
@@ -361,7 +454,7 @@ The following example registers a new view (see below for comments):
 ``class``
     is a Python dotted name for a class based on ``BrowserView``, which is
     responsible for managing the view. The Class's ``__call__()`` method is
-    the entrypoint for view processing and rendering.
+    the entry point for view processing and rendering.
 
 .. Note:: You need to declare the ``browser`` namespace in your
    ``configure.zcml`` to use ``browser`` configuration directives.
@@ -481,7 +574,7 @@ The ``__init__()`` method of the view might not have an
 :doc:`acquisition chain </serving/traversing>` available, meaning that it
 does not know the parent or hierarchy where the view is.
 This information is set after the constructor have been run.
-All Plone code which relies on acquistion chain, which means
+All Plone code which relies on acquisition chain, which means
 almost all Plone helper code, does not work in ``__init__()``.
 Thus, the called Plone API methods return ``None`` or tend to throw
 exceptions.
@@ -505,6 +598,36 @@ layer in your own code.
 For more information, see
 
 * :doc:`browser layers </views/layers>`
+
+Register and unregister view directly using zope.component architecture
+-------------------------------------------------------------------------
+
+Example how to register::
+
+	import zope.component
+	import zope.publisher.interfaces.browser
+
+        zope.component.provideAdapter(
+            # Our class
+            factory=TestingRedirectHandler,
+            # (context, request) layers for multiadapter lookup
+            # We provide None as layers are not used
+            adapts=(None, None),
+            # All views are registered as IBrowserView interface
+            provides=zope.publisher.interfaces.browser.IBrowserView,
+            # View name
+            name='redirect_handler')
+
+
+Example how to unregister::
+
+        # Dynamically unregister a view
+        gsm = zope.component.getGlobalSiteManager()
+        gsm.unregisterAdapter(factory=TestingRedirectHandler,
+                              required=(None, None),
+                              provided=zope.publisher.interfaces.browser.IBrowserView,
+                              name="redirect_handler")
+
 
 Content type, mimetype and Template start tag
 =============================================
@@ -769,7 +892,7 @@ Example::
 
         return view
 
-You can also do direct view lookups and method calls in your template
+You can also do direct view look-ups and method calls in your template
 by using the ``@@``-notation in traversing.
 
 .. code-block:: html
@@ -863,24 +986,35 @@ More info:
 
 * http://plone.293351.n2.nabble.com/URL-to-content-view-tp6028204p6028204.html
 
-Views and magical acquisition
-==================================
 
-.. warning::
+Allowing the contentmenu on non-default views
+=============================================
 
-    This is really nasty stuff. If this were not be a public document
-    I'd use more harsh words here.
+In general, the contentmenu (where the actions, display views, factory types,
+workflow, and other dropdowns are) is not shown on non-default views. There are
+some exceptions, though.
 
-In Plone 3, the following will lead to errors which are very hard to debug.
+If you want to display the contentmenu in such non-default views, you have to
+mark them with the IViewView interface from plone.app.layout either by letting
+the class provide IViewView by declaring it with zope.component.implements or
+by configuring it via ZCML like so::
 
-Views will automatically assign themselves as a parent for all member
-variables.
+  <class class="dotted.path.to.browser.view.class">
+    <implements interface="plone.app.layout.globals.interfaces.IViewView" />
+  </class>
+
+
+Views and automatic member variable acquisition wrapping
+==========================================================
+
+View class instances will automatically assign themselves as a parent for all member
+variables. This is because ``five`` package based views inherit from ``Acquisition.Implicit`` base class.
 
 E.g. you have a ``Basket`` content item with ``absolute_url()`` of::
 
     http://localhost:9666/isleofback/sisalto/matkasuunnitelmat/d59ca034c50995d6a77cacbe03e718de
 
-Then if you use this object in a view code's member variable assignment::
+Then if you use this object in a view code's member variable assignment in e.g. ``Viewlet.update() method``::
 
     self.basket = my_basket
 
@@ -888,29 +1022,14 @@ Then if you use this object in a view code's member variable assignment::
 
     <Basket at /isleofback/sisalto/yritykset/katajamaan_taksi/d59ca034c50995d6a77cacbe03e718de>
 
-One workaround to avoid this mess is to put a member variable inside a
-Python array and create an accessor method to read it when needed::
+This concerns views, viewlets and portlet renderers. It will, for example, make the following code to fail::
 
-    def initSomeVariables():
+            self.obj = self.context.reference_catalog.lookupObject(value)
+            return self.obj.absolute_url() # Acquistion chain messed up, getPhysicalPath() fails
 
-        basket = collector.get_collector(basket_folder, self.request, create)
+One workaround to avoid this mess is to use aq_inner when accessing self.obj values:
 
-        if basket is not None:
-            # Work around acquisition wrapping thing
-            # which forces the parent
-
-            # Assign a variable inside an array which prevents automatic
-            # acquisition wrapping for doing its broken magic or something
-            # along the lines
-            self.basket_holder = [basket]
-        else:
-            self.basket_holder = [None]
-
-    def getCollector(self):
-        """ @return: User's collector object where pages are stored
-        """
-        return self.basket_holder[0]
-
+* http://stackoverflow.com/a/11755348/315168
 
 .. _Products.Five:
    http://svn.zope.org/Zope/trunk/src/Products/Five/README.txt?view=markup

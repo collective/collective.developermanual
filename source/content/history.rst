@@ -16,8 +16,12 @@ See also
 
 * `Versioning tutorial for custom content types <http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-enable-versioning-history-for-a-custom-content-type>`_. 
 
-Enabling versioning on your custom content type
------------------------------------------------
+Enabling versioning on your custom content type (Plone 3 ONLY)
+----------------------------------------------------------------
+
+.. note ::
+
+         This information applies for Plone 3 only.
 
 By default, version history is not enabled for custom content types.
 Below are some notes how to enable it.
@@ -136,6 +140,9 @@ Below are some notes how to enable it.
     * Module Products.CMFEditions.CopyModifyMergeRepositoryTool, line 408, in _assertAuthorized
 
     Unauthorized: You are not allowed to access 'save' in this context
+
+* If your content type contains blob fields you want to version, you will need to edit
+  portal_modifier/CloneBlobs entry and add your portal type to the condition field.
     
 For more information
 
@@ -290,4 +297,10 @@ from the actor information). Refer to the source of
 ``WorkflowHistoryViewlet``.  Using these other class definitions, you can see
 that you can get just the workflow history using ``.workflowHistory()`` or just
 the revision history using ``.revisionHistory()``.
+
+Purging history
+--------------------
+
+* http://stackoverflow.com/questions/9683466/purging-all-old-cmfeditions-versions
+
 

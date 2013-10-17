@@ -7,7 +7,7 @@
 Introduction: Why unicode is difficult?
 =========================================
 
-Python 2.x does not make clear distinction between:
+Python 2.x does not make a clear distinction between:
 
 * 8-bit strings (byte data)
 * 16-bit unicode strings (character data)
@@ -26,6 +26,26 @@ Read more:
 
 * http://evanjones.ca/python-utf8.html
 
+safe_unicode()
+=====================
+
+Plone's core contains a helper function which allows you 
+to safely decode strings to unicode without fear of UnicodeDecodeException.
+Use this in your own code to decode unicode in the cases you are
+not sure if the input is 8-bit bytestrings or real unicode strings.
+
+https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/utils.py#L434
+
+Example::
+
+     # -*- coding: utf-8 -*-
+
+     from Products.CMFPlone.utils import safe_unicode
+
+
+     foobar = safe_unicode("Ärrinmurrin taas on Plonea joku jättänyt dokumentoimatta")
+
+
 sys.setdefaultencoding()
 =========================
 
@@ -38,6 +58,10 @@ input automatically to utf-8 when used as 8-bit string.
     You have been warned.
 
 * http://tarekziade.wordpress.com/2008/01/08/syssetdefaultencoding-is-evil/
+
+There is also ``sitecustomization.py`` trick to set ``sys.setdefaultencoding("utf-8")`` on per-script basis
+
+* http://stackoverflow.com/a/7892892/315168
 
 UnicodeEncodeError
 ==================

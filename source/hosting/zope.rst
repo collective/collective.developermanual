@@ -1,145 +1,207 @@
-======================
- Zope
-======================
+=======================
+Zope Application Server
+=======================
 
-.. admonition :: Description
+.. admonition:: Description
 
-    Hosting and administrative tasks for Zope application server / Plone server.
+    Plone is usually run via the Zope application server.
+    This document covers control and configuration of parts
+    of the application server.
 
-.. contents :: :local:
+.. contents:: :local:
 
 .. highlight:: console
 
 Introduction
---------------
+============
 
 This page contains instructions how to configure Zope application server.
 
 Zope control command
-----------------------
+====================
 
-The command for Zope tasks is ``bin/instance`` in buildout based Plones.
+The command for Zope tasks is ``bin/instance`` in buildout-based Plones
+(depending on how the part(s) for the Zope instance(s) was named in the
+buildout configuration file; here, it's ``instance``).
 
-List available command::
+List available commands::
 
     bin/instance help
 
 For older Plone releases, the command is ``zopectl``.
 
-Adding users from command-line (reset admin password)
--------------------------------------------------------
+If you have installed a ZEO cluster, you may have multiple instances, typically named client1, client2 ....
+Substitute ``client#`` for ``instance`` below.
+The zeoserver part must be running before you may directly use a client command::
 
-You need to do this when you forget admin password or the database is damaged.
+    bin/zeoserver start
+    bin/client1 help
+
+Adding users from command-line (reset admin password)
+=====================================================
+
+You need to do this when you forget the admin password or the database is
+damaged.
 
 Add user with Zope Manager permissions::
 
     bin/instance stop # stop the site first
     bin/instance adduser <user_name> <user_password>
     bin/instance start
-    
+
 You need to stop the site first.
 
-You also cannot override existing ``admin`` user, so you probably want to add ``admin2``.
+You also cannot override an existing ``admin`` user, so you probably want to
+add ``admin2``.
+
+More info
+
+* https://plone.org/documentation/faq/locked-out
 
 Timezone
-----------
+========
 
-Add to [instance] in buildout.cfg::
+Add to the ``[instance]`` part in ``buildout.cfg``:
 
-        zope-conf-additional=
-            
-            <environment>
-                TZ Europe/Helsinki
-            </environment>
-            
+.. code-block:: cfg
+
+    environment-vars =
+            TZ Europe/Helsinki
+
+Log level
+=========
+
+The default log level in Zope is ``INFO``. This causes a lot of
+logging that is usually not needed.
+
+To reduce the size of log files and improve performance, add
+the following to the ``[instance]`` part (the part(s) that specify
+your Zope instances) in ``buildout.cfg``:
+
+.. code-block:: cfg
+
+    event-log-level = WARN
+    z2-log-level = CRITICAL
+
+
 Creating additional debug instances
-------------------------------------
+===================================
 
-You might want to keep your production buildout.cfg and development configuration
-in sync automatically as possible. 
+You might want to keep your production ``buildout.cfg`` and development
+configuration
+in sync automatically as possible.
 
-A good idea is to use same buildout.cfg on every environment.
-If conditional things, like setting debug mode on, are needed, you can extend the buildout 
-sections, which in turn create "additional Zopes" under bin/ folder::
+A good idea is to use the same ``buildout.cfg`` for every Plone environment.
+For conditional things, such as turning debug mode on, extend the buildout
+sections, which in turn create scripts to launch additional Zope clients in
+the ``bin/`` folder:
 
-        [instance]
-        recipe = plone.recipe.zope2instance
-        zope2-location = ${zope2:location}
-        user = admin:x
-        http-address = 8080
-        debug-mode = off
-        verbose-security = off
-        
-        ...
-           
-        environment=
-            PTS_LANGUAGES=en fi
-        
-        #
-        # Create a launcher script which will start one Zope instance in debug mode
-        #
-        [debug-instance]
-        # Extend the main production instance  
-        <= instance
-        
-        # Here override specific settings to make the instance run in debug mode
-        debug-mode = on
-        verbose-security = on
-        event-log-level = DEBUG
-                
-And now you can start your **development** Zope as::
-        
-        bin/debug-instance fg
-        
-And your main Zope instance stays in production mode::
+.. code-block:: cfg
 
-        bin/instance 
-        
-.. note ::
+    [instance]
+    recipe = plone.recipe.zope2instance
+    zope2-location = ${zope2:location}
+    user = admin:x
+    http-address = 8080
+    debug-mode = off
+    verbose-security = off
 
-        Using fg switch foces Zope always into debug mode, but does not concern log level.                         
-               
+    ...
+
+    environment=
+        PTS_LANGUAGES=en fi
+
+    #
+    # Create a launcher script which will start one Zope instance in debug mode
+    #
+    [debug-instance]
+    # Extend the main production instance
+    <= instance
+
+    # Here override specific settings to make the instance run in debug mode
+    debug-mode = on
+    verbose-security = on
+    event-log-level = DEBUG
+
+And now you can start your **development** Zope as:
+
+.. code-block:: console
+
+    bin/debug-instance fg
+
+And your main Zope instance stays in production mode:
+
+.. code-block:: console
+
+    bin/instance
+
+.. note::
+
+    Starting Zope with the ``fg`` command forces it into debug mode,
+    but does not change the log level.
+
 Virtual hosting
----------------
+===============
 
-Zope has a component called `VirtualHostMonster <https://plone.dcri.duke.edu/info/faq/vhm>`_ which does the virtual host mapping inside
-the Zope. 
+Zope has a component called
+`VirtualHostMonster <https://weblion.psu.edu/trac/weblion/wiki/VirtualHostMonster>`_
+which does the virtual host mapping inside Zope. More information can be found in the `zope book <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_
 
-Supressing virtual host monster
-===============================
+Suppressing virtual host monster
+--------------------------------
 
-In the case you have set virtual hosting rules so that Zope does no longer allow you to access the management interface,
-you can add _SUPPRESS_ACCESSRULE" to the URL to disable VirtualHostMonster.
+If you ever mess up your virtual hosting rules so that Zope locks you out
+of the management interface,
+you can add ``_SUPPRESS_ACCESSRULE`` to the URL to disable
+VirtualHostMonster.
 
 Import and export
-------------------
+=================
 
-Zope application server offers copying parts of the tree structure via import/export feature.
-Exported file is basically a Python pickle containing the chosen node and all child nodes.
+Zope application server allows copying parts of the tree structure via
+import/export feature.
+The exported file is basically a Python pickle containing the chosen node
+and all child nodes.
 
-Importable .zexp files must be placed on ``/parts/instance/import``  buildout folder on the server. 
-If you are using  clustered ZEO set-up, always run imports through a specific front-end instance
-by using direct port access. Note that ``parts`` folder structure is pruned on each
-buildout run.
+Importable ``.zexp`` files must be placed on ``/parts/instance/import``
+buildout folder on the server.
+If you are using  clustered ZEO set-up, always run imports through a
+specific front-end instance
+by using direct port access. Note that ``parts`` folder structure is pruned
+on each buildout run.
 
-When files are placed on the server to correct folder, Import/Export tab in ZMI will pick them
+When files are placed on the server to correct folder,
+the :guilabel:`Import/Export` tab in the :term:`ZMI` will pick them
 up in the selection drop down. You do not need to restart Zope.
 
 More information
 
-* http://quintagroup.com/services/support/tutorials/import-export-plone/ 
+* http://quintagroup.com/services/support/tutorials/import-export-plone/
+
+Regular database packing
+========================
+
+The append-only nature of the :doc:`ZODB </persistency/database>`
+makes the database grow continuously even
+if you only edit old information and don't add any new content.
+To make sure your server's hard disk does not fill up,
+you need to pack the ZODB automatically and regularly.
+
+More info
+
+* http://stackoverflow.com/questions/5300886/what-is-the-suggested-way-to-cron-automate-zodb-packs-for-a-production-plone-ins/
 
 Copying a remote site database
---------------------------------
+==============================
 
 Below is a UNIX shell script to copy a remote Plone site(s) database to
-your local computer. This is useful for synchronizing the 
+your local computer. This is useful for synchronizing the
 development copy of a site from a live server.
 
-copy-plone-site.sh
+``copy-plone-site.sh``
 
 .. code-block:: sh
-    
+
     #!/bin/sh
     #
     # Copies a Plone site data from a remote computer to a local computer
@@ -153,7 +215,7 @@ copy-plone-site.sh
     # Standard var/ folder structure is assumed in the destination
     # and the source
     #
-    
+
     if [ $# -ne 2 ] ; then
     cat <<EOF
     $0
@@ -164,35 +226,35 @@ copy-plone-site.sh
     EOF
     exit 64 # Command line usage error
     fi
-    
+
     SOURCE=$1
     TARGET=$2
-    
+
     STATUS=`$TARGET/bin/instance status`
-    
+
     if [ "$STATUS" != "daemon manager not running" ] ; then
         echo "Please stop your Plone site first"
         exit 1
     fi
-    
+
     rsync -av --progress --compress-level=9 "$SOURCE"/var/filestorage/Data.fs "$TARGET"/var/filestorage
-    
+
     # Copy blobstorage on rsync pass
     # (We don't need compression for blobs as they most likely are compressed images already)
     rsync -av --progress "$SOURCE"/var/blobstorage "$TARGET"/var/
 
 
-Pack and copy big Data.fs
-----------------------------
+Pack and copy big ``Data.fs``
+=============================
 
 Pack ``Data.fs`` using the `pbzip2 <http://compression.ca/pbzip2/>`_,
 efficient multicore bzip2 compressor, before copying:
 
-.. code-block:: console
+.. code-block:: sh
 
     # Attach to a screen or create new one if not exist so that
     # the packing process is not interrupted even if you lose a terminal
-    screen -x 
+    screen -x
 
     # The command won't abort in the middle of the run if terminal lost
     cd /srv/plone/yoursite/zeocluster/var/filestorage
@@ -211,10 +273,10 @@ Then copy to your own computer:
 
 .. code-block:: console
 
-    rsync -av --progress --inplace --partial user@server.com:/tmp/Data.fs.tar.bz2 .    
+    rsync -av --progress --inplace --partial user@server.com:/tmp/Data.fs.tar.bz2 .
 
 Creating a sanitized data drop
-------------------------------
+==============================
 
 A *sanitized* data drop is a Plone site where:
 
@@ -225,7 +287,7 @@ A *sanitized* data drop is a Plone site where:
 
 * other possible sensitive data has been removed.
 
-It should safe to give a sanitized copy to a third party. 
+It should safe to give a sanitized copy to a third party.
 
 Below is a sample script which will clean a Plone site in-place.
 
@@ -236,7 +298,7 @@ Below is a sample script which will clean a Plone site in-place.
 
 How to use:
 
-* Create a temporary copy of your Plone site on your server, running in a
+* Create a temporary copy of your Plone site on your server, running on a
   different port.
 
 * Run the cleaner by entering the URL. It is useful to run the temporary
@@ -255,21 +317,20 @@ The sample ``clean.py``:
 
 .. code-block:: python
 
-
     """ Pack Plone database size and clean sensitive data.
         This makes output ideal as a developent drop.
-        
+
         It also resets all kinds of users password to "admin".
-        
+
         Limitations:
-        
+
         1) Assumes only one site per Data.fs
-        
+
         TODO: Remove users unless they are whitelisted.
 
     """
 
-    import logging 
+    import logging
     import transaction
 
     logger = logging.getLogger("cleaner")
@@ -288,78 +349,78 @@ The sample ``clean.py``:
     PASSWORD="123123"
 
     def is_white_listed(path):
-        """    
+        """
         """
         paths = [ s.strip() for s in WHITELIST.split("\n") if s.strip() != ""]
-        
+
         if path in paths:
             return True
         return False
-        
+
     def purge(site):
         """
-        Purge the site using standard Plone deleting mechanism (slow)    
+        Purge the site using standard Plone deleting mechanism (slow)
         """
         i = 0
         for dp in DELETE_POINTS.split("\n"):
-        
+
             dp = dp.string()
             if dp == "":
-                continue        
-            
+                continue
+
             folder = site.unrestrictedTraverse(dp)
-            
+
             for id in folder.objectIds():
                 full_path = dp + "/" + id
                 if not is_white_listed(full_path):
                     logger.info("Deleting path:" + full_path)
                     try:
-                        folder.manage_delObjects([id])         
+                        folder.manage_delObjects([id])
                     except Exception, e:
-                        # Bad delete handling code - e.g. catalog indexes b0rk out 
-                        logger.error("*** COULD NOT DELETE ***")               
+                        # Bad delete handling code - e.g. catalog indexes b0rk out
+                        logger.error("*** COULD NOT DELETE ***")
                         logger.exception(e)
                     i += 1
-                    if i % 100 == 0:       
+                    if i % 100 == 0:
                         transaction.commit()
 
     def purge_harder(site):
-        """    
+        """
         Purge using forced delete and then catalog rebuild.
-        
+
         Might be faster if a lot of content.
         """
         i = 0
-        
+
         logger.info("Kill it with fire")
         for dp in DELETE_POINTS.split("\n"):
-        
+
             if dp.strip() == "":
-                continue        
+                continue
             folder = site.unrestrictedTraverse(dp)
-            
+
             for id in folder.objectIds():
                 full_path = dp + "/" + id
                 if not is_white_listed(full_path):
-                    logger.info("Hard deleting path:" + full_path)           
-                    # http://collective-docs.readthedocs.org/en/latest/content/deleting.html#fail-safe-deleting     
-                    folder._delObject(id, suppress_events=True)         
+                    logger.info("Hard deleting path:" + full_path)
+                    # http://collective-docs.readthedocs.org/en/latest/content/deleting.html#fail-safe-deleting
+                    folder._delObject(id, suppress_events=True)
 
                     i += 1
-                    if i % 100 == 0:       
+                    if i % 100 == 0:
                         transaction.commit()
-                        
+
         site.portal_catalog.clearFindAndRebuild()
-                
-                
+
+
     def pack(app):
         """
         @param app Zope application server root
-        """     
+        """
         logger.info("Packing database")
         cpanel = app.unrestrictedTraverse('/Control_Panel')
-        cpanel.manage_pack(days=0, REQUEST=None)    
-        
+        cpanel.manage_pack(days=0, REQUEST=None)
+
     def change_zope_passwords(app):
         """
         """
@@ -368,7 +429,7 @@ The sample ``clean.py``:
         users = app.acl_users.users
         for id in users.listUserIds():
             users.updateUserPassword(id, PASSWORD)
-                
+
     def change_site_passwords(site):
         """
         """
@@ -376,59 +437,59 @@ The sample ``clean.py``:
         # Products.PlonePAS.plugins.ufactory
         users = site.acl_users.source_users
         for id in users.getUserIds():
-            users.doChangeUser(id, PASSWORD)    
-            
+            users.doChangeUser(id, PASSWORD)
+
     def change_membrane_password(site):
         """
         Reset membrane passwords (if membrane installed)
-        """        
-        
+        """
+
         if not "membrane_users" in site.acl_users.objectIds():
             return
-        
+
         logger.info("Changing membrane passwords")
         # Products.PlonePAS.plugins.ufactory
         users = site.acl_users.membrane_users
         for id in users.getUserNames():
             try:
-                users.doChangeUser(id, PASSWORD)        
+                users.doChangeUser(id, PASSWORD)
             except:
                 # XXX: We should actually delete membrane users before content folders
                 # or we will break here
                 pass
-            
+
     class Cleaner(object):
         """
         Clean the current Plone site for sensitive data.
-        
+
         Usage::
-        
+
             http://localhost:8080/site/@@create-sanitized-copy
 
         or::
-        
+
             http://localhost:8080/site/@@create-sanitized-copy?pack=false
 
         """
-        
+
         def __init__(self, context, request):
             self.context = context
-            self.request = request    
-               
+            self.request = request
+
         def __call__(self):
             """
             """
             app = self.context.restrictedTraverse('/') # Zope application server root
             site = self.context.portal_url.getPortalObject()
-            
+
             purge_harder(site)
             change_zope_passwords(app)
             change_site_passwords(site)
             #change_membrane_password(site)
-            
+
             if self.request.form.get("pack", None) != "false":
                 pack(app)
-            
+
             # Obligatory Die Hard quote
             return "Yippikayee m%&€/ f/€%&/€%&/ Remember to login again with new password."
 
@@ -446,19 +507,38 @@ cleaner:
     />
 
 Log rotate
-------------
+==========
 
 Log rotation prevents log files from growing indefinitely by creating a new
 file for a certain timespan and dropping old files.
 
-The unix tool ``logrotate`` is used for log rotation.
+Basic Log rotation for buildout users
+-------------------------------------
+
+If you are using buildout and the plone.recipe.zope2instance (>= 4.2.5) to create your
+zope installation, two parameters are available to enable log rotation.
+For example:
+
+* event-log-max-size = 10mb
+
+* event-log-old-files = 3
+
+This will rotate the event log when it reaches 10mb in size. It will retain a
+maximum of 3 files. Similar direcives are also available for the access log.
+
+* access-log-max-size = 100mb
+
+* access-log-old-files = 10
+
+Using the unix tool ''logrotate''
+---------------------------------
 
 You need to rotate Zope access and error logs, plus possible front-end web
 server logs. The latter is usually taken care of your operating system.
 
 To set-up log rotation for Plone:
 
-* Install logrotate on the system (if you don't already have one).
+* Install ``logrotate`` on the system (if you don't already have one).
 
 * You need to know the effective UNIX user as which Plone processes run.
 
@@ -490,7 +570,7 @@ The file contains:
             notifempty
             # File owner and permission for rotated files
             # For additional safety this can be a different
-            # user so your Plone UNIX user cannot 
+            # user so your Plone UNIX user cannot
             # delete logs
             create 640 root root
 
@@ -528,10 +608,10 @@ More info:
 * http://serverfault.com/questions/57993/how-to-use-wildcards-within-logrotate-configuration-files
 
 Log rotate and chroot
-=========================
+---------------------
 
-chroot'ed environments don't usually get their own cron.  In this case you
-can trigger the log rotate from the parent system.
+``chroot``'ed environments don't usually get their own cron.
+In this case you can trigger the log rotate from the parent system.
 
 Add in the parent ``/etc/cron.daily/yourchrootname-logrotate``
 
@@ -541,7 +621,7 @@ Add in the parent ``/etc/cron.daily/yourchrootname-logrotate``
     schroot -c yoursitenet -u root -r logrotate /etc/logrotate.conf
 
 Log rotate generation via buildout using UNIX logrotate command
-=====================================================================
+---------------------------------------------------------------
 
 ``buildout.cfg``:
 
@@ -560,14 +640,14 @@ Log rotate generation via buildout using UNIX logrotate command
     compress
     delaycompress
     missingok
-    
+
     ${buildout:directory}/var/log/instance1.log ${buildout:directory}/var/log/instance1-Z2.log {
         sharedscripts
         postrotate
             /bin/kill -USR2 $(cat ${buildout:directory}/var/instance1.pid)
         endscript
     }
-    
+
     ${buildout:directory}/var/log/instance2.log ${buildout:directory}/var/log/instance2-Z2.log {
         sharedscripts
         postrotate
@@ -580,16 +660,23 @@ More info:
 * http://stackoverflow.com/a/9437677/315168
 
 Log rotate on Windows
-========================
+---------------------
 
 Use ``iw.rotatezlogs``
 
 * http://stackoverflow.com/a/9434150/315168
 
 Email notifications for errors
-================================
+------------------------------
 
 Please see:
 
 * http://stackoverflow.com/questions/5993334/error-notification-on-plone-4
- 
+
+Adding multiple file storage mount points
+-----------------------------------------
+
+* http://pypi.python.org/pypi/collective.recipe.filestorage
+
+* http://plone.org/documentation/kb/multiple-plone-sites-per-zope-instance-using-separate-data-fs-files-for-each-one/
+

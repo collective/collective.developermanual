@@ -4,7 +4,7 @@
 
 .. admonition:: Description
 
-        How to use Zope 3 resource directories to expose static media files (css, js, other)
+        How to use resource directories to expose static media files (css, js, other)
         in your Plone add-on product
        
 .. contents:: :local: 
@@ -12,19 +12,19 @@
 Introduction
 =============
 
-Resource folders are Zope 3 way to expose static media files to
+Resource folders are the Zope Toolkit way to expose static media files to
 Plone URL mapping.
 
 Resource folders provide a mechanism which allows conflict free
 way to have static media files mapped to Plone URL space.
-Each URL is prefixed with `++resource++your.package`  
+Each URL is prefixed with ``++resource++your.package``  
 resource identified.
 
 ZCML resourceDirectory
 ======================
 
 If you want to customize media folder mapping point, you need to use
-Zope 3's resourceDirectory directive.
+the resourceDirectory directive.
 
 Below is an example how to map *static* folder in your add-on
 root folder to be exposed via ++resource++your.product/ URI
@@ -62,7 +62,7 @@ root folder to be exposed via ++resource++your.product/ URI
 
         
 
-Furher reading
+Further reading
 
 
 * `Example <http://www.themeswiki.org/Creating_a_Custom_theme_for_Plone#Image_Resources>`_
@@ -72,6 +72,8 @@ Grok static media folder
 =========================
 
 Learn more about :doc:`Grok and Plone integration </components/grok>`.
+
+.. warning:: Since five.grok 1.3.0 this method does not work.
 
 The easiest way to manage static resources is to make use of the static resource directory feature in five.grok.
 Simply add a directory called static in the package and make sure that the ``<grok:grok package="." />``

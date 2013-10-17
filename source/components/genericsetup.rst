@@ -62,7 +62,7 @@ accordingly.
     Relationship between ZCML and site-specific behavior is usually done
     using :doc:`layers </views/layers>`. ZCML
     directives, like viewlets and views, are registered
-    to be active on a certain layer only using `layer`
+    to be active on a certain layer only using ``layer``
     attribute. When GenericSetup XML is imported
     through ``portal_setup``, or the product add-on installer is
     run for a Plone site, the layer is activated for the
@@ -172,7 +172,14 @@ Unit testing example::
 
     # Run the extended profile which will create email_catalog
     setup_tool.runAllImportStepsFromProfile('profile-betahaus.emaillogin:exdended')
-    
+
+Upgrade steps
+==================
+
+If you need to migrate data or settings on new add-on versions
+
+* http://stackoverflow.com/questions/15316583/how-to-define-a-procedure-to-upgrade-an-add-on
+
 Uninstall profile
 ==================
 
@@ -219,34 +226,38 @@ are usable from *collective.basket* add-on products when your add-on product is 
               />
  
 
-.. warning ::
+.. warning::
 
-        Unlike other GenericSetup XML files, metadata.xml is read on the start-up and this read is cached.
-        Always restart Plone after editing metadata.xml. If your metadata.xml contains syntax errors
-        or dependencies to a missing product (typo in name) your add-on will disapper from the
-        Installation control panel. 
+    Unlike other GenericSetup XML files, 
+    ``metadata.xml`` is read on the start-up and this read is cached.
+    Always restart Plone after editing ``metadata.xml``.
+    If your ``metadata.xml`` file contains syntax errors
+    or dependencies to a missing or non-existent product 
+    (e.g. due to a typo in a name) your add-on will disappear from the
+    installation control panel. 
         
-.. note ::
+.. note::
 
-    Products.* Python namespace need to declare generic setup dependencies specially.
-    You actually do not mention Products.xxx space.
+    The ``Products.*`` Python namespace needs to declare generic setup
+    dependencies specially:
+    You actually do not mention ``Products.xxx`` space.
     
 To declare dependency to ``Products.Carousel``:
 
 .. code-block:: xml
 
-        <?xml version="1.0"?>
-        <metadata>
-          <version>1000</version>
-          <!-- Install Products.Carousel on the site when this add-on is installed -->
-          <dependencies>
-            <dependency>profile-Carousel:default</dependency>
-          </dependencies>
-        </metadata>
+    <?xml version="1.0"?>
+    <metadata>
+      <version>1000</version>
+      <!-- Install Products.Carousel on the site when this add-on is installed -->
+      <dependencies>
+        <dependency>profile-Carousel:default</dependency>
+      </dependencies>
+    </metadata>
             
 
-Custom installer code (setuphandlers.py)
-=========================================
+Custom installer code (``setuphandlers.py``)
+============================================
 
 Besides out-of-the-box XML steps which easily provide both install and uninstall,
 GenericSetup provides a way to run a custom Python code when your
@@ -259,10 +270,10 @@ Python code to make changes to Plone site object.
 This function is registerd as a custom ``genericsetup:importStep``
 in XML.
 
-.. note ::
+.. note::
 
-        When you do custom importSteps remember to write uninstallation
-        code as well.
+    When you do custom ``importStep``\s, remember to write uninstallation
+    code as well.
 
 However, the trick is that all GenericSetup import steps, including
 your custom step, are run for *every* add-on product
@@ -273,7 +284,7 @@ context.
 
 Also you need to register this custom import step in ``configure.zcml``
 
-.. code-block :: xml
+.. code-block:: xml
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
@@ -284,7 +295,7 @@ Also you need to register this custom import step in ``configure.zcml``
             name="your.package"
             title="your.package special import handlers"
             description=""
-            handler="your.package.setuphandlers.setupVarious" />
+            handler="your.package.setuphandlers.setupVarious"
             />
     
     </configure>
@@ -293,30 +304,31 @@ Also you need to register this custom import step in ``configure.zcml``
 
 .. code-block:: python
 
-        __docformat__ = "epytext"
+    __docformat__ = "epytext"
+    
+    def runCustomCode(site):
+        """ Run custom add-on product installation code to modify Plone site object and others
         
-        def runCustomCode(site):
-            """ Run custom add-on product installation code to modify Plone site object and others
-            
-            @param site: Plone site  
-            """
-        
-        def setupVarious(context):
-            """
-            @param context: Products.GenericSetup.context.DirectoryImportContext instance
-            """
-        
-            # We check from our GenericSetup context whether we are running
-            # add-on installation for your product or any other proudct
-            if context.readDataFile('your.package.marker.txt') is None:
-                # Not your add-on
-                return
-        
-            portal = context.getSite()
-        
-            runCustomCode(portal)
+        @param site: Plone site  
+        """
+    
+    def setupVarious(context):
+        """
+        @param context: Products.GenericSetup.context.DirectoryImportContext instance
+        """
+    
+        # We check from our GenericSetup context whether we are running
+        # add-on installation for your product or any other proudct
+        if context.readDataFile('your.package.marker.txt') is None:
+            # Not your add-on
+            return
+    
+        portal = context.getSite()
+    
+        runCustomCode(portal)
 
-And add a dummy text file ``your.package/your/package/profiles/default/your.package.marker.txt``::
+And add a dummy text file
+``your.package/your/package/profiles/default/your.package.marker.txt``::
 
     This text file can contain any content - it just needs to be present
 
@@ -359,11 +371,17 @@ GenericSetup upgrade step means non-technical people can do it as well. As it
 turns out, once you have the script, it's easy to put its code in an upgrade
 step.)
 
-First increase the number of the version in the metadata.xml. This version
+Increment profile version
+-------------------------
+
+First increase the number of the version in the ``profiles/default/metadata.xml``. This version
 number should be an integer. Package version are different because they
 add sens like the status of the addon: is it stable, is it in dev, in beta,
 which branch it is. A profile version indicate only that you have to migrate
 data in the database.
+
+Add upgrade step
+----------------
 
 Next we add an upgrade step:
 
@@ -392,6 +410,9 @@ Next we add an upgrade step:
 
 * A *sortkey* can be used to indicate the order in which upgrade steps are
   run.
+
+Add upgrade code
+----------------
 
 The code for the upgrade method itself is best placed in a *upgrades.py* module::
 
@@ -590,6 +611,9 @@ tinymce.xml
 
 propertiestool.xml
 ------------------
+In the propertiestool.xml you can change all values of the portal_properties.
+
+take a look at: http://plone.org/documentation/manual/developer-manual/generic-setup/reference/properties-ref
 
 metadata.xml
 ------------
@@ -615,6 +639,82 @@ contentrules.xml
 ----------------
 
 .. automodule:: plone.app.contentrules.exportimport
+
+
+pluginregistry.xml
+------------------
+
+This configures PAS plugin orderings and active plugins. It isn't part of Plone
+itself, it is used by other frameworks and can be used in Plone with a little
+extra configuration.
+
+First, you need a monkey patch in your ``__init__.py``` to point the importer at
+where Plone keeps its PAS plugins.
+
+.. code-block:: python
+ 
+    from Products.PluginRegistry import exportimport
+    from Products.PluginRegistry.interfaces import IPluginRegistry
+    def getRegistry(site):
+     return IPluginRegistry(site.acl_users.plugins)
+    exportimport._getRegistry = getRegistry
+
+Secondly, code to handle the import step needs to be activated in Plone:
+
+.. code-block:: xml
+
+    <genericsetup:importStep
+        name="PAS Plugin Registry"
+        title="PAS Plugin Registry"
+        description=""
+        handler="Products.PluginRegistry.exportimport.importPluginRegistry"
+        />
+
+Now you can use ``pluginregistry.xml`` in your generic setup profiles:
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <plugin-registry>
+        <plugin-type id="IAuthenticationPlugin"
+                title="authentication"
+                description="Authentication plugins are responsible for validating credentials generated by the Extraction Plugin."
+                interface="Products.PluggableAuthService.interfaces.plugins.IAuthenticationPlugin">
+            <plugin id="source_users"/>
+            <plugin id="session"/>
+            <plugin id="sql"/>
+        </plugin-type>
+
+        <plugin-type id="IPropertiesPlugin" title="properties"
+                description="Properties plugins generate property sheets for users."
+                interface="Products.PluggableAuthService.interfaces.plugins.IPropertiesPlugin">
+            <plugin id="sql" />
+            <plugin id="mutable_properties"/>
+        </plugin-type>
+ 
+        <plugin-type id="IRolesPlugin" title="roles"
+                description="Roles plugins determine the global roles which a user has."
+                interface="Products.PluggableAuthService.interfaces.plugins.IRolesPlugin">
+            <plugin id="portal_role_manager"/>
+            <plugin id="sql"/>
+        </plugin-type>
+ 
+ 
+        <plugin-type id="IUserEnumerationPlugin"
+                title="user_enumeration"
+                description="Enumeration plugins allow querying users by ID, and searching for users who match particular criteria."
+                interface="Products.PluggableAuthService.interfaces.plugins.IUserEnumerationPlugin">
+            <plugin id="source_users"/>
+            <plugin id="mutable_properties"/>
+            <plugin id="sql"/>
+        </plugin-type>
+ 
+        <plugin-type id="IUserAdderPlugin" title="user_adder"
+                description="User Adder plugins allow the Pluggable Auth Service to create users."
+                interface="Products.PluggableAuthService.interfaces.plugins.IUserAdderPlugin">
+        </plugin-type>  
+    </plugin-registry>
+
 
 Best Practices
 --------------

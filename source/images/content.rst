@@ -15,7 +15,7 @@ Plone supports image content in two forms:
 
 * As stand-alone content type, images will be visible in the sitemap. This is
   the case for the default ``Image`` content type, but you can create custom
-  content types with smilar properties.
+  content types with similar properties.
 
 * As a field, the image is directly associated with one content object.  Use
   ``Archetypes.fields.ImageField``.
@@ -47,7 +47,12 @@ content type:
 Image scales (Plone 4)
 ========================
 
-* http://plone.org/products/plone.app.imaging
+Archetypes based content image scales is handled by `plone.namedfile <https://pypi.python.org/pypi/plone.namedfile>`_.
+
+Archetypes based content image scales is handled by `plone.app.imaging <http://plone.org/products/plone.app.imaging>`_.
+
+Both packages offer the same traverseable `@@images` view which can be used from page templates and Python code
+to provide different image scales for image fields on content.
 
 Image scales (Plone 3)
 =======================
@@ -87,7 +92,7 @@ the image based on the ``sizes`` configuration key.
 
 See example in ``__bobo_traverse__``:
 
-* https://github.com/plone//Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
+* https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py
 
 
 Accessing images

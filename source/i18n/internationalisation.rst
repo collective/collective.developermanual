@@ -87,8 +87,8 @@ corresponding ``.po`` files containing the translation strings:
    ./locales/ga/LC_MESSAGES/mypackage.po
 
 
-Marking translatable strings
-----------------------------
+Marking translatable strings in Python
+------------------------------------------
 
 Each module declares its own ``MessageFactory`` which is a callable and
 marks strings with translation domain.  ``MessageFactory`` is declared in
@@ -141,6 +141,28 @@ To see the translation::
 For more information see:
 
 * http://grok.zope.org/documentation/how-to/how-to-internationalize-your-application
+
+Marking translatable strings in TAL page templates
+---------------------------------------------------
+
+Declare XML namespace ``i18n`` and translation domain at the beginning of your template, at the first element
+
+.. code-block:: html
+
+    <div id="mobile-header" xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="plomobile">
+
+Translate element content text using ``i18n:translate=""``. It will use the text content of the 
+element as msgid.
+
+.. code-block:: html
+
+          <li class="heading" i18n:translate="">
+              Sections
+          </li>
+
+* Use attributes i18n:translate, i18n:attributes and so on
+
+For examples look any core Plone .pt files
 
 Automatically translated message ids
 -------------------------------------
@@ -220,10 +242,32 @@ that have their own mechanisms:
 * GenericSetup XML
 * TAL page templates
 
-Translating ZCML
-----------------
+
+Translating browser view names
+------------------------------
+
+Often you might want to translate browser view names, so that the "Display"
+contentmenu shows something more human readable than, for example,
+"my_awesome_view".
+
+These are the steps needed to get it translated:
+
+* Use the "plone" domain for your browser view name translations. Wether put
+  the whole ZCML in the plone domain of just the view definitions with
+  i18n:domain="plone".
+
+* The msgids for the views are their names. Translate them in a plone.po
+  override file in your locales folder.
+
+Please note, i18ndude does not parse the zcml files for translation strings
+(see below "Translating other ZCML").
+
+
+Translating other ZCML
+----------------------
 
 http://stackoverflow.com/questions/6899708/do-zcml-files-get-parsed-i18n-wise
+
 
 Testing translations
 ======================
@@ -350,9 +394,11 @@ Installing i18ndude
 -------------------
 
 The recommended method is to have term:`i18ndude` installed via your
-:doc:`buildout </tutorials/buildout/index>`.
+`buildout <http://www.buildout.org/docs/index.html>`_.
 
-Add the following to your buildout.cfg::
+Add the following to your buildout.cfg:
+
+.. code-block:: cfg
 
     parts =
         ...
@@ -364,6 +410,15 @@ Add the following to your buildout.cfg::
     eggs = i18ndude
         
 After this ``i18ndude`` is available in your ``buildout/bin`` folder
+
+For **Plone 3** you might need to add:
+
+.. code-block:: cfg
+
+    [versions]
+    # i18ndude pindowns for Plone 3.3
+    zope.i18nmessageid = 3.6.1
+    zope.interface = 3.8.0
 
 .. code-block:: console 
 
@@ -416,7 +471,7 @@ Manual ``.po`` entries
 ------------------------
 
 ``i18ndude`` scans source ``.py`` and ``.pt`` files for translatable text
-strings.  On some occassions this is not enough - for example if you
+strings.  On some occasions this is not enough - for example if you
 dynamically generate message ids in your code. Entries which cannot be
 detected by automatic code scan are called *manual po entries*. They are
 managed in ``locales/manual.pot`` which is merged to generated
@@ -578,11 +633,14 @@ You need to give the name to the dynamic part
 
 .. code-block:: html
 
- <h1 i18n:translate="search_form_heading">Search from <span i18n:name="site_title" tal:content="context/@@plone_portal_state/portal_title" /></h1>
+    <h1 i18n:translate="search_form_heading">
+    Search from 
+    <span i18n:name="site_title" 
+          tal:content="context/@@plone_portal_state/portal_title" /></h1>
 
 ... and then you can refer the dynamic part by a name::
 
-    #. Default: "Search from <span>${DYNAMIC_CONTENT}</span>"
+    #. Default: "Search from <span>${site_title}</span>"
     #: ./skins/gomobiletheme_basic/search.pt:46
     #: ./skins/gomobiletheme_plone3/search.pt:46
     msgid "search_form_heading"
@@ -619,7 +677,7 @@ Your ZCML needs to be included *before* the one from `plone.app.locales`_:
 the first translation of a msgid wins.
 To manage this, you can include the ZCML in the buildout:
 
-.. code-block:: ini
+.. code-block:: cfg
 
     [instance]
     recipe = plone.recipe.zope2instance

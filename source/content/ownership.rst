@@ -46,7 +46,8 @@ Example::
 
 .. warning ::
 
-        Could not get this to work. Use local roles instead.
+        This only changes the owner attribute, not the role assignments. You
+        need to change those too.
         
 Example how to add ownership for additional user using local roles::
 

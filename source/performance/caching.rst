@@ -218,4 +218,102 @@ More info:
 
 * http://stackoverflow.com/questions/6170962/plone-app-caching-for-front-page-only
 
+Creating a "cache forever" view
+================================
+
+You might create views which generate or produce resources (images, JS, CSS)
+in-fly. If you refer this views always through content unique URL 
+you can cache the view result forever.
+
+This can be done
+
+* Using blob._p_mtime, or similar, to get the modified timestamp of the related content item.
+  All persistent ZODB objects have _p_mtime
+
+* Setting *plone.stableResource* ruleset on the view
+
+Related ZCML
+
+.. code-block:: xml
+
+     <configure
+         xmlns="http://namespaces.zope.org/zope"
+         xmlns:browser="http://namespaces.zope.org/browser"
+         xmlns:cache="http://namespaces.zope.org/cache"
+         >
+     
+       <include package="z3c.caching" file="meta.zcml" />
+       <include package="plone.app.caching" />
+     
+       <!-- Because we generate the image URL containing image modified timestamp,
+            the URL is always stable and when image changes the URL changes.
+            Thus, we can use strong caching (cache URL forever)
+         -->
+     
+       <cache:ruleset
+           for=".views.ImagePortletImageDownload"
+           ruleset="plone.stableResource"
+           />
+     
+     
+     </configure>
+     
+Related view code::
+
+    class ImagePortletImageDownload(ImagePortletHelper):
+        """
+        Expose image fields as downloadable BLOBS from the image portlet.
+
+        Allow set caching rules (content caching for this view)
+        """
+        grok.context(Interface)
+        grok.name("image-portlet-downloader")
+
+        def render(self):
+            """
+
+            """
+            content = self.context
+
+            # Read portlet assignment pointers from the GET query
+            name = self.request.form.get("portletName")
+            portletManager = self.request.form.get("portletManager")
+            imageId = self.request.form.get("image")
+
+            # Resolve portlet and its image field
+            manager = getUtility(IPortletManager, name=portletManager, context=content)
+            mapping = getMultiAdapter((content, manager), IPortletAssignmentMapping)
+            portlet = mapping[name]
+            image = getattr(portlet, imageId, None)
+            if not image:
+                # Ohops?
+                return ""
+
+            # Set content type and length headers
+            set_headers(image, self.request.response)
+
+            # Push data to the downstream clients
+            return stream_data(image)
+
+When we refer to the view in ``<img src>`` we use modified time parameter::
+
+    def getImageURL(self, imageDesc):
+        """
+        :return: The URL where the image can be downloaded from.
+
+        """
+        context = self.context.aq_inner
+
+        params = dict(
+            portletName=self.__portlet_metadata__["name"],
+            portletManager=self.__portlet_metadata__["manager"],
+            image=imageDesc["id"],
+            modified=self.data._p_mtime
+        )
+
+        imageURL = "%s/@@image-portlet-downloader?%s" % (context.absolute_url(), urllib.urlencode(params))
+
+        return imageURL
+
+
 .. |---| unicode:: U+02014 .. em dash

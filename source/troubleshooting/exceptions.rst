@@ -1,5 +1,5 @@
 ==================================
-Exceptions: common tracebacks
+Exceptions and common tracebacks
 ==================================
 
 .. admonition:: Description
@@ -11,7 +11,7 @@ Exceptions: common tracebacks
 Introduction
 -------------
 
-This document contains a a ist of common developer errors you might encounter and possible solutions for them.
+This document contains a list of common developer errors you might encounter and possible solutions for them.
 
 Please see :doc:`this tutorial </troubleshooting/basic>` for extracting Python tracebacks from your Plone logs.
 
@@ -280,6 +280,9 @@ Discussion
 z3c.form based form updateWidgets() raises ComponentLookupError
 ---------------------------------------------------------------
 
+Case 1: z3c.form with Plone 3
+==================================
+
 Example::
 
     Error in test test_render_form (gomobile.convergence.tests.test_mobile_overrides.TestMobileOverrides)
@@ -334,6 +337,37 @@ and then your add-on product setup.py file::
       ],
 
 Also remember to run Plone add-on installer for plone.app.z3cform (though it is unrelated to this error).
+
+Case 2: missing plone.app.z3cform migration
+=============================================
+
+Example traceback::
+
+    Traceback (innermost last):
+      Module ZPublisher.Publish, line 126, in publish
+      Module ZPublisher.mapply, line 77, in mapply
+      Module ZPublisher.Publish, line 46, in call_object
+      Module z3c.form.form, line 215, in __call__
+      Module z3c.form.form, line 208, in update
+      Module plone.z3cform.patch, line 21, in BaseForm_update
+      Module z3c.form.form, line 149, in update
+      Module z3c.form.form, line 129, in updateWidgets
+      Module zope.component._api, line 109, in getMultiAdapter
+    ComponentLookupError: ((<Products.Five.metaclass.EditForm object at 0x117a97dd0>, <HTTPRequest, URL=http://localhost:8080/folder_xxx/xxxngta/@@dgftreeselect-test>, <PloneSite at /folder_xxx/xxxngta>), <InterfaceClass z3c.form.interfaces.IWidgets>, u'')
+
+You are running Plone 4 with ``plone.app.directives`` form which does not
+open. The reason is that you most likely have old ``plone.app.z3cform``
+installation which is not upgraded properly. In particular,
+the following layer is missing
+
+.. code-block:: xml
+
+	<layer name="plone.app.z3cform" interface="plone.app.z3cform.interfaces.IPloneFormLayer" />
+
+This enables ``z3c.form`` widgets on a Plone site.
+
+Solution: *portal_setup* > *Import*. Choose profile *Plone z3cform support*.
+and import. The layer gets properly inserted to your site database.
 
 NotFound error (Page not found) when accessing @@manage-portlets
 --------------------------------------------------------------------
@@ -502,8 +536,8 @@ instead of real container object (context.aq_inner.aq_parent).
 	When setting a member attribute in BrowserView, the acquisition parent of objec changes to BrowserView instance.
 	All member attributes receive ImplicitAcquisitionWrapper automatically.
 
-Demostration
-============
+Demonstration
+=============
 
 We try to set BrowserView member attribute defining_context to be some context object.
 
@@ -1052,6 +1086,16 @@ POSKeyError
 POSKeyError is when the database has been unable to convert a reference to an object into the object itself
 It's a low level error usually caused by a corrupt or incomplete database.
 
+* You did not copy blobs when you copied Data.fs
+
+* Your data is corrupted
+
+* Glitch in database (very unlikely)
+
+More info
+
+* http://rpatterson.net/blog/poskeyerror-during-commit
+
 Zope suddenly dies on OSX without a reason
 -------------------------------------------
 
@@ -1176,7 +1220,7 @@ For example the orignal::
 
 would need to be written as:
 
-        tal:attributes="class python:here.Format() in ('text/structured', 'text/x-rst', ) 'stx' + kss_class and 'plain' or kss_class"
+        tal:attributes="class python:here.Format() in ('text/structured', 'text/x-rst', ) and 'stx' + kss_class or 'plain' + kss_class"
 
 TraversalError(subject, name) in expressions
 --------------------------------------------
@@ -1771,7 +1815,7 @@ In debug shell you can also check what all leftoverts toolset contains::
         'portal_repository', 'reference_catalog', 'portal_groupdata', 'portal_search_and_replace',
         'portal_atct', 'mimetypes_registry', 'portal_purgepolicy', 'formgen_tool', 'uid_catalog',
         'error_log', 'portal_modifier', 'portal_discussion', 'portal_actionicons', 'portal_calendar', 'portal_metadata', 'portal_url',
-        'portal_kss', 'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel',
+        'portal_archivist', 'portal_tinymce', 'portal_factory', 'content_type_registry', 'portal_groups', 'portal_controlpanel',
         'portal_uidannotation', 'portal_transforms', 'portal_memberdata', 'portal_javascripts', 'portal_registration', 'portal_css',
         'portal_facets_catalog', 'portal_password_reset', 'plone_utils', 'caching_policy_manager',
         'portal_historiesstorage', 'portal_undo', 'portal_placeful_workflow', 'translation_service',
@@ -1998,3 +2042,89 @@ More info
 * http://stackoverflow.com/questions/8387902/plone-upgrade-3-3-5-to-plone-4-1-2
 
 * https://mail.zope.org/pipermail/zodb-dev/2010-September/013620.html
+
+
+TypeError: argument of type 'NoneType' is not iterable
+---------------------------------------------------------
+
+Example traceback::
+
+	Module ZPublisher.Publish, line 115, in publish
+	  Module ZPublisher.BaseRequest, line 437, in traverse
+	  Module Products.CMFCore.DynamicType, line 147, in __before_publishing_traverse__
+	  Module Products.CMFDynamicViewFTI.fti, line 215, in queryMethodID
+	  Module Products.CMFDynamicViewFTI.fti, line 182, in defaultView
+	  Module Products.CMFPlone.PloneTool, line 831, in browserDefault
+	  Module plone.app.folder.base, line 65, in index_html
+	  Module plone.folder.ordered, line 202, in __contains__
+	TypeError: argument of type 'NoneType' is not iterable
+
+Plone 3 > Plone 4 migration has not been run. Run the migration
+in *portal_migrations* under ZMI.
+
+
+Archetypes: TypeError: getattr(): attribute name must be string
+------------------------------------------------------------------
+
+Example::
+
+	       'user': <PropertiedUser 'admin'>}
+	  Module Products.PageTemplates.ZRPythonExpr, line 48, in __call__
+	   - __traceback_info__: otherwidget.Description(here, target_language=target_language)
+	  Module PythonExpr, line 1, in <expression>
+	  Module Products.Archetypes.generator.widget, line 100, in Description
+	TypeError: getattr(): attribute name must be string
+
+You might have used something else besides string or translation string
+to define Archetypes widget name or description.
+
+
+InvalidInterface: Concrete attribute
+---------------------------------------
+
+Your ``zope.schema`` based schema breaks on Plone startup.
+
+Example::
+	
+	/zope/interface/interface.py", line 495, in __init__
+	    raise InvalidInterface("Concrete attribute, " + name)
+	zope.configuration.xmlconfig.ZopeXMLConfigurationError: File "/Users/mikko/code/buildout.deco/parts/instance/etc/site.zcml", line 15.2-15.55
+	    ZopeXMLConfigurationError: File "/Users/mikko/code/buildout.deco/parts/instance/etc/package-includes/002-plone.app.widgets-configure.zcml", line 1.0-1.61
+	    ZopeXMLConfigurationError: File "/Users/mikko/code/buildout.deco/src/plone.app.widgets/plone/app/widgets/configure.zcml", line 56.2-62.6
+	    InvalidInterface: Concrete attribute, multiChoiceCheckbox
+
+You have extra comma in your schema. Like this::
+
+
+	class IChoiceExamples(model.Schema):
+	
+	    multiChoiceCheckbox = zope.schema.List(
+	        title=u"Checkbox multiple choices",
+	        description=u"Select multiple checkboxes using checkboxes and store values in zope.schema.List (maps to python List)." + DEFAULT_MUTABLE_WARNING,
+	        required=False,
+	        value_type=zope.schema.Choice(vocabulary="plone.app.vocabularies.PortalTypes")),   # <---- OH CRAP
+
+
+AttributeError: 'FilesystemResourceDirectory' object has no attribute 'absolute_url'
+------------------------------------------------------------------------------------
+
+Example::
+
+	2013-09-02 12:26:55 ERROR plone.transformchain Unexpected error whilst trying to apply transform chain
+	Traceback (most recent call last):
+	  File "/home/pab/.buildout/eggs/plone.transformchain-1.0.3-py2.7.egg/plone/transformchain/transformer.py", line 48, in __call__
+	    newResult = handler.transformIterable(result, encoding)
+	  File "/home/pab/.buildout/eggs/plone.app.theming-1.1.1-py2.7.egg/plone/app/theming/transform.py", line 179, in transformIterable
+	    params = prepareThemeParameters(findContext(self.request), self.request, parameterExpressions, cache)
+	  File "/home/pab/.buildout/eggs/plone.app.theming-1.1.1-py2.7.egg/plone/app/theming/utils.py", line 630, in prepareThemeParameters
+	    params[name] = quote_param(expression(expressionContext))
+	  File "/home/pab/.buildout/eggs/Zope2-2.13.20-py2.7.egg/Products/PageTemplates/ZRPythonExpr.py", line 48, in __call__
+	    return eval(self._code, vars, {})
+	  File "PythonExpr", line 1, in <expression>
+	  File "/home/pab/.buildout/eggs/plone.memoize-1.1.1-py2.7.egg/plone/memoize/view.py", line 47, in memogetter
+	    value = cache[key] = func(*args, **kwargs)
+	  File "/home/pab/.buildout/eggs/plone.app.layout-2.3.5-py2.7.egg/plone/app/layout/globals/context.py", line 47, in current_base_url
+	    self.context.absolute_url())))
+	AttributeError: 'FilesystemResourceDirectory' object has no attribute 'absolute_url'
+
+There is a not accessible filesystem ressource declared in your diazo theme's html. Check that all js and css files are available.

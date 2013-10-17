@@ -16,7 +16,7 @@ Viewlets are view snippets which will render a part of the HTML page.
 Viewlets provide conflict-free way to contribute new user-interface actions and
 HTML snippets to Plone pages.
 
-Each viewlet is an a viewlet manager. To add viewlets to your HTML code you first need
+Each viewlet is associated with a viewlet manager. To add viewlets to your HTML code you first need
 to add them to a viewlet manager, which allows you to shuffle viewlets around through-the-web.
 
 What viewlets do
@@ -28,17 +28,17 @@ What viewlets do
 
 * Viewlets can be reordered (limited to reordering within container in Plone 3.x)
 
-* Viewlets can be registered and overridden in theme specific manner :doc:`using layers </views/layers>`
+* Viewlets can be registered and overridden in a theme specific manner :doc:`using layers </views/layers>`
 
 * Viewlets have update() and render() methods
 
 * Viewlets should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_.
 
-Viewlets can be discriminated to
+A viewlet can be configured so that it is only available for:
 
-* certain content type (``for=`` in ZCML)
+* a certain interface, typically a content type (``for=`` in ZCML)
 
-* certain view (``view=`` in ZCML)
+* a certain view (``view=`` in ZCML)
 
 More info
 
@@ -56,12 +56,12 @@ available viewlets may depend on installed Plone version and installed add-ons.
 
 * The ``portal_view_customizations`` tool in ZMI will show you viewlet registrations (and the viewlet managers they are registered for). As with views, you can hover over the viewlet name to see where it is registered in a tool tip.
 
-* To discover the name of a particular viewlet, you can use the @@manage-viewlets view, e.g. as http://localhost:8080/plone/@@manage-viewlets.
+* To discover the name of a particular viewlet, you can use the @@manage-viewlets view, e.g. http://localhost:8080/plone/@@manage-viewlets.
 
 Creating a viewlet
 ------------------
 
-Viewlet consists of
+A viewlet consists of
 
 * Python class
 
@@ -70,6 +70,17 @@ Viewlet consists of
 * A :doc:`browser layer </views/layers>` defining which add-on product must be installed, so that the viewlet is rendered
 
 * A related Grok or ZCML directives to register the viewlet to a correct viewlet manager with a correct layer
+
+
+Re-using code from a View
+-------------------------
+
+In the case where you might want a Viewlet and View to share the same code,
+remember that the View instance is available in the Viewlet under the ``view``
+attribute.
+
+Thus, you can use ``self.view`` to get the view, and then use its methods.
+
 
 Stock viewlets
 ===================
@@ -120,7 +131,7 @@ Create *yourcomponent.app/yourcomponent/app/browser/viewlets.py*::
             def available(self):
                 """ Check if we are in a specific content type.
 
-                Check that the Dexerity content type has a certain
+                Check that the Dexterity content type has a certain
                 behavior set on it through Dexterity settings panel.
                 """
                 try:
@@ -146,14 +157,14 @@ More info
 Creating a viewlet manager
 -----------------------------
 
-Viewlet managers contains viewlets. Viewlet manager itself
-is a Zope 3 interface which contains an OrdereredViewletManager implementation.
-OrderedViewletManager handles saving the order of the viewlets in the site database
-and provides the fancy /@@manage-viewlets output.
+Viewlet managers contain viewlets. A viewlet manager is itself
+a Zope 3 interface which contains an OrdereredViewletManager implementation.
+OrderedViewletManagers store the order of the viewlets in the site database
+and provide the fancy /@@manage-viewlets output.
 
-Viewlet manage can be rendered in a page template code using the following expression::
+A viewlet manager can be rendered in a page template code using the following expression::
 
-  <div tal:replace="structrure provider:viewletmanagerid" />
+  <div tal:replace="structure provider:viewletmanagerid" />
 
 Each viewlet manager allows you to shuffle viewlets inside a viewlet manager.
 This is done by using ``/@@manage-viewlets`` view. These settings
@@ -185,7 +196,7 @@ More info
 Creating a viewlet manager: Grok way
 ============================================
 
-Recommended if you want to keep the number of files and lines of XML and Python minimum.
+Recommended if you want to keep the number of files and lines of XML and Python to a minimum.
 
 An example here for related Python code::
 
@@ -406,7 +417,7 @@ Example configuration ZCML snippets below. You usually <viewlet> to *browser/con
 
             <browser:viewlet
               name="mfabrik.like"
-              manager="Plone.App.Layout.Viewlets.Interfaces.IBelowContent"
+              manager="plone.app.layout.viewlets.interfaces.IBelowContent"
               template="like.pt"
               layer="mfabrik.like.interfaces.IAddOnInstalled"
               permission="zope2.View"
@@ -894,7 +905,7 @@ Below is an head.pt which will be injected in <head>. This examples shows how to
         <script type="text/javascript" tal:attributes="src view/getConnectScriptSource"></script>
         <script tal:replace="structure view/getInitScriptTag" />
 
-Then you register it against viewlewt manager ``plone.app.layout.viewlets.interfaces.IHtmlHead``  in ``configure.zcml``
+Then you register it against viewlet manager ``plone.app.layout.viewlets.interfaces.IHtmlHead``  in ``configure.zcml``
 
 .. code-block:: xml
 
@@ -979,7 +990,7 @@ Occasionaly, you may need to get hold of your viewlets in python code, perhaps i
 
             # viewlet managers are found by Multi-Adapter lookup
             manager = queryMultiAdapter((context, request, view), IViewletManager, manager_name, default=None)
-            self.failUnless(manager)
+            self.assertIsNotNone(manager)
 
             # calling update() on a manager causes it to set up its viewlets
             manager.update()
@@ -989,7 +1000,7 @@ Occasionaly, you may need to get hold of your viewlets in python code, perhaps i
             # to register the viewlet in zcml
             my_viewlet = [v for v in manager.viewlets if v.__name__ == 'mypackage.myviewlet']
 
-            self.failUnlessEqual(len(my_viewlet), 1)
+            self.assertEqual(len(my_viewlet), 1)
 
 Since it is possible to register a viewlet for a specific content type and for
 a browser layer, you may also need to use these elements in looking up your
@@ -1028,3 +1039,32 @@ viewlet
 
             # and that's it.  Everything else from here out is identical to the
             # example above.
+
+
+Poking viewlet registrations programmatically
+------------------------------------------------
+
+Below is an example how one can poke viewlets registration for a Plone site.
+
+.. code-block:: python
+
+    from zope.component import getUtility
+    from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
+
+
+    def fix_tinymce_viewlets(site):
+        """
+        Make sure TinyMCE viewlet is forced to be in Plone HTML <head> viewletmanager.
+
+        For some reason, runnign in our viewlets.xml has no effect so we need to fix this by hand.
+        """
+
+        # Poke me like this: for i in storage._hidden["Isle of Back theme"].items(): print i
+        storage = getUtility(IViewletSettingsStorage)
+        manager = "plone.htmlhead'"
+        skinname = site.getCurrentSkinName()
+
+        # Force tinymce.configuration out of hidden viewlets in <head>
+        hidden = storage.getHidden(manager, skinname)
+        hidden = (x for x in hidden if x != u'tinymce.configuration')
+        storage.setHidden(manager, skinname, hidden)

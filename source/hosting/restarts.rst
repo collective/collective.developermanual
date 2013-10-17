@@ -7,51 +7,66 @@
 Introduction
 ============
 
-Tips on how to (re)start Plone sites.
+Tips on how to automatically start Plone on server boot.
 
-Restart script
-==============
+plonectl script
+===============
 
-Restart command for Plone installations is 
-``yourbuildoutfolder/bin/instance restart``.
-
-
-It is best practice to run Plone as a non-root user.
-Thus you need a special restart script which will ``sudo`` to this user
-to perform the restart command. Due to egg cache problems, the 
-``HOME`` environment variable must be considered when switching users.
-
-.. note::
-
-    These instructions apply when you have *not* installed Plone to run as root
-    and you have installed Plone using Unified installer or from scratch
-    using buildout.
-
-Here's an example ``/srv/plone/yoursite/restart-all.sh`` which assumes Plone is
-installed in the folder ``/srv/plone/yoursite``:
+The general-purpose ``plonectl`` control command for Plone installations is:
 
 .. code-block:: sh
 
-    #!/bin/sh        
-    echo Going to user yourploneuser
-    cd /srv/plone/yoursite        
-    sudo -H -u yourploneuser bin/instance restart
-        
-.. note::
+    yourbuildoutfolder/bin/plonectl
 
-    ``restart-all.sh`` must be made executable: ``chmod u+x``.
+``yourbuildoutfolder`` is the topmost folder of your Plone installation.
+It will always contain a buildout.cfg file and a bin directory.
 
+The ``plonectl`` command is a convenience script that controls standalone or cluster configurations.
+In a standalone installation, this will restart the ``instance`` part.
+In a ZEO cluster install it will restart the zeoserver and client parts.
 
-Start on boot
-=============
+If you have installed Plone in production mode, the Plone server components are meant to be run as a special user, usually ``plone_daemon``. (In older versions, this was typically ``plone``.) In this case, the start, stop and restart commands are:
+
+.. code-block:: sh
+
+    # start
+    sudo -u plone_daemon bin/plonectl start
+    #
+    # stop
+    sudo -u plone_daemon bin/plonectl stop
+    #
+    # restart
+    sudo -u plone_daemon bin/plonectl restart
+
+Starting on boot
+================
 
 It is best practice to start Plone service if the server is rebooted.
-This way your site will automatically recover from power loss etc. 
+This way your site will automatically recover from power loss etc.
 
-LSBInitScripts [starting with Debian 6.0]
-=========================================
+On a Linux or BSD system, you have two major alternatives to arrange automatic starting for a production install:
 
-These instructions apply for Debian.
+1. A process-control system, like supervisor.
+
+2) Through init.d (BSD rc.d) scripts.
+
+Using supervisor
+----------------
+
+`supervisor <http://supervisord.org/>`_ is a general-purpose process-control system that is well-known and highly recommended in the Plone community.
+
+Process-control systems generally run their controlled programs as subprocesses.
+This means that the controlled program must not detach itself from the console (daemonize).
+
+Zope/Plone's "start" command does not work for this purpose.
+Instead use ``console``.
+Do not use ``fg`` which turns on debug switches that will dramatically slow your site.
+
+Supervisor is well-documented, easy to set up, and included as an instalable package with popular Linux and BSD distributions.
+
+Debian LSBInitScripts
+---------------------
+
 Short documentation about how to make an Init Script LSB
 
 This example will start a plone site on boot::
@@ -66,81 +81,121 @@ This example will start a plone site on boot::
    # Default-Stop:      0 1 6
    # Short-Description: Start plone at boot time
    # Description:       Start my plone site at boot time
-   #                    
-   #                    
-   #                    
-   #                    
+   #
+   #
+   #
+   #
    ### END INIT INFO
 
-   su - *yourploneuser* -c "/srv/plone/yoursite/bin/instance start"
+   su - plone_daemon -c "/usr/local/Plone/zeocluster/bin/plonectl start"
 
 Save this script as ``start_plone.sh`` in /etc/init.d and make it executable.
 
 add the script to dependency-based booting::
-    
+
     insserv start_plone.sh
 
-Where ``start_plone.sh`` is an executable init script placed in /etc/init.d, 
+Where ``start_plone.sh`` is an executable init script placed in /etc/init.d,
 insserv will produce no output if everything went OK. Examine the error code in $? if you want to be sure.
+
+This another example (/etc/init.d/plone)::
+
+    #!/bin/sh
+
+    ### BEGIN INIT INFO
+    # Provides:          plone
+    # Required-Start:    $syslog $remote_fs
+    # Required-Stop:     $syslog $remote_fs
+    # Should-Start:      $remote_fs
+    # Should-Stop:       $remote_fs
+    # Default-Start:     2 3 4 5
+    # Default-Stop:      0 1 6
+    # Short-Description: Start plone instances
+    # Description:       Start the instances located at /srv/Plone/zeocluster/bin/plonectl
+    ### END INIT INFO
+
+    PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+    [ -f /usr/local/Plone/zeocluster/bin/plonectl ] || exit 0
+
+    DAEMON=/usr/local/Plone/zeocluster/bin/plonectl
+    NAME="plone "
+    DESC="daemon zeoserver & client"
+
+    . /lib/lsb/init-functions
+
+    case "$1" in
+        start)
+            log_daemon_msg "Starting $DESC" "$NAME"
+            if start-stop-daemon --quiet --oknodo --chuid plone:plone \
+                                 --exec ${DAEMON} --start start
+            then
+                log_end_msg 0
+            else
+                log_end_msg 1
+            fi
+            ;;
+
+        stop)
+            log_daemon_msg "Stopping $DESC" "$NAME"
+            if start-stop-daemon --quiet --oknodo --chuid plone:plone \
+                                 --exec ${DAEMON} --start stop
+            then
+                log_end_msg 0
+            else
+                log_end_msg 1
+            fi
+            ;;
+
+        restart)
+            log_daemon_msg "Restarting $DESC" "$NAME"
+            if start-stop-daemon --quiet --oknodo --chuid plone:plone \
+                                 --exec ${DAEMON} --start restart
+            then
+                log_end_msg 0
+            else
+                log_end_msg 1
+            fi
+            ;;
+
+        status)
+            start-stop-daemon --chuid plone:plone \
+                                --exec ${DAEMON} --start status
+            ;;
+
+        force-reload)
+            echo "Plone doesn't support force-reload, use restart instead."
+            ;;
+
+        *)
+            echo "Usage: /etc/init.d/plone {start|stop|status|restart}"
+            exit 1
+            ;;
+    esac
+
+    exit 0
 
 Make sure to read:
 
 http://wiki.debian.org/LSBInitScripts
 
 
-crontab
-=======
+Crontab
+-------
 
 These instructions apply for Debian-based Linuxes.
 
 Example crontab of *yourploneuser*::
 
-    @reboot /srv/plone/yoursite/bin/instance start
+    @reboot /usr/local/Plone/zeocluster/bin/plonectl start
 
 ``rc.local`` script
---------------------
+-------------------
 
 For Debian-based Linuxes, add the following line to the ``/etc/rc.local`` script:
 
 .. code-block:: sh
 
-    /srv/plone/yoursite/restart-all.sh
+    /usr/local/Plone/zeocluster/bin/plonectl restart
 
 
-Nightly restart
-===============
-
-Plone 3 leaks memory. It is best practice to restart the instance nightly,
-or eventually you will run out of swap space.
-Before running out of swap space, everything will come to a grinding halt.
-
-If nightly restart is not an option and you need a high-availability instance,
-consider using ZEO clustering and
-restart instances one-by-one with certain intervals.
-
-.. note ::
-
-    The related leak fix is in zope.i18nmessageid 3.5.1
-
-Cron restart script
--------------------
-
-Cron is a scheduled task daemon for Unix.
-
-These instructions apply for Debian-based Linuxes.
-
-Example ``/etc/cron.d/site`` script:
-
-.. code-block:: sh
-
-    # Restart varnish + deliverance + plone
-    
-    # run every night
-    0 22 * * *     root     /srv/plone/yoursite/restart-all.sh
-        
-
-
-       
-
-
- 

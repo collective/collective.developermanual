@@ -62,7 +62,7 @@ in ZCML using a the <permission> directive. Example configure.zcml:
     
     </configure>
 
-It's convention to prefix the permission id with the nmame of the
+It's convention to prefix the permission id with the name of the
 package it's defined in and use lower case only. You have to take care
 that the title matches exactly the permission string you used in
 permissions.py. Otherwise a different, zope 3 only, permission is
@@ -95,9 +95,9 @@ Define both Zope 2 and Zope3 permissions in one Step in ZCML
 ------------------------------------------------------------
 
 You can use `collective.autopermission 
-<http://pypi.python.org/pypi/collective.autopermission/1.0b1>` 
+<http://pypi.python.org/pypi/collective.autopermission/1.0b1>`_ 
 (`svn repository 
-<http://svn.plone.org/svn/collective/collective.autopermission>`)
+<http://svn.plone.org/svn/collective/collective.autopermission>`_)
 and define both the Zope 2 and Zope 3 permission at once with the
 <permission> zcml-directive. To do that install
 collective.autopermission. Either add "collective.autopermission" to

@@ -1,38 +1,36 @@
 Introduction
 ============
 
-This is the Sphinx source for the `Plone CMS <http://plone.org>`_ 
-developer manual.
+This is the Sphinx source for the `Plone CMS <http://plone.org>`_
+developer manual used on the site `developer.plone.org <http://developer.plone.org>`_.
 
 To read the documentation (formatted) in your web browser,
-please head to `Plone Developer Documentation at readthedocs.org <http://collective-docs.readthedocs.org/en/latest/>`_.
+please head to the `Plone Developer Documentation <http://developer.plone.org/index.html>`_.
 
-To learn how to update and manage this documentation and its tools, read 
-`Writing and updating this documentation <http://collective-docs.readthedocs.org/en/latest/introduction/writing.html>`_.
+To learn how to update and manage this documentation and its tools, read
+`Writing and updating this documentation <http://developer.plone.org/reference_manuals/active/writing/writing.html>`_.
 
-Some clarifications
+Some clarifications:
 
 * ``source`` folder contains the Sphinx manual source
 
-* ``src`` folder will be target for Plone source code, checkouted for source code documentation inclusion
+* ``src`` folder will be target for Plone source code, checkout-ed for source code documentation inclusion
 
-* Uploading documentatin to plone.org is no longer supported - instead readthedocs.org is preferred method of distribution 
+* Uploading documentation to plone.org is no longer supported 
 
-Building and continous integration
+Building and deployment
+========================
+
+Please see `developer.plone.org info <http://developer.plone.org/reference_manuals/active/writing/crosslinking.html#developer-plone-org-builds>`_ how this documentation is being deployed.
+
+Travis CI
 ====================================
 
-This code base uses Travis CI continuous integration 
-to check the integrity of the source files.
-
-Failed manual complies will be reported 
-
-* plone-docs mailing list
-
-* #plone.org IRC channel
+**Currently disabled**
 
 See ``.travis.yml`` file for continuous integration settings.
 
-* `Travis build page <http://travis-ci.org/#!/collective/collective.developermanual>`_
+
 
 License
 -------
@@ -51,4 +49,3 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
 USA.
-test

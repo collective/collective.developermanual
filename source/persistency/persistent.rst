@@ -55,7 +55,7 @@ Lists and dictionaries
 If you modify objects inside persistent lists and dictionaries, the change is not automatically
 reflected to the parent container.
 
-* `Modifying mutable objects <http://www.zodb.org/documentation/guide/prog-zodb.html#writing-a-persistent-class>`_
+* `Modifying mutable objects <http://zodb.readthedocs.org/en/latest/working.html#handling-changes-to-mutable-objects>`_
 
 PersistentList vs. normal Python list
 -------------------------------------
@@ -121,7 +121,7 @@ More info
 Fixing damaged objects
 ------------------------
 
-If your BTrees have been damanged, you can use ``dm.historical`` tool
+If your BTrees have been damaged, you can use ``dm.historical`` tool
 to inspect the object history and rewind it to a working state.
 
 * http://plone.293351.n2.nabble.com/Cleaning-up-damaged-BTree-can-t-delete-folder-tp5761780p5773269.html
@@ -140,7 +140,7 @@ ZODB assumes variable is volatile if it has _v_ prefix.
 
 Volatiles are useful when framework expects the object to conform certain interface,
 like form frameworks. However, your persistent object edited by form cannot
-have persitent attributes for all variables the form expects to see.
+have persistent attributes for all variables the form expects to see.
 
 Example::
 
@@ -148,7 +148,7 @@ Example::
     from zope.annotation import IAnnotations
 
     class VolatileContext(object):
-        """ Mix-in class to provide context variable to persistent classes which is not persitent.
+        """ Mix-in class to provide context variable to persistent classes which is not persistent.
 
         Some subsystems (e.g. forms) expect objects to have a reference to parent/site/whatever.
         However, it might not be a wise idea to have circular persistent references.
@@ -164,7 +164,7 @@ Example::
             return self._v_context
 
     class MobileBehaviorStorage(VolatileContext, Persistent):
-        """Set moible specific field properties on the context object and return the context object itself.#
+        """Set mobile specific field properties on the context object and return the context object itself.#
 
         This allows to use attribute storage with schema input validation.
         """
@@ -187,7 +187,7 @@ Example::
 
         return object
         
-Correct use of volatile variables in fuctions
+Correct use of volatile variables in functions
 ================================================
 
 **WRONG**::

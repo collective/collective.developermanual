@@ -7,9 +7,9 @@ Transactions
 Introduction
 ==============
 
-Plone uses the 
+Plone uses the
 `ZODB database <http://en.wikipedia.org/wiki/Zope_Object_database>`_ which
-implements `Multiversion concurrency control 
+implements `Multiversion concurrency control
 <http://en.wikipedia.org/wiki/Multiversion_concurrency_control>`_.
 
 Plone will complete either *all* database modifications that occur during a
@@ -23,15 +23,15 @@ Plone and the underlying Zope handles transactions transparently.
     Every transaction is a *read* transaction until any of the objects
     participating in the transaction are mutated (object attribute set),
     turning the transaction to a *write* transaction.
-     
+
 .. note::
 
     Old examples might refer to the ``get_transaction()`` function. This has
     been replaced by ``transaction.get()`` in the later Zope versions.
-             
-Please read this 
+
+Please read this
 `Zope transaction tutorial <http://www.zope.org/Members/mcdonc/HowTos/transaction>`_
-to get started how to use transactions with your code.    
+to get started how to use transactions with your code.
 
 * https://bugs.launchpad.net/zope2/+bug/143584
 
@@ -59,7 +59,7 @@ Subtransactions
 ----------------
 
 Normally, a Zope transaction keeps a list of objects modified within the
-transaction in a structure in RAM. 
+transaction in a structure in RAM.
 
 This list of objects can grow quite large when there is a lot of work done
 across a lot of objects in the context of a transaction. *Subtransactions*
@@ -71,12 +71,12 @@ RAM.
 Example::
 
     import transaction
-    ... 
+    ...
 
     done = 0
     for brain in all_images:
         done += 1
-        ...            
+        ...
         # Since this is HUGE operation (think resizing 2 GB images)
         # it is not nice idea to buffer the transaction (all changed data)
         # in the memory (Zope default transaction behavior).
@@ -84,8 +84,15 @@ Example::
         # flush the changes to the disk.
         if done % 10 == 0:
             # Commit subtransaction for every 10th processed item
-            transaction.get().commit(True) 
-    
+            transaction.get().commit(True)
+
+Failsafe crawling and committing in batches
+==============================================
+
+In the case you need to access many objects in coherent and efficient manner.
+
+* https://bitbucket.org/gocept/gocept.linkchecker/src/80a127405ac06d2054e61dd62fcd643d864357a0/src/gocept/linkchecker/scripts/crawl-site.py?at=default
+
 Transaction boundary events
 ============================
 
@@ -98,3 +105,13 @@ Viewing transaction content and debugging transactions
 =======================================================
 
 Please see :doc:`Transaction troubleshooting </troubleshooting/transactions>`
+
+Undoing transactions
+=======================
+
+Everything that has happened on Plone site can be undoed through the *Undo*
+tab in ZMI, in site root. By default you can undo latest 20 transactions.
+
+If you need to raise this limit just replace all numbers of ``20``
+with higher value in file ``App/Undo.py``, restart site and now you can undo more transactions.
+

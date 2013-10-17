@@ -553,7 +553,7 @@ xdv.py::
         TEST_HTML_FILE = "test.html"
 
         # Our "theme.html" is a remote template served for each request.
-        # Because we are doing live integrattion, this is a HTTP resource,
+        # Because we are doing live integration, this is a HTTP resource,
         # not a local file.
         THEME="http://mfabrik.com/news/wordpress_listing/"
 
@@ -862,7 +862,7 @@ in /etc/cron.d/update-wordpress::
 .. warning ::
 
         It looks like Varnish has issues with Apache2 apache2ctl graceful
-        restart. Do only hard restarts when using Apache in conjuction
+        restart. Do only hard restarts when using Apache in conjunction
         with Varnish.
 
 Updating Wordpress settings

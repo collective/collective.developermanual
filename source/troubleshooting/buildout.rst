@@ -52,7 +52,7 @@ Buildout and SyntaxErrors
 
 You may see ``SyntaxError`` exceptions when running buildout::
 
-	SyntaxError: ("'return' outside function", ('/usr/local/Plone/buildout-cache/eggs/tmpzTKrEI/Products.ATExtensions-1.1a3-py2.6.egg/Products/ATExtensions/skins/at_extensions/getDisplayView.py', 11, None, 'return value\n'))
+    SyntaxError: ("'return' outside function", ('/usr/local/Plone/buildout-cache/eggs/tmpzTKrEI/Products.ATExtensions-1.1a3-py2.6.egg/Products/ATExtensions/skins/at_extensions/getDisplayView.py', 11, None, 'return value\n'))
 
 They are harmless.
 
@@ -141,11 +141,18 @@ Or:
     extends =
         http://dist.plone.org/release/4.0/versions.cfg           
         http://good-py.appspot.com/release/dexterity/1.0b2?plone=4.0
-            
-For more information, see
 
-* http://dexterity-developer-manual.readthedocs.org/en/latest/prerequisite.html#buildout-configuration
 
+Extracting version numbers from instance script
+=================================================
+
+Example::
+
+    cat bin/instance | grep eggs | sed -r 's#.*eggs/(.*)-py2.[0-9].*#\1#g' | sed -r 's#-# = #g' | sed -r 's#_#-#g' | grep -E ' = [0-9\.]' | xargs -0 echo -e "[versions]\n" | sed -r 's#^\s+##g' > versions-extracted.cfg; cat versions-extracted.cfg
+
+More info
+
+* http://davidjb.com/blog/2011/06/extracting-a-buildout-versions-cfg-from-a-zope-instance-script/
 
 Plone 3.1
 =========
@@ -188,40 +195,40 @@ Getting distribution for ``distribute``
 
 You try to run buildout, but it is stuck in a loop::
 
-	Getting distribution for 'distribute'.
-	Getting distribution for 'distribute'.
-	....
-	Getting distribution for 'distribute'.
-	Getting distribution for 'distribute'.
-	Getting distribution for 'distribute'.
-	
+    Getting distribution for 'distribute'.
+    Getting distribution for 'distribute'.
+    ....
+    Getting distribution for 'distribute'.
+    Getting distribution for 'distribute'.
+    Getting distribution for 'distribute'.
+    
 Your system-wide Distribute version is older than the latest release.
 Buildout tries to update it, but since system wide site-packages version
 overrides anything buildout can do, it is stuck in a loop.
 
 Fix: update Distribute in system-wide Python::
 
-	easy_install -U Distribute
-	Searching for Distribute
-	Reading http://pypi.python.org/simple/Distribute/
-	Reading http://packages.python.org/distribute
-	Best match: distribute 0.6.12
-	Downloading http://pypi.python.org/packages/source/d/distribute/distribute-0.6.12.tar.gz#md5=5a52e961f8d8799d243fe8220f9d760e
-	Processing distribute-0.6.12.tar.gz
-	Running distribute-0.6.12/setup.py -q bdist_egg --dist-dir /tmp/easy_install-jlL3e7/distribute-0.6.12/egg-dist-tmp-IV9SiQ
-	Before install bootstrap.
-	Scanning installed packages
-	Setuptools installation detected at /home/moo/py24/lib/python2.4/site-packages
-	Non-egg installation
-	Removing elements out of the way...
-	Already patched.
-	/home/moo/py24/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg-info already patched.
-	After install bootstrap.
-	/home/moo/py24/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg-info already exists
-	Removing distribute 0.6.10 from easy-install.pth file
-	Adding distribute 0.6.12 to easy-install.pth file
-	Installing easy_install script to /home/moo/py24/bin
-	Installing easy_install-2.4 script to /home/moo/py24/bin
+    easy_install -U Distribute
+    Searching for Distribute
+    Reading http://pypi.python.org/simple/Distribute/
+    Reading http://packages.python.org/distribute
+    Best match: distribute 0.6.12
+    Downloading http://pypi.python.org/packages/source/d/distribute/distribute-0.6.12.tar.gz#md5=5a52e961f8d8799d243fe8220f9d760e
+    Processing distribute-0.6.12.tar.gz
+    Running distribute-0.6.12/setup.py -q bdist_egg --dist-dir /tmp/easy_install-jlL3e7/distribute-0.6.12/egg-dist-tmp-IV9SiQ
+    Before install bootstrap.
+    Scanning installed packages
+    Setuptools installation detected at /home/moo/py24/lib/python2.4/site-packages
+    Non-egg installation
+    Removing elements out of the way...
+    Already patched.
+    /home/moo/py24/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg-info already patched.
+    After install bootstrap.
+    /home/moo/py24/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg-info already exists
+    Removing distribute 0.6.10 from easy-install.pth file
+    Adding distribute 0.6.12 to easy-install.pth file
+    Installing easy_install script to /home/moo/py24/bin
+    Installing easy_install-2.4 script to /home/moo/py24/bin
 
 
 UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'
@@ -248,7 +255,33 @@ use earlier version of the add-on for your Plone 3 site.
 More info:
 
 * http://groups.google.com/group/singing-dancing/browse_thread/thread/331cdfe78cf371ed        
+    
 
+We already have: zope.interface 4.0.3
+========================================
+
+Example::
+
+    Getting distribution for 'zope.testing==3.9.7'.
+    warning: no files found matching 'sampletests' under directory 'src'
+    Got zope.testing 3.9.7.
+    While:
+      Installing.
+      Getting section test.
+      Initializing section test.
+      Installing recipe zc.recipe.testrunner.
+    Error: There is a version conflict.
+    We already have: zope.interface 4.0.3
+
+Your system Python or virtualenv'd Python already has ``zope.interface`` library installed.
+A lot of Python software uses this library. However, the system version is wrong and cannot be overridden.
+
+Solutions.
+
+For virtualenv: ``rm -rf ~/code/plone-venv/lib/python2.7/site-packages/zope.interface-4.0.3-py2.7-macosx-10.8-x86_64.egg``
+
+For system Python: You need to create a virtualenv'd Python and to use it to drive buildout,
+so that there is no conflict with ``zope.interface`` versions.
 
 We already have: zope.location 3.4.0
 ====================================
@@ -281,7 +314,7 @@ Solution:
 ImportError: No module named lxml
 =================================
 
-`lxml` as a PyPi package dependency fails even though it is clearly
+``lxml`` as a PyPi package dependency fails even though it is clearly
 installed.
 
 Example traceback when running buildout::
@@ -297,7 +330,7 @@ Example traceback when running buildout::
       File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/wordprocessing.py", line 5, in <module> 
       File "/tmp/easy_install-Urh6x4/openxmllib-1.0.6/openxmllib/document.py", line 14, in <module>
     ImportError: No module named lxml 
-    An error occured when trying to install openxmllib 1.0.6. Look above this message for any errors that were output by easy_install. 
+    An error occurred when trying to install openxmllib 1.0.6. Look above this message for any errors that were output by easy_install. 
     While: 
       Installing plone-core-addons. 
       Getting distribution for 'openxmllib>=1.0.6'. 
@@ -456,11 +489,11 @@ argparse 1.2.1
 
 If you get::
 
-	While:
-	  Installing.
-	  Loading extensions.
-	Error: There is a version conflict.
-	We already have: argparse 1.2.1
+    While:
+      Installing.
+      Loading extensions.
+    Error: There is a version conflict.
+    We already have: argparse 1.2.1
 
 Rerun ``bootstrap.py`` with the correct Python interpreter.
 
@@ -470,19 +503,19 @@ Rerun ``bootstrap.py`` with the correct Python interpreter.
 
 If you get something like this::
 
-	We have the distribution that satisfies 'zc.recipe.testrunner==1.2.1'.
-	Installing 'collective.recipe.backup'.
-	Picked: collective.recipe.backup = 2.4
-	Could't load zc.buildout entry point default
-	from collective.recipe.backup:
-	Picked: collective.recipe.backup = 2.4.
-	While:
-	  Installing.
-	  Getting section backup.
-	  Initializing section backup.
-	  Installing recipe collective.recipe.backup.
-	  Getting distribution for 'collective.recipe.backup'.
-	Error: Picked: collective.recipe.backup = 2.4
+    We have the distribution that satisfies 'zc.recipe.testrunner==1.2.1'.
+    Installing 'collective.recipe.backup'.
+    Picked: collective.recipe.backup = 2.4
+    Could't load zc.buildout entry point default
+    from collective.recipe.backup:
+    Picked: collective.recipe.backup = 2.4.
+    While:
+      Installing.
+      Getting section backup.
+      Initializing section backup.
+      Installing recipe collective.recipe.backup.
+      Getting distribution for 'collective.recipe.backup'.
+    Error: Picked: collective.recipe.backup = 2.4
 
 This means that your buildout has "allow picked versions" set to false.
 You need to pin the version for the picked version (or turn on "allow picked
@@ -504,4 +537,138 @@ non-zero length file or verifying the content using something like
 ``md5sum``) before delving deep into your Python install's workings. This
 error makes it look as if your Python install doesn't have support for this
 type of archive, but in fact it can be caused by a corrupt download.
+
+VersionConflict: zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'.
+=============================================================================
+
+Plone 3.3.x package pindown problems.
+
+Example::
+    
+    Error: There is a version conflict.
+    We already have: zope.publisher 3.5.6
+    but zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'.
+
+Plone 3.x problem. Pin plone.uuid to 1.0.0.
+
+For Plone 3.3.x You need to pindown::
+
+    extends =
+        ...
+            http://good-py.appspot.com/release/dexterity/1.1?plone=3.3.5
+
+    [versions]
+    plone.uuid = 1.0.0
+    zope.interface = 3.8.0
+    zope.proxy = 3.6.1
+    transaction = 1.1.1
+    zc.queue = 1.2.1
+    zope.copy = 3.5.0
+
+Distribute / setuptools tries to mess with system Python and Permission denied
+======================================================================================================================
+
+When running ``boostrap.py`` your buildout files
+because it tries to write to system-wide Python installation.
+
+Example::
+
+    Getting distribution for 'distribute==0.6.24'.
+    Before install bootstrap.
+    Scanning installed packages
+    No setuptools distribution found
+    warning: no files found matching 'Makefile' under directory 'docs'
+    warning: no files found matching 'indexsidebar.html' under directory 'docs'
+    After install bootstrap.
+    Creating /srv/plone/python/python-2.7/lib/python2.7/site-packages/setuptools-0.6c11-py2.7.egg-info
+    error: /srv/plone/python/python-2.7/lib/python2.7/site-packages/setuptools-0.6c11-py2.7.egg-info: Permission denied
+    An error occurred when trying to install distribute 0.6.24. Look above this message for any errors that were output by easy_install.
+    While:
+      Bootstrapping.
+      Getting distribution for 'distribute==0.6.24'.
+    Error: Couldn't install: distribute 0.6.24
+
+Solution:
+
+`This bug has been fixed in Distiribute 0.6.27 <http://pypi.python.org/pypi/distribute/0.6.27#id2>`_ - make sure your system-wide Python
+uses this version or above::
+
+       sudo /srv/plone/python/python-2.7/bin/easy_install -U Distribute
+
+
+
+UnboundLocalError: local variable 'clients' referenced before assignment
+==========================================================================
+
+Example traceback when running buildout::
+
+    Traceback (most recent call last):
+      File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 1683, in main
+        getattr(buildout, command)(args)
+      File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 555, in install
+        installed_files = self[part]._call(recipe.install)
+      File "/srv/plone/x/eggs/zc.buildout-1.4.4-py2.7.egg/zc/buildout/buildout.py", line 1227, in _call
+        return f()
+      File "/srv/plone/x/eggs/plone.recipe.unifiedinstaller-4.3.1-py2.7.egg/plone/recipe/unifiedinstaller/__init__.py", line 65, in install
+        for part in clients
+    UnboundLocalError: local variable 'clients' referenced before assignment
+
+Solution: Your buildout contains leftovers from the past. Remove ``clients`` variable
+in ``[unifiedinstaller]`` section.
+
+Couldn't install: BTrees 4.0.5
+===============================
+
+Example::
+    
+    Unpacking persistent-4.0.6/docs/using.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/using.rst
+    Unpacking persistent-4.0.6/docs/index.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/index.rst
+    Unpacking persistent-4.0.6/docs/glossary.rst to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/docs/glossary.rst
+    Reading configuration from /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+    Adding new section [easy_install] to /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+    Writing /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/setup.cfg
+    Running persistent-4.0.6/setup.py -q bdist_egg --dist-dir /tmp/easy_install-71ggL3/BTrees-4.0.5/temp/easy_install-B8bWf7/persistent-4.0.6/egg-dist-tmp-xnqDMG
+    In file included from persistent/cPersistence.c:19:0:
+    persistent/cPersistence.h:19:25: fatal error: bytesobject.h: No such file or directory
+    compilation terminated.
+    error: Setup script exited with error: command 'gcc' failed with exit status 1
+    An error occured when trying to install BTrees 4.0.5. Look above this message for any errors that were output by easy_install.
+    While:
+      Installing.
+      Getting section zeoserver.
+      Initializing part zeoserver.
+      Getting distribution for 'BTrees'.
+    Error: Couldn't install: BTrees 4.0.5
+    *********************************************
+
+Plone 3.3.5 buildout ``fake-eggs`` is not working properly when you boostrap
+the buildout in a new environment.
+
+Try install manually the core buildout part where you have ``fake-eggs`` defined::
+
+    # disable zeoserver, clients in buildout.cfg
+        bin/buildout install zope2
+        bin/buildout install instance
+        # enable zeoserver, clients in buildout
+    bin/buildout install client1
+        bin/buildout 
+        # Don't touch anything to break it
+
+
+error: None
+============
+
+This means .tar.gz is corrupted::
+
+    error: None
+    An error occured when trying to install lxml 2.3.6. Look above this message for any errors that were output by easy_install.
+    While:
+      Installing instance.
+      Getting distribution for 'lxml==2.3.6'.
+    Error: Couldn't install: lxml 2.3.6
+
+Buildout download cache is corrupted. Run ``bin/buildout -vvv`` for more info. Then do something like this::
+
+      # Corrupted .tar.gz download
+      rm /Users/mikko/code/buildout-cache/downloads/dist/lxml-2.3.6.tar.gz
 

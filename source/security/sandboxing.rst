@@ -47,7 +47,7 @@ Whitelisting modules for RestrictedPython import
 
 * http://plone.org/documentation/kb/using-unauthorized-modules-in-scripts
 
-Travesing special cases
+Traversing special cases
 -------------------------
 
 Old style Zope object traversing mechanism does not expose
@@ -156,5 +156,5 @@ Other references
 
 .. _AccessControl: http://svn.zope.org/Zope/trunk/src/AccessControl
 
-.. _RestrictedPython: http://pypi.python.org/pypi/RestrictedPython>
+.. _RestrictedPython: http://pypi.python.org/pypi/RestrictedPython
 

@@ -11,31 +11,39 @@ How to contribute to Plone core translations
 Introduction
 =============
 
-First you need `commit access to collective repository
-<http://dev.plone.org/plone.org/wiki/SubversionAccess>`_ if you want
-to commit your translation.
+You need to have write access to
+https://github.com/collective/plone.app.locales to be able to commit
+your translation directly.
+You can also update a po file online and make a pull request.
 
-Updating translations for Plone 4.0/4.1
-=========================================
+
+Updating translations for Plone 4.2
+===================================
+
+To do.
+
+
+Updating translations for Plone 4.3
+===================================
 
 If you want to test your latest translation with unreleased packages
 containing i18n fixes for Plone 4, get the buildout like this:
 
 .. code-block:: console
 
-    svn co https://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/4.0 plone4
-    cd plone4
-    python2.6 bootstrap.py
+    git clone -b 4.2 git://github.com/plone/buildout.coredev.git
+    cd buildout.coredev
+    python2.7 bootstrap.py
     bin/buildout -c experimental/i18n.cfg
+    rm .mr.developer.cfg
+    ln -s experimental/.mr.developer.cfg
     bin/instance fg
 
 To update the buildout later:
 
 .. code-block:: console
 
-    svn up
-    rm .mr.developer.cfg
-    ln -s experimental/.mr.developer.cfg
+    git pull
     bin/develop up -f
 
 To update your translation, you can go there:
@@ -46,22 +54,15 @@ To update your translation, you can go there:
 
 Here you have the following directories:
 
-- ``i18n/kupu`` used only for ``Products.kupu``.
-  This directory is not included in ``plone.app.locales``, it's included in
-  ``Products.kupu``. It's only kept here for convenience.
 - ``locales`` used for core Plone translations.
 - ``locales-addons`` used for some addons packages.
 - ``locales-future`` used for Plone 5 packages. The po files can change
-  really often. The translations will normally be merge to the locales
+  really often. The translations will normally be merged to the locales
   directory when Plone 5 will be released. This directory is not included in
   ``plone.app.locales`` 4.x releases. For developers: if you want to add a
   Plone 5 package to this directory, you can add it to the ``plone5``
   variable in ``experimental/i18n.cfg``, don't forget to add a line in
   ``[sources]`` if it's missing.
-
-If you do ``svn info`` in the locales directory, you'll see it is actually a
-svn *external* reference to:
-https://svn.plone.org/svn/collective/PloneTranslations/trunk/locales
 
 Open the po file with poedit, kbabel or any other i18n tool. For example for
 French:
@@ -70,41 +71,41 @@ French:
 
     poedit locales/fr/LC_MESSAGES/plone.po
 
+Please do a ``git pull`` before editing a po file to be sure you have the latest
+version.
+
+Committing directly (commit access)
+-------------------------------------
+
 You can commit your translation from this locales directory:
 
 .. code-block:: console
 
-    svn ci -m "Updated French translation"
+    git commit -a -m "Updated French translation"
+    git push
 
 
-Updating translations for Plone 3.3
-=====================================
+Creating a pull request (no commit access)
+--------------------------------------------------------------------------
 
-Download the buildout:
+If you do not have commit access on Github `collective group <https://github.com/collective>`_.
+you can do the following:
 
-.. code-block:: console
+Login to Github. Go to Github `plone.app.locales <https://github.com/collective/plone.app.locales>`_
 
-    svn co https://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/3.3 plone3
-    cd plone3
-    python2.4 bootstrap.py
-    bin/buildout -c i18n.cfg
-    bin/instance fg
+Press *Fork*. Now Github creates a copy of ``plone.app.locales`` package for you.
 
-To update the buildout later:
+Then on your computer in ``plone.app.locales`` do a special git push to your own repository::
 
-.. code-block:: console
+    git push git@github.com:YOURUSERNAMEHERE/plone.app.locales.git
 
-    svn up
-    bin/develop up -f
+Go to Github ``https://github.com/YOURUSERNAME/plone.app.locales``
 
-To update your translation, you can go to
-``src/plone.app.locales/plone/app/locales/i18n`` and
-``src/plone.app.locales/plone/app/locales/locales``.
+Press button *Create Pull request*. Fill it in.
 
-If you do ``svn info`` in the ``i18n`` directory, you'll see it is actually
-an svn *external* reference to:
-https://svn.plone.org/svn/collective/PloneTranslations/branches/3.x/i18n
-
+The request will appear for *plone.app.locales* authors.
+If it does not get merged in timely manner, poke people on the #plone IRC channel
+or the mailing list below (sometimes requests go unnoticed).
 
 Support
 =======
