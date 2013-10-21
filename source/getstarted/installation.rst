@@ -149,7 +149,9 @@ install.sh has many options, use:
 
 .. code-block:: console
 
-to discover tham.
+    ./install.sh --help
+
+to discover them.
 
 The default admin credentials will be printed to the console.
 You can change this password after logging in to the Zope Management Interface.
