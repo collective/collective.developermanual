@@ -248,7 +248,9 @@ When trying to introspect a Dexterity type, you can get a reference to the schem
     
     schema = getUtility(IDexterityFTI, name=PORTAL_TYPE_NAME).lookupSchema()
 
-...and then inspect it using the methods above.
+...and then inspect it using the methods above. Note this won't have behavior
+fields added to it at this stage, only the fields directly defined in your
+schema.
 
 Field order
 ===========
