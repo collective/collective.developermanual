@@ -179,6 +179,31 @@ Make sure to read:
 
 http://wiki.debian.org/LSBInitScripts
 
+Upstart
+-------
+Upstart is an event-based replacement for the /sbin/init daemon which handles starting of tasks and services during boot, stopping them during shutdown and supervising them while the system is running.
+It was originally developed for the Ubuntu distribution, but is intended to be suitable for deployment in all Linux distributions as a replacement for the venerable System-V init.
+
+Example of a *plone.conf* file in */etc/init/* -> */etc/init/plone.conf*::
+
+        # Plone - Web-Content Management System
+        #
+        # Based on Python and ZOPE
+
+        description "start plone"
+        author "Christoph Glaubitz"
+        version "0.1"
+
+        console output
+        respawn
+
+        start on (local-filesystems and net-device-up and runlevel [2345])
+        stop on runlevel [!2345]
+
+        exec /usr/local/Plone/zeocluster/bin/plonectl start console
+
+Make sure to read: http://upstart.ubuntu.com/
+
 
 Crontab
 -------
