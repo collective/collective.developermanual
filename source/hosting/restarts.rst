@@ -217,7 +217,7 @@ Create services file *plone.service* in */etc/systemd/system*::
     Type=forking
     ExecStart=/usr/local/Plone/zeocluster/bin/plonectl start
     ExecStop=/usr/local/Plone/zeocluster/bin/plonectl stop
-    ExecReload=/user/local/Plone/zeocluster/bin/plonectl restart
+    ExecReload=/usr/local/Plone/zeocluster/bin/plonectl restart
 
     [Install]
     WantedBy=multi-user.target
