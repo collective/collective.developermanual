@@ -205,6 +205,46 @@ Example of a *plone.conf* file in */etc/init/* -> */etc/init/plone.conf*::
 Make sure to read: http://upstart.ubuntu.com/
 
 
+Systemd
+-------
+Create services file *plone.service* in */etc/systemd/system*::
+
+    [Unit]
+    Description=Plone content management system
+    After=network.target
+
+    [Service]
+    Type=forking
+    ExecStart=/usr/local/Plone/zeocluster/bin/plonectl start
+    ExecStop=/usr/local/Plone/zeocluster/bin/plonectl stop
+    ExecReload=/user/local/Plone/zeocluster/bin/plonectl restart
+
+    [Install]
+    WantedBy=multi-user.target
+
+Make systemd take notice of it::
+
+    systemctl daemon-reload
+
+Activate a service immediately::
+
+    systemctl start plone.service
+
+Check status of service::
+
+    systemctl status plone.service
+
+Enable a service to be started on bootup::
+
+    systemctl enable plone.service
+
+More detailed log information::
+
+    systemd-journalctl -a
+
+Make sure to read: http://www.freedesktop.org/wiki/Software/systemd/
+
+
 Crontab
 -------
 
