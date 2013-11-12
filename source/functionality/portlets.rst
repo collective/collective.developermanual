@@ -403,7 +403,7 @@ Below is an example how to render a portlet in Plone
 
 How to get your portlet HTML::
 
-from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
+    from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
     from plone.portlets.interfaces import IPortletRetriever, IPortletManager, IPortletRenderer
     from plone.portlets.interfaces import IPortletManagerRenderer
 
@@ -467,8 +467,8 @@ from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
             # Identify portlet by interface provided by assignment
             print portlet
             if portlet["name"] == assignmentId:
-                assignment = portlet["assignment"]
-                break
+                 assignment = portlet["assignment"]
+                 break
 
         if assignment is None:
             # Did not find a portlet

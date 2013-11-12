@@ -238,7 +238,19 @@ Below is an example how to extract all schema defined fields from an object.
 
         return out
 
+Finding the schema for a Dexterity type
+---------------------------------------
 
+When trying to introspect a Dexterity type, you can get a reference to the schema thus::
+
+    from zope.component import getUtility
+    from plone.dexterity.interfaces import IDexterityFTI
+    
+    schema = getUtility(IDexterityFTI, name=PORTAL_TYPE_NAME).lookupSchema()
+
+...and then inspect it using the methods above. Note this won't have behavior
+fields added to it at this stage, only the fields directly defined in your
+schema.
 
 Field order
 ===========

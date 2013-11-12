@@ -10,6 +10,7 @@ if (document.location.protocol == 'http:') {
 function summonDragons() {
     if(window.location.href.indexOf("/old/") >= 0) {
         $("#dragon-warning").show();
+        $("#contributors-sidebar").hide();
     }
 }
 

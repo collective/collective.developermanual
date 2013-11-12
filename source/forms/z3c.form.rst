@@ -4,7 +4,7 @@ z3c.form library
 
 .. admonition:: Description
 
-    ``z3c.form`` is alexible and powerful form library for Zope 3 applications.
+    ``z3c.form`` is flexible and powerful form library for Zope 3 applications.
     It is the recommended way to create complex Python-driven forms for
     Plone 4 and later versions.
 
@@ -2192,9 +2192,8 @@ Validators are best added in the schema itself.
 * If you are using plain ``z3c.form``,
   you can check the `validators documentation <http://packages.python.org/z3c.form/validator.html>`_.
 
-* The `plone.form.directives
-  <http://pypi.python.org/pypi/plone.directives.form#validators>`_ package
-  provides convenient decorators for form validators.
+* The plone.form.directives package provides convenient
+  `decorators for form validators <http://pypi.python.org/pypi/plone.directives.form#validators>`_.
   If you use ``plone.form.directives`` validators, make sure your package
   is :doc:`grokked </components/grok>`
   (otherwise validators are not registered).

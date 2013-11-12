@@ -2,7 +2,7 @@
 Creating a Multi-Page Form
 ==========================
 
-.. admonition :: Description
+.. admonition:: Description
 
     You can create a multi-page form as a chain of form folders.
 
@@ -24,15 +24,14 @@ As your user moves from form page to page, input will be automatically saved in 
 
 An added bonus
 
-.. admonition :: traversing is cool
-
-If you want to create a sequence of forms, where the answers on form_A could lead to a form_B or form_C, you can use a traverse_to override. 
+If you want to create a sequence of forms, where the answers on form_A could lead to a form_B or form_C, you can use a traverse_to override.
 
 * Create a selection field in form_A, which could be called 'formnext';
 * As values in the selection field, put the paths to the next forms in the sequence;
-* Then, in the form overrides -> custom success action use 
+* Then, in the form overrides -> custom success action use
 
 traverse_to:request/form/formnext
 
-.. note::use traverse_to as opposed to a redirect_to as this will preserve the form object in the request.
+.. note::
+    use traverse_to as opposed to a redirect_to as this will preserve the form object in the request.
 

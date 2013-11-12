@@ -173,9 +173,8 @@ Example::
 
         return ip
 
-For more information, see:
-
-* http://wiki.zope.org/zope2/ZopeAndApache#setting-remote-addr-to-the-client-ip
+For functional tests based on ``zope.testbrowser`` use the ``addHeader`` method
+to add custom headers to a browser.
 
 ``GET`` variables
 -----------------

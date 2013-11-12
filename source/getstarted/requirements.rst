@@ -36,11 +36,11 @@ Plone has been successfully installed on:
 
 * OS X (using our OS X installer or XCode)
 
-* Solaris and several other proprietery *nix systems
+* Solaris and several other proprietery \*nix systems
 
 To install on Windows, it is strongly recommended to use the Plone Windows
 Installer. Otherwise, you will need `Cygwin <http://www.cygwin.com>`_ to
-provide a *nix build environment.
+provide a \*nix build environment.
 
 Hardware (or virtual environment) requirements
 ----------------------------------------------
@@ -148,7 +148,7 @@ versions to match your requirements::
     > [buildout]
     >
     > extends =
-    >     http://dist.plone.org/release/4.3/versions.cfg
+    >     http://dist.plone.org/release/4.3-latest/
     >
     > parts =
     >     instance

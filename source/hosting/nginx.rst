@@ -20,7 +20,7 @@ Nginx is an modern alternative server to Apache.
 Minimal Nginx front end configuration for Plone on Ubuntu/Debian Linux
 =======================================================================
 
-This is a minimal configuration to run nginx on Ubuntu/Debian Nginx in front
+This is a minimal configuration to run nginx on Ubuntu/Debian in front
 of a Plone site.  These instructions are *not* for configurations where one
 uses the buildout configuration tool to build a static Nginx server.
 
@@ -52,6 +52,14 @@ uses the buildout configuration tool to build a static Nginx server.
   a ``supervisor`` instance.
 
 Create file ``/etc/nginx/sites-available/yoursite.conf`` with contents::
+
+    # This adds security headers
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header Strict-Transport-Security "max-age=15768000; includeSubDomains";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+    #add_header Content-Security-Policy "default-src 'self'; img-src *; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'";
+    add_header Content-Security-Policy-Report-Only "default-src 'self'; img-src *; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'";
 
     # This specifies which IP and port Plone is running on.
     # The default is 127.0.0.1:8080
@@ -86,7 +94,7 @@ Then enable the site by creating a symbolic link::
 
     sudo -i
     cd /etc/nginx/sites-enabled
-    ln -s ../sites-available/yoursite.com .
+    ln -s ../sites-available/yoursite.conf .
 
 See that your nginx configuration is valid::
 
@@ -110,6 +118,17 @@ More info:
 * http://wiki.mediatemple.net/w/%28ve%29:Configure_virtual_hosts_with_Nginx_on_Ubuntu
 
 * http://www.starzel.de/blog/securing-plone-sites-with-https-and-nginx
+
+Content Security Policy (CSP) prevents a wide range of attacks,
+including cross-site scripting and other cross-site injections, but
+the CSP header setting may require careful tuning. To enable it,
+replace the Content-Security-Policy-Report-Only by
+Content-Security-Policy. The example above works with Plone 4.x
+(including TinyMCE) but it very wide. You may need to adjust it if you
+want to make CSP more restrictive or use additional Plone
+Products. For more information, see
+
+*  http://www.w3.org/TR/CSP/
 
 Buildout and recipe
 ====================
@@ -590,7 +609,7 @@ nginx.conf example::
 Proxy Caching
 =============
 
-Nginx can do rudimentary proxy caching. 
+Nginx can do rudimentary proxy caching.
 It may be good enough for your needs.
 Turn on proxy caching by adding to your nginx.conf or a separate conf.d/proxy_cache.conf::
 
@@ -619,7 +638,7 @@ Turn on proxy caching by adding to your nginx.conf or a separate conf.d/proxy_ca
 
 Create a /var/www/cache directory owned by your nginx user (usually www-data).
 
-Limitations: 
+Limitations:
 
 * Nginx does not support the vary header.
   That's why we use proxy_cache_bypass to turn off the cache for all authenticated users.

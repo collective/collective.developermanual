@@ -49,9 +49,9 @@ Content Upgrades
 ================
 
 For content migrations, `Products.contentmigration
-https://pypi.python.org/pypi/Products.contentmigration/`_  can help you.
+<https://pypi.python.org/pypi/Products.contentmigration/>`_  can help you.
 Documentation on how to use it can be found on `plone.org
-http://plone.org/documentation/kb/migrate-custom-types-with-products.contentmigration`_.
+<http://plone.org/documentation/kb/migrate-custom-types-with-products.contentmigration>`_.
 
 
 Migration from non-folderish to folderish Archetypes based content types

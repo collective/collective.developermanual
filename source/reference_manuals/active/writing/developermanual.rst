@@ -44,7 +44,7 @@ Setting up software for manual compilation
 First you need to install Git for your operating system to be able to
 retrieve the necessary source code::
 
-    sudo apt-get install git-core # Debian-based Linux
+    sudo apt-get install git # Debian-based Linux
          
 or::
 
@@ -64,7 +64,7 @@ Then clone ``collective.developermanual`` from GitHub::
 Run buildout to install Sphinx.
 First step: bootstrap::
 
-    python2.6 bootstrap.py
+    python2.7 bootstrap.py
     ./bin/buildout
 
 This will always report an error, but the ``bin/`` folder is created and

@@ -58,16 +58,10 @@ console:
 
 .. code:: console
 
-    bin/buildout -N
+    bin/buildout
 
 
-.. note ::
-
-    The `-N` argument tells buildout to not update already installed
-    packages even when there is a newer version.
-
-Finally, you might want to restart your instance for the changes to
-take effect:
+Restart your instance for the changes to take effect:
 
 .. code:: console
 
@@ -81,12 +75,6 @@ If you need to use the latest development version of an add-on package
 you can easily get the source in your development installation using
 the buildout extension `mr.developer
 <http://pypi.python.org/pypi/mr.developer>`_.
-
-.. note::
-
-    It is not recommended to run a production environment with
-    development / source versions of add-on packages. They might
-    unexpectedly change or be temprorary broken.
 
 For managing the sources it is recommended to create a `sources.cfg`
 which you can include in your buildout.

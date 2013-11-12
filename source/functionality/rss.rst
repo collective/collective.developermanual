@@ -98,13 +98,55 @@ menu on the collection content item.
 Test RSS feed by copy-pasting RSS URL from the site action to your RSS Reader, like 
 *Google Reader*.
 
-portal_syndication
-------------------
+Syndication Settings
+--------------------
+
+Plone <= 4.2
+============
 
 ``portal_syndication`` is a persistent utility  managing RSS settings. 
-It provides settings to for formatting RSS feeds (update frequence, number of items).
+It provides settings to for formatting RSS feeds (frequency of updates, number of items).
 
-* https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/SyndicationTool.py
+* https://github.com/plone/Products.CMFPlone/blob/4.2.x/Products/CMFPlone/SyndicationTool.py
+
+Plone >= 4.3
+============
+
+In Plone 4.3, the ``portal_syndication`` utility was replaced by a browser view and registry settings.
+
+The view may be traversed to from any context with ``@@syndication-util``.  
+
+for example, in Plone 4.2 you check for the ability to syndicate a context like so:
+
+.. code-block:: html
+
+    <p class="discreet"
+       tal:condition="context/portal_syndication/isSiteSyndicationAllowed">
+        <a href=""
+           class="link-feed"
+           i18n:translate="title_rss_feed"
+           tal:define="here_url context/@@plone_context_state/object_url"
+           tal:attributes="href string:$here_url/search_rss?${request/QUERY_STRING}">
+             Subscribe to an always-updated feed of these search terms</a>
+    </p>
+
+In Plone 4.3, this is updated to look like this:
+
+.. code-block:: html
+
+    <p class="discreet"
+       tal:condition="context/@@syndication-util/search_rss_enabled">
+        <a href=""
+           class="link-feed"
+           i18n:translate="title_rss_feed"
+           tal:define="here_url context/@@plone_context_state/object_url"
+           tal:attributes="href string:$here_url/search_rss?${request/QUERY_STRING}">
+             Subscribe to an always-updated feed of these search terms</a>
+    </p>
+
+The ``syndication-util`` view is found in ``Products.CMFPlone.browser.syndication.utils``  
+
+ * https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/syndication/utils.py
 
 Publishing content through RSS in Plone 4
 -----------------------------------------

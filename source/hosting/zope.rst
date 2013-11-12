@@ -1,23 +1,24 @@
-======================
- Zope
-======================
+=======================
+Zope Application Server
+=======================
 
 .. admonition:: Description
 
-    Hosting and administrative tasks for Zope application server /
-    Plone server.
+    Plone is usually run via the Zope application server.
+    This document covers control and configuration of parts
+    of the application server.
 
 .. contents:: :local:
 
 .. highlight:: console
 
 Introduction
-==============
+============
 
 This page contains instructions how to configure Zope application server.
 
 Zope control command
-======================
+====================
 
 The command for Zope tasks is ``bin/instance`` in buildout-based Plones
 (depending on how the part(s) for the Zope instance(s) was named in the
@@ -29,8 +30,15 @@ List available commands::
 
 For older Plone releases, the command is ``zopectl``.
 
+If you have installed a ZEO cluster, you may have multiple instances, typically named client1, client2 ....
+Substitute ``client#`` for ``instance`` below.
+The zeoserver part must be running before you may directly use a client command::
+
+    bin/zeoserver start
+    bin/client1 help
+
 Adding users from command-line (reset admin password)
-=======================================================
+=====================================================
 
 You need to do this when you forget the admin password or the database is
 damaged.
@@ -51,7 +59,7 @@ More info
 * https://plone.org/documentation/faq/locked-out
 
 Timezone
-==========
+========
 
 Add to the ``[instance]`` part in ``buildout.cfg``:
 
@@ -77,7 +85,7 @@ your Zope instances) in ``buildout.cfg``:
 
 
 Creating additional debug instances
-====================================
+===================================
 
 You might want to keep your production ``buildout.cfg`` and development
 configuration
@@ -140,7 +148,7 @@ Zope has a component called
 which does the virtual host mapping inside Zope. More information can be found in the `zope book <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_
 
 Suppressing virtual host monster
--------------------------------
+--------------------------------
 
 If you ever mess up your virtual hosting rules so that Zope locks you out
 of the management interface,
@@ -148,7 +156,7 @@ you can add ``_SUPPRESS_ACCESSRULE`` to the URL to disable
 VirtualHostMonster.
 
 Import and export
-==================
+=================
 
 Zope application server allows copying parts of the tree structure via
 import/export feature.
@@ -171,7 +179,7 @@ More information
 * http://quintagroup.com/services/support/tutorials/import-export-plone/
 
 Regular database packing
-==========================
+========================
 
 The append-only nature of the :doc:`ZODB </persistency/database>`
 makes the database grow continuously even
@@ -184,7 +192,7 @@ More info
 * http://stackoverflow.com/questions/5300886/what-is-the-suggested-way-to-cron-automate-zodb-packs-for-a-production-plone-ins/
 
 Copying a remote site database
-================================
+==============================
 
 Below is a UNIX shell script to copy a remote Plone site(s) database to
 your local computer. This is useful for synchronizing the
@@ -192,7 +200,7 @@ development copy of a site from a live server.
 
 ``copy-plone-site.sh``
 
-.. code-block:: console
+.. code-block:: sh
 
     #!/bin/sh
     #
@@ -237,16 +245,16 @@ development copy of a site from a live server.
 
 
 Pack and copy big ``Data.fs``
-==============================
+=============================
 
 Pack ``Data.fs`` using the `pbzip2 <http://compression.ca/pbzip2/>`_,
 efficient multicore bzip2 compressor, before copying:
 
-.. code-block:: console
+.. code-block:: sh
 
     # Attach to a screen or create new one if not exist so that
     # the packing process is not interrupted even if you lose a terminal
-    screen -x 
+    screen -x
 
     # The command won't abort in the middle of the run if terminal lost
     cd /srv/plone/yoursite/zeocluster/var/filestorage
@@ -499,7 +507,7 @@ cleaner:
     />
 
 Log rotate
-============
+==========
 
 Log rotation prevents log files from growing indefinitely by creating a new
 file for a certain timespan and dropping old files.
@@ -600,7 +608,7 @@ More info:
 * http://serverfault.com/questions/57993/how-to-use-wildcards-within-logrotate-configuration-files
 
 Log rotate and chroot
--------------------------
+---------------------
 
 ``chroot``'ed environments don't usually get their own cron.
 In this case you can trigger the log rotate from the parent system.
@@ -613,7 +621,7 @@ Add in the parent ``/etc/cron.daily/yourchrootname-logrotate``
     schroot -c yoursitenet -u root -r logrotate /etc/logrotate.conf
 
 Log rotate generation via buildout using UNIX logrotate command
----------------------------------------------------------------------
+---------------------------------------------------------------
 
 ``buildout.cfg``:
 
@@ -652,21 +660,21 @@ More info:
 * http://stackoverflow.com/a/9437677/315168
 
 Log rotate on Windows
-------------------------
+---------------------
 
 Use ``iw.rotatezlogs``
 
 * http://stackoverflow.com/a/9434150/315168
 
 Email notifications for errors
---------------------------------
+------------------------------
 
 Please see:
 
 * http://stackoverflow.com/questions/5993334/error-notification-on-plone-4
 
 Adding multiple file storage mount points
-------------------------------------------
+-----------------------------------------
 
 * http://pypi.python.org/pypi/collective.recipe.filestorage
 

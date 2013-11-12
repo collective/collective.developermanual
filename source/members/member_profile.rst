@@ -61,7 +61,7 @@ Accessing member data
     Get member data by username
 
 Further reading
---------------
+---------------
 
 * `ToolbarViewlet has some sample code <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_
    how to retrieve these properties.

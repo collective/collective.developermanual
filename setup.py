@@ -26,6 +26,7 @@ setup(name='collective.developermanual',
           'setuptools',
           # -*- Extra requirements: -*-
 	  'sphinxcontrib_robotdoc',
+	  'sphinxcontrib.contributors',
       ],
       entry_points="""
       # -*- Entry points: -*-

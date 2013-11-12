@@ -116,8 +116,9 @@ generated content, or which are not easily accessible using a CSS selector, or
 maybe an image (for instance, the members default portrait, ``defaultUser.png``)
 which are provided by the Plone skin, you will have to override the Plone skin.
 
-.. note:: that is basically what you do when you go to ZMI / portal_skins and 
-click on the ``Customize`` button. But here, you will do that from the sources.
+.. note::
+    that is basically what you do when you go to ZMI / portal_skins and 
+    click on the ``Customize`` button. But here, you will do that from the sources.
 
 To override Plone skin elements from our product, you will need to:
 
@@ -264,7 +265,7 @@ different files will be merged and compressed.
 It is obviously important to manage your theme's main CSS and JS that way.
 
 To do so, you first need to **remove them form your theme HTML templates** (so
-you do not load thme twice and the end).
+you do not load them twice at the end).
 
 Then, declare them to the registries:
 
@@ -313,7 +314,7 @@ You have to be careful about the resources order and their conditions: resources
 are merged together in the order they are declared with as far as the condition
 are the same.
 
-If the next resource as a different condition, it will ends the current merged
+If the next resource as a different condition, it will end the current merged
 set of resources, and start a new one.
 
 So if you want to minimize the total number of resulting files, you have to:
@@ -323,8 +324,8 @@ So if you want to minimize the total number of resulting files, you have to:
     - and re-order the resources in such a way that similar conditions are consecutives.
 
 Regarding the JS or CSS which are not used globally into the web site, but just 
-in a very specific template, it might be better to not declre them in the
-registries, and let them declared manually into the static HTML template.
+in a very specific template, it might be better to not declare them in the
+registries, and let them declared manually into the static HTML /template.
 
 .. note:: if you use a responsiveCSS framework, it is often useful to deactivate the Plone ``mobile.css`` file which might produces bad formatting (typically with Boostrap). To do so, you add the following to ``cssregistry.xml``::
 
