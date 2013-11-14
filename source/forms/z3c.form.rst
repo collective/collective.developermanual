@@ -1309,6 +1309,20 @@ examples.
 
 * http://svn.zope.org/z3c.form/trunk/src/z3c/form/form.py?rev=114824&view=auto
 
+If you created a form based on another form, the buttons defined on that other form get lost.
+To prevent that, you must explicitly add the buttons of the base class in your form class::
+
+    from z3c.form import button
+    from z3c.form.form import EditForm
+    
+    class Form(EditForm):
+    
+        buttons = EditForm.buttons
+        
+        @button.buttonAndHandler(...)
+        def handle_add(...):
+            ...
+
 Adding buttons conditionally
 ----------------------------
 
