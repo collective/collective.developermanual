@@ -1334,7 +1334,7 @@ To prevent that, you must explicitly add the buttons of the base class in your f
     
     class Form(EditForm):
     
-        buttons = EditForm.buttons
+        buttons = EditForm.buttons.copy()
         
         @button.buttonAndHandler(...)
         def handle_add(...):
