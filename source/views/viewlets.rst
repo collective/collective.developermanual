@@ -582,11 +582,11 @@ and more information.
     from zExceptions import NotFound
 
     class Viewlets(BrowserView):
-        """ Expose arbitary viewlets to traversing by name.
+        """ Expose arbitrary viewlets to traversing by name.
 
         Exposes viewlets to templates by names.
 
-        Example how to render plone.logo viewlet in arbitary template code point::
+        Example how to render plone.logo viewlet in arbitrary template code point::
 
             <div tal:content="context/@@viewlets/plone.logo" />
 

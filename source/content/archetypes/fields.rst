@@ -488,7 +488,7 @@ Example (mfabrik/rstpage/archetypes/fields.py)::
                 
                 @param instance: Archetypes content item instance
                 
-                @param kwargs: Arbitary parameters passed to the field getter 
+                @param kwargs: Arbitrary parameters passed to the field getter 
                 """                
                     
                 # Read the stored field value from the instance
@@ -547,7 +547,7 @@ Example code::
         
             # Returns a Python method which you can call to get field's
             # for a certain content type. This is also security aware
-            # and does not breach field-level security provded by Archetypes
+            # and does not breach field-level security provided by Archetypes
             accessor = field.getAccessor(content)
         
             # body is UTF-8 
@@ -584,7 +584,7 @@ Example code::
                   # We use the HTML of field called "text" to generate the description 
                   create_automatic_description(item, "text")
         
-        # This will be printed in the browser when the script completes succesfully
+        # This will be printed in the browser when the script completes successfully
         return "OK"
 
 See also

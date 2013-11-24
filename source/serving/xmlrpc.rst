@@ -79,7 +79,7 @@ XML-RPC api.
 Importing an Image Using WSAPI
 ================================
 
-In the following example we retreive, from the 'Pictures' folder, an image called 'red-wine-glass.jpg',
+In the following example we retrieve, from the 'Pictures' folder, an image called 'red-wine-glass.jpg',
 post it to a folder called 'ministries' and give it the name 'theimage'.
 
 ::

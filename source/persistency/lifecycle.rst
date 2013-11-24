@@ -9,7 +9,7 @@ Plone has different lifecycles for different objects
   completes successfully. Persistent object inherit from Zope's
   various persistent classes: persistent.Persistent, PersistentDict, PersistentList and
   they have special attributes like _p_mtime when the object was last written to disk.
-  To make object persistent, it must be refered from Zope's App traversing
+  To make object persistent, it must be referred from Zope's App traversing
   graph. Examples: content objects, user account objects. 
 
 * Request attached objects and thread-local objects: Each HTTP request is processed by

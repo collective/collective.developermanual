@@ -81,7 +81,7 @@ Plone's default event type is called ``Event``.
         portal_calendar.calendar_types = ('Event', 'DD Training Class')
 
     def importVarious(context):
-        """Miscellanous steps import handle
+        """Miscellaneous steps import handle
         """
         if context.readDataFile('compass.types_various.txt') is None:
             return
@@ -326,7 +326,7 @@ standard Plone calendar portlet::
 
             1. Get a list of supported event types 
             2. Build a list of queried recurrence_days 
-            3. Query all recurrent events occuring in the given month 
+            3. Query all recurrent events occurring in the given month 
             4. Retrofit calendar data with these recurrent events.
 
             @param weeks: Array of displayable calendar weeks.
