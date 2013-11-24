@@ -243,7 +243,7 @@ deleting the old object::
         If betahaus.emaillogin is installed we also update its catalog so that
         the email login works after the member has been moved.
 
-        When all the fields in the user schema validate succesfully, 
+        When all the fields in the user schema validate successfully,
         the re-registration email for the new user is automatically send
         (TODO: Not sure whether this is general condition for Products.Remember) 
 
@@ -384,7 +384,7 @@ deleting the old object::
 
         # Not needed - this email is automatically triggered by
         # workflow state change when the all user fields are
-        # validated succesfully in Schema()
+        # validated successfully in Schema()
         #nc.resetPassword()
 
         # Check that we are in active user state - the registeration email should have been send

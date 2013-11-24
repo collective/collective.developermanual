@@ -44,7 +44,7 @@ things in a brains-y way, like 'item/getURL'.  But you'll notice that
 you cannot do 'item/my\_image' because it's not in the brain.  What to
 do?! you may wail.  Well, you could wake up the objects, get the image
 field, and then call the image scaling on it in a pythonic way, but this
-is a performance hit, puts python in your TAL, whcih you should avoid.
+is a performance hit, puts python in your TAL, which you should avoid.
 
 Instead you'll just be crafty.  You already have 'item\_url' and you
 know the name of your image field (my-image) so put those together and

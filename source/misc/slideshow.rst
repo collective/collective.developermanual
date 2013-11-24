@@ -295,7 +295,7 @@ carousel.py::
                     # lots of logging stuff
                     self.migrate()    
         
-                    logger.info("Succesfully done")
+                    logger.info("Successfully done")
         
         
                 except Exception, e:

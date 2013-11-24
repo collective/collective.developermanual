@@ -90,7 +90,7 @@ Using username and password
 Authenticating the user will check that username and password are correct.
 
 Pluggable Authentication Service (acl_users under site root)
-will go through all authentication plug-ins and return the first succesful
+will go through all authentication plug-ins and return the first successful
 authenticated users.
 
 Read more in

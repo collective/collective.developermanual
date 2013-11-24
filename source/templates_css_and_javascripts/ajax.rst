@@ -98,7 +98,7 @@ Javascript example
                 // Load data from the server
                 $.getJSON(src, args, function(data) {
                         // Parse incoming data and construct Table rows according to it
-                        console.log("Data succesfully loaded");
+                        console.log("Data successfully loaded");
                         callback(data, args);
 
              });

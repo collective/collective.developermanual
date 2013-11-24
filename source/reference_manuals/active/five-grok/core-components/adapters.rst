@@ -253,7 +253,7 @@ The latter is the usual approach in the world of object oriented
 programming, and is fine for small, closed systems. In an open-ended
 system such as Plone, however, we don’t always have the option of mixing
 new functionality into old code, and classes with “fat” interfaces can
-become unweildly and difficult to work with.
+become unwieldy and difficult to work with.
 
 Customisation with more-specific adapters
 -----------------------------------------

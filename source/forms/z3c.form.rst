@@ -133,7 +133,7 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity:
 
 
     class IMyForm(form.Schema):
-        """ Define form fiels """
+        """ Define form fields """
 
         name = schema.TextLine(
                 title=u"Your name",
@@ -441,7 +441,7 @@ Example code::
         """ Form whose fields are dynamically constructed """
 
         def ar_editable(self):
-            """ Arbitary condition deciding whether fields on this form are
+            """ Arbitrary condition deciding whether fields on this form are
             patient=self.__parent__.__parent__
             if patient.getConfirmedAR()  in (None,'','EDITABLE_AR'):
                 return True
@@ -1453,7 +1453,7 @@ Example::
 
         @button.buttonAndHandler(_('Continue'), name='continue')
         def handleContinue(self, action):
-            """ Extract the checkout data to session and redirect to payment processer checkout screen.
+            """ Extract the checkout data to session and redirect to payment Arbitrary checkout screen.
 
             Note:
 
@@ -1991,7 +1991,7 @@ Then the necessary parts of form itself::
 
 
         returnURL = schema.TextLine(title=_(u"Return URL"),
-                                    description=_(u"Where the user is taken after the form is succesfully submitted"),
+                                    description=_(u"Where the user is taken after the form is successfully submitted"),
                                     required=False,
                                     default=u"")
 

@@ -121,7 +121,7 @@ Using schemas as data models
 
 
 Based on the example data model above, we can use it in e.g. content type
-:doc:`browser views </views/browserviews>` to store arbitary data as content
+:doc:`browser views </views/browserviews>` to store arbitrary data as content
 type attributes.
 
 Example::
@@ -139,7 +139,7 @@ Example::
             context.test_address.first_name = u"Mikko"
             context.test_address.last_name = u"Ohtamaa"
 
-            # Note that you can still add arbitary attributes to any
+            # Note that you can still add arbitrary attributes to any
             # persistent object.  They are simply not validated, as they 
             # don't go through the ``zope.schema`` FieldProperty
             # declarations.

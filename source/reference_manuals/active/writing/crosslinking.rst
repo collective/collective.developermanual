@@ -96,7 +96,7 @@ Do run the build by hand and see what's going wrong::
     sudo -u apache bin/buildout -c deployment.cfg
     sudo -u apache ./doc-holliday.sh --force
 
-Something like this is occassionally needed to clear up things changed in external packages::
+Something like this is occasionally needed to clear up things changed in external packages::
 
     cd src/diazo/
     sudo -u apache git pull

@@ -27,7 +27,7 @@ Plone developers/users know how do everything.
 
 Due to Plone's longevity it has spanned and outlasted some technologies and
 Python practices.  Thus you will see some Python usage which may not match
-todays accepted code practices. You will also see use of Python libraries 
+today's accepted code practices. You will also see use of Python libraries 
 which are deprecated, and/or implement code where today a standard or 
 optional Python package would be preferred.
 

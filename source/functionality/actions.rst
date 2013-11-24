@@ -284,7 +284,7 @@ Example::
     context_state = getMultiAdapter((self.context, self.request),
                                 name=u'plone_context_state')
     
-    # First argument is action catagory,
+    # First argument is action category,
     # we have custom "mobile_actions"
     self.actions = context_state.actions().get('mobile_actions', None)
 
