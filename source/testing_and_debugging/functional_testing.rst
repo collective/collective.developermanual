@@ -176,7 +176,7 @@ Getting a form handler
 
 You can use testbrowser ``getForm()`` to access different forms on a page.
 
-Form look-up is availabe by ``name`` or ``index``.
+Form look-up is available by ``name`` or ``index``.
 
 Example::
 
@@ -252,7 +252,7 @@ Example::
     button.click()
 
 If you have a form instance, you can use the submit action. To click
-on the Button labled "Log in" in the login form, you do::
+on the Button labeled "Log in" in the login form, you do::
 
     login_form = self.browser.getForm('login_form')
     login_form.submit('Log in')

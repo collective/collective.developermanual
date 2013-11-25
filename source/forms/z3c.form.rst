@@ -133,7 +133,7 @@ Here is a minimal form implementation using ``z3c.form`` and Dexterity:
 
 
     class IMyForm(form.Schema):
-        """ Define form fiels """
+        """ Define form fields """
 
         name = schema.TextLine(
                 title=u"Your name",
@@ -441,7 +441,7 @@ Example code::
         """ Form whose fields are dynamically constructed """
 
         def ar_editable(self):
-            """ Arbitary condition deciding whether fields on this form are
+            """ Arbitrary condition deciding whether fields on this form are
             patient=self.__parent__.__parent__
             if patient.getConfirmedAR()  in (None,'','EDITABLE_AR'):
                 return True
@@ -796,7 +796,24 @@ Here's how to do it in pure ``z3c.form``::
     ...
 
         def updateWidgets(self):
-        self.widgets["getAvailability"].mode = z3c.form.interfaces.HIDDEN_MODE
+            self.widgets["getAvailability"].mode = z3c.form.interfaces.HIDDEN_MODE
+            
+If you want to hide a widget that is part of a group, you cannot use the updateWidgets method.
+The groups and their widgets get initialized after the widgets have been updated.
+Before that, the groups variable is just a list of group factories.
+During the update method though, the groups have been initialized and have their own widget list each.
+For hiding widgets there, you have to access the group in the update method like so::
+
+
+    import z3c.form.interfaces
+    ...
+    
+        def update(self):
+            for group in self.groups:
+                if 'xxx' in group.widgets:
+                    group.widgets['xxx'].mode = z3c.form.interfaces.HIDDEN_MODE
+                    
+groups itself is a list like object, you can also remove a complete group by just removing it from the group dictionary.
 
 Unprefixing widgets
 --------------------
@@ -1309,6 +1326,20 @@ examples.
 
 * http://svn.zope.org/z3c.form/trunk/src/z3c/form/form.py?rev=114824&view=auto
 
+If you created a form based on another form, the buttons defined on that other form get lost.
+To prevent that, you must explicitly add the buttons of the base class in your form class::
+
+    from z3c.form import button
+    from z3c.form.form import EditForm
+    
+    class Form(EditForm):
+    
+        buttons = EditForm.buttons.copy()
+        
+        @button.buttonAndHandler(...)
+        def handle_add(...):
+            ...
+
 Adding buttons conditionally
 ----------------------------
 
@@ -1422,7 +1453,7 @@ Example::
 
         @button.buttonAndHandler(_('Continue'), name='continue')
         def handleContinue(self, action):
-            """ Extract the checkout data to session and redirect to payment processer checkout screen.
+            """ Extract the checkout data to session and redirect to payment Arbitrary checkout screen.
 
             Note:
 
@@ -1960,7 +1991,7 @@ Then the necessary parts of form itself::
 
 
         returnURL = schema.TextLine(title=_(u"Return URL"),
-                                    description=_(u"Where the user is taken after the form is succesfully submitted"),
+                                    description=_(u"Where the user is taken after the form is successfully submitted"),
                                     required=False,
                                     default=u"")
 

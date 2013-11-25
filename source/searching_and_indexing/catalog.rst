@@ -133,7 +133,7 @@ Example::
 Manually uncatalog object to a catalog
 --------------------------------------
 
-Sometimes is usefull to uncatalog object.
+Sometimes is useful to uncatalog object.
 
 code ::
 

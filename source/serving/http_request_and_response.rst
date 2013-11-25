@@ -721,7 +721,7 @@ Example::
         return contentish
 
 
-    # This must be refered in configure.zcml
+    # This must be referred in configure.zcml
     @adapter(Interface, IAfterPublicationEvent)
     def language_fixer(object, event):
         """ Redirect mobile users to mobile site using gomobile.mobile.interfaces.IRedirector.

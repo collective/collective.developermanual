@@ -82,7 +82,7 @@ tests/test\_functional\_doctest.py:
 This code is actually identical to the test setup for the integration
 doctest in the previous section. The differences are found in the actual
 test itself, which uses Products.Five.testbrowser.Browser, a Zope 2
-compatability wrapper around zope.testbrowser.Browser:
+compatibility wrapper around zope.testbrowser.Browser:
 
 ::
 

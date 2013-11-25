@@ -315,7 +315,7 @@ Example::
 
     from Products.CMFCore.utils import getToolByName
 
-    # you know some object which is refered as "context"
+    # you know some object which is referred as "context"
     portal_url = getToolByName(context, "portal_url")
     portal = portal_url.getPortalObject()
 
@@ -506,9 +506,9 @@ There exist many ways to make your objects traversable:
 Example using ``__getitem__()``::
 
     class Viewlets(BrowserView):
-        """ Expose arbitary viewlets to traversing by name.
+        """ Expose arbitrary viewlets to traversing by name.
         Exposes viewlets to templates by names.
-        Example how to render plone.logo viewlet in arbitary template
+        Example how to render plone.logo viewlet in arbitrary template
         code point::
 
             <div tal:content="context/@@viewlets/plone.logo" />

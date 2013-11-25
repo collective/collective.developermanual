@@ -175,7 +175,7 @@ Example (``collective.gtags`` project, ``controlpanel.py``)::
             self.widgets['tags'].rows = 8
             self.widgets['tags'].style = u'width: 30%;'
 
-``plone.app.registry`` imports --- backwards compatibilty
+``plone.app.registry`` imports --- backwards compatibility
 -----------------------------------------------------------
 
 You need this if you started using ``plone.app.registry`` before April 2010.

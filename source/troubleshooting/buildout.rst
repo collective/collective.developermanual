@@ -369,7 +369,7 @@ UnknownExtra: zope.i18n 3.4.0 has no such extra feature 'zcml'
 
 Traceback::
 
-    An internal error occured due to a bug in either zc.buildout or in a
+    An internal error occurred due to a bug in either zc.buildout or in a
     recipe being used:
     Traceback (most recent call last):
       File "/Users/moo/code/gomobile/eggs/zc.buildout-1.4.3-py2.6.egg/zc/buildout/buildout.py", line 1660, in main
@@ -427,7 +427,7 @@ Solution: update the ``zc.buildout`` installed in your system Python:
 
     easy_install -U zc.buildout
         
-An error occured when trying to install lxml - error: Setup script exited with error: command 'gcc' failed with exit status 1
+An error occurred when trying to install lxml - error: Setup script exited with error: command 'gcc' failed with exit status 1
 =============================================================================================================================
 
 Traceback when running buildout:: 
@@ -437,7 +437,7 @@ Traceback when running buildout::
     src/lxml/lxml.etree.c:143652: error: ‘xsltDocDefaultLoader’ undeclared (first use in this function)
     src/lxml/lxml.etree.c:143661: error: ‘__pyx_f_4lxml_5etree__xslt_doc_loader’ undeclared (first use in this function)
     error: Setup script exited with error: command 'gcc' failed with exit status 1
-    An error occured when trying to install lxml 2.2.8. Look above this message for any errors that were output by easy_install.
+    An error occurred when trying to install lxml 2.2.8. Look above this message for any errors that were output by easy_install.
     While:
       Installing instance.
       Getting distribution for 'lxml==2.2.8'.
@@ -632,7 +632,7 @@ Example::
     persistent/cPersistence.h:19:25: fatal error: bytesobject.h: No such file or directory
     compilation terminated.
     error: Setup script exited with error: command 'gcc' failed with exit status 1
-    An error occured when trying to install BTrees 4.0.5. Look above this message for any errors that were output by easy_install.
+    An error occurred when trying to install BTrees 4.0.5. Look above this message for any errors that were output by easy_install.
     While:
       Installing.
       Getting section zeoserver.
@@ -661,7 +661,7 @@ error: None
 This means .tar.gz is corrupted::
 
     error: None
-    An error occured when trying to install lxml 2.3.6. Look above this message for any errors that were output by easy_install.
+    An error occurred when trying to install lxml 2.3.6. Look above this message for any errors that were output by easy_install.
     While:
       Installing instance.
       Getting distribution for 'lxml==2.3.6'.

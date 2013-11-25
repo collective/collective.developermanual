@@ -215,7 +215,7 @@ Example view code::
                         # lots of logging stuff
                         self.sync()    
         
-                        logger.info("Succesfully done")
+                        logger.info("Successfully done")
                         
                         # It worked! Trolololo.
                         messages.addStatusMessage("Sync done")

@@ -542,7 +542,7 @@ multilingual behavior to the definition of the content type either via file
 system, supermodel or through the web.
 
 
-Marking fields as language independant
+Marking fields as language independent
 --------------------------------------
 
 Archetypes

@@ -11,7 +11,7 @@
 How to test see if your Python Imaging set-up works
 ======================================================
 
-Example how to check if Python, Python Imaging Libary (PIL) and
+Example how to check if Python, Python Imaging Library (PIL) and
 libjpeg are correctly working together.
 
 Get a sample image::

@@ -817,7 +817,7 @@ Example code::
                 # Site root or some weird object, give up
                 do_listing = False
 
-            # Do listing by default, must be explictly disabledc
+            # Do listing by default, must be explicitly disabledc
             if not do_listing:
                 # No mobile behavior -> no mobile listing
                 return None

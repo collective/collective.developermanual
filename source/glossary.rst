@@ -152,7 +152,7 @@ It incorporates the original `glossary on plone.org
         Cascading Style Sheets is a way to separate content from
         presentation. Plone uses this extensively, and it is a web standard
         `documented at the W3C web site <http://www.w3.org/Style/CSS/>`_. If
-        you want to learn CSS, we reccommend `the W3Schools CSS Resources
+        you want to learn CSS, we recommend `the W3Schools CSS Resources
         <http://www.w3schools.com/Css/default.asp>`_
         and the `SitePoint CSS Reference
         <http://reference.sitepoint.com/css>`_.
@@ -294,12 +294,12 @@ It incorporates the original `glossary on plone.org
 
     ResourceRegistries
         A piece of Plone infrastructure that allows CSS/Javascript
-        declarations to be contained in seperate, logical files before
+        declarations to be contained in separate, logical files before
         ultimately being appended to the existing Plone CSS/Javascript files
         on page delivery. Primarily enables Product authors to "register"
         new CSS/Javascript without needing to touch Plone's templates, but
         also allows for selective inclusion of CSS/Javascript files and
-        reduces page load by minimizing individual calls to seperate blocks
+        reduces page load by minimizing individual calls to separate blocks
         of CSS/Javascript files. Found in the :term:`ZMI` under
         ``portal_css`` and ``portal_javascript``.
 
@@ -348,12 +348,12 @@ It incorporates the original `glossary on plone.org
         hotfixes, behavioural changes, etc.
 
         The term "monkey patch" seems to have originated as follows: First
-        it was "guerilla patch", referring to code that sneakily changes
+        it was "guerrilla patch", referring to code that sneakily changes
         other code at runtime without any rules. In Zope 2, sometimes these
         patches conflict. This term went around Zope Corporation for a
         while. People heard it as "gorilla patch", though, since the two
         words sound very much alike, and the word gorilla is heard more
-        often. So, when someone created a guerilla patch very carefully and
+        often. So, when someone created a guerrilla patch very carefully and
         tried to avoid any battles, they tried to make it sound less
         forceful by calling it a monkey patch. The term stuck.
 

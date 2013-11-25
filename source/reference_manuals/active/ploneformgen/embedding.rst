@@ -39,7 +39,7 @@ Or if you are using a view class, you could define a method like::
         return form_view()
 
 (Note that restrictedTraverse expects a path relative to the object you are
-calling it on, with no intial slash.)  And then in the associated template::
+calling it on, with no initial slash.)  And then in the associated template::
 
     <tal:block tal:replace="view/render_form"/>
 

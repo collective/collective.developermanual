@@ -28,7 +28,7 @@ in well-conceived test strategies.
 
 This tutorial aims to give you the tools you need to write tests and
 testable software in Plone. If you are writing software for Plone core
-itself, don’t even think about commiting any bug fix or feature without
+itself, don’t even think about committing any bug fix or feature without
 test coverage. If you are writing an add-on product or doing a
 customisation, holding yourself to the same high standards that the
 Plone core team do will give you better confidence in your software and

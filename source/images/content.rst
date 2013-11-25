@@ -276,7 +276,7 @@ Plone site.
             # Final commit
             transaction.commit()
 
-            # Note that when entire transaction is commited, there will be a
+            # Note that when entire transaction is committed, there will be a
             # huuuge delay before the message below is returned to the browser.
             # This is because Zope is busy updating the ZODB storage.
 

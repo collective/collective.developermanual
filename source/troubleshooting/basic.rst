@@ -53,7 +53,7 @@ Example:
     sudo /Applications/Plone/zinstance/bin/plonectl start
     instance: Error: error opening file /Applications/Plone/zinstance/parts/instance/etc/zope.conf: [Errno 2] No such file or directory: '/Applications/Plone/zinstance/parts/instance/etc/zope.conf'
 
-This means that running ``bin/buildout`` script did not complete succesfully.
+This means that running ``bin/buildout`` script did not complete successfully.
 Re-run buildout and see what's wrong.
 
 Dropping into pdb

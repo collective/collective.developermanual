@@ -23,7 +23,7 @@ least, the Grok concepts are just an alternate way to configure the Zope
 Component Archiecture. Everything that can be done with Grok
 configuration can also be done with “plain Zope” and ZCML. The grok
 syntax is merely a more convenient, compact and opinionated way to
-acheive the same thing.
+achieve the same thing.
 
 Opinionated? That’s right. In part, the design of the various Grok
 directives and base classes aims to steer developers towards good

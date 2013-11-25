@@ -86,3 +86,8 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) build/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in build/doctest/output.txt."
+
+epub:
+	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) build/epub
+	@echo
+	@echo "Build finished. The e-Pub pages are in build/epub."

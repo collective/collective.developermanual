@@ -105,7 +105,7 @@ Examples
 Pre- and postcondition triggers
 ===============================
 
-If you want to run special code before the templates are run and after they have succesfully
+If you want to run special code before the templates are run and after they have successfully
 complete, ZopeSkel provides some logic for this.
 
 More information
