@@ -566,9 +566,9 @@ For Plone 3.3.x You need to pindown::
     zope.copy = 3.5.0
 
 Distribute / setuptools tries to mess with system Python and Permission denied
-======================================================================================================================
+==============================================================================
 
-When running ``boostrap.py`` your buildout files
+When running ``bootsrap.py`` your buildout files
 because it tries to write to system-wide Python installation.
 
 Example::
