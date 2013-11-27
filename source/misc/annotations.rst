@@ -299,6 +299,27 @@ How to clean up annotations on content objects:
 
        return output
 
+Make your code persistence free
+-------------------------------
+
+There is one issue with the above methods: you are creating new persistent 
+classes so your data need your source code.
+That makes your code hard to uninstall (have to keep the code BBB + cleaning
+up the DB by walking throw all objects)
+
+So here is an other pattern to store data in annotations: Use already existing
+persistent base code instead of creating your own.
+
+Please use one of theses:
+
+* BTrees
+* PersistentList
+* PersistentDict
+
+This pattern is used by cioppino.twothumbs and collective.favoriting addons.
+
+How to achieve this: https://gist.github.com/toutpt/7680498
+
 Other resources
 ---------------
 
