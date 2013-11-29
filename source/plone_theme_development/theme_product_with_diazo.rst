@@ -264,8 +264,8 @@ different files will be merged and compressed.
 
 It is obviously important to manage your theme's main CSS and JS that way.
 
-To do so, you first need to **remove them form your theme HTML templates** (so
-you do not load them twice at the end).
+To do so, you first need to **remove them from your theme HTML templates** (so
+you do not make things worse by loading them twice).
 
 Then, declare them to the registries:
 
