@@ -551,8 +551,7 @@ Example using ``IPublishTraverse``::
 
     @implementer(IPublishTraverse)
     class MyUser(BrowserView):
-        """
-        Registered as a browser view at '/user', collect the username and 
+        """Registered as a browser view at '/user', collect the username and
         view name from the url, check security, and display that page. For
         example, '/user/jjohns/log' will look up the log view for user 
         'jjohns'
@@ -560,14 +559,14 @@ Example using ``IPublishTraverse``::
         path = []
     
         def publishTraverse(self, request, name):
-         # stop traversing, we have arrived
+            # stop traversing, we have arrived
             request['TraversalRequestNameStack'] = []
-        	# return self so the publisher calls this view
+            # return self so the publisher calls this view
         	return self
     
     
         def __init__(self, context, request):
-            """ Once we get to __call__, the path is lost so we 
+            """Once we get to __call__, the path is lost so we
             capture it here on initialization
             """
             super(MyUser, self).__init__(context, request)
@@ -578,8 +577,8 @@ Example using ``IPublishTraverse``::
                 self.section = request.path[0]
             
         def __call__(self):
-        	   # do the permission check here, now that Zope has set
-        	   # up the security context. It can't be checked in __init__
+            # do the permission check here, now that Zope has set
+            # up the security context. It can't be checked in __init__
             # because the security manager isn't set up on traverse 
             self.checkPermission()
     
@@ -596,9 +595,7 @@ Example using ``IPublishTraverse``::
             return view()
         
         def checkPermission(self):
-            """
-            You might want to do other stuff
-            """
+            """You might want to do other stuff"""
             raise Unauthorized
 
 
@@ -648,9 +645,9 @@ See object publishing_.
 
 .. _publishing: http://docs.zope.org/zope2/zope2book/source/ZopeArchitecture.html#fundamental-zope-concepts
 
-.. _Traversable: http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=96262&view=auto
+.. _Traversable: https://github.com/zopefoundation/Zope/blob/master/src/OFS/Traversable.py
 
-.. _Unauthorized: http://svn.zope.org/Zope/trunk/src/AccessControl/unauthorized.py?rev=96262&view=auto
+.. _Unauthorized: https://github.com/zopefoundation/AccessControl/blob/master/src/AccessControl/unauthorized.py
 
 .. _UID: http://pypi.python.org/pypi/Products.CMFUid
 
