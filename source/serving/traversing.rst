@@ -559,9 +559,9 @@ Example using ``IPublishTraverse``::
         path = []
     
         def publishTraverse(self, request, name):
-         # stop traversing, we have arrived
+            # stop traversing, we have arrived
             request['TraversalRequestNameStack'] = []
-        	# return self so the publisher calls this view
+            # return self so the publisher calls this view
         	return self
     
     
@@ -577,8 +577,8 @@ Example using ``IPublishTraverse``::
                 self.section = request.path[0]
             
         def __call__(self):
-        	   # do the permission check here, now that Zope has set
-        	   # up the security context. It can't be checked in __init__
+            # do the permission check here, now that Zope has set
+            # up the security context. It can't be checked in __init__
             # because the security manager isn't set up on traverse 
             self.checkPermission()
     
