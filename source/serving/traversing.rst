@@ -551,8 +551,7 @@ Example using ``IPublishTraverse``::
 
     @implementer(IPublishTraverse)
     class MyUser(BrowserView):
-        """
-        Registered as a browser view at '/user', collect the username and 
+        """Registered as a browser view at '/user', collect the username and
         view name from the url, check security, and display that page. For
         example, '/user/jjohns/log' will look up the log view for user 
         'jjohns'
@@ -567,7 +566,7 @@ Example using ``IPublishTraverse``::
     
     
         def __init__(self, context, request):
-            """ Once we get to __call__, the path is lost so we 
+            """Once we get to __call__, the path is lost so we
             capture it here on initialization
             """
             super(MyUser, self).__init__(context, request)
@@ -596,9 +595,7 @@ Example using ``IPublishTraverse``::
             return view()
         
         def checkPermission(self):
-            """
-            You might want to do other stuff
-            """
+            """You might want to do other stuff"""
             raise Unauthorized
 
 
