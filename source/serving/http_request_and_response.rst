@@ -639,7 +639,7 @@ Remember to add ``url`` to *Parameter list* of the script on the script edit vie
 
             For more examples, check
 
-            http://svn.zope.org/Zope/trunk/src/Zope2/App/tests/testExceptionHook.py?rev=115555&view=markup
+            https://github.com/zopefoundation/Zope/blob/master/src/Zope2/App/tests/testExceptionHook.py
             """
             request = event.request
 
@@ -756,15 +756,13 @@ Cross-origin resource sharing (CORS)
 
 .. _WSGI: http://ivory.idyll.org/articles/wsgi-intro/what-is-wsgi.html
 
-.. _ZServer: http://svn.zope.org/Zope/trunk/src/ZServer/README.txt?rev=96262&view=markup
-
-.. XXX: Why link to revision 96262? Isn't there an official release page to link to?
+.. _ZServer: https://github.com/zopefoundation/Zope/blob/master/src/ZServer/README.txt
 
 .. _Medusa: http://www.amk.ca/python/code/medusa.html
 
 .. _ZPublisher: http://www.python.org/
 
-.. _HTTPRequest: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPRequest.py?rev=99866&view=markup
+.. _HTTPRequest: https://github.com/zopefoundation/Zope/blob/master/src/ZPublisher/HTTPRequest.py
 
-.. _HTTPResponse: http://svn.zope.org/Zope/trunk/src/ZPublisher/HTTPResponse.py?rev=99866&view=markup
+.. _HTTPResponse: https://github.com/zopefoundation/Zope/blob/master/src/ZPublisher/HTTPResponse.py
 

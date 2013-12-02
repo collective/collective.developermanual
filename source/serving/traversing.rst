@@ -648,9 +648,9 @@ See object publishing_.
 
 .. _publishing: http://docs.zope.org/zope2/zope2book/source/ZopeArchitecture.html#fundamental-zope-concepts
 
-.. _Traversable: http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=96262&view=auto
+.. _Traversable: https://github.com/zopefoundation/Zope/blob/master/src/OFS/Traversable.py
 
-.. _Unauthorized: http://svn.zope.org/Zope/trunk/src/AccessControl/unauthorized.py?rev=96262&view=auto
+.. _Unauthorized: https://github.com/zopefoundation/AccessControl/blob/master/src/AccessControl/unauthorized.py
 
 .. _UID: http://pypi.python.org/pypi/Products.CMFUid
 
