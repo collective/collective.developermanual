@@ -392,7 +392,7 @@ You can check if the current context object is Plone the site root::
     if ISiteRoot.providedBy(context):
         # Special case
     else:
-        # Subfolder or or a page
+        # Subfolder or on a page
 
 Navigation root
 ----------------
