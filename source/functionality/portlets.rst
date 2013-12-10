@@ -689,8 +689,6 @@ Example portlet manager viewlets.py::
                 if mgr(self.context, self.request, self).visible:
                     visibleManagers.append(name)
 
-            import pdb ; pdb.set_trace()
-
             managers = []
             numManagers = len(visibleManagers)
             for counter, name in enumerate(visibleManagers):
