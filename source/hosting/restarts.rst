@@ -191,19 +191,24 @@ Example of a *plone.conf* file in */etc/init/* -> */etc/init/plone.conf*::
         # Based on Python and ZOPE
 
         description "start plone"
-        author "Christoph Glaubitz"
-        version "0.1"
+        author "Josh Sehn based on previous work by Christoph Glaubitz"
+        version "0.3"
 
-        console output
+        console none
         respawn
 
         start on (local-filesystems and net-device-up and runlevel [2345])
         stop on runlevel [!2345]
 
-        exec /usr/local/Plone/zeocluster/bin/plonectl start console
+        exec sudo -u plone_daemon /usr/local/Plone/zeocluster/bin/plonectl start
 
 Make sure to read: http://upstart.ubuntu.com/
 
+Also check the original source of this sample file: http://chrigl.de/blogentries/my-plone-configuration
+
+The above sample has not been extensively tested and is intended for use with in a zeocluster configuration. 
+To use the above sample for a normal (non-root) user installation, replace the last line with:
+        exec /home/userid/Plone/plonectl start
 
 Systemd
 -------
