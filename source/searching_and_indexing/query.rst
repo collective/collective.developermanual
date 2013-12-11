@@ -222,7 +222,7 @@ To get the path of the object without fetching it::
 
     brain.getPath()
 
-which is equivalent to ``obj.getPhysicalPath()``.
+which returns the path as an string, corresponding to ``obj.getPhysicalPath()``
 
 And finally, to get the URL of the underlying object, usually to
 provide a link to it::
