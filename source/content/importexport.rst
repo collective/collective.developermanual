@@ -15,7 +15,9 @@ Goal: you want to import and export content between Plone sites.
 
 * If both sites have identical version and add-on product configuration you can use Zope Management Interface export/import
 
-* If they don't and you e.g. have different Plone version on source and target site, you need to use add-on product like `quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_
+* If they don't (e.g. have different Plone version on source and target site),
+  you need to use add-on products to export and import the content to a common
+  format, e.g. JSON files.
 
 Zope 2 import / export
 --------------------------
@@ -49,22 +51,47 @@ To export a folder from a site to another do
 
 * Go to portal_catalog -> Advanced tab. *Clear and Rebuild* the catalog (raw Zope pickle does not know about anything living inside the catalog)
 
-quintagroup.transmogrifier
---------------------------
+collective.transmogrifier
+-------------------------
 
-`quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_ is an add-on product which provides Plone administrator user interface for
-exporting and importing content.
+On it's own `collective.transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ isn't an import tool,
+rather a generic framework for creating pipelines to process data.
+Pipeline configs are .ini-style files that join together blueprints to quickly create a tool for processing data.
 
-Internally, it uses `collective.transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ package which itself does not provide any kind of user interface.
+The following add-ons make it useful in a Plone context:
 
-`Transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ is a tool which serializes and deserializes content based o
-n pipelines. Pipelines are written in .ini-like plain text file based file format and they consists
-of sections.
-Blueprints are self-contained reusable components which can be recycled between different content migration processes.
-Section is based on a blueprint and defines some configurable parameters for this blueprint.
+* `plone.app.transmogrifier <https://pypi.python.org/pypi/plone.app.transmogrifier>`_ provides integration with GenericSetup,
+  so you can run pipelines as part of import steps,
+  and some useful blueprints.
+* `quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_ also provides it's own Plone integration,
+  and some useful blueprints.
+  See the site for some example configs for migration.
+* `transmogrify.dexterity <https://github.com/collective/transmogrify.dexterity>`_ provides some blueprints relevant to Dexterity types,
+  and has some default pipelines for you to use.
 
-Exporting single folder only
-============================
+transmogrify.dexterity: CSV import
+==================================
+
+``transmogrify.dexterity`` will register the pipeline ``transmogrify.dexterity.csvimport``,
+which can be used to import from CSV to dexterity objects.
+
+For more information on using, see `the package documentation <https://github.com/collective/transmogrify.dexterity>`_.
+
+transmogrify.dexterity: JSON import/export
+==========================================
+
+``transmogrify.dexterity`` also contains some ``quintagroup.transmogrifier`` pipeline configs.
+To use these, first install both ``quintagroup.transmogrifier`` and ``transmogrify.dexterity``,
+then add the following to your ZCML::
+
+    <include package="transmogrify.dexterity.pipelines" file="files.zcml" />
+
+Then the "Content (transmogrifier)" generic setup import / export will import / export site content to JSON files.
+
+For more information on using, see `this blog post <http://shuttlethread.com/blog/development-with-transmogrify.dexterity>`_.
+
+quintagroup.transmogrifier: Exporting single folder only
+========================================================
 
 Here is explained how to export and import `Plone CMS <http://plone.org>`_
 folders between different Plonen versions, or
