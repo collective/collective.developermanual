@@ -141,7 +141,7 @@ Unit test example method::
         """
         from zope.annotation.interfaces import IAnnotations
         ann = IAnnotations(self.app.REQUEST)
-        for key in ann.keys(): # Little destructive here, deletes *all* annotations
+        for key in list(ann.keys()): # Little destructive here, deletes *all* annotations
             del ann[key]
 
 Debugging
