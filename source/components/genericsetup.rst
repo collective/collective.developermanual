@@ -102,7 +102,7 @@ product.
 	    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
 	    i18n_domain="gomobile.mobile">
 
-	    <genericsetup:registerProfile
+	  <genericsetup:registerProfile
 	      name="default"
 	      title="Plone Go Mobile"
 	      directory="profiles/default"
@@ -141,7 +141,7 @@ Example::
 
         profiles = setup_tool.listProfileInfo()
         for profile in profiles:
-            print  str(profile)
+            print str(profile)
 
 Results::
 
@@ -218,12 +218,12 @@ are usable from *collective.basket* add-on products when your add-on product is 
 .. code-block:: xml
 
     <genericsetup:registerProfile
-              name="default"
-              title="collective.basket"
-              directory="profiles/default"
-              description='Collector portlet framework'
-              provides="Products.GenericSetup.interfaces.EXTENSION"
-              />
+        name="default"
+        title="collective.basket"
+        directory="profiles/default"
+        description='Collector portlet framework'
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
  
 
 .. warning::
@@ -290,13 +290,13 @@ Also you need to register this custom import step in ``configure.zcml``
         xmlns="http://namespaces.zope.org/zope"
         xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
         
-        <!-- Register the import step -->
-        <genericsetup:importStep
-            name="your.package"
-            title="your.package special import handlers"
-            description=""
-            handler="your.package.setuphandlers.setupVarious"
-            />
+      <!-- Register the import step -->
+      <genericsetup:importStep
+          name="your.package"
+          title="your.package special import handlers"
+          description=""
+          handler="your.package.setuphandlers.setupVarious"
+          />
     
     </configure>
 
@@ -392,14 +392,15 @@ Next we add an upgrade step:
         xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
         i18n_domain="YOUR.PRODUCT">
         
-        <genericsetup:upgradeStep
-            title="Convert Price to strings"
-            description="Price was previously a float field, it should be converted to string"
-            source="1000"
-            destination="1100"
-            handler="YOUR.PRODUCT.upgrades.convert_price_to_string"
-            sortkey="1"
-            profile="YOUR.PRODUCT:default"/>
+      <genericsetup:upgradeStep
+          title="Convert Price to strings"
+          description="Price was previously a float field, it should be converted to string"
+          source="1000"
+          destination="1100"
+          handler="YOUR.PRODUCT.upgrades.convert_price_to_string"
+          sortkey="1"
+          profile="YOUR.PRODUCT:default"
+          />
     
     </configure>
 
@@ -450,7 +451,7 @@ The code for the upgrade method itself is best placed in a *upgrades.py* module:
                 voorstelling = brain.getObject()
                 voorstelling.setPrice(str(current_price))
                 voorstelling.reindexObject()
-                count = count + 1
+                count += 1
             
         setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
         logger.info("%s fields converted." % count)
@@ -488,40 +489,47 @@ site policy:
         destination="4000"
         profile="project.policy:default">
     
-        <genericsetup:upgradeStep
-            title="Upgrade addons"
-            description="Install and upgrades add-ons"
-            handler=".v4.upgrade_addons"/>
+      <genericsetup:upgradeStep
+          title="Upgrade addons"
+          description="Install and upgrades add-ons"
+          handler=".v4.upgrade_addons"
+          />
     
-        <genericsetup:upgradeStep
-            title="Remove LDAP PAS Plugin"
-            description="Execute this upgrade after the plonesite upgrade"
-            handler=".v4.upgrade_pas"/>
+      <genericsetup:upgradeStep
+          title="Remove LDAP PAS Plugin"
+          description="Execute this upgrade after the plonesite upgrade"
+          handler=".v4.upgrade_pas"
+          />
     
-        <genericsetup:upgradeStep
-            title="Upgrade resources"
-            description="Update javascripts and css"
-            handler=".v4.upgrade_resources"/>
+      <genericsetup:upgradeStep
+          title="Upgrade resources"
+          description="Update javascripts and css"
+          handler=".v4.upgrade_resources"
+          />
     
-        <genericsetup:upgradeStep
-            title="Apply new steps of of policy"
-            description=""
-            handler=".v4.upgrade_of_policy"/>
+      <genericsetup:upgradeStep
+          title="Apply new steps of of policy"
+          description=""
+          handler=".v4.upgrade_of_policy"
+          />
     
-        <genericsetup:upgradeStep
-            title="upgrade rules"
-            description="collective.contentrules.mail is deprecated, replace with default"
-            handler=".v4.upgrade_contentrules"/>
+      <genericsetup:upgradeStep
+          title="upgrade rules"
+          description="collective.contentrules.mail is deprecated, replace with default"
+          handler=".v4.upgrade_contentrules"
+          />
     
-        <genericsetup:upgradeStep
-            title="upgrade views"
-            description="get ride of dot in viewname zone1.html -> zone1_view"
-            handler=".v4.upgrade_views"/>
+      <genericsetup:upgradeStep
+          title="upgrade views"
+          description="get ride of dot in viewname zone1.html -> zone1_view"
+          handler=".v4.upgrade_views"
+          />
     
-        <genericsetup:upgradeStep
-            title="remove instance of deprecated portlets"
-            description=""
-            handler=".v4.remove_portlets"/>
+      <genericsetup:upgradeStep
+          title="remove instance of deprecated portlets"
+          description=""
+          handler=".v4.remove_portlets"
+          />
     
     </genericsetup:upgradeSteps>
 
@@ -549,13 +557,13 @@ Example:
         from zExceptions import BadRequest
 
         def uninstall(self, reinstall):
-            if reinstall==False:
-                raise BadRequest("This product cannot be uninstalled!")
+            if reinstall == False:
+                raise BadRequest('This product cannot be uninstalled!')
 
                 
 .. note ::
 
-        This example if for Extensions/install.py, old Plone 2 way of writing installers
+    This example if for Extensions/install.py, old Plone 2 way of writing installers
 
 
 
@@ -656,7 +664,7 @@ where Plone keeps its PAS plugins.
     from Products.PluginRegistry import exportimport
     from Products.PluginRegistry.interfaces import IPluginRegistry
     def getRegistry(site):
-     return IPluginRegistry(site.acl_users.plugins)
+        return IPluginRegistry(site.acl_users.plugins)
     exportimport._getRegistry = getRegistry
 
 Secondly, code to handle the import step needs to be activated in Plone:
@@ -727,8 +735,8 @@ property. Example:
 .. code-block:: xml
 
     <property name="metaTypesNotToList" type="lines" purge="False">
-     <element value="File"/>
-     <element value="Image"/>
+      <element value="File"/>
+      <element value="Image"/>
     </property>
 
 Only use the configuration that you need. When you export your site's
@@ -740,10 +748,9 @@ property, this is what your propertiestool.xml would look like:
 
     <?xml version="1.0"?>
     <object name="portal_properties" meta_type="Plone Properties Tool">
-     <object name="site_properties" meta_type="Plone Property Sheet">
-      <property name="allowAnonymousViewAbout"
-        type="boolean">True</property>
-     </object>
+      <object name="site_properties" meta_type="Plone Property Sheet">
+        <property name="allowAnonymousViewAbout" type="boolean">True</property>
+      </object>
     </object
 
 .. original content from http://www.sixfeetup.com/company/technologies/plone-content-management-new/quick-reference-cards/swag/swag-images-files/generic_setup.pdf

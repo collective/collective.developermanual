@@ -74,7 +74,8 @@ ZCML example:
     <!-- Register header animation picking logic - override this for your custom logic -->
     <utility
         provides="gomobile.convergence.interfaces.IConvergenceMediaFilter"
-        factory=".filter.ConvergedMediaFilter" />
+        factory=".filter.ConvergedMediaFilter"
+        />
          
 
 Python example (named utility)::

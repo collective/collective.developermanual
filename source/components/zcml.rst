@@ -117,17 +117,17 @@ defined in another manager::
         xmlns:browser="http://namespaces.zope.org/browser"
         i18n_domain="my.package">
 
-        <!-- Moved viewlet registration -->
-        <configure package="Products.ContentWellPortlets">
-            <browser:viewlet
-                name="contentwellportlets.portletsabovecontent"
-                class="Products.ContentWellPortlets.browser.viewlets.PortletsAboveViewlet"
-                manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-                layer="Products.ContentWellPortlets.browser.interfaces.IContentWellPortlets"
-                permission="zope2.View"
-                template="browser/templates/portletsabovecontent.pt"
+      <!-- Moved viewlet registration -->
+      <configure package="Products.ContentWellPortlets">
+        <browser:viewlet
+            name="contentwellportlets.portletsabovecontent"
+            class="Products.ContentWellPortlets.browser.viewlets.PortletsAboveViewlet"
+            manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+            layer="Products.ContentWellPortlets.browser.interfaces.IContentWellPortlets"
+            permission="zope2.View"
+            template="browser/templates/portletsabovecontent.pt"
             />
-        </configure>
+      </configure>
 
     </configure>
 

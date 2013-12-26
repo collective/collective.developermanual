@@ -47,10 +47,10 @@ Example: Register an event-handler on your contenttype's creation
 In your.product/your/product/configure.zcml insert::
 
     <subscriber
-      for=".interfaces.IMyContentTypeClass
-           zope.lifecycleevent.IObjectInitializedEvent"
-      handler=".your_python_file.your_method"
-      />
+        for=".interfaces.IMyContentTypeClass
+             zope.lifecycleevent.IObjectInitializedEvent"
+        handler=".your_python_file.your_method"
+        />
 
 
 The first line defines to which interface you want to bind the execution of your code, which means here, 
@@ -133,8 +133,10 @@ Subscribing to a global event using :term:`ZCML`.
 
 .. code-block:: xml
 
-    <subscriber for="Products.PlonePAS.events.UserLoggedOutEvent"
-        handler=".smartcard.clear_extra_cookies_on_logout" />
+    <subscriber
+        for="Products.PlonePAS.events.UserLoggedOutEvent"
+        handler=".smartcard.clear_extra_cookies_on_logout"
+        />
 
 For this event, the Python code in ``smartcard.py`` would be::
 
@@ -148,19 +150,19 @@ Custom event example subscribing to all ``IMyEvents`` when fired by
 ``IMyObject``::
 
     <subscriber
-      for=".interfaces.IMyObject
-           .interfaces.IMyEvent"
-      handler=".content.MyObject.myEventHandler"
-      />
+        for=".interfaces.IMyObject
+             .interfaces.IMyEvent"
+        handler=".content.MyObject.myEventHandler"
+        />
 
 Life cycle events example::
 
     <subscriber
-      zcml:condition="installed zope.lifecycleevent"
-      for=".interfaces.ISitsPatient
-           zope.lifecycleevent.IObjectModifiedEvent"
-      handler=".content.SitsPatient.objectModified"
-      />
+        zcml:condition="installed zope.lifecycleevent"
+        for=".interfaces.ISitsPatient
+             zope.lifecycleevent.IObjectModifiedEvent"
+        handler=".content.SitsPatient.objectModified"
+        />
 
 
 Subscribing using Python

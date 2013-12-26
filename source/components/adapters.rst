@@ -115,9 +115,11 @@ the ``configure.zcml`` file of your product:
 
 .. code-block:: xml 
 
-    <adapter for=".shop.MyShoppableItemType"
-             provides=".interfaces.IProductImageProvider"
-             factory=".images.FolderishProductImageProvider" />
+    <adapter
+        for=".shop.MyShoppableItemType"
+        provides=".interfaces.IProductImageProvider"
+        factory=".images.FolderishProductImageProvider"
+        />
 
 Then we can query the adapter and use it. Unit testing example::
 
@@ -185,7 +187,8 @@ Emulate view registration (context, request):
         for="zope.interface.Interface
              zope.publisher.interfaces.browser.IBrowserRequest"
         provides="gomobile.mobile.interfaces.IMobileTracker"
-        factory=".bango.BangoTracker" />
+        factory=".bango.BangoTracker"
+        />
 
 Getting the adapter
 ===================
@@ -213,12 +216,12 @@ Example registration:
 
     <!-- Register header animation picking logic - override this for your custom logic -->
     <adapter
-     provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
-     for="plone.app.headeranimation.behaviors.IHeaderBehavior
-          Products.CMFCore.interfaces.IContentish
-          zope.publisher.interfaces.browser.IBrowserRequest
-          "
-     factory=".picker.RandomHeaderAnimationPicker" />
+        provides="plone.app.headeranimation.interfaces.IHeaderAnimationPicker"
+        for="plone.app.headeranimation.behaviors.IHeaderBehavior
+             Products.CMFCore.interfaces.IContentish
+             zope.publisher.interfaces.browser.IBrowserRequest"
+        factory=".picker.RandomHeaderAnimationPicker"
+        />
 
 
 Corresponding query code, to look up an adapter implementing the interfaces::

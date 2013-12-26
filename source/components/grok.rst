@@ -68,30 +68,30 @@ Example
 
 .. code-block:: xml
 
-   <configure
-       xmlns="http://namespaces.zope.org/zope"
-       xmlns:five="http://namespaces.zope.org/five"
-       xmlns:cmf="http://namespaces.zope.org/cmf"
-       xmlns:i18n="http://namespaces.zope.org/i18n"
-       xmlns:grok="http://namespaces.zope.org/grok"
-       i18n_domain="plonetheme.xxx">
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:five="http://namespaces.zope.org/five"
+        xmlns:cmf="http://namespaces.zope.org/cmf"
+        xmlns:i18n="http://namespaces.zope.org/i18n"
+        xmlns:grok="http://namespaces.zope.org/grok"
+        i18n_domain="plonetheme.xxx">
 
-     <include package="five.grok" />
+      <include package="five.grok" />
 
-     <five:registerPackage package="." initialize=".initialize" />
+      <five:registerPackage package="." initialize=".initialize" />
 
-     <!-- Grok the package to initialise schema interfaces and content classes -->
-     <grok:grok package="." />
+      <!-- Grok the package to initialise schema interfaces and content classes -->
+      <grok:grok package="." />
 
-     <include package=".browser" />
+      <include package=".browser" />
 
-   </configure>
+    </configure>
 
 If you are using components from other packages you might also want to add
 
 .. code-block:: xml
 
-      <includeDependencies package="." />
+    <includeDependencies package="." />
 
 This makes the ``configure.zcml`` and thus Python code
 of all modules listed in ``setup.py`` *install_requires*
@@ -201,13 +201,13 @@ ZCML migration ``configuration.zcml`` target example::
         xmlns:browser="http://namespaces.zope.org/browser"
         i18n_domain="plone.app.widgets">
 
-        <browser:page
-            name="widgets-demo"
-            for="Products.CMFCore.interfaces.ISiteRoot"
-            class=".demo.Demos"
-            permission="zope2.View"
-            template="widgets-demo.pt"
-            />
+      <browser:page
+          name="widgets-demo"
+          for="Products.CMFCore.interfaces.ISiteRoot"
+          class=".demo.Demos"
+          permission="zope2.View"
+          template="widgets-demo.pt"
+          />
 
     </configure>
 

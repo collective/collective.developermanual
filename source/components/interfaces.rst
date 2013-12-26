@@ -198,18 +198,18 @@ to documents, events and news items:
 
 .. code-block:: xml 
 
-   <!-- List of content types where "last modified" viewlet is enabled -->
-   <class class="Products.ATContentTypes.content.document.ATDocument">
+    <!-- List of content types where "last modified" viewlet is enabled -->
+    <class class="Products.ATContentTypes.content.document.ATDocument">
       <implements interface=".interfaces.ILastModifiedSupport" />
-   </class>
+    </class>
 
-   <class class="Products.ATContentTypes.content.event.ATEvent">
+    <class class="Products.ATContentTypes.content.event.ATEvent">
       <implements interface=".interfaces.ILastModifiedSupport" />
-   </class>
+    </class>
 
-   <class class="Products.ATContentTypes.content.newsitem.ATNewsItem">
+    <class class="Products.ATContentTypes.content.newsitem.ATNewsItem">
       <implements interface=".interfaces.ILastModifiedSupport" />
-   </class>
+    </class>
 
 
 Then we can have a viewlet for these content types only using the following
