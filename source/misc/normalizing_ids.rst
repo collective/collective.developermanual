@@ -88,8 +88,8 @@ folderish object that will contain our new object.::
     # Now we create and set a new user-friendly id from the object title
     title = "My Little Pony"
     oid = INameChooser(container).chooseName(title, new_obj)
-    content.setId(oid)
-    content.reindexObject()
+    new_obj.setId(oid)
+    new_obj.reindexObject()
 
 Other
 -----
