@@ -17,10 +17,10 @@ GenericSetup is an XML-based way to import and export Plone site configurations.
 
 It is mainly used to prepare the Plone site for add-on products, by:
 
-* registering CSS files, 
+* registering CSS files,
 * registering Javascript files,
-* setting various properties, 
-* registering portlets, 
+* setting various properties,
+* registering portlets,
 * registering portal_catalog search query indexes,
 * ...and so on...
 
@@ -68,12 +68,12 @@ accordingly.
     run for a Plone site, the layer is activated for the
     particular site only, enabling all views registered
     for this layer.
-    
+
 .. note ::
-        
+
         The ``metadata.xml`` file (add-on dependency and version
         information) is read during Plone start-up.
-        If this file has problems your add-on might not appear in the installer control panel.    
+        If this file has problems your add-on might not appear in the installer control panel.
 
 * `GenericSetup tutorial <http://plone.org/documentation/tutorial/genericsetup>`_
 
@@ -97,20 +97,20 @@ product.
 
 .. code-block:: xml
 
-	<configure
-	    xmlns="http://namespaces.zope.org/zope"
-	    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-	    i18n_domain="gomobile.mobile">
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+        i18n_domain="gomobile.mobile">
 
-	  <genericsetup:registerProfile
-	      name="default"
-	      title="Plone Go Mobile"
-	      directory="profiles/default"
-	      description='Mobile CMS add-on'
-	      provides="Products.GenericSetup.interfaces.EXTENSION"
-	      />
+      <genericsetup:registerProfile
+          name="default"
+          title="Plone Go Mobile"
+          directory="profiles/default"
+          description='Mobile CMS add-on'
+          provides="Products.GenericSetup.interfaces.EXTENSION"
+          />
 
-	</configure>
+    </configure>
 
 
 
@@ -187,7 +187,7 @@ For the theory, see:
 `<http://plone.org/documentation/kb/genericsetup/creating-an-uninstall-profile>`_
 
 For an example, see the `collective.pdfpeek source code
-<http://svn.plone.org/svn/collective/collective.pdfpeek/trunk/collective/pdfpeek/profiles/>`_.    
+<http://svn.plone.org/svn/collective/collective.pdfpeek/trunk/collective/pdfpeek/profiles/>`_.
 
 Dependencies
 ============
@@ -224,24 +224,24 @@ are usable from *collective.basket* add-on products when your add-on product is 
         description='Collector portlet framework'
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
- 
+
 
 .. warning::
 
-    Unlike other GenericSetup XML files, 
+    Unlike other GenericSetup XML files,
     ``metadata.xml`` is read on the start-up and this read is cached.
     Always restart Plone after editing ``metadata.xml``.
     If your ``metadata.xml`` file contains syntax errors
-    or dependencies to a missing or non-existent product 
+    or dependencies to a missing or non-existent product
     (e.g. due to a typo in a name) your add-on will disappear from the
-    installation control panel. 
-        
+    installation control panel.
+
 .. note::
 
     The ``Products.*`` Python namespace needs to declare generic setup
     dependencies specially:
     You actually do not mention ``Products.xxx`` space.
-    
+
 To declare dependency to ``Products.Carousel``:
 
 .. code-block:: xml
@@ -254,14 +254,14 @@ To declare dependency to ``Products.Carousel``:
         <dependency>profile-Carousel:default</dependency>
       </dependencies>
     </metadata>
-            
+
 
 Custom installer code (``setuphandlers.py``)
 ============================================
 
 Besides out-of-the-box XML steps which easily provide both install and uninstall,
 GenericSetup provides a way to run a custom Python code when your
-add-on product is installed and uninstalled. 
+add-on product is installed and uninstalled.
 This is not very straightforward process, though.
 
 The best practice is to create a ``setuphandlers.py`` file
@@ -277,10 +277,10 @@ in XML.
 
 However, the trick is that all GenericSetup import steps, including
 your custom step, are run for *every* add-on product
-when they are installed. Thus, if your need to run 
+when they are installed. Thus, if your need to run
 code which is specific **during your add-on install only**
 you need to use a marker text file which is checked by GenericSetup
-context. 
+context.
 
 Also you need to register this custom import step in ``configure.zcml``
 
@@ -289,7 +289,7 @@ Also you need to register this custom import step in ``configure.zcml``
     <configure
         xmlns="http://namespaces.zope.org/zope"
         xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
-        
+
       <!-- Register the import step -->
       <genericsetup:importStep
           name="your.package"
@@ -297,7 +297,7 @@ Also you need to register this custom import step in ``configure.zcml``
           description=""
           handler="your.package.setuphandlers.setupVarious"
           />
-    
+
     </configure>
 
 ``setuphandlers.py`` example
@@ -305,26 +305,26 @@ Also you need to register this custom import step in ``configure.zcml``
 .. code-block:: python
 
     __docformat__ = "epytext"
-    
+
     def runCustomCode(site):
         """ Run custom add-on product installation code to modify Plone site object and others
-        
-        @param site: Plone site  
+
+        @param site: Plone site
         """
-    
+
     def setupVarious(context):
         """
         @param context: Products.GenericSetup.context.DirectoryImportContext instance
         """
-    
+
         # We check from our GenericSetup context whether we are running
         # add-on installation for your product or any other proudct
         if context.readDataFile('your.package.marker.txt') is None:
             # Not your add-on
             return
-    
+
         portal = context.getSite()
-    
+
         runCustomCode(portal)
 
 And add a dummy text file
@@ -364,7 +364,7 @@ As an example, let's say that the new version of YOUR.PRODUCT defines a
 *price* field on a content type *MyType* to be a string, but previously
 (version 1.1.  and earlier) it was a float. Code that uses this field and
 assumes it to be a float will break after the upgrade, so you'd like to
-automatically convert existing values for the field to string. 
+automatically convert existing values for the field to string.
 
 (Obviously, you could do this very quickly in a simple script, but having a
 GenericSetup upgrade step means non-technical people can do it as well. As it
@@ -391,7 +391,7 @@ Next we add an upgrade step:
         xmlns="http://namespaces.zope.org/zope"
         xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
         i18n_domain="YOUR.PRODUCT">
-        
+
       <genericsetup:upgradeStep
           title="Convert Price to strings"
           description="Price was previously a float field, it should be converted to string"
@@ -401,7 +401,7 @@ Next we add an upgrade step:
           sortkey="1"
           profile="YOUR.PRODUCT:default"
           />
-    
+
     </configure>
 
 
@@ -424,11 +424,11 @@ The code for the upgrade method itself is best placed in a *upgrades.py* module:
         """Method to convert float Price fields to string.
 
         When called from the import_various method, 'context' is
-        the plone site and 'logger' is the portal_setup logger. 
+        the plone site and 'logger' is the portal_setup logger.
 
-        But this method will be used as upgrade step, in which case 'context' 
+        But this method will be used as upgrade step, in which case 'context'
         will be portal_setup and 'logger' will be None.
-        
+
         """
         if logger is None:
             # Called as upgrade step: define our own logger.
@@ -452,7 +452,7 @@ The code for the upgrade method itself is best placed in a *upgrades.py* module:
                 voorstelling.setPrice(str(current_price))
                 voorstelling.reindexObject()
                 count += 1
-            
+
         setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
         logger.info("%s fields converted." % count)
 
@@ -488,49 +488,49 @@ site policy:
         source="3900"
         destination="4000"
         profile="project.policy:default">
-    
+
       <genericsetup:upgradeStep
           title="Upgrade addons"
           description="Install and upgrades add-ons"
           handler=".v4.upgrade_addons"
           />
-    
+
       <genericsetup:upgradeStep
           title="Remove LDAP PAS Plugin"
           description="Execute this upgrade after the plonesite upgrade"
           handler=".v4.upgrade_pas"
           />
-    
+
       <genericsetup:upgradeStep
           title="Upgrade resources"
           description="Update javascripts and css"
           handler=".v4.upgrade_resources"
           />
-    
+
       <genericsetup:upgradeStep
           title="Apply new steps of of policy"
           description=""
           handler=".v4.upgrade_of_policy"
           />
-    
+
       <genericsetup:upgradeStep
           title="upgrade rules"
           description="collective.contentrules.mail is deprecated, replace with default"
           handler=".v4.upgrade_contentrules"
           />
-    
+
       <genericsetup:upgradeStep
           title="upgrade views"
           description="get ride of dot in viewname zone1.html -> zone1_view"
           handler=".v4.upgrade_views"
           />
-    
+
       <genericsetup:upgradeStep
           title="remove instance of deprecated portlets"
           description=""
           handler=".v4.remove_portlets"
           />
-    
+
     </genericsetup:upgradeSteps>
 
 
@@ -560,7 +560,7 @@ Example:
             if reinstall == False:
                 raise BadRequest('This product cannot be uninstalled!')
 
-                
+
 .. note ::
 
     This example if for Extensions/install.py, old Plone 2 way of writing installers
@@ -609,10 +609,15 @@ Content Generation
 .. automodule:: Products.GenericSetup.content
  :members: FolderishExporterImporter
 
-sharing.xml
-===========
 
-.. automodule:: plone.app.workflow.exportimport
+Generic Setup files
+===================
+
+sharing.xml
+-----------
+
+The sharing.xml file let you add custom roles to the sharing tab.
+For reference, visit: :doc:`Local Roles </security/local_roles>`.
 
 tinymce.xml
 -----------
@@ -660,7 +665,7 @@ First, you need a monkey patch in your ``__init__.py``` to point the importer at
 where Plone keeps its PAS plugins.
 
 .. code-block:: python
- 
+
     from Products.PluginRegistry import exportimport
     from Products.PluginRegistry.interfaces import IPluginRegistry
     def getRegistry(site):
@@ -699,15 +704,15 @@ Now you can use ``pluginregistry.xml`` in your generic setup profiles:
             <plugin id="sql" />
             <plugin id="mutable_properties"/>
         </plugin-type>
- 
+
         <plugin-type id="IRolesPlugin" title="roles"
                 description="Roles plugins determine the global roles which a user has."
                 interface="Products.PluggableAuthService.interfaces.plugins.IRolesPlugin">
             <plugin id="portal_role_manager"/>
             <plugin id="sql"/>
         </plugin-type>
- 
- 
+
+
         <plugin-type id="IUserEnumerationPlugin"
                 title="user_enumeration"
                 description="Enumeration plugins allow querying users by ID, and searching for users who match particular criteria."
@@ -716,11 +721,11 @@ Now you can use ``pluginregistry.xml`` in your generic setup profiles:
             <plugin id="mutable_properties"/>
             <plugin id="sql"/>
         </plugin-type>
- 
+
         <plugin-type id="IUserAdderPlugin" title="user_adder"
                 description="User Adder plugins allow the Pluggable Auth Service to create users."
                 interface="Products.PluggableAuthService.interfaces.plugins.IUserAdderPlugin">
-        </plugin-type>  
+        </plugin-type>
     </plugin-registry>
 
 

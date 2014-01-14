@@ -2,6 +2,12 @@
  Sharing
 ==============
 
+TODO: remove this file, eventually move code example to a "cookbook" section.
+
+.. warning:: Out of date
+
+    This page is out of date. Please visit: :doc:`Local Roles </security/local_roles>`.
+
 
 .. admonition:: Description
 
@@ -12,13 +18,16 @@
 Introduction
 -------------
 
-* http://pypi.python.org/pypi/collective.sharingroles
-
-* http://encolpe.wordpress.com/2010/02/08/add-a-new-role-in-the-sharing-tab-for-plone-3/
 
 * `Sharing tab source code <https://github.com/plone/plone.app.workflow/tree/master/plone/app/workflow/browser/sharing.py>`_
 
 * `Default sharing tab role translations <https://github.com/plone/plone.app.workflow/tree/master/plone/app/workflow/configure.zcml>`_
+
+
+
+* http://pypi.python.org/pypi/collective.sharingroles
+
+* http://encolpe.wordpress.com/2010/02/08/add-a-new-role-in-the-sharing-tab-for-plone-3/
 
 Setting sharing rights programmatically
 ----------------------------------------
@@ -42,63 +51,64 @@ for this external method in ZMI.
 
 ::
 
-	import traceback
-	from StringIO import StringIO
-	from zope.component import getUtility
-	from plone.i18n.normalizer.interfaces import IURLNormalizer
+    import traceback
+    from StringIO import StringIO
+    from zope.component import getUtility
+    from plone.i18n.normalizer.interfaces import IURLNormalizer
 
 
-	block_groups = ["Administrators","opettajat","kouluttajat","yhteyshenkilot"]
+    block_groups = ["Administrators","opettajat","kouluttajat","yhteyshenkilot"]
 
-	def set_sharing(self):
+    def set_sharing(self):
 
-	    try:
-	        buffer = StringIO()
-	        context = self
-	        normalizer = getUtility(IURLNormalizer)
+        try:
+            buffer = StringIO()
+            context = self
+            normalizer = getUtility(IURLNormalizer)
 
-	        site  = context.portal_url.getPortalObject()
-	        acl = site.acl_users
-	        groups = acl.source_groups.getGroupIds()
+            site  = context.portal_url.getPortalObject()
+            acl = site.acl_users
+            groups = acl.source_groups.getGroupIds()
 
-	        existing_folders = context.objectIds()
+            existing_folders = context.objectIds()
 
-	        # Create a folder per each group
-	        for g in groups:
+            # Create a folder per each group
+            for g in groups:
 
-	            if g in block_groups:
-	                continue
+                if g in block_groups:
+                    continue
 
-	            print >> buffer, "Doing group:" + g
+                print >> buffer, "Doing group:" + g
 
-	            g = g.decode("utf-8")
+                g = g.decode("utf-8")
 
-	            id = normalizer.normalize(g)
-	            if not id in existing_folders:
-	                context.invokeFactory("Folder", id)
+                id = normalizer.normalize(g)
+                if not id in existing_folders:
+                    context.invokeFactory("Folder", id)
 
-	            folder = context[id]
+                folder = context[id]
 
-	            # Set sharing rights
-	            # - No inheritance
-	            folder.__ac_local_roles_block__ = True
+                # Set sharing rights
+                # - No inheritance
+                folder.__ac_local_roles_block__ = True
 
-	            # - Group has edit access
+                # - Group has edit access
 
 
-	            # - Logged in users have view access
+                # - Logged in users have view access
 
-	    except Exception, e:
-	        traceback.print_exc(buffer)
+        except Exception, e:
+            traceback.print_exc(buffer)
 
-	    return buffer.getvalue()
+        return buffer.getvalue()
+
 
 General methods to manipulate local roles (sharing)
 ===================================================
 
 ::
 
-	folder.manage_setLocalRoles(userid, ['Reader'])
+    folder.manage_setLocalRoles(userid, ['Reader'])
 
 
 would grant the role "Reader" (Can View on the Sharing Tab) to userid.
@@ -107,7 +117,8 @@ Beware that this will set the local roles for the user to only ['Reader']. If th
 
 It will not affect inherited roles.
 
+
 Add sharing tab to a custom content type
-----------------------------------------
+========================================
 
 * http://plone.org/documentation/kb/add-sharing-tab

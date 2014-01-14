@@ -1,6 +1,6 @@
-=============
- Local roles
-=============
+===========
+Local roles
+===========
 
 .. admonition:: Description
 
@@ -9,7 +9,7 @@
 .. contents:: :local:
 
 Introduction
-=============
+============
 
 Local roles allows user accounts to have special privileges
 for a folder and its children.
@@ -21,10 +21,11 @@ and in :term:`ZMI` :guilabel:`Security` tab.
 Good introduction to roles:
 `Basic Roles and Permissions in Plone <http://www.sixfeetup.com/blog/basic-roles-and-permissions-in-plone>`_
 
-Creating a new role
-=======================
 
-New Plone roles can be created through the 
+Creating a new role
+===================
+
+New Plone roles can be created through the
 :doc:`GenericSetup rolemap.xml </components/genericsetup>` file.
 
 Example ``profiles/default/rolemap.xml``
@@ -42,19 +43,35 @@ Example ``profiles/default/rolemap.xml``
     </rolemap>
 
 
+Adding a role to the Sharing Tab
+================================
+
+To let the newly created role appear in the @@sharing tab, create a
+:doc:`GenericSetup sharing.xml </components/genericsetup>` file.
+
+Example ``profiles/default/sharing.xml``
+
+.. code-block:: xml
+
+    <sharing xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+             i18n:domain="plone">
+      <role
+          id="Sits Coordinator"
+          title="Is a sits coordinator"
+          permission="Manage portal"
+          i18n:attributes="title"
+          />
+    </sharing>
+
+The title is the name to be shown on the sharing page. The required_permission
+is optional. If given, the user must have this permission to be allowed to
+manage the particular role.
+
 .. Note::
 
-    By default, user-defined roles will appear only in the ZMI.
-    If you want them to appear on the Sharing tab
-    please see the links below.
+    For Plone 3, there is the `collective.sharingroles <https://pypi.python.org/pypi/collective.sharingroles>`_ addon.
+    Since Plone 4, this is `merged into plone.app.workflow <https://github.com/plone/plone.app.workflow/commit/f9991ca0cc3dd2b8a2c392c145f44c21996eac67>`_.
 
-More info
-
-* http://encolpe.wordpress.com/2010/02/08/add-a-new-role-in-the-sharing-tab-for-plone-3/
-
-* http://plone.org/documentation/manual/developer-manual/generic-setup/reference/roles-and-permissions
-
-* http://pypi.python.org/pypi/collective.sharingroles
 
 Setting local role
 ===================
@@ -65,11 +82,12 @@ Example::
 
     context.manage_setLocalRoles(userid, ["Local roles as a list"])
 
+
 Getting local roles
 ===================
 
 The ``get_local_roles()`` method returns currently-set local roles.
-This does not return all the *effective* roles 
+This does not return all the *effective* roles
 (which may include roles acquired from the parent hierarchy).
 ``get_local_roles_for_userid()`` returns roles for a particular user as a tuple.
 
@@ -77,6 +95,7 @@ Example::
 
     # get_local_roles() return sequence like ( ("userid1", ("rolename1", "rolename2")), ("userid2", ("rolename1") )
     roles = context.get_local_roles()
+
 
 Deleting local roles
 ====================
@@ -121,6 +140,7 @@ will reset local roles based on external input ::
                 print "Clearing:" + username
                 self.manage_delLocalRoles([username])
 
+
 Local role caching
 ==================
 
@@ -143,6 +163,7 @@ Unit test example method::
         ann = IAnnotations(self.app.REQUEST)
         for key in list(ann.keys()): # Little destructive here, deletes *all* annotations
             del ann[key]
+
 
 Debugging
 =========
