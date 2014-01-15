@@ -99,7 +99,7 @@ Create page template
 
 The third part of our view is the page template. 
 
-- In the browser directory, create a file named **hello_world.pt** and add the following::
+- In the browser directory, create a file named **hello_world_view.pt** and add the following::
 
     <html xmlns="http://www.w3.org/1999/xhtml"
           xmlns:metal="http://xml.zope.org/namespaces/metal"
