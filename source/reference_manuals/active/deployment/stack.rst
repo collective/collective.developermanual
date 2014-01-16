@@ -116,8 +116,7 @@ How many ZEO clients, how much memory?
 
 It's typical to allocate roughly one ZEO client for every processor core you
 have available. However, there are lots of trade-offs, and many clients will
-eat RAM rapidly. `About Instances, Threads and RAM consumption
-<http://plone.org/documentation/kb/scaling-and-performance/about-instances-threads-and-ram-consumption>`_
+eat RAM rapidly. :doc:`About Instances, Threads and RAM consumption </performance/instancesthreads>`
 is a good guide to the issues involved.
 
 Sticky sessions
