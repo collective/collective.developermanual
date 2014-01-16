@@ -12,12 +12,13 @@ About Instances and Threads, Performance and RAM consumption
 Introduction
 ------------
 
-In a usal production Zope/ Plone setup there are some tunings possible. So you
+In a usal production Zope/Plone setup there are some tunings possible. So you
 googled a bit and found that, for a certain size of site, you need more than
-one Zope-instance and use HAproxy or Pound to load-balance between them. Then
-you may ask yourself: How many instances do I need? Next you see there is value
-"threads per instance" and wonder about the different recommendations: Only one
-thread or two, or four? And how does it effect memory usage?
+one Zope-instance and use `HAproxy`_ or `Pound`_ to load-balance between them.
+Then you may ask yourself: How many instances do I need? Next you see there
+is value "threads per instance" and wonder about the different
+recommendations: Only one thread or two, or four? And how does it effect
+memory usage?
 
 Rule Of The Thumb
 -----------------
@@ -85,7 +86,7 @@ Python GIL - global interpreter lock:
   is it has an impact on performance. But it is low and python was optimized
   over the years, also Zope has a lot of I/O which reduces the GIL impact. A
   good and important optimization is to set the right check interval for your
-  machine. With jarn.checkinterval there's a good and simple to use tool to
+  machine. With `jarn.checkinterval`_ there's a good and simple to use tool to
   test for the right value.
 
 Practice
@@ -95,11 +96,11 @@ All theory is gray. But what does this mean for your setup if the rule-of-thumb
 above does not apply?
 
 Get measurements! First of all you need to check yourself what happens on your
-machine(s), go and learn how to use Munin (with munin.zope), HAproxy (or Pound),
-[tool of your choice here]. After that you'll get graphs of RAM, CPU, and load
-and some zope related values. HAproxy or Pound may mark a node as down because
-all threads were blocked by long running requests, identify these requests,
-collective.stats helps here.
+machine(s), go and learn how to use `Munin`_ (with `munin.zope`_), HAproxy
+(or Pound), [tool of your choice here]. After that you'll get graphs of RAM,
+CPU, and load and some zope related values. HAproxy or Pound may mark a node
+as down because all threads were blocked by long running requests, identify
+these requests, `collective.stats`_ helps here.
 
 More instances or more threads? This question is asked often. And can not be
 answered without knowing more about the Plone system. We can divide it roughly
@@ -112,7 +113,7 @@ into four kinds of systems:
 
 If you deal with logged in users there is no easy way to cache html-pages
 (highly recommended anyway for all static items) in a reverse proxy cache (i.e.
-Varnish) in front of Plone. So Zope has much more work rendering pages. To
+`Varnish`_) in front of Plone. So Zope has much more work rendering pages. To
 render pages, objects need to be loaded form the database. Loading is expensive.
 If an object is already in the DB RAM cache it decreases the time to render a
 page significantly. So in a setup with lots of logged in users we need to take
@@ -128,14 +129,14 @@ thread a browser shooting at the web-server with lots of requests at one time
 fills up the request queue of the instance and may time out soon. Also a second
 user may want to access data at the same time, but the only thread is blocked
 and the CPU idles. So the best is to stick users in a load-balancer (bind it to
-the __ac cookie)  to 1 instance with 2 threads (also this can be adjusted
+the __ac cookie) to 1 instance with 2 threads (also this can be adjusted
 dependent on your setup, test it yourself). Provide as much instances as you
 can (memory-consumption and cpu-usage will stop you). In such a setup usage of
-memcached is highly encouraged.
+`memcached`_ is highly encouraged.
 
 If you have almost all anonymous users it is much easier. You can provide less
 instances (here rule-of-thumb 2 per core applies in most cases) and increase
-threads. To many threads are not good, because of the GIL. You need to find the
+threads. Too many threads are not good, because of the GIL. You need to find the
 number yourself, it depends much on hardware. Here - w/o memcached configured -
 good results can be expected, because memory cache is used efficient. Increase
 objects per connection cache until your memory-consumption stops you and look
@@ -150,3 +151,12 @@ own balance. A good way is configuring your load balancer to stick logged-in
 users to one or two distinct instances. If there are more users this is kind
 of tricky and may take some time to figure out a good setup. So this is the
 most difficult setup.
+
+.. _HAproxy: http://haproxy.1wt.eu
+.. _Pound: http://www.apsis.ch/pound
+.. _jarn.checkinterval: http://pypi.python.org/pypi/jarn.checkinterval
+.. _Munin: http://munin-monitoring.org
+.. _munin.zope: http://pypi.python.org/pypi/munin.zope
+.. _Varnish: https://www.varnish-cache.org
+.. _collective.stats: http://pypi.python.org/pypi/collective.stats
+.. _memcached: http://www.memcached.org
