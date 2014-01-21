@@ -330,8 +330,6 @@ content-type specific views.  Aliases are configured in ``portal_types``.
 Other resources
 ================
 
-* http://blog.jphoude.qc.ca/2008/09/14/plone-changing-title-zope3-views/
-
 * http://plone.org/documentation/how-to/how-to-create-and-set-a-custom-homepage-template-using-generic-setup
 
 * `CMFDynamicView plone.org product page <http://plone.org/products/cmfdynamicviewfti/>`_
