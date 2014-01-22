@@ -212,15 +212,13 @@ Disabling it (persistent change)::
 
 More info:
 
-* http://svn.zope.org/Zope/trunk/src/OFS/Cache.py?rev=115280&view=auto
-
-* http://wiki.zope.org/CacheManager/Architecture
+* https://github.com/zopefoundation/Zope/blob/master/src/OFS/Cache.py
 
 * https://github.com/plone/plone.app.ldap/tree/master/plone/app/ldap/ploneldap/util.py
 
 Other resources
 ===============
 
-* `plone.memoize source code <https://github.com//plone/plone.memoize/tree/master/plone/memoize/>`_.
+* `plone.memoize source code <https://github.com/plone/plone.memoize/tree/master/plone/memoize/>`_.
 
 * `zope.app.cache source code <http://svn.zope.org/zope.app.cache/trunk/src/zope/app/cache/>`_
