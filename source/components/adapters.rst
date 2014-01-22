@@ -26,9 +26,9 @@ The downside is that adapters cannot be found by "exploring" classes or
 source code. They must be well documented in order to be discoverable.
 
 Read more about adapters in the 
-`zope.component README <http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_.
+`zope.component README <http://docs.zope.org/zope.component/narr.html#adapters>`_.
 
-`Adapter ZCML <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/adapter/index.html>`_.
+`Adapter ZCML <http://docs.zope.org/zope.component/zcml.html#adapter>`_.
 
 Adapters are matched by:
 
