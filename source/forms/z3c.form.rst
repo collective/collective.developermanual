@@ -675,9 +675,9 @@ Widget type can be set dynamically based on external conditions.
         grok.name('demo-collective.z3cform.datagrid-block-edit')
 
         def updateWidgets(self):
+            super(EditForm9, self).updateWidgets()
             # Set a custom widget for a field for this form instance only
             self.fields['address'].widgetFactory = BlockDataGridFieldFactory
-            super(EditForm9, self).update()
 
 
 Accessing a widget
