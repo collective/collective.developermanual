@@ -80,6 +80,50 @@ More info:
 
 * http://stackoverflow.com/questions/8618917/portal-catalog-unique-ids-for-both-archetypes-and-dexterity-content
 
+
+UUID Acquisition problem with Dexterity Content Types
+=====================================================
+
+Make sure your Dexterity content type has the `plone.app.referenceablebehavior.interfaces.IReferenceable <https://github.com/plone/plone.app.referenceablebehavior/blob/master/plone/app/referenceablebehavior/interfaces.py>`_ behavior enabled. If not, when querying for an object's UUID, you will get its parent UUID. Then you can end up with a lot of objects with the same UUID as their parent.
+
+If you run into this issue, here's an easy upgrade step to fix it::
+	
+	import transaction
+	from plone.uuid.handlers import addAttributeUUID
+	from Products.CMFCore.utils import getToolByName
+	
+	...
+	def recalculate_uuids(setup_tool):
+
+	    # Re-import types definition, so IReferenceable is enabled.
+	    setup_tool.runImportStepFromProfile(
+		"profile-my.package:default",
+		'typeinfo')
+
+	    catalog = getToolByName(setup_tool, 'portal_catalog')
+	    for index, brain in enumerate(catalog(portal_type="my.custom.content.type")):
+		obj = brain.getObject()
+
+		if not getattr(obj,  '_plone.uuid', None) is None:
+		    # If an UUID has already been calculated for this object, remove it
+		    delattr(obj,  '_plone.uuid')
+
+		# Recalculate object's UUID
+		addAttributeUUID(obj, None)
+		obj.reindexObject(idxs=['UID'])
+
+		if index % 100:
+		    # Commit every 100 items
+		    transaction.commit()
+
+	    # Commit at the end
+	    transaction.commit()
+
+
+Make sure to have the IReferenceable behavior listed in the content type XML definition before running the upgrade step.
+Also note that this upgrade step will recalculate the UUID for all "my.custom.content.type" objects.
+
+
 intids
 ========
 
