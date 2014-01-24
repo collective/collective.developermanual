@@ -662,12 +662,10 @@ Example::
 
 
 
-Setting widget dynamically Form.update()
+Setting widget dynamically Form.updateWidgets()
 ``````````````````````````````````````````````````````
 
 Widget type can be set dynamically based on external conditions.
-
-Example from `collective.z3cform.datagridfield_demos <https://github.com/collective/collective.z3cform.datagridfield_demo>`_
 
 ::
 
@@ -676,7 +674,7 @@ Example from `collective.z3cform.datagridfield_demos <https://github.com/collect
 
         grok.name('demo-collective.z3cform.datagrid-block-edit')
 
-        def update(self):
+        def updateWidgets(self):
             # Set a custom widget for a field for this form instance only
             self.fields['address'].widgetFactory = BlockDataGridFieldFactory
             super(EditForm9, self).update()
@@ -759,7 +757,7 @@ for a widget, you need to override field's widget factory in
 the module body code after fields have been constructed in the class,
 or in the ``update()`` method for dynamically constructed fields::
 
-   def update(self):
+   def updateWidgets(self):
         self.fields["animation"].widgetFactory = HeaderFileFieldWidget
 
 Reorder form widgets
