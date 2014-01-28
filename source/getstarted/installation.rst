@@ -82,7 +82,7 @@ The resulting installation is self-contained,
 does not touch system files,
 and is safe to play with (no root/sudoing is needed).
 
-If you are not familiar with UNIX operating system commad line
+If you are not familiar with UNIX operating system command line
 you might want to study this `Linux shell tutorial <http://linuxcommand.org/learning_the_shell.php>`_
 first.
 
