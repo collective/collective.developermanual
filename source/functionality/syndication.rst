@@ -211,7 +211,7 @@ Available feed properties to override
 
 If you're inheriting from Products.CMFPlone.browser.syndiction.adapters.FolderFeed
 in an attempt to override the functionality of a feed folder or collection,
-these are the available porperties to override:
+these are the available properties to override:
 
 * link
 * title
