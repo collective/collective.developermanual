@@ -56,7 +56,7 @@ To install ZopeSkel in your buildout, add the following to your
     recipe = zc.recipe.egg
     unzip = true
     eggs =
-        ZopeSkel < 3.0
+        ZopeSkel <= 3.0
         Paste
         PasteDeploy
         PasteScript
