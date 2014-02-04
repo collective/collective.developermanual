@@ -20,5 +20,4 @@ For using Plone on WSGI, please see Repoze project
 Plone 4 and WSGI
 -----------------
 
-* http://n2.nabble.com/Plone-4-and-WSGI-td4801507.html;cid=1269585436920-662#a4801507
- 
+* http://comments.gmane.org/gmane.comp.web.zope.plone.devel/23886
