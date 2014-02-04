@@ -52,9 +52,36 @@ Example:
 Dexterity type
 ~~~~~~~~~~~~~~
 
-If the type you're customizing is a dexterity type, you'll need to inherit
-from Products.CMFPlone.browser.syndication.adapters.DexterityItem in your
-override feed item adapter class.
+If the type you're customizing is a dexterity type then Plone will use the
+Products.CMFPlone.browser.syndication.DexterityItem adapter by default for adopting
+Dexterity content to syndication.IFeedItem. You can override the default adapter by
+registering your own adapter this way:
+
+
+.. code-block:: python
+
+    from zope.component import adapts
+    from Products.CMFPlone.interfaces.syndication import IFeed
+    from plone.dexterity.interfaces import IDexterityContent
+    from Products.CMFPlone.browser.syndication.adapters import DexterityItem
+
+    class MyAdapter(DexterityItem):
+        adapts(IMyType, IFeed)
+
+        @property
+        def link(self):
+            return '...some custom url'
+
+        guid = link
+
+
+.. code-block:: xml
+
+    <adapter
+      factory=".adapters.MyAdapter"
+      for="my.package.mytype.IMyType
+           Products.CMFPlone.interfaces.syndication.IFeed"
+      provides="Products.CMFPlone.interfaces.syndication.IFeedItem" />
 
 
 Register your Folderish type as syndicatable
