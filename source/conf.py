@@ -263,8 +263,10 @@ def create_symlinks_for_external_docs():
                 raise
 
 # Ignore for now so that we get collective-docs.rtd.org project built complete
-try:
-    create_symlinks_for_external_docs()
-except Exception as e:
-    import traceback ; traceback.print_exc()
-    pass
+#try:
+#    create_symlinks_for_external_docs()
+#except Exception as e:
+#    import traceback ; traceback.print_exc()
+#    pass
+#
+locale_dirs = ['../locale/']   #path is example but recommended.
