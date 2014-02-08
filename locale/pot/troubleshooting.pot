@@ -1,0 +1,3016 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-08 16:49\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/troubleshooting/basic.rst:3
+# 984ba1e637004417b5b88f21e910331a
+msgid "Basic troubleshooting"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:7
+# b1a584b0b6ae420794829a0035bf6a64
+msgid "Here is some info for basic Plone troubleshooting, especially with add-on modules-"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:12
+# 170cb3800e9e400a8d9e7e42b376ca1f
+msgid "Start Plone as foreground / debug mode"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:14
+# 2116cbb27daf4b8fad592a0e0972b7f7
+msgid "Plone runs on the top of Zope application service. Zope is a Python process and will appear as \"python .....\" in your task manager process list."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:17
+# ad5ab8afe41e4ecebdf95e2b56b489c9
+msgid "Zope will report any problems with code when it is launched in foreground mode (attached to a terminal)."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:19
+# 9140dffaf6db43428d15e9ebd81f515f
+msgid "Basic command-line knowledge is needed in order to proceed"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:21
+# ade9c0f7c1a6442e98176d444e901c0e
+msgid "First stop Zope if it's running as a background process"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:23
+# 77faa349f13c44759e744f1aa4b6c3a1
+msgid "On Windows: use Plone Control Panel or Windows Control Panel Services section to shutdown Plone first"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:25
+# 58faff65d6554b97a1032bf58354070f
+msgid "On Linux: use /etc/init.d/plone stop or related command to shutdown Plone"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:27
+# 31b8f2bd7fe54798870b3d7bab5d776d
+msgid "Use the command"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:33
+# 360ee58411434867b99b0f467d7243ed
+msgid "or Windows command-line command (note that Plone location may depend on where you installed it)"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:40
+# 6a3260d9510d4ac9bfcdf177d769f06d
+msgid "to start Plone."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:42
+# 8e3263b7dd5542678a0bd1caf3804d44
+msgid "All errors will be printed into the terminal. The error is printed as Python *traceback*. It is important to copy-paste all lines of this traceback, not just the last line."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:46
+# c190aab3a7804485be66975a42d93b5a
+msgid "If there is no start up error you will see the line"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:49
+# 03cce12ba379431abe5e015226dc8777
+msgid "No such file or directory: 'zope.conf'"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:51
+#: ../../source/troubleshooting/buildout.rst:127
+# b996fec6078348efaec70e2ca3f03a4a
+# afeb921b9e20499e92d93aeedb88d003
+msgid "Example:"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:53
+# 882f4d3541704fcc918a5c2f54d823d2
+msgid "sudo /Applications/Plone/zinstance/bin/plonectl start instance: Error: error opening file /Applications/Plone/zinstance/parts/instance/etc/zope.conf: [Errno 2] No such file or directory: '/Applications/Plone/zinstance/parts/instance/etc/zope.conf'"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:56
+# b27b63b8bee84d789cc1c91d8879f3ec
+msgid "This means that running ``bin/buildout`` script did not complete successfully. Re-run buildout and see what's wrong."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:60
+# 73955b85e2f04599bd9e80c277aca97e
+msgid "Dropping into pdb"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:62
+# ed460dda19b04020b073b080c53f0dd4
+msgid "If you need to inspect start-up errors in Python's :doc:`debugger </testing_and_debugging/pdb>`."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:64
+# 9910ee9d15404a259c39f7d256bfab11
+msgid "Activate Python configuration associated with your ``bin/instance`` script::"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:68
+# 75b3882ccc0f4eea8eee10582910766a
+msgid "Start Plone pdb enabled::"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:73
+# 120cb69d77204f4bbe871c6c46d7f20b
+msgid "Check if Plone is up and responds to requests"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:75
+# 777a4aa79dcb45ed92a49effbf090745
+msgid "Enter to the computer running Plone (SSH in on UNIX)."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:77
+# fcd699c6c78f4b86b39542ce287af032
+msgid "Use ``telnet`` command to connect Plone port and see if you get valid HTTP response from Plone"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:83
+# bba2cff785eb48bdaa7d3ffe58cd0a45
+msgid "Then do a human HTTP user agent simulation by typing::"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:87
+# 6cd748a93f52484994556d2805abc3ab
+msgid "Plone response looks like this::"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:108
+# ba7570aa9598488d9940dc014960a9ce
+msgid "If you get the answer from Plone (based on HTTP response headers) then Plone is running and you have problem elsewhere in your firewall/server/ front-end web server configuration."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:112
+# edd480e00d134b4b8e65b30920396d5f
+msgid "Consult your operating system manual for fixing your problem."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:115
+# 4de3a35f1a1b471795a50d3de7918f46
+msgid "Cleaning up bad add-on uninstalls"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:117
+# 322fb6843a9b41bba832e431fc67a56c
+msgid "Many low quality Plone add-ons do not uninstall cleanly. You need to remove persistent objects from site database *after* add-on uninstall while *code is still in buildout*."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:121
+# c175763aa3754e88ba63627a783e3bdc
+msgid "Otherwise your Plone site may not"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:123
+# 31d6274f855d4dc2b4f2286fd149b6d6
+msgid "Pack properly"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:125
+# 85f8893b04324fc680d9923a5f116990
+msgid "Start properly"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:127
+# b8acf1574f9241d399c241b4b21381eb
+msgid "Migrate to new version"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:129
+#: ../../source/troubleshooting/images.rst:110
+# da684eccfa56406b8d57bffe7bf72238
+# 23ecfea1b5684ca7b3e6b98749099845
+msgid "For more information see"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:131
+#: ../../source/troubleshooting/exceptions.rst:1401
+#: ../../source/troubleshooting/exceptions.rst:1788
+# 97153507b6884c66b6939ab65c6c7075
+# a7e63bfa36ee40d5b8db46bd8ba64db5
+# 88dad3786ee24267a1df85e5851b3960
+msgid "http://plone.org/documentation/kb/manually-removing-local-persistent-utilities/"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:134
+# a3c2c91e1c13414f922cbff8360dacb6
+msgid "Not able to log in"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:136
+# 0cc3fc826c3c4def9b285c31446a6803
+msgid "It might happen that you start your instance with an empty database and you are not able to log in even if you are absolutely sure about your password. If you work on localhost throw away the localhost related cookies in your browser and restart."
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:140
+# afa4a7f9704e4aefbac703cc112c6ba2
+msgid "If you have lost the Zope Admin Password you can create an emergency user:"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:142
+# 0a3c7968dca84e15af9ca484c9746af7
+msgid "http://quintagroup.com/services/support/tutorials/zope-access"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:146
+#: ../../source/troubleshooting/buildout.rst:153
+#: ../../source/troubleshooting/exceptions.rst:1095
+#: ../../source/troubleshooting/exceptions.rst:1399
+#: ../../source/troubleshooting/exceptions.rst:1827
+#: ../../source/troubleshooting/exceptions.rst:1956
+#: ../../source/troubleshooting/exceptions.rst:2040
+#: ../../source/troubleshooting/transactions.rst:229
+#: ../../source/troubleshooting/transactions.rst:250
+# 126b0ee507b043f5ad3f06cf7d4b98ea
+# 193e2163280d44fda77fb3590ebf7b00
+# da13a3207fd6421fa60aa67e6ec2d7b5
+# 3262dee884ac4e1891fd750af94e5596
+# dc5bb3dfadd141a786ab5671a76b194e
+# 842b7f595b92459d89a7146013167bd0
+# 7fb5d3b7f79c4a4cb55395578ff0994a
+# 10b3cd846d7c48c983c68fd8a19ebd81
+# 8b9040132cc84a2dbb5ca2b0fd84e6c0
+msgid "More info"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:148
+# fcbe30acafb54424add206904f330a87
+msgid ":doc:`common exceptions which you might encounter when starting Zope </troubleshooting/exceptions>`"
+msgstr ""
+
+#: ../../source/troubleshooting/basic.rst:150
+# 48752df6feec494f8121f15ed90f37f8
+msgid "`Plone community support guidelines for asking help <http://plone.org/help>`_"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:3
+# 489b01abe1694c1a934c5a43b9c01e73
+msgid "Buildout troubleshooting"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:7
+# 4a267c66ce32415db4dfc036ab90d16c
+msgid "How to solve problems related to running buildout and some common exceptions you might encounter when running buildout for Plone."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:13
+#: ../../source/troubleshooting/exceptions.rst:12
+#: ../../source/troubleshooting/transactions.rst:12
+# 794dd2746eb34a2e90a64d3198b1c5b1
+# 2222a34c888047f18d8f27c6f01da73a
+# 9e6a4f51a6ca4bac96e36db0d1194c0c
+msgid "Introduction"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:15
+# 155f17c3e52946b19a78def1786ddeb0
+msgid "This document tells how to resolve buildout problems."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:18
+# 4b81250ef0c04c6bbc7881ff62e76845
+msgid "Network errors and timeouts"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:20
+# 8333995e60864bdbab36711b4bf575e4
+msgid "The usual reason for download error or timeout is that either"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:22
+# bc32be0563684303937e0c254193f368
+msgid "``pypi.python.org`` server is down, or"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:23
+# 98ec9599199c4dda95bd45c092616661
+msgid "one of ``plone.org`` servers is down, or"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:24
+# c7a2261769244ac197dcfe2a29f8c587
+msgid "other Python package source server is down."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:26
+# f2ea3e550d2c456e91aa9cd2302edefb
+msgid "Here are instructions how to deal with community servers down situations"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:28
+# fce4612b305e4bf38cd3252a2b703ea1
+msgid "http://jacobian.org/writing/when-pypi-goes-down/"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:30
+# ec8360f0add040dbbf8b0eb0479ae099
+msgid "Mirrors"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:32
+# fda0707f21454d2d8b2d2fce0f56d41c
+msgid "http://pypi.appspot.com/"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:35
+# ee53cb47e725436896919cbe26f81470
+msgid "Individual package failing outside PyPI"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:37
+# acfdb49e91004735a83904d753ddd66d
+msgid "To figure out which file buildout tries to download, usually the only way is to use ``buildout -D`` pdb debug mode and step up in stack frames to see what is going on."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:42
+# ca90fda1677643e59611467873fda69c
+msgid "parts/instance/etc/zope.conf: [Errno 2] No such file or directory"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:45
+# 1e5fd677bc0a4ebd82aa09b6072b3eb1
+msgid "You see this error when trying to start Plone. This means that buildout did not complete correctly and did not generate configuration files."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:48
+# edea4ca40b3f45ed8c9cc592c0100fef
+msgid "Rerun buildout and fix errors in ``buildout.cfg`` based on buildout command output."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:51
+# 6d47b1a84d1e427591e6dab3ec1d0665
+msgid "Buildout and SyntaxErrors"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:53
+# 8e7beb462e024337adfe3b3bd5ed9ee9
+msgid "You may see ``SyntaxError`` exceptions when running buildout::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:57
+# b1003eb8891343738f17fa5d86d8b8a8
+msgid "They are harmless."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:59
+# 65ce91187f0a468796a36ce7d89cf8bf
+msgid "The reason: Buildout uses a Python tool called ``setuptools`` internally to install the packages.  setuptools scans all ``.py`` files inside the Python package and assumes they are Python modules.  However, Plone has something called :doc:`RestrictedPython </security/sandboxing>`. RestrictedPython allows untrusted users to execute Python code in Plone (Python Scripts in the :term:`ZMI`).  RestrictedPython scripts use slightly modified Python syntax compared to plain Python modules."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:67
+# e41f635d61a34d738e026b25b5fd12b8
+msgid "setuptools does not know which files are normal ``.py`` and which files are RestrictedPython and tries to interpret them all using standard Python syntax rules. Then it fails. However, setuptools only tries to scan files (for what?) but still installs them correctly. No harm done."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:74
+# 714acb7b0af14cf5935288c7aef53d30
+msgid "Version conflicts"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:76
+# acd83a9ef3e54e1fa18e71f0a38a77df
+msgid "Buildout gives you an error if there is a dependency shared by two components, and one of the components wants to have a different version of this dependency."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:79
+#: ../../source/troubleshooting/buildout.rst:149
+#: ../../source/troubleshooting/buildout.rst:263
+#: ../../source/troubleshooting/buildout.rst:546
+#: ../../source/troubleshooting/buildout.rst:574
+#: ../../source/troubleshooting/buildout.rst:622
+#: ../../source/troubleshooting/exceptions.rst:193
+#: ../../source/troubleshooting/exceptions.rst:227
+#: ../../source/troubleshooting/exceptions.rst:250
+#: ../../source/troubleshooting/exceptions.rst:286
+#: ../../source/troubleshooting/exceptions.rst:574
+#: ../../source/troubleshooting/exceptions.rst:857
+#: ../../source/troubleshooting/exceptions.rst:1410
+#: ../../source/troubleshooting/exceptions.rst:1497
+#: ../../source/troubleshooting/exceptions.rst:1952
+#: ../../source/troubleshooting/exceptions.rst:2069
+#: ../../source/troubleshooting/exceptions.rst:2087
+#: ../../source/troubleshooting/exceptions.rst:2111
+#: ../../source/troubleshooting/images.rst:117
+#: ../../source/troubleshooting/unicode.rst:39
+#: ../../source/troubleshooting/unicode.rst:107
+# 533772c055544f469bf7d03d9440713e
+# 23aff609ad9c4fdaa9fbf76226debc17
+# 6ee1b321e3e847fd8a80697d5b4eb952
+# 59335e83681b4202bed561c44bf41bc7
+# 28ec5e5786bf419c8c7f2ebd1df094d8
+# 5d5d250d0b7c47418667c4e235f39916
+# 1ce9355e0182480ba85c7181a81198ed
+# b016efe5a7354fd98752bac7a9ea6594
+# d840a3d1e9474940a814ca2713caa588
+# dc5f6e7577964a2a9f0020157066e7a4
+# 48753cf84d4846d4b0b180fbe20d3d01
+# d3f81f5da7c544099a6c38e1e3014390
+# e64d387ab4cd4bf584ea26f2ca893c0f
+# 67bb042c7f1b468f9bfbc88cd7b15058
+# 59df1f50007340fbbdcf7cde61d1b1e8
+# d5ba4cac92d54d5eb316cd84a324c5e0
+# 4a090cda207244d5b74ca74ea48878a2
+# 3ac4920bfada437fb6cd90cc4a18b557
+# a5a6265aedb14d4f8f786419e95aa157
+# 4d868da41db749668d4a15f71bc8de36
+# d2e325b2b1a74a1b9824e6c44ff164c7
+msgid "Example::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:88
+# c1cd7ba2f7564f97873b86b4018f1066
+msgid "If your buildout is fetching strange versions:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:90
+# d363c7c159624512926b9bdeba4a3aab
+msgid "try running buildout in verbose mode: ``bin/buildout -vvv``"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:91
+# 4c316789c6694c8b80a37ae2383f3bc3
+msgid "Use dumppickedversions (below)"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:92
+# 160c94a1f25148f3a0d52d00d87c65a7
+msgid "Manually pin down version in the ``[versions]`` section of your buildout."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:94
+# 68122d6ce65e4d6dae489b86d4ba6a76
+msgid "Further reading:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:96
+# 10f9203e4b874b9399d63bd3deab7618
+msgid "http://maurits.vanrees.org/weblog/archive/2010/08/fake-version-pinning"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:98
+# 0578a2897f544d8294f78fe52591be8e
+msgid "http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-use-buildout-to-pin-product-versions"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:101
+# 6972d3b427084dbe8da7e3a0f73fbaa5
+msgid "Dump picked versions"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:103
+# 356e2179628f48f597f77a4f19d5f1a7
+msgid "This buildout extension will automatically dump picked Python egg versions to a file."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:106
+# 294d258ca94844e5acd6c62058850bf9
+msgid "Add to your ``buildout.cfg``:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:114
+#: ../../source/troubleshooting/exceptions.rst:1203
+# 614d23e557854a8598f6631578d29c3e
+# f8d06bacabc2485ba9af9a5f296459c8
+msgid "More information"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:116
+# e44632735a4843e48cc9e0aed8ce9515
+msgid "`dumppickedversions <http://pypi.python.org/pypi/buildout.dumppickedversions>`_"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:119
+# 72072c2dbd244bc98998251779d122b4
+msgid "Good-py service"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:121
+# d5342435086b41b1b59d361b3acee8ce
+msgid "Good-py contains some good known versions sets. These are most convenient to use if you are using complex configuration of add-ons that you are not familiar with."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:125
+# f8cd406f53364955a2d81c1f0a44db96
+msgid "Some good-py configurations take a Plone version as a paremeter."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:137
+# c19af81de6594fec9b8717555eeb2684
+msgid "Or:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:147
+# 2cf375e1bb0e43148937a1d0d13ee752
+msgid "Extracting version numbers from instance script"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:155
+# a897be4d762e4174b8be9e91aa277a7d
+msgid "http://davidjb.com/blog/2011/06/extracting-a-buildout-versions-cfg-from-a-zope-instance-script/"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:158
+# 62c27d3c674a4049adbb1eeb68805510
+msgid "Plone 3.1"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:160
+# 8a0112df4e634d119d1152ae9ebcb493
+msgid "Plone 3.1 and earlier are not eggified. Below are links how to keep Plone 3.1 and earlier buildouts running."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:163
+# fa5dbfd38bfb497492d7f2b10b95b2ae
+msgid "See:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:165
+# 1d6617dca832447f87e8f9f85e64ee42
+msgid "http://maurits.vanrees.org/weblog/archive/2010/04/nonewplone"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:167
+# b397111a12464484ac39388e1331bc40
+msgid "http://plone.org/documentation/kb/repair-a-plone-3.1-buildout"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:171
+# 772571d2ef12453b939b5bf252797aae
+msgid "Common pindowns"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:173
+# 160bb79c275044a2bc83d0c728349e57
+msgid "Here is a latest pindown example from 2010/02:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:194
+# 4970b1e95b2c47c6b0b5a7fb12f1227e
+msgid "Getting distribution for ``distribute``"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:196
+# 35fcbaea74054dd19e212d1b7fdbb907
+msgid "You try to run buildout, but it is stuck in a loop::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:205
+# 2212e42704b94dc197a49b79a7ab4798
+msgid "Your system-wide Distribute version is older than the latest release. Buildout tries to update it, but since system wide site-packages version overrides anything buildout can do, it is stuck in a loop."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:209
+# 886939c0712e49b8bc1defa8ed6e0265
+msgid "Fix: update Distribute in system-wide Python::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:235
+# 0694076854c549ce87f45b9ea4cb6c12
+msgid "UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:237
+# de644e4a07764a8598454a977daaa04f
+msgid "You get the following traceback when running buildout::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:251
+# c182c917a6194570b5f29a5b33ce2985
+msgid "You might be using an add-on meant for Plone 4 with Plone 3. Check if ``setup.py`` contains *Zope2* as a dependency. If it does, then you need to use earlier version of the add-on for your Plone 3 site."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:255
+#: ../../source/troubleshooting/exceptions.rst:693
+# 1e383e2b426148939b0956e7d74c1b22
+# 909ee580a180493e8d297a1e293742dc
+msgid "More info:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:257
+# 6ddb62e7112148289550053239b05ccd
+msgid "http://groups.google.com/group/singing-dancing/browse_thread/thread/331cdfe78cf371ed"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:261
+# 5313b60eab554944941032d5c12ee81c
+msgid "We already have: zope.interface 4.0.3"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:276
+# ac35392fe0fd46b1bfed8b3f813ce044
+msgid "Your system Python or virtualenv'd Python already has ``zope.interface`` library installed. A lot of Python software uses this library. However, the system version is wrong and cannot be overridden."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:279
+# 1020f0b03b70476d8e4c57b53d2259c4
+msgid "Solutions."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:281
+# a3dcc475fdea4fdf9ce6e7b2adbfe485
+msgid "For virtualenv: ``rm -rf ~/code/plone-venv/lib/python2.7/site-packages/zope.interface-4.0.3-py2.7-macosx-10.8-x86_64.egg``"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:283
+# ff344eedf5fa4fb78880240fbe266451
+msgid "For system Python: You need to create a virtualenv'd Python and to use it to drive buildout, so that there is no conflict with ``zope.interface`` versions."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:287
+# 3092c8076f4547ed8cd01baf085fe1ca
+msgid "We already have: zope.location 3.4.0"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:289
+# 6ba3c4afdcde44c4a8e2e61d7651dae0
+msgid "When running buildout, Plone 3.3.5::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:305
+#: ../../source/troubleshooting/buildout.rst:591
+# 9db1bd6c07884b7aa373c5dd7c0e7359
+# e55acb837db646ee9d51326f2a88cee2
+msgid "Solution:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:315
+# 9ce7e8811a134b34be9a9a04c347542e
+msgid "ImportError: No module named lxml"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:317
+# 1831f72d7a2d4097a3720572bdfd5a24
+msgid "``lxml`` as a PyPi package dependency fails even though it is clearly installed."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:320
+#: ../../source/troubleshooting/buildout.rst:603
+# 425ab56800fe4849b6e141e8a40b2926
+# 2c575d1009fc495897dea9abbc00e5c2
+msgid "Example traceback when running buildout::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:339
+# 55e4f30fff3a420b81d69a56ba5897b5
+msgid "Solution: ensure lxml compilation happens before openxmllib is being compiled."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:342
+# 8310aa66880f453997553c226a46453e
+msgid "For instance, if you are installing something like ``Products.OpenXml``, you will have likely included this egg under your Plone ``[instance]`` section of your buildout.  You should consider using something like ``collective.recipe.staticlxml`` to build lxml and to do this *before* this egg's installation is invoked. Like so in your ``buildout.cfg``:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:361
+# b1487dd4bb954f47919ca3797aed0552
+msgid "More information:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:363
+# 4816289ad21b46f5a929bd799f132363
+msgid "http://www.niteoweb.com/blog/order-of-parts-when-compiling-lxml"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:365
+# a63dc20df8074a3396a1fb2abd03cbde
+msgid "http://plone.293351.n2.nabble.com/lxml-installs-but-Products-OpenXml-openxmllib-can-t-see-it-tp5565184p5565184.html"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:368
+# abc4e5fc569541109e31cae2059ec4a1
+msgid "UnknownExtra: zope.i18n 3.4.0 has no such extra feature 'zcml'"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:370
+#: ../../source/troubleshooting/exceptions.rst:1172
+#: ../../source/troubleshooting/exceptions.rst:1292
+#: ../../source/troubleshooting/exceptions.rst:1339
+#: ../../source/troubleshooting/exceptions.rst:1529
+#: ../../source/troubleshooting/exceptions.rst:1616
+#: ../../source/troubleshooting/exceptions.rst:1766
+#: ../../source/troubleshooting/exceptions.rst:1865
+# 7e25c79ff92d4b10b5fa6ccf2c85c814
+# ce9100a7e5804dfd92d40af26af99461
+# d46f481f8a1241b6a00432642faa2ab6
+# 41bcbccc753b4e49827b76b8f374979f
+# b59232f04b0a4cd8a6e555e47cfb8857
+# 8435b86010cf4c4499cf23a9381a1e3d
+# 18b275ab3e654407946ab9f6a4b4c851
+# 490dc7f673ce40f8887b929411639d3b
+msgid "Traceback::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:395
+# 6462ab874662498aa788ab345fd8fa46
+msgid "Solution: Check that you have the correct Dexteriry or XDV pindowns / Known Good Set of versions or whether you are using a Plone 4 extension in Plone 3.  For example: ``plone.reload`` 2.0 will raise this with a Plone 3.3 buildout, while ``plone.reload`` 1.5 will work with Plone 3.3."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:400
+# 40f1d7c012174a93913d3fda2a7b16c5
+msgid "See Also: `UnknownExtra: zope.i18n 0.0 has no such extra feature 'zcml'`_"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:404
+# 661c9a14e51d421e821459d6aa464657
+msgid "Can't run ``bootstrap.py`` - VersionConflict for ``zc.buildout``"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:406
+# da30fc55e42a457fb546d00b8e7aeb7b
+msgid "Traceback when running ``python bootstrap.py``::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:424
+# 2643a8000f544845af13cb2151333f38
+msgid "Solution: update the ``zc.buildout`` installed in your system Python:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:431
+# 455941b3d02e491db18956cc3b16a360
+msgid "An error occurred when trying to install lxml - error: Setup script exited with error: command 'gcc' failed with exit status 1"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:433
+# 4bcf397370354587912d6c59498f30f1
+msgid "Traceback when running buildout::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:446
+# 10891fb156a349969693b0b2a8f05de9
+msgid "Solution: install the ``libxml`` and ``libxslt`` development headers."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:448
+# 4e6e99314a0d41c4b1b1314691e02c08
+msgid "On Ubuntu/Debian you could do this as follows:"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:456
+# 361992d663304fdeabf15ddbad772179
+msgid "VersionConflict: distribute 0.6.19"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:458
+# 1d1eeb9645914d5683d9bf4fd6f7119a
+msgid "When running buildout you see something like this::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:466
+# 1052297721ee4a24944e1e1b95f9c163
+msgid "Buildout uses the system-wide Distribute installation (``python-distribute`` or similar package, depends on your OS).  To fix this, you need to update system-wide distribution."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:470
+# 16e9c57a177947089b22874e620ff30c
+msgid "It is preferred to do your Python + buildout installation in a :term:`virtualenv`, in order not to break your OS"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:473
+# 3adc42f840c24d1cb5274fbcc7b7241b
+msgid "Update Distribute (Plone universal installer, using supplied ``easy_install`` script):"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:480
+# 437a3e5a5f9b45c29408999d78a12250
+msgid "Update Distribute (OSX/Ubuntu/Linux):"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:488
+# 97c1d9a613e145ee83e78b9a61560904
+msgid "argparse 1.2.1"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:490
+# 39f3d26946fe4594a9f33fddc01c3fb2
+msgid "If you get::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:498
+# 73e22dd986164568b2efd28642374ac1
+msgid "Rerun ``bootstrap.py`` with the correct Python interpreter."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:502
+# f9490411a4c5408a91d42f218cf216be
+msgid "``Error: Picked: <some.package> = <some.version>``"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:504
+# e23eb145f3574ec8ad690633dddd49f0
+msgid "If you get something like this::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:520
+# ce9102625ef44a118072fc445b4e8acb
+msgid "This means that your buildout has \"allow picked versions\" set to false. You need to pin the version for the picked version (or turn on \"allow picked versions\")."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:525
+# 2180d4d872784af6998be4dbe67e8bae
+msgid "Buildout error: ``Not a recognized archive type``"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:527
+# df74fd6d3cda4083bb98f02d0731056f
+msgid "If you run across an error like this when running buildout::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:534
+# ea6188ab2c7544eba7490b926f62df6f
+msgid "the error is likely stemming from an incorrect download of this egg. Check the given file to ensure that the file is correct (for instance, it is a non-zero length file or verifying the content using something like ``md5sum``) before delving deep into your Python install's workings. This error makes it look as if your Python install doesn't have support for this type of archive, but in fact it can be caused by a corrupt download."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:542
+# b6282d0c8aec408583f65b34af4af760
+msgid "VersionConflict: zope.browserpage 3.9.0 requires 'zope.publisher>=3.8'."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:544
+# b896248308654be095a804f6acf1b638
+msgid "Plone 3.3.x package pindown problems."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:552
+# f1ba8c3ad01b4de59655198ceae22002
+msgid "Plone 3.x problem. Pin plone.uuid to 1.0.0."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:554
+# d38a4705df1b40cbb93d791a9592e7c2
+msgid "For Plone 3.3.x You need to pindown::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:569
+# 204ac66ec54b448d82172f05e240ad84
+msgid "Distribute / setuptools tries to mess with system Python and Permission denied"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:571
+# fb18e5252c634171b549633ec59cb018
+msgid "When running ``bootsrap.py`` your buildout files because it tries to write to system-wide Python installation."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:593
+# 3f956298ea8949aeaa07fbdb1e06f8a4
+msgid "`This bug has been fixed in Distiribute 0.6.27 <http://pypi.python.org/pypi/distribute/0.6.27#id2>`_ - make sure your system-wide Python uses this version or above::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:601
+# 3796ba956826448fbc10b37dbf0aac2c
+msgid "UnboundLocalError: local variable 'clients' referenced before assignment"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:616
+# eb03876f53e845cf955dce06ab854698
+msgid "Solution: Your buildout contains leftovers from the past. Remove ``clients`` variable in ``[unifiedinstaller]`` section."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:620
+# 38d445f2577a497f86fa2d55b05f3474
+msgid "Couldn't install: BTrees 4.0.5"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:644
+# 3d8f15292ae04ba0aa5cd41561bdf071
+msgid "Plone 3.3.5 buildout ``fake-eggs`` is not working properly when you boostrap the buildout in a new environment."
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:647
+# 6650f5d3b11a40abb837dff840196d55
+msgid "Try install manually the core buildout part where you have ``fake-eggs`` defined::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:659
+# c0921fe07dfc49f68abe73722fb177ab
+msgid "error: None"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:661
+# e563f8bf2f3a45d4afb2ffda8abb1a0e
+msgid "This means .tar.gz is corrupted::"
+msgstr ""
+
+#: ../../source/troubleshooting/buildout.rst:670
+# 70bae565b6a74e9f98d1ffbcb957e652
+msgid "Buildout download cache is corrupted. Run ``bin/buildout -vvv`` for more info. Then do something like this::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:3
+# 7991a2225ed043b6a2a441370fa3ca99
+msgid "Exceptions and common tracebacks"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:7
+# a2b082bd600c4f198e598975bacd73d6
+msgid "Common Python exception traceback patterns you may encounter when working with Plone."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:14
+# e7c557f212ba49088ab675ba22ab02ba
+msgid "This document contains a list of common developer errors you might encounter and possible solutions for them."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:16
+# 57e5934022ca4be787d071dae330853b
+msgid "Please see :doc:`this tutorial </troubleshooting/basic>` for extracting Python tracebacks from your Plone logs."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:19
+# 6893e51dd67144dcb4fde829c1fcade8
+msgid "AttributeError: 'str' object has no attribute 'other' (Mixed zope.viewpagetemplate and Five.viewpagetemplate)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:21
+#: ../../source/troubleshooting/exceptions.rst:121
+#: ../../source/troubleshooting/exceptions.rst:344
+#: ../../source/troubleshooting/exceptions.rst:796
+#: ../../source/troubleshooting/exceptions.rst:820
+#: ../../source/troubleshooting/exceptions.rst:931
+#: ../../source/troubleshooting/exceptions.rst:955
+#: ../../source/troubleshooting/exceptions.rst:1005
+#: ../../source/troubleshooting/exceptions.rst:1127
+#: ../../source/troubleshooting/exceptions.rst:1644
+#: ../../source/troubleshooting/exceptions.rst:1714
+#: ../../source/troubleshooting/exceptions.rst:2050
+# eddd9efaadfd4322bcb15485dfe883af
+# a294dd4e6a5748c09f676ed0b0aa9e99
+# f411d6c6eede450fa38e1c038895ab5c
+# ba0236756bb64dc28cba265f7a153b37
+# 2512dd5315aa4ef4ab8d8d07f3fb6a52
+# a68f2302091947daa978ce109723ee1d
+# da09403620e34eae95cb14dc4dee0ef2
+# 745ccfd3fe5e466e84453a22cc79b569
+# b5886b48cd0c4ec3ae6e641fc3ced15a
+# 88808866008f457e8f7dd27c029ffb97
+# 06d28ae03294445d88d598458884505f
+# 9f35eb79c4ad43278b5f0fdfc6371650
+msgid "Example traceback::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:50
+# 99c9c713ae61453e97ef4a9d0acbd900
+msgid "Five ViewPageTemplate class file is slightly different than Zope 3's normal ViewPageTemplate file. In this case Five ViewPageTemplate was used, when Zope 3's normal ViewPageTemplate was expected."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:53
+# 36184ae5a8984f33a6b05ab22620deda
+msgid "Another reason is that acquisition chain is not properly set-up in your custom views."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:55
+# 24d165a087ff4bb9b4b6281582f83f9b
+msgid "Difference::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:59
+# 0d805ed2dd754d85b4f40466406ca220
+msgid "vs."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:64
+# 335b1df80b294ec9a2eeb85aad90c55d
+msgid "Iteration over non-sequence in _normalizeargs"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:67
+# 5ee3368e17854cb7af53d191b896af8d
+msgid "Case 1"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:69
+# b183297196d6423ebddc90c54ad9a295
+msgid "The following log trace will appear when you try to render the site, but you can access ZMI normally::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:112
+# e9c8acc47d774c3bad563bdf72945855
+msgid "This usually means that you have copied Data.fs from another system, but you do not have identical add-on product configuration installed."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:116
+# eaa133fd25004c05ac7caff684592c01
+msgid "`For more info see this error reference on plone.org <http://plone.org/documentation/error/typeerror-iteration-over-non-sequence>`_."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:119
+# ff74843a6e43420f9242754599d0839b
+msgid "Case 2"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:160
+# 3046414540074762a371254cfc45f31f
+msgid "Reason: You are trying to use Plone 4 (Zope 2.12) add-on on Plone 3 (Zope 2.10). Zope interface declarations have been changed."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:162
+# a886e9ddd9394da48668d18fc237df7d
+msgid "**Solution 1**: Pick the older version for the add-on which is known to work with Plone 3. Make sure that you delete all \"too eggs\" from ``eggs/`` and ``src/`` folders."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:165
+# fed7da1e182b4b45bf7790cf8edd82ac
+msgid "**Solution 2**: Upgrade your site to Plone."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:168
+# cd0d17e25852410d9f0ad17ac3a5c7bf
+msgid "TraversalError with lots of tuples and lists (METAL problem)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:170
+# 05bcb6d2c036488489f78dff8381fe13
+msgid "Exception::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:188
+# 5986177503594cbc9d74a148c9129332
+msgid "Some template tries to call macro inside another template and the macro is not defined in the target template."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:191
+# 181474e5347b48bf983c1053f6ab2b14
+msgid "AttributeError in setRoles due to workflow state transition"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:215
+# a27ba2cc92304845b40a27d5f3e42de6
+msgid "Possible reasons"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:217
+# e954980a1e384002a40b94781e8b0bd3
+msgid "You are using AnnotationStorage but you forgot to declare atapi.ATFieldProperty in your class body"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:219
+# 12aa8f561fad4b45b48d55c7fe1d367f
+msgid "You are inhering schema in Archetypes, but you do not inherit the class itself"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:223
+# a802bdbba42c40ef88d8e08044900a99
+msgid "Add-on installer error: too many values to unpack"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:225
+# c259eeefa69047028ad8d71b7182a644
+msgid "An exception prevents running a quick installer."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:240
+# 2c9af20bd10548dd9e5e87a57395fda9
+msgid "Reason:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:242
+# 52adfbc151874037965a8fad23a5a578
+msgid "You have run Data.fs with zope.component 3.5.1, but later downgraded / moved Data.fs. Pin zope.component to 3.5.1."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:245
+# f5ae77d81df8433892f7b9186fe4e2bc
+msgid "`See discussion <http://plone.org/support/forums/general#nabble-td3257712%7Ca3257712>`_."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:248
+# b4cd6acdb2334615a522e3f913382f82
+msgid "Add-on installer error: This object was originally created by a product that is no longer installed"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:268
+# 31806f7f69e3407e8e994a07eb9d17f2
+msgid "Data.fs contains objects for which the code is not present. You have probably moved Data.fs or edited buildout.cfg."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:271
+# 7b99b27284754f368a2d01fceaf08865
+msgid "Check that eggs and zcml contain all necessary products in buildout.cfg."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:273
+# af66d857b40049c4b7023980497b1b9b
+msgid "Discussion"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:275
+# 1e5ef3b887b348f6b105c97f5c48101f
+msgid "http://plone.org/support/forums/general#nabble-td3523234"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:277
+# c881ba20abec4a148155cdc4ec37086f
+msgid "http://article.gmane.org/gmane.comp.web.zope.plone.setup/3232"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:281
+# c64cc92a485e447c840b0957eaea2eb4
+msgid "z3c.form based form updateWidgets() raises ComponentLookupError"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:284
+# 91a5d75413064b44939bfdc4c00b851c
+msgid "Case 1: z3c.form with Plone 3"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:306
+# 6f71741ff672409b875096f73ae9f3c4
+msgid "Reason: To use z3c.form based forms z3c.form.interfaces.IFormRequest must be enabled for HTTP request object to make form layer adaptions work."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:309
+# 8b239e2558fb435fa3e12117f961d606
+msgid "How to fix:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:311
+# f1436a3d5f15458a86e728e38f0a0a84
+msgid "Wrap your forms with plone.z3cform.layout.wrap_form() call as instructed in plone.z3cform README"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:313
+# 349aab44e5be4bee938e86309b7b0a24
+msgid "The same error occurs if plone.app.z3cform, plone.z3cform and z3c.form are not properly included through ZCML. In order to be sure that those modules are properly included, you can add the following lines into your configure.zcml"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:322
+# 72737c42db204a95aaf1fc7b1ab14a7f
+msgid "...or you can use autoinclude feature for Plone 3.3+"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:324
+# 74e3de642be94790a38fdbc8dfc49fc1
+msgid "in configure.zcml"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:330
+# 1aefcbf231bb441abe8871e3431c1d4c
+msgid "and then your add-on product setup.py file::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:339
+# 9a76d188a26043e1804cc507cd79bf9c
+msgid "Also remember to run Plone add-on installer for plone.app.z3cform (though it is unrelated to this error)."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:342
+# 56f887ec58164969b051ab4a9b598ea7
+msgid "Case 2: missing plone.app.z3cform migration"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:358
+# 2949b79445f04567af440e1bf50a6349
+msgid "You are running Plone 4 with ``plone.app.directives`` form which does not open. The reason is that you most likely have old ``plone.app.z3cform`` installation which is not upgraded properly. In particular, the following layer is missing"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:367
+# 4f41e0f7aa5a4c1b92b22c2d6e617a34
+msgid "This enables ``z3c.form`` widgets on a Plone site."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:369
+# 52718f6e7dff4f89885e5ff847feda45
+msgid "Solution: *portal_setup* > *Import*. Choose profile *Plone z3cform support*. and import. The layer gets properly inserted to your site database."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:373
+# ad44c1d6bf3640799e761e88ac2400c7
+msgid "NotFound error (Page not found) when accessing @@manage-portlets"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:375
+# 0b9b4a2bf02942978407b4cd2d5b3c93
+msgid "If you get *Page not found* error when accessing @@manage-portlets the first thing you need to do is to enable logging of NotFound exceptions in ZMI in error_log."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:378
+# 5115454eaf8e47a5b3abcb9a6a97ad4d
+msgid "After that reload @@manage-portlets."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:380
+# cc51b858e2f4455c90a808a5b7577652
+msgid "When you try to access @@manage-portlets an exception a NotFound exception is raised::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:439
+# ca6b9f262bdc47acbb82559333f0e3ae
+msgid "This usually means that your site has an portlet assignment which code is not present anymore."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:441
+# 2db6bd5f81a34756b99d4bcec7c804fa
+msgid "In this case you can see that portlet type \"collective.easytemplate.TemplatedPortlet\" is missing."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:443
+# e01a02a1d7b94eaba1e3c0b9a6bafb94
+msgid "Ä Check that you include the corresponding product (collective.easytemplate) in eggs= section in buildout.cfg"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:445
+# 75648fed20844956aeb029c57653b1ca
+msgid "Reinstall removed egg which has the code for the portlet"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:447
+# 4f7833ee69344f259e845dab70cb54ad
+msgid "Check that you include the corresponding product (collective.easytemplate) in zcml= section in buildout.cfg"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:449
+# 006ae9097a9342aa8d68ab69b0e15aa1
+msgid "Make sure that portlet name is the same in ZCML and GenericSetup XML"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:451
+# d821ab24a9b24e41b4a6e7837c008ae6
+msgid "Make sure you use <include package=\".portlets\" /> in your code"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:454
+# 29aa6c450c6049afb28c6d89ec86987d
+msgid "Manually removing the portlet"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:456
+# e7e867d087d743628b49d7893afedee5
+msgid "If you have a traceback like this::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:487
+# 22aa7555d6924134883e60c328530e06
+msgid "It usually means that there is a portlet in your content which product code has been removed."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:489
+# 1211a065a9f247af8191fc63b98809fc
+msgid "Reinstall the add-on providing the portlet, remove the portlet and then uninstall the add-on again."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:492
+# 5b31107762e541738d896dabf71fbd19
+msgid "AttributeError: getPhysicalPath()"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:526
+# 8b888ad26004498a9bf275c02ba68992
+msgid "Another possibility::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:530
+# 79b6de50acd346bdadba2405df837a19
+msgid "This usually means that you should have used context.aq_inner when you have used context. absolute_url() tries to get the path to the object, but object parent is set to view (context.aq_parent) instead of real container object (context.aq_inner.aq_parent)."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:536
+# c3e7b6b3baad4deaaae18f0e0a187679
+msgid "When setting a member attribute in BrowserView, the acquisition parent of objec changes to BrowserView instance. All member attributes receive ImplicitAcquisitionWrapper automatically."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:540
+# b5423fea11424f91915a132c07c234b2
+msgid "Demonstration"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:542
+# 3cfaf5f133354dbb9b065b66a8fc8b37
+msgid "We try to set BrowserView member attribute defining_context to be some context object."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:544
+# f89a01ba2a22449e9c4d7b668c6456cf
+msgid "(Pdb) self.defining_context = context (Pdb) context.aq_parent <PloneSite at /plone> (Pdb) self.defining_context.aq_parent <Products.Five.metaclass.HeaderAnimationHelper object at 0xadb5750> (Pdb) self.defining_context.aq_inner.aq_parent <Products.Five.metaclass.HeaderAnimationHelper object at 0xadb5750> (Pdb) self.defining_context.aq_parent.aq_parent <ATDocument at /plone/doc> (Pdb) self.defining_context.aq_parent.aq_parent.aq_inner <ATDocument at /plone/doc> (Pdb) self.defining_context.aq_parent.aq_parent.aq_parent <PloneSite at /plone>"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:558
+# 59b2753fbc2842ed80d632a889c3e5fa
+msgid "To get the real object (as it was before set was called) you can create a helper getter::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:572
+# bb412009df4a4ec984ce544fce1e4fe2
+msgid "RuntimeError: maximum recursion depth exceeded (Archetypes field problem)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:604
+# 96178b97788342ce83db596816a7e83e
+msgid "Reason: Schema fields using AttributeStorage (usually images, files) **cannot** have ATFieldProperty in the class::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:611
+# b694da00c8174fc08f61a9503e69612b
+msgid "To fix this simply remobe ATFieldProperty() declaration for the problematic field. You cannot access the field value anymore by calling *object.memberimage* but you need to call *object.getMemberimage()* instead."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:616
+# 08a80c9556ce4ac28e5f7854ad2cbff6
+msgid "Invalid or Duplicate property id"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:618
+# a7c0cc7087374bd3a8bd5175afe66152
+msgid "The following exception may appear during Plone migration to the newer version::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:678
+# 1147389ce10d40e0ab02246d5fd7383e
+msgid "It is caused by a property (site setting) which already exists and migration tries to create it. The usual reason is that one has edited site settings in new Plone version before running the migration."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:681
+# 337b709f80e442279eaf5bd1549420bf
+msgid "Try remove violating property ids from the site_properties manually in Zope."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:683
+# e673ca4d02b645e6b6df3cac890bfdac
+msgid "Potential candidates to be removed:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:685
+# 9acb220d64194d4e96b4076083445743
+msgid "enable_inline_editing"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:687
+# a9f57522a9c74891a270d41047d50479
+msgid "lock_on_ttw_edit (boolean)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:689
+# 2f28491630f74c11bb3f9685f7abfa60
+msgid "Potential candidates which need to be added manually:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:691
+# f5f2ccf8ba7545ce986a53ea55cbc0c3
+msgid "redirect_links (boolean)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:695
+# d1b9eeb3e62d472282cf9c5caf140ae2
+msgid "http://www.mail-archive.com/setup@lists.plone.org/msg03988.html"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:699
+# fe6c2b8869df4d56abc61c97564c7618
+msgid "TraversalError: No traversable adapter found"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:701
+# 84f3c085b886450cbb76224d8a65b3a3
+msgid "Traceback (innermost last):"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:703
+# 43c8473f91b14945b644498620702359
+msgid "Module ZPublisher.Publish, line 202, in publish_module_standard"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:704
+# 6606e05e72f94cc189a9545a1fea9816
+msgid "Module Products.LinguaPlone.patches, line 66, in new_publish"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:705
+# dabe5abb02174a89b711c31dc803921b
+msgid "Module ZPublisher.Publish, line 150, in publish"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:706
+# 2c07025ca3e24163a2846efaa4cb4a2c
+msgid "Module Zope2.App.startup, line 221, in zpublisher_exception_hook"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:707
+# c9893cc1ddb843988cdd17e64addfc27
+msgid "Module ZPublisher.Publish, line 119, in publish"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:708
+# a5f9a77dc6fa4dc5b79044b4d52978e2
+msgid "Module ZPublisher.mapply, line 88, in mapply"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:709
+# 41e57425f080441bbde7e5920b95e16b
+msgid "Module ZPublisher.Publish, line 42, in call_object"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:710
+# 175df5e8effc4e0cb4823639cd24fc1f
+msgid "Module Shared.DC.Scripts.Bindings, line 313, in __call__"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:711
+# 6820617f998a416f84494fa0b794385f
+msgid "Module Shared.DC.Scripts.Bindings, line 350, in _bindAndExec"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:712
+# 1b769e8b64624b7eb307b293fc9577e1
+msgid "Module Products.CMFCore.FSPageTemplate, line 216, in _exec"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:713
+# 2b4c4af0194940dd916d24b9bc09b02d
+msgid "Module Products.CMFCore.FSPageTemplate, line 155, in pt_render"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:714
+# 2ed90dfcd5524e96a1df229e136b6669
+msgid "Module Products.PageTemplates.PageTemplate, line 98, in pt_render"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:715
+# 4a8f014a29664c69bc0464434ca174f0
+msgid "Module zope.pagetemplate.pagetemplate, line 117, in pt_render Warning: Macro expansion failed Warning: zope.traversing.interfaces.TraversalError: ('No traversable adapter found',"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:720
+# 45adc3ec64564acdb383bff6d92b1ffa
+msgid "This traceback is followed by long dump of template code internals."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:722
+# 69f9d23e21b2431f9681758e5a5ec986
+msgid "Usual cause: Some add-on product fails to initialize."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:724
+# 323c3f30dfd748b4935e336a5073a091
+msgid "Start Zope in foreground mode (bin/instance fg) to see which product fails."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:727
+# 6d5499c686aa4b53b3715eed60cc4308
+msgid "ImportError: Inappropriate file type for dynamic loading"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:729
+# 44bca8da92a24eeaa83a1e97555a8e43
+msgid "Exception when starting Zope::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:743
+# 49ecde0672e44539afe0d764b3e7612c
+msgid "You probably have files lying over from wrong CPU architecture"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:745
+# d3c96bf0c15b452988909fe81506b7eb
+msgid "Hand copied eggs between servers"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:747
+# ec896cc519b34c059ed5c203416b27bc
+msgid "Migrated OS to new version"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:749
+# b3c436fff1614a2488d8db3057a05ea5
+msgid "You have several Python interpreters installed and you try to run Zope using the wrong interpreter (the one which the code is not compiled for)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:752
+# 6c607d8a69af40d8b152262a29449f81
+msgid "How to solve problem"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:754
+# d1c7668c32184fc6ac781e374d936f79
+msgid "Delete /parts and /eggs buildout folders, run bootstrap, run buildout."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:757
+# c3f54cacb5994e67bdd1f0f6f42dae4a
+msgid "BadRequest: The id \"xxx\" is invalid - it is already in use."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:759
+#: ../../source/troubleshooting/transactions.rst:293
+# 7e498e0922ea475799c3dbf5b489f478
+# a93f68096b66404faa40cda2a141e98e
+msgid "Traceback example::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:789
+# e50bea5e68274e64a0402f4c07fb1e1e
+msgid "Not really sure why this happens."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:791
+# 5bd90311a3984bbfa4d990356b7fde6f
+msgid "Try portal_catalog rebuild as a fix."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:794
+# d04292b22fc0465b8b2d26655262d8a7
+msgid "Exception: Type name not specified in createObject"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:812
+# 52196333a0ec44fcbb5859edcda7f257
+msgid "Complete"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:815
+# 9691c7aa02444f3bb7b6abbdcf4dfbf0
+msgid "Unauthorized: The object is marked as private"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:817
+# c251bc14b02848f0880ec9d45453719d
+msgid "This error is raised when you try to access view functions or objects for a view, which you call manually from the code."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:840
+# d39b00b4d8bb4f4aa9d2711719dfc53d
+msgid "View acquisition chain is not properly set up and the security manager cannot traverse acquisition chain parents to properly determine permissions."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:843
+# 9bcdfe8ede9f4b45bca8cdf615e130d7
+msgid "You need to use __of__() method to set-up the acquisition chain for the view::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:855
+# d5021fb8ef2348a5aa696e65b90ed25c
+msgid "ImportError: No module named PIL"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:913
+# 01028d6148ce4933a004fd236d59d61c
+msgid "Python Imaging Library is not properly installed. The default PIL package does not work nicely as egg."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:915
+# eb7fa0f86f0b46f69011255aa633a53b
+msgid "Remove all existing PIL eggs from buildout/eggs folder."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:917
+# 7a751a65aeee4412beca7d09a8a69fbe
+msgid "Install PIL for your development Python environment::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:922
+# 62e9368e8e054aef9338dfe3210651dd
+msgid "NotFound while accessing a BrowserView based view"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:924
+# 068ad71e01a44ac18c3bf4927241c6cf
+msgid "You'll get a NotFound error when accessing view using view traverse notation, event though the view exist."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:927
+# ef8a7f4d6d97470ba08960052477efcf
+msgid "Example URL::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:939
+# 6babcbaaeee54b11a65ee97f41fa1810
+msgid "This is because there is an exception raised in your view's __init__() method. Views are Zope multi-adapters. Exception in multi-adapter factory method causes ComponentLookUpError. Zope 2 publisher translates this to NotFound error."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:944
+#: ../../source/troubleshooting/unicode.rst:128
+# 333ea13e2ad44e9a86918ee66f39930f
+# eb69fd3a834a4c9ab61c7640a0c41812
+msgid "How to fix"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:946
+# d7b5a0ceb0924e43ad514b686e60a405
+msgid "Put :doc:`pdb break statement </testing_and_debugging/pdb>` to the beginning of the __init__() method of your view. Then step through view code to see where the exception is raisen."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:949
+# 4bd31f134d314fd28791a37c8c944809
+msgid "If your view does not have __init__() method, then copy the source code __init__() method to your view class from the first parent class which has a view"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:953
+# befbf38a52bb4e898b12e4a918f0c6f6
+msgid "ContentProviderLookupError: plone.htmlhead"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:980
+# 0846883320b0400799e2713944cceed9
+msgid "This is not a bug in Zope. It is caused by trying to render a Plone page frame in an context which has not acquisition chain properly set up. Plone ``main_template.pt`` tries to look up viewlet managers by acquistion traversing to parent objects. ``plone.htmlhead`` is the first viewlet manager to be looked up like this, and it will fail firstly."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:986
+# 4b05ef188f9d4512a20ee6db88b82520
+msgid "Some possible causes"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:988
+# 729c55680348411b90f89924b48f8cd5
+msgid "You are trying to embed main_template inside form/view which is already rendered in main_template frame. Please see how to :doc:`embed forms and wrap forms manually </forms/z3c.form>`."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:991
+# 12a93aadc4874780a142795b7c7ca1c9
+msgid "You might be using wrong ViewPageTemplate import (Five vs. zope.pagetemplate - explained elsewhere in this documentation)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:993
+# 1f8ff3830cf74f439376b9ca551535c1
+msgid "Make sure that you call __of__() method for views and other objects you construct by hand which expects themselves to be in the acquisition chain (normally discovered by traversing)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:996
+# c1a90af9d0324a72a7e3de88799ab8eb
+msgid "See"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:998
+# c712c6c9b35b42dc94e48bcc1d495eee
+msgid "https://bugs.launchpad.net/zope2/+bug/176566"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1003
+# 7d3febb698e14253a0587232b6315976
+msgid "Error while installing a new portlet portlets.xml: unbound prefix"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1023
+# cf5f1aa8f1274a179f3afb556a6f5e39
+msgid "Answer:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1025
+# b3a652d3437248ababc31239714443eb
+msgid "You have ``i18n:attributes=\"title; description\"`` in your portlets.xml. Remove it or declare i18n namespace in XML."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1028
+# 97b079f29ae04df3890de9db48b318e1
+msgid "ImportError: Couldn't import ZPublisherEventsBackport"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1030
+# 7a4c1a04455a419f838f0f7d878d85b0
+msgid "The following traceback on instance start-up::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1042
+# cc5ddaf335f04dd2a2e87d0de55cf71f
+msgid "plone.postpublicationhook 1.1 depends on new package, ZPublisherEventsBackport, for Plone 3.3. You eed to include them both in your buildout. You need to include both eggs::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1050
+# ceb89e9e34d94e1f85a6e7016b3db2ce
+msgid "ERROR ZODB.Connection Couldn't load state for 0x00"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1052
+# b0add1b74ea7493b8de21555d82d0fa1
+msgid "The following traceback pops up when you try to start Zope::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1076
+# ee495e7cef35440bb8add6f728dd8e4f
+msgid "Data.fs might have been damaged. You might be using blobs with Plone 3 and they don't work perfectly. . . . or a bunch other issues which generally mean that your day is screwed."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1079
+# 21543e9b5e1345909eb047ccfb4919ba
+msgid "See also"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1081
+# 3f0a80b0606149e8a9517143e5c7243b
+msgid "http://plonechix.blogspot.com/2009/12/definitive-guide-to-poskeyerror.html"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1084
+# 4394e368dd64430d958b2e64f503bfd7
+msgid "POSKeyError"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1086
+# f1c6c2b316394bb4af079ca9c7aaedbb
+msgid "POSKeyError is when the database has been unable to convert a reference to an object into the object itself It's a low level error usually caused by a corrupt or incomplete database."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1089
+# 87637da99318493cbb1a419aef3430dc
+msgid "You did not copy blobs when you copied Data.fs"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1091
+# e17ce8520e884397a392c03de6ca2a78
+msgid "Your data is corrupted"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1093
+# 876601c161424148bc560738a9a665e0
+msgid "Glitch in database (very unlikely)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1097
+# 1ed8526db2b54204a30ef5949c34732a
+msgid "http://rpatterson.net/blog/poskeyerror-during-commit"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1100
+# 42b74d1370e1497fb69057b3f8868edd
+msgid "Zope suddenly dies on OSX without a reason"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1102
+# cc904d7a674a43d5916d395742957e34
+msgid "Symptoms: you do a HTTP request to a Plone site running OSX. Zope quits without a reason."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1104
+# 25fae1d886bd48468a70f43fc0668fe8
+msgid "Reason: Infinite recursion is not properly handled by Python on OSX. This is because OSX C stack size is smaller than Python default stack size. The underlying Python interpreter dies before being able to raise stack size limit exception."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1108
+# da46c7d73c09441bb4d33a5997430bd3
+msgid "**Workaround**"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1110
+# 358042d927f8414d925838d1f127f217
+msgid "Edit ``python-2.4/lib/python2.4/site.py`` or corresponding Python interpreter ``site.py`` file (Python site installation customization file)."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1113
+# 60ca3f1248e44fdcbc4fa5bfdf0678b6
+msgid "Put in to the first code line::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1117
+# 4ff9e24a1943425089050d118969d614
+msgid "This will force smaller Python stack not exceeding native OSX C stack. You might want to test other values and report back the findings."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1120
+# 303ab3aa16434bc9b0d335617bb895a3
+msgid "More Information"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1122
+# 679d822e7578463b95596ea468044fd1
+msgid "http://blog.crowproductions.de/2008/12/14/a-buildout-to-tame-the-snake-pit/ (comments)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1125
+# d194cea7f3004757870b7bcaa4797ba6
+msgid "IOError: [Errno url error] unknown url type: 'https'"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1139
+# 3620536a7be841de905d28acbddfbb2d
+msgid "Reason: Python and Python socket modules have not been compiled with SSL support."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1141
+# a4b3dc0028b04966988b6ccd0e1cde89
+msgid "Make sure that you have SSL development libraries installed (Ubuntu/Debian example)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1147
+# 6a0a6145e88644e594e0b6037d5605d8
+msgid "Make sure that Python is built with SSL support"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1153
+# 4cdbdcb41e94416ca2e8921665343c34
+msgid "You can test Python after compilation::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1163
+# 904870620816423ca2395290a425e40b
+msgid "Also you might want try"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1170
+# eb901161e0f844838c644838bc61ab14
+msgid "TypeError: len() of unsized object in smtplib"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1201
+# fd82c88e53d449a5a3e181557b4c193b
+msgid "Cause: Your SMTP password has been set empty. Please reset your SMTP password in *Mail* control panel."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1205
+# 6657fb47d0f745948692779be8d558c7
+msgid "http://plone.293351.n2.nabble.com/Plone-3-3-5-sending-emails-len-of-unsized-object-error-NO-ESMTP-PASSWORD-tp5415484p5415484.html"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1209
+# c4210e7e2b134adfa4d54add35e322b5
+msgid "NameError: name 'test' is not defined"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1211
+# fa456079a96c4ed1a87e8ea086bfc49e
+msgid "This exception occurs when you try to customize TAL page template code using test() function. test() function has been dropped in Zope 3 page templates. You should no longer use test() function anywhere."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1215
+# f363d845473e4fad9341786ce157ff3a
+msgid "Solution: replace test() with common Python expression in your customized template."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1217
+# bad9a794d9d646cc99057bee15be406b
+msgid "For example the orignal::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1221
+# a3e96393ac7145628a9da32e4bab9c03
+msgid "would need to be written as:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1223
+# e4ba03a639c44973acc86044aac1458d
+msgid "tal:attributes=\"class python:here.Format() in ('text/structured', 'text/x-rst', ) and 'stx' + kss_class or 'plain' + kss_class\""
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1226
+# 40ce699a1d85475bb6b4c46d77c4939c
+msgid "TraversalError(subject, name) in expressions"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1228
+# 8f9889f3cb89472e9264234b11ccb9af
+msgid "You have traceback like::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1275
+# 0ee9d26f755e47f98593b122a963afc6
+msgid "From line ``Products/PageTemplates/Expressions.py`` you can see the error comes from TAL templates. TAL templates are trying to execute path based expressions."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1278
+# e429f1f1570c4653b8d2062d7dd22ef5
+msgid "If you can view this error through error_log the error_log traceback will contain information what expression causes the exception. However if this only happens with unit tests you can have something like::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1287
+# 5c5466c55c46463eaab7eb857f0e4cba
+msgid "manually injected to ``zope.tales.expression`` module."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1290
+# c5cbc7601c284e6f8b7f90034d25631f
+msgid "Content status history won't render - traceback is content path reversed"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1324
+# 807a970fe7f24371abc4ddc51fe96604
+msgid "No solution"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1327
+# d2ff7b2188384721959d1c4941c4e11c
+msgid "AttributeError: 'module' object has no attribute 'HTTPSConnection'"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1329
+# 7c9e42f2e33d47fc8fa136c159efcf81
+msgid "Python has not been compiled with HTTPS support."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1331
+# 712b01c8fd81461fa3f3a3575d6adeba
+msgid "Try installing your Python, for example, using minitage."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1333
+# 52dbe67005d1435d942236faf1cb8e16
+msgid "See :doc:`Python basics </getstarted/python>`."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1337
+# 50a3dfe53f804bd98327b57a6bd0d807
+msgid "LinguaPlone: ImportError: cannot import name permissions"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1353
+# cc5e4b0d0052458789db0b0c523c8267
+msgid "This seems to be Plone 4 issue of some sort. Import Products.ATContentTypes before importing LinguagePlone."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1356
+#: ../../source/troubleshooting/exceptions.rst:1360
+# eb7b214a701245348efcdf87e9167c2c
+# c3c2ed8371f0453cb53ac71fdf63b403
+msgid "http://plone.org/products/linguaplone/issues/253"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1358
+# 72f7f3e7bfb44b9ca069d525c7591c9c
+msgid "Related"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1363
+# e26e121eb3454a01a448c70cabb9e88d
+msgid "TypeError: 'NoneType' object is not callable during upgrade"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1365
+# e1452a4e9d7a46c1bd6b07818ef6bb9c
+msgid "Traceback during add-on install run / site upgrade::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1382
+# 9c7bb5e706e548d78fd59b684039a2be
+msgid "This means that your site database contains installed add-on utility objects for which Python code is no longer present."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1385
+# 659798055e8d49a59499df9b57ea8410
+msgid "More pointers for resolving the tool can be found using pdb::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1390
+# f71b7a8378674b6e99f234a3fdd12b36
+msgid "This happens when you have used Singing and Dancing news letter product. This add-on is problematic and does not uninstall cleanly."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1393
+# e8381e4262dc4855917c7592fc4ce52c
+msgid "Reinstall Singing & Dancing"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1395
+# f1c164ea2c3645d7ac555744f886d9e6
+msgid "Uninstall Singing & Dancing"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1397
+# 9f3e94ab6ade459f91134f58de80df52
+msgid "Hope your site works again"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1403
+# 0757aa84f2d34a62b459c21ee1617db2
+msgid "http://opensourcehacker.com/2011/06/01/plone-4-upgrade-results-and-steps/"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1405
+# 09f8f45328254b8082d07b6654fbfb86
+msgid "http://pypi.python.org/pypi/wildcard.fixpersistentutilities"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1408
+# 85e33a3af6514ad0b77074a165c464a0
+msgid "ImportError: No module named pkgutil"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1420
+# be616b894b69484ba1026b88d21831c1
+msgid "If you are using Eclipse, ``idelauncher.py`` has been updated for Plone 4."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1422
+# 79909325ae284ba09d45a4b9e73cda60
+msgid "Remove ``bin/idelauncher.py`` from file system"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1424
+# 4abfac7448de49b0bff477688fcda495
+msgid "Redownload it from `here <http://plone.org/documentation/kb/developing-plone-with-eclipse/ide-compatible-launcher-script>`_"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1426
+# 1ac16dea0ba14bc28fd3315be25772b9
+msgid "...or of you are using *collective.eclipsescripts* rerun command *Scripts -> Plone -> Import src folder as workspace*"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1429
+# 9f91d341627542ec90a1d37967f05371
+msgid "\"PicklingError: Can't pickle <class 'collective.singing.async.IQueue'>: import of module collective.singing.async\""
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1431
+# 3e92729bd1734853a874b49ef5307ffd
+msgid "Singing & Dancing add-on does not uninstall cleanly. Try this command-line script to get it fixed (not tested). Some parts may work, some not, depending on how messed up your site is."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1434
+# 9950a8bdcc894c9e8a2c8165975fbbc6
+msgid "Note that you need to have S & D present in the buildout when running this and then you can remove it afterwards::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1462
+# 5a975800efb6401283507a6afc5aab60
+msgid "System lxml too old"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1464
+# 596fda4a2f0744bca86967ad50fc65ae
+msgid "Traceback when starting an instance::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1476
+# e9c1445c0fb746958a482b499792710b
+msgid "Let's see if we are getting too old system wide lxml installation::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1494
+# 5b3e213aead54e3d84d30e5f8a4a5934
+msgid "If we cannot fix the system lxml (your system software depends on it) the only workaround is to create virtualenv. We cannot force Python 2.6, 2.5 or 2.4 not to use system libraries."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1501
+# d8a666c876224b9291bc0a8522368e09
+msgid "Include standalone lxml + libxml compilation in your ``buildout.cfg``::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1512
+# 6d4aa2d456b7430b8eebddb7c7a86098
+msgid "If there are exiting lxml builds in buildout be sure they are removed::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1516
+# f61a3fffd12548f4bd7680b8e18049d0
+msgid "Then as the non-root re-bootstrap the buildout using non-system wide Python::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1524
+# c6e2a6ee0dc44c058f483e251eca5a50
+msgid "... and after this it should no longer pull the bad system lxml."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1527
+# 5cda8c6a4e1d4134a73a6074e15cf4de
+msgid "TraversalError: @@standard_macros"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1565
+# a269d26ef01347648f2ba79f084e53d1
+msgid ":doc`Wrapping is missing from your form object </forms/z3c.form.txt>`. In this case the following helped::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1584
+# c0fa7cd41b35459992a11b018bab06ed
+msgid "AttributeError: 'wrapper_descriptor' object has no attribute 'im_func'"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1586
+# 7244e327488d43008937382e5f09a85d
+msgid "Traceback when starting Plone::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1596
+# 4084e9c66b4d4fa48baa235906c2ce5d
+msgid "Cause: Trying to use Python 2.6 with Plone 3 - you need to use Python 2.4."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1599
+# a9da4adb05df4dd5a0c55e573202f85c
+msgid "getUtility() fails: ComponentLookupError"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1601
+# 7deef8a49b144a1f9b57e4e409a09ecd
+msgid "Example exception::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1607
+# d74a7b563df84e3db5061d46cd9c5c4f
+msgid "Make sure that your class object implements in the utility interface in the question::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1614
+# 91ff9f3702c240f8a179b3eb647c28af
+msgid "AttributeError: REQUEST in getObject"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1637
+# 12178af9194b49ccbb032b7ef9d2e545
+msgid "Reason: You are using command line script. getObject() fails for a catalog brain, because the actual object is gone. However, unrestrictedTraverse() does not handle this case gracefully."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1642
+# abf2ad95403b4591805b69aa021c2f0d
+msgid "get_language: 'NoneType' object has no attribute 'getLocaleID'"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1705
+# 653707d322df4125a793335ba1883061
+msgid "Some sort of Products.CacheSetup related problem on Plone 3.3.x, hiding the real error. Zope component architecture loading has failed (you are missing critical bits). This is just the first entry where it tries to use an unloaded code."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1709
+# 49561c2f742543ab9bf2ec11de30d6d8
+msgid "Start your instance on the foreground and you should see the actual error."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1712
+# 569ee2216c83434787d0086d5d677971
+msgid "Error _restore_index() when starting instance / ZEO server"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1756
+# df5153bfcc00487ebc026161ee0a4865
+msgid "Reason: Data.fs.index is corrupted."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1758
+# a5bcd5e9e5fa4341a1a25ea1ac40bc2d
+msgid "Fix. Remove Data.fs.index file. The index will be rebuilt on the launch."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1761
+# 7b777b66893e4921b78a8ad59fd82143
+msgid "importToolset: TypeError: 'NoneType' object is not callable"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1763
+# 81c7ffe860d34052a7a29cc88bb21d60
+msgid "This happens when you try to install an add-on product through Add-ons configuration panel."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1779
+# 6a3ee2d297ba4642a33dd7e1f33ebdf4
+msgid "You have leftovers from some old add-on installation (persistent tool) and Python egg code is no longer present for this tool."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1782
+# 35e07bfb43c448e6b229df5edadf301d
+msgid "You should see a warning in logs giving you a hint when running add-on installer::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1786
+# 8b7349da25754c5d95f14d9e9b8d78ce
+msgid "To fix this, see informatin below (Removing portal tools part)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1790
+# 1e4f73fc64934adaa867360ff49c8e48
+msgid "Example: start site debug shell::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1794
+# 66507c264c064f5d9cbe4146c4583cb3
+msgid "Then run the script for your site id and problem tool id::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1810
+# c7551075b54d4266a17caec4994b538a
+msgid "In debug shell you can also check what all leftoverts toolset contains::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1829
+# 5bd956ac78f84864b1d98a7d13dde7ca
+msgid "http://plone.293351.n2.nabble.com/importToolset-NoneType-object-is-not-callable-upon-product-install-td5553065.html"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1833
+# 8e6fe2a62ac148f1a943cb10e16afee3
+msgid "from zopeskel.basic_namespace import BasicNamespace"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1835
+# c412758be6c848bea5de8eb75005fdc9
+msgid "When starting ZopeSkel::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1842
+# b75e4e38e8c34860bde5ef826ee979e8
+msgid "Or on paster with local commands::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1850
+# 4e8067bcbac44d5fa723c15dd07a9bd4
+msgid "System-wide templer / paster / zopeskel installation is affecting your buildout installation."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1852
+# 2b4bf7346baf4d699a11cb276bf3690b
+msgid "Remove system-wide installation::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1856
+# 5dc4eedd1844442995c7ec5f85f9b52f
+msgid "Re-run buildout."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1858
+# 624b13efec434248b26018ca332817ad
+msgid "Enjoy."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1861
+# 94fb17cde62349829b11262cb587c12f
+msgid "'ExtensionClass.ExtensionClass' object is not iterable"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1863
+# 7f3c2b4ef5b9438ea911445cfc9090d9
+msgid "This error tends to happen after moving a Data.fs to a new instance that does not have the identical add-ons to the original instance."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1888
+# 96a31f60d0b845fb85e5bad2afae20f7
+msgid "In this example traceback the missing add-on is Products.Carousel which provides the marker interface Products.Carousel.interfaces.ICarousel"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1890
+# aff72c8e6e6943e2a6d47cce8262a908
+msgid "Solution: Install the missing add-on(s)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1894
+# 5de3df9fdf114d7aaf5ac96ede7b5af5
+msgid "AttributeError: type object 'IRAMCache' has no attribute '__iro__'"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1896
+# 7c7fff8f933c484f8431df488b0d061c
+msgid "Traceback when trying to open any page::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1914
+# a7a4a86ef4dc424a8fdcb1f83c1647fb
+msgid "You have probably imported a Data.fs using newer Plone/Zope version to old Plone, or package pindowns are incorrect. If you are copying a site try re-checking that source and target buildouts and package versions match."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1919
+# 75204068cd4542a2bbf5e2a853f769e8
+msgid "Unknown message (kss optimized for production mode) in Javascript console"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1921
+# 75c22cba7f10472592ba6abf4e966f78
+msgid "This is a KSS error message. KSS is an technology used in Plone 3 and started to be phased out in Plone 4."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1924
+# 3648f6c476be40a8b0ebffeff5b2f533
+msgid "Possible causes are"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1926
+# 21beba2cc7c7434e9d9573f7b3444ce3
+msgid "Problems with KSS files (see portal_kss registry)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1928
+# 25dc41e0a3dc456ebedf0bc985ef6585
+msgid "Browser bugs (Google around for the fixes)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1930
+# 4a8d36a9f3054f63a1728f168d131d08
+msgid "What you can do:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1932
+# af59c06b74604f34be056b2210481ab8
+msgid "Go to portal_kss"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1934
+# 2d2dc2b368d8460b889da38a99218326
+msgid "Remove are stale entries (missing files, marked on red)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1936
+# e9f22d4647234005a1552a16e01d2790
+msgid "Also:"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1938
+# 06d3ed5c6a4648c2a1c2af3aba687a08
+msgid "Put portal_kss for debug mode (in development environment)"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1941
+# c7bbc3b60d0a4ed3a4f94e24466368cb
+msgid "ComponentLookupError: cmf.ManagePortal"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1943
+# 2492a79f21d34e0eb232a71cc44eb9f6
+msgid "When starting Plone you'll get::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1949
+# e0caaecbe74940158cfe21c6d166549a
+msgid "This is a sign of changed loading order, starting from Plone 4.1. You need to explicitly include *CMFCore/permissions.zcml* in your *configuration.zcml*."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1958
+# c29968ea8abc4033881e4aa25c6cb417
+msgid "http://dev.plone.org/ticket/11837"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1962
+# 8b25f48d3e1f4909b0cea91a3df8073e
+msgid "AttributeError: Schema"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1964
+# 9df7117be37b4ae0ac5ad6e3411581c3
+msgid "The following traceback comes when you try to view your custom content type::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1989
+# 3aeb623e13784d14b8bcaa7164bcbe99
+msgid "Reason: It is picking up Archetypes default view template for your Dexterity content type."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1991
+# d75cd540f4f448c796194c1ad0103461
+msgid "Try if you can access your view by a directly calling it to by its name. E.g.::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1995
+# 0cbe0aa5834441d4bf40e1bf08ffc9ef
+msgid "If it's working then it is wrong data in *portal_types*."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:1997
+# 6e9d70f6d290420cb278521d3d7738a6
+msgid "Your content item might also be corrupted. It is trying to use dynamic view selector even if it's not supported. Try re-creating the particular content item."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2002
+# 2bbe4d37850a47f78cd1ae3da73cb54d
+msgid "Error: Incorrect padding"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2004
+# 69b9e00922f548dbb0814caed6d8c739
+msgid "Traceback comes when you try to access any Plone site URL::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2016
+# 2caa8f520f6845f4a3b3fd5e7386df14
+msgid "It means that your browser most likely tries to serve bad cookies / auth info to Zope. Clear browser cache, cookies, etc."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2020
+# 5fe094a187604ba386e6f443da1a79fc
+msgid "ValueError: Non-zero version length. Versions aren't supported."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2022
+# df38c56ba9eb4319b560632924f2d88d
+msgid "When trying to open any page::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2038
+# c8509b9042bd48d182ae719c4e95105a
+msgid "Most likely a corrupted Data.fs. Stop zeoserver. Recopy Data.fs. Recopy blobs."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2042
+# 77c71b2018ec451b94b3fb331d79cf63
+msgid "http://stackoverflow.com/questions/8387902/plone-upgrade-3-3-5-to-plone-4-1-2"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2044
+# 2026853ba4ca49deb20220979f74a2a2
+msgid "https://mail.zope.org/pipermail/zodb-dev/2010-September/013620.html"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2048
+# 00136eb4cc63479a863f950e850fe380
+msgid "TypeError: argument of type 'NoneType' is not iterable"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2062
+# f56ddbc5b8ce4894a30c26d6d5995fc1
+msgid "Plone 3 > Plone 4 migration has not been run. Run the migration in *portal_migrations* under ZMI."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2067
+# d100f35a481f429887ebe12a7c024529
+msgid "Archetypes: TypeError: getattr(): attribute name must be string"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2078
+# 4c182537e7fe4969a23cdc5cb12e757e
+msgid "You might have used something else besides string or translation string to define Archetypes widget name or description."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2083
+# 4158fdf9555b40afa0ee541a1b90a348
+msgid "InvalidInterface: Concrete attribute"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2085
+# 4280de55bc66478e9bae02b33e6c38ed
+msgid "Your ``zope.schema`` based schema breaks on Plone startup."
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2096
+# c5e51594dea84bb9955794178c0229fa
+msgid "You have extra comma in your schema. Like this::"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2109
+# 4dd0fd8a47e74ecebd35805df11c35eb
+msgid "AttributeError: 'FilesystemResourceDirectory' object has no attribute 'absolute_url'"
+msgstr ""
+
+#: ../../source/troubleshooting/exceptions.rst:2130
+# 808de62053c7427692de8cac3196b74e
+msgid "There is a not accessible filesystem ressource declared in your diazo theme's html. Check that all js and css files are available."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:3
+# 2b1c0e823796448c944f189d839db34c
+msgid "Image troubleshooting"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:7
+# 0e81c87bd6564669aa64a1414f291b8d
+msgid "Problems with imaging libraries, image loading and image scaling."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:12
+# 41336cf4205149dcaf415cdc9c8404a2
+msgid "How to test see if your Python Imaging set-up works"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:14
+# 388f4f786f3f4a6eb2af4698ae5f897c
+msgid "Example how to check if Python, Python Imaging Library (PIL) and libjpeg are correctly working together."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:17
+# 0f1019b7a2744cee91378492d637c355
+msgid "Get a sample image::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:21
+# c65b8c4f1114451882ff8badf61f8d3b
+msgid "Start Python with Zope libraries in PYTHONPATH or Plone debug shell (latter)::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:27
+# d6c809ea04424b1faeac162fc9433b3b
+msgid "Run the following on the interactive Python prompt started above::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:36
+# 9a612df34bb843b3a138a949df9828f6
+msgid "No Python exceptions should be risen."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:40
+# 618d1c8d398e40118edc149f2d612ae5
+msgid "Images are not loading"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:42
+# 42c3535db5fc4fa9a9978a03912ad416
+msgid "Plone is not loading images or resized images are not available is usually caused by broken PIL installation: PIL used by Python virtual machine driving Plone does not have proper native libraries (libjpeg) available to perform imaging operations."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:46
+# 617725b61d12467e83f10c3aa969b378
+msgid "If you run Zope on foreground you usually see errors like this::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:65
+# 6b09b7f84b2b49478cdfa909ba867770
+msgid "In the above case PYTHONPATH incorrectly tries to load Python 2.5 libraries, though Plone 3.x exclusively uses Python 2.4. In this case the proper fix is to clean-up damaged start up scripts in bin/ folder::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:74
+# 71255f570dde4780a2f0b8ac00741040
+msgid "This can be achieved by"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:76
+# 4a755c1b96ca4249b84a9ba5f21840cb
+msgid "Removed all py2.5 eggs under eggs/ folder"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:78
+# 526c4d02ed8649e4bb5b0f26d81e672a
+msgid "Removing setuptools egg which may contain references to Python 2.5"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:80
+# 2ddd4e2717374860a5881879ec511c9b
+msgid "Running bootstrap.py using python2.4"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:82
+# 0fd4dc5ec43e4767bdea9475eb6f44d3
+msgid "Rerunning buildout after this"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:84
+# f9d7749b9bfd4e8f9957f48af71a63e5
+msgid "For further debugging the problem you can start the particular Python interpreter and try to import _imaging yourself."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:86
+# 8ce92971cee74f2b98d234b283321b83
+msgid "Run Python in verbose mode to print all imports (the example below has been shortened)::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:98
+# bb9a8bcb4ecb4b8784865ba99de66fb2
+msgid "In this case we have a custom Python build based on `collective.buildout.python <http://blog.mfabrik.com/2010/07/16/easily-install-all-python-versions-under-linux-and-osx-using-collective-buildout-python/>`_ recipe. It will compile us a custom libjpeg version and should not use OS libjpeg::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:108
+# cdfd98a1ac3944c18fc8bb821ee93494
+msgid "However, looks like this libjpeg does not end up in the OS LD_LIBRARY_PATH import list automatically."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:112
+# 6b77c0bafd724e389b341b7559a33c6d
+msgid "http://permalink.gmane.org/gmane.comp.web.zope.plone.product-developers/4946"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:115
+# faf1e18d9f0c441f9c9ceef69bf79234
+msgid "IOError when scaling images on Plone 4"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:130
+# c3c63a35383c424f8292bb520b28a682
+msgid "This means that libjpeg setup is not working. See above to how to test your set-up."
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:133
+# 51ad12b1609744959773b5a5cbb699f4
+msgid "Installing libraries on Ubuntu / Debian"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:135
+# 47e23c1792db457b954b4b4eeed73949
+msgid "This applies if you are using system Python to run Plone. Version may vary so ``apt-cache search`` and ``grep`` commands are your friends::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:142
+# 2cb1265d311341c4a4757583f2390e41
+msgid "Forcing libjpeg path"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:144
+# 1cc54d22303e4081bdd3b76a696b3318
+msgid "Try in buildout.cfg::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:153
+# f00f6e8633074bbe9ece576f86791626
+msgid "libjpeg.so.8: cannot open shared object file: No such file or directory"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:155
+# c9c64366bd7d43109a17c908674cdf8f
+msgid "On Ubuntu you'll get this error when you try::"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:160
+# 650e98d9e19d4e5588821ebde2817cbf
+msgid "Some tips"
+msgstr ""
+
+#: ../../source/troubleshooting/images.rst:162
+# 9f903397501e414f8f313fb702968c32
+msgid "http://stackoverflow.com/questions/5545580/pil-libjpeg-so-8-cannot-open-shared-object-file-no-such-file-or-directory"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:3
+# e0ac7fd40ffa4a8ca2dabfc9727cb1bf
+msgid "Database and transactions troubleshooting"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:7
+# 4f4e2e0651c942f5bcd0d0eeda7f8e6e
+msgid "How to debug and fix ZODB database problems in Plone"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:14
+# 9835089caa384507b29e132280145423
+msgid "This document contains information to fix and debug ZODB databases with Plone."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:17
+# 5e18675f149440359899a2631f21e7ec
+msgid "BLOBs and POSKeyErrors"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:19
+# 0b086fec4f5748e5a3cf3ab21f4c7dde
+msgid "The `Plone CMS <http://plone.org>`_ from version 4.x onwards stores files and images uploaded to the `ZODB <http://www.zodb.org/>`_ as `BLOBs <http://www.zodb.org/zodbbook/introduction.html?highlight=blob#blobs>`_. They exist in a ``var/blobstorage`` folder structure on the file system, files being named after (opaque) persistent object ids. When using the default backend, the objects themselves, without file payload, are stored in an append-only database file called *filestorage* and usually the name of this file is ``Data.fs``."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:29
+# 792de41878ad4b118e1b33d892fcf8c5
+msgid "If you copy the Plone site database object data (``Data.fs``) and forget to copy the ``blobstorage`` folder(s), or if data gets out of the sync during the copy, various problems appear on the Plone site:"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:34
+# 9c3185c88d89498e89ec1b22b18e2260
+msgid "You cannot access a content item for which the a corresponding blob file is missing from the file system;"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:37
+# fdeaba437d0349c68bc8ec1ac284a6f4
+msgid "you cannot rebuild the ``portal_catalog`` indexes;"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:39
+# 6b37cf36efbf4f2c8dc3acc641fedd89
+msgid "database packing may fail."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:41
+# 0b528c63e4d14641b548657bf69393a3
+msgid "Instead, you'll see something like this - an evil ``POSKeyError`` exception (POS referring to Persistent Object Storage)::"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:53
+# 505d28e1d3c04e62b3c5c7fa7ae58533
+msgid "The proper solution to this problem is to:"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:55
+# 7af076d3c697425eb5dbbf1fa59bef16
+msgid "Re-copy ``blobstorage`` folder;"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:57
+# 962561ceebba452abfed9edff5ea8710
+msgid "restart Plone twice in foreground mode (sometimes a freshly copied blobstorage folder does not get picked up - some kind of timestamp issue?). Restarting ZEO clients once seems to be enough."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:62
+# 199973d83c234e89940d1c8940c558c6
+msgid "`Plone site copy instructions <http://plone.org/documentation/kb/copying-a-plone-site>`_"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:64
+# 78d499d244714d79aa2bc2a6cb7e00cf
+msgid "However you may have failed. You may have damaged or lost your ``blobstorage`` forever. To get the Plone site to a working state, all content with bad BLOB data must be deleted (which usually entails losing some site images and uploaded files)."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:70
+# 052192c498814c978f4bb04104b6b82b
+msgid "Below is Python code for a `Grok view <http://collective-docs.readthedocs.org/en/latest/views/browserviews.html#creating-a-view-using-grok>`_ which you can drop in to your own `Plone add-on product <http://collective-docs.readthedocs.org/en/latest/tutorials/paste.html#creating-an-add-on-product-skeleton>`_. It creates an admin view which you can call directly via an URL. This code will walk through all the content on your Plone site and try to delete bad content items with BLOBs missing."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:78
+# 7b47c6f3cee14ee0ba5cb0922eb0d8dd
+msgid "The code handles both Archetypes and Dexterity subsystems' content types."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:82
+# 15aff77f20734938956ddc1efbd7f3e6
+msgid "Fixing Dexterity blobs with this code has never been tested - please feel free to update the code in collective.developermanual on GitHub if you find it not working properly."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:87
+# ff0963e9bd104e3ab95dfef52bff6a62
+msgid "The code, ``fixblobs.py``::"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:231
+# 4eef2b1619774170bf6fe8d40e4a3322
+msgid "http://stackoverflow.com/questions/8655675/cleaning-up-poskeyerror-no-blob-file-content-from-plone-site"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:233
+# 9b628c6341e548f8af5501b370664d6a
+msgid "http://pypi.python.org/pypi/experimental.gracefulblobmissing/"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:237
+# 7d602fdea37042ec9dd3ec4f8370d444
+msgid "Transactions"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:239
+# f95d6c8858b64c888aa6a01e5cbb0cd5
+msgid "Transactions are usually problematic only when many ZEO front-end clients are used."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:243
+# 04431722e37f4be7b64e224c4f962ec9
+msgid "ConflictError"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:245
+# 1bce5a3d5811405b92b6e6c809450e72
+msgid "When the site gets more load, ``ConflictError``\\s start to occur. Zope tries to solve the situation by replaying HTTP requests for ``ConflictError``\\s and has a default threshold (3) of how many times the request is replayed."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:252
+# a41ce2834bb9414882b6fe19728a43ff
+msgid "http://www.zopyx.com/blog/on-zodb-conflict-resolution"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:255
+# 7198453f4f02435886fe04e756f8a42b
+msgid "How to debug which object causes ``ConflictError``\\s"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:257
+# 5a9794e56af9416088dc646be4ffa2e6
+msgid "``ConflictError``\\s are caused by concurrent transactions trying to write to the same object(s) - usually ``portal_catalog``. They are harmless, but slow down badly coded sites. Plone will retry the HTTP request and transaction three times before giving up."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:262
+# 14226da6d4bb48948d2cdc98371708c3
+msgid "The OID is visible in the ConflictError traceback."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:264
+# 18823e25a7934c91b8b4bedc19463cad
+msgid "You can turn OID back to the corresponding Python object, as mentioned by A. Jung::"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:271
+# 2e9dbeec1b6c4b99b2aab91fcef20da5
+msgid "If every transaction appears as write transaction"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:273
+# 4b8703dd6ad5487aaa7409699d6cba8b
+msgid "If you are not careful, you may accidentally write code which turns all transactions to write transactions. This typically happens when you call some method without realizing that that method eventually modifies a persistent object, causing a database write."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:279
+# 4beccc56287a4b50b9bfd27fa6a39ed7
+msgid "Symptoms:"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:281
+# afd06a58486848e69b06abfada7ed699
+msgid "Your Undo tab in ZMI will be full of entries, one added per page request."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:284
+# 147ef49aa2ac4b8582fd61df908a01c8
+msgid "If you run the server in single Zope server mode, it is slow."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:286
+# 87f0c384d82e45f59ac447c99bf4e1d9
+msgid "If you run the server in ZEO mode you get the exceptions like one below. It may happen even with one user. This is because each page load requres more than one HTTP request: HTML load, image load, CSS load and so on. Browser makes many requests per page and those transactions are conflicting, because they are all write transactions."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:316
+# 5f1b6d46b9c841b99143099479128568
+msgid "How to debug it"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:318
+# 8979451c22114ab68475823bd1247a6b
+msgid "Zope 2 doesn't have many well-documented ZODB debugging tools. Below is one snippet to examine the contents of the last transactions of an offline ``Data.fs`` file. It is an evolved version of `this original script <http://www.mail-archive.com/zodb-dev@zope.org/msg04387.html>`_."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:324
+# 94f3a406f8584040a5b29b8b3c550e54
+msgid "Do something on a badly behaving site."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:326
+# c5c8af20cf094ea296f4b74207f881fb
+msgid "Stop Zope instance."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:328
+# 50ce1d368e0544328911434ca4ef2199
+msgid "Run the script below (``debug.py``) on the ``Data.fs`` file to see what objects have been changed."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:331
+# 138e9f8ac79e41ac8d3d884b4c7df47a
+msgid "Guess the badly behaving code from the object class name."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:333
+# d4102abb45dd4b688dafe1f5ba0fe97c
+msgid "Example how to run the script for the last 30 transaction under a Zope egg environment using the ``zopepy`` script::"
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:339
+# ade631a5dbcc4ec0abbceb4e02d0cc87
+msgid "The following is obsolete with current Zope. FileIterator does not take a ``pos`` argument any more."
+msgstr ""
+
+#: ../../source/troubleshooting/transactions.rst:342
+# 356f7ff614f64d78abf942f1d2a3e581
+msgid "Code for debug.py::"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:3
+# 6b0cecb561bb442291a909b6d6b4fea1
+msgid "Unicode encoding and decoding"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:8
+# 28206fd5ef87429ea26541623cb0c72e
+msgid "Introduction: Why unicode is difficult?"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:10
+# 25e6c0c4dda244278c6439a42f1ab0fb
+msgid "Python 2.x does not make a clear distinction between:"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:12
+# 8474e5b29197463ba53685077a68decd
+msgid "8-bit strings (byte data)"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:13
+# 22466a154968402f981d2ac8ab2dacd3
+msgid "16-bit unicode strings (character data)"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:15
+# 3cc9dbcbb4574808baaa8d14316947aa
+msgid "Developers use these two formats interchangeably, because it is so easy and Python does not warn you about this."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:18
+# fd1aa8878d4148158822c6cc0d08c715
+msgid "However, it will only work as long as the input does not encounter any international, non-ASCII, characters.  When 8-bit encoded string data and 16-bit raw Unicode string data gets mixed up, by being run through encoding first, really nasty things start to happen."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:23
+# 7527a999ee394fc0bc724231d163e551
+msgid "Read more:"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:25
+# 8a6fe08932a7427384892aa015705355
+msgid "http://www.amk.ca/python/howto/unicode"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:27
+# 4841c161624b4ae5851b15645b9884a3
+msgid "http://evanjones.ca/python-utf8.html"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:30
+# 3b027864a54f41fa92b42bc5f4c4c7f3
+msgid "safe_unicode()"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:32
+# ab9b168ab40a4935bc01dcae850d8ee9
+msgid "Plone's core contains a helper function which allows you to safely decode strings to unicode without fear of UnicodeDecodeException. Use this in your own code to decode unicode in the cases you are not sure if the input is 8-bit bytestrings or real unicode strings."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:37
+# 06560d514ac94223a4a1ab5ee03a68ee
+msgid "https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/utils.py#L434"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:50
+# daa0a741d3fe45febcf9784f568dc14f
+msgid "sys.setdefaultencoding()"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:52
+# 344cf263510748d88a2f79fd751ef757
+msgid "Python has a **system-wide** setting to enforce encoding of all unicode input automatically to utf-8 when used as 8-bit string."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:57
+# 4c5231ee66bc4c119d3e5044aa1dd752
+msgid "This is a wrong way to fix things and it will break other things. You have been warned."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:60
+# 2df0f2c9aa244d17a1a850e3993d8ad0
+msgid "http://tarekziade.wordpress.com/2008/01/08/syssetdefaultencoding-is-evil/"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:62
+# 0f48724e030c4ac7a2146c08f8ad3da7
+msgid "There is also ``sitecustomization.py`` trick to set ``sys.setdefaultencoding(\"utf-8\")`` on per-script basis"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:64
+# 8337598f4b7a449b9277960cf37bed17
+msgid "http://stackoverflow.com/a/7892892/315168"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:67
+# 5bc289cc93964432a3b5a6ec152c0bc1
+msgid "UnicodeEncodeError"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:69
+# 162fd04c2c8c49f8aa7b987c24b6345a
+msgid "``UnicodeEncodeError``: 'ascii' codec can't encode character u'\\xe4' in position 4: ordinal not in range(128)"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:71
+# 006d1eaed7154c2ea0d4ad38e4d5577b
+msgid "This is usually because you are trying to output/store unicode data using outdated methods, e.g."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:74
+# 15fa2d5965784683aa2885d1772dcc39
+msgid "printing,"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:75
+# 8405e4eead924234a0f6c2d4a7efebe7
+msgid "logging,"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:76
+# 04953461365141b98fbe070f41b8b9f9
+msgid "using 7-bit ids ..."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:78
+# f05708e611984b35849e8f6c9c70c940
+msgid "Instead of::"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:82
+# 0acc681fd1ee4d35aa6e7cda87269227
+msgid "do::"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:86
+# dd75f5a9e35e4a4ab95528464b1143a1
+msgid "Filtering example::"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:97
+# 74fbfb33b43d4f5781ffe54b31e08add
+msgid "UnicodeDecodeError"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:99
+# 510f60ddbeb943c998acee2e840952b5
+msgid "http://wiki.python.org/moin/UnicodeDecodeError"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:102
+# c6b4994bd9ab44269142269789505434
+msgid "Safe way to ``decode()`` strings"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:104
+# 9ca89647675d411195aa06c8ff8b4c1e
+msgid "This example will accept all string input and convert it to proper unicode strings."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:118
+# 64c52566b5e648f69f4f14799e6c10f6
+msgid "http://pyref.infogami.com/__unicode__"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:121
+# 0067e560393a4f559207f60b943a411d
+msgid "Infamous non-breaking Unicode space \\\\xa0"
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:123
+# 5e4a8a332fcb48e7b920878855c16271
+msgid "Press CTRL+space / AltGr space on Linux to accidentally create it."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:125
+# 28acec1554994db689951887837f4158
+msgid "**You can't see it.** But it breaks everything."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:130
+# 8c0fd6f8568b40d7a66f4c8890a4c368
+msgid "Example to how to fix non-breaking space characters which have ended up in reStructuredText ``.txt`` files.  This is Unicode character code A0."
+msgstr ""
+
+#: ../../source/troubleshooting/unicode.rst:133
+# c57722913ffc4332b3751bfdc3c3355a
+msgid "Example fix_wtf_space.py::"
+msgstr ""
+

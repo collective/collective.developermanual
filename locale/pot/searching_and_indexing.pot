@@ -1,0 +1,1798 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-08 16:49\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/searching_and_indexing/catalog.rst:3
+# 794fb22567bc419d9341a7d6cbfc1f3b
+msgid "Catalogs"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:7
+# ae8b0d87bc0b4926bb000163154361f4
+msgid "A brief introduction to ZCatalogs, the Catalog Tool and what they're used for."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:13
+# 97ffb9876da24cada3b406894757e150
+msgid "Why ZCatalogs?"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:15
+# ab2455fc0b66468ebf32549cd3d0c578
+msgid "Plone is built on the CMF, which uses the ZODB to store content in a very free-form manner with arbitrary hierarchy and a lot of flexibility in general. For some content use cases, however, it is very useful to treat content as more ordered, or tabular. This is where ZCatalog comes in."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:21
+# 4349506b0cae494ebda85b49d5941178
+msgid "Searching, for example, requires being able to query content on structured data such as dates or workflow states. Additionally, query results often need to be sorted based on structured data of some sort. So when it comes to searching it is very valuable to treat our free-form persistent ZODB objects as if they were more tabular. ZCatalog indexes do exactly this."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:28
+# 28310090140843e9a115f4325a1fc0cc
+msgid "Since the ZCatalog is in the business of treating content as tabular when it isn't necessarily so, it is very tolerant of any missing data or exceptions when indexing. For example, Plone includes \"start\" and \"end\" indexes to support querying events on their start and end dates.  When a page is indexed, however, it doesn't have start or end dates.  Since the ZCatalog is tolerant, it doesn't raise any exception when indexing the start or end dates on a page. Instead it simply doesn't include pages in those indexes. As such, it is appropriate to use indexes in the catalog to support querying or sorting when not all content provides the data indexed."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:40
+# 6d5237e2e9e64c7abdb355b174880b07
+msgid "This manual is intended to be a brief start guide to ZCatalogs, specially aimed to tasks specific to Plone, and will not treat advanced ZCatalogs concepts in depth. If you want to learn more about ZCatalogs in the context of Zope, please refer to `The Zope Book, Searching and Categorizing Content`_. If you want to perform advanced searches, `AdvancedQuery`_, which is included with Plone since the 3.0 release, is what you're looking for. See `Boolean queries (AdvancedQuery)`_ for a brief introduction."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:50
+# d1bba3c862b04cf49adb56e1af928c93
+msgid "Quick start"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:52
+# ff4065135e65450482712e486f20bd64
+msgid "Every ZCatalog is composed of indexes and metadata. Indexes are fields you can search by, and metadata are copies of the contents of certain fields which can be accessed without waking up the associated content object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:57
+# 6c959733296543548c8dd0044fbb39b8
+msgid "Most indexes are also metadata fields. For example, you can search objects by *Title* and then display the *Title* of each object found without fetching them, but note not all indexes need to be part of metadata."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:62
+# 7706c41bd69c4c8f82c47e7fa656d5de
+msgid "When you search inside the catalog, what you get as a result is a list of elements known as brains. Brains have one attribute for each metadata field defined in the catalog, in addition to some methods to retrieve the underlying object and its location. Metadata values for each brain are saved in the metadata table of the catalog upon the (re)indexing of each object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:69
+# a32a39a986a74bbb8e8f23eb00785020
+msgid "Brains are said to be lazy for two reasons; first, because they are only created 'just in time' as your code requests each result, and second, because retrieving a catalog brain doesn't wake up the objects themselves, avoiding a huge performance hit."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:74
+# 6335ba5a4b7e4d6a8dc9a9d75d3d93c2
+msgid "To see the ZCatalogs in action, fire up your favourite browser and open the ZMI. You'll see an object in the root of your Plone site named *portal\\_catalog*. This is the Catalog Tool, a Plone tool (like the Membership Tool or the Quickinstaller Tool) based on ZCatalogs created by default in every Plone site which indexes all the created content."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:81
+# a9c59655d3d649ac83546421bc0c4553
+msgid "Open it and click the *Catalog* tab, at the top of the screen. There you can see the full list of currently indexed objects, filter them by path, and update and remove entries. If you click on any entry, a new tab (or window) will open showing the metadata and index values for the selected indexed object. Note that most fields are \"duplicated\" in the *Index Contents* and *Metadata Contents* tables, but its contents have different formats, because, as it was said earlier, indexes are meant to search by them, and metadata to retrieve certain attributes from the content object without waking it up."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:92
+# 4748c316e59e406e82e11dc8ebcece97
+msgid "Back to the management view of the Catalog Tool, if you click the *Indexes* or the *Metadata* tab you'll see the full list of currently available indexes and metadata fields, respectively, its types and more. There you can also add and remove indexes and metadata fields. If you're working on a test environment, you can use this manager view to play with the catalog, but beware indexes and metadata are usually added through GenericSetup and not using the ZMI."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:103
+# 8d495f2054b04fcc81a5608d9db166e1
+msgid "Other catalogs"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:105
+# d36edced824c4d2f9cc28cd29d78d814
+msgid "Besides, the main portal catalog, the site contains other catalogs."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:107
+# ee5cc317a0134554bb0c72a87012016e
+msgid "uid_catalog maintains object look up by Unique Identified (UID). UID is given to the object when it is created and it does not change even if the object is moved around the site."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:110
+# 159c1dbc94404a43826ee6ed8846d517
+msgid "reference_catalog maintains inter-object references by object unique identified (UID). Archetypes's ReferenceField uses this catalog. The catalog contains indexes UID, relationship, sourceUID, targetId and targetUID."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:114
+# aa86688e70354ff0884bd2a7ac595e04
+msgid "Add-on products may install their own catalogs which are optimized for specific purposes. For example, `betahaus.emaillogin <http://pypi.python.org/pypi/betahaus.emaillogin>`_ creates email_catalog is which is used to speed-up login by email process."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:119
+# 2cf41c7f9c904489a2c98e7a3cc85d3d
+msgid "Manually indexing object to a catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:121
+# b361d53ad3a04ca585c91020e0b1bd62
+msgid "The default content object.reindexObject() is defined in `CMFCatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/CMFCatalogAware.py?rev=102742&view=auto>`_ and will update the object data to portal_catalog."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:125
+# 6d07a906ab6a4f378738b0ae34cc659c
+msgid "If your code uses additional catalogs, you need to manually update cataloged values after the object has been modified."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:127
+#: ../../source/searching_and_indexing/indexing.rst:333
+#: ../../source/searching_and_indexing/query.rst:27
+#: ../../source/searching_and_indexing/query.rst:174
+#: ../../source/searching_and_indexing/query.rst:194
+#: ../../source/searching_and_indexing/query.rst:352
+#: ../../source/searching_and_indexing/query.rst:426
+#: ../../source/searching_and_indexing/query.rst:497
+#: ../../source/searching_and_indexing/query.rst:645
+#: ../../source/searching_and_indexing/query.rst:709
+#: ../../source/searching_and_indexing/query.rst:818
+#: ../../source/searching_and_indexing/query.rst:1004
+#: ../../source/searching_and_indexing/query.rst:1028
+#: ../../source/searching_and_indexing/query.rst:1050
+# e6dc78b76ee6484fa4abecfad5066c45
+# b884aed3ac714974ba0599c755f47098
+# 34f986d8fc98450caf6234586f68950e
+# 3f54f398da9b49dab31c7787e61680a1
+# 2c3ba21998d043788fbccd9716e82206
+# 41f9f83ae3d7468faaa9ca2cdf8a41f8
+# 09cb02b40676486c8deaabec561a8366
+# 048cd09c5a074c2aadd22dacb5695e20
+# 6fd39b2523024b1381579c056e65a809
+# 7afab508b7d0475f9629cff514f6550e
+# 28979fbdff174b5da2356f8fd0944071
+# 2c730079bb1d41d3a064a51cfd09f278
+# 4bf45b0c271c4ffdae20f190265a01c0
+# af4200c4b248403a91f00b9665497475
+msgid "Example::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:134
+# b7a0fae946d54ba588a016ffc440d876
+msgid "Manually uncatalog object to a catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:136
+# 74410cb378f74d25b8448b8b8b2d2b1a
+msgid "Sometimes is useful to uncatalog object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:138
+# df17bbebcea74cf9adaa3f7882ea2129
+msgid "code ::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:147
+# 6acb08b9c66645a7825b6fdfe9b4a8d5
+msgid "Rebuilding a catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:149
+# 63a8fa29bee449bd966625b8c6ff9098
+msgid "Catalog rebuild means walking through all the objects on Plone site and adding them to the catalog. Rebuilding the catalog is very slow as the whole database must be read through. Reasons for you to do this in code could be"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:153
+# 479d7226e8c44a3ea18c014ef1da2694
+msgid "Creating catalog after setting up objects in the unit tests"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:155
+# bddb79fb7c85471b8b7721710ecdcc56
+msgid "Rebuilding after massive content migration"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:157
+# 3a00de6f710846ff9de8b9b626b65a09
+msgid "How to trigger rebuild::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:163
+# 85f3af7708624026b320ef63b91159ba
+msgid "Retrieving unique values from a catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:164
+# df535db0cfaf400a8b19e1e1f36fdfb0
+msgid "Catalogs have a uniqueValues method associated with each index. There are times when you will need to get a list of all the values currently stored on a particular index. For example if you wanted the highest and lowest price you might first need to retrieve the values currently indexed for price. This example demonstrates how you can list all the unique values on an index named 'price'."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:176
+# 04851da687a44cfcb5eb6e52dcd72024
+msgid "the result would be a listing of all the prices stored in the 'price' index::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:182
+# 06b4ca233c214379abaadee281f8f6a3
+msgid "Minimal code for creating a new catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:282
+# b424d0b85a4e4f11a51af565c27b25f8
+msgid "Register a new catalog via portal_setup"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:284
+# 5a681a500e24452f9e9151d74760b949
+msgid "In toolset.xml add this lines"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:299
+# 88cbe9993c3a47f5971b1ad33f3c646d
+msgid "archetype_tool catalog map"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:301
+# c246014312c040aeb994396177824bde
+msgid "archetype_tool maintains map between content types and catalogs which are interested int them. When object is modified through Archetypes mechanisms, Archetypes post change notification to all catalogs enlisted."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:305
+# b189cec37da045cd98551f728674b3dc
+msgid "See *Catalogs* tab on archetype_tool in Zope Management Interface."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:308
+# dc41c3140ab04c47b761501dd9b3f0ed
+msgid "Map an catalog for an new type"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:310
+# dc2f38caec58459fbf1f1c90efcc530f
+msgid "code"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:321
+# 0cf3ba398e5b4512bd1e51c00dca8d04
+msgid "Additional info"
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:323
+# 660df915595d48e8b2e521b88ffae0b0
+msgid "`ZCatalog source code <http://svn.zope.org/Zope/trunk/src/Products/ZCatalog/ZCatalog.py?rev=96262&view=auto>`_."
+msgstr ""
+
+#: ../../source/searching_and_indexing/catalog.rst:325
+# 4a9edb7a23b54c0f8b52e618ce3bf915
+msgid "http://wyden.com/plone/basics/searching-the-catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/index.rst:3
+# ee9c7c4780304903a7d5449dc8607178
+msgid "Queries, search and indexing"
+msgstr ""
+
+#: ../../source/searching_and_indexing/index.rst:5
+# b8c4f1f3b4994ba2a7fd2192f507a00b
+msgid "In plone, database index and search facilities are provided by portal_catalog tool. There are two distinct functions. Indexing: All searchable data is copied to the catalog when the object is indexed, to make object searchable and listable. Querying: Search keys are matched against the indexed catalog copies to return the indexed metadata of the object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:3
+# 1ff47dd518834587b07aa9d4e78a0b74
+msgid "Indexes and metadata"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:7
+# cea42e5ad4624289b2d2ca0eea0fa4b7
+msgid "How to program your custom fields and data queriable through portal_catalog."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:13
+# d180cb4446cd471bab894068bc00608a
+msgid "What does indexing mean?"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:15
+# cc0962191b2f4c56998c58ce6cf48b3a
+msgid "Indexing is the action to make object data searchable. Plone stores available indexes in the database. You can create them through-the-web and inspect existing indexes in portal_catalog on Index tab."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:20
+# fe0d5b1b1240407583ab472a029111c8
+msgid "The Catalog Tool can be configured through the ZMI or programatically in Python but current best practice in the CMF world is to use GenericSetup to configure it using the declarative *catalog.xml* file. The GenericSetup profile for Plone, for example, uses the *CMFPlone/profiles/default/catalog.xml* XML data file to configure the Catalog Tool when a Plone site is created. It is fairly readable so taking a quick look through it can be very informative."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:29
+# e0e9948f78cb415dbd23e011263d59ee
+msgid "When using a GenericSetup extension profile to customize the Catalog Tool** in your portal, you only need to include XML for the pieces of the catalog you are changing. To add an index for the Archetypes location field, as in the example above, a policy package could include the following *profiles/default/catalog.xml*:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:45
+# ef39133051f047bf90dfbfbc5d0b3f1d
+msgid "The GenericSetup import handler for the Catalog Tool also supports removing indexes from the catalog if present using the \"remove\" attribute of the *<index>* element. To remove the \"start\" and \"end\" indexes used for events, for example, a policy package could include the following *profiles/default/catalog.xml*:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:61
+# bdd568c5f0c5483ba348c7adda228351
+msgid "Care must be taken when setting up indexes with GenericSetup - if the import step for a *catalog.xml* is run a second time (for example when you reinstall the product), the indexes specified will be destroyed, losing all currently indexed entries, and then re-created fresh (and empty!). If you want to workaround this behaviour, you can either update the catalog afterwards or add the indexes yourself in Python code using a custom import handler."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:69
+# 937327f1555d48adb4bc685f93691802
+msgid "For more info, see this setuphandler https://github.com/plone/plone.app.event/blob/master/plone/app/event/setuphandlers.py in plone.app.event or these discussions on more about this problem:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:72
+# 52c38eef8cd7445aa667e7c36674a05d
+msgid "http://plone.293351.n2.nabble.com/How-to-import-catalog-xml-without-emptying-the-indexes-td2302709.html"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:74
+# 309490322c2843299af4fedf9fed2d28
+msgid "https://mail.zope.org/pipermail/zope-cmf/2007-March/025664.html"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:78
+# f229eca3bc02450eb454d0d93f7f0bb5
+msgid "Viewing indexes and indexed data"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:81
+# eb3038fee1734d5e99108f57c26db724
+msgid "Indexed data"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:83
+# 6c33bbc0f16b4b61bdb492acd446f9f3
+msgid "You can do this through portal_catalog tool in ZMI."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:85
+#: ../../source/searching_and_indexing/indexing.rst:97
+# 8bb4e5db163e444198d4d4a53810c6a9
+# 0831f06b12b44bb2ba07361d99fd7ce2
+msgid "Click portal_catalog in the portal root"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:87
+# e3048e05c0e640c28002538cbf90e1e6
+msgid "Click *Catalog* tab"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:89
+# e363b6c0bfea40df994aedf8248a4b6c
+msgid "Click any object"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:92
+# c446abf3cd294966bb9e0b06b6d5fc87
+msgid "Indexes and metadata columns"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:94
+# 049c46ccdb784b0486460d7c11c4e44c
+msgid "Available indexes are stored in the database, not in Python code. To see what indexes your site has"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:99
+# 1add334c6f3142ba8e22f4e71046ab83
+msgid "Click *Indexes* and *Metadata* tabs"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:103
+# 4e0341927da8475289cecabbef253993
+msgid "Creating an index"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:105
+# d48ef02c9d334cbeaa698667a3f8aa76
+msgid "To perform queries on custom data, you need to add corresponding index to portal_catalog first."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:107
+# 5421608e0c664750a42c7fe668d62159
+msgid "E.g. If your :doc:`Archetypes </content/types>` content type has a field::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:126
+# fef914ed5fbc438c8f0e6f7139f45bc0
+msgid "You can add a new index which will *index* the value of this field, so you can make queries based on it later."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:129
+# 120ac3efb6764342b1abf2917ed81615
+msgid "See more information about :doc:`accessor methods </content/archetypes/fields>`."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:133
+# 05b6e061a5664554bc9c1175c9ca6b3e
+msgid "If you want to create an index for content type you do not control yourself or if you want to do some custom logic in your indexer, please see *Custom index method* below."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:138
+# 4d4f1a68c7d743a3ac13c805fa5b80c5
+msgid "Creating an index through the web"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:140
+# 9be552e89fd6483e8578988d199601dd
+msgid "This method is suitable during development time - you can create an index to your Plone database locally."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:143
+# 03ce2ee1308f442281896691b1a07e97
+msgid "Go ZMI"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:145
+# 0bb3ab5768ca4427bee89ea8baf43094
+msgid "Click portal_catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:147
+# ddf56ae0eada4822878102b25cb14cd1
+msgid "Click Indexes tab"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:149
+# ede7b100a6344cee9ed00c67b964c8fa
+msgid "On top right corner, you have a drop down menu to add new indexes. Choose the index type you need to add."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:151
+# 4bfc07ad69654c908fdbf9f095ccca2b
+msgid "Type: FieldIndex"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:153
+# 4767c67a55084dc584300d68e95d1d05
+msgid "Id: getMyCustomValue"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:155
+# 43e625d0aa9542e9befcd3e0f70360a6
+msgid "Indexed attributes: getMyCustomValue"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:157
+# b5963aff6efb49e7a0dd252a56f215d0
+msgid "You can use Archetypes accessors methods directly as an indexed attribute. In example we use ``getMyCustomValue`` for AT field ``customValue``."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:160
+# 974ea5bf2d0542aeb59e0e79009a7c7f
+msgid "The type of index you need depends on what kind queries you need to do on the data. E.g. direct value matching, ranged date queries, free text search, etc. need different kind of indexes."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:163
+# f9d9efe61e6c41e9bea51afb10b85999
+msgid "After this you can query portal_catalog::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:171
+# 9f863bb684ba4f678df6e6b8c9e06f50
+msgid "Adding index using add-on product installer"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:173
+# 0a32eaea489e4081973b16ad68086a83
+msgid "You need to have your own add-on product which registers new indexes when the add-on installer is run. This is the recommended method for repeated installations."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:177
+# ade7248fcd944b9791b53d07546e81f2
+msgid "You can create an index"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:179
+# 91bc5abeae594c6c98ae2ecaefb0c1fc
+msgid "Using catalog.xml where XML is written by hand"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:181
+# 75e56dd9489b45559372a23e1a7b8c7e
+msgid "Create the index through the web and export catalog data from a development site using *portal_setup* tool *Export* functionality. The index is created through-the-web as above, XML is generated for you and you can fine tune the resulting XML before dropping it in to your add-on product."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:186
+# 0c2d5989cf9a436da06246eee20a946a
+msgid "Create indexes in Python code of add-on custom import step."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:188
+# cdda21d18f4a414c9013b99d9ba14611
+msgid "As a prerequisitement, your add-on product must have :doc:`GenericSetup profile support </components/genericsetup>`."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:191
+# f59d17ef10ff437d87732c6fd54e5b9d
+msgid "This way is repeatable: index gets created every time an add-on product is installed. It is more cumbersome, however."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:196
+# ab251ffeba454f6ba03f55a30fc65e30
+msgid "There is a known issue of indexed data getting pruned when an add-on product is reinstalled. If you want to avoid this then you need to create new indexes in add-on installer custom setup step (Python code)."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:202
+# 4cf27c5147e742d79f89e1bc68dc5556
+msgid "The example below is not safe for data prune on reinstall. This file is ``profiles/default/catalog.xml`` It installs a new index called ``revisit_date`` of DateIndex type."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:216
+# a38ccc1c9e96412591f2713134f6b504
+msgid "For more information see"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:218
+# 003d94dd5c3a4681a226237b7e3f75fd
+msgid "http://maurits.vanrees.org/weblog/archive/2009/12/catalog"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:221
+# c4e1b2216ae44396b3df40427acd7de0
+msgid "Custom index methods"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:223
+# 8115644a7edf4e46b627ade72477dd37
+msgid "The `plone.indexer <http://pypi.python.org/pypi/plone.indexer>`_ package provides method to create custom indexing functions."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:225
+# 16c748cc0e1c4777b5db1232b9dfbac6
+msgid "Sometimes you want to index \"virtual\" attributes of an object computed from existing ones, or just want to customize the way certain attributes are indexed, for example, saving only the 10 first characters of a field instead of its whole content."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:230
+# 2d029887c70c4e88a7d605fd0e727c7a
+msgid "To do so in an elegant and flexible way, Plone>=3.3 includes a new package, `plone.indexer <http://pypi.python.org/pypi/plone.indexer>`_, which provides a series of primitives to delegate indexing operations to adapters."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:235
+# 61ce114ac5b74ad7a01e7cedbfb2bdd0
+msgid "Let's say you have a content-type providing the interface ``IMyType``. To define an indexer for your type which takes the first 10 characters from the body text, just type (assuming the attribute's name is 'text'):"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:248
+# 684d91f87eec4a3ab8293437d1437924
+msgid "Finally, register this factory function as a named adapter using ZCML. Assuming you've put the code above into a file named ``indexers.py``:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:256
+# c90cc5db6dac4907b514e4a80155099b
+msgid "And that's all! Easy, wasn't it?"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:258
+# b3beeec6cb0f478883266e98ce4117c1
+msgid "Note you can omit the ``for`` attribute because you passed this to the ``@indexer`` decorator, and you can omit the ``provides`` attribute because the thing returned by the decorator is actually a class providing the required ``IIndexer`` interface."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:263
+# 949afe850b584becab76961cbe724e6d
+msgid "To learn more about the *plone.indexer* package, read `its doctest`_."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:266
+# 3aaf1c34ad004b0db869a8cea7a0412b
+msgid "For more info about how to create content-types, refer to the `Archetypes Developer Manual`_."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:269
+# 613c92cec0674632ad9ba27b29abbaf9
+msgid "**Important note:** If you want to adapt a out-of-the-box Archetypes content-type like Event or News Item, take into account you will have to feed the ``indexer`` decorator with the Zope 3 interfaces defined in ``Products.ATContentTypes.interface.*`` files, not with the deprecated Zope 2 ones into the ``Products.ATContentTypes.interfaces`` file."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:277
+# 0a17010ef5b64153bf79e6347bbc8008
+msgid "Creating a metadata column"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:279
+# 5916e19978c24349a66e0b08614862b2
+msgid "The same rules and methods apply for metadata columns as creating index above. The difference with metadata is that"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:282
+# 677c9385245b443b8dd6210dff4ad405
+msgid "It is not used for searching, only displaying the search result"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:284
+# 8ed086e7a28246dba3d126255abb3c32
+msgid "You store always a value copy as is"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:286
+# 736bd577a56b476ab01d0d4652b9df68
+msgid "To create metadata colums in your ``catalog.xml`` add::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:298
+# e03fdb137367482da845d5132ec970f8
+msgid "When indexing happens and how to reindex manually"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:300
+# 315366fb26b74390b3f2aa34c5b7fbbc
+msgid "Content item reindexing is run when"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:302
+# b9a14dc09e6c4ca28bbf738f10729899
+msgid "Plone calls reindexObject() if"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:304
+# 83e062d12afa42be9219cdc136536b5f
+msgid "The object is modified by the user using the standard edit forms"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:306
+# b2b7c57f8fad46af8150c0f5ba09320c
+msgid "portal_catalog rebuild is run (from *Advanced* tab)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:308
+# b34b2827c0d54d14a873142008082839
+msgid "If you add a new index you need to run :doc:`Rebuild catalog </searching_and_indexing/catalog>` to get the existing values from content objects to new index."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:312
+# c2d9416e569c4d93954b17501036e990
+msgid "You might also want to call :doc:`reindexObject() </searching_and_indexing/catalog>` method  manually in some cases. This method is defined in the `ICatalogAware <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/interfaces/_content.py?rev=91414&view=auto>`_ interface."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:318
+# 7d0852742ffc48be9183a54401e576c9
+msgid "You must call reindexObject() if you"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:320
+# 218f861c279c49039985a56fac89d90c
+msgid "Directly call object field mutators"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:322
+# cba82b29781849d0a82bb73c46254ce8
+msgid "Otherwise directly change object data"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:326
+# cb230cadc3bb4838ab1d40ab746ef0c2
+msgid "**Unit test warning:** Usually Plone reindexes modified objects at the end of each request (each transaction). If you modify the object yourself you are responsible to notify related catalogs about the new object data."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:330
+# 601ab14ae32f453db1449f3e7bbacea1
+msgid "reindexObject() method takes the optional argument *idxs* which will list the changed indexes. If idxs is not given, all related indexes are updated even though they were not changed."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:343
+# 48c7d9476a874dae814c5d7d3414fcb8
+msgid "Also, if you modify security related parameters (permissions), you need to call reindexObjectSecurity()."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:347
+# dbad2d63f05643908d01d85fbe71b62b
+msgid "Index types"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:349
+# 617e28553005421394968341a99b2545
+msgid "Zope 2 product PluginIndexes defines various portal_catalog index types used by Plone."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:351
+# 46bdbdd2b9bd46b6961aee0c8eaddf87
+msgid "FieldIndex stores values as is"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:353
+# 7e5b4d319d3e4bc1ad29967fd84f02d1
+msgid "DateIndex and DateRangeIndex store dates (Zope 2 DateTime objects) in searhable format. The latter provides ranged searches."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:356
+# c93b5a428c284e258e0cf704ae7b9dc8
+msgid "KeywordIndex allows keyword-style look-ups (query term is matched against the all values of a stored list)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:358
+# 3563853c87da46998b680608239984ac
+msgid "ZCTextIndex is used for full text indexing"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:360
+# 10a9911a718e464b83bb230dd661f3af
+msgid "ExtendedPathIndex_ is used for indexing content object locations."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:364
+# 21e969bd761c4e51b43e878c1b0c65ce
+msgid "Default Plone indexes and metadata columns"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:366
+# e655cef3014a4dfeba1352d6284ed7f2
+msgid "Some interesting indexes"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:368
+# f0827f7a07ee4d4c86b88518749376cb
+msgid "start and end: Calendar event timestamps, used to make up calendar portlet"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:370
+# bfb8aee161de44d98a0381190ec769ac
+msgid "sortable_title: Title provided for sorting"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:372
+# 458d947ee583425fbbab28264112eb35
+msgid "portal_type: Content type as it appears in portal_types"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:374
+# e934c765ba84445cba9caa69da223ec0
+msgid "Type: Translated, human readable, type of the content"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:376
+# fa1595c169f94920a63f7477054d79f3
+msgid "path: Where the object is (getPhysicalPath accessor method)."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:378
+# d6a16777de5e4177b4e4d6d2d5c65cb6
+msgid "object_provides: What interfaces and marker interfaces object has. KeywordIndex of interface full names."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:381
+# 9dfe8e4cf2834a84bb351bf47e5dc1a3
+msgid "is_default_page: is_default_page is method in CMFPlone/CatalogTool.py handled by plone.indexer, so there is nothing like object.is_default_page and this method calls ptool.isDefaultPage(obj)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:384
+# 651dcd86bedc46e19852ca74ffea42c2
+msgid "Some interesting columns"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:386
+# 60ba871a6ef240c48f2a512abded1640
+msgid "getRemoteURL: Where to go when the object is clicked"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:388
+# cb0c97e0fd294b6d8c2618b2518f3e8a
+msgid "getIcon: Which content type icon is used for this object in the navigation"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:390
+# 29890ae43011469ea222598cdb77e78d
+msgid "exclude_from_nav: If True the object won't appear in sitemap, navigation tree"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:393
+# 299ac93d2cf646eeac11f8cc3cb6e4a8
+msgid "Custom sorting by title"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:395
+# 3d3ae0afb4f7410f9e2bab84210b5605
+msgid "``sortable_title is type of FieldIndex (raw value) and normal ``Title`` index is type of searhable text."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:397
+# 266d74c2f9874b589af9ddcc74e4d672
+msgid "``sortable_title`` is generated from ``Title`` in ``Products/CMFPlone/CatalogTool.py``."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:399
+# 624f9e30570f43558c54a1840cce681c
+msgid "You can override ``sortable_title`` by providing an indexer adapter with a specific interface of your content type."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:401
+# f8479c1c5d3a4791bef2f7c7ff3d2fb0
+msgid "Example indexes.py::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:422
+# c2ce3b19a3f047888a62644ed4bcbfd1
+msgid "Related ``configure.zcml``"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:430
+# eff03085e81646bb926d49fd42cab8ea
+msgid "TextIndexNG3"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:432
+# 7601f28f00f64d1f8f53848685c2873e
+msgid "`TextIndexNG3 <http://www.zopyx.com/projects/TextIndexNG3>`_ is advanced text indexing solution for Zope."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:434
+# c00b43b30f9f44a0a1c466372ff34ec7
+msgid "Please read TextIndexNG3 README.txt regarding how to add support for custom fields. Besides installing TextIndexNG3 in GenericSetup XML you need to provide a custom indexing adapter."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:438
+# 698b81ad9d61422c9196d58a64a3e517
+msgid "# Add TextIndexNG3 in catalog.xml. Example::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:462
+# 555c4bb66c434d4da0661036907e8a60
+msgid "# Create adapter which will add TextIndexNG3 indexing support for your custom fields. Example::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:535
+# ff4c4f871afd4232a28459d345ad97f6
+msgid "# Add adapter in your ZCML::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:540
+# e2be9065eda14bf09f6995c88eb2631e
+msgid "Full-text searching"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:542
+# 891169d047094a529e9afa86aff5b4fd
+msgid "Plone provides special index called ``SearchableText`` which is used on the site full-text search. Your content types can override ``SearchableText`` index with custom method to populate this index with the text they want to go into full-text searching."
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:546
+# f487377ec4c5486898064ab33c5395d9
+msgid "Below is an example of having ``SearchableText`` on a custom Archetypes content class. This class has some methods which are not part of AT schema and thus must be manually added to ``SearchableText``"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:624
+# 61783b7d89544a4c9a0c37b6c1ee0385
+msgid "Other"
+msgstr ""
+
+#: ../../source/searching_and_indexing/indexing.rst:626
+# 6e8a489040d14bc0a70a53bbc4852ec6
+msgid "http://toutpt.wordpress.com/2008/12/14/archetype_tool-queuecatalog-becareful-with-indexing-with-plones-portal_catalog/"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:3
+# 72b9c62fb91a4dc0a4a26bbc225c20ca
+msgid "Querying"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:7
+# 25c7009bb5a4440589dfdd302f6d71bd
+msgid "How to programmatically search and query content from a Plone site."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:12
+# 998130380849403592609eac0f9e6068
+msgid "Introduction"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:14
+# b7a1db97509548fda8f0ebc90a7db302
+msgid "*Querying* is the action to retrieve data from search indexes.  In Plone's case this usually means querying content items using the ``portal_catalog`` tool.  Plone uses the :doc:`portal_catalog </searching_and_indexing/catalog>` tool to perform most content-related queries. Special catalogs, like ``reference_catalog``, exist, for specialized and optimized queries."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:22
+# 05c00f9240a6427bb37587afcc62591b
+msgid "Accesing the ``portal_catalog`` tool"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:24
+# 36764c4573224b0ba5c7ceea3789a0a0
+msgid "Plone queries are performed using ``portal_catalog`` persistent tool which is available as an persistent object at the site root."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:32
+# 574c957ababa4190bf1a3cd64bd85515
+msgid "You can also use :doc:`ITools </misc/context>` tool to get access to ``portal_catalog`` if you do not have Plone site object directly available::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:40
+# 1b25139e3fd145528086543a556c1d6e
+msgid "There is also a third way, using traversing. This is discouraged, as this includes extra processing overhead::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:46
+# f69921c0b7434796badfb7eec7cd87b4
+msgid "... and the same in TAL template::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:51
+# cc69eeda243c45bf8d58b0a38e26134b
+msgid "A safer method is to use the ``getToolByName`` helper function::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:57
+# 3c8310550c3945ac899a57cd11375e5a
+msgid "Querying ``portal_catalog``"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:60
+# e6d74d98a3f245ee81d642ec7ad269bb
+msgid "To search for something and get the resulting brains, write::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:64
+# acbb1f2030c04b0f8d981fa7f0896bb9
+msgid "The catalog returns \"*brains*\". A brain is a lightweight proxy for a found object, which has attributes corresponding to the metadata defined for the catalog."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:68
+# f4d3ab1a02cc460c92df840c732c822d
+msgid "Where ``kwargs`` is a dictionary of index names and their associated query values. Only the indexes that you care about need to be included. This is really useful if you have variable searching criteria, for example, coming from a form where the users can select different fields to search for. For example::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:76
+# cbaad1db9e3240e0ae78240905596500
+msgid "It is worth pointing out at this point that the indexes that you include are treated as a logical AND, rather than OR. In other words, the query above will find all the items that are both an Event, AND in the review state of pending."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:81
+# 8c15fbb696184bb9bae062e76cc5c167
+msgid "Additionally, you can call the catalog tool directly, which is equivalent to calling ``catalog.searchResults()``::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:86
+# f16f50cee47c4215a59bf260e9603cf5
+msgid "If you call portal_catalog() without arguments it will return all indexed content objects::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:94
+# a811e7319c914534af167239be23af8f
+msgid "The catalog tool queries return an iterable of catalog brain objects."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:96
+# 1001c03bf86247e8a2007e87c9d58bf4
+msgid "As mentioned previously, brains contain a subset of the actual content object information. The available subset is defined by the metadata columns in portal_catalog. You can see available metadata columns on the portal_catalog \"Metadata\" tab in ZMI. For more information, see :doc:`indexing </searching_and_indexing/indexing>`."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:103
+# a7ce3d264a814e95a0975417c5f9e48f
+msgid "Available indexes"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:105
+# e22a4ac1aa5a4fc2bce86bfb4792df67
+msgid "To see the full list of available indexes in your catalog, open the ZMI (what usually means navigating to *http://yoursiteURL/manage*) look for the *portal\\_catalog* object tool into the root of your Plone site and check the *Indexes* tab. Note that there are different types of indexes, and each one admits different types of search parameters, and behave differently. For example, *FieldIndex* and *KeywordIndex* support sorting, but *ZCTextIndex* doesn't. To learn more about indexes, see `The Zope Book, Searching and Categorizing Content <http://docs.zope.org/zope2/zope2book/SearchingZCatalog.html>`_."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:115
+# ccf87ecfa2ba4fa3a0a1b632429f6ba6
+msgid "Some of the most commonly used ones are:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:118
+# 1c70e7d4b4d04891a50c38898413d112
+msgid "The title of the content object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:120
+# 395a1817f0a847c083acdcb310fca9a3
+msgid "The description field of the content."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:122
+# 10c0a42101a64530bf3fe08f6cc161f8
+msgid "The keywords used to categorize the content. Example: ::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:128
+# a6d4bff28e3f4ee6802c2dc6736805e5
+msgid "As its name suggest, search for content whose portal type is indicated. For example: ::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:134
+# ccfe81a33d1e4d53accac230e3f581f3
+msgid "You can also specify several types using a list or tuple format:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:141
+# a85147098c604cfdaa95bb50b7550a33
+msgid "The current workflow review state of the content. For example: ::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:147
+# f7e1d074e6e3419cb675580d03125fca
+msgid "From Plone 3, you can search by the interface provided by the content. Example: ::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:154
+# fd66881dd0af4ccab8cbef756b519a57
+msgid "Searching for interfaces can have some benefits. Suppose you have several types, for example, event types like *Birthday*, *Wedding* and *Graduation*, in your portal which implement the same interface (for example, ``IIsCauseForCelebration``). Suppose you want to get items of these types from the catalog by their interface. This is more exact than naming the types explicitly (like portal\\_type=['Birthday','Wedding','Graduation' ]), because you don't really care what the types' names really are: all you really care for is the interface. This has the additional advantage that if products added or modified later add types which implement the interface, these new types will also show up in your query."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:169
+# b382032ac17a4d10993b35ca493f748b
+msgid "Brain result id"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:171
+# 69014616f6f34ef3bf7071512f83e42f
+msgid "Result ID (RID) is given with the brain object and you can use this ID to query further info about the object from the catalog."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:180
+# d0d8ca9b56b4413795db5f7022894427
+msgid "Brain result path"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:182
+# c2864f3025fd462f9c886a743ae575ca
+msgid "Brain result path can be extraced as string using ``getPath()`` method::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:189
+# e907337788234348897ccbdb98ffdc02
+msgid "Brain object schema"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:191
+# f486419ef2ce4caf92734886dcb362bc
+msgid "To see what metadata columns a brain object contain, you can access this information from ``__record_schema__`` attribute which is a dict."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:209
+# 96cbbbe7c9f6426b8ef727d5dd3cffa6
+msgid "What do those numbers represent?"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:213
+# d7b884ddc7824e4cb7836a9bdf860bd2
+msgid "Getting the underlying object, its path, and its URL from a brain"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:215
+# 22f47797409746edb02978526678c4bc
+msgid "As it was said earlier, searching inside the catalog returns catalog brains, not the object themselves. If you want to get the object associated with a brain, do::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:221
+# 51313cf933cf492b8c6f6b8d0961b236
+msgid "To get the path of the object without fetching it::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:225
+# c1e57bf727074ca9863895752f510201
+msgid "which returns the path as an string, corresponding to ``obj.getPhysicalPath()``"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:227
+# 17f0aa0d30224ab88faed86444e68af1
+msgid "And finally, to get the URL of the underlying object, usually to provide a link to it::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:232
+# 51d31ce8a77f4428960e6c13bb04c076
+msgid "which is equivalent to ``obj.absolute_url()``."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:236
+# fd158938d76a4a42826cd9bf4eb03d77
+msgid "Calling getObject() has performance implications. Waking up each object needs a separate query to the database."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:241
+# 0bbfe329e7f64797876cd3eb00464f9d
+msgid "getObject() and unrestrictedSearchResults() permission checks"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:243
+# 938ea7cae8274e8f9d38282f10149c42
+msgid "You cannot call getObject() for a restricted result, even in trusted code."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:245
+# 7ceb58cd541b43f5b2a054c9feb3b307
+msgid "Instead, you need to use::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:251
+# 94007afc549a43739f35163e3347f50d
+msgid "How to call ``unrestrictedTraverse``"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:253
+# eb5b758aad0240598bcd87a601b8a903
+msgid "For more information, see"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:255
+# 9de4d47203df40eab1f89221fa06dded
+msgid "http://www.mail-archive.com/zope-dev@zope.org/msg17514.html"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:259
+# c5de85c146e34f838b505328a6d8984e
+msgid "Counting value of an specific index"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:261
+# 876a45a1478449679aeb14eccf9a770d
+msgid "The efficient way of counting the number value of an index is to work directly in this index. For example we want to count the number of each portal_type. Quering via search results is a performance bootleneck for that. Iterating on all brains put those in zodb cache. This method is also a memory bottleneck. So the good way for do that"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:280
+# e7e7ced8d9b34b958e021b8a6df0c9ed
+msgid "Sorting and limiting the number of results"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:282
+# ec61fd6db84e4f76a7c7affa15925556
+msgid "To sort the results, use the sort\\_on and sort\\_order arguments. The sort\\_on argument accepts any available index, even if you're not searching by it. The sort\\_order can be either 'ascending' or 'descending', where 'ascending' means from A to Z for a text field. 'reverse' is an alias equivalent to 'descending'. For example:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:293
+# 5e8d353c54dc467385db3389df5abb2a
+msgid "The catalog.searchResults() returns a list-like object, so to limit the number of results you can just use Python's slicing. For example, to get only the first 3 items:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:301
+# 893ab1fcebba49449c870e870bd5748d
+msgid "In addition, ZCatalogs allow a sort\\_limit argument. The sort\\_limit is only a hint for the search algorithms and can potentially return a few more items, so it's preferable to use both ``sort_limit`` and slicing simultaneously:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:313
+# 7686b44b171e4b7fba567172c7402620
+msgid "portal_catalog query takes *sort_on* argument which tells the index used for sorting. *sort_order* defines sort direction. It can be string \"reverse\"."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:316
+# 64a41cbfe1b34d5a9d531e85bc34b96d
+msgid "Sorting is supported only on FieldIndexes. Due to nature of searchable text indexes (they index split text, not strings) they cannot be used for sorting. For example, to do sorting by title, an index called *sortable_tite* should be used."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:321
+# 74bc7c8aade548a9bb7242f2a44af938
+msgid "Example how to sort by id::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:330
+# 2a464dbacbbc4f69b2bc602fa092fb71
+msgid "Text format"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:332
+# 3d5e1fbc169b4fb19732c10e05074586
+msgid "Since most indexes use Archetypes accessors to index the field value, the returned text is UTF-8 encoded. This is a limitation inherited from the early ages of Plone."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:336
+# 80346c5f73304c379903c5d0c8389c1c
+msgid "To get unicode value for e.g. title you need to do the following::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:346
+# 096aa20c8a4b4886ba6e3920162556f3
+msgid "Accessing indexed data"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:348
+# 7c55c79626384771ad2a282652427a3f
+msgid "Normally you don't get copy of indexed data with brains, only metadata. You can still access the raw indexed data if you know what you are doing by using RID of the brain object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:390
+# 79b26e58a5fa4d298964f05dd4a48caa
+msgid "You can also directly access a single index::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:404
+# e2d1831d35974265ae21c722becd6a22
+msgid "Dumping portal catalog content"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:406
+# c9a2d4f7fd364832b44032d9336dc7a1
+msgid "Following is useful in unit test debugging::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:417
+# 55e24efa34bf4f058083492c713a8e0e
+msgid "Bypassing query security check"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:421
+# 778393cc87404c50a1d23d3955bd1482
+msgid "Security: All portal_catalog queries are limited to the current user permissions by default."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:423
+# 771a4376e2b944be9fb06b9d0e925629
+msgid "If you want to bypass this restrictions, use the unrestrictedSearchResults() method."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:431
+# 9915754bfe834c999872577999e11d42
+msgid "With ``unrestrictedSearchResults()`` you need also a special way to get access to the objects without triggering a security exception::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:437
+# 48bb7bee662b4fcf82b9b7be2079ae65
+msgid "Bypassing language check"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:441
+# bdfe1379bdcb4ab494751a4e0d9376e9
+msgid "All portal_catalog() queries are limited to the selected language of current user. You need to explicitly bypass the language check if you want to do multilingual queries."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:445
+# a227ead361974297b5c0a9d6d3c6f3e6
+msgid "Example of how to bypass language check::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:449
+# 97739ebb0f0e457f9f7375c0c84f7d4f
+msgid "Some older LinguaPlone versions, which are still using ``LanguageIndex`` to keep language information in portal_catalog() may require::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:454
+#: ../../source/searching_and_indexing/query.rst:862
+# f24067051cf54fedb3286eb4b97d6ee1
+# fa2aaabc5600416885d972b047338b8b
+msgid "More information"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:456
+# 4382b7004381489489a28f3eae80186f
+msgid "http://plone.293351.n2.nabble.com/Products-LinguaPlone-LanguageIndex-vs-FieldIndex-td5554729.html#a5747819"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:459
+# 7ba811d79b0c44dbbf7ab923ac2d6153
+msgid "Bypassing Expired content check"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:461
+# 3de4a2c4bf44440799ceab055d04a1c1
+msgid "Plone and portal_catalog have a mechanism to list only active (non-expired) content by default."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:464
+# c8c5a3fd483b498ab193aab472ef9058
+msgid "Below is an example of how the expired content check is made::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:471
+# ad8b27cac92a406581ba1094e022b837
+msgid "See also::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:477
+# 2ab6593408af4ac09e4144b12765dc0d
+msgid "None as query parameter"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:481
+# 22eb0b250ee644e582eed6ec0b2a2b57
+msgid "Usually if you pass in None as the query value, it will match all the objects instead of zero objects."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:485
+# 488b70dbc55f4322a36d848e6fcbd4e0
+msgid "Querying for None values is possible with AdvancedQuery_ (see below)."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:489
+# c88eb4a3f4b141a3a924c8e0fd24605d
+msgid "Query by path"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:491
+# faf8330d2465458f9124baaf9b6c9d83
+msgid "ExtendedPathIndex_ is the index used for content object paths. The *path* index stores the physical path of the objects."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:495
+# 7cfc3ca6f0ca41ce90354633f0038298
+msgid "index needs to be completely rebuilt."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:502
+# 87fff0d0f9294e02be5b0303f4e67317
+msgid "Searching for content within a folder"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:504
+# f6572c0cded344c2a00553312dde2bde
+msgid "Use the 'path' argument to specify the physical path to the folder you want to search into."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:507
+# 29b07a3480124f4b9d7db8ee23c7caf0
+msgid "By default, this will match objects into the specified folder and all existing sub-folders. To change this behaviour, pass a dictionary with the keys 'query' and 'depth' to the 'path' argument, where"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:513
+# 4aa94fdc202f48b6959c850220dc99d0
+msgid "'query' is the physical path, and"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:514
+# edfd4922df254d298992a3d4d0732a4e
+msgid "'depth' can be either 0, which will return only the brain for the path queried against, or some number greater, which will query all items down to that depth (eg, 1 means searching just inside the specified folder, or 2, which means searching inside the folder, and inside all child folders, etc)."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:520
+# 0e824e2a441249b7a5110ac2917c0923
+msgid "The most common use case is listing the contents of an existing folder, which we'll assume to be the ``context`` object in this example:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:532
+# 50ee35c64e564b2598ab62ce2f4208ed
+msgid "Query multiple values"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:534
+# 577d4f7c71e54c59a12e5f3240df781f
+msgid "``KeywordIndex`` index type indexes list of values. It is used e.g. by Plone's categories (subject) feature and ``object_provides`` provided interfaces index."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:538
+# 0ee484747d024280855bc680eefb91fb
+msgid "You can either query"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:540
+# eb002bb8a950421c9ee4ce169df88abf
+msgid "a single value in the list"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:542
+# 39a48fd137554c28b77fff9770c9a614
+msgid "many values in the list (all must present)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:544
+# 0f2dc281a320439ebb87a782d98cabeb
+msgid "any value in the list"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:546
+# 5128ea64728c46fcb3872c84e6f8d990
+msgid "The index of the catalog to query is either the name of the keyword argument, a key in a mapping, or an attribute of a record object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:550
+# f5ff24b485b54c93808053485ef79c33
+msgid "Attributes of record objects"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:552
+# 475c386e5d2a48fbb2e2ce25850e07b0
+msgid "``query`` -- either a sequence of objects or a single value to be passed as query to the index (mandatory)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:555
+# 8cef774213804121b41f43ba78d754e6
+msgid "``operator`` -- specifies the combination of search results when query is a sequence of values. (optional, default: 'or'). Allowed values: 'and', 'or'"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:559
+# fcba006ad526455995a6e4c1ef0fd14e
+msgid "Below is an example of matching any of multiple values gives as a Python list in KeywordIndex. It queries all event types and recurrence_days KeywordIndex must match any of given dates::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:576
+# 851253724e69453b9ba94fe1a9d0dd13
+msgid "Querying by interface"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:578
+# dea8e35e94ca4c58be54e0cd35f4f577
+msgid "Suppose you have several content types (for example, event types like 'Birthday','Wedding','Graduation') in your portal which implement the same interface (for example, ``IIsCauseForCelebration``). Suppose you want to get items of these types from the catalog by their interface. This is more exact than naming the types explicitly (like ``portal_type=['Birthday', 'Wedding', 'Graduation' ]``), because you don't really care what the types' names really are: all you really care for is the interface."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:586
+# 14475d43dae44b28a1e0aba4855081ea
+msgid "This has the additional advantage that if products added or modified later add types which implement the interface, these new types will also show up in your query."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:590
+# a9c5bccaaf1a4f49978ad05126105ebb
+msgid "Import the interface::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:595
+# f0420969812a47e6be7f65aa5565017b
+msgid "In a script, where you can't import the interface due to restricted Python, you might do this::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:600
+# ad3b5ceefb4a4cb0a1b89dfc870a3e7d
+msgid "The advantage of using ``.__identifier__`` instead instead of a dotted name-string is that you will get errors at startup time if the interface cannot be found. This will catch typos and missing imports."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:605
+# 092b94f2564c4701a69ac8c36b2fb68f
+msgid "Caveats"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:607
+# 716ced021af84acf9dec6cdd209fb710
+msgid "``object_provides`` is a KeywordIndex which indexes absolute Python class names. A string matching is performed for the dotted name. Thus, you will have zero results for this::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:613
+# f4df34226443490399f83142c505d71b
+msgid ", because Products.ATContentTypes.interface imports everything from ``document.py``. But this will work::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:619
+# dbe2b5698cde4586ad702253a2b4f4c8
+msgid "As with all catalog queries, if you pass an empty value for search parameter, it will return all results. so if the interface you defined would yield a none type object, the search would return all values of object_provides."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:623
+# 4b1994499e2c4bf48394ec74028ef99b
+msgid "(Originally from `this tutorial <http://plone.org/documentation/how-to/query-portal_catalog-for-interfaces>`_.)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:627
+# 396618baf360484f9cb08c5fdd98e9e0
+msgid "Looks like query by Products.CMFCore.interfaces._content.IFolderish does not seem to work in Plone 4.1 as this implementation information is not populated in portal_catalog."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:631
+# 7ef5aa841a1a461e94716659eb782003
+msgid "Query by content type"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:633
+# 365ad6b1fb5846998801b58c27fcb0e4
+msgid "To get all catalog brains of certain content type on the whole site::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:637
+# 085bf86f3f90419bab210235b11c7799
+msgid "To see available type names, visit in portal_types tool in ZMI."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:640
+# 02a2036ff1f24df9a5ba1fd6f3bb6310
+msgid "Query published items"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:642
+# 207ffe97ebed476e986b8136edc4ba82
+msgid "By default, the portal_catalog query does not care about the workflow state. You might want to limit the query to published items."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:650
+# 4d9828d534714869996d3f79a44ae980
+msgid "review_state is a portal_catalog index which reads portal_workflow variable \"review_state\". For more information, see what portal_workflow tool *Content* tab in ZMI contains."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:654
+# 563b463ed28d419991952f0fc0243662
+msgid "Getting a random item"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:656
+# 39847266d20b47e2b01eb61d30ada164
+msgid "The following view snippet allows you to get one random item on the site::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:687
+# 50b2a7a321d64eb09076c7591e3f508d
+msgid "Querying FieldIndexes by Range"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:688
+# 53a0ef98515244fdb792f4f6cd0adf97
+msgid "The following examples demonstrate how to do range based queries. This is useful if you want to find the \"minimum\" or \"maximum\" values of something, the example assumes that there is an index called 'getPrice'."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:692
+# a29e36e32a974f64885cd0f617ae4259
+msgid "Get a value that is greater than or equal to 2::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:696
+# effa4c1004c94b2bb2fe0a076c7c2d2e
+msgid "Get a value that is less than or equal to 40::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:700
+# c79abfa032024e08847d5d8521c1027b
+msgid "Get a value that falls between 2 and 1000::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:705
+# 7aad25c2579546149b0e345b17365550
+msgid "Querying by date"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:707
+# 9ef9963077514ef489f4a65b662f65d4
+msgid "See `DateIndex <http://svn.zope.org/Zope/trunk/src/Products/PluginIndexes/DateIndex/tests/test_DateIndex.py?rev=102443&view=auto>`_."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:715
+# 41aecf5d67934e75b70551efdd48a5b5
+msgid "Note that ``effectiveRange`` may be a lot more efficient. This will return only objects whose ``effective_date`` is in the past, ie. objects that are not unpublished::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:722
+# eadba0d20a9e4e31a17f87be39458698
+msgid "Example 2 - how to get items one day old of FeedFeederItem content type::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:738
+# 47e2aa2a1b224ca889a0a5e08c2b7598
+msgid "Example 3: how to get news items for a particular year in the template code"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:769
+# 69d666b1e6f940a9a0bf9fb22b501b3b
+msgid "Example 4 - how to get upcoming events of next two months::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:793
+# f3046ecdc5fe43fbb0dba5b441a38b4e
+msgid "More info"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:795
+# b0e4c004018b403dbe5a46147a98f0c4
+msgid "http://www.ifpeople.net/fairsource/courses/material/apiPlone_en"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:798
+# fac7d326b91a4153bc93c05b3ae4684a
+msgid "Query by language"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:800
+# 6c90c1b0e94a4befb9eaadcab9db9149
+msgid "You can query by language::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:806
+# e6adedf5bd3947f7a39de384b5b893cd
+msgid "Products.LinguaPlone must be installed."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:809
+# 232732e8479f4e17bbb875d327184b6a
+msgid "Boolean queries (AdvancedQuery)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:811
+# 1a036961d8564d37b66538c0c34ea6fd
+msgid "AdvancedQuery is an add-on product for Zope's ZCatalog providing queries using boolean logic. AdvancedQuery is developer level product, providing Python interface for constructing boolean queries."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:815
+# f5da7d601a894f4b9105fc0eb87f7d88
+msgid "AdvancedQuery monkey-patches ``portal_catalog`` to provide new method ``portal_catalog.evalAdvancedQuery()``."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:853
+# 782f9c344db84b5cb30cd57dc93692b9
+msgid "Plone 3 ships with AdvancedQuery but it is not part of Plone. Always declare AdvancedQuery dependency in your egg's setup.py install_requires."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:858
+# fed966826d9f479b91618a46258c1a29
+msgid "AdvancedQuery does not necessarily apply the same automatic limitations which normal portal_catalog() queries do, like language and expiration date. Always check your query code against these limitations."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:864
+# caa00859122a44238747ad241f85e533
+msgid "See AdvancedQuery_."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:866
+# f0dac1bb581548ffad0b7ee31cd5777e
+msgid "http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/removed-advanced-query"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:870
+# 1708b7d0491d4dba910ecc481f4bf1fd
+msgid "Setting Up A New Style Query"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:872
+# c360701468c349adb4de0d494435399d
+msgid "With Plone 4.2, collections use so-called new-style queries by default. These are, technically speaking, canned queries, and they appear to have the following advantages over old-style collection's criteria:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:877
+# 9cc6bd36d2f649e482a56eef6b4f2044
+msgid "They are not complicated sub-objects of collections, but comparably simple subobjects that can be set using simple Python expressions."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:879
+# d90488258b69460f915bb076676a7f8b
+msgid "These queries are apparently much faster to execute, as well as"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:880
+# 569d776dc57a4963b6ea5823f20a7404
+msgid "much easier to understand, and"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:881
+# d5ec7f2ca06b49f69c8af58b312ae18f
+msgid "content-type agnostic in the sense that they are no longer tied to ArcheTypes."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:884
+# dddc9457b54147b1a578ed36525a5929
+msgid "The easiest way to get into these queries is to grab a debug shell alongside an instance, then fire up a browser pointing to that instance, then manipulate the queries and watch the changes on the debug shell, if you want to experiment. I've constructed a dummy collection for demonstration purposes, named `testquery`. I've formatted the output a little, for readability."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:891
+# de256196df684196973df336f67ef36f
+msgid "Discovering the query:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:919
+# da7d99db61914e17ab60954bb0a61b2e
+msgid "This output should be pretty self-explaining: This query finds objects that were created today, which have \"my querystring\" in their description, are of type \"Document\" (ie, \"Page\"), and have \"some_tag\" in their tag set (you'll find that under \"Classification\"). Also, the results are being sorted in reverse order of the Effective Date (ie, the publishing date). We're getting at most 1000 results, which is the default cut-off."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:927
+# 773cf5f9de584394854cf925c47d14de
+msgid "You can set the query expression (individual parts are evaluated as logical AND) using"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:931
+# 3a87c9d28e574ab394dcff1afc16f738
+msgid "The three parts of an individual query term are"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:933
+# 9021da30f46c4f8eab07fe133efb3325
+msgid "'i': which index to query"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:934
+# 93ce58ed94aa40b58797997726466bc8
+msgid "'o': which operator to use (see `plone.app.querystring` for a list)"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:935
+# d8d6a2738624498ea0cad3b2105864dc
+msgid "'v': the possible value of an argument to said operator - eg. the query string."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:937
+# 0cd7ad7b804d4d59964a0bc23aff4c46
+msgid "Other parameters can be manipulated the same way:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:943
+# 25bccd6f3891426fa7382a2e81a8b7c3
+msgid "Accessing metadata"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:945
+# 77a9f902e6e342349140679ed58185d9
+msgid "Metadata is collected from the object during cataloging and is copied to brain object for faster access (no need to wake up the actual object from the database)."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:948
+# e00586ee7af342b99623a3e268854c4a
+msgid "ZCatalog brain objects use Python dictionary-like API to access metadata. Below is a fail-safe example for a metadata access::"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:990
+# 8c8eb37e31e14e758a97c519949a08f1
+msgid "This is for example purposes only - the code above is working, but not optimal, and can be written up without waking up the object."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:994
+# c7e8487ecea148ea936b99a7b7e5c852
+msgid "Fuzzy search"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:996
+# 3826a565442c48b6b6d171bcc066cf3b
+msgid "http://pypi.python.org/pypi/c2.search.fuzzy/"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:999
+# 0aa9748b03fb4804a8dfaa34cb285324
+msgid "Unique values"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1001
+# 66b54562da3f49648bf3faf905c7adcf
+msgid "ZCatalog has *uniqueValuesFor()* method to retrieve all unique values for a certain index. It is intended to work on FieldIndexes only."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1016
+# 63ace2bfd5d5418a9782cec5627e9b92
+msgid "Performance"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1018
+# 63ee2c212af24ffe82804d33001e4c8c
+msgid "The following community mailing list blog posts is very insightful about the performance characteristics of Plone search and indexing:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1021
+# 8c0d5efa5b704afc83ad47d5bc4622f3
+msgid "http://plone.293351.n2.nabble.com/Advice-for-site-with-very-large-number-of-objects-millions-tp5513207p5529103.html"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1024
+# ae3e83d219014d84aa70914e0787378b
+msgid "Batching"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1026
+# 67ef4bcb0d034d34974d838023aa2048
+msgid "Complete writeup"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1032
+# fbb9db9f093349ea9e59caf7ae76f98d
+msgid "orphan - the next page will be combined with the current page if it does not contain more than orphan elements"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1035
+# 98513b3d7c874e699967e44451fdf1ae
+msgid "Walking through all content"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1037
+# bcbc7ec5ab49488584512cc9330f12b0
+msgid "``portal_catalog()`` call without search parameters will return all indexed site objects."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1040
+# eafa70d75f134e4980571693f3b575c1
+msgid "Here is an example how to crawl through Plone content to search HTML snippets. This can be done by rendering every content object and check whether certain substrings exists the output HTML This snippet can be executed through-the-web in Zope Management Interface."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1045
+# 2a2e35a9d553474fbb1983774e7248c9
+msgid "This kind of scripting is especially useful if you need to find old links or migrate some text / HTML snippets in the content itself. There might be artifacts which only appear on the resulting pages (portlets, footer texts, etc.) and thus they are invisible to the normal full text search."
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1074
+# b7bc4b9f66e54c77b713a31e937476ac
+msgid "More info:"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1076
+# c57770792dd14b89af689d8945f983dc
+msgid "http://blog.mfabrik.com/2011/02/17/finding-arbitary-html-snippets-on-plone-content-pages/"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1079
+# 61654261144846249b9e367f73dfa101
+msgid "Other notes"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1081
+# 91a5ed3a398c44a1937247d4f5e1f6b1
+msgid "`Indexing tutorial <http://plone.org/documentation/tutorial/using-portal_catalog/tutorial-all-pages>`_ on plone.org"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1083
+# 5fd1ec1604444025a5c9dea0f3e09d04
+msgid "`Manual sorting example <http://www.universalwebservices.net/web-programming-resources/zope-plone/advanced-sorting-of-plone-search-results/>`_"
+msgstr ""
+
+#: ../../source/searching_and_indexing/query.rst:1085
+# 1d69fcb9142e4b7c801978434aa7f492
+msgid "`Getting all unique keywords <http://stackoverflow.com/questions/10497342/python-plone-getting-all-unique-keywords-subject>`_"
+msgstr ""
+

@@ -1,0 +1,3240 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-08 16:49\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:3
+# 8455f6d02c2d4b0fabed59481099ab8f
+msgid "AJAX"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:7
+# 7c4383fd04684bcbaa1ab5c9022a9961
+msgid "Creating AJAX programming logic in Plone."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:12
+#: ../../source/templates_css_and_javascripts/css.rst:13
+#: ../../source/templates_css_and_javascripts/diazo.rst:13
+#: ../../source/templates_css_and_javascripts/javascript.rst:12
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:12
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:13
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:14
+#: ../../source/templates_css_and_javascripts/template_basics.rst:14
+#: ../../source/templates_css_and_javascripts/xdv.rst:13
+# 95f8e4babdd6413f8c72c9f3d3179e10
+# b4572add035243d8b396848bd82d800f
+# c8155e42021f423da8a0397027cb914e
+# 28ae079ec45c4ca3a067e8ad1ebd040e
+# 02f1b772b06b41a79605581490f36114
+# a7ea3610f60b413f9104979604d22a2f
+# 58ce5b22c92c4d04b424e4c069f8e170
+# 525bb4b01c784a67971578c247839cd2
+# 015f7f1225bb462d990de51329ddacd6
+msgid "Introduction"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:14
+# ef682053c6154f8ca66524c2abc786f6
+msgid "´AJAX <http://en.wikipedia.org/wiki/Ajax_%28programming%29>`_ (an acronym for Asynchronous JavaScript and XML) is a group of interrelated web development techniques used on the client-side to create asynchronous web applications."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:17
+# 2174b323f29b4e54bf0721e50db5266b
+msgid "JSON views and loading data via AJAX"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:19
+# fc87bff70708489881b9757bb7a0d257
+msgid "The best way to output JSON for AJAX call endpoints is to use Python's dict structure and convert it to JSON using Python ``json.dumps()`` call."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:22
+# ba211ef2bca6439587d7b716217dde59
+msgid "You should pass the AJAX target URLs to your Javascript using the settings passing pattern explained above."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:24
+# 2c49bab4e24540fe8c17ac44ff0a756c
+msgid "Examples"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:26
+# 54fbcb81cb2e4bf8b6d885990170977e
+msgid "Generator"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:28
+# d1bbda40612148efb5fa5ad69bcb9b03
+msgid "https://github.com/miohtama/silvuple/blob/master/silvuple/views.py#L342"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:30
+# 94b6d43e70bd4d7fb1792c886ebac80f
+msgid "AJAX loader"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:32
+# 77865820a0fe4bf2b11cdddc21cde95a
+msgid "https://github.com/miohtama/silvuple/blob/master/silvuple/static/main.js#L247"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:35
+# f5ca9d32585f46d789d279ad7b511705
+msgid "Cross-Origin Resource Sharing (CORS) proxy view"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:37
+# f4f9a43849854e08b3dcb4182d13486d
+msgid "Old web browsers do not support `Allow-acces-origin HTTP header <https://developer.mozilla.org/en/HTTP_access_control>`_ needed to do cross-domain AJAX requests (IE6, IE7)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:40
+# 9a31dc8313cf42d5b94c31998131da1d
+msgid "Below is an example how to work around this for jQuery getJSON() calls by"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:42
+# dbb5403173454418b1e97295bdee7d99
+msgid "Detecting browsers which do not support this using jQuery.support API"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:44
+# e57008316b1c428e9c2af98a96171fbb
+msgid "Doing an alternative code path through a local website proxy view which uses Python ``urllib`` to make server-to-server call and return it as it would be a local call, thus working around cross-domain restriction"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:48
+# dd41ae3e9939406e84aeec1c52e7cf31
+msgid "This example is for Plone/Grok, but the code is easily port to other web frameworks."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:52
+# 56b63d5b3ea5423cbb14a2628c8f5883
+msgid "This is not a full example code. Basic Python and Javascript skills are needed to interpret and adapt the code for your use case."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:55
+# be08692d7d834b398559fbb1900ef70e
+msgid "Javascript example"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:108
+# e824bb3d09a843d594699378f760ca71
+msgid "The server-side view::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:215
+# 6d105035a74646a38b6d1fa351208c7c
+msgid "Speeding up AJAX loaded content HTML"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:217
+# 1eac7bd1ea5d45a689776c1be95d35c9
+msgid "By observing Plone's ``main_template.pt``, having a True value on the ``ajax_load`` request key means some parts of the page aren't displayed, hence the speed:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:219
+# 0cec23d2f79c4eeaa120c699767aae42
+msgid "No CSS or Javascript from ``<head />`` tag is loaded"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:221
+# b354755882554ec3b11291e68459b87d
+msgid "Nothing from the ``plone.portaltop`` ViewletManager, such as the personal bar, searchbox, logo and main menu"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:223
+# 47dff142a57f4858a2cb7eb554353116
+msgid "Nothing from the ``plone.portalfooter`` ViewletManager, which contains footer and colophon information, site actions and the Analytics javascript calls if you have that configured in your site"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/ajax.rst:225
+# c988ce71868744a587d67953726bd24b
+msgid "Neither the left nor the right column, along with all the portlets there assigned"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:3
+# 87e2ef4470064267979b236770a5e94d
+msgid "CSS"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:7
+# 339cf8226435462daedc4c1b6e79b33b
+msgid "Creating and registering CSS files for Plone and Plone add-on products. CSS-related Python functionality."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:15
+# 38fed770b6254307aa3a74cc6cb20757
+msgid "This page has Plone-specific CSS instructions."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:17
+# 116184c141624fe6a8099873d27748df
+msgid "In Plone, most CSS files are managed by the ``portal_css`` tool via the :term:`ZMI`. Page templates can still import CSS files directly, but ``portal_css`` does CSS file compression and merging automatically if used."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:23
+# 824df1ae99954f2eb14ddc9c173bcc64
+msgid "View all Plone HTML elements"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:25
+# 047974d1b238428a8f6cb30a1086a3b3
+msgid "To test Plone HTML element rendering go to ``test_rendering`` page on your site::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:29
+# 377c2ad896754ea08662281147b868ca
+msgid "It will output a styled list of all commonly used Plone user interface elements."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:32
+# 4796a83c98fb42f0b950ad0c4b972b43
+msgid "Registering a new CSS file"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:34
+# a537345af8924debbc30c242f53481f5
+msgid "You can register stylesheets to be included in Plone's various CSS bundles using GenericSetup XML."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:37
+# 6e7861852a7645818db072d092ecdd3d
+msgid "Example ``profiles/default/cssregistry.xml``:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:80
+# 111fa737e0cf440e885d6fe0f67ed45b
+msgid "In this case there should be a registered resource directory named yourproduct.something. In the directory should be a file yourstylesheet.css. If you have registered the stylesheet directly in zcml"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:85
+# c38ae316e1b94312a9e0e410552f8e3a
+msgid "name=\"yourstylesheet.css\" file=\"yourstylesheet.css\" />"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:89
+# 05a58157e6d949328791a7682840b62e
+msgid "then id must be"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:91
+# 0082a09f62334a88a88f3ddc82e88848
+msgid "id=\"++resource++yourstylesheet.css\""
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:94
+# e8b16ee43837432aa66873b24e7acdc2
+msgid "Expressions"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:96
+# 65e035069998462297d6ebc4b2593e4a
+msgid "The ``expression`` attribute of ``portal_css`` defines when your CSS file is included on an HTML page.  For more information see :doc:`expressions documentation </functionality/expressions>`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:101
+# a956235c72bd430898a8b8ec73e66ff6
+msgid "Inserting CSS as last into anonymous bundles"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:103
+# c6f350dc7a5944f4aa38225bbcfd424a
+msgid "Plone compresses and merges CSS files to *bundles*."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:105
+# a87164f99d1c428a9233a81f2ca25e8e
+msgid "For Plone 3.x, the optimal place to put CSS file available to all users is after ``ploneKss.css``, as in the example above, to override rules in earlier files."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:109
+# ec4ac017571a4acd9a8c56f907d82b37
+msgid "Also for Plone 4.x?"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:112
+# 8b35548a06604e24a5e3eb97d4398ecf
+msgid "CSS files for logged-in members only"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:114
+# f2929966802144ca8c8a1c2c8aec0778
+msgid "Add the following expression to your CSS file::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:118
+# 72fa742c9b864599b160c217823bfbc2
+msgid "If you want to load the CSS in the same bundle as Plone's default ``member.css``, use ``insert-after=\"member.css\"``. In this case, however, the file will be one of the first CSS files to be loaded and cannot override values from other files unless the CSS directive ``!important`` is used."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:124
+# daccfd6c1ee04d58981fa08653dc15c0
+msgid "Condition for Diazo themed sites"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:126
+# 802b6db8bf0245faa41f154f87bc156f
+msgid "To check if theming is active, will return true if Diazo is enabled::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:131
+#: ../../source/templates_css_and_javascripts/javascript.rst:577
+# e8789b6eff8448bd9853a29e63fc2850
+# 7f2a874c2c8f49f789913aca074644d8
+msgid "Conditional comments (IE)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:133
+# 2d6002d578274257bfcec8cafc94acdf
+msgid "http://plone.org/products/plone/roadmap/232"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:135
+# 8ccc888a5ccb4c6381c34f79c3c2efb1
+msgid "``cssregistry.xml`` example:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:158
+# 1eaac117366147fcb19184b3437394d0
+msgid "Generating CSS classes programmatically in templates"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:160
+# e2e272a492b5417695575c36223c02e9
+msgid "# Try to put string generation code in your view/viewlet if you have one."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:163
+# 656d480ec5dd42108c9e135a74048760
+msgid "you can create a view and call it as in the following example."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:166
+# c27eac9e856446ad974e6ee2756461ea
+msgid "View class generating CSS class spans::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:190
+# f388ce74185a4fd5a78a6b4e02dca36b
+msgid "Registering the view in ZCML:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:202
+# 37ada6ca32594d1bad97be5dbe07b444
+msgid "Calling the view in ``main_template.pt``:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:211
+# 773ece3c2a324a1cb24e4f581db144ca
+msgid "Defining CSS styles reaction to the presence of the class:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:219
+# b896cb9a0f7940559c87a4dbad2c2c0e
+msgid "Per-folder CSS theme overrides"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:221
+# 404e53e0d0804ff88c3f3f878357fb1e
+msgid "http://pypi.python.org/pypi/Products.CustomOverrides"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:224
+# 973485344bb747099c3be8580c68a73d
+msgid "Striping listing colours"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:226
+# 8612598c1bc548939f8ff0ad8132a6f8
+msgid "In your template you can define classes for 1) the item itself 2) extra odd and even classes."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:233
+# 3c09f9839e2f4828900fddddbac79e5b
+msgid "And you can colorize this with CSS:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:257
+# 6c2e1959b2214cd690b3eb9bb233dd7e
+msgid "``plone.css``"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:259
+# afe5deec8ded450cb08452112926f03f
+msgid "``plone.css`` is automagically generated dynamically based on the full ``portal_css`` registry configuration.  It is used in e.g. TinyMCE to load all CSS styles into the TinyMCE ``<iframe>`` in a single pass. It is not used on the normal Plone pages."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:264
+# 31a9910b651a48aeb95665981d4f619d
+msgid "``plone.css`` generation:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:266
+# bbaf2a3ec3234daa834303ecd9e03517
+msgid "https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/skins/plone_scripts/plone.css.py"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:269
+# 97f45e41e215487683c5e30887f028df
+msgid "CSS reset"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:271
+# 1da56a1133c5476d9b3d3ad032d0b59e
+msgid "If you are building a custom theme and you want to do a cross-browser CSS reset, the following snippet is recommended:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:297
+# b7c03a0106e448829f813c86db246a0f
+msgid "Adding new CSS body classes"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:299
+# 654e696e699c4792bd6c35baaaccc800
+msgid "Plone themes provide certain standard CSS classes on the ``<body>`` element to identify view, template, site section, etc. for theming."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:302
+# 5963f24dbfd545df84a8e3a8f0e425ef
+msgid "The default body CSS classes look like this:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:308
+# 64dcf93491784dbba6323b5d9a916fd4
+msgid "But you can include your own CSS classes as well. This can be done by overriding ``plone.app.layout.globals.LayoutPolicy`` class which is registered as the ``plone_layout`` view."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:312
+# 68fa146ea670418d9f4f919476deb470
+msgid "``layout.py``:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/css.rst:372
+# 17337ab2f084427c93f8bfebab055e25
+msgid "Related ZCML registration:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:3
+# a5749cf90b124e31b3d87f26f8a0b099
+msgid "Diazo theming"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:7
+# 900aa94bdc7f43e288541229d4773bd7
+msgid "Theming Plone and integrating external sites under one theme service using Diazo."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:15
+# 498ada73acc44ad5b4eca263715e0401
+msgid "Diazo is the new name of what was previously known as XDV. Diazo, like XDV, is an external HTML theming engine, a.k.a. theming proxy, which allows you to mix and match HTML and CSS from internal and external sites by using simple XML rules. It separates the theme development from the site development, so that people with little HTML and CSS knowledge can create themes without need to know underlying Python, PHP or whatever. It also enables integration of different services and sites to one, unified, user experience. For more information, you can always read the `wikipedia article <http://en.wikipedia.org/wiki/Diazo_%28software%29>`_"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:24
+# 91f4a17b93cc4ef59e5b34951a81148e
+msgid "Example backends to perform diazo transformation include:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:26
+# 06d2c61ba5b34e73a2388773948015fc
+msgid "``plone.app.theming`` (as a normal Plone add-on)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:28
+# a5626898826a40a89873039cd122f453
+msgid "Apache's ``mod_transform``"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:30
+#: ../../source/templates_css_and_javascripts/xdv.rst:34
+# 1520f77ba19e4f6284dd626e5a6b0722
+# b495322b069741d89223d3707375931f
+msgid "Nginx web server transform module"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:32
+# 3964d005f4f04db086914f870756b9d0
+msgid "Diazo theming can be used together with Plone, in which case enhanced support is provided by the `plone.app.theming package <http://http://pypi.python.org/pypi/plone.app.theming>`_. (This is the Plone integration package for Diazo, like `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_ was the integration package for XDV) Technically, ``plone.app.theming`` adds a Plone settings panel (Diazo) and does XSL transformation in Zope's post-publication hook using the ``lxml`` library."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:42
+# 684d7820052c491997e9aab6f0b3e640
+msgid "The community (Martin Aspeli) is currently working on an online theme editing interface, so designers can make a diazo theme for a Plone site entirely through the web. For more information, have a look at his `branch of plone.app.theming <https://github.com/plone/plone.app.theming/tree/optilude-ace>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:48
+# de6e8d8676c244dbaf77926ef2cff36a
+msgid "Diazo can be used standalone with `Diazo package <http://pypi.python.org/pypi/diazo>`_ to theme any web site, whether it's Wordpress, Joomla, Drupal or a custom in-house PHP solution from the year 2000."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:55
+#: ../../source/templates_css_and_javascripts/xdv.rst:52
+# 59d709e3e93b44adbc21105aa4e222fd
+# 5a59a13492034b1c97153a3797466e30
+msgid "Theming editing interface (backend)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:57
+# 27a613a6d7c64b3b97f57512fb0b82ca
+msgid "The editing interface, backend, or admin site, however you wish to call it, can also be themed with ``plone.app.theming``. If you don't want to theme the editing interface, however, you can fallback to the default Plone theme."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:62
+#: ../../source/templates_css_and_javascripts/xdv.rst:58
+# 1192d48bade444d4b1cc140e8447f0d7
+# 4d5c6f5cc8f94e50a2d06856027ef85b
+msgid "There are several reasons for this:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:64
+# 40ede3c4ccbc4a829eedb67665c5efa9
+msgid "The Plone editing interface is powerful and has very good usability, which means that it is internally quite complex (makes complex things to pose itself as a simple to the end user)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:68
+#: ../../source/templates_css_and_javascripts/xdv.rst:64
+# a241ef94dd6341d89415626777cfc842
+# 545a37005d4c4747a940360818ddd740
+msgid "The public theme you are building would not fit to the editing interface very well. E.g. no space for portlets. This is especially problematic if an external artist has created the visuals without properly fitting them for Plone."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:74
+# 8fa434d3a6aa434f803fd4f94b562225
+msgid "With Diazo you can easily also have a separate ``admin.yoursite.com`` domain where the Plone editing interface is untouched."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:78
+# 233f5f7d239745029f138fd601e43d26
+msgid "Related links"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:80
+# 1ce055b9f72f46e2b755acde09ea742e
+msgid "http://pypi.python.org/pypi/plone.app.theming"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:82
+# f47da595b09840e597c4758779d73bba
+msgid "http://pypi.python.org/pypi/diazo"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:84
+# 967b954df7834b93a282ff5329ee5755
+msgid "http://diazo.org"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:86
+# cc17d899675b4ed6864f51f394d74eee
+msgid "http://plone.org/products/collective.examples.diazo"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:88
+# d4dd6721884446dd9a07b41a5bdb6069
+msgid "http://plone.org/documentation/kb/diazo-theme-snippets"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:91
+# b8db3c32e4aa44e08408a42e2db1972e
+msgid "Creating your first Diazo theme package"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:97
+# fe573e3ab88a46778032915c0f938263
+msgid "to be documented"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:100
+# 5cf1266077ea4fccaf2a42494b6c140a
+msgid "Setting up Diazo"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:102
+# 42ca2a87a27745cebf1c85b7bba76f62
+msgid "If you are working with Plone you can integrate ``plone.app.theming`` to your site's existing buildout."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:105
+# b9ee38b1c4094ae28c1dd6b7efbec124
+msgid "If you are not working with Plone, the `Diazo home page <http://docs.diazo.org/en/latest/installation.html>`_ has instructions how to deploy the Diazo command standalone."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:110
+# 91f15df1758743e69a9505444d0c0175
+msgid "Diazo Rules"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:112
+# 3265c5c58dfb4431aa4d36310ec132ab
+msgid "Rules (``rules.xml``) will tell how to fit content from external sources to your theme HTML."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:115
+# ac81137b7fe04862b2b5452680468baa
+msgid "It provides straightforward XML-based syntax to manipulate HTML easily:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:117
+#: ../../source/templates_css_and_javascripts/xdv.rst:118
+# 5c211d4eeb5645c5b88db15d1f05395f
+# 419e9688f46a4e2caaac08b4c9578934
+msgid "Append, replace and drop HTML pieces"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:119
+#: ../../source/templates_css_and_javascripts/xdv.rst:120
+# 1a1931e870a549b88df9a04db6a4a33f
+# 1eaa9d5c671a42ee8463021ad92800f6
+msgid "Insert HTML snippets"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:121
+#: ../../source/templates_css_and_javascripts/xdv.rst:122
+# a7bbdbf8e38a4f82944cf3867bf0282b
+# 76363b6e57814e4d83d2392339fbd3ef
+msgid "CSS or XPath selectors can be used to identify HTML parts"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:123
+#: ../../source/templates_css_and_javascripts/xdv.rst:124
+# 8707c7ecb8fd49a6a23515874b1e4428
+# 6b9306e75db0479fa14ae4744b135abd
+msgid "It is possible to mix and match content from more than two sites"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:125
+#: ../../source/templates_css_and_javascripts/template_basics.rst:424
+#: ../../source/templates_css_and_javascripts/xdv.rst:126
+# c185f512da6b436b94e0f5a9fbfb0a87
+# aa22a2db556145188c790b1d9b27923f
+# 775024da935d4627afe69f9804b72747
+msgid "etc."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:127
+# d0335c02d9d845a4a73abc17c2d15de1
+msgid "Rules XML syntax is documented at the `Diazo homepage <http://docs.diazo.org>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:130
+# f21f55b956b347e4b8a2984d888e3438
+msgid "The actual theming is done by one of the XSL backends listed above, by taking HTML as input and applying XSL transformations on it."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:134
+# 874f094d496849b294ed139e94b1b15f
+msgid "Dropping specific CSS files with Diazo"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:136
+# 59ead65551cb4f67988c54e1cea49cf9
+msgid "For example if you wish to get rid of the ``base-cachekey????.css`` file that comes from a Plone site, but still want to keep the authoring CSS and any special CSS files that come from add-ons::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:146
+# daa2763e3c294061ba76c7e9f68713a8
+msgid "Benefits of using Diazo theming instead of creating native Wordpress (or other) themes"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:148
+# 72bde1394d014fc683354ccc4c5ebe92
+msgid "You need to maintain only one theming add-on product e.g. one for your main CMS and Wordpress receives updates to this site and theme automatically"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:152
+#: ../../source/templates_css_and_javascripts/xdv.rst:252
+# 4b0a1ccd0e8f4e488aa1f95293d48a26
+# 46979b718a8347f384e20b4d335e7b51
+msgid "Wordpress does not need to be touched"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:154
+#: ../../source/templates_css_and_javascripts/xdv.rst:254
+# 09b05e7789764320b42621e6f78f56c5
+# 9c1e7e9aa126411b94c7db2c5e480995
+msgid "You can host your Wordpress on a different server, even wordpress.com, and still integrate it to your main CMS"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:157
+#: ../../source/templates_css_and_javascripts/xdv.rst:257
+# 85e6ff33ec6f4a60a2844455ddbaa18f
+# b1c26573580d4fa69c974ae249553da8
+msgid "The theme can be recycled not only for Wordpress, but also other external services: Bugzilla, Trac, Webmail, phpBB, you-name-it"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:163
+# 9b8dcc72b2aa4e6ba3b93891457791b3
+msgid "Applying the theme in Apache production environment"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/diazo.rst:165
+# b72aabb3727441b3ad98c9cb09efb00f
+msgid "http://docs.diazo.org/en/latest/deployment.html#apache"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/dtml.rst:3
+# 59aee87c54054099b6c67fbb7c6e938d
+msgid "DTML"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/dtml.rst:5
+# 628a93e17d524b73a15ff9e46f41738a
+msgid "DTML technology has been phased out ten years ago."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/dtml.rst:7
+# 1c2c28e2acb3421e96f289938dd67f32
+msgid "Do not use it."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/index.rst:3
+# c9cca36352b545fda1836dbab3318540
+msgid "Front-end: templates, CSS and Javascript"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/index.rst:5
+# 7dd1069835b245cab5b7b059b81525fb
+msgid "Instructions and information for front-end development for Plone CMS."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/index.rst:7
+# 85ec2035d4d54c2fb0ed802f9971fd73
+msgid "This includes creating page templates, managing Javascript and CSS assets and writing Javascript for Plone."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:3
+# 232c70771e2f4f9e9c093991fc458e58
+msgid "Javascript"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:7
+# 6a39cfdc4c764380bef5fe1ae7e2016c
+msgid "Writing, including and customizing Javascript for Plone add-ons"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:14
+# 8948014cc84f446d970e595c36bb7350
+msgid "Javascripts files must be distributed to Plone"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:16
+# 40e32f7b6dc043d0a7e6990192a2407a
+msgid "By creating them through-the-web editor in :doc:`portal_skins </templates_css_and_javascripts/skin_layers>`. are stored in ZODB in this case."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:19
+# 7f12949144cd4971abb227ec874a1e6e
+msgid "By add-on products using :doc:`resource folders </templates_css_and_javascripts/resourcefolders>`"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:21
+# be48eac0769e4db78bd09f169baf805a
+msgid "Then the Javascript must be registered on the site"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:23
+# fb9e181b5da4426cb1835d9495f827bd
+msgid "Through-the-web in portal_javascripts in ZMI"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:25
+# 35db417d42224f739652ae1fa2f4860b
+msgid "Using :doc:`GenericSetup jsregistry.xml </components/genericsetup>` which is run (and rerun) when you use the add-on installer in the control panel"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:28
+# a25bdce581884e508d952924426726fe
+msgid "Plone Javascripts are managed by resource registry *portal_javascripts*. You can find this in Zope Management interface, under your portal root folder."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:31
+# 54439614e4f74b9fbd410f37b3d7b0f5
+msgid "portal_javascript will automatically"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:33
+# 75b16910a638427db25805cb3cb0b7d5
+msgid "compress JS files"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:35
+# 29dbb7165aeb4038bea7e9ea490201ab
+msgid "merge JS load requests"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:37
+# 6572557603804a88b03b95bcda78d6eb
+msgid "determine which files are included on which HTML page"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:39
+# 1a4c5041113d4e8bb86718ff8d928623
+msgid "support IE conditional comments"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:42
+# f629c77c036f4ef9ba348ee244502026
+msgid "Javascript basic tips"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:44
+# c2e2b56b53734d5da5a93ef95235a6f3
+msgid "When using jQuery etc. libraries with Plone write your code so that you pass the library global reference to your script as a local - this way you can include several library versions in one codebase."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:56
+# 06abef67c3ba488781e82b8ffaee6dd1
+msgid "Always use DOM ready event before executing your DOM manipulation."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:58
+# 42c321a29f5a4badaa39ff2a2b4f1fe6
+msgid "Don't include Javascript inline in HTML code unless you are passing variables from Python to Javascript."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:60
+# 38702db33084423f80c78a2abe67afb5
+msgid "Use JSLint with your code editor and ECMAStrict 5 strict mode to catch common Javascript mistakes (like missing var)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:62
+# 401be090c2ec49d2945a4a8433469254
+msgid "For more Javascript tips see `brief introduction to good Javascript practices and JSLint <http://opensourcehacker.com/2011/11/05/javascript-how-to-avoid-the-bad-parts/>`_"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:65
+# 748cd8b1fdcc4b8abea6e787faaed237
+msgid "Plone default Javascript libraries"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:67
+# e9413d7ac7cd413b9884460d0bc0e81c
+msgid "You can use any Javascript library with Plone after inclusion it to JS registry (see below)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:70
+# 487bca7e196b4c84bbc69e877342f996
+msgid "Plone 4.1 ships with"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:72
+# f41dee461bdb48ebaf4b16aeeb759a88
+msgid "jQuery"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:74
+# 101664d15c5242c1bca2319f59240a92
+msgid "`jQuery tools <http://flowplayer.org/tools>`_: Use jQuery Tools for tabs, tooltips, overlays, masking and scrollables."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:76
+# 15f45fd8560847dfbae1b15792fb7a6b
+msgid "`jQuery Form Plugin <http://jquery.malsup.com/form/>`_: Use it for AJAX form input marshaling and submission. Note that jQuery’s built-in form input marshaling is inadequate for many forms as it does not handle submit-button or file-input data."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:78
+# d122cdf3b45c428d94ee8a2c1859a26a
+msgid "Also see"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:80
+# 504187d5325c4c0782a0ed4fffb80a93
+msgid "`Plone compatible jQuery UI package <http://plone.org/products/collective.js.jqueryui>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:82
+# 6bd5b60de45d4d3886a6993ddabdcec5
+msgid "`Useful Plone out of the box Javascripts <http://www.sixfeetup.com/blog/2009/7/31/utilize-available-javascript-in-plone-without-knowing-javascript>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:85
+# 7dca15a35ed64c2fa4966bb09dc3c5d5
+msgid "Creating Javascripts for Plone"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:87
+# c77581708274442c9fbd12d99a11fbbf
+msgid "The following ste"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:89
+# 7ef92b91cd70434b927ef3a78d7108a2
+msgid "Put ZMI -> portal_javascripts to debug mode"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:91
+# 8dcd106228ed4fbda9ef61f7121ceda6
+msgid "Include new JS files"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:93
+# ccf9fbd7d5d446a39881d428ef6ba6c2
+msgid "Use ZCML configuration directive :doc:`resourceFolder </templates_css_and_javascripts/resourcefolders>` to include static media files in your add-on product"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:96
+# 96d268f4a0254c288ec335588d8ce86b
+msgid "Put in new Javascript via ZMI upload (you can use Page Template type) to portal_skins/custom folder"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:98
+# 3b1d3273a03342619d3c786ea3b40d89
+msgid "Register Javascript in portal_javascripts"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:100
+# 662665e8ffbd40939099f299cc4f138a
+msgid "Do it through-the-web using portal_javascripts ZMI user interface ...or..."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:102
+# f45fd2619de74de1905293876414cf29
+msgid "Add *profiles/default/jsregistry.xml* file to describe Javascript files included with your add-on product"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:105
+# 2adf9cbf30674f449bb19cb7edb3f95c
+msgid "Executing Javascript code on page load"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:107
+# ffe98807b8884371a5930b2b0ed197d2
+msgid "Plone includes JQuery library which has ``ready()`` event handler to run Javascript code when DOM tree loading is done (HTML is loaded, images and media files are not necesssarily loaded)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:112
+# a7392aa60d9c4d3a89393c03a5e4087d
+msgid "Create following snippet::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:120
+# df734c66dbbc45cb9b85952074ee3c4b
+msgid "This makes use of the facts that 1) functions passed to jQuery are executed on ready; and 2) jQuery passes itself to such functions."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:124
+# d13b973a4b784fb8bdad7b6f9a7277e7
+msgid "Registering javascripts to portal_javascripts"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:126
+# 98994cebef8743c4bba13a42ab4eab74
+msgid "Javascript files need to be registered in order to appear in Plone's <html> <head> and in the Javascript merge compositions."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:129
+# 113bacb12861409997416729817f8fd2
+msgid "Javascripts are registered to portal_javascripts tool using *profiles/default/jsregistry.xml* GenericSetup profile file. The following options are available"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:132
+# e53499b9c31640609ed379bf464d9c90
+msgid "*id* (required): URI from where the Javascript is loaded"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:134
+# f7b423a802bc403191ce586914b0f96c
+msgid "*expression* empty string or TAL condition which determines whether the file is served to the user. The files with the same condition are grouped to the same compression bundle. For more information, see :doc:`expressions documentation </functionality/expressions>`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:138
+# a616ca2040b24e53b87c68e54f920c4c
+msgid "*authenticated* (Plone 4+) is expression override, which tells to load the script for authenticated users only"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:141
+# e5c76fa70f71445295b6f6c7376bdfb5
+msgid "*cookable* is merging of Javascript files allowed during the compression"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:143
+# 41e005b0c91846748d6ffa40bb49efb9
+msgid "*inline* is script server as inline inside <script>...</script> tag"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:145
+# 8a5e1eec5b034d30a3d5baa544eac9d3
+msgid "*enabled* shortcut to disable some Javascripts"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:147
+# 0ddccb26233f4dc6a06453013aab40db
+msgid "*compression* none, safe or full. See full option list from portal_javascripts."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:149
+# b8d0faa772d548a1ac37c83d007b1cff
+msgid "*insert-before* and *insert-after* control the position of the Javascript file in relation to other served Javascript files"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:152
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:100
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:117
+#: ../../source/templates_css_and_javascripts/xdv.rst:295
+#: ../../source/templates_css_and_javascripts/xdv.rst:684
+# e8bdf6623c4b4b8f8f143a52689bdddb
+# a304d20079b64db3acc42d281448bc00
+# f5c10b1f474b42c185377ee160311574
+# 0928f687e3fe4a1aa57a78a0125f1e34
+# 8636ac992aa540e7a9c60292fe99eca0
+msgid "Example::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:161
+# 44960062350a455fa76e2885c2688525
+msgid "Bundles"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:163
+# 77e57d3621b046b5a0857b2be4a5dda5
+msgid "There are several compressed Javascript bundles served by Plone. The process of compressing & merging files to different bundles is internally called \"cooking\""
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:167
+# 728292f8a8a742e2b42e3c7861d885c6
+msgid "You can examine available bundles in *portal_javascripts* Zope Management Interface Tool, on *Merged Compositions* tab."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:170
+# a2d6c3b879104618a0b5ab892ff929b5
+msgid "Usually the following bundles are served"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:172
+# 02a4f922827e488483f46e221be27aa9
+msgid "Anonymous users (no condition)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:174
+# ed49f37f742b4752ae1295b002236bfe
+msgid "Logged in users (condition: not: portal/portal_membership/isAnonymousUser)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:176
+# 3adca26f8f4a46ee9ff59732f172b925
+msgid "Visual editor (TinyMCE) related Javascripts"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:179
+# 8f869fd3c2ef4cb5bdbdc5df1a2aa161
+msgid "Include Javascript on every page"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:181
+# 7db6fba9881c41978ddb878da84e1344
+msgid "The following example includes Javascript file intended for anonymous site users. It is included after toc.js so that the file ends up as the last script of the compressed JS bundle which is served for all users."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:185
+# 936e478c62e44df8981635f7e128f5c0
+msgid "The Javascript file itself is usually *yourcompany/app/static/yourjsfile.js* in your :doc:`add-on product </getstarted/paste>`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:188
+# 33eec651ae52469c89d529439dea2d1f
+msgid "It is mapped to URI like::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:192
+# 345a5d336e2b4c098ca6af2470229f5f
+msgid "by :doc:`Zope 3 resource subsystem </templates_css_and_javascripts/resourcefolders>`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:194
+# abdda9def12a41998b3ca0461a1b144d
+msgid "Example ``profiles/default/jsregistry.xml`` in your add-on product."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:209
+# 7a6201ba9a384b7cbdb28548e0300000
+msgid "If <javascript> does not have insert-after or insert-before, the script will end up as the last of the Javascript registry."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:213
+# 950c8fd90bed4c8c9a518f10ac05ac5e
+msgid "Including Javascript for authenticated users only"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:215
+# 2e5a1811bcba42f8ab53ce6f00bc10f0
+msgid "The following registers two Javascript files which are aimed to edit mode and authenticated users. The Javascript are added to the merge bundle and compressed, so they do not increase the load time of the page. The files are loaded from ``portal_skins`` (not from resource folder) and can be referred by their direct filename - Plone resolves portal_skins files magically for the site root and every folder."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:223
+# 4c09c6c8eca64e29958c7a3c7b159f21
+msgid "``jsregistry.xml``:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:247
+# 728b14e5b6344477a9b242d516aef8e6
+msgid "Including Javascripts for widgets and other special conditions"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:249
+# 6b835a94d3fa43b2a46ae40694ee46db
+msgid "Here is described a way to include Javascript for certain widgets or certain pages only."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:254
+# a16454a55262402cb0ba85eb4d12c712
+msgid "Since Plone loads very heavy Javascripts for logged in users (TinyMCE), it often makes sense to decrease the count of HTTP requests and just merge your custom scripts with this bundle instead of trying to have fine-tuned Javascript load conditions for rare cases."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:259
+# ba50bdfb71c5428ba80e71e77ad89201
+msgid "Javascripts are processed through portal_javascripts"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:261
+# 82f6ca0dbba4484d85ce282ae5a022c6
+msgid "A special condition is created in Python code to determine when to include the script or not"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:263
+# ccb8bef5f3de40609e7da977bcafd3c3
+msgid "Javascripts are served from a *static* media folder in a Plone add-on utilizing Grok framework"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:266
+# 6a038ecbd8f146e3b7df2df040ef8409
+msgid "The example here shows how to include a Javascript if the following conditions are met"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:269
+# 6cafe7c02b4a4c9494d80a93aa27e250
+msgid "Content type has a certain :doc:`Dexterity behavior </content/behaviors>` applied on it"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:271
+# 9362aa55ad1e41c3b71b5d49b539e8a6
+msgid "Different files are served for view and edit modes"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:275
+# 2913016899334e96baa67a5760862852
+msgid "There is no easy way to currently directly check whether a certain widget and widget mode is active on a particular view. Thus, we do some assumptions and checks manually."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:280
+# 87bf3707a64345b8bf97bb9cbf6e7cf9
+msgid "jsregistry.xml:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:308
+# c7ebe25d6e0c41da9f3f7c39846f1d34
+msgid "We create special conditions using :doc:`Grok </components/grok>` views."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:387
+# 206785ad03454b11b87c6a9957b2aea0
+msgid "Popup overlays and forms"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:389
+# 6a1244ffc3fe424897db7ccf677c8743
+msgid "plone.app.jquerytools provides a “prepOverlay” plugin that makes it easy to create popup overlays to display images or AJAX-loaded content from other pages. It also handles AJAX submission of forms in popups."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:391
+# add1f5b0271a44c88619493626ce50c6
+msgid "The prepOverlay plugin is well-documented at http://pypi.python.org/pypi/plone.app.jquerytools. Many usage examples are available in Products/CMFPlone/skins/plone_ecmascript/popupforms.js, which provides the setup for Plone 4’s standard popup forms."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:394
+# a5324cb80dc541bc9ed49d45b4b20575
+msgid "Messages and translation"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:396
+# 1a20156b8f68493cb214b656df72bea7
+msgid "JavaScript components should include as few messages as possible. Whenever possible, the messages you display via JavaScript should be drawn from the page."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:398
+# b9e6960cb62144adac5fe7d8025cb94f
+msgid "If that’s not possible, it is your responsibility to assure that the messages you need are translatable. Our current mechanism for doing that is to include the messages via Products/CMFPlone/browser/jsvariables.py. This will nearly certainly be changed."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:402
+# ef19197ca4984dfb91f5badfbd6e5489
+msgid "Passing dynamic settings to Javascripts"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:405
+# eabdae05c7e2428295dc47314dc604fa
+msgid "Default passed in variables"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:407
+# 1619692852194bc494fdfd876f566de0
+msgid "Plone passes in some variables, like ``portal_url`` to Javascript by default."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:409
+# 332fc5b7382743128c07867b9ff6a9b6
+msgid "https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/jsvariables.py"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:411
+#: ../../source/templates_css_and_javascripts/javascript.rst:726
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:156
+#: ../../source/templates_css_and_javascripts/template_basics.rst:679
+#: ../../source/templates_css_and_javascripts/xdv.rst:148
+# c66b31b95409461598792190b1969af2
+# 9a8ca16a71a145f89e7d9d10dda7be71
+# e3d1aeb1acb94eaba00ec485e09aae61
+# 628300f0af1145bca91d4de3e3b1191e
+# fa7dac580cb142c19857c6687888f288
+msgid "More info"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:413
+# 51f4fc0f642d4cd2a8cb3c90bda58727
+msgid "http://stackoverflow.com/questions/12530308/accessing-portal-url-in-javascript-in-plone/12530378#12530378"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:416
+# eaf4998e9de943b492faf2d3564f2465
+msgid "Passing settings on every page"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:418
+# 17aa11398c3f48269770f9184303f5a1
+msgid "Here is described a way to pass data from site or context object to a Javascripts easily. For each page, we create a ``<script>`` section which will include all the options filled in by Python code."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:422
+# 59344d59796c47d8ab1d14291a988b77
+msgid "We create the script tag in ``<head>`` section using a :doc:`Grok viewlet </views/viewlets>` registered there."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:425
+# efe44c80e3a946049678e6848860468b
+msgid "viewlet.py::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:504
+# edda5c0cf7a248639a49445bf46a6631
+msgid "Passing settings on one page only"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:506
+# 118f70d5c7d543b6a4335a57a14b8434
+msgid "Here is an example like above, but is"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:508
+# 41dd8bcf760b40029fe2a0fe20916ba3
+msgid "Specific to one view and this view provides the JSON code to populate the settings"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:510
+# 6fbd49d813ec4d3a8622c168fe0df259
+msgid "Settings are included using METAL slots instead of viewlets"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:564
+# 5fb4b568c79c4d71b6a2b23929593f72
+msgid "Generating Javascript dynamically"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:566
+# c7f6702725954e96916a7c50bae577aa
+msgid "TAL template language is not suitable for non-XML generation. Use Python string templates."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:569
+# cf2b62afa09f4e95a557971ec0855ac1
+msgid "Don't put dynamically generated javascripts to ``portal_javascripts`` registry unless you want to cache them and they do not differ by the user."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:572
+# c60c6fe46f39412f81760a21ffd56e07
+msgid "For example, see ``FacebookConnectJavascriptViewlet``"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:574
+# 521fcf4238ab4cf288049bd0cd392080
+msgid "http://svn.plone.org/svn/collective/mfabrik.like/trunk/mfabrik/like/viewlets.py"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:579
+# 864d51d7377d4767942d66c495435d0c
+msgid "http://plone.org/products/plone/roadmap/232a"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:582
+# e8eab1111568468882d49ab7d7d398f8
+msgid "Upgrading jQuery"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:584
+# c69977ff857a47359e6adb9db1ef1520
+msgid "``jquery.js`` lives in *Products.CMFPlone* ``portal_skins/plone_3rdparty/jquery.js``. Plone 4.1 ships with compressed jQuery 1.4.4."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:587
+# be40927983874a0daf5b374d141dd0ae
+msgid "Here are instructions to change jQuery version. Please note that this may break Plone core functionality (tabs, overlays)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:590
+# 1d8fa18ff023431991405bd020c9a5d7
+msgid "These instructions also apply if you want to enable debug version (non-compressed) jQuery on your site."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:593
+# 51772775627645a6929653e1e23e6111
+msgid "Download new jQuery from http://docs.jquery.com/Downloading_jQuery and save it to your local disk"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:595
+# 07b952b9464048a6b9fd5d9eedd62491
+msgid "In ZMI, go to plone_3rdparty, customize jquery.js"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:597
+# f9853f0e8e5840d88a0f9e59374d23da
+msgid "Upload new jQuery from your hard disk"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:600
+# 495daccd8fc04a0683f3a18375f29ce8
+msgid "Having multiple jQuery versions (noConflict)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:602
+# e462462647184c72abc6324000a9e529
+msgid "http://noenieto.com/blog/having-two-jquery-versions-in-one-plone"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:606
+# 41ad724da6c148dda68ca6b94f849bcf
+msgid "Loading Javascript files for certain edit views only (to be used with widgets)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:608
+# 1a7a9048c9fb40d4b7e7e8ab603bcf11
+msgid "http://stackoverflow.com/questions/5469844/registering-a-javascript-to-be-loaded-on-edit-view"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:611
+# 24eda5d578b34696abbd001739895654
+msgid "Converting page links to pop-up windows"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:613
+# 1e8c8affb61e4ca6b7e86ccc30582e5d
+msgid "`plone.app.jquerytools <http://plone.org/products/plone.app.jquerytools>`_ can convert links, images and forms to AJAX pop-up windows. Plone 4 uses this e.g. for the login box pop-up functionality."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:617
+# b956b6b6359440cfbc4853ee7a6cefa1
+msgid "Below is an example code how you can convert any of the links on your site to a pop-up window."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:620
+# 7e2b47d8a6ef4ef6804a6e5f61864456
+msgid "Example code"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:647
+# 75cf75c9d69041a1a0754a9f46eea22f
+msgid "AJAX-y view loading"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:650
+# f20ee5293e954abcaef5e62a581f3cdd
+msgid "Loading by page load"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:652
+# 5e9dacb95aac4176baa0f393f5c7c0dd
+msgid "Let's imagine we have this piece of synchronous page template code. The code is a :doc:`view page template </views/browserviews>` code which includes another view inside it."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:661
+# 727ed0265f544a45ae7ab667ed9ee8c6
+msgid "To make it load the view asynchronous, to be loaded with AJAX call when the page loading has been completed, you can do:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:698
+# 9a6684daab114bdca2659d3fe9f858ec
+msgid "Loading when element becomes visible"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:700
+# 5b4c469abadc480191e0c058ce39499c
+msgid "Here is another example where more page data is lazily loaded when the user scrolls down to the page and the item becomes visible."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:728
+# 7a22ec1b8dd14928b1e3714d7433a8c8
+msgid "http://blog.mfabrik.com/2011/03/09/lazily-load-elements-becoming-visible-using-jquery/"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:730
+# 2ab63b55f6e246668cbe909155959414
+msgid "http://remysharp.com/2009/01/26/element-in-view-event-plugin/"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:733
+# eddb1382babc46469f4e47ce5cc398b2
+msgid "Checking if document is in WYSIWYG edit mode"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:735
+# d7ad3c8ef8834147beb2365f1e8ce644
+msgid "WYSIWYG editor (TinyMCE) is loaded in its own <iframe>. Your UI related Javascript mode might want to do some special checks for running different code paths when the text is being edited."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:739
+# 8f0c56b4313b4a9ea6633e0da4c7571e
+msgid "Example:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:753
+# 22784a061f9647df964e84eb968e4747
+msgid "Image hovers"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:755
+# 079de4c395364f838c63b79022737ac6
+msgid "Here is a simple jQuery method to enable image roll-over effects (hover). This method is suitable for content editors who can only images through TinyMCE or normal upload - only naming image files specially is needed. No CSS, Javascript or other knowledge needed by the person who needs to add the images."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:761
+# 08c21b33570641c7ad3085287a101dd8
+msgid "Just include this script on your HTML page and it will automatically scan image filenames, detects image filenames with special roll-over marker strings and then applies the roll-over effect on them. Roll-over images are preloaded to avoid image blinking on slow connections."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:766
+# c1d1f84e46524121b6fecc0e94cdfa8e
+msgid "The script"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:831
+# 50423a42c349461da7b20c9c61c9b4e2
+msgid "Disabling KSS"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:833
+# 043e1933a7144c36a6ea474546dbdfb9
+msgid "KSS, not used since Plone 3, may cause Javascript errors on migrated sites and new browsers."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript.rst:835
+# 0025955c9eb2495b97f4a58ce47c9e66
+msgid "Here is ``jsregistry.xml`` snippet to get rid of KSS on your site::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:3
+# db6fa5af8e0a47e99ec7d2c17f8a8315
+msgid "Javascript coding conventions"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:7
+# c9bfa55c52014325a45d3789d687833b
+msgid "Styleguides for writing Javascript for Plone"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:14
+# a25e2d4b78d4479ca2db88c03782edfc
+msgid "Here we have collected community best practices for writing Javascript for Plone. These apply for Plone core and are suggested to be applied in your own add-on."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:18
+# d251d88c476d4f1f9b12df7900492711
+msgid "Progressive Enhancement"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:20
+# 04a540eaf85843f99dd8e313c25c370a
+msgid "Pages presented in Plone, including forms and form widgets, must be fully usable in situations where JavaScript is not available. The availability of JavaScript on the browser side should enhance the presentation of the page and its content. Additionally, the structured document delivered via HTML/XHTML should be semantically correct and complete in meaning."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:22
+# 29b6fb50fd5744bf9ad38f10270f3aaf
+msgid "The best way to accomplish these goals is to: first. compose complete and useful content in HTML; second, style its presentation with CSS; and third, make use of JavaScript behaviors to enhance presentation and interaction."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:25
+# 784c88d3055440a893d8e9c46bfab332
+msgid "Unobtrusive JavaScript"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:27
+# 6e2572d41252400ca2697df77acc6f38
+msgid "JavaScript should nearly never be present in the content area of a page. Typically, it will only appear via link and script elements in the head of the document (or at its very end when that improved rendering). In particular, HTML tags should nearly never have event-handler (e.g., onclick or onsubmit) tag attributes or JavaScript in URLs. Coding JavaScript into HTML tags generally makes for code that is hard to maintain and nearly impossible to test."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:30
+# 30d46aab5fc446e2981b0a8e75d5b38a
+msgid "Instead of coding event handlers in HTML attributes, use jQuery's \"bind\" and its various convenience aliases like \"click\" methods to attach event handlers to elements. Use \"live\" if installing behaviors that need to operate in AJAX-loaded HTML."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:33
+# ac8f2ec6ab274f23a84bff8274a4ffa9
+msgid "Coding Standards"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:36
+# 83702454c8ef4555a8c37125bfc314d4
+msgid "JSLint"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:38
+# 8dc895cdc8a64c93b77a6c75b9ebef68
+msgid "All JavaScript components that are incorporated into the Plone core must pass JSLint code quality tests. At some point in the 4.x series, this will become part of Plone's continuous integration testing. JSLint has many options, and it is our goal that our code pass \"The Good Parts\" tests. A couple of acceptable deviations from the good parts settings are to::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:46
+# 826f622d0b5846b2bf5b6d1061e4c00d
+msgid "You may set these options by including at the top of your JavaScript file::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:52
+# 4917966e352c4a4e98d4d02d7719c331
+msgid "These settings are available as a file in Products/CMFPlone/skins/plone_ecmascript/js-standards.js. If you use those settings, you only need set the options for any deviations needed by the current file. Deviations like turning off the regular-expression \".\" prohibition, are perfectly reasonable when porting old code, but should be avoided in new code."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:54
+# 514d322aafcf4baaa8c6211bda177d9f
+msgid "A common way to execute a command-line jslint test using these options would be to execute::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:58
+# f41fcd897e42499d982f7daab78f4e32
+msgid "if you were testing the \"accessibility.js\" file. JSLint is also available as a plugin for most popular web code editors and can be set to test on save. An example of setting up TextMate to run jslint on save: * JSLint on Save"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:62
+# 19d6ca885cc0400ea2fdbb3d9f8710fc
+msgid "Strict Mode"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:64
+# 323028d8f35647e593323b1dc405a451
+msgid "Use strict in nested function scopy only::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:71
+# 3009dbbe30a4434682b34caacc531e1e
+msgid "If you use \"strict\", you *must* test on a browser that supports it. Otherwise, your code may break when it encounters such a browser."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:75
+# ceea0074a00d4d1781766dccdd33be58
+msgid "Globals"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:77
+# df3c77107b974d048dc9955fe5c5b604
+msgid "JavaScript components should create as few as possible global variables. If a component must create globals, it should only create one: a namespace object with a very distinctive name. Please document your new global at the top of the component file."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:80
+# 23fe746239db49938cbb87efbaceea6b
+msgid "Platform Testing"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:82
+# 8a8f267bf22e4659b37f5aa47fb10ed3
+msgid "JavaScript for Plone core must be tested on"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:84
+# 5bbfa555afdb4f0789d6e632ecb8ac8f
+msgid "IE 7, 8, 9"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:86
+# e210f18953694a3f862ef1478c6aa936
+msgid "Firefox, current release and most-recent beta or rc for the next release, if available"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:88
+# 70fed408aa7a4a6bb23eec79319064dd
+msgid "Webkit browsers: Current"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:90
+# b83ed9f9bf45497083f3c0a9911488c5
+msgid "In general, degrade gracefully to no-js behavior when a platform cannot be supported. You need not support IE 6, but if you know that a feature works poorly on IE 6, simply turn it off::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:97
+# f7ee8870848d4b9e96b55b2e5c917422
+msgid "Testing"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:99
+# dc49a4c4d8e04476a37bc981fa529e26
+msgid "As of this writing, the Plone community has not settled on standards for JavaScript unit and integration testing. QUnit is (as of this writing), the most common unit-testing mechanism. Selenium and Windmill are both in use for unit testing."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/javascript_standards.rst:102
+# c3bd9079cf2e4e478eda1a3fb045d511
+msgid "Plone 4.2 is expected to include strong recommendations for both unit and integration testing, and these will be supported by our continuous integration testing."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:3
+# 24e8b37fc8f54a7093aac9424426a3f2
+msgid "Resource folders"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:7
+# 4172edb7dbe241cc8896b12dd851dd82
+msgid "How to use resource directories to expose static media files (css, js, other) in your Plone add-on product"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:15
+# 26ee327f153d462cb84ca6be042e2552
+msgid "Resource folders are the Zope Toolkit way to expose static media files to Plone URL mapping."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:18
+# 86057830432a4caca3c9f32e1d7e9bdd
+msgid "Resource folders provide a mechanism which allows conflict free way to have static media files mapped to Plone URL space. Each URL is prefixed with ``++resource++your.package`` resource identified."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:24
+# f4cdd2386acd4ef09531c9d75f82d130
+msgid "ZCML resourceDirectory"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:26
+# 0994a35974284e238d1d583c2dd4e653
+msgid "If you want to customize media folder mapping point, you need to use the resourceDirectory directive."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:29
+# 7df943af33bc443d8f7ced514b7afd2c
+msgid "Below is an example how to map *static* folder in your add-on root folder to be exposed via ++resource++your.product/ URI"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:65
+# 730502eb2319457db5c0162ae4aafb59
+msgid "Further reading"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:68
+# 66762306ba754cc19cc1230c12665665
+msgid "`Example <http://www.themeswiki.org/Creating_a_Custom_theme_for_Plone#Image_Resources>`_"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:72
+# 0d3cf5d57cd44a12a93c543510f21d0e
+msgid "Grok static media folder"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:74
+# 2e6fd6729d51447a86c81b5b40a8453d
+msgid "Learn more about :doc:`Grok and Plone integration </components/grok>`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:76
+# f37c6264600c403084f24ed154126972
+msgid "Since five.grok 1.3.0 this method does not work."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:78
+# b509760ce220470d83bd69347fab1dc9
+msgid "The easiest way to manage static resources is to make use of the static resource directory feature in five.grok. Simply add a directory called static in the package and make sure that the ``<grok:grok package=\".\" />`` line appears in configure.zcml."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:82
+# 2708ec7825374b7580a98b26d55ce646
+msgid "Example how to include ``yourproduct.app/static`` folder as ``++resource++yourproduct.app`` URL."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/resourcefolders.rst:94
+# 6569ec876f1f40499b187e9cf6b9e52e
+msgid "If a ``static`` resource directory in the ``example.conference`` package contains a file called ``conference.css``, it will be accessible on a URL like ``http://<server>/site/++resource++example.conference/conference.css``. The resource name is the same as the package name wherein the static directory appears."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:3
+# 871c077c23d34829bdaecc01fad4cd3f
+msgid "Skin layers"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:7
+# b3e067c5c16c4f37bd046e7d80d72cf7
+msgid "Skin layers are a legacy Plone 2 technology, still is use, for adding overridable templates and media resources to Plone packages."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:16
+# 2742e2e5e83a4e359be449cd1ec6e6d2
+msgid "Skin layers, portal_skins and CMFCore.SkinsTool are the old-fashioned way to manage Plone templates."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:19
+# d5a40b33040641f086a8d5cec3572cad
+msgid "Each Plone theme has set of folders it will pick from portal_skins. These sets are defined in portal_skins -> properties."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:22
+# a582cfb076c146ad91fce95549ebdf14
+msgid "Skins layers are searched for a template by template name, higher layers first."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:24
+# 2eac8a5c48b945ac82d951a3d04b82ed
+msgid "Skin layers can be reordered through-the-web in portal_skins -> properties"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:28
+# 54bad3c47e934f1c92dd1224c00aa6e9
+msgid "Defining a skin layer"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:30
+# c100ffb104ea4d7c85aac60106e9d59b
+msgid "Skin files are placed in the *skins* folder of your add-on product."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:32
+# 1a3abf18131f4ff0bd60a7411cfeddf0
+msgid "The structure looks like this:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:34
+# ee7fc4fa4439455494a48a2ed6b1b832
+msgid "yourproduct/namespace/configure.zcml"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:36
+# e36b053b2be743daa64af5ca810bee73
+msgid "yourproduct/namespace/profiles/default/skins.xml"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:38
+# 79cbcdf4981f41e985b26fa4a9cf4356
+msgid "yourproduct/namespace/skins"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:40
+# 65c2ae58f6f54702b1cd3e7a010ce289
+msgid "yourproduct/namespace/skins/layer1folder"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:42
+# a9e844bfcc2d4b6c9518f923b39b55bb
+msgid "yourproduct/namespace/skins/layer2folder/document_view.pt"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:44
+# 19cdf2b90374479d810a4b4692fb87ca
+msgid "yourproduct/namespace/skins/layer2folder"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:46
+# d05360dba4374e34b231706fe0eed532
+msgid "..."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:48
+# 2a2445c2aced46a1998f2a1cd16df03e
+msgid "GenericSetup skins.xml::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:59
+# c62b751e43364bb28639f0fb25e6156c
+msgid "ZCML to register the layer::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:69
+# 0c2bf6c9e93443eab52c1a6944413471
+msgid "See also"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:71
+# 23ba5e680a3444cca3c2847662f535fd
+msgid "https://mail.zope.org/pipermail/zope-cmf/2007-February/025650.html"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:74
+# b7b39ad4f2874cd587b71311f78ef0f8
+msgid "Unit testing and portal_skins"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:76
+# 1534b9b9845b4779859c30227e4abdb5
+msgid "If you test templates in your unit testing code you might need to call PloneTestCase._refreshSkinData()::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:85
+# d7145ae188f34e1b9a0110b4a1a010d0
+msgid "Activating the current skin layer from a debug/ipzope shell"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:87
+# 1fa8c14c8bdb458ebe4b7039baec8c9f
+msgid "The skin needs to be initialised before its files can be accessed e.g. via restrictedTraverse::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:94
+# d0ab540c5f324637a3676a0d1f7960f6
+msgid "Rendering a skin layer template"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:96
+# 2a6e80470c004245bf92d3fdee82d899
+msgid "Templates must be bound to a context object before rendering.  Plone acquisition magic maps templates as acquired attributes of all contentish objects."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:113
+# f2a74e71eb4a4fd0a9a71284e32dc181
+msgid "Testing templates"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:115
+# eec828a213064925ba86ff1815c565df
+msgid "Below is some example code how templates behave."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:128
+# 91b11ccaf955443e933cba666d3d4ba4
+msgid "Nested folder overrides (z3c.jbot)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:130
+# a782a100c75c4398aa4419a0c3a7d8d3
+msgid "z3c.jbot allows to override any portal_skins based file based on its file-system path + filename."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:133
+# c5bbdf338a644c04a8127c58abe6fe92
+msgid "Example jbot ZCML slug (no layers, unconditional overrides)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:146
+# 4b91b8cf11e341f9b08012b4fd52c0e0
+msgid "Then your add-on has folder structure (example)::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:152
+# 1f01cab8142746f89875a473cdb0ab1b
+msgid "For layered example (theme layer, add-on layer), see"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:154
+# 17e177c4e4904fdb95f80b2f8aad4fa7
+msgid "https://github.com/miohtama/sane_plone_addon_template/blob/master/youraddon/configure.zcml#L41"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:158
+# 21d68043c17d492bb5f92de13ec7ac35
+msgid "http://pypi.python.org/pypi/z3c.jbot"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:160
+# f1455ed2e10a4c548f95031d9642804f
+msgid "http://stackoverflow.com/questions/6161802/nested-overrides-in-portal-skins-folder"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:163
+# 4368971cba3b496b8fed71e6f717b18a
+msgid "Poking portal_skins"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:165
+# 5ce96cf658914e2e9e45d5f7a2247e31
+msgid "``portal_skins`` is a persistent tool in Plone site root providing functions to manage skin layers. Its code mostly lives in ``Products.CMFCore.SkinsTool``."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:168
+# 8edb624ea6c94588ba39084e600abeda
+msgid "Available skin layers are directly exposed as :doc:`traversable </serving/traversing>` attributes::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:193
+# 4bf9274ed41d42738f1c561de3c19fc3
+msgid "``portal_skins.getSkinSelections()`` will list available skins."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:195
+# 00a40282de2542198c734cb155412e7f
+msgid "You can edit a specific skin layer::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:199
+# 13eb1275611a4ed593bec5ab7b605dd0
+msgid "``portal_skins.selections`` is a :doc:`PersistentDict </persistency/persistent>` object holding *skin name* -> *comma separated layer list* mappings."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:205
+# a59dfd6b67584b668fd82922437b85a6
+msgid "Dumping a portal_skins folder to the filesystem"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/skin_layers.rst:207
+# 0d34caab620944ba95de8acee5d63833
+msgid "qPloneSkinDump can build a filesystem dump from portal_skins but it only works on Plone 2. If you need this functionality you can try to use this script ripped off qPloneSkinDump: https://gist.github.com/silviot/5402869. It is a WorksForMe quality script; replace the variables and run it with::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:3
+# 4e52504a0a74465eaab1a47d1db40b73
+msgid "TAL page templates"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:7
+# 9de497c3589c4b398a1b1128d5a56db9
+msgid "Plone uses Zope Page Templates (:term:`ZPT`). This document contains references to this template language and generally available templates, macros and views you can use to build your Plone add-on product."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:16
+# c6592f66d01a425abd94f521839041ac
+msgid "Plone uses `Zope Page Templates <http://docs.zope.org/zope2/zope2book/AppendixC.html>`_, consisting of the three related standards: Template Attribute Language (:term:`TAL`), TAL Expression Syntax (:term:`TALES`), and Macro Expansion TAL (:term:`METAL`)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:22
+# 45b3ad5be4084a9997f81ee0df19a673
+msgid "A normal full Plone HTML page consists of:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:24
+# 3b145a8f23d7479096833b5c5cd4a821
+msgid "the *master template*, defining the overall layout of the page,"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:25
+# 1f9990eaafe04d908fc9cd8133f67960
+msgid "*slots*, defined by the master template, and filled by the object being published,"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:27
+# c022428f7d75404ab8a8eeea04b5d6b7
+msgid ":doc:`Viewlet managers </views/viewlets>` containing :doc:`viewlets </views/viewlets>`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:30
+# 507d884ecfe0479486107b17a2cbff35
+msgid "Templates can be associated with Python view classes (also known as \"new style\", circa 2008) or they can be standalone (\"old style\", circa 2001)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:36
+# 13ddef12d59f4dda902de1aed29eeda7
+msgid "The rationale for moving away from standalone page templates is that the page template code becomes easily cluttered with inline Python code. This makes templates hard to customize or override.  New style templates provide better separation with view logic (Python code) and HTML generation (page template)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:44
+# 1bfca2dd84f54c94ad84560c5ff42b20
+msgid "The MIME-Type"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:45
+# 529fd93189c54a289a2fbf9d85d30e9d
+msgid "Basically a document file got a mime-type. This is also important for Plone Templates if you don't want to export to text/html. If you want to export to a XML File you have to change the mime-type because otherwise the browser won't recognize the file as an XML. At the moment Plone supports text/html which is the default value. And text/xml. You got 2 opportunities to change this value. If you customize a template you got an input box which called \"Content-Type\". The other Way is to create a file named by your template name and extend the name by `.metadata`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:52
+# f44764a3fefa48c880c9e48e26bb064a
+msgid "my_view.pt"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:53
+# 4a2ef777253c43e2931ddb498e236df3
+msgid "my_view.pt.metadata"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:55
+# 17496edba21e48718e219e2092012e11
+msgid "Content of metadata file::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:62
+# f670d1aa27e540718aca519b39143352
+msgid "Overriding templates"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:64
+# 893887fc39ac4fff94181075084d664d
+msgid "The recommended approach to customize ``.pt`` files for Plone 4 is to use a little helper called `z3c.jbot`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:67
+# 5b8a4e1d0c6c4d158f2432f8f736edab
+msgid "If you need to override templates in core Plone or in an existing add-on, you can do the following:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:70
+# f24afeacbffd4e9389670aa257c8c282
+msgid "`Roll out your own add-on`_ which you can use to contain your page templates on the file system."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:73
+# 0d67a98743d8448ca845c79a51b3a138
+msgid "Use the `z3c.jbot`_ Plone helper add-on to override existing page templates. This is provided in the `sane_plone_addon_template`_ add-in, no separate set-up needed."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:78
+# 0dcb9db786594156b011e156d585fa85
+msgid "`z3c.jbot`_ can override page templates (``.pt`` files) for views, viewlets, old style page templates and portlets. In fact it can override any ``.pt`` file in the Plone source tree."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:83
+# 04fda2f753104988910439cd31f7638d
+msgid "Overriding a template using z3c.jbot"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:85
+# e5922541f2e041bda526b89351ee02a5
+msgid "First of all, make sure that your customization add-on supports `z3c.jbot`_. `sane_plone_addon_template`_ has a ``templates`` folder where you can drop in your new ``.pt`` files."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:90
+# c11e402278f54b57ac23263b8ef19380
+msgid "Locate the template you need to override in Plone source tree. You can do this by searching the ``eggs/`` folder of your Plone installation for ``.pt`` files. Usually this folder is ``.../buildout-cache/eggs``."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:95
+# c2de1233ad1f4ebc8f5649179c28d0d2
+msgid "Below is an example UNIX ``find`` command to find ``.pt`` files. You can also use Windows Explorer file search or similar tools:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:109
+# 4c46d58a7ced4b248f86af7d2d009853
+msgid "Your ``eggs/`` folder may contain several versions of the same egg if you have re-run buildout or upgraded Plone. In this case the correct action is usually to pick the latest version."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:114
+# f4cd6d9704134a1c8d8e542e3931fea0
+msgid "Make a copy of ``.pt`` file you are going to override."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:116
+# 6711e3fb96294208a24cb90318fdb310
+msgid "Rename the file to its so-called *canonical* name: to do this, exclude the ``.egg`` folder name from the filename, and then replace all slashes ``/`` with dot ``.``::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:122
+# 318ed7a81ffe46099b76fa92af9082b8
+msgid "to::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:126
+# cce19caf613f4a98865841c31d6dcf8c
+msgid "Drop the file in the templates folder you have registered for ``z3c.jbot`` in your add-on."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:129
+# 6238a8c00a3d4036b146f794ebc032a2
+msgid "Make your changes in the new ``.pt`` file."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:133
+# 9cc3a4c3b5ce4069bcc64dff3902d7c6
+msgid "After overriding the template for the first time (adding the file to the ``templates/`` folder) you need to restart Plone. `z3c.jbot`_ scans new overrides only during the restart."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:138
+# bae8bc6cb433416a9d60d56b97560d6e
+msgid "After the file is in place, changes to the file are instantly picked up: the template code is re-read on every HTTP request |---| just hit enter in your browser location bar. (Hitting enter in the location bar is quicker than hitting :guilabel:`Refresh`, which also reloads CSS and JS files.)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:143
+# 6b9d27ec7f1543439a88f7fe4b07fb58
+msgid "If you want to override an already overridden template, read here: <http://stackoverflow.com/questions/16209392/how-can-i-override-an-already-overriden-template-by-jbot>"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:146
+# f933ef8432ec43f48634c1a88305ec11
+msgid "More info:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:148
+# 46106a71b1e645c78c0dd5fcf9bf25cf
+msgid "http://pypi.python.org/pypi/z3c.jbot/"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:150
+# d6cac2c41a8b4ba5b83731b53a21e1bd
+msgid "http://blog.keul.it/2011/06/z3cjbot-magical-with-your-skins.html"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:154
+# 7a169cc95c6f4ef599651c03647c122a
+msgid "Main template"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:156
+# cde2751705c944b49048741d16205a34
+msgid "The master page template in Plone is called ``main_template.pt`` and it is provided by the `Products.CMFPlone package <https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_templates/main_template.pt>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:160
+# bab4749ea7b042dfb91df20ba8d7b369
+msgid "This template provides the visual frame for Plone themes. The template is an old-style page template living in ``plone_skins/plone_templates``."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:164
+# ab7209089e3341f3b8b513f668f4a166
+msgid "Custom per view main template"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:166
+# ed2220d26c6142079652ab59b3251564
+msgid "Here is an example how to provide a customized main template for one view. In this example we have customized main template so that only the content area is visible."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:169
+# 32f752c1c1c3439683769771361ea79c
+msgid "First we register our template in ``configure.zcml``::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:179
+# d6a35f2f47154c44a705f8932fbf48e7
+msgid "We refer it in our page template instead of ``here/main_template``::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:190
+# 30facbdbb6954a2e8debf4040caecd57
+msgid "``barebone-main-template.pt`` is an edited copy of ``portal_skins/sunburst_templates/main_template.pt``::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:323
+# 8237509ad42a412e8f5fa1dcbb8154f9
+msgid "Plone template element map"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:325
+# 3268f01d3456422197d41163cc80abe9
+msgid "Plone 4 ships with the *Sunburst* theme. Its viewlets and viewlets managers are described `here <http://plone.org/documentation/manual/theme-reference/elements/elementsindexsunburst4>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:329
+# d392df8d7fe94a82984fd0e269c04a0f
+msgid "Plone 3 viewlets differ from Plone 4 viewlets."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:332
+# 64244e7b705f4f338ee545436ad73be6
+msgid "Zope Page Templates"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:334
+# 741626f01fbb4286a2f46aadda2f9e9b
+msgid "Zope Page Templates, or :term:`ZPT` for short, is an XML-based templating language, consisting of the Template Attribute Language (:term:`TAL`), TAL Expression Syntax (:term:`TALES`), and Macro Expansion TAL (:term:`METAL`)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:338
+# 6c6a7cee490943849e90ff377d65008e
+msgid "It operates using two XML namespaces (``tal:`` and ``metal:``) that can occur either on attributes of elements in another namespace (e.g. you will often have :term:`TAL` attributes on HTML elements) or on elements (in which case the element itself will be ignored, but all its attributes will be recognized as :term:`TAL` or :term:`METAL` statements)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:344
+# c5fa1ae20f7d434287c7a1c3d05f06c2
+msgid "A statement in the ``tal:`` namespace will modify the element on which it occurs and/or its child elements."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:347
+# 0854bd4dff7e45758ffdec3d48f061af
+msgid "A statement in the ``metal:`` namespace defines how a template interacts with other templates (defining or using macros and slots to be filled by macros)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:351
+# f8c8a71974bf4d67b0433df1a1ef085f
+msgid "The value of an attribute in the ``tal:`` namespace is an expression. The syntax of this expression is defined by the :term:`TALES` standard."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:355
+# a4e0636dc09d44c0b22e574a217bcc8b
+msgid "TAL"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:357
+# c2bd71ce81504deea023698c3394691c
+msgid "`TAL <http://wiki.zope.org/ZPT/TALSpecification14>`_ is the Template Attribute Language used in Plone."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:360
+# 7cb42f64599747a1b33d8fa56d9d308e
+msgid "`TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:364
+# bbd84303081745a19ca44270d2a65aab
+msgid "Escaped and unescaped content"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:366
+# 6afb8f43df6549a59fe49bea6727d072
+msgid "By default, all :term:`TAL` output is escaped for security reasons::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:374
+# 8ecc4ff4caaa4346ba83d81580c9fc56
+msgid "Will output escaped HTML source code:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:380
+# 3d817a4c35ce4beb8d07d254370eae6c
+msgid "Unescaped content can be output using the TALES ``structure`` keyword in the expression for the ``tal:replace`` and ``tal:content`` statements:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:387
+# 2e801515281e4189b9c382507f76194e
+msgid "Will output unescaped HTML source code:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:394
+# f80a99241af44e418a9d824d1d3c14f7
+msgid "METAL"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:396
+# a32359666e614002960857f22721ac90
+msgid "The :term:`METAL` (Macro Expansion TAL) standard provides *macros* and *slots* to the template language."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:399
+# fe18034c460b414a9a2dedcec2df06b1
+msgid "Using METAL macros is no longer recommended, since they couple programming logic too tightly with the template language.  You should use views instead."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:402
+# 5d6b96c54ff843a68723f05753a1c073
+msgid "Read more about them in the `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:406
+# 9f1efc41b25e482181d227d78a44f749
+msgid "TALES expressions"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:408
+# 3945ddb4d9c24e7892e4741dad34f6c6
+msgid "The value of TAL statements are defined by TALES expressions. A TALES expression starts with the expression type. If no type is specified, the default is assumed. Three types are standard:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:412
+# 0f43f1b395a9427587504b05787dc7dc
+msgid "``path:`` expressions (*default*),"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:413
+# d89af67e4ba04db689a8f8559a7e0d96
+msgid "``python:`` expressions,"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:414
+# 22ddf345b02e4ec7954a064d61956e1c
+msgid "``string:`` expressions."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:416
+# 6cb9ca045851456eb1c0045504c5ed27
+msgid "They are generally useful, and not limited to use in Page Templates. For example, they are widely used in various other parts of Plone:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:419
+# 3d562913335e4fe79e0786119c98b55a
+msgid "CSS and Javascript registries, to decide whether to include a particular file;"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:421
+# 66c0c08a4dc44a969516186c35c9ef8b
+msgid "Action conditions, to decide whether to show or hide action link;"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:422
+# 7d3a2e37ddee4c1ebee844c0f4e5e1a2
+msgid "Workflow security guards, to decide whether to allow a workflow state transition"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:426
+# 85cd4ee1e9dd4b85a61a159e1042537b
+msgid "Read more about expressions in `TAL Guide <http://www.owlfish.com/software/simpleTAL/tal-guide.html>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:428
+# fa471d88530b47fb806bcbcc0648b8d4
+msgid "See the :doc:`Expressions chapter </functionality/expressions>` for more information."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:431
+# 1c274de188e443fdadf341f48d68b727
+msgid "Omitting tags"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:433
+# 39118951b4a84e20938b34410d2ecbac
+msgid "Sometimes you need to create XML control structures which should not end up to the output page."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:436
+# 9ed7936232c8467b9611e6e0b8c80b17
+msgid "You can use ``tal:omit-tag=\"\"``:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:445
+# 7662bb66694f4bd98fdfa4aeb66d9fa8
+msgid "Images"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:447
+# 07258b877b0c4605bffd36f446bc1503
+msgid "See :doc:`how to use images in templates </images/templates>`."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:450
+# 65c0aba7528c4a98b268cb4fbee82044
+msgid "Overriding templates for existing Plone views"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:452
+# e307b59b8d5e4ff0aad08dc9f28427f7
+msgid "New style templates can be overridden by overriding the view using the template."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:455
+# 1266339f56ca4fc29ac1251a2b4af9f4
+msgid "Old stype templates can be overridden by register a new skins layer in ``plone_skins``."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:459
+# 17678e38a60f4f50802f1c93267cfd9e
+msgid "View page template"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:461
+# 11de7190e89c4b8b9795c74f3897cfc2
+msgid "http://lionfacelemonface.wordpress.com/2009/03/02/i-used-macros-in-my-browser-views-and-saved-a-bunch-of-money-on-my-car-insurance/"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:464
+# cc29441775994cf095be9b6fec3febb4
+msgid "Old style page template"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:466
+# a7183c7c1be04be8b9765207c389623f
+msgid "Create a new layer in ``portal_skins``"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:468
+# 2ab32f1a94114915abdd28722bc34b8c
+msgid "Templates are resolved by their name, and a property on the ``portal_skins`` tool defines the order in which skin layers are searched for the name (see the *Properties* tab on ``portal_skins``)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:472
+# af5581581608411cb9a6edf079edad2a
+msgid "You can reorder layers for the active theme so that your layer takes priority."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:476
+# 409ff2e5f86b45ae875dc6e15a14163b
+msgid "Portlet slots"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:478
+# 1ee023691fd64260bbc976023ee228a5
+msgid "By default, Plone ``main_template`` has slots for left and right portlets. If you have a view where you don't explicitly want to render portlets you can do:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:497
+# 2186126bc44246ac8adc8cfd04ee921d
+msgid "This blanks out the ``column_one_slot`` and ``column_two_slot`` slots."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:500
+# 6f1500fcb34a49afaa0d60d05aeef098
+msgid "Head slots"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:502
+# b3815d4da4414dd59b70611d0124bbc8
+msgid "You can easily include per-template CSS and JavaScript in the ``<head>`` element using extra slots defined in Plone's ``main_template.pt``."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:505
+# 6e08111e2d0c4cd481237766353dbe07
+msgid "Note that these media files do not participate in :doc:`portal_css </templates_css_and_javascripts/css>` or :doc:`portal_javascript </templates_css_and_javascripts/javascript>` resource compression."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:510
+# a4fb835940d0492a8fc70ddc2fcf18d6
+msgid "Extra slots are:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:526
+# 5d88ed1d36ae4589a357b025670b78b5
+msgid "Example use:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:572
+# 00cabb450d6040ba8d2b9f54e232cc1d
+msgid "Edit frame"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:574
+# 6a62ce476ad840939033908291b2cd8d
+msgid "By default, Plone draws a green *edit* frame around the content if you can edit it. You might want to disable this behavior for particular views."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:578
+# 258f332d29c74d7982c174d2c0c000d8
+msgid "Hiding the edit frame"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:580
+# bc96db2bc834456aa665e9c66a32cb48
+msgid "If you'd like to hide the (green) editing frame, place the following code in your Zope 2-style page template::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:586
+# 4237fcebbfb248b299f2f90ff2bf74c9
+msgid "Examples of this usage:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:588
+# 19576d1dbf3f48a4820b5a8d2532fb98
+msgid "The `Contact info page <https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_templates/contact-info.cpt>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:590
+# 2c0909522854475d89ddb608e97582ae
+msgid "The `Recently modified page <https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_templates/recently_modified.pt>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:593
+# b12853baa30047c9ac7fa5a667a139bf
+msgid "Special style on individual pages"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:595
+# 897b4bc8e9634f238c3b0780474910b6
+msgid "To override page layout partially for individual pages you can use marker interfaces to register special overriding viewlets."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:598
+# 4f2675c9e5ca497da2810472e472fc74
+msgid "More information:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:600
+# 107a47bb58ea4a3cb935d3644032b7b8
+msgid ":doc:`Viewlets </views/viewlets>`"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:602
+# dcd93f40681f4685bd32905569f4e763
+msgid "http://starzel.de/blog/how-to-get-a-different-look-for-some-pages-of-a-plone-site"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:605
+# 98347b47d3d64a3aa47e5257df22e2f2
+msgid "URL quoting inside TAL templates"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:607
+# 946c18620f214b6d987689e5517d99ea
+msgid "You need to escape TAL attribute URLs if they contain special characters like plus (+) in query parameters. Otherwise browsers will mangle links, leading to incorrect parameter passing."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:611
+# 79cc27c528424e4a8039aa736fa271d6
+msgid "Zope 2 provides ``url_quote()`` function which you can access"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:619
+# fdfb6a262eba407cb69b640a26ed57e7
+msgid "Then you can use this function in your TAL code"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:626
+# f7bc1664163a4a6582b8f24e1eec3818
+msgid "If you need to also quote spaces, use ``url_quote_plus`` rather than ``url_quote``."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:629
+# abbeb5916ef94380b1b96b3fc751ab35
+msgid "Using macros"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:631
+# 5d01359d9d2e49c0b2cc3abe907a9192
+msgid "Here is an example how to use `<metal:block define-macro=\"xxx\">` and `<metal:block use-macro=\"xxx\">` in your :doc:`view class </views/browserviews>` template files."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/template_basics.rst:681
+# f57be143b040487189f0838bda8cf974
+msgid "http://stackoverflow.com/q/13165748/315168"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:3
+# 2494bb37894a4806806b546348618854
+msgid "Diazo / XDV theming"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:7
+# bc88cdaba4d74d35a8aa4c2704b3f6d4
+msgid "Theming Plone and integrating external sites under one theme service using Diazo / XDV solution."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:15
+# dfefde2e656c4edcbc318feadab6e569
+msgid "XDV is an external HTML theming engine, a.k.a. a theming proxy, which allows you to mix and match HTML and CSS from internal and external sites by using simple XML rules. It separates the theme development from the site development, so that people with little HTML and CSS knowledge can create themes without the need to know the underlying Python, PHP or whatever. It also enables integration of different services and sites to one unified user experience. For example, XDV is used by `plone.org <http://plone.org>`_ to integrate the Plone CMS and the Trac issue tracker."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:24
+# 7f9e93b6cd394e47b4ecf7977d09d8c0
+msgid "XDV compiles theming rules to XSL templates, which has been a standard XML based template language since 1999. XSL has good support in every programming language and web server out there."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:28
+# 0fb9892eca134c4e99a48a507e6d25e2
+msgid "Example backends to perform XDV transformation include:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:30
+# 79c1c01b55d5490aa7f59ab15f0d83fa
+msgid "collective.xdv (as a normal Plone add-on, a post-process hook)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:32
+# b01e9334fea0426c9ec6f66a51420f9d
+msgid "Apache's mod_transform"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:36
+# a74202f1d04448f9854729c60e376102
+msgid "XDV theming can be used together with Plone, where enhanced support is provided by the `collective.xdv package <http://pypi.python.org/pypi/collective.xdv>`_. Technically, collective.xdv adds a Plone settings panel and does the XSL transformation in Zope's post-publication hook using lxml library."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:41
+# ade0384903c64d0fbb830b48a4894a61
+msgid "XDV can be used standalone with the `XDV package <http://pypi.python.org/pypi/xdv/0.3a2>`_ to theme any web site, let it be Wordpress, Joomla, Drupal or a custom in-house PHP solution from year 2000."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:44
+# 6aa6f1e001564407a99926c42b1d388d
+msgid "XDV is based on the `Deliverance specification <http://deliverance.openplans.org/>`_ The difference between XDV and the Deliverance reference implementation is that XDV internally compiles themes to XSL templates, whereas Deliverance relies on processing HTML in Python. Currently the XDV approach seems to be working better, as we had many problems trying to apply Deliverance for Wordpress sites (redirects didn't work, HTTP posts didn't work, etc.)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:54
+# 0536d77d8a374880850ff6c0d485260a
+msgid "The editing interface, backend, or admin site, however you wish to call it, can be themed with collective.xdv. However, it does not need to be and the edit interface can fallback to the default Plone theme."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:60
+# b8244d896675419894c8c333e66cec21
+msgid "The Plone editing interface is powerful and has very high usability, which means that it is internally quite complex (it takes complex things to seem simple to the end user)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:70
+# 44ee999680b8406bb2081b612ad785a1
+msgid "With XDV you can easily have a separate admin.yoursite.com where the Plone editing interface is untouched."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:74
+# 76a87e81361a4c41b44cc032192baa3c
+msgid "Tutorials"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:76
+# 1bcc36681070417c936d440eeabc7d33
+msgid "http://reinout.vanrees.org/weblog/2010/12/29/xdv-setup.html"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:78
+# 6d0979a283dc4b50b4055e5c115b3624
+msgid "http://plone.org/products/collective.xdv/documentation/reference-manual/theming"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:80
+# 12e3c9ea53784e258f80ea97102061e9
+msgid "http://pypi.python.org/pypi/collective.xdv"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:82
+# b1188029a4504b59b97db378b6ae5cb3
+msgid "http://pypi.python.org/pypi/xdv"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:84
+# 31dd2b5287254b49b0c994841fb6ba48
+msgid "http://pypi.python.org/pypi/dv.xdvserver (with WSGI)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:87
+# dd0a666e27624728b05ac0de0d888fce
+msgid "Creating your first XDV project"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:89
+# 8e9e709bd7df415b94506206e9d25071
+msgid "The :doc:`ZopeSkel package </getstarted/paste>` includes an XDV theme skeleton since version 2.20."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:92
+# 8f29435935324ee28f73a76b77eefd7b
+msgid "Example how to boostrap your theme."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:98
+# f36ae29b27714726b7ec8e69ad517a03
+msgid "Setting up XDV development tools"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:100
+# 96e3514b88794e32860d32d1dc11e2b2
+msgid "XDV tools are deployed as Python eggs. You can use tools like the `buildout <http://www.buildout.org/>`_ configuration and assembly tool or easy_install to get XDV on your development computer and the server."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:105
+# f37de1fad4b34f3880a4b84b0065b088
+msgid "If you are working with Plone you can integrate XDV to your existing site's buildout. If you are not working with Plone, the `XDV home page <http://pypi.python.org/pypi/xdv#installation>`_ has instructions on how to deploy the XDV command standalone."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:111
+# 0c70531c4e3646b7a36d1f339baa2864
+msgid "XDV Rules"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:113
+# a1745dbfcfa54568a1497411f1857a0d
+msgid "Rules (rules.xml) will tell how to fit content from external source to your theme HTML."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:116
+# 3b982aed379e4305a42b74793037c810
+msgid "It provides a straightforward XML based syntax to manipulate HTML easily:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:128
+# b1950c4c686e4247ba7402d5ae25bbdb
+msgid "The rules XML syntax is documented at `XDV homepage <http://pypi.python.org/pypi/xdv>`_."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:130
+# d96bc4a777fb4266ad648953d6feb793
+msgid "Rules will be compiled to an XSL template (theme.xsl) by the *xdvcompiler* command. The actual theming is done by one of the XSL backends listed above, by taking HTML as input and applying XSL transformations on it."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:134
+# 5b80e6c3440846f0b4d77404b544e130
+msgid "Note that currently rules without matching selectors are silently ignored and there is no bullet-proof way to debug what happens inside XSL transformation, except by looking into the compiled theme.xsl."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:139
+# 5de90d5d8f5b4000860bec1be5066b96
+msgid "Dropping specific CSS files with XDV"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:141
+# 8d95f936d4dc410ba20f9e4cd0c96738
+msgid "For example if you wish to get rid of the base-cachekey????.css file that comes from a Plone site, but still want to keep the authoring CSS and any special CSS files that come from add-ons, you can use the following rule::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:150
+# d2b3ef4aa739404d88e75d9738e29c64
+msgid "http://www.coactivate.org/projects/deliverance/lists/deliverance-discussion/archive/2010/09/1284795659190"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:153
+# 89aca995af2443958a7f85bfcc700887
+msgid "Handling .. relative URLs"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:155
+# c0a603105b9d4f058f001e5fd438d79f
+msgid "Here is an example of :doc:`monkey-patch </misc/monkeypatch>` which you can use to override relative URLs in your theme using a dot notation."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:159
+# f0c11002841b46559cf044567f645161
+msgid "It adds a custom behavior to normal ``urlparse.urljoin()`` logic."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:207
+# 1b7841b942724e079fc26f6cf54ad79d
+msgid "Using XDV to theme and integrate a Wordpress site"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:209
+# 8e8b2fbc0cfc4e09b85ea91997f93634
+msgid "Below are instructions for how to integrate a Wordpress site to your CMS. In this example the CMS is Plone, but it could be any other system."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:212
+# 7ba3b963ee5b4ddf8b6c78b4e84dc235
+msgid "We will create an XDV theme which will theme a Wordpress site to match our CMS site on the fly."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:215
+# c5adb685e7fb4e868a40b50daa1fb25e
+msgid "The Wordpress theme is built with XDV, using a live Plone web page as a theme template."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:218
+# 6c76b298b3fd484d8b00e760b06a89d9
+msgid "This way the Wordpress theme inherits \"live data\" from the Plone site, like top tabs (portal sections), footer, CSS and other stuff which can be changed on-the-fly and reflecting such changes to two separate theming products would be cumbersome."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:223
+# 36362f2cc15043a59b1be7a4b822f267
+msgid "Benefits of using Wordpress for blogging instead of the main CMS:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:225
+# 0e1381056bfc45e39ea281ef99c9f5ba
+msgid "Wordpress post and comment management is easy"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:227
+# fa4f81535551455f864be0ffea901409
+msgid "Wordpress does not need to be touched: the old public Wordpress instance can keep happily running wherever it is during the whole process"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:231
+# b9251ff1b44e497b8b34ed4344705963
+msgid "You do not need to migrate legacy Wordpress installations to your CMS's internal blogging tool"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:234
+# a6c8b9488ff04fa88982c9d1d580adb6
+msgid "Wordpress comes with extensive blog spam filtering tools. We get 11000 spam comments a month."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:237
+# b4ae8c7aed8d4549a8e5d9009b567abf
+msgid "Wordpress is designed for blogging and the user interface is good for that"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:240
+# 98bba941ce464eef909533688648bf13
+msgid "Wordpress integrates well with blog pingback support services"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:242
+# 26ad57e8d2574ccba650719df2473803
+msgid "Wordpress supports Gravatars and other blogging plug-ins"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:244
+# e9bf4b1086714dd0b6f5d574001ac284
+msgid "..and so on..."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:246
+# 16618fa6020846de89c88e44bff198cc
+msgid "Benefits of using XDV theming instead of creating a native Wordpress theme are"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:248
+# 1059bddd7da2433293dbc42ca8516474
+msgid "You need to maintain only one theming add-on product i.e. the one for your main CMS and Wordpress receives the updates to this site and the theme automatically"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:261
+# ed9a101dac0e4819aaac84a2bea73a6f
+msgid "Even though Wordpress has a slick UI, it is a well known fact that it is a can of worms internally. My developers do not like the idea of PHP development and would spit on my face if I ask them to go develop a Wordpress theme for us"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:268
+# cadd5956031e45f9bc72d125ae9a5049
+msgid "Theme elements"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:270
+# 7fc29628573a499aa30f3452177a6ec2
+msgid "The theme will consist of the following pieces"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:272
+# 5ab6f209e6c041b593ea0a58352229e5
+msgid "Deliverance rules XML file which defines how to combine Plone and Wordpress HTML (rules.xml)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:275
+# daba97d69b5548cc8bc91986b355b319
+msgid "Additional CSS definitions active only for Wordpress (wordpress.css). Dependency on this CSS in injected in the <head> by rules XML"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:278
+# 16d1ceefdb474ca49cc23becb0a1f9af
+msgid "Special Plone page template which will provide slots where Wordpress can drop in the content (wordpress_listing.pt)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:281
+# 055526fe4fc34c55a6f81ee6292f1857
+msgid "A helper script which makes it easy to perform repeatable theming actions, like recompiling the theme (xdv.py)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:286
+# 93d7cba63e7249d58abc038a7389321f
+msgid "CMS page template"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:288
+# 45bc7d23434c4cf08d070d88b45911b2
+msgid "This explains how to create a Plone page template where Wordpress content will be dropped in. This step is not necessary, as we could do this without touching Plone. However, it makes things more straightforward and explicit when we known that the Wordpress theme uses a certain template and we explicitly define slots for Wordpress content there."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:320
+# bbd6ea144c3d44138f07fe9d4a4d9824
+msgid "Theming rules"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:322
+# 101d42f117034fba975e59530b6b01b4
+msgid "Following are the XDV rules (rules.xml) for how we will fit the Wordpress site to the Plone frame."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:324
+# 0abd0a09e3eb4e83925232621477c7bc
+msgid "It will integrate"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:326
+# 104eb0b75b9b4fb38045c6c93d85e594
+msgid "Content from Wordpress"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:328
+# 6f8fb0dcba98476ebeb48f14fcbc6a69
+msgid "Metadata from Wordpress"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:330
+# 61f7b4709ddf42618b0a0337e90d9524
+msgid "CSS from Plone"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:332
+# 35000620139b4d3ab0b4a631d7a82f27
+msgid "Page basic structrure from Plone"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:334
+# 2a29e0a9c083423090b7ac393bb66e78
+msgid "rules.xml::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:401
+# 8673fc3826ab4a868a0a2d8ff83034a9
+msgid "Wordpress specific CSS"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:403
+# b6286718ef7841e9b900bda395f3a514
+msgid "This CSS has styles which are applied only to Wordpress pages. They are mainly corner case fixes where Wordpress and CMS styles must match."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:407
+# 1544047ded8347589ec91198f230be6b
+msgid "The CSS file is loaded when rules.xml injects it into the <head> section."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:409
+# aa27707e7486433298f1837e30e9dad6
+msgid "wordpress.css::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:496
+# 1fc17747ba0647368389225affcbf663
+msgid "Helper script"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:498
+# 76862e6a4129448b859cdea51dd428fc
+msgid "The following Python script (xdv.py) makes it easy for us to:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:500
+# 2e7ee9b007d84ba5b75fb8b63f0242d7
+msgid "Recompile the theme"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:502
+# 4530e5dbc6aa4b429d04aba8c2d65922
+msgid "Test the theme applied on the site"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:504
+# 36203b606292424aa347f9a2c15dea06
+msgid "Preview the theme in our browser"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:507
+# 3432035e71c547b3ba4ac6f5a406a223
+msgid "*bin/xdvcompiler* and *bin/xdvrun* commands with some webbrowser opening magic."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:510
+# 83a4849a7c8a46cbbc922d6d66a34158
+msgid "Drop the file into your Plone theme package and modify it to fit your needs."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:512
+# a92e351840ce4c68a4b10503e6a26fcb
+msgid "xdv.py::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:620
+# 1cc705fc88c44b5cb1ecedf61d8b0af3
+msgid "Compiling the theme"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:622
+# 8dd1a792c7cd44a4894100dd4dc305b4
+msgid "This will generate XSL templates to do the theming transform. It will compile the rules XML with some boilerplate XSL."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:625
+# 3708667e135f46dc9e8fa87738c0502b
+msgid "Running our compile script::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:629
+# b0188e44e16745aa9b1fed518606ff30
+msgid "Since Plone usually does not use any relative paths or relative resources in HTML, we do not give the parameter \"Absolute prefix\" to the compilation stage. In Plone, everything is mapped through a virtual hosting aware resource locator: portal_url and VirtualHostMonster."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:634
+#: ../../source/templates_css_and_javascripts/xdv.rst:921
+# cb18f6e17f8b42419aadc9f9b2c7d9b5
+# 7f8eb24d611d4d36879b5e4307ae83eb
+msgid "For more information see"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:636
+# e867c7a3a8b540ec8347e12f8476dc2e
+msgid "http://pypi.python.org/pypi/xdv/0.3a2#compilation"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:639
+# 17816eded1004a0e801281a4ea59cc47
+msgid "Testing the theme"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:641
+# de9585165205446299c231be95244d95
+msgid "The following command will apply the theme to an example external page::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:646
+# 42943e3d5e714691a7219b6cd0a450b6
+msgid "... or we can use the shortcut provided by our script ... ::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:650
+# 4e064fc139e1423fbf912bd33a4b8eb4
+msgid "... alternatively we can specify that the theme source should be fetched from the development server (localhost)::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:656
+# 2c226494929e42a298ea80d2e8eff0de
+msgid "Applying the theme in an Apache production environment"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:658
+# e70a24ac2b314cb9b7865689d8f6e7b8
+msgid "These steps tell how to apply the integration theme for Wordpress when Wordpress is running under an Apache virtualhost."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:663
+# 4cecba69408246d184af39925a919f85
+msgid "Installing dependencies"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:665
+# cb27648a4aed4c28831ee6368f4643d6
+msgid "We use Apache and mod_transform. `Instructions on how to set up modules for Apache <http://pypi.python.org/pypi/xdv#apache>`_ are available on the XDV homepage. Some hand-built modules must be used, instructions to set them up for Ubuntu / Debian are available."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:670
+# 9bb9ad8376e442958c9e286a56909da7
+msgid "Apache 2 supports `filter chains <http://httpd.apache.org/docs/2.2/mod/mod_filter.html>`_ which allow you to perform magic on the HTTP response before sending it out. This corresponds to Python's WSGI middleware."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:674
+# 6401b9bd9509413788a06dba9c1f2908
+msgid "We will use special builds of mod_transform and mod_depends which are known to work. These modules were forked from their orignal creations to make them XDV compatible, as the orignal has not been updated since 2004 (this is a good example of how the freedom of open source guarantees that you \"won't run out of support\")"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:680
+# 2a6b196ccf6f4f8dbbafee75386714e6
+msgid "`XDV mod_transform and mod_depends homepage <http://code.google.com/p/html-xslt/>`_"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:682
+# ed4824723529434bbccb574317bf6954
+msgid "`Orignal mod_transform and mod_depends homepage <http://www.outoforder.cc/projects/apache/mod_transform/>`_"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:695
+# 2a41134664f54cc1bc077bd5a4deb0a3
+msgid "Enable built-in Apache modules::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:700
+# 5e3e0fc505e54792970c2d083521de7c
+msgid "For modules *depends* and *transform* you need to manually add them to the end of Apache configuration, as they do not provide a2enmod stubs for Debian. Edit /etc/apache2/apache.conf::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:707
+# 08d6917f29384ac1a3c4cc999e6e5ba5
+msgid "You need to hard reset Apache to make the new modules effective::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:712
+# 5df7bc096dce4a76b411b72edc1cb3ed
+msgid "Virtual host configuration"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:715
+# 96b8ac8299144679b15c4f365d96a9a2
+msgid "Standard Configuration"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:716
+# 61392db262994e74a1994715bcef8281
+msgid "The example below shows a typical xdv setup ::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:748
+# f39ddd2991804e83a474839200ab5068
+msgid "Integrating with Wordpress"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:749
+# fa36d379c9b14e77ac33249bfc5afb94
+msgid "Below is our virtualhost configuration which runs Wordpress and PHP. Transformation filter chain has been added in."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:752
+# 0618441a7b494a3a8d97d59254ef08c3
+msgid "/etc/apache/sites-enabled/blog.mfabrik.com::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:807
+# 9c1781e6fdab4f53957cd99c534526ec
+msgid "Running it"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:809
+# 87f1aa4be7c146d283fd09fcfaee045f
+msgid "After Apache has all modules enabled and your virtualhost configuration is ok, you should see Wordpress through your new theme by visiting the site served through Apache:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:813
+# 047ecb43f64d45b697e9d28006eafc5e
+msgid "http://blog.mfabrik.com"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:816
+# 5a342f7a1dd74a129001d1094f801d83
+msgid "Automatically reflecting CMS changes back to XDV theme"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:818
+# 4584aacfe96c48eaacd21edb9a6bc473
+msgid "The theme should be recompiled every time"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:820
+# dbcb1e17a3fd4c818ecf2988cbc742aa
+msgid "Plone is restarted: CSS references change in <head> as CSS cache is rebuilt"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:822
+# 79c01def7bf34661a4c62e72e3d4dd0f
+msgid "CSS is modified: CSS references change in <head> as CSS cache is rebuilt"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:824
+# c7f4be4639194ecebb6d5475f8811edb
+msgid "Plone content is changed and changes reflect back to Wordpress theme (e.g. a new top level site section is being added)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:827
+# d435d5eef6f447da8f85a87c3f88644f
+msgid "This is because the compilation will hard-link resources and template snippets to the resulting theme.xsl file. If hard-linked resources change on the Plone site, the transformation XSL file does not automatically reflect back the changes."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:832
+# b67d52432d734ef2a4b97f8c162d4b18
+msgid "It could be possible to use Plone events automatically to rerun theme compilation when concerned resources change. However, this would be quite complex.  For now, we are satisfied with a scheduled task which will recompile the theme now and then."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:837
+# d5fba0dd7778409f80db4b3ebea3aa75
+msgid "Alternatively, mod_transforms could be run in non-cached mode with some performance implications."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:840
+# f8a6259e659047f29f5bced89ad3e150
+msgid "Here is a shell script, update-wordpress-theme.sh, which will perform the recompilation and make Apache's transformation cache aware of changes::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:855
+# 14b93bbf441b4b13ab01f495af202f6a
+msgid "Then we call it periodically in cron job, every 15 minutes in /etc/cron.d/update-wordpress::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:864
+# bb8fcc299b0e48a5a99338865338281d
+msgid "It looks like Varnish has issues with Apache2 apache2ctl graceful restart. Do only hard restarts when using Apache in conjunction with Varnish."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:869
+# dcae5a4fce18401c9e9f89785710b534
+msgid "Updating Wordpress settings"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:871
+# 42be4a7640a548aaa17fbc76c8357d1e
+msgid "No changes on Wordpress needed if the domain name is not changed in the theme transformation process."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:875
+# a61978004b2e487a8f6b13d4b3f50a36
+msgid "Site URL"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:877
+# cc69341f989846d593b65312f1b107da
+msgid "Unlike Plone, Wordpress does not have decent virtual hosting machinery. It knowns only one URL which it uses to refer to the site in the external context (e.g. RSS feeds)."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:881
+# f98232769ea844a49530f03d9b88329f
+msgid "This setting can be overridden in"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:883
+# 8351212501ee40c88c5aaf8c7538ab3b
+msgid "Wordpress administrative interface"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:885
+# e7814739432a46a0adfbb132bcd8c49b
+msgid "wp-config.php"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:887
+# 5b66a92473584abb834199a151acd1fb
+msgid "Here is an example how we override this in our wp-config.php::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:894
+# 2009454675874161bcd29b4e32bbf8e3
+msgid "HTTP 404 Not Found special case"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:896
+# dc98a68fab424cdcbf1771a1c0043a03
+msgid "Http 404 Not Found responses are not themed by the Apache filter chain. This is not possible due to the order of the pipeline in Apache."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:899
+# 2fd2572724ab4a2a98eafce62a15a2f3
+msgid "As a workaround you can set up a custom HTTP 404 page in Wordpress which does not expose the old theme."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:902
+# 1734cf95cb204b41ad1def3591586b4b
+msgid "Go to Wordpress admin interface, Theme editor"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:904
+# 69f8216f49604577ad5ce8696e5dd994
+msgid "Edit 404.php and modify it so that it does not pull in the Wordpress theme::"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:923
+# 2784d3c88c8f40208426531a9eeea4f2
+msgid "http://codex.wordpress.org/Creating_an_Error_404_Page"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:926
+# 58585ce049074a2eb7eb4f21111e61d5
+msgid "Roll-out checklist"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:928
+# eba7fbf27e3d481cae9de5daf4fb610a
+msgid "Below is a checklist you need to go to through to confirm that the theme integration works on your production site"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:931
+# c9c6af7651e648e29a10b5beeed9cb56
+msgid "Wordpress public pages are loaded with the new theme"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:933
+# ebb7adf0ce464e74a022e12b359285b5
+msgid "Wordpress login works"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:935
+# bb839c16b0b14a0a80169e51df366110
+msgid "Wordpress administrative interface works"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:937
+# fe4af0d0661047e58bdd84c9206f8141
+msgid "RSS feed from Wordpress works and contains correct URLs"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:939
+# 92792bf14c544ec6ba59098f1ba6fc9e
+msgid "HTTP 404 not found is handled correctly"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:941
+# a670982a4bdc4bfa85c17043463b5cf3
+msgid "HTTP 302 redirect is handled correctly (i.e. missing / at the end of blog post URL)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:943
+# 5c926838e4864463a5cf9b113637bcb4
+msgid "Changes on CMS site are reflected to Wordpress theme within the update delay"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:945
+# 1a8e4ee61e094c379c69d1b20cd16306
+msgid "Old blog site is redirected to new site using HTTP 301 (if applicable)"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:950
+# 24f928308ada4bf3b1242ceb1c2a714c
+msgid "Using XDV to theme and integrate a phpBB forum"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:952
+# 2cc49ad2354043c9a9791fa3fe954860
+msgid "What we want to achieve is to have a regular Plone site for the CMS pages, and a mix of Plone and phpBB for the forum part. By mix, I mean combination of elements from the two products. The header and menu will come from Plone, and the body will be from phpBB. This mixing will be done with XDV."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:958
+# 0a1347fb501f429b8b3d9cff6b5054fb
+msgid "First thought that came to mind was to use collective.xdv which has a nice control panel page that holds all the configuration stuff needed for XDV, and it does all the magic for me and I don’t need to think about configuration or compiling on each change. This is a very nice thing when the Plone site is the main site and only some elements are needed to be dropped in from another location. As usual, we need the opposite of this: the phpBB site needs to be the main one, and drop in some minor content from the Plone site. This means that we can’t use the magic of collective.xdv, but we must set up everything by hand."
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:969
+# b6bce78c93aa4792adea8709a1e21fbc
+msgid "A detailed tutorial on how to make this happen can be found here:"
+msgstr ""
+
+#: ../../source/templates_css_and_javascripts/xdv.rst:971
+# e6c0d030a09f4362a23539d8d75bbf4c
+msgid "http://alasdoo.com/2010/12/xdv-plone-and-phpbb-under-one-nginx-roof/"
+msgstr ""
+

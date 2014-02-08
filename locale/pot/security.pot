@@ -1,0 +1,1445 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-08 16:49\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/security/csrf.rst:2
+# ca4eab38bcc54eddbe4f9315892a4c1e
+msgid "Cross-Site Request Forgery (CSRF)"
+msgstr ""
+
+#: ../../source/security/csrf.rst:5
+# d48f66e7b14140118a3bbcc539793aeb
+msgid "Plain usage"
+msgstr ""
+
+#: ../../source/security/csrf.rst:7
+# 9ad4390dde314fb1bf02732329de63f0
+msgid "Documentation: https://github.com/plone/plone.protect/"
+msgstr ""
+
+#: ../../source/security/csrf.rst:10
+# cf561ae5b8284b80abeb79d77f0e72df
+msgid "z3c.form"
+msgstr ""
+
+#: ../../source/security/csrf.rst:12
+# cc19fe1c54aa432e9e79856c74145635
+msgid "z3c.form does not incude csrf protection yet: https://bugs.launchpad.net/z3c.form/+bug/805794"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:3
+# 0e98e685d97a43198341c52e7b6678c1
+msgid "Custom permissions"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:5
+# 008ac838c85941649ae5fd68c73f8964
+msgid "Creating special permissions for your product"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:9
+# cabb984453ac4082a1690fca5a444223
+msgid "Define Zope 2 permissions in python code"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:11
+# 6dd44b7584a847988c237e7f7b1ddd15
+msgid "If you want to protect certain actions in your product by a special permission, you most likely will want to assign this permission to a role when the product is installed.  You will want to use Generic Setup's rolemap.xml to assign these permissions.  A new permission will be added to the Zope instance by calling setDefaultRoles on it."
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:17
+# 0f26f5f271954c608f23e025ba4415f8
+msgid "However, at the time when Generic Setup is run, almost none of your code has actually been run, so the permission doesn't exist yet.  That's why we define the permissions in permissions.py, and call this from __init__.py:"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:40
+# 337c54bb0d29489f85b9050884cbc3cd
+msgid "When working with permissions, always use the variable name instead of the string value.  This ensures that you can't make typos with the string value, which are hard to debug.  If you do make a typo in the variable name, you'll get an ImportError or NameError."
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:47
+# f4d98a2dfab14245b55f38ab92bf8b71
+msgid "Make the permissions available as a Zope 3 permissions"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:49
+# 43b937edc45f473e95120673200d7388
+msgid "To use your permissions with BrowserViews/formlib/z3c.form, you need to make them available available as Zope 3 permissions. This is done in ZCML using a the <permission> directive. Example configure.zcml:"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:65
+# 3acf784d5ef34fcf8c828a13f72a7653
+msgid "It's convention to prefix the permission id with the name of the package it's defined in and use lower case only. You have to take care that the title matches exactly the permission string you used in permissions.py. Otherwise a different, zope 3 only, permission is registered."
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:71
+# c11627a874a447c49317af3559cee10e
+msgid "You can use the permission to e.g. protect BrowserViews. Example configure.zcml:"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:95
+# 533b1819dabb43938fbd30a1743010cb
+msgid "Define both Zope 2 and Zope3 permissions in one Step in ZCML"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:97
+# 9ff83b8113b94df1af6e8d79bf114569
+msgid "You can use `collective.autopermission <http://pypi.python.org/pypi/collective.autopermission/1.0b1>`_ (`svn repository <http://svn.plone.org/svn/collective/collective.autopermission>`_) and define both the Zope 2 and Zope 3 permission at once with the <permission> zcml-directive. To do that install collective.autopermission. Either add \"collective.autopermission\" to \"install_requires\" in setup.py or to your buildout. Then include collective.autopermission's configure.zcml *before* you define the permissions *and* before you use them.  (collective.autopermission is not required in Zope 2.12/Plone 4 anymore!)"
+msgstr ""
+
+#: ../../source/security/custom_permissions.rst:131
+# 5b53dc88394f4767b65e350b0260e40e
+msgid "Now you can use the permission both as a Zope 2 permission *('MyProduct: MyPermission')* or a Zope 3 permission *('myproduct.mypermission')*. The only disadvantage is that you can't import the permissionstring as a variable from permissions.py."
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:3
+# 47e4141170024511b54b44e962082712
+msgid "Dynamic roles"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:8
+#: ../../source/security/local_roles.rst:12
+#: ../../source/security/permissions.rst:12
+#: ../../source/security/sandboxing.rst:14
+#: ../../source/security/selinux.rst:12
+# 4cc3f21512ed4db3902cdf079675954c
+# 8612c28035ff4afe93d86522bed461ac
+# 76677b1c76e24579a6a7cc4dc55b236f
+# dcee80d997f04f6181af7c50133bb415
+# 57b9304158684de09307f7e517973553
+msgid "Introduction"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:10
+# 9a94cd5b49dd4b12a6b86b01ea6eed71
+msgid "Plone core's borg.localrole package allows you to hook into role-resolving code and add roles dynamically. I.e. the role on the user depends on HTTP request / environment conditions and is not something set in the site database."
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:15
+# a0591bd1a139490284ef97ab6d89beb9
+msgid "Creating a dynamic role"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:17
+# acb34497caf940bab38f4d0f914659ab
+msgid "First :doc:`create an Ploneadd-on for your coding needs </getstarted/paste>`."
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:19
+# 3a1cf46039d34070b6eabd3e4d533adc
+msgid "getRoles() function is called several times per request so you might want to cache the result."
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:22
+# bf9ed36e4db543f2a038f1b08c7ee943
+msgid "There is a complex example below."
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:24
+# b7f48bf7e22a4ace8ecd1207eb8834f1
+msgid "getAllRoles() is overridden to return a custom role which is not available through normal security machinery. This is required because Plone/Zope builds look-up tables based on the result of getAllRoles() and all possible roles must appear there"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:29
+# cc9f8162649246deb5284ba57bdd07fd
+msgid "getRoles() is overridden to call custom getDummyRolesOnContext() which has the actual logic to resolve the roles"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:32
+# c29dc5304f4e4ae59faab37c69f25518
+msgid "An example code checks whether the context object implements a marker interface and gives the user a role based on that"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:35
+# 74446e3118fb4d1b9810e47e078f91cb
+msgid "Example ``localroles.py``::"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:90
+# f6778315fc7947d887984e71b1e24860
+msgid "Custom local role implementation is made effective using ZCML adapter directive in your add-ons ``configure.zcml``::"
+msgstr ""
+
+#: ../../source/security/dynamic_roles.rst:105
+# 12985f0b4a9f4978a10b7be708b01aa3
+msgid "If your dynamic role is not any of Plone's existing roles you need to :doc:`declare it with rolemap.xml </security/local_roles>`."
+msgstr ""
+
+#: ../../source/security/index.rst:3
+# 2a8231e453f44878b726539a6e9a44d0
+msgid "Security"
+msgstr ""
+
+#: ../../source/security/index.rst:5
+# 57d33c9febfd441cbc5f4e28d3f3b782
+msgid "Zope provides various built-in security facilities"
+msgstr ""
+
+#: ../../source/security/index.rst:7
+# 791abbbe30c54a6cbda13c6a342ddbd7
+msgid "User - role - permission three layer security model"
+msgstr ""
+
+#: ../../source/security/index.rst:9
+# ca284db4a2ff4a9fb80e13e1c26660e4
+msgid "Security declarations in ZCML for views, adapters, etc."
+msgstr ""
+
+#: ../../source/security/index.rst:11
+# c3fe717f92504aacb94d646a5edb4cf8
+msgid "RestrictedPython to evaluate sandboxed code"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:3
+# 7eb81f7a5bb04b88b081115dd8b6d050
+msgid "Local roles"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:7
+# a3ff5e95338843d0bbd5da43bc5309c2
+msgid "Creating and setting local roles of Plone members programmatically."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:14
+# f557afcfa2ef420099c6715ef16dd186
+msgid "Local roles allows user accounts to have special privileges for a folder and its children."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:17
+# ca0722c9577640eb836582221ba08478
+msgid "By default Plone has roles like ``Contributor``, ``Reader``, ``Editor``, etc. and you can view these on the :guilabel:`Sharing` tab and in :term:`ZMI` :guilabel:`Security` tab."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:21
+# bff2476681c945ad9232a2fa5192dc1e
+msgid "Good introduction to roles: `Basic Roles and Permissions in Plone <http://www.sixfeetup.com/blog/basic-roles-and-permissions-in-plone>`_"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:26
+# aade06c00fe84d3db04c1c0cbe6d9fef
+msgid "Creating a new role"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:28
+# eee084cc413e4e33bb8b42f9472625fe
+msgid "New Plone roles can be created through the :doc:`GenericSetup rolemap.xml </components/genericsetup>` file."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:31
+# a5e707c283004989b83fc36a7ee56d45
+msgid "Example ``profiles/default/rolemap.xml``"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:47
+# 3dad14915cf14fce8b0ca2cce9cb1f7e
+msgid "Adding a role to the Sharing Tab"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:49
+# c32d374117a34ab88f7297207d60c668
+msgid "To let the newly created role appear in the @@sharing tab, create a :doc:`GenericSetup sharing.xml </components/genericsetup>` file."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:52
+# 88610d0a196d4d9499e8e35b64a166e6
+msgid "Example ``profiles/default/sharing.xml``"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:66
+# 5203404e77e44378b29e9bc8fd396a8b
+msgid "The title is the name to be shown on the sharing page. The required_permission is optional. If given, the user must have this permission to be allowed to manage the particular role."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:72
+# e9efc3c65aa349639f6a42be5990469c
+msgid "For Plone 3, there is the `collective.sharingroles <https://pypi.python.org/pypi/collective.sharingroles>`_ addon. Since Plone 4, this is `merged into plone.app.workflow <https://github.com/plone/plone.app.workflow/commit/f9991ca0cc3dd2b8a2c392c145f44c21996eac67>`_."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:77
+# fda3679e51814afe871079417147f30a
+msgid "Setting local role"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:79
+# 09067a538076457cb022cffa9e2c5192
+msgid "``manage_setLocalRoles`` is defined in `AccessControl.Role.RoleManager <http://svn.zope.org/Zope/trunk/src/AccessControl/Role.py?rev=96262&view=markup>`_."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:81
+#: ../../source/security/local_roles.rst:94
+#: ../../source/security/permissions.rst:167
+# 4cea22b6b9a440f5a1e1c34956376be3
+# 02e7e55361614d6ab1de008746405a40
+# 17228563e9d24de484dad742e0c94e96
+msgid "Example::"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:87
+# 7c751e75045b41cc9d541c7896579fdf
+msgid "Getting local roles"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:89
+# ab021988e7cf41e7bb51a44b4517947d
+msgid "The ``get_local_roles()`` method returns currently-set local roles. This does not return all the *effective* roles (which may include roles acquired from the parent hierarchy). ``get_local_roles_for_userid()`` returns roles for a particular user as a tuple."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:101
+# 7c4e9cd35a914696905a808d77514024
+msgid "Deleting local roles"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:103
+# 8cc27309c4a44ab0920eed63f468775f
+msgid "``manage_delLocalRoles(userids)`` takes a *list of usernames* as argument. All local roles for these users will be cleared."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:106
+# 2884879b988b40a7ac598ad25bf394d7
+msgid "The following example (``membrane``-specific) will reset local roles based on external input ::"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:145
+# 9addb1014156425cb85f50188ce230d3
+msgid "Local role caching"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:147
+# 31c44422e291452fabc964c2bdfa38ad
+msgid "Resolving effective local roles is a cumbersome operation, so the result is cached."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:150
+# 6efc20590f184af9a5434462bf3f6fdd
+msgid "**Unit testers**: Local roles are cached per request. You need to clear this cache after modifying an object's local roles or switching user if you want to get proper readings."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:154
+# 7c138fc221ec45fdb7c6f8f85c53b14d
+msgid "Unit test example method::"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:169
+# e49cf1150bda47159d5fbcec01ace49e
+msgid "Debugging"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:171
+# 2cf1512a66e44f3a8a20219f40473cf8
+msgid "Set your breakpoint in ``Products.PlonePAS.plugins.local_role.LocalRolesManager.getRolesInContext()`` and ``Products.PlonePAS.plugins.role.GroupAwareRoleManager.getRolesForPrincipal()``. There you see how roles for a given context are being resolved."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:175
+# adb55d2dcb034ee299049f3727d23ebe
+msgid "Check the ``acl_users.portal_role_manager`` tool via the :term:`ZMI`."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:177
+# 890e151dd15d40d59a3f69a717d86cd1
+msgid "Please see the `zopyx.plone.cassandra <http://pypi.python.org/pypi/zopyx.plone.cassandra>`_ add-on product."
+msgstr ""
+
+#: ../../source/security/local_roles.rst:180
+# 6171f118105d474f9ea412c21f6c1182
+msgid "Other"
+msgstr ""
+
+#: ../../source/security/local_roles.rst:182
+# fc1643796b7344ff83a5b80ad794bc16
+msgid "http://toutpt.wordpress.com/2009/03/14/plone-and-local-roles-too-quiet/"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:3
+# 14b1b3b2c88d4426a461d409d6141265
+msgid "Available permissions in Plone"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:7
+# bda3fb83179c4c5eb379bcc36bc08721
+msgid "What Zope security permissions you have available for your Plone coding"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:12
+# 9d58810ef59d41cb937a467ad304f207
+msgid "Listing different available permissions"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:14
+# 51fadade710840848324d58d6667923e
+msgid "Each permission name is a string."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:16
+# 7312a951ea5e4aeb9ed3f3cc7515961f
+msgid "To see available permissions, click Security tab at your site root in Zope Management Interface."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:18
+# c9b8d0d38d7e42da859b16a3f5e498fc
+msgid "In programming, use pseudoconstants instead of permission string values:"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:20
+# 9c9594f2f9c943c2b438dcd277fb2a94
+msgid "See `CMFCore.permissions <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/permissions.py?rev=94487&view=markup>`_"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:22
+# b50975fbfdc947a29280ba389ea5e17c
+msgid "See `AccessControl.Permissions <http://svn.zope.org/Zope/trunk/src/AccessControl/Permissions.py?rev=96262&view=markup>`_"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:24
+# 35648e5181c84b3fbe4dfe3e106a8e12
+msgid "For available ZCML permission mappings see:"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:26
+# 81aa6d24b561411a8e524b3ef3f1245b
+msgid "`Products/Five/permissions.zcml <http://svn.zope.org/Zope/trunk/src/Products/Five/permissions.zcml?rev=99146&view=markup>`_"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:28
+# 1d3edcdda94d4847a241033065c14c2b
+msgid "Permissions such as ``cmf.ModifyPortalContent``, ``zope2.View``"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:30
+# 65725c0313124d0cab4e7fea1a085839
+msgid "`zope/security/permissions.zcml <http://svn.zope.org/zope.security/trunk/src/zope/security/permissions.zcml?rev=97988&view=markup>`_"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:32
+# 15f0fd57ff6749dd9f3d58fd19072a44
+msgid "``zope.Public``"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:34
+# c263fe206ee74113a5ffdb9b06c2ec11
+msgid "or search for the string ``<permission`` in ``*.zcml`` files in the *eggs* folder of your Plone development deployment."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:37
+# 832e9d1c5f1248e2ae10a7ed8c3a383a
+msgid "Example using UNIX grep tool:"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:44
+# e6262e2771854464926ae4bcb7b3e97b
+msgid "Useful permissions"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:46
+# 207887f56ea94fa694d9ec0138c67869
+msgid "Permissions are shown by their verbose name in the :term:`ZMI`."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:49
+# a0e65413d6e04c7198d0778c260f469a
+msgid "This governs whether you are allowed to view some content."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:51
+# 6629ec75af4043cb9ad2a25c976bdfd2
+msgid "This permission allows access to an object, without necessarily viewing the object. For example, a user may want to see the object's title in a list of results, even though the user can't view the contents of that file."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:56
+# 12d54a2ac14c493a8e24c32584e21c62
+msgid "This governs whether you can get a listing of the contents of a folder; it doesn't check whether you have the right to view the objects listed."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:59
+# 7b8f29b403bc42f498917d79b9c48134
+msgid "This governs whether you are allowed to modify some content."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:61
+# cc0768c7389640e193c4b33a9b02bd15
+msgid "This permission allows you to manage the portal. A number of views in the plone control panel are protected with this view. If you plan to write a reusable product, be very hesitant to use this permission, check whether a custom permission might make more sense."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:65
+# 078b0fdb021244318bcd7a9eb4914d49
+msgid "There is no single permission for adding content. Every content type has its own permission. If you create your own content type, create a custom add permission for it."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:71
+# 16889a8eb88c472a9b79de861a2969e1
+msgid "Permission name"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:71
+# cb0c823e3f5f439d91f844c9058704f2
+msgid "Permission name for ZCML"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:73
+# 8f45f37ced134e7c9ef64d584eed8715
+msgid "View"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:73
+# ee7c0e48ac524bb9a30ff40e83706eda
+msgid "zope2.View"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:74
+# 825f2c92e423434bb99b61a7637da188
+msgid "Access contents information"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:74
+# d5862df113e5437484c510f9e7978e4f
+msgid "zope2.AccessContentsInformation"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:75
+# a0f96d2ad375453ba438fd1292b016f7
+msgid "List folder contents"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:75
+# c7b229c499f74bb1926c96a5886d8359
+msgid "cmf.ListFolderContents"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:76
+# ddfebc7414614f82a590c5729ca23c4a
+msgid "Modify portal content"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:76
+# 6f9f17f7622a4aa68e9d4122635ccab7
+msgid "cmf.ModifyPortalContent"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:77
+# 50117b9c88f944908a9de666900a7e06
+msgid "Manage portal"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:77
+# e122e710a8e1459a83362c7b86ab54c1
+msgid "cmf.ManagePortal"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:80
+# 1d4ec16a36e24a50982c3704408dd920
+msgid "To reference a permission in code, you need the name as a string. Using strings is a bad convention, all common permissions have a constant in Products.CMFCore.permissions. So to perform a permission check propery, you do something like this::"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:91
+# f94274313fb04f29b05625dbb9778962
+msgid "All standard permissions from above can be referenced by their Permission name without spaces."
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:93
+# 1110062e09904342bf968e9923623c53
+msgid "More info:"
+msgstr ""
+
+#: ../../source/security/permission_lists.rst:95
+# 33f16a8ee90142bb84d1ce549f061dcc
+msgid "http://markmail.org/thread/3izsoh2ligthfcou"
+msgstr ""
+
+#: ../../source/security/permissions.rst:3
+# 9b84b2ad8e4947f28d86ce5394b4092e
+msgid "Permissions"
+msgstr ""
+
+#: ../../source/security/permissions.rst:7
+# 78bc4b68f1974042816974a8e96272ff
+msgid "How to deal with permissions making your code permission-aware in Plone"
+msgstr ""
+
+#: ../../source/security/permissions.rst:14
+# 95178df9f1d84ee68b2eeca9078ec50b
+msgid "Permissions control whether logged-in or anonymous users can execute code and access content."
+msgstr ""
+
+#: ../../source/security/permissions.rst:17
+# 3617a215ae2b43b288df6f88504b172b
+msgid "Permissions in Plone are managed by `Zope's AccessControl module <http://svn.zope.org/AccessControl/trunk/src/AccessControl/>`_. Persistent permission setting and getting by role heavy lifting is done by `AccessControl.rolemanager.RoleManager <http://svn.zope.org/AccessControl/trunk/src/AccessControl/rolemanager.py?view=auto>`_."
+msgstr ""
+
+#: ../../source/security/permissions.rst:22
+# 4f759305524644b2b685290b8c89593e
+msgid "Permission checks are done for:"
+msgstr ""
+
+#: ../../source/security/permissions.rst:24
+# d274663162034cb0b80a5d7976c3210f
+msgid "every view/method which is hit by incoming HTTP request (Plone automatically publishes traversable methods over HTTP);"
+msgstr ""
+
+#: ../../source/security/permissions.rst:27
+# a6e4703f97ef4f1bb46103de6c7308f8
+msgid "every called method for :doc:`RestrictedPython scripts </security/sandboxing>`."
+msgstr ""
+
+#: ../../source/security/permissions.rst:30
+# 2e7f6ab48c1a4198a7202129e33bdc92
+msgid "The basic way of dealing with permissions is setting the ``permission`` attribute of view declaration. For more information see :doc:`views </views/browserviews>`."
+msgstr ""
+
+#: ../../source/security/permissions.rst:35
+# 1e0008c5fbf24cc9bd14f2af7d161e66
+msgid "Debugging permission errors: Verbose Security"
+msgstr ""
+
+#: ../../source/security/permissions.rst:37
+# a96369ac4f8648c083bc3939d3a930b4
+msgid "You can turn on ``verbose-security`` option in buildout to get better traceback info when you encounter a permission problem on the site (you are presented a login dialog)."
+msgstr ""
+
+#: ../../source/security/permissions.rst:40
+# f7e6d46d124441999650c8512f966533
+msgid "For the security reasons, this option is disabled by default."
+msgstr ""
+
+#: ../../source/security/permissions.rst:42
+# 00165e54c8454c4daa7f6e311c2eea84
+msgid "Set ``verbose-security = on`` in your buildout.cfg ``instance`` or related section."
+msgstr ""
+
+#: ../../source/security/permissions.rst:44
+# e79a950578884aeba1181e3b97e5360f
+msgid "Rerun buildout"
+msgstr ""
+
+#: ../../source/security/permissions.rst:46
+# 626b970e3427479fb9efeffb68a6cfe8
+msgid "Restart Plone properly after buildout ``bin/plonectl stop && bin/plonectl start``"
+msgstr ""
+
+#: ../../source/security/permissions.rst:48
+# 46a6378d340f4e95a13e3a70979f8785
+msgid "More info"
+msgstr ""
+
+#: ../../source/security/permissions.rst:50
+# ca65660459b041da84fdfa0344ffa53e
+msgid "http://pypi.python.org/pypi/plone.recipe.zope2instance"
+msgstr ""
+
+#: ../../source/security/permissions.rst:53
+# eb2ba032e8e44c25b36233af6a28fe66
+msgid "Checking if the logged-in user has a permission"
+msgstr ""
+
+#: ../../source/security/permissions.rst:55
+# a2e99163a7f948d599057ac3b19b8c98
+msgid "The following code checks whether the logged in user has a certain permission for some object."
+msgstr ""
+
+#: ../../source/security/permissions.rst:78
+# 0c8f54aec12e4b30a8c18a42b7ba5d68
+msgid "Checking whether a specific role has a permission"
+msgstr ""
+
+#: ../../source/security/permissions.rst:80
+# 5fab1a7cc3fb41988770cd89c16cc6ed
+msgid "The following example uses the ``rolesOfPermission()`` method to check whether the *Authenticated* role has a permission on a certain folder on the site. The weirdness of the method interface is explained by the fact that it was written for use in a :term:`ZMI` template::"
+msgstr ""
+
+#: ../../source/security/permissions.rst:105
+# 5504bfffeddd4b22ad4a09015b1bfcdd
+msgid "Permission Access"
+msgstr ""
+
+#: ../../source/security/permissions.rst:107
+# 8a6548b913a642a280ed51eefd63a78b
+msgid "Objects that are manageable :term:`TTW` inherit from `RoleManager  <http://api.plone.org/CMF/1.5.4/private/AccessControl.Role.RoleManager-class.html>`_. The API provided by this class permits you to manage permissions."
+msgstr ""
+
+#: ../../source/security/permissions.rst:111
+# 6ba675ef140341e9bf23ea420b4e8216
+msgid "Example: see all possible permissions::"
+msgstr ""
+
+#: ../../source/security/permissions.rst:119
+# ccd36df1cfcd451f8aa6f459ebd7ad25
+msgid "Show the security matrix of permission::"
+msgstr ""
+
+#: ../../source/security/permissions.rst:142
+# fe97b332b12b40298ecf068dc46d80be
+msgid "Bypassing permission checks"
+msgstr ""
+
+#: ../../source/security/permissions.rst:144
+# 626cb715e05c498a9cfa5a6f008884db
+msgid "The current user is defined by active security manager. During both restricted and unrestricted execution certain functions may do their own security checks (``invokeFactory``, workflow, search) to filter out results."
+msgstr ""
+
+#: ../../source/security/permissions.rst:150
+# ec947bd7865c477fbea64f6768abb3ee
+msgid "If a function does its own security checks, there is usually a code path that will execute without security check. For example the methods below have security-aware and raw versions:"
+msgstr ""
+
+#: ../../source/security/permissions.rst:154
+# 7c9bc5a89bd64c938657c2a416a444c4
+msgid "``context.restrictedTraverse()`` vs. ``context.unrestrictedTraverse()``"
+msgstr ""
+
+#: ../../source/security/permissions.rst:156
+# 656593bf9e2a4f7088b143ce39678aaf
+msgid "``portal_catalog.searchResults()`` vs. ``portal_catalog.unrestrictedSearchResults()``"
+msgstr ""
+
+#: ../../source/security/permissions.rst:158
+# 77bc5a95587e48d4b6b17fe77502f3bf
+msgid "However, in certain situations you have only a security-aware code path which is blocked for the current user. You still want to execute this code path and you are sure that it does not violate your site security principles."
+msgstr ""
+
+#: ../../source/security/permissions.rst:163
+# 36ab057f465f4f86b9dc17418af59557
+msgid "Below is an example how you can call any Python function and work around the security checks by establishing a temporary ``AccessControl.SecurityManager`` with a special role."
+msgstr ""
+
+#: ../../source/security/permissions.rst:229
+# eafad0151e0d46d9a99ae281b9fc61c8
+msgid "For a more complete implementation of this technique, see:"
+msgstr ""
+
+#: ../../source/security/permissions.rst:231
+# 284dd30bf79f4787b6c583e34bb6cfc2
+msgid "http://github.com/ned14/Easyshop/blob/master/src/easyshop.order/easyshop/order/adapters/order_management.py"
+msgstr ""
+
+#: ../../source/security/permissions.rst:234
+# 817eb0ff9e1c49a6b34e8fe8180dd9b1
+msgid "Catching ``Unauthorized``"
+msgstr ""
+
+#: ../../source/security/permissions.rst:236
+# 15e0557a889a4904a791dd9f74601903
+msgid "Gracefully failing when the user does not have a permission. Example::"
+msgstr ""
+
+#: ../../source/security/permissions.rst:248
+# fe263e309bba46e0a6fc1dcbca33baf5
+msgid "Creating permissions"
+msgstr ""
+
+#: ../../source/security/permissions.rst:250
+# 6b084ab3a772478c8b9bd7ec05ddb3a1
+msgid "Permissions are created declaratively in :term:`ZCML`. Before Zope 2.12 (that is, before Plone 4), the `collective.autopermission`_ package was required to enable this, but now it is standard behaviour."
+msgstr ""
+
+#: ../../source/security/permissions.rst:257
+# c03b50a2c90d448e95a49cde80e2be4f
+msgid "http://n2.nabble.com/creating-and-using-your-own-permissions-in-Plone-3-tp339972p1498626.html"
+msgstr ""
+
+#: ../../source/security/permissions.rst:259
+# 9fedca951329413995a784c9e4d0a9e5
+msgid "http://blog.fourdigits.nl/adding-zope-2-permissions-using-just-zcml-and-a-generic-setup-profile"
+msgstr ""
+
+#: ../../source/security/permissions.rst:261
+# 2511278c92b94ebf980b6cbbe04c6537
+msgid "Example:"
+msgstr ""
+
+#: ../../source/security/permissions.rst:285
+# 86134455e42145958607aec05e986a35
+msgid "Now you can use the permission both as a Zope 2-style permission (``MyProduct: MyPermission``) or a Zope 3-style permission (``myproduct.mypermission``). The only disadvantage is that you can't import the permission string as a variable from a ``permissions.py`` file, as you can with permissions defined programmatically."
+msgstr ""
+
+#: ../../source/security/permissions.rst:292
+# b7b6d2b51da84606b1a233674ecb9b6f
+msgid "By convention, the permission id is prefixed with the name of the package it's defined in, and uses lowercase only. You have to take care that the title matches the permission string you used in ``permissions.py`` exactly --- otherwise a different, Zope 3 only, permission is registered."
+msgstr ""
+
+#: ../../source/security/permissions.rst:298
+# 9f5edf03066b43949c0ad997b7c7c89e
+msgid "Zope 3 style permissions are necessary when using Zope 3 technologies such as ``BrowserViews/formlib/z3c.form``. For example, from ``configure.zcml``:"
+msgstr ""
+
+#: ../../source/security/permissions.rst:322
+# 6c3345a4bfc64d608cc492630f88dbc3
+msgid "Define Zope 2 permissions in Python code (old style)"
+msgstr ""
+
+#: ../../source/security/permissions.rst:324
+# c10e850622914d03a9b9b73210adbf3f
+msgid "If you want to protect certain actions in your product by a special permission, you most likely will want to assign this permission to a role when the product is installed. You will want to use Generic Setup's ``rolemap.xml`` to assign these permissions.  A new permission will be added to the Zope instance by calling ``setDefaultRoles`` on it."
+msgstr ""
+
+#: ../../source/security/permissions.rst:331
+# 58f21486258641f4a7a326c775d849ad
+msgid "However, at the time when Generic Setup is run, almost none of your code has actually been run, so the permission doesn't exist yet.  That's why we define the permissions in ``permissions.py``, and call this from ``__init__.py``:"
+msgstr ""
+
+#: ../../source/security/permissions.rst:335
+# 461a3011f6f541b49cd510ae571e5e85
+msgid "``__init__.py``::"
+msgstr ""
+
+#: ../../source/security/permissions.rst:339
+# 09f532b231b9462996cbcb4c8d9876e2
+msgid "``permissions.py``::"
+msgstr ""
+
+#: ../../source/security/permissions.rst:350
+# 7b451e4f48b7417cbc002c75617cc5a5
+msgid "When working with permissions, always use the variable name instead of the string value.  This ensures that you can't make typos with the string value, which are hard to debug.  If you do make a typo in the variable name, you'll get an ``ImportError`` or ``NameError``."
+msgstr ""
+
+#: ../../source/security/permissions.rst:357
+# 934f1ed10d904ee7ab1f8bc8d72577cb
+msgid "Assigning permissions to users (roles)"
+msgstr ""
+
+#: ../../source/security/permissions.rst:359
+# 5a0007e645464a37b8d295b227268dd1
+msgid "Permissions are usually assigned to roles, which are assigned to users through the web."
+msgstr ""
+
+#: ../../source/security/permissions.rst:362
+# aa3eed66a08947d192174fb362b96eb2
+msgid "To assign a permission to a role, use ``profiles/default/rolemap.xml``:"
+msgstr ""
+
+#: ../../source/security/permissions.rst:377
+# 8b5520a369884309a8706533ecdd2247
+msgid "Manually fix permission problems"
+msgstr ""
+
+#: ../../source/security/permissions.rst:379
+# b6045dc682de43c0a6323b9b2b088e45
+msgid "In the case you fiddle with permission and manage to lock out even the admin user you can still fix the problem from the :doc:`debug prompt </misc/commandline>`."
+msgstr ""
+
+#: ../../source/security/permissions.rst:383
+# 2dc5981b7be04c2987ab8a202d257ac7
+msgid "Example debug session, restoring ``Access Contents Information`` for all users::"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:3
+# 3af961ae80e64820a8a1b292b1d74f2f
+msgid "Sandboxing and RestrictedPython"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:7
+# e61bb1ad5fcd4658846db9917211e45f
+msgid "Legacy Plone code uses RestrictedPython sandboxing to secure each module and class functions. This documentation tells how it happens."
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:16
+# 3a36f6b637984301b0dec322d8185f36
+msgid "Plone has two sandboxing modes"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:18
+# 61cb58dda08d47c6af3a50d4e91ef031
+msgid "Unrestricted: Python code is executed normally and the code can access the full Zope application server environment. This includes other site instances too. This is generally what happens when you write your own add-on and add views for it."
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:23
+# c2c4bc6414eb469c80249b8859c5fcff
+msgid "Restricted (RestrictedPython): scripts and evalutions are specially compiled, have limited Python language functionality and every function call is checked against the security manager. This is what happens when you try to add Python code or customize page templates through Zope Management Interface."
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:28
+# cf11b7ba7a8747c7ae256dbaf9cf4191
+msgid "Restricted execution is enabled only for **through-the-web** scripts and **legacy code**:"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:30
+# 50b71660904248ebaff331362b1a7bf9
+msgid "Old style TAL page templates: everything you put inside page template tal:content, tal:condition, etc. These templates are .pt templates **without** accomppaning BrowserView"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:34
+# 4e82b9fd3c9345ac9c2b81c6e3452320
+msgid "Script (Python) code is executed (plone_skins layer Python scripts and old style form management)"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:38
+# 2ce4cf84fc4b4c7abfb41aec3f11c794
+msgid "RestrictedPython was bad idea and mostly causes headache. Avoid through-the-web Zope scripts if possible."
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:41
+# 00b4e9b70e0f48b390f416a015204e49
+msgid "For further information, read"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:43
+# a57636f7b7894f43af678f5d48d0a197
+msgid "http://plone.293351.n2.nabble.com/Update-was-Plone-4-Chameleon-compatibility-tp5612838p5614466.html"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:46
+# 51ef4db46b6a4ea29c718f4f629b4fcd
+msgid "Whitelisting modules for RestrictedPython import"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:48
+# f76f59704c9e47bf864fbdc595656818
+msgid "http://plone.org/documentation/kb/using-unauthorized-modules-in-scripts"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:51
+# ec58d5f064c84d79a9920c4f27091044
+msgid "Traversing special cases"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:53
+# c875bee168c945f19755150c11f62fba
+msgid "Old style Zope object traversing mechanism does not expose"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:55
+# ec486b77f94a4978822f40d88b9ad2f8
+msgid "Functions without docstring (the \"\"\" comment at the beginning of the function)"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:57
+# 262909bac4b841249e9b8b1f15f2ca55
+msgid "Functions whose name begins with underscore (\"_\"-character)"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:60
+# 0152815803464ff4b68add744a71f67a
+msgid "Unit testing RestrictedPython code"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:62
+# f84730fe9a17449f96d9267ff1e30fa2
+msgid "RestrictedPython_ code is problematic, because RestrictedPython hardening is done on Abstract Syntax Tree level and effectively means all evaluated code must be available in the source code form. This makes testing RestrictedPython code little difficult."
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:66
+# dc847a8bfe2b4f20a4e53f9d95706837
+msgid "Below are few useful unit test functions::"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:153
+# a60175126eed41e89b74f99656c6e9f7
+msgid "Other references"
+msgstr ""
+
+#: ../../source/security/sandboxing.rst:155
+# 72ef81788b8445a5a97eea8f17bd3628
+msgid "`zope.security <http://pypi.python.org/pypi/zope.security>`_"
+msgstr ""
+
+#: ../../source/security/selinux.rst:3
+# 5af4bd3bd01048b98d4a61b22a2d00a3
+msgid "Using SELinux with Plone"
+msgstr ""
+
+#: ../../source/security/selinux.rst:7
+# 7d2ac4bc8c9e422d8bfa888bbb76fd83
+msgid "Tutorial on using SELinux with Plone, using Plone 4.3 and RedHat Linux 6.3."
+msgstr ""
+
+#: ../../source/security/selinux.rst:14
+# 60847737c6cf42ac98ce074218ac647c
+msgid "This document is a tutorial on using SELinux with Plone, using RedHat Linux 6.3 and Plone 4.3. It is applicable to any Linux distribution with small changes."
+msgstr ""
+
+#: ../../source/security/selinux.rst:17
+# f6af937451d6471cad49a0cd74a92e95
+msgid "About SELinux"
+msgstr ""
+
+#: ../../source/security/selinux.rst:19
+# b450564f2f1a4c3fa58bc506a59219e1
+msgid "SELinux is a mandatory access control system, meaning that SELinux assigns security *contexts* (presented by *labels*) to system resources, and allows access only to the processes that have defined required levels of authorization to the contexts. In other words, SELinux maintains that certain *target* executables (having security contexts) can access (level of access being defined explicitly) only certain files (having again security context labels). In essence the contexts are roles, which makes SELinux a Role Based Access Control system. It should be noted that even root is usually just an ordinary user for RBAC systems, and will be contained like any other user."
+msgstr ""
+
+#: ../../source/security/selinux.rst:21
+# fe60dd06dc824ce7b6a185402de157a3
+msgid "The concept of contexts and labels can be slightly confusing at first. It stems from the idea of chain of trust. A system that upholds that proper authorization checks are being done is worthless if the system allows moving the protected data to a place that does not have similar authorization checks. Context labels are file system attributes, and when the file is moved around the label (representing context) moves with the file. The system is supposed to limit where the information can be moved, and the contexts can be extended beyond file system (ie. labels on rows in database systems), building complete information systems that will never hand over data to a party that is unable (or unwilling) to take care of it."
+msgstr ""
+
+#: ../../source/security/selinux.rst:23
+# 9f43d0973931430cbe4357e21e0a6488
+msgid "Most SELinux policies *target* an executable, and define the contexts (usually applied with labels to files) it can access by using *type enforcement rules*. However there are also *capabilities* that control more advanced features such as the ability to execute heap or stack, setuid, fork process, bind into ports, or open TCP sockets. Most of the capabilities and macros come from reference policy, which offers policy developers ready solutions to most common problems. The reference policy shipped by Linux distributions contains ready rules for some 350 targets, including applications like most common daemons (sshd), and system services (init/systemd)."
+msgstr ""
+
+#: ../../source/security/selinux.rst:25
+# de09deb73b96407288b9165114133db0
+msgid "The value of SELinux is in giving administrators fine granularity of access control far beyond the usual capabilities of \\*NIX systems. This is useful especially in mitigating the impact of security vulnerabilities. The most apparent downside to SELinux is the high skill requirements. To understand most of SELinux - and to be able to maintain it effectively with 3rd party applications - requires good abstraction skills, and especially the official documentation is somewhat hard to digest. SELinux was never engineered to be easy for administrators. It was engineered to be able to implement complex security models like Bell-LaPadula and MLS."
+msgstr ""
+
+#: ../../source/security/selinux.rst:27
+# f30a0f60fae14030948ea18c89e910a1
+msgid "There have been several myths about SELinux being heavy (in reality it comes with ~3% overhead), or that it breaks all applications. There used to be time (years ago) when SELinux applied itself by default on everything, and if the application was not included in the shipped policies it probably failed miserably. Most of the application developers and companies got frustrated to the situation, and started recommending that SELinux should always be disabled. Things have luckily changed drastically since then. Today most SELinux implementations use what is called *targeted policy*, which means that SELinux affects only applications that have explicit policies. As a result SELinux does generally nothing to your 3rd party applications - good or bad - until you enable it. This tutorial is meant to give readers pointers on how to accomplish exactly that."
+msgstr ""
+
+#: ../../source/security/selinux.rst:30
+# 64609835eed2480cac353b64d6fdb764
+msgid "Creating new SELinux policy"
+msgstr ""
+
+#: ../../source/security/selinux.rst:33
+# 03e3ac7a3189494f97c57a28018cb28c
+msgid "Prerequisities"
+msgstr ""
+
+#: ../../source/security/selinux.rst:35
+# 3a90a2f44ec24fe6bd3fdab48e15fd8f
+msgid "root access"
+msgstr ""
+
+#: ../../source/security/selinux.rst:36
+# 9cb76239db784e659321f4453667294c
+msgid "Working SELinux (*sudo sestatus* reports **ENABLED**, and **enforcing**)"
+msgstr ""
+
+#: ../../source/security/selinux.rst:37
+# 162bf4629b864e91a5d73ade565d6934
+msgid "Preferably a system that uses *targeted policy* (see the output of previous command)"
+msgstr ""
+
+#: ../../source/security/selinux.rst:38
+# 4c25cb5529fd42cf84d02473b5f5e0ee
+msgid "SELinux policy utilities installed (policycoreutils-python policycoreutils-gui)"
+msgstr ""
+
+#: ../../source/security/selinux.rst:39
+# a16f7eec731c426fb7765ab7127402cd
+msgid "The application (in this case Plone) already installed"
+msgstr ""
+
+#: ../../source/security/selinux.rst:42
+# 875365eec99e444fae4730e5cf7d8b8c
+msgid "Creating new policy"
+msgstr ""
+
+#: ../../source/security/selinux.rst:44
+# 5c4ceaf323cc42de9e0fc37a77a086e7
+msgid "Development starts usually by generating a policy skeleton with the *sepolgen* (or sepolicy-generate) utility. It can generate several types of templates, which come with a set of basic access rights. There are several sepolgen versions out there, depending on the Linux distribution. The most important differences between them are in the included templates. Creating new policy is done with the following command: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:48
+# b4699f783b7344aeb4ffaf5bf8e4505b
+msgid "Where the parameters are:"
+msgstr ""
+
+#: ../../source/security/selinux.rst:50
+# 9c7caada3bb143ebbc82090dbe0f607a
+msgid "**-n plone** gives the new policy name. Default is to use the name of the executable, but we want to give a more generic name in this case."
+msgstr ""
+
+#: ../../source/security/selinux.rst:51
+# becf90d297024e578afa8f5130cc22ab
+msgid "**-t 3** elects a template (\"*normal application*\") that gives some commonly required access rights as a starting point"
+msgstr ""
+
+#: ../../source/security/selinux.rst:52
+# 59075fbb350e4d269d1766e67c0276ae
+msgid "**/usr/local/Plone/zinstance/bin/plonectl** is the application that will get a new context (*plonectl_exec_t*), which will get most of the type enforcement rules."
+msgstr ""
+
+#: ../../source/security/selinux.rst:54
+# 189e48be7aa7493882bec0d0c4105516
+msgid "The outcoming result will be four files:"
+msgstr ""
+
+#: ../../source/security/selinux.rst:56
+# 0e7c7d7b5963402ea6709e186fff4d0c
+msgid "**plone.te** Type enforcement file defining the access rules. **This file contains most of the policy, and most of the rules go there.**"
+msgstr ""
+
+#: ../../source/security/selinux.rst:57
+# ce2827da10cc4985930d7c4c2f109de5
+msgid "**plone.if** Interface file defining what *other* policies can import from your policy."
+msgstr ""
+
+#: ../../source/security/selinux.rst:58
+# cedf22889b624bd49feacf4b1d37adf6
+msgid "**plone.fc** File contexts file defining what context labels will be applied to files and directories."
+msgstr ""
+
+#: ../../source/security/selinux.rst:59
+# af214a143ba54944ac920cf4fb3efc20
+msgid "**plone.sh** Setup script that will compile and install the policy to the system configuration (both running and persistent)."
+msgstr ""
+
+#: ../../source/security/selinux.rst:62
+# 2c4815e0b90a4d3b82214a04a38c95b7
+msgid "Labeling files"
+msgstr ""
+
+#: ../../source/security/selinux.rst:64
+# 76c44ff8280a4222ae5f3445346805df
+msgid "Before the actual development will start file context labeling rules should be defined in **plone.fc**. You probably need some context (*plone_t*) for all files related to Plone, context (*plone_rw_t*) with write rights to *var* and the plonectl will need a context (*plonectl_exec_t*) that comes with special rights. ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:70
+# 3cb4a7637eb2443e80ffc5ade64358a4
+msgid "The generated **plone.te** already tells SELinux what *plone_t* and *plone_exec_t* are - valid file context types. The tools labeling files will know what to do about them. However the *plone_rw_t* is must be introduced before continuing, and the plone_t should be renamed to *plonectl_t* (to describe the target better - important for managing more complex rules): ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:77
+# a3817975467049b78592911b3b00a42a
+msgid "It is also a good idea to edit the restorecon commands at the end of **plone.sh** to point to /usr/local/Plone and relabel all the files when the policy is recompiled and installed: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:82
+# ba87fb0528014e6bb8dc5655d0cec904
+msgid "Development process"
+msgstr ""
+
+#: ../../source/security/selinux.rst:84
+# 886ed22c68934a69b847dcb54e81b395
+msgid "The basic policy development process for SELinux policies follows the following pattern:"
+msgstr ""
+
+#: ../../source/security/selinux.rst:86
+# 6acbd60bf99940e1bfbf4dcadfdc5729
+msgid "Add permissive rules"
+msgstr ""
+
+#: ../../source/security/selinux.rst:87
+# 1eb67fe819d14250828c8e9638ef1b9d
+msgid "Compile & install your policy"
+msgstr ""
+
+#: ../../source/security/selinux.rst:88
+# 042926d9490d4b0ebeb85039da9b92ca
+msgid "Clear the audit logs"
+msgstr ""
+
+#: ../../source/security/selinux.rst:89
+# 597287992fd845fa867b22077c882d52
+msgid "Run the application until it fails"
+msgstr ""
+
+#: ../../source/security/selinux.rst:90
+# b30190e04daa456c89a51fca3dc6c395
+msgid "Run audit2allow"
+msgstr ""
+
+#: ../../source/security/selinux.rst:91
+# 2f3d803b11d14501b0247223276987a2
+msgid "Study the output of audit2allow, and add more access rules to satisfy the application"
+msgstr ""
+
+#: ../../source/security/selinux.rst:92
+# 288750871af540f7b0df1c47372377a8
+msgid "Repeat from step 2 until everything works"
+msgstr ""
+
+#: ../../source/security/selinux.rst:93
+# d485ceb340ac4324896c03b8e1ac9403
+msgid "Remove permissive rules"
+msgstr ""
+
+#: ../../source/security/selinux.rst:96
+# bd13c91480684638b2d51d4eea85e7cf
+msgid "Permissive rules"
+msgstr ""
+
+#: ../../source/security/selinux.rst:98
+# d10c27b4a3ec4844ae8045ff180eb0fb
+msgid "Most applications require largish amount of rules just to start properly. To reach a working set of rules faster you can switch your contexts to permissive mode by editing the *PlonePython.te*: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:108
+# 9956bb4a39be4a61862b8560eb2c6bfb
+msgid "Permissive in SELinux means that all actions by mentioned contexts will be allowed to process, and the incidents (*access vector denials*) will be only logged. This will allows to gather rules faster than going through the complete development cycle."
+msgstr ""
+
+#: ../../source/security/selinux.rst:111
+# 99d1db8ccb3b41809df669a8158781c5
+msgid "Please note that permissive rules have to be removed at some point, or the policy will **not** protect the application as expected."
+msgstr ""
+
+#: ../../source/security/selinux.rst:114
+# da4b43db33584035b8d64724d4357aae
+msgid "Using audit2allow"
+msgstr ""
+
+#: ../../source/security/selinux.rst:116
+# 503a0834795745379ac753db8b5123d9
+msgid "Audit2allow can search both dmesg and the system audit logs for access vector cache denials, and build suggestions based on them. Because the output will be more understandable without extra noise, it is recommendable to clear audit log between development cycles. Since it is probably not a good idea to clear dmesg, it is suggested that you clear the system audit logs, and instruct audit2allow to use them as source, for example: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:122
+# f95dd6fb15644496ae0b8bb994b8dffa
+msgid "There are couple useful parameters for running audit2allow:"
+msgstr ""
+
+#: ../../source/security/selinux.rst:124
+# 5945c289eb024fb0a3ff9d7065ce1171
+msgid "*-r* adds requires (\"imports\" from other policies) to the output"
+msgstr ""
+
+#: ../../source/security/selinux.rst:125
+# 6725e71c8d5a4e10a6e634f9c7677d26
+msgid "*-R* makes audit2allow suggest compatible macros from other available policies. Macros contain often more lenient access rules, but they also reduce the amount of required rules. Using them will make the policy slightly more platform dependent, but easier to maintain."
+msgstr ""
+
+#: ../../source/security/selinux.rst:126
+# 2dc552a7eb2947b9ad3e46ab47e827bd
+msgid "*-i /var/log/audit/audit.log* makes only to audit logs to be evaluated for rules"
+msgstr ""
+
+#: ../../source/security/selinux.rst:129
+# 68bed9352e8b4ade9820f18100b58f7b
+msgid "Always when in trouble, and you suspect access vector cache denial, use audit2allow. If you can't figure out what is going on, also check out the output of *audit2why*, similar tool that produces more human readable reasons why access was denied. Beware though, audit2why is somewhat heavy."
+msgstr ""
+
+#: ../../source/security/selinux.rst:132
+# ed80cd92bd91497cac8c1ae5fa00a7b2
+msgid "Example type enforcement rules"
+msgstr ""
+
+#: ../../source/security/selinux.rst:134
+# 808c390d9be340c89cb20841da10ccc4
+msgid "SELinux rules are actually quite simple. For instance the following rule tells to *allow* the process that has context *plonectl_exec_t* access to most common temporary files (*tmp_t*, defined in the reference policy), and the level of access will allow it most of the things that are usually done to files (but not all, for instance *setattr* is missing): ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:138
+# 40dbfc20751449c08f8b901c48d76d11
+msgid "For the previous to be usable the *tmp_t* and *file* have to be introduced to the compiler, that will search for them from the other available policies. Type is a grouping item that will usually point to a security context (labeled files), while classes define what access types (ie. getattr) can are available for the type. The term *type enforcement rule* comes from the fact that SELinux rules define who can do what to the objects that are linked to types. ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:145
+# c5158889f14e49eabbd886fd51d88500
+msgid "There are also macros that will help in accomplishing more complex tasks. The following macro will give the executable right to bind to 8080/TCP: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:149
+# 4f5a740f8dba42fc9a8199d874bfab29
+msgid "To get an idea about what items are available the `Reference policy API documentation <http://oss.tresys.com/docs/refpolicy/api/>`_ is the place go to."
+msgstr ""
+
+#: ../../source/security/selinux.rst:152
+# f212fc228dd04df58f0f8be42f694826
+msgid "Caveats"
+msgstr ""
+
+#: ../../source/security/selinux.rst:154
+# 8797bd568b794f82b752e2910d427dd9
+msgid "First of all, audit2allow is not a silver bullet. There are cases where your application accesses something that it does not really require for operation, for instance to scan your system for automatic configuration of services. There are also cases where it prints nothing yet the application clearly is denied access to something. That can be caused by *dontaudit* rules, which silence logging of events that could generate too much noise. In any case a healthy amount of criticism should be applied to everything audit2allow output, especially when the suggested rules would give access rights to outside application directories."
+msgstr ""
+
+#: ../../source/security/selinux.rst:156
+# 5f6ea3fded5042e38a19a65ccb6c0c85
+msgid "Misconfiguration can cause either file labeling to fail, or the application process not to get transitioned to proper executing context. If it seems that the policy is doing nothing, check that the files are labeled correctly (`ls -lFZ`), and the process is running in the correct context (`ps -efZ`)."
+msgstr ""
+
+#: ../../source/security/selinux.rst:158
+# ca567a0de04d4e2cbe574eccae2bcfe8
+msgid "Evaluating the file context rules (fules and their labels) is managed by a heurestic algorithm, which gives precedence to more specific rules by evaluating the length and precision of the path patterns. The patterns are easy for beginner to misconfigure. When suspecting that the file context rules are not getting applied correctly, always investigate `semanage fcontext -l` to see what rules match your files."
+msgstr ""
+
+#: ../../source/security/selinux.rst:161
+# 692a7cca771b415a911300fb21315df6
+msgid "Policies for Plone"
+msgstr ""
+
+#: ../../source/security/selinux.rst:163
+# 077029797f07461593408caf22753010
+msgid "The following contains results of ordinary \"install, test & break, add rules, repeat from beginning\" development cycle for a basic Plone SELinux policy."
+msgstr ""
+
+#: ../../source/security/selinux.rst:166
+# 337ba891fe4747498c60fdd48abbc06b
+msgid "Relabeling rights"
+msgstr ""
+
+#: ../../source/security/selinux.rst:168
+# 06f9822b2f314e04ac50f9feda84f95a
+msgid "By default you might not have the right to give any of new security labels to files, and *restorecon* may throw permission denied errors. To give the SELinux utilities (using the context *setfiles_t*) the right to change the security context based on the new types add the following rules: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:191
+# cc3f9418209643dc923e9ed4150e079f
+msgid "If the transition is not done, the application will keep running in the starting user's original context. Most likely that will be unconfined_t, which means no SELinux restrictions will be applied to the process."
+msgstr ""
+
+#: ../../source/security/selinux.rst:194
+# f781d10c194e45af8054fedbc0e25d40
+msgid "Transition to context"
+msgstr ""
+
+#: ../../source/security/selinux.rst:196
+# 22751c97e4794709babd6f5ca937b363
+msgid "When you first run Plone (ie. \"plonectl fg\"), you will notice that it doesn't run, complaining about bad interpreter. Audit2allow will instruct to give rights to your uncontained_t context to run the python interpreter. This is however wrong. You wish to first instruct SELinux to change the process always to the new context (*plonectl_exec_t*) when the application is run. You also wish to have the necessary rights to execute the application so that the context transition can start: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:214
+# d9a4453840bc429b8328cd76b241844b
+msgid "Later when enough rules are in place for the application to run take a look at the process context to see that the transitioning to *plonectl_exec_t* works: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:221
+# e01d5e2e5fdc4c9a93666ef111863c77
+msgid "Common process requirements"
+msgstr ""
+
+#: ../../source/security/selinux.rst:223
+# f55113016e754c1698e8ca2e4464578a
+msgid "In order for any \\*NIX process to work some basic requirements must be met. Applications require for instance access to /dev/null, and PTYs: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:234
+# 1e00087f11954f6ea264c9962469fa17
+msgid "Zope/PLONE"
+msgstr ""
+
+#: ../../source/security/selinux.rst:236
+# 55ce4229dbb6437bac3254a70c937c62
+msgid "After running the plonectl commands (fg, start, stop) several times, and adding the required rules you should end up with something like following. First you will have a large amount of require stanzas for the rule compiler, and then an intermediate amount of rules: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:278
+# cd01101df70d46418e19f7e70ab64ab4
+msgid "Gathering the previous audit2allow failed completely to report tcp_socket read and write. Some system policy had probably introduced a *dontaudit* rule, which quiesced the logging for that access vector denial. Luckily Plone threw out very distinct Exception, which made resolving the issue easy."
+msgstr ""
+
+#: ../../source/security/selinux.rst:281
+# 5bacdcfdab1947ef941e0e9051b91516
+msgid "ZEO"
+msgstr ""
+
+#: ../../source/security/selinux.rst:283
+# 07974b1fcbad498287949746ce5eea23
+msgid "There are couple differences between standalone and ZEO installations. To support both a boolean is probably good way to go. Booleans can be managed like: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:290
+# 460011a719be42488654d7e412dff4f4
+msgid "Installing Plone in ZEO mode will change the directory *zinstance* to *zeocluster*. It is alright to either have both defined in **plone.fc**, or to use regexp: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:296
+# a07cf4ebe7d04e399384422d355232d8
+msgid "The differences to type enforcement policy consist mostly of more networking abilities (which one probably should not allow unless really required), and the ability to run shells (ie. bash): ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:316
+# b1837f4fc0af491196eca61e26079097
+msgid "Maintenance utilities"
+msgstr ""
+
+#: ../../source/security/selinux.rst:318
+# a38b9a92020240d2bc59c6b8d5c9d8a5
+msgid "The procedure for allowing maintenance utilities like *buildout* to work is quite straight forward. First introduce a new context: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:323
+# 3224881c5dbc40d8a8a139a791ab3206
+msgid "Then label the maintenance utilities using the context: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:327
+# 95d2a9f96b424cb1ad91372124706f11
+msgid "Last, provide the necessary rules for relabeling, context transition, and for the process to run without any restrictions: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:338
+# 4eb7b2b21ad04f2098dd779a71238f91
+msgid "After running maintenance tasks you should make sure the files have still correct labels by running something like: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:343
+# 595f4805351b4f15ade5b498b8c00901
+msgid "See also \"setenforce Permissive\", which will disable enforcing SELinux rules temporarily system wide."
+msgstr ""
+
+#: ../../source/security/selinux.rst:346
+# 418e1a79e3a74c3cbee7b9fc005118ff
+msgid "Testing the policy"
+msgstr ""
+
+#: ../../source/security/selinux.rst:348
+# 6dad983e32d5467fae182c862664c5cf
+msgid "Easiest way to test the policy is to label for instance the Python executable as plone_exec_t by using *chcon*, and to test the policy using Python scripts. For example: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:369
+# 48aeed6268034504816229ae1ae91f2f
+msgid "This can easily be refined into automated testing. Other forms such as Portlet inside running Plone process can also be used for testing."
+msgstr ""
+
+#: ../../source/security/selinux.rst:372
+# 73205eb1e0ad443e8b6a067a66cb018a
+msgid "Deploying the policy"
+msgstr ""
+
+#: ../../source/security/selinux.rst:374
+# dce1dba553cc40ee8c9d67af6443a1a9
+msgid "SELinux policies can be installed simply by running *semodule -n -i <compiled_policy.pp>*. In case packaging is required (for rolling out Plone instances automatically, or for use with centralized management tools like Satellite) it is easy to accomplish with rpm. In order to do that first install the rpm building tools: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:378
+# d7d0816232cd4522b8953427ebe8aadc
+msgid "Then modify the following RPM spec file to suit your needs: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:438
+# 0092eaef4fb34fbe934d9cb54fa21664
+msgid "The rpm packages will be built by running the rpmbuild: ::"
+msgstr ""
+
+#: ../../source/security/selinux.rst:445
+# 7754e3ed8f3c4213a53bb54052f6d4eb
+msgid "External resources"
+msgstr ""
+
+#: ../../source/security/selinux.rst:447
+# d6cf49b99a2d4f0c86f364436ef6a86c
+msgid "The following external resources are sorted by probable usefulness to someone who is beginning working with SELinux:"
+msgstr ""
+
+#: ../../source/security/selinux.rst:449
+# 7ab5cd896b614adcba543070cdcfc259
+msgid "`Fedora SELinux FAQ <https://docs.fedoraproject.org/en-US/Fedora/13/html/SELinux_FAQ/index.html>`_"
+msgstr ""
+
+#: ../../source/security/selinux.rst:450
+# 9abb3a81ce4d4c84b96045898131f904
+msgid "`Reference policy API <http://oss.tresys.com/docs/refpolicy/api/>`_"
+msgstr ""
+
+#: ../../source/security/selinux.rst:451
+# 6565bb8caaf14d649d5828314e7e6b50
+msgid "`NSA - SELinux FAQ <http://www.nsa.gov/research/selinux/faqs.shtml>`_"
+msgstr ""
+
+#: ../../source/security/selinux.rst:452
+# 023b25ee81a54a3b87582346e2ee2132
+msgid "`NSA - SELinux main website <http://www.nsa.gov/research/selinux/index.shtml>`_"
+msgstr ""
+
+#: ../../source/security/selinux.rst:453
+# 8eb568471d4640c79f35a134406eeb29
+msgid "`Official SELinux project wiki <http://selinuxproject.org/>`_"
+msgstr ""
+
+#: ../../source/security/selinux.rst:454
+# 0edc1e84e9184bbaba9e1b037b7786cc
+msgid "`Red Hat Enterprise SELinux Policy Administration (RHS429) classroom course <https://www.redhat.com/training/courses/rhs429/>`_"
+msgstr ""
+
+#: ../../source/security/selinux.rst:455
+# 63529ec90ce34aa4981532cbc91552d9
+msgid "`Tresys Open Source projects <http://www.tresys.com/open-source.php>`_ (IDE, documentation about the reference policy, and several management tools)"
+msgstr ""
+

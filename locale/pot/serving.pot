@@ -1,0 +1,2053 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-08 16:49\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/serving/ftp.rst:3
+# 29a79602431d4e2fb3c905eabb712b06
+msgid "FTP"
+msgstr ""
+
+#: ../../source/serving/ftp.rst:5
+# 86ad2eadfe8b4b34a504d876ada53353
+msgid "Plone/Zope supports FTP in the default configuration."
+msgstr ""
+
+#: ../../source/serving/ftp.rst:7
+# b79d8d1321b54981af840ba5bf0e4c89
+msgid "FTP support is not very well maintained. WebDAV protocol is recommended over FTP."
+msgstr ""
+
+#: ../../source/serving/ftp.rst:10
+# 952a0a21f9e14127becace0044db56fc
+msgid "Enabling FTP"
+msgstr ""
+
+#: ../../source/serving/ftp.rst:12
+# e05f171d4e014600b6d373380b466568
+msgid "`See zope2instance recipe <http://pypi.python.org/pypi/plone.recipe.zope2instance>`_."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:3
+# 5da134daa56c47f9bba85970bb9560c3
+msgid "HTTP request and response"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:7
+# ef1d5ca76da349c2b3b4a6308c8577fb
+msgid "Accessing and manipulating Zope's HTTP request and response objects programmatically."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:12
+#: ../../source/serving/traversing.rst:15
+#: ../../source/serving/webdav.rst:13
+#: ../../source/serving/xmlrpc.rst:12
+# ccfbf848bb45415a84eb3732842958ad
+# f16bfbb557ab4e9698d3e8f0b6ab554d
+# e7428a512bac4ea0bfc3ec0f61e1c623
+# daeb1ec8d02844b6b201c394e679f35e
+msgid "Introduction"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:14
+# a8ccb2c5879b45b6af1122cc20d79821
+msgid "This chapter explains the basics of Zope HTTP requests and responses:"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:16
+# 904b66fc843f4efca1aa4f1cbb49c329
+msgid "request and response objects lifecycle;"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:17
+# 7f1034dcf44943099a89fef59f3bcb1f
+msgid "data which can be extracted from the request;"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:18
+# 4e70523d06804c9388ca8f9040dd7c05
+msgid "data which can be placed on the response."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:21
+# fe83448f7eac4ff4850d82a0f243ec7f
+msgid "Lifecycle"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:23
+# 23115f3a56e04e6781df562f165f2141
+msgid "Unlike some other web frameworks, in Plone you do not explicitly create or return HTTP response objects.  A HTTP request object always has a HTTP response object associated with it, and the response object is created as soon as the request hits the webserver."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:28
+# 0bfdd0a5bef545878f6cc6710d1c4b79
+msgid "The response is available for the whole lifetime of request processing.  This effectively allows you to set and modify response headers at any point in the code."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:33
+# 2b37461fa9af494cb625b6c11076d12a
+msgid "Webservers"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:35
+# d54cdded930a46bf95e226dcf2092694
+msgid "Usually Plone runs on Zope's ZServer_ (based on Sam Rushing's Medusa_). Other alternatives are WSGI_ compatible web servers like Repoze_."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:38
+# ffc591dc3f7348fc820ae883c5d44241
+msgid "The web server will affect how your HTTP objects are constructed."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:42
+# bb2071881b1b4ba99a63dc0adaa8c687
+msgid "HTTP Request"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:44
+# 1c90ce563be2422a97b747037723b402
+msgid "All incoming HTTP requests are wrapped in Zope's ZPublisher_ HTTPRequest_ objects. This is a multi-mapping: it contains mappings for environment variables, other variables, form data, and cookies, but the keys of all these mappings can also be looked up directly on the request object (i.e. ``request['some_form_id']`` and ``request.form['some_form_id']`` are equivalent)."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:51
+# 630d1e842d6241f4a73390f1a82867b3
+msgid "Usually your view function or instance will receive an HTTP request object, along with a traversed context, as its construction parameter."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:54
+# 3386a294882247b799805857faa46184
+msgid "You can access the request in your view::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:71
+# 4bc4de97d3124001b1dcdcdf8daa5b10
+msgid "Request method"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:73
+# 5af92d2fffb34c5ca83ed19b4f3350f8
+msgid "The request method (GET or POST) can be read::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:79
+# 8979ce28fde14aa48ddaa4d69bbf867f
+msgid "Request URL"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:81
+# b188965b66a34767a6433fd976a1726d
+msgid "To get the requested URL::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:86
+# 4035918a0c504fef979bb98e051eaad0
+msgid "To get the URL of the served object use the following (this might be different from the requested URL, since Plone does all kinds of default page and default view magic)::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:95
+# 2d572b6ae5ba42b4a76147848e5c459f
+msgid "URLs, as accessed above, do not contain query string."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:98
+#: ../../source/serving/http_request_and_response.rst:244
+# 9d15807b42c14a62b8d979e3e5bf69e5
+# 120badfa2f8245e49092aeea4354485d
+msgid "Query string"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:100
+# 63b6c4b2bd674f94b5f12412e3667ba6
+msgid "The unparsed query string can be accessed."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:102
+# 15c70a62247043fca83b4cb26996d040
+msgid "E.g. if you go to ``http://localhost:8080/site?something=foobar``::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:107
+# 0eeb39b2c2514fe2ad584cd908e03562
+msgid "If the query string is not present in the HTTP request, it is an empty string."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:111
+# f09ef10488b6471ebdfc95669d57179f
+msgid "You can also use the ``request.form`` dictionary to access parsed query string content."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:115
+# 29f6cc7a62b04846882173beac6baa42
+msgid "Request path"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:117
+# 4ea5c66c23fd4fa7b8be074fadf351bb
+msgid "The request URI path can be read from ``request.path``, which returns a list of path components.  ``request.path`` is a virtual path, and has the site id component removed from it."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:121
+#: ../../source/serving/http_request_and_response.rst:157
+#: ../../source/serving/http_request_and_response.rst:184
+#: ../../source/serving/http_request_and_response.rst:212
+#: ../../source/serving/http_request_and_response.rst:703
+#: ../../source/serving/traversing.rst:67
+#: ../../source/serving/traversing.rst:91
+#: ../../source/serving/traversing.rst:105
+#: ../../source/serving/traversing.rst:126
+#: ../../source/serving/traversing.rst:189
+#: ../../source/serving/traversing.rst:229
+#: ../../source/serving/traversing.rst:246
+#: ../../source/serving/traversing.rst:272
+#: ../../source/serving/traversing.rst:314
+#: ../../source/serving/traversing.rst:341
+#: ../../source/serving/traversing.rst:422
+#: ../../source/serving/traversing.rst:613
+#: ../../source/serving/xmlrpc.rst:16
+# 40115517753147abbc0b68fc7dfcf2be
+# e4871711f649493682a589b1456666b8
+# 85a68a2b34b4496eae22c89306ed00cc
+# 7c5c132f0bc448409670eff0ae3137ed
+# 5e5548019a874cc0ac293cbbb5404ebc
+# fd3ee7f976e84cd89e4b59df6682347f
+# 31e326206ba040678d8e1d60b4e429a5
+# 4b0fb819495b471ebc964669558fc7d6
+# 16cb91516cd747919850948c898915d5
+# b838d54ce357465985805ebfc067f110
+# d924ece62457405e8f8e0d1bae762055
+# a19ff428d163487cb597a591625aa5e3
+# 003c9fdf16aa40979fc0e68b1c8adc32
+# 5d5b7f178b9b4daa8a1cf2fc932cd578
+# cd14879d18544f81bc8b0201e1c71598
+# 012075cb6424430fad7ea3cf50475342
+# 4474dd68b6cf44279ee07efb307cfe3c
+# 91c65a84817f4d9c9100baa46db57903
+msgid "Example::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:125
+# d415418248534408a0bb18e0d8e5160c
+msgid "Other possible headers::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:130
+# ebaeeb286e894bd787ce042cbe540591
+msgid "What's the difference?"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:133
+# 5f233530f59f49c6afb55ab85aafa829
+msgid "``REQUEST_URI``"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:135
+# 78a11c2f87264198ba06d6cf8ad8441a
+msgid "To get the variable which corresponds to ``REQUEST_URI`` in e.g. PHP the following helps::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:148
+#: ../../source/serving/http_request_and_response.rst:456
+#: ../../source/serving/http_request_and_response.rst:541
+# 9585fa017c99488b90642e54697ea139
+# ff992bde48f7470496922240261cee7b
+# 0162253e5563496f8a8b6e575eebba95
+msgid "For more information, see:"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:150
+# 2a4aba0263dc44668addc4c366f20053
+msgid "http://www.teamrubber.com/blog/_serverrequest_uri-in-zope/"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:152
+# 2506668e3ad646198bb84bc99b5b54d5
+msgid "http://www.doughellmann.com/PyMOTW/urlparse/index.html"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:155
+# 5d2249f7b1814624a5b7f94759877f23
+msgid "Request client IP"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:176
+# 71e4174b8256435a8cc0ff8c5add5f53
+msgid "For functional tests based on ``zope.testbrowser`` use the ``addHeader`` method to add custom headers to a browser."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:180
+# 6761a5d7985a4050be297e920d4ca73b
+msgid "``GET`` variables"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:182
+# 1fb80cb917294c6884f0e4fca50ea44c
+msgid "HTTP ``GET`` variables are available in ``request.form`` if the ``REQUEST_METHOD`` was ``GET``."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:191
+# a07dbaf677df477db5f1b7995ee7d97a
+msgid "``POST`` variables"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:193
+# 6be74138edf040fd9eca1099c8656657
+msgid "HTTP ``POST`` varibles are available in ``request.form``::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:197
+# 0b57809971bc4fe2a5da7c18caadd7ea
+msgid "There is no difference in accessing ``GET`` and ``POST`` variables."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:200
+# 51067171fb0a45199a74ef86c2755386
+msgid "Request body"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:201
+# f55d8bd3a09340e1bc3c43498a3083f5
+msgid "The request body can be retrieved from the HTTPRequest_ object by using the get method with the key ``BODY``::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:207
+# 7822d2f550814ee3813bc2fa6303866e
+msgid "HTTP headers"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:209
+# 246e536b7edf449c8b8a1bbaca6a23ca
+msgid "HTTP headers are available through ``request.get_header()`` and the ``request.environ`` dictionary."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:219
+# 34ae6d37f78142eebf6381019b495824
+msgid "Dumping all headers::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:224
+# 66334f3da63c49918bca5f7b358dfd23
+msgid "A simple ZMI Python script to dump all HTTP request headers::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:246
+# 14afa9c82ff8410f8d7f990ba283440b
+msgid "To access the raw HTTP ``GET`` query string::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:252
+# 46ad881cc4c740b683cbb78d0922bddc
+msgid "Web environment"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:254
+# 082d235c8b634ff8bd9f0fb5fe6c2b05
+msgid "The web server exposes its own environment variables in ``request.other`` (ZServer_) or ``request.environ`` (Repoze_ and other WSGI_-based web servers)::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:264
+# aaef3de1c0bd44d3ad02d81ea9b72502
+msgid "Hostname"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:266
+# 47b407fda44c4bbe84befdab9bf62c5d
+msgid "Below is an example to get the HTTP server name in a safe manner, taking virtual hosting into account::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:293
+# e5a14062f1b14454b51816e8372d3b07
+msgid "See also"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:295
+# 945109f444d642c9a9ea31261d6873bf
+msgid "http://httpd.apache.org/docs/2.1/mod/mod_proxy.html#x-headers"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:297
+# fded63ecc7a2468e875dacbd43a59265
+msgid "http://zotonic.googlecode.com/hg/doc/varnish.zotonic.vcl (X-Forwarded-Host)"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:302
+# 536034060b6e4e06ba81588006c5da1d
+msgid "Request port"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:304
+# e9d5df946cb947d1a8ac0560ca531b9b
+msgid "It is possible to extract the Zope instance port from the request.  This is useful e.g. for debugging purposes if you have multiple ZEO front ends running, and you want to identify them easily::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:312
+# ba90234df353491cb21a05e4f7503f2a
+msgid "The ``SERVER_PORT`` variable returns the port number as a string, not an integer."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:316
+# 1bbb3d70fbe84d1bb57db7bba7b13103
+msgid "This port number is not the one visible to the external traffic (port 80, HTTP)"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:319
+# 0289bfe7c7654d0ea4a4176753064512
+msgid "Published object"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:321
+# 0032803e8c86437887bb2229469d8cd8
+msgid "``request[\"PUBLISHED\"]`` points to a view, method or template which was the last item in the traversing chain to be called to render the actual page."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:324
+# 4315f4e710f14a9c892ba85a5edf9d05
+msgid "To extract the relevant content item from this information you can do e.g. in the after publication hook::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:337
+# 80d7b00174f24e869255f61ce9e524c4
+msgid "You might also want to filter out CSS etc. requests"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:339
+# caf1858b54914fb78714fde2a8858a54
+msgid "Please note that ``request[PUBLISHED]`` is set after language negotiation and authentication"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:341
+# e43034f2b1c1451296b5d8bb5c3f52ed
+msgid "`More complete example <https://github.com/miohtama/silvuple/blob/master/silvuple/negotiator.py>`_"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:344
+# 12fb649c07dc4117818fe854463ee4b2
+msgid "Flat access"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:346
+# 1b502ff822fa4d15ab2b3024a4ba89e3
+msgid "``GET``, ``POST`` and web environment variables are flat mapped to the request object as a dictionary look up::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:356
+# c6c554f4663542959aabd5931f0e41f8
+msgid "Request mutability"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:358
+# 0704e45a56f5458290cce94786cfd5d3
+msgid "Even if you can write and add your own attributes to HTTP request objects, this behavior is discouraged. If you need to create cache variables for request lifecycle use annotations_."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:362
+# 05de3095c9be4c27828ac67cb3e365fa
+msgid "Add link to internal annotations examples when written."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:366
+# 60def2f4d34a430c9b9b573514c703cf
+msgid "Accessing HTTP request outside context"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:368
+# 706385dda1ae4c28a80bc1bedf7c6ff0
+msgid "There are often cases where you would like to get hold of the HTTP request object, but the underlying framework does not pass it to you.  In these cases you have two ways to access the request object:"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:372
+# 8325d3dc3c9c4a8f8803386df0d40523
+msgid "Use *acquisition* to get the request object from the site root. When Plone site traversal starts, the HTTP request is assigned to current site object as the ``site.REQUEST`` attribute."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:376
+# 7bac9b45de6f43e69c499c78114a4821
+msgid "Use http://pypi.python.org/pypi/five.globalrequest."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:378
+# 9796d1c6c7374b8dada629aec1c29617
+msgid "Example of getting the request using acquisition::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:395
+# 135406d582044042ad369e415fadf19a
+msgid "zope.globalrequest.getRequest"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:397
+# e3709be9d2ff4d03bf926cd34943550d
+msgid "See"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:399
+# f028a40c4eb6417483594395bf84dc26
+msgid "http://pypi.python.org/pypi/five.globalrequest"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:403
+# facb5692a738427db15bec090dbe0e64
+msgid "HTTP response"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:405
+# 824c6b535c824771ab6624e00564025d
+msgid "Usually you do not return HTTP responses directly from your views. Instead, you modify the existing HTTP response object (associated with the request) and return the object which will be HTTP response payload."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:409
+# 9a4c9e0dadf14a4cbc477cff80c9bc43
+msgid "The returned payload object can be:"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:411
+# f16f7c7497ef4aa4ad52022c0642f6e7
+msgid "a string (str) 8-bit raw data; or"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:412
+# f4912b904a55494291f7a66f133c8d7f
+msgid "an iterable: the response is streamed, instead of memory-buffered."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:415
+# e0d06ee7571d4199a9c4b84b1f0fdc42
+msgid "Accessing response"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:417
+# 209c7610161b4ab995a2049b5f05056f
+msgid "You can access the HTTP response if you know the request::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:433
+# fe4b142f4e3d4172b4413de8e3b6ed16
+msgid "Response headers"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:435
+# 2eaa1c72ca1245bbbe411042eb5b5466
+msgid "Use HTTPResponse_ ``setHeader()`` to set headers::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:442
+# 0f63968b947d4de896583caca023c9b0
+msgid "Content disposition"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:444
+# c5c267be410246639746039e1f1243ce
+msgid "The ``Content-Disposition`` header is used to set the filename of a download. It is also used by Flash 10 to check whether Flash download is valid."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:447
+# d08a8a0c636645e5958af91fa3672a01
+msgid "Example of setting the download and downloadable filename::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:458
+# 5a4583852de34f9c8f462c1d8712c7de
+msgid "http://www.littled.net/new/2008/10/17/plone-and-flash-player-10/"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:459
+# e06eb606d0a44f67b6ecd57efe228279
+msgid "http://support.microsoft.com/kb/260519"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:462
+# 9af5a0377e6f450387a5ad0b11440305
+msgid "Return code"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:464
+# 92be74bd191e45d9b50975e998a7881d
+msgid "Use ``HTTPResponse.setStatus(self, status, reason=None, lock=None)`` to set HTTP return status (\"404 Not Found\", \"500 Internal Error\", etc.)."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:467
+# 1cae4c48a9754ef1b49a909195c46de3
+msgid "If ``lock=True``, no further modification of the HTTPResponse status are allowed, and will fail silently."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:471
+# 719250f112a04ee1b263d1729bca3f0a
+msgid "Response body"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:473
+# 2e0b4ee25f744f8f80096ee9d1eb4354
+msgid "You might want to read or manipulate the response body in the post-publication hook."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:476
+# ef7dff0a17554152b239d2d9d4beda93
+msgid "The response body is not always a string or basestring: it can be a generator or iterable for blob data."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:479
+# 00008a12daaf4cbbbcd22af4ae37c5e9
+msgid "The body is available as the ``response.body`` attribute."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:481
+# 995caf2039a74c7e820cd670bca74976
+msgid "You can change the body using setBody and locking it::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:486
+# c0256fa55ffb471b89713ae5cc159443
+msgid "If ``lock=True``, no further modification of the HTTPResponse body are allowed, and will fail silently."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:490
+# ca52b8114f00443a82463b018dd5abd4
+msgid "Redirects"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:492
+# 5bb0cd1622ff445fb9aa547f03ff55dc
+msgid "**Real redirects**"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:494
+# 782bc4292cfb4737aa48e9cc3c9c354e
+msgid "Use the ``response.redirect()`` method::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:502
+# fabbc2c3b2fd42ffa7b4b2aa7d995f40
+msgid "You can lock the status to not let other change the status later in the process ::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:507
+# 328f8444332c4c45867f274d00be50e0
+msgid "**Javascript redirects**"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:509
+# 6c8449d7a0a3435db468914f449d4c4f
+msgid "You can invoke this Javascript redirect trick from a page template head slot in a hacky way"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:521
+# 03fbdd27bc974e2a9fb4bb8edd36e49c
+msgid "Cookies"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:523
+# a6ffc53ffd20424b8a3f0c801779dd98
+msgid "See :doc:`cookies documentation </sessions/cookies>`."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:526
+# 3c9f5d2ffa7341d2a6878818d453b8c9
+msgid "Middleware-like hooks"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:528
+# 1ab92257a2af4088a5f2c82f62b07bc2
+msgid "Plone does not have a middleware concept, as everything happens through traversal. Middleware behavior can be emulated with the *before traverse* hook. This hook can be installed on any persistent object in the traversing graph. The hook is persistent, so it is a database change and must be installed using custom GenericSetup Python code."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:536
+# 904d7d74f03c45e999f67f9b8a7b1f09
+msgid "Before traverse hooks cannot create new HTTP responses, or return alternative HTTP responses.  Only exception-like HTTP response modification is supported, e.g. HTTP redirects. If you need to rewrite the whole response, the post-publication hook must be used."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:543
+# a4dd02573bfe471ab58365b4c16fdafd
+msgid "http://blog.fourdigits.nl/changing-your-plone-theme-skin-based-on-the-objects-portal_type"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:545
+# 4395d5aa9b844fdc93d6641b0a656b0c
+msgid "http://zebert.blogspot.com/2008_01_01_archive.html"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:547
+# b04b3c992d724799891c6da1a1dd28c6
+msgid "http://svn.repoze.org/thirdparty/zopelib/branches/2.9.8/ZPublisher/tests/testBeforeTraverse.py"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:549
+# 83251607b2624e5caec075f0d40a9358
+msgid "Examples:"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:551
+# f1ac5c489337486fbe8e685855d7d7cf
+msgid "Redirector: https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.mobile/gomobile/mobile/postpublication.py"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:554
+# cf525c1580804fb0bfb194e0d8c763aa
+msgid "Transform chain"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:556
+# 2ebb319cec7f4492afc547a6935b31cc
+msgid "Transform chain is a hook into repoze.zope2 that allows third party packages to register a sequence of hooks that will be allowed to modify the response before it is returned to the browser."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:559
+# 93bffbc5238e497fafe6480be314b548
+msgid "It is used e.g. by ``plone.app.caching``."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:561
+#: ../../source/serving/xmlrpc.rst:107
+# b2af01e9354a41dca7f2ad137f9df071
+# 5ba9510f9bcf4247827e6c142a711d72
+msgid "More information"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:563
+# 6f2a6b99cf97435a8115c222a9bf0580
+msgid "http://pypi.python.org/pypi/plone.transformchain"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:566
+# 89f19c5c9b9341fd8f3bace4355d31d0
+msgid "Post-publication hook"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:568
+# 93171255ba8244088e5c20d5462c956b
+msgid "The post-publication hook is run when:"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:570
+# 20a92395d8a24ac0b2d87ab70617e118
+msgid "the context object has been traversed;"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:571
+# 254f25d2fb6e43a1a1d24a64f4388ca6
+msgid "after the view has been called and the view has rendered the response;"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:572
+# e2f51826223a40aabe7ea6c263777f31
+msgid "before the response is sent to the browser;"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:573
+# b8c6863a9c864ab7857fee836b3ae4b7
+msgid "before the transaction is committed."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:575
+# d093159a512247f49c9fc91fcc96f686
+msgid "This is practical for caching purposes: it is the ideal place to determine and insert caching headers into the response."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:578
+# bf1cac04b19c4ca5bd55f1f747d43f72
+msgid "Read more at the `plone.postpublicationhook package page <http://pypi.python.org/pypi/plone.postpublicationhook/>`_."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:582
+# 89fbd774b8eb424db3f7d9e82e39ca81
+msgid "Custom redirect mappings"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:584
+# 8afd71b54e1e4018b6533ed4bb70ec28
+msgid "Below is an example how you use :doc:`five.grok </components/grok>` to install an event handler which checks in the site root for a TTW Python script and if such exist it asks it to provide a HTTP redirect."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:588
+# 5f7e071263d84e8880ea9db1e32040fb
+msgid "This behavior allows you to write site-wide redirects easily"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:590
+# bc949d0bebd14d9784c5aac74a5639b3
+msgid "In Python (thank god no Apache regular expressions)"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:592
+# 21956702c080452e80579340de9429f3
+msgid "Redirects can access Plone content items"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:594
+# d36d42e70f754268b257cfd8cb6c1fed
+msgid "You can easily have some redirects migrated from the old (non-Plone) sites"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:596
+# ee8cb43518334e9a878d9976548afb85
+msgid "``redirect.py`` - no modifications needed for your site, just copy-paste this to your Grok add-on folder. Remember to add ``url`` to *Parameter list* of the script on the script edit view::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:670
+# 211cf3e2527449b1a041fbcc345cb8b4
+msgid "Then an example ``redirect_handler`` script added through ZMI. Remember to add ``url`` to the *Parameter List* field of TTW interface::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:676
+# 70efbced9c6e45ce887b18af3e641549
+msgid "Or more complex example::"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:701
+# ed69cf9d927a474e8115673e0baffb67
+msgid "Extracting useful information in the post-publication hook"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:740
+# 5ada3fb27bb54ffcbc0f26cd07a44635
+msgid "Cross-origin resource sharing (CORS)"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:742
+# 26097298e5bc4782b1bf5c8464a1453e
+msgid "Complete."
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:744
+# aef5695f55004d1691ddc6ffaca1229a
+msgid "http://enable-cors.org/"
+msgstr ""
+
+#: ../../source/serving/http_request_and_response.rst:746
+# bd665ce76de74a3eb1fcd6a3db8ebbbf
+msgid "https://developer.mozilla.org/En/HTTP_access_control"
+msgstr ""
+
+#: ../../source/serving/index.rst:3
+# e952d0147122457daef11c96d7abef23
+msgid "HTTP serving and traversing site data"
+msgstr ""
+
+#: ../../source/serving/index.rst:5
+# 9ffe55b738d2486fbb265f2500fc15f5
+msgid "Serving content from your site to your users is effectively a mechanism to generate HTTP responses to HTTP requests."
+msgstr ""
+
+#: ../../source/serving/index.rst:8
+# 4f98090f36fb49d69643baa02908e499
+msgid "In Plone, answering to HTTP requests can be divided to three subproblems:"
+msgstr ""
+
+#: ../../source/serving/index.rst:10
+# 5bfb3be9db9c41c58f2568e4c236a966
+msgid "managing the lifecycle of the HTTP request and response pair;"
+msgstr ""
+
+#: ../../source/serving/index.rst:11
+# 780e31bb51aa4e12831597eb58b28e3f
+msgid "publishing, by traversing the request to the target object by its URI;"
+msgstr ""
+
+#: ../../source/serving/index.rst:12
+# f894b290a1de459c9c8639173074a0d5
+msgid "choosing different parts of the code depending on active layers."
+msgstr ""
+
+#: ../../source/serving/index.rst:14
+# 41ec66ae0cd846dfbd0ee5be2a792c2b
+msgid "Plone and Zope 2 application servers support FTP, WebDAV and XML-RPC protocols besides plain HTTP."
+msgstr ""
+
+#: ../../source/serving/publishing.rst:3
+# 5d8c687cdce042129498da9db6b26717
+msgid "Publishing"
+msgstr ""
+
+#: ../../source/serving/publishing.rst:5
+# a5c568593abd411181e10c1e9989beab
+msgid "To *publish* an object means to make it available in the Zope traversal graph and URLS."
+msgstr ""
+
+#: ../../source/serving/publishing.rst:8
+# f0baca8b3d0540c2ba1409e838a8467d
+msgid "A published object may have a reverse-mapping of object to path via ``getPhysicalPath()`` and ``absolute_url()`` but this is not always the requirement."
+msgstr ""
+
+#: ../../source/serving/publishing.rst:12
+# ac5ccf6ae8d94a0b8fbfc983bc62b474
+msgid "You can publish objects by providing a ``browser:page`` view which implements the ``zope.publisher.interfaces.IPublishTraverse`` interface."
+msgstr ""
+
+#: ../../source/serving/publishing.rst:16
+# 21527722ffd44314bcddccf27645f539
+msgid "Example publishers"
+msgstr ""
+
+#: ../../source/serving/publishing.rst:18
+# 2b9734fcd0a24e8e968bb326f3460e50
+msgid "A widget to make specified files downloadable: `plone.formwidgets.namedfile.widget <https://github.com/plone/plone.formwidget.namedfile/tree/master/plone/formwidget/namedfile/widget.py>`_."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:3
+# 500d1fd81dae4a0e9081b289891e72e6
+msgid "Traversing"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:7
+# e6450a0bf1e046f2a62a82bf561d4166
+msgid "Plone content is organized to a tree. Traversing means looking up content from this tree by path. When HTTP request hits a Plone server, Plone will traverse the corresponding content item and its view function by URI."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:17
+# ded1ba58c8584f87a014435d845031f8
+msgid "In Plone, all content is mapped to a single tree: content objects, user objects, templates, etc.  Even most object methods are directly mapped to HTTP-accessible URIs."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:21
+# 3509cfea48b94c939a6b5721f892d55d
+msgid "Each object has a path depending on its location. :term:`Traversal` is a method of getting a handle on a persistent object in the ZODB object graph from its path."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:25
+# 27569aedd77a48b8b199e8c2b332e2c9
+msgid "Traversal can happen in two places:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:27
+# 99bafeed59894be2ab399910187d9c2c
+msgid "When an HTTP request hits the server, the method on the object which will generate the HTTP response is looked up using traversal."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:30
+# cb3a137fc2544e199c4b0628ca6c4d19
+msgid "You can manually traverse the ZODB tree in your code to locate objects by their path."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:33
+# 18e3dcebdeb54cd281b7bfa309d021c8
+msgid "When an HTTP request is being published the traversing happens in ``ZPublisher.BaseRequest.traverse``"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:36
+# ef45e9149f974063b15aff6540e94b54
+msgid "http://svn.zope.org/Zope/trunk/src/ZPublisher/BaseRequest.py?rev=122282&view=auto"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:38
+# d50c6e3ec111498bbfb47af1ed179a2c
+msgid "... but Zope includes other traversers, like ``unrestrictedTraverse()`` in the OFS module.  Different traversing methods behave differently and may fire different events."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:43
+# 5fe47ff774874d39a069238f0c656e1e
+msgid "Object ids"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:45
+# cbb5fa5fff844bd0b646cf169a8e8a8f
+msgid "Each content object has an id string which identifies the object in the parent container.  The id string is visible in the browser address bar when you view the object.  Ids are also visible in the Zope Management interface."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:49
+# 3ae52d940f76455f919284cb339ec2f0
+msgid "Besides id strings, the content objects have Unique Identifiers, or UID_, which do not change even if the object is moved or renamed."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:52
+# ca1592948dd24e7db3cb5d04f4113c1c
+msgid "Though it's technically possible for ids to contain spaces or slashes, this is seldom a good idea, as it complicates working with ids in various situations."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:57
+# 2bacfb90811147fba5f273fd298b7bd9
+msgid "Path"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:59
+# 3f224c75a7ef4d8793c1a9d69773e9a5
+msgid "The Zope *path* is the location of the object in the object graph. It is a sequence of id components from the parent node(s) to the child separated by slashes."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:63
+# 7b7e4d3c64104b7e8a7e433a9baa62cb
+msgid "A path need not always be a sequence of object ids. During traversal, an object may consume subsequent path elements, interpreting them however it likes."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:72
+# d96bc34ffe7e4674aaf0283f9be48e94
+msgid "Exploring Zope application server"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:74
+# 1920cddff5f24376b8abc3f7620c0e98
+msgid "You can use the Zope Management interface to explore the content of your Zope application server:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:77
+# ec2d5812d3254d2482d815f507f84907
+msgid "Sites"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:79
+# e56cef4e5ba7440d8dbe37ca3be67d9d
+msgid "Folders within the sites"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:81
+# 4750923473af46f2863b458c452f7688
+msgid "...and so on"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:83
+# 1444c1f53d554736838b8134f01753e6
+msgid "The ZMI does not expose individual attributes. It only exposes traversable content objects."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:87
+# 96d2cd15aa274d95a542cf2b5a5bd1e3
+msgid "Attribute traversing"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:89
+# a0d0f120cb91499daeefbe62123508e7
+msgid "Zope exposes child objects as attributes."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:101
+# 24dfff3386154704a7e5ce570b158a69
+msgid "Container traversing"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:103
+# 665f1c1668d64a669463d2c6ed96d973
+msgid "Zope exposes child objects as container accessor."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:116
+# fb32f21bdaa24048bba304b3d12fdb42
+msgid "Traversing by full path"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:118
+# a633f578d1104ed190e647d4097e65d1
+msgid "Any content object provides the methods ``restrictedTraverse()`` and ``unrestrictedTraverse()``.  See Traversable_."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:121
+# 1e15a59fd9a04d128376fb1f1262195d
+msgid "**Security warning**: ``restrictedTraverse()`` executes with the privileges of the currently logged-in user.  An Unauthorized_ exception is raised if the code tries to access an object for which the user lacks the *Access contents information* and *View* permissions."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:135
+# f32f37473a714494ae7b1036934107b6
+msgid "``restrictedTraverse()``/``unrestrictedTraverse()`` does not honor ``IPublishTraverse`` adapters. `Read more about the issue in this discussion <http://mail.zope.org/pipermail/zope-dev/2009-May/036665.html>`_."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:141
+# fbc8292a78fd49fda125d86b2dab4533
+msgid "Getting the object path"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:143
+# f0f8211da5da4cea8182187ce47ea05e
+msgid "An object has two paths:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:145
+# 163089c578414e4f813c5ee520f59ab8
+msgid "The *physical path* is the absolute location in the current ZODB object graph. This includes the site instance name as part of it."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:148
+# 4b27fdd8ca954c9984ca9c4cdd8c792b
+msgid "The *virtual path* is the object location relative to the Plone site root."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:150
+# d607d9137e8d47dc9ca02fcdd83c36cc
+msgid "**Path mangling warning**: Always store paths as virtual paths, or persistently stored paths will corrupt if you rename your site instance."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:153
+# 249e09e0964c402d84c61d612d687f7f
+msgid "See Traversable_."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:156
+# f1bb97236ed141baa9b9502edf09075f
+msgid "Getting physical path"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:158
+# f346ff33eb5a4172be187ba633b9c431
+msgid "Use ``getPhysicalPath()``. Example::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:163
+# 2fbab0325dcd4ae786794155d5b0eb18
+msgid "Getting virtual path"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:165
+# aec3846970754227aac7c3227f8754c7
+msgid "For content items you can use ``absolute_url_path()`` from `OFS.Traversable <http://svn.zope.org/Zope/trunk/src/OFS/Traversable.py?rev=122638&view=auto>`_::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:170
+# 943d90c7978e4789b936dc97f2fdded3
+msgid "Map physical path to virtual path using HTTP request object ``physicalPathToVirtualPath()``. Example::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:181
+# 134a9723df2d4a3b800ee5b81ca9e922
+msgid "The virtual path is not necessarily the path relative to the site root, depending on the virtual host configuration."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:185
+# 439ca08df06746ce98ce68b7f5f95245
+msgid "Getting item path relative to the site root"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:187
+# f5034d7a471246e0b9218f2988f36dda
+msgid "There is no a direct, easy way to accomplish this."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:216
+# a694935aa1e14d29bffee7c1672b0246
+msgid "Getting canonical object (breadcrumbs, visual path)"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:218
+# 4a42929189924444b8903dfad0595ea6
+msgid "The visual path is presented in the breadcrumbs. It is how the site visitor sees the object path."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:221
+# 575b413703b04c008fe013c0565c0d44
+msgid "It may differ from the physical path:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:223
+# bddd8bb9f91d45b789fb4c324fc74f4d
+msgid "The *default content item* is not shown in the visual path."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:224
+# a6fca08f025b4a41a2918e93c9f228ea
+msgid "The *default view* is not shown in the visual path."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:226
+# 12de992aa5034b8683dc81510b0b72d8
+msgid "The canonical object is the context object which the user sees from the request URL:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:236
+# ffc55fbef72c44918cbb4aba428a18a9
+msgid "Getting object URL"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:238
+# 40e8eeed87484ed4833e35e614434153
+msgid "Use ``absolute_url()``. See Traversable_."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:240
+# 2406641d98f44718b6a70f7a70f20e09
+msgid "**URL mangling warning**: ``absolute_url()`` is sensitive to virtual host URL mappings. ``absolute_url()`` will return different results depending on if you access your site from URLs http://yourhost/ or http://yourhost:8080/Plone.  Do not persistently store the result of ``absolute_url()``."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:251
+# cdfcf634c3844babbad099d73cda9ad9
+msgid "Getting the parent"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:253
+# 1688506bc10741ba9e97ed98c5475d0b
+msgid "The object *parent* is accessible is acquisition_ chain for the object is set."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:256
+# c6ef8fab7c9743be90dddb2ce799583d
+msgid "Use ``aq_parent``::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:260
+# 69db5ed3d72343989bcecf0a9f5db4e8
+msgid "The parent is defined as ``__parent__`` attribute of the object instance::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:264
+# 8a4b9d4a593a4af6b424f87b18ae570d
+msgid "``__parent__`` is set when object's ``__of__()`` method is called::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:270
+# 0540486535094f30a40c1847eee6708c
+msgid "Getting all parents"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:307
+# c68058205baf47b7acf245ad2bc38a78
+msgid "Getting the site root"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:309
+# a8515597d0eb49559cdae905978c5638
+msgid "You can resolve the site root if you have the handle to any context object."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:312
+# 1dc9be981d0e41ed806a62555e4e88ce
+msgid "Using portal_url tool"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:322
+# 79f3ed9e9e5946f2aa1930344f3ef204
+msgid "You can also do shortcut using acquisition::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:326
+# 9f448c8c420c46fa9f9f3465ffaf9f03
+msgid "Application code should use the ``getToolByName`` method, rather than simply acquiring the tool by name, to ease forward migration (e.g., to Zope3)."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:331
+# 3bf1246ea27d4ce4a82283b3c61d74f9
+msgid "Using ``getSite()``"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:333
+# a6dd4cd35b4a4482ab63c7c624a9702c
+msgid "Site is also stored as a thread-local variable. In Zope each request is processed in its own thread. Site thread local is set when the request processing starts."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:337
+# 158355e08e6743619f7ecb3f6fc48a03
+msgid "You can use this method even if you do not have the context object available, assuming that your code is called after Zope has traversed the context object once."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:347
+# 7a14edee1b194073b56474bb1f8587d7
+msgid "Before Plone 4.3 getSite resided in zope.app.component.hooks. See http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/referencemanual-all-pages"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:350
+# e736baa9a52d49b081f53668de02ba40
+msgid "Due to the fact that Plone does not show the default content item as a separate object, the page you are viewing in the browser from the site root URL is not necessary the root item itself. For example, in the default Plone installation this URL internally maps to Page whose id is ``front-page`` and you can still query the actual parent object which is the site root."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:357
+# 2447fd0ad2824dc8bf311f5e15d227f7
+msgid "If you need to traverse using user visible breadcrumbs, see how breadcrumbs viewlet code does it."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:361
+# 6c81276f6aff4d97be6d78ee0d8129e3
+msgid "Traversing back to the site root"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:363
+# 31589361f7a84a039388cdc3430d0aeb
+msgid "Sometimes ``getSite()`` or ``portal_url`` are not available, but you still have the acquisition chain intact. In these cases you can simply traverse parent objects back to the site root using ``aq_parent`` accessor::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:386
+# 945a5d8b85c448a2a6ff65f9135348e4
+msgid "Checking for the site root"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:388
+# 23b57da3fd1049ddb4a64ae7dc85d774
+msgid "You can check if the current context object is Plone the site root::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:398
+# 563e5d3109284424a6493dc322a296d3
+msgid "Navigation root"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:400
+# 9fa4aa86536f45ebaa0542ece323aa63
+msgid "In Plone, the Plone site root is not necessarily the navigation root (one site can contain many navigation trees for example for the nested subsites)."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:403
+# 8b03c6ba49b24de7921ca2c51373bf01
+msgid "The navigation root check has the same mechanism as the site root check::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:412
+# 7e8ad92f636042a8845e9f16d74df109
+msgid "More info"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:414
+# 88817f88a1274b159994d6462ed4c293
+msgid "http://plone.org/products/plone/roadmap/234"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:417
+# 65037b6b95524290a8697f5d145c243c
+msgid "Getting Zope application server handle"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:419
+# 1fee1540a82047b3b51a3da2b9a11e36
+msgid "You can also access other sites within the same application server from your code."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:429
+# 1fd79fa73d6d44d5b001236bc2a4d12c
+msgid "Acquisition effect"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:431
+# fb97d7890b5d4671a05996e2596dc15d
+msgid "Sometimes traversal can give you attributes which actually do not exist on the object, but are inherited from the parent objects in the persistent object graph. See :term:`acquisition`."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:436
+# 9adc05d7d2524fffae7834d710d7f670
+msgid "Default content item"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:438
+# a01429f1e2334362bac3e0874362bbd2
+msgid "Default content item or view sets some challenges for the traversing, as the object published path and internal path differ."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:441
+# 9614ac3e6efd46ce83a2eed94df22a91
+msgid "Below is an example to get the folder of the published object (parent folder for the default item) in page templates:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:451
+# a9230836059a4958b5dea1c244a59840
+msgid "More info:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:453
+# 38da7263aa13465aac87f6901467bc72
+msgid "See :doc:`plone_context_state helper </misc/context>`"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:456
+# 5e2fa048051c495f9933a3bec8901cee
+msgid "Checking if an item is the site front page"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:458
+# a6e66bc1a5344b2fa65fe548a108cd54
+msgid "Example code below::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:478
+# 3a03401537a24cd2985c5841940f05ce
+msgid "Custom traversal"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:480
+# e75e9ce4afb4491e83eca9b0eab23d4f
+msgid "There exist many ways to make your objects traversable:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:482
+# 0efbd68e7cf2435eb2365b7942440290
+msgid "``__getitem__()`` which makes your objects act like Python dictionary. This is the simplest method and recommended."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:485
+# 4af0c4d9d82248ca934152b92d48b2fe
+msgid "``IPublishTraverse`` interface. There is an example below and works for making nice urls and path munging."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:488
+# a195de857e724248bd9bc797bb9b0dd5
+msgid "``ITraversable`` interface. You can create your own traversing hooks. ``zope.traversing.interfaces.ITraversable`` provides an interface traversable objects must provider. You need to register ``ITraversable`` as adapter for your content types.  This is only for publishing methods for HTTP requests."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:494
+# a3bd51270d834f2f91e49f2f2da60100
+msgid "``__bobo_traverse__()`` which is an archaic method from the early 2000s."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:496
+# 0fc42fc503b24cad81db6614ab112839
+msgid "Zope traversal is a minefield. There are different traversers. One is the *ZPublisher traverser* which does HTTP request looks.  One is ``OFS.Traversable.unrestrictedTraverse()`` which is used when you call traverse from Python code. Then another case is ``zope.tales.expression.PathExpr`` which uses a really simple traverser."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:502
+# 9843b5a342474ec689cfe08ccb8f5459
+msgid "If an ``AttributeError`` is risen inside a ``traverse()`` function bad things happen, as Zope publisher specially handles this and raises a ``NotFound`` exception which will mask the actual problem."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:506
+# c7dc46ada4f1466e9cb927c1b87949c4
+msgid "Example using ``__getitem__()``::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:542
+# 14c4852b63cb42428982ae53d7b3f6a8
+msgid "Example using ``IPublishTraverse``::"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:603
+# 3436fe4724d3425f809a0702ed703f3c
+msgid "More information:"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:605
+# f6add55d56c34ada8610ba5d50848a8c
+msgid "http://play.pixelblaster.ro/blog/archive/2006/10/21/custom-traversing-with-five-and-itraversable"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:608
+# 4a7adf01e29d4e21a5e48405cc8de5f4
+msgid "Traverse events"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:610
+# 6a32202bd7ba43349fd132b94c29ab14
+msgid "Use ``zope.traversing.interfaces.IBeforeTraverseEvent`` for register a traversing hook for Plone site object or such."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:627
+# ab059321fe8d409cafaacb7143efd634
+msgid "Use ``ZPublisher.BeforeTraverse`` to register traverse hooks for any objects."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:630
+# f7ff824bf83e446ba7250b4ff5b15afc
+msgid "Example - not sure if before travese hooks are persistent or not"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:633
+# cc8cbe20c6394052938e85405a33035b
+msgid "Advanced traversing with search conditions"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:635
+# 53a09a0453a8462092aa5ed9a26bc44f
+msgid "All Plone content should exist in the :doc:`portal_catalog </searching_and_indexing/query>`.  Catalog provides fast query access with various indexes to the Plone content."
+msgstr ""
+
+#: ../../source/serving/traversing.rst:640
+# 06abd16622ff452590db459e3b39f00e
+msgid "Other resources"
+msgstr ""
+
+#: ../../source/serving/traversing.rst:642
+# 3bbfd00efc4d4282a8935f2e5fec921f
+msgid "See object publishing_."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:3
+# 3a81b561d1f74accb4013390282fcf2e
+msgid "WebDAV"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:7
+# d2958ebe4619402ca08f601ef025cb69
+msgid "WebDAV is a protocol to manage your site directly from MS Windows Explorer and such.  Plone supports WebDAV without add-ons."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:15
+# 47d6a43467d142e7a0428f82e17ee71d
+msgid "WebDAV is enabled by default. A Zope server listening on port 8080 will also accept WebDAV traffic on that port. (http://stackoverflow.com/questions/9127269/how-can-i-stop-people-accessing-a-plone-server-via-webdav)"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:20
+# 62f8dc7f7f0048dd97214b425f0c05bd
+msgid "Enabling WebDAV on an extra port in Zope"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:22
+# 3f614cada41e4837872954d587530de8
+msgid "Modify your buildout configuration's client setup to add a webdav address:"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:24
+# 34923b71fc614850b85a80eec59d675d
+msgid "Short ``buildout.cfg`` example::"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:33
+# 4288174f8a8941e081169575e62e1e72
+msgid "Alternative ``buildout.cfg`` configuration snippet which might be needed for some WebDAV clients::"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:45
+# 259def52b354497c80e21cd4b9fbe344
+msgid "These snippets will be in the **generated** ``parts/instance/zope.conf`` after buildout has been re-run."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:48
+# f0a9cd5a24834573b05b90aa64e9e28e
+msgid "This will enable the WebDAV server on http://www.mydomain.com:1980/. Note that you cannot use this URL in your web browser, just in WebDAV clients. Using the web browser will give you an error message ``AttributeError: manage_FTPget``. You could also just run the WebDAV server on ``localhost`` with address 1980, forcing you to either use a WebDAV client locally or proxy WebDAV through Apache."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:56
+# 24d5544c227c466097e1845d993e71b5
+msgid "Disabling WebDAV"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:58
+# d6d33a6415ec4cedbfd3e4831da7dd8b
+msgid "You can't disable WebDAV in Plone itself, it's tightly integrated in Zope. You could take away the \"Access WebDAV\" permission from everyone, but the Zope server will still answer each request."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:62
+# bd6ab4371e13488399055675d3e0a620
+msgid "What you can do: Make your web server filter out the WebDAV commands. This will stop WebDAV requests from reaching your Zope server."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:66
+# 49de918f8a9f45179bb6b35254b5bae7
+msgid "Nginx"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:68
+# c7b32b3104e34da9b831988e0467231e
+msgid "For nginx, this is done by adding::"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:72
+# 073b5dad838148668994c830fcab55b9
+msgid "to the server block in your nginx.conf. (http://wiki.nginx.org/HttpDavModule)"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:74
+# 18020a6ce2804098b2c5e4fd7023f0e4
+msgid "If you do not use the HttpDavModule, you can add::"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:80
+# e04b54848d2f42118e663d1f6a821e4e
+msgid "to the location block."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:83
+# 46c6b22e495d406dbe1ebf6d3f6b7f2a
+msgid "Apache"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:85
+# efc01b50ed264e4c99ae4efd03c2ea73
+msgid "For Apache, you can use the ``limit`` statement, see http://httpd.apache.org/docs/current/mod/core.html#limit"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:89
+# bea27a0672e54e4a8193537379dfdfe0
+msgid "Supporting WebDAV in your custom content"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:91
+# 97bf99b6056f469888de401af54a2a56
+msgid "Please read more about it in the `Dexterity WebDAV manual <https://github.com/plone/plone.dexterity/tree/master/docs/WebDAV.txt>`_."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:95
+# b1b806c3862f4bc9818a9280d56c582b
+msgid "WebDAV notes"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:97
+# 76eabd39ffb843fba835c714d1f82c33
+msgid "WebDAV uses a number of HTTP verbs to perform different operations. The following notes describe how they are implemented in Zope 2 and Dexterity."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:101
+# 0ee3183d26564c11962d2ba698e40a41
+msgid "Background"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:103
+# c9702f44812c4acdb0e4a9d67af82e9f
+msgid "Basic WebDAV support can be found in the ``webdav`` package. This defines two base classes, ``webdav.Resource.Resource`` and ``webdav.Collection.Collection``.  ``Collection`` extends ``Resource``. These are mixed into item and container content objects, respectively."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:108
+# e7c1eeca0c6d434c8559f29ad7d38df6
+msgid "The webdav package also defines the ``NullResource`` object. A ``NullResource`` is a kind of placeholder, which supports the HTTP verbs ``HEAD``, ``PUT``, and ``MKCOL``."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:112
+# cfcdddb9166943ea8f55c4a89229ebac
+msgid "Containers based on ``ObjectManager`` (including those in Dexterity) will return a ``NullResource`` if they cannot find the requested object and the request is a WebDAV request."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:116
+# 9dc12f71a81a4acab6bb8eb02a2fea6d
+msgid "The ``zope.filerepresentation`` package defines a number of interfaces which are intended to help manage file representations of content objects. Dexterity uses these interfaces to allow the exact file read and write operations to be overridden without subclassing."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:122
+# a18f380154e347c892c1272e81b7451d
+msgid "``HEAD``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:124
+# 5de9ae8372ee45e3b5203e5715108deb
+msgid "A ``HEAD`` request retrieves headers only."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:126
+# 7d6372e5e29e429c81c041f134d17579
+msgid "``Resource.HEAD()`` sets ``Content-Type`` based on ``self.content_type()``, ``Content-Length`` based on ``self.get_size()``, ``Last-Modified`` based on ``self._p_mtime``, and an ETag based on ``self.http__etag()``, if available."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:130
+# 18c0ba2b5ead407ebe43a412ce3272dc
+msgid "``Collection.HEAD()`` looks for ``self.index_html.HEAD()`` and returns its value if that exists. Otherwise, it returns a ``405 Method Not Allowed`` response. If there is no ``index_html`` object, it returns ``404 Not Found``."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:135
+# e5000dd18f3f48ddbd1a9abfe5bd0a0b
+msgid "``GET``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:137
+# 6ef927e647bc472bb3fa7b93ef806e2d
+msgid "A ``GET`` request retrieves headers and body."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:139
+# 8d0bb5eabe9c49fab96487aaf7fdb6cf
+msgid "Zope calls ``manage_DAVget()`` to retrieve the body. The default implementation calls ``manage_FTPget()``."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:142
+# 80709be1310c4aaf9f3391d938eda429
+msgid "In Dexterity, ``manage_FTPget()`` adapts ``self`` to ``IRawReadFile`` and uses its ``mimeType`` and ``encoding`` properties to set the ``Content-Type`` header, and its ``size()`` method to set ``Content-Length``."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:146
+# 1a8b4e894cc540bab2810a0a36de7328
+msgid "If the ``IRawReadFile`` adapter is also an ``IStreamIterator``, it will be returned for the publisher to consume directly. This provides for efficient serving of large files, although it does require that the file can be read in its entirety with the ZODB connection closed. Dexterity solves this problem by writing the file content to a temporary file on the server."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:152
+# 3d17a9e3b411482f8579c7bd9dfeae80
+msgid "If the ``IRawReadFile`` adapter is not a stream iterator, its contents are returned as a string, by calling its ``read()`` method. Note that this loads the entire file contents into memory on the server."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:156
+# d9ff26c2ab8444d7b2e116f4b852a23e
+msgid "The default ``IRawReadFile`` implementation for Dexterity content returns an :RFC:`2822` style message document. Most fields on the object and any enabled behaviours will be turned into UTF-8 encoded headers. The primary field, if any, will be returned in the body, also most likely encoded as an UTF-8 encoded string. Binary data may be base64 encoded instead."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:162
+# 5525a0084c724fae84b63e22269ef050
+msgid "A type which wishes to override this behaviour can provide its own adapter. For example, an image type could return the raw image data."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:166
+# f6dbde9a3f024330b3771f5dc927cc91
+msgid "``PUT``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:168
+# 55009d3423dc4470b38974d004ee525b
+msgid "A ``PUT`` request reads the body of a request and uses it to update a resource that already exists, or to create a new object."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:171
+# 8c983b4e421e4f96ac5fb0a7e8f18278
+msgid "By default ``Resource.PUT()`` fails with ``405 Method Not Allowed``. That is, it is not by default possible to ``PUT`` to a resource that already exists. The same is true of ``Collection.PUT()``."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:175
+# f59af4213d8a489db645a55418478db3
+msgid "In Dexterity, the ``PUT()`` method is overridden to adapt self to ``zope.filerepresentation.IRawWriteFile``, and call its ``write()`` method one or more times, writing the contents of the request body, before calling ``close()``. The ``mimeType`` and ``encoding`` properties will also be set based on the value of the ``Content-Type`` header, if available."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:181
+# aeccf9e9014d4ecabbece5251e94271d
+msgid "The default implementation of ``IRawWriteFile`` for Dexterity objects assumes the input is an :RFC:`2822` style message document. It will read header values and use them to set fields on the object or in behaviours, and similarly read the body and update the corresponding primary field."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:186
+# e2b0a72ecfaf47289a3f03e1f4b20e0f
+msgid "``NullResource.PUT()`` is responsible for creating a new content object and initialising it (recall that a ``NullResource`` may be returned if a WebDAV request attempts to traverse to an object which does not exist). It sniffs the content type and body from the request, and then looks for the ``PUT_factory()`` method on the parent folder."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:192
+# 981773253dad41b9bd69c2d32e0afb03
+msgid "In Dexterity, ``PUT_factory()`` is implemented to look up an ``IFileFactory`` adapter on self and use it to create the empty file. The default implementation will use the ``content_type_registry`` tool to determine a type name for the request (e.g. based on its extension or MIME type), and then construct an instance of that type."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:198
+# ce2697a405fd4500ae776c7721616cef
+msgid "Once an instance has been constructed, the object will be initialised by calling its ``PUT()`` method, as above."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:201
+# e5f378f5cfcc4d22ad8b0d32637cf681
+msgid "Note that when content is created via WebDAV, an ``IObjectCreatedEvent`` will be fired from the ``IFileFactory`` adapter, just after the object has been constructed. At this point, none of its values will be set. Subsequently, at the end of the ``PUT()`` method, an ``IObjectModifiedEvent`` will be fired. This differs from the event sequence of an object created through the web. Here, only an ``IObjectCreatedEvent`` is fired, and only *after* the object has been fully initialised."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:210
+# 8888d638eec24113aeed02f7962a807e
+msgid "``DELETE``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:212
+# df3690828299400d9ff990ab49f7d02c
+msgid "A ``DELETE`` request instructs the WebDAV server to delete a resource."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:214
+# a778e6b2bc8744bea062f3466e91e612
+msgid "``Resource.DELETE()`` calls ``manage_delObjects()`` on the parent folder to delete an object."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:217
+# c1b4d15d2f7d4a62ab26c8fe35788fd2
+msgid "``Collection.DELETE()`` does the same, but checks for write locks of all children of the collection, recursively, before allowing the delete."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:221
+# 01015478301a4839896a2cb10d80e4cc
+msgid "``PROPFIND``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:223
+# 250a2630205c4440bccfd308a937275a
+msgid "A ``PROPFIND`` request returns all or a set of WebDAV properties. WebDAV properties are metadata used to describe an object, such as the last modified time or the author."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:227
+# f32fb3db6405474cb1bd2b225d93fdaa
+msgid "``Resource.PROPFIND()`` parses the request and then looks for a ``propertysheets`` attribute on self."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:230
+# 9f6b4a44d4b94f13abf490516536a2fd
+msgid "If an ``allprop`` request is received, it calls ``dav__allprop()``, if available, on each property sheet. This method returns a list of name/value pairs in the correct WebDAV XML encoding, plus a status."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:234
+# abf64605c1d245ad8b66d4ed497d9636
+msgid "If a ``propnames`` request is received, it calls ``dav__propnames()``, if available, on each property sheet. This method returns a list of property names in the correct WebDAV XML encoding, plus a status."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:238
+# 6145686a7f044a98a87a65b5ac7cdbb2
+msgid "If a ``propstat`` request is received, it calls ``dav__propstats()``, if available, on each property sheet, for each requested property. This method returns a property name/value pair in the correct WebDAV XML encoding, plus a status."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:243
+# c1642773d7b04380a074caf9f8059194
+msgid "The ``PropertyManager`` mixin class defines the ``propertysheets`` variable to be an instance of ``DefaultPropertySheets``. This in turn has two property sheets, ``default``, a ``DefaultProperties`` instance, and ``webdav``, a ``DAVProperties`` instance."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:248
+# f385a865c8e44607b0989a637b81df1b
+msgid "The ``DefaultProperties`` instance contains the main property sheet. This typically has a ``title`` property, for example."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:251
+# 8af3fc4f1f994ff4a61aa3792c849a89
+msgid "``DAVProperties`` will provides various core WebDAV properties. It defines a number of read-only properties: ``creationdate``, ``displayname``, ``resourcetype``,  ``getcontenttype``, ``getcontentlength``, ``source``, ``supportedlock``, and ``lockdiscovery``. These in turn are delegated to methods prefixed with ``dav__``, so e.g. reading the ``creationdate`` property calls ``dav__creationdate()`` on the property sheet instance. These methods in turn return values based on the property manager instance (i.e. the content object). In particular:"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:261
+# 464558d65c444b198c7606d553d31b73
+msgid "returns a fixed date (January 1st, 1970)."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:263
+# fe607e6824404b9caa351e12e6459462
+msgid "returns the value of the ``title_or_id()`` method"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:265
+# 60dbccdb5700446e8ec9660abe7aae68
+msgid "returns an empty string or <n:collection/>"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:267
+# 5b5d7d2aa18e4d678c1fdb5c37e669a0
+msgid "returns the ZODB modification time"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:269
+# 45c13350de344176b6ba511a6167d9e8
+msgid "delegates to the ``content_type()`` method, falling back on the ``default_content_type()`` method. In Dexterity, ``content_type()`` is implemented to look up the ``IRawReadFile`` adapter on the context and return the value of its ``mimeType`` property."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:274
+# a7749f8045424c0d93d3e53d808ce176
+msgid "delegates to the ``get_size()`` method (which is also used for the \"size\" column in Plone folder listings). In Dexterity, this looks up a ``zope.size.interfaces.ISized`` adapter on the object and calls ``sizeForSorting()``. If this returns a unit of ``'bytes'``, the value portion is used. Otherwise, a size of 0 is returned."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:280
+# 51fb4c56ac2e47e9b994d260f47c971c
+msgid "returns a link to ``/document_src``, if that attribute exists"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:282
+# f6ba93edb9924a69a3350d12d3332eb1
+msgid "indicates whether ``IWriteLock`` is supported by the content item"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:284
+# 1db144b5c47248b788a864014cc5a398
+msgid "returns information about any active locks"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:286
+# e0f529ae6dae41a28fabc0fd668627f2
+msgid "Other properties in this and any other property sheets are returned as stored when requested."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:289
+# 5718c1fadba14efda2cbd0efcbcd1c68
+msgid "If the ``PROPFIND`` request specifies a depth of 1 or infinity (i.e. the client wants properties for items in a collection), the process is repeated for all items returned by the ``listDAVObjects()`` methods, which by default returns all contained items via the ``objectValues()`` method."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:297
+# 7339e770637c4ff286b25db7ee357f08
+msgid "``PROPPATCH``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:299
+# 674e50ce16de40ea8dc9a1684e726bc4
+msgid "A ``PROPPATCH`` request is used to update the properties on an existing object."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:301
+# 15ad2242bb374cf0a13a6eea4991ec5c
+msgid "``Resource.PROPPATCH()`` deals with the same types of properties from property sheets as ``PROPFIND()``. It uses the ``PropertySheet`` API to add or update properties as appropriate."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:306
+# 353b1bd8d8994d2ebc28410e51669086
+msgid "``MKCOL``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:308
+# 89a35306e4f644dfa3f3b51dbea8ff2a
+msgid "A ``MKCOL`` request is used to create a new collection resource, i.e. create a new folder."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:311
+# 4b1e07b125cf4bb8b635fa7b9b8bd01c
+msgid "``Resource.MKCOL()`` raises 405 Method Not Allowed, because the resource already exists (remember that in WebDAV, the ``MKCOL`` request, like a ``PUT`` for a new resource, is sent with a location that specifies the desired new resource location, not the location of the parent object)."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:316
+# 2f6512bd661642a8a9a905f11727390c
+msgid "``NullResource.MKCOL()`` handles the valid case where a ``MKCOL`` request has been sent to a new resource. After checking that the resource does not already exist, that the parent is indeed a collection (folderish item), and that the parent is not locked, it calls the ``MKCOL_handler()`` method on the parent folder."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:322
+# a38f7a9d665741e49bf46fb3399ae2f4
+msgid "In Dexterity, ``MKCOL()_handler`` is overridden to adapt self to an ``IDirectoryFactory`` from ``zope.filerepresentation`` and use this to create a directory. The default implementation simply calls ``manage_addFolder()`` on the parent. This will create an instance of the ``Folder`` type."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:328
+# fc7738091e364cefaccc95dfe35afc9f
+msgid "``COPY``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:330
+# 4efa454290a64232ab0b3aadfd6489e5
+msgid "A ``COPY`` request is used to copy a resource."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:332
+# a3b6e33e1e674b6dab92b3caa1a60395
+msgid "``Resource.COPY()`` implements this operation using the standard Zope content object copy semantics."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:336
+# aec9afd379b8454098aff856e3bc2600
+msgid "``MOVE``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:338
+# 0fa7df7f188443aabd18f24cb2ff8366
+msgid "A ``MOVE`` request is used to relocate or rename a resource."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:340
+# 70243fa4d2294533a90eec6fdcad41f4
+msgid "``Resource.MOVE()`` implements this operation using the standard Zope content object move semantics."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:344
+# f0df4a2446a641de8d212b8b6d603cda
+msgid "``LOCK``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:346
+# 46c95c60074843f299ae6bf03d758f30
+msgid "A ``LOCK`` request is used to lock a content object."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:348
+# e6ebcf793c734a42b79c508d3c703bb9
+msgid "All relevant WebDAV methods in the ``webdav`` package are lock aware. That is, they check for locks before attempting any operation that would violate a lock."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:353
+# c6979ddb8247479ea8fbe7b29e59a0f1
+msgid "Also note that ``plone.locking`` uses the lock implementation from the ``webdav`` package by default."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:356
+# 7980dd02a06f4db680722ca95b318f8f
+msgid "``Resource.LOCK()`` implements locking and lock refresh support."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:358
+# 3fa63453bfe64c158209c0bb403d94e2
+msgid "``NullResource.LOCK()`` implements locking on a ``NullResource``. In effect, this means locking the name of the non-existent resource. When a ``NullResource`` is locked, it is temporarily turned into a ``LockNullResource`` object, which is a persistent object set onto the parent (remember that a ``NullResource`` is a transient object returned when a child object cannot be found in a WebDAV request)."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:366
+# c7d81165dfb546dfb88641c5403d2d1e
+msgid "``UNLOCK``"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:368
+# c47ce8e7f24a448d9fad8a793d432f77
+msgid "An ``UNLOCK`` request is used to unlock a locked object."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:370
+# 6385866881a14af8bf2b74fa8ed88c02
+msgid "``Resource.UNLOCK()`` handles unlock requests."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:372
+# 515c97750f604dfd839d0c913cad9bcd
+msgid "``LockNullResource.UNLOCK()`` handles unlocking of a ``LockNullResource``. This deletes the ``LockNullResource`` object from the parent container."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:376
+# de306ae4f6184c838fb2deb514ab77dc
+msgid "Fields on container objects"
+msgstr ""
+
+#: ../../source/serving/webdav.rst:378
+# d2d7dc1ec2854cb0bfb6853cd5d72606
+msgid "When browsing content via WebDAV, a container object (folderish item) will appear as a folder. Most likely, this object will also have content in the form of schema fields. To make this accessible, Dexterity containers expose a pseudo-file with the name '_data', by injecting this into the return value of ``listDAVObjects()`` and adding a special traversal hook to allow its contents to be retrieved."
+msgstr ""
+
+#: ../../source/serving/webdav.rst:385
+# cfb75cfa79dc401fa59c84d9d25db9c8
+msgid "This pseudo-file supports ``HEAD``, ``GET``, ``PUT``, ``LOCK``, ``UNLOCK``, ``PROPFIND`` and ``PROPPATCH`` requests (an error will be raised if the user attempts to rename, copy, move or delete it). These operate on the container object, obviously. For example, when the data object is updated via a ``PUT`` request, the ``PUT()`` method on the container is called, by default delegating to an ``IRawWriteFile`` adapter on the container."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:3
+# 574ea25de5f348e0963d8d79e61ff0a0
+msgid "XML-RPC"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:9
+# 8377371fd7fb406fb4a07eb494605bff
+msgid "Using XML-RPC remote call protocol to manipulate Plone site."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:14
+# 81f388b5a1ff4da4a64824e40d7132db
+msgid "Zope provides transparent XML-RPC support for any traversable object."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:26
+#: ../../source/serving/xmlrpc.rst:61
+# f3bd2ae3c9e34f9593935f4420a6e2ec
+# b4070a5e85c145e094cb55e9fc323ca4
+msgid "Zope object handles are not transferable across function call boundaries. Thus, you can only call functions with primitive arguments. If you need to call function with object arguments you need to create server side helper code first."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:31
+# 7ac8644c1f4a48fb8e057e17fe4a0cfe
+msgid "For more information see"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:33
+# a7ee9f59c1a746318b9852acd47f98cb
+msgid "transmogrifier.ploneremote"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:36
+# c8f6b46b16794071bd2f1909f281894e
+msgid "Authentication"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:38
+# 4d1a59f3e54745faa0cb7f5c63a250ef
+msgid "The simplest way to authenticate the user for XML-RPC calls is to embed HTTP Basic Auth data to URL::"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:49
+# 6618b905f51545709f4f3e859a5eaab5
+msgid "ZPublisher client"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:51
+# a38b2fb1e618436e996585f2fcbfb338
+msgid "XML-RPC does not marshal objects reliable between remote calls. Getting the real remote object can be done with ZPublisher.Client.Object."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:56
+# 17694051d177428f9b6c32344a4670fc
+msgid "This approach works only for Python clients and needs Zope libraries available at the client side."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:66
+# 43647bd584644744983bf373d2db1794
+msgid "http://svn.zope.org/Zope/tags/ajung-final-zpt-integration-before-merge-savepoint/utilities/load_site.py?rev=67269&view=auto"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:68
+# 741fe504eb8b45c88ba53eda62b79a45
+msgid "http://maurits.vanrees.org/weblog/archive/2009/10/lighting-talks-friday#id2"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:72
+# 039940a3c21e4b5f8a3a0604982648b6
+msgid "Web Services API for Plone (wsapi4plone)"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:74
+# 448071b5a77e4497a4b5e91de0d81436
+msgid "This is an add-on product exposes more methods available through Zope's XML-RPC api."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:77
+# 8cc96d15902845368b904bf28c31b271
+msgid "http://plone.org/products/wsapi4plone.core"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:80
+# cf20d2aaaaa34a4eafe83eb5b432cb92
+msgid "Importing an Image Using WSAPI"
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:82
+# 780e4aaf863241889e38481ee9f3e99c
+msgid "In the following example we retrieve, from the 'Pictures' folder, an image called 'red-wine-glass.jpg', post it to a folder called 'ministries' and give it the name 'theimage'."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:100
+# 5fb1851fda144400873c962314465ddf
+msgid "For more information see `wsapi4plone.core <http://plone.org/products/wsapi4plone.core/>`_ add-on product adds XML-RPC operations support for Plone."
+msgstr ""
+
+#: ../../source/serving/xmlrpc.rst:109
+# ea46ae8e607c4f398e1500d2a312c0a4
+msgid "http://www.zope.org/Members/Amos/XML-RPC"
+msgstr ""
+

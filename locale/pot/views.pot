@@ -1,0 +1,2116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-08 16:49\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/views/browserviews.rst:3
+# c75fcbc595e24073a0b75d08ec577c51
+msgid "Views"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:7
+# 46b64a4d6b7241d0883e7b6e9b3a800e
+msgid "Rendering HTML pages in Plone using the Zope 3 *view* pattern."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:12
+#: ../../source/views/layers.rst:13
+#: ../../source/views/viewlets.rst:13
+# fdce767582d9480786a458cda7bda458
+# e3a0add6a26a4610ab56cbbeebcb3df1
+# fd07009157f1402a80b4cb21734c6e14
+msgid "Introduction"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:14
+# 224ba2c030fd43fdb208183a5cebdcce
+msgid "Plone/Zope uses a *view* pattern to output dynamically generated HTML pages."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:16
+# f996695ab7c94c4ea2c8e151131bec72
+msgid "*Views* are the basic elements of modern Python web frameworks. A view runs code to setup Python variables for a rendering template. Output is not limited to HTML pages and snippets, but may contain :term:`JSON`, file download payloads, or other data formats."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:21
+# 785e5f1d99464de2b97801ef5549c946
+msgid "Views are usually a combination of:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:23
+# 21c7d063ed6d49d495f7aab3fe11f887
+msgid "a Python class, which performs the user interface logic setup, and a"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:24
+# 6deb80a24f1947958360e9ad6629e185
+msgid "corresponding :term:`ZPT` page template, or direct Python string output."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:26
+# 6ff7ed35872242aa90311ea7e3e67827
+msgid "By keeping as much of the view logic in a separate Python class as we can and making the page template as simple as possible, better component readability and reuse is achieved. You can override the Python logic or the template file, or both."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:31
+# 2617dabdaa074d4a9db0024ebe01d486
+msgid "When you are working with Plone, the most usual view type is ``BrowserView`` from the `Products.Five`_ package, but there are others."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:34
+# 815c97e15a81435687fc669360f26643
+msgid "Each ``BrowserView`` class is a Python callable. The ``BrowserView.__call__()`` method acts as an entry point to executing the view code. From Zope's point of view, even a function would be sufficient, as it is a callable."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:40
+# e5df359b434c46388549cdb2e83df977
+msgid "Plain Zope 3 vs. Grok"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:42
+# da246e72e57b4ea2b216a4b9399e1a77
+msgid "Views were introduced in Zope 3 and made available in Plone by way of the `Products.Five`_ package, which provides some Plone/Zope 2 specific adaptation hooks to the modern Zope 3 code base.  However, Zope 3's way of XML-based configuration using :term:`ZCML` and separating things to three different files (Python module, ZCML configuration, TAL template) was later seen as cumbersome."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:49
+# 6d7d9a78b0e3473e981d0af29112ec46
+msgid "Later, a project called `Grok <http://grok.zope.org/>`_ was started to introduce an easy API to Zope 3, including a way to set up and maintain views. For more information about how to use Grok (found in the `five.grok`_ package) with Plone, please read the `Plone and Grok tutorial <http://plone.org/products/dexterity/documentation/manual/five.grok>`_."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:56
+# 769aa6da1615452c86946b55d65b63ff
+msgid "At the time of writing (Q1/2010), all project templates in Paster still use old-style Zope views."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:60
+#: ../../source/views/browserviews.rst:739
+#: ../../source/views/layers.rst:183
+# e39889f051a54f8c9ada200dadbc7e29
+# 11edbba26a954657a87725437c9e1461
+# 8fc1ab7394e549faafc85bf4be0061f4
+msgid "More information"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:62
+# f146c045814040bb9f51b4533d0c7c56
+msgid "`Zope view tutorial <http://plone.org/documentation/tutorial/borg/zope-3-views>`_."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:64
+# f67d86d6caed49dbb1763ae2e6be9ac1
+msgid "`Grok view tutorial <http://plone.org/products/dexterity/documentation/manual/five.grok/browser-components/views>`_."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:67
+# f8f48c6d42f345bebe4f30e7a5947fbf
+msgid "View components"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:69
+# 999d9c948b8a4324b6d84b1fef153351
+msgid "Views are Zope Component Architecture (:term:`ZCA`) *multi-adapter registrations*."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:72
+# 763a75b49740467b8bae6258f080ef28
+msgid "Views are looked up by name. The Zope publisher always does a view lookup, instead of traversing, if the name to be traversed is prefixed with ``@@``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:75
+# 2eca8f1ffa0e453cad2e3ed9e2a44347
+msgid "Views are resolved with three inputs:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:78
+# 8f7ef297f8ac4adf8044352c569ff344
+msgid "Any class/interface for which the view applies. If not given, ``zope.interface.Interface`` is used (corresponds to a registration ``for=\"*\"``). Usually this is a content item instance."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:83
+# 18b438755f664e3a939786549c08b53a
+msgid "The current HTTP request. Interface ``zope.publisher.interfaces.browser.IBrowserRequest`` is used."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:87
+# 60ec9675eb51436682d03e585a9b523b
+msgid "Theme layer and addon layer interface. If not given, ``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is used."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:90
+# 21a92ba7ba25475a95c0e964c32e32c7
+msgid "Views return HTTP request payload as the output. Returned strings are turned to HTML page responses."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:93
+# a70850faf2f34702b6494f2ebc5a81dc
+msgid "Views can be any Python class taking in (context, request) construction parameters. Minimal view would be::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:104
+# 0e26d8ed3eda41bf84738893d26fc31f
+msgid "However, in the most of cases"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:106
+# fe2a558a1afb445d8f82fba6b503dbe0
+msgid "Full Plone page views are subclass of `Products.Five.browser.BrowserView <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/__init__.py#L23>`_ which is a wrapper class. It wraps `zope.publisher.browser.BrowserView <https://github.com/zopefoundation/zope.publisher/blob/master/src/zope/publisher/browser.py#L896>`_ and adds an acquisition (parent traversal) support for it."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:110
+# e2c0fd9543374d4eb94ee9457c0ffcad
+msgid "Views have ``index`` attribute which points to :doc:`TAL page template </templates_css_and_javascripts/template_basics>` responsible rendering the HTML code. You get the HTML output by doing self.index() and page template gets a context argument ``view`` pointing to the view class instance. ``index`` value is usually instance of `Products.Five.browser.pagetemplate.ViewPageTemplateFile <https://github.com/zopefoundation/Zope/blob/master/src/Products/Five/browser/pagetemplatefile.py#L33>`_ (full Plone pages) or `zope.pagetemplate.pagetemplatefile.PageTemplateFile <https://github.com/zopefoundation/zope.pagetemplate/blob/master/src/zope/pagetemplate/pagetemplatefile.py#L40>`_ (HTML snippets, no acquisition)"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:117
+# ca20c328451a48238f304276bac8add6
+msgid "View classes should implement :doc:`interface </components/interface>` `zope.browser.interfaces.IBrowserView <https://github.com/zopefoundation/zope.browser/blob/master/src/zope/browser/interfaces.py#L27>`_"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:120
+# e702754eb94445c8b0340e8b5c579969
+msgid "Views rendering page snippets and parts can be subclasses of zope.publisher.browser.BrowserView directly as snippets might not need acquisition support which adds some overhead to the rendering process."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:124
+# f06394a4d56742e496944d44e666f1db
+msgid "Customizing views"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:126
+# 9b7dfa64737b4a7ebe494e4c6fdfb4b0
+msgid "To customize existing Plone core or add-on views you have different options."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:128
+# b920e9bfe9da4507b40f475737db226b
+msgid "Usually you can simply override the related page template file (``.pt``)."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:130
+# 1e8e6d967a8d4e67b6943302634e4c6d
+msgid "Sometimes you need to change the related Python view class code also. In this case, you override the Python class by using your own add-on which installs a view class replacement using add-on layer."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:135
+# fdb83bfd03104f6b99e37d9ebe007be8
+msgid "Overriding view template"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:137
+# 58da74d96db3486eb16ac3c977670d06
+msgid "Follow instructions how to :doc:`use z3c.jbot </templates_css_and_javascripts/template_basics>` to override templates."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:141
+# 3e0ed65efce044c0b835d4e287c54dac
+msgid "Overriding view class"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:143
+# 8257a9f66ca445aea93e71938deca498
+msgid "Here is a short introduction on finding how existing views are defined."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:145
+# adbba5ffb6cc42e6a65dc3ceb9068014
+msgid "First, you go to ``portal_types`` to see what views have been registered for a particular content type."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:148
+# f6cccae3f8b04335ab0328974523d04c
+msgid "For example, if you want to override the *Tabular* view of a *Folder*, you find out that it is registered as the handler for ``/folder_tabular_view``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:152
+# 2527250a84a34e0f9d8926ecbb82fd82
+msgid "So you look for both ``folder_tabular_view`` old-style page templates and ``@@folder_tabular_view`` BrowserView ZCML registrations in the Plone source tree |---| it can be either."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:156
+# 803bd7e6f7d141de99f6d5fd0df7e040
+msgid "Example of how to search for this using UNIX tools (assuming that `collective.recipe.omelette`_ is in use, to keep included code together):"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:166
+# 7e4718f9187d48c284f4ca205acb65f1
+msgid "The ``folder_tabular_view`` is found in the :doc:`skin layer </templates_css_and_javascripts/skin_layers>` called ``plone_content`` in the CMFPlone product."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:170
+#: ../../source/views/browserviews.rst:368
+#: ../../source/views/browserviews.rst:983
+# a3f7e1e7d2764017bd67999216aa64fa
+# 025433977be54b37972016588e1821ec
+# 2ab5d601c6b649cebb30a7a61cacfc51
+msgid "More info:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:172
+# 4672afe6f8a848f391563f98bb464079
+msgid ":doc:`How to override old style page templates </templates_css_and_javascripts/skin_layers>`"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:175
+# 4b2993d7112b48e89b9ba231c568af11
+msgid "Creating and registering a view"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:177
+# 382a266a3b6e4818911ad37e3bf50fb3
+msgid "This shows how to create and register view in a Zope 3 manner."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:180
+# 06a75e436e7c4659b0d2dcdca7283021
+msgid "Creating a view using Grok"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:182
+# 10f93d88209a4d0cb9aabdb9d9d6bad5
+msgid "This is the simplest method and recommended for Plone 4.1+ onwards."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:184
+# 3fedc41a5b7c486eb65f0f938adcae52
+msgid "First, create your add-on product using :doc:`Dexterity project template </getstarted/paste>`. The most important thing in the add-on is that your registers itself to :doc:`grok </components/grok>` which allows Plone to scan all Python files for ``grok()`` directives and furter automatically pick up your views (as opposite using old Zope 3 method where you manually register views by typing them in to ZCML in ZCML)."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:192
+# f62e0c83f88345388b9cacd003ff340c
+msgid "configure.zcml"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:194
+# eedf613dc499441f8bcfba29e35930ce
+msgid "First make sure the file ``configure.zcml`` in your add-on root folder contains the following lines. These lines are needed only once, in the root configuration ZCML file::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:216
+# 76a3dbf83f6641939da029a678d93105
+msgid "setup.py and buildout"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:218
+# 0bbe1c1bcd44491b901eba7296ffaa2b
+msgid "Either you need to have ``five.grok`` `registered in your buildout <http://plone.org/documentation/kb/installing-add-ons-quick-how-to>`_ or have :doc:`five.grok in your setup.py </components/grok>`. If you didn't add it in this point and run buildout again to download and install ``five.grok`` package."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:224
+# 487689c8b07e47e391fa3020c9baf0c1
+msgid "Python logic code"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:226
+# ea4e7667c6df4344a69902a7982b0bd6
+msgid "Add the file ``yourcompany.app/yourcompany/app/browser/views.py``::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:246
+# cc5a53f3552842749c694b9aa5dd88c7
+msgid "The view in question is not registered against any :doc:`layer </views/layers>`, so it is immediately available after restart without need to run :doc:`Add/remove in Site setup </components/genericsetup>`."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:250
+# 1a32a9a43e5f4f219666d83f748553c9
+msgid "The ``grok.context(Interface)`` statement makes the view available for every content item and the site root: you can use it in URLs like ``http://yoursite/news/newsitem/@@yourviewname`` or ``http://yoursite/news/@@yourviewname``. In the first case, the incoming ``self.context`` parameter received by the view would be the ``newsitem`` object, and in the second case, it would be the ``news`` container."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:257
+# ff1e07e5951c44f2bf7964d19c2d3166
+msgid "Alternatively, you could use the :doc:`content interface </content/types>` docs to make the view available only for certain content types. Example ``grok.context()`` directives could be::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:278
+# e168aa72e00f4cd1b397962cab80a67a
+msgid "Page template"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:280
+# 85cec18651ef43d08edea90da1947a2b
+msgid "Then create a :doc:`page template for your view. </templates_css_and_javascripts/template_basics>`. Create ``yourcompany.app/yourcompany/app/browser/templates`` and add the related template:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:298
+# c9f4d42373a54eaebb62d93e77e508a8
+msgid "Now when you restart to Plone (or use :doc:`auto-restart add-on </getstarted/index>`) the view should be available through your browser. After enabled, grok will scan all Python files for available files, so it doesn't matter what .py filename you use."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:304
+# c73f4f7952944765902ef7521e65c1da
+msgid "Content slots"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:306
+# a82cd05731d04d36b1d021958a3ccf39
+msgid "Available :doc:`slot </templates_css_and_javascripts/template_basics>` options you can use for ``<metal fill-slot=\"\">`` in your template which inherits from ``<html metal:use-macro=\"context/main_template/macros/master\">``:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:311
+# 8828f9469ca149fda5385587d9de2ec2
+msgid "render edit border yourself"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:314
+# fc5d08f931ee4dd4805050d0d668de88
+msgid "overrides main slot in main template; you must render title and description yourself"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:317
+# 516602b8e9e94b6db8740d6d0e7fcab0
+msgid "title and description prerendered, Plone version > 4.x"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:320
+# a2b228b1827949df8e3a63fb4e9e15b6
+msgid "content body specific to your view, Plone version > 4.x"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:323
+# a2bb9b4b0b9e4fb28f645098d028f6a4
+msgid "A slot for inserting content above the title; may be useful in conjunction with content-core slot if you wish to use the stock content-title provided by the main template."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:328
+# 61d3ad8f7f2c4714b27b413a31a48942
+msgid "Accessing your newly created view"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:330
+# e1b5eb7acb4b462b8c7e10d6838795db
+msgid "Now you can access your view within the news folder::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:334
+# 67caaacc3cbe41b495f1c897ce3e319b
+msgid "... or on a site root::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:338
+# ad7a595ab39b41be8c6827192a81dc3e
+msgid "... or on any other content item."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:340
+# 8bfbe99916414808a2c015b8723528bf
+msgid "You can also use the ``@@`` notation at the front of the view name to make sure that you are looking up a *view*, and not a content item that happens to have the same id as a view::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:346
+#: ../../source/views/viewlets.rst:43
+#: ../../source/views/viewlets.rst:153
+#: ../../source/views/viewlets.rst:186
+#: ../../source/views/viewlets.rst:305
+# 3ac489e8e0c148d6b95d2d88343b744c
+# 95dc951bdbe5449eb977bb0fdeb8be0e
+# 9f149438be68483b8b09fdaed0c7a4b1
+# e4a11affcf27411bbe9125f1da4610d0
+# 527e0c847741426eaf58b198b0938aa2
+msgid "More info"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:348
+#: ../../source/views/browserviews.rst:370
+# 14355321f1b4489dbc6f3474b9b5fea9
+# d1e0126e15a644fabe792fb7683cdf5a
+msgid "http://plone.org/products/dexterity/documentation/manual/five.grok/browser-components/views"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:350
+# c34f63c575a040c3a44f922c8510d585
+msgid "http://plone.org/documentation/kb/how-to-write-templates-for-plone-4"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:353
+# 71c1299edb1b42cf93e15d27377eb270
+msgid "Setting view permissions"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:355
+# 31085cdc2cbb4e2a95f9716eca12915e
+msgid "Use `grok.require <http://grok.zope.org/doc/current/reference/directives.html#grok-require>`_"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:357
+#: ../../source/views/browserviews.rst:375
+#: ../../source/views/browserviews.rst:855
+#: ../../source/views/browserviews.rst:877
+#: ../../source/views/layers.rst:213
+#: ../../source/views/layers.rst:334
+#: ../../source/views/layers.rst:349
+# 03c6d18dec204341a7e3476262c571b3
+# aaccf88969c94e1a93852d79b5e70065
+# d039b6186cf84ce88e90104073cd421a
+# 855b9660a2024ef2bc289ea7a01e3d44
+# 61e9792d348d477582412d54343e40ce
+# f535bf66e8044699b7692d212c64f2c5
+# 2223fe0f65694a988557cb49b04f4512
+msgid "Example::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:366
+# b9b8d6ab711d4adfbdba3e8791fa00c2
+msgid "Use :doc:`available permissions in Zope 3 style strings </security/permission_lists>`."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:373
+# b41a325b32c74fa4a1fa19a5aa92be44
+msgid "Creating a view using ZCML"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:400
+# 4068aec0629f4a0792c4c3f9ae1a216c
+msgid "Do not attempt to run any code in the ``__init__()`` method of a view.  If this code fails and an exception is raised, the ``zope.component`` machinery remaps this to a \"View not found\" exception or traversal error."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:405
+# 197bcacd413143258df27f75f899556f
+msgid "Instead, use a pattern where you have a ``setup()`` or similar method which ``__call__()`` or view users can explicitly call."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:409
+# b08007c81d7d48b294ee95aca30b644d
+msgid "Registering a view"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:411
+# ad281548b45d41b6b2534a0fc946382c
+msgid "Zope 3 views are registered in :term:`ZCML`, an XML-based configuration language.  Usually, the configuration file, where the registration done, is called ``yourapp.package/yourapp/package/browser/configure.zcml``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:415
+# cbb63bda4e534de789a730585bbf506d
+msgid "The following example registers a new view (see below for comments):"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:434
+# 06ff6b205f8d43b4984c876f5e2c9268
+msgid "specifies which content types receive this view. ``for=\"*\"`` means that this view can be used for any content type. This is the same as registering views to the ``zope.interface.Interface`` base class."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:440
+# 042c95bb58834cf3b7ccb9a8f59287df
+msgid "is the name by which the view is exposed to traversal and ``getMultiAdapter()`` look-ups. If your view's name is ``test``, then you can render it in the browser by calling http://yourhost/site/page/@@test"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:446
+# b13819a28f0c41b088d3de699020387e
+msgid "is the permission needed to access the view. When an HTTP request comes in, the currently logged in user's access rights in the current context are checked against this permission. See :doc:`Security chapter </security/permission_lists>` for Plone's out-of-the-box permissions. Usually you want have ``zope2.View``, ``cmf.ModifyPortalContent``, ``cmf.ManagePortal`` or ``zope2.Public`` here."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:455
+# 22775648d69d4fe0bacc687ea4624088
+msgid "is a Python dotted name for a class based on ``BrowserView``, which is responsible for managing the view. The Class's ``__call__()`` method is the entry point for view processing and rendering."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:459
+# c32bc754a3e24da7af99a4e4c9c601fc
+msgid "You need to declare the ``browser`` namespace in your ``configure.zcml`` to use ``browser`` configuration directives."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:463
+# 62403fb4881c43b3aa4766f26ab5ecc4
+msgid "Relationship between views and templates"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:465
+# 656494fdf1504e55873efc469e6c341f
+msgid "The ZCML ``<browser:view template=\"\">`` directive will set the ``index`` class attribute."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:468
+# 3c3d9de2f5474d9cabfb740ea6b9eaca
+msgid "The default view's ``__call__()`` method will return the value returned by a call to ``self.index()``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:471
+# 957852d07aad40a4b1c1c4e57bb95511
+msgid "Example: this ZCML configuration:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:482
+#: ../../source/views/browserviews.rst:500
+# ab136f718dab4546b2fa8f452c24b5d9
+# ff77fb4be0724999af7c2e76ecf340f8
+msgid "and this Python code::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:490
+# 20547b753b994931bbfd85f88ed166d5
+msgid "is equal to this ZCML configuration::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:505
+# 18fcebccf6eb4a018c30c8c7974eb9f3
+msgid "Rendering of the view is done as follows::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:521
+# c154190e894e442782ecb8ef95da6bda
+msgid "Overriding a view template at run-time"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:523
+# 26beeff57e0d4bf9bdf4c46a069696c9
+msgid "Below is a sample code snippet which allows you to override an already constructed ``ViewPageTemplateFile`` with a chosen file at run-time::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:542
+# c56fdeb1775c4639aefb5eb08df5d182
+msgid "Several templates per view"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:544
+# a5665875a8204e46a97ad7b0944823d4
+msgid "You can bind several templates to one view and render them individually. This is very useful for reusable templating, or when you subclass your functional views."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:548
+# 665ea6700d484a8583374fa164e8123e
+msgid "Example using `five.grok`_::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:558
+# 1a926357c26e457d88c7039d2051e02e
+msgid "And then call in the template:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:567
+# 5d7c50fca42c4be4902bf26533e3351e
+msgid "View ``__init__()`` method special cases"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:569
+# df7c39ed52d84de3ac5718b0f22d0118
+msgid "The Python constructor method of the view, ``__init__()``, is special. You should never try to put your code there. Instead, use helper method or lazy construction design pattern if you need to set-up view variables."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:573
+# f14cb02807584bddb65f424fd007217f
+msgid "The ``__init__()`` method of the view might not have an :doc:`acquisition chain </serving/traversing>` available, meaning that it does not know the parent or hierarchy where the view is. This information is set after the constructor have been run. All Plone code which relies on acquisition chain, which means almost all Plone helper code, does not work in ``__init__()``. Thus, the called Plone API methods return ``None`` or tend to throw exceptions."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:583
+#: ../../source/views/layers.rst:3
+# 9cb71dcaad544de69953bdbd6359433e
+# ca81531f8e604ffaa0996c0a672b9fcf
+msgid "Layers"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:585
+# 7e3207926c2b4a5abd5491cc6b727ff4
+msgid "Views can be registered against a specific *layer* interface. This means that views are only looked up if the specified layer is in use. Since one Zope application server can contain multiple Plone sites, layers are used to determine which Python code is in effect for a given Plone site."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:590
+# 45f1c6b6020a4e08b4552ba959398937
+msgid "A layer is in use when:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:592
+# 01b583acbb7d4cb8868404e935ef580c
+msgid "a theme which defines that layer is active, or"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:593
+# 50ef2df3a2664121b989bd9dff958aa8
+msgid "if a specific add-on product which defines that layer is installed."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:595
+# 781c664d56a7462381a2756f16018af9
+msgid "You should normally register your views against a certain layer in your own code."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:598
+# 8a7cdd47072e499eac91fae6550b87a8
+msgid "For more information, see"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:600
+# 57a058559e304f6f980745ba71642e0d
+msgid ":doc:`browser layers </views/layers>`"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:603
+# 57551da2f2884cd2820a9fe130be2cd5
+msgid "Register and unregister view directly using zope.component architecture"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:605
+# 44b3deb12f0443b48ccc59d9d727efce
+msgid "Example how to register::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:622
+# 0673824645b14a33b920b29d3d17a3fd
+msgid "Example how to unregister::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:633
+# 9a2177f33d4e44e2916eddd6ce381846
+msgid "Content type, mimetype and Template start tag"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:635
+# fbfd20ae61e24691850a8c9780f5bd19
+msgid "If you need to produce non-(X)HTML output, here are some resources:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:637
+# 71c48f39133d4bd0adc2946f0f6173ff
+msgid "http://plone.293351.n2.nabble.com/Setting-a-mime-type-on-a-Zope-3-browser-view-td4442770.html"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:640
+# 4820fed59ec34c07b09594f354c2d0ba
+msgid "Zope ViewPageTemplateFile vs. Five ViewPageTemplateFile"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:642
+# 8f4427fd77bf4e5db4bddba0003847c5
+msgid "There are two different classes that share the same ``ViewPageTemplateFile`` name."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:645
+# 8149ab7c94f04752a69f8f7b807e3cfb
+msgid "Zope  `BrowserView source code <http://svn.zope.org/zope.publisher/trunk/src/zope/publisher/browser.py?rev=101538&view=auto>`_."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:647
+# d53317a961ee4bf183961e1833633930
+msgid "`Five version  <http://svn.zope.org/Zope/trunk/src/Products/Five/browser/__init__.py?rev=96262&view=markup>`_. `Products.Five`_ is a way to access some Zope 3 technologies from the Zope 2 codebase, which is used by Plone."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:651
+# 0ccdd3d539a748689bfadca444ffa604
+msgid "Difference in code::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:655
+# 208117b7a4b64c93b4e46d5abc4bf832
+msgid "vs.::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:660
+# 6e9889b86d5346a8893d2b59847bc765
+msgid "The difference is that the *Five* version supports:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:662
+# 0e7e4159da08400e80d9dfc090439645
+msgid "Acquisition."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:663
+# ae93a4c78648407c81c22dcb12254640
+msgid "The ``provider:`` TAL expression."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:664
+# 5ccdd6bff70d4509ac1f9ee908cfc612
+msgid "Other Plone-specific TAL expression functions like ``test()``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:665
+# 5811a27e35fc4efb938c5b18a59c0932
+msgid "Usually, Plone code needs the Five version of ``ViewPageTemplateFile``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:666
+# 82dfc18d990241b9a35b6ff23954d668
+msgid "Some subsystems, notably the ``z3c.form`` package, expect the Zope 3 version of ``ViewPageTemplateFile`` instances."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:671
+# 78783eee28cd46b0b0693c72191e7e55
+msgid "Overriding a view class in a product"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:673
+# 519d690d9e5d4633bc1a38bb47b74d0b
+msgid "Most of the code in this section is copied from a `tutorial by Martin Aspeli (on slideshare.net) <http://www.slideshare.net/wooda/martin-aspeli-extending-and-customising-plone-3>`_. The main change is that, at least for Plone 4, the interface should subclass ``plone.theme.interfaces.IDefaultPloneLayer`` instead of ``zope.interface.Interface``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:680
+# 128de9e70b2e4444852f3da3a1e31116
+msgid "In this example we override the ``@@register`` form from the ``plone.app.users`` package, creating a custom form which subclasses the original."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:684
+# 6637a489eb974c158a0641b7e3e9fa48
+msgid "Create an interface in ``interfaces.py``::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:692
+# c48a2bfd34424c6fa972dd37a197b7c3
+msgid "Then create ``profiles/default/browserlayer.xml``:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:703
+# eea311b1a95748c191c447c4baa9276c
+msgid "Create ``browser/configure.zcml``:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:719
+# ebf7b764afa147ed92474f84ea77fe5d
+msgid "Create ``browser/customregistration.py``::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:728
+# fcb6788577694aac80f4ad001b0fa33b
+msgid "Helper views"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:730
+# b7a46c357be34ef1a5a747befb06aad3
+msgid "Not all views need to return HTML output, or output at all. Views can be used as helpers in the code to provide APIs to objects. Since views can be overridden using layers, a view is a natural plug-in point which an add-on product can customize or override in a conflict-free manner."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:735
+# eba01fcb43e147abbd7cd27b6ad9591e
+msgid "View methods are exposed to page templates and such, so you can also call view methods directly from a page template, not only from Python code."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:741
+# f6cfc1555fd34d5197169b2b2b9052f1
+msgid ":doc:`Context helpers </misc/context>`"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:743
+# 1e78c56e2b424584b8037f65379a1c18
+msgid ":doc:`Expressions </functionality/expressions>`"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:746
+# 24cc743e12be49ecbeddd6dcf7287547
+msgid "Historical perspective"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:748
+# ceb9755ac03a4ec8b4e0f8a353666bf4
+msgid "Often, the point of using helper views is that you can have reusable functionality which can be plugged in as one-line code around the system. Helper views also get around the following limitations:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:752
+# d226e1ae5b004452af0fe6339a796261
+msgid "TAL security."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:753
+# 91017d0aecde4bc090e2466f78169b78
+msgid "Limiting Python expression to one line."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:754
+# 7e5bb442a53e4a4da5f55c04dc1e4393
+msgid "Not being able to import Python modules."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:758
+# c7539e09fafe4340bb3f31c91500427b
+msgid "Using ``RestrictedPython`` scripts (creating Python through the :term:`ZMI`) and Zope 2 Extension modules is discouraged. The same functionality can be achieved with helper views, with less potential pitfalls."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:764
+# 5b2583d6cb2e4a64aab06c9ec101d29b
+msgid "Reusing view template snippets or embedding another view"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:766
+# fc06eb8da72541cf92adaa622facd118
+msgid "To use the same template code several times you can either:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:768
+# 08a7ef48700341b989a0a359c9700ba3
+msgid "create a separate ``BrowserView`` for it and then call this view (see `Accessing a view instance in code`_ below);"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:771
+# 95e7be8cd42742328deeaab981d45168
+msgid "share a ``ViewPageTemplate`` instance between views and using it several times."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:776
+# 52f5961a716248a59a21a2fb26b65f8b
+msgid "The Plone 2.x way of doing this with TAL template language macros is discouraged as a way to provide reusable functionality in your add-on product. This is because macros are hardwired to the TAL template language, and referring to them outside templates is difficult."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:782
+# 3d4696c6bef14a50a587cc56a1f0e39f
+msgid "Also, if you ever need to change the template language, or mix in other template languages, you can do it much more easily when templates are a feature of a pure Python based view, and not vice versa."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:786
+# b424c6b398cd4a74ba938bc76f18e435
+msgid "Here is an example of how to have a view snippet which can be used by subclasses of a base view class. Subclasses can refer to this template at any point of the view rendering, making it possible for subclasses to have fine-tuned control over how the template snippet is represented."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:792
+# 1dfb2895489144d8a1078babe5ef1dfe
+msgid "Related Python code::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:814
+# d841b4c1feaa499cbfb743aac7953733
+msgid "Then you can render the summary template in the main template associated with ``ProductCardView`` by calling the ``renderSummary()`` method and TAL non-escaping HTML embedding."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:828
+# db166577ca3a4a89ae48ec030674a3e0
+msgid "The ``summarybox.pt`` itself is just a piece of HTML code without the Plone decoration frame (``main_template/master`` etc. macros).  Make sure that you declare the ``i18n:domain`` again, or the strings in this template will not be translated."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:840
+# f75b9348e681413fb90efc5b92bf24ee
+msgid "Accessing a view instance in code"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:842
+# 674841bd4c984633afcb4681da7fe1ea
+msgid "You need to get access to the view in your code if you are:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:844
+# d661b84a08f0461b88e0e41ba517f765
+msgid "calling a view from inside another view, or"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:845
+# 8ca3611ad5f54831bf675ebf3c9e0225
+msgid "calling a view from your unit test code."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:847
+# e905a627df4a40bbab4102c21cd096f5
+msgid "Below are two different approaches for that."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:851
+# 487ba2dec889447dbaca0c1e371e60f4
+msgid "By using ``getMultiAdapter()``"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:853
+# 539f5d1808804d4e9a65e8a6db8bf5fe
+msgid "This is the most efficient way in Python."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:871
+# 917734f135324ca79a7188c0011181bd
+msgid "By using traversal"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:873
+# 409c3f6e26894e3bbe11858ff5f8a8ea
+msgid "Traversal is slower than directly calling ``getMultiAdapter()``.  However, traversal is readily available in templates and ``RestrictedPython`` modules."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:895
+# 8a32d0e7d7e24a06be9c53d82a57a1a0
+msgid "You can also do direct view look-ups and method calls in your template by using the ``@@``-notation in traversing."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:906
+# d1d814176a6043f380c030c19e0e6d0d
+msgid "Use a skin-based template in a Five view"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:908
+# d9442d8bf2f443a694030158e41e3b05
+msgid "Use ``aq_acquire(object, template_name)``."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:910
+# 67908a7a94ab4feba2eccc0bc38fd7c8
+msgid "Example: Get an object by its path and render it using its default template in the current context."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:934
+# b20424f4107b437aa32bbc377b18e244
+msgid "Listing available views"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:936
+# 47a2f12df31e452e9bca706ede9a5c06
+msgid "This is useful for debugging purposes::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:945
+# 73819f1dd3de4ec2bb81435038417059
+msgid "Listing all views of certain type"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:947
+# 5409537ef67c45249c44f6745a4d7fd5
+msgid "How to filter out views which provide a certain interface::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:960
+# 363df780d76e44de8d3c942464fb4ede
+msgid "Default view of a content item"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:962
+# f7291a7aaebc4da8a03aa1405c39386e
+msgid "Objects have views for default, view, edit, and so on."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:964
+# 61fe58c5a5834f2bbc747dd9e151a167
+msgid "The distinction between the *default* and *view* views are that for files, the default can be *download*."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:967
+# 3c9eae3df3904e409a85b4371dcd8210
+msgid "The default view ..."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:969
+# 5beb23c48cd1448daf9335503270ba0f
+msgid "This view is configured in :doc:`portal_types </content/types>`."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:971
+# 7622af82b42c43cdba552ab2cd2b8e0e
+msgid "This view is rendered when a content item is called |---| even though they are objects, they have the ``__call__()`` Python method defined."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:975
+# f4fd1b6936b347509556dcbebc6a2bb9
+msgid "If you need to get a content item's view for page rendering explicitly, you can do it as follows::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:985
+# a1b10a67455d4bfd9dc1e6bdc7299084
+msgid ":doc:`Context helpers and utilities </misc/context>`"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:987
+# 295d0f4383f94ac8b1012495fa12d751
+msgid "http://plone.293351.n2.nabble.com/URL-to-content-view-tp6028204p6028204.html"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:991
+# 9f0ba7f218f241589fe3863368c03bd8
+msgid "Allowing the contentmenu on non-default views"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:993
+# 9a15f56bc96f4439b59c971456aad4fd
+msgid "In general, the contentmenu (where the actions, display views, factory types, workflow, and other dropdowns are) is not shown on non-default views. There are some exceptions, though."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:997
+# 6d1c0a371626448694c95134fcd14f25
+msgid "If you want to display the contentmenu in such non-default views, you have to mark them with the IViewView interface from plone.app.layout either by letting the class provide IViewView by declaring it with zope.component.implements or by configuring it via ZCML like so::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1008
+# 397b7a18f7b04d818472b26e49eff70c
+msgid "Views and automatic member variable acquisition wrapping"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1010
+# 8950cf935e734cd7baf7141afa8fac17
+msgid "View class instances will automatically assign themselves as a parent for all member variables. This is because ``five`` package based views inherit from ``Acquisition.Implicit`` base class."
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1013
+# 1cf221d20b2f46b08415c45c0d663dfb
+msgid "E.g. you have a ``Basket`` content item with ``absolute_url()`` of::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1017
+# 839a760fd34c40aaa4fce9f036a6ad04
+msgid "Then if you use this object in a view code's member variable assignment in e.g. ``Viewlet.update() method``::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1021
+# 87485ecd238e40ff818db551ce592c85
+msgid "... this will mess up the Basket content item's acquisition chain::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1025
+# 1cc2338f1e1a4e0c9addaf8555c90e5f
+msgid "This concerns views, viewlets and portlet renderers. It will, for example, make the following code to fail::"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1030
+# 879d84544b3d49c3ae77e4226307c3b0
+msgid "One workaround to avoid this mess is to use aq_inner when accessing self.obj values:"
+msgstr ""
+
+#: ../../source/views/browserviews.rst:1032
+# 69cc042d8fee42d6ad683e93e27f3d87
+msgid "http://stackoverflow.com/a/11755348/315168"
+msgstr ""
+
+#: ../../source/views/index.rst:3
+# 156e4275611747fc87651822a1a8e743
+msgid "Views, viewlets and layers"
+msgstr ""
+
+#: ../../source/views/index.rst:5
+# b0cefe2334d447bc9d3f446353093040
+msgid "View and viewlet patterns used to create dynamic pages in plone."
+msgstr ""
+
+#: ../../source/views/layers.rst:7
+# 39dbeb9d20aa400ba8f1c9464adfe181
+msgid "Layers allow you to easily enable and disable views and other site functionality based on installed add-ons and themes."
+msgstr ""
+
+#: ../../source/views/layers.rst:15
+# 62065c2d694d4ff4983d8f42a1b9787b
+msgid "Layers allow you to activate different code paths and modules depending on the external configuration."
+msgstr ""
+
+#: ../../source/views/layers.rst:18
+# 483f4ff15fb348eba22a351f91e357eb
+msgid "Examples:"
+msgstr ""
+
+#: ../../source/views/layers.rst:20
+# 253658c9b3ca40bf8f642955f3758e6f
+msgid "Code belonging to a theme is only active when that theme has been selected."
+msgstr ""
+
+#: ../../source/views/layers.rst:22
+# a028cf1557fd4557a92dcb7fedab7c25
+msgid "Mobile browsing code is only active when the site is being browsed on a mobile phone."
+msgstr ""
+
+#: ../../source/views/layers.rst:25
+# 704ff1152b974dc88078dd256f97f212
+msgid "Layers are marker interfaces applied to the HTTPRequest_ object. They are usually used in conjunction with :term:`ZCML` directives to dynamically activate various parts of the configuration (theme files, add-on product functionality)."
+msgstr ""
+
+#: ../../source/views/layers.rst:30
+# 74b3391cca7545db83929078277d4886
+msgid "Layers ensure that only one add-on product can override the specific Plone instance functionality in your site at a time, while still allowing you to have possibly conflicting add-on products in your buildout and ZCML. Remember that multiple Plone site instances can share the same ZCML and code files."
+msgstr ""
+
+#: ../../source/views/layers.rst:36
+# 04610f5ce3dc48288d88248d39dfb49c
+msgid "Many ZCML directives take the optional ``layer`` parameter. See example, resourceDirectory_"
+msgstr ""
+
+#: ../../source/views/layers.rst:39
+# 82c3cab751ed403b969fab402a7326b8
+msgid "Layers can be activated when an add-on product is installed or a certain theme is picked."
+msgstr ""
+
+#: ../../source/views/layers.rst:42
+# a85c2e8b299748eda39a9bf95f70512a
+msgid "For more information, read"
+msgstr ""
+
+#: ../../source/views/layers.rst:44
+# 36c6f5a8fddc40cfa7b2c87fbb2bfb5f
+msgid "`Making components theme specific <http://plone.org/documentation/manual/theme-reference/buildingblocks/components/themespecific>`_"
+msgstr ""
+
+#: ../../source/views/layers.rst:46
+# d053b0625b7b4ca79930999377568658
+msgid "`Browser Layer tutorial <http://plone.org/documentation/tutorial/customization-for-developers/browser-layers>`_."
+msgstr ""
+
+#: ../../source/views/layers.rst:48
+# a8d75a06969243479e23037ae56c1300
+msgid "`Zope 3 Developer Handbook, Skinning <http://zope3.xmu.me/skinning.html>`_"
+msgstr ""
+
+#: ../../source/views/layers.rst:51
+# 97016f35f3634cde87338170874c2a86
+msgid "Using layers"
+msgstr ""
+
+#: ../../source/views/layers.rst:53
+# f83569da17aa49d4b44ef8e951b3a6c4
+msgid "Some ZCML directives (for example: `browser:page <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/page/index.html>`_) take a ``layer`` attribute."
+msgstr ""
+
+#: ../../source/views/layers.rst:57
+# 73fbb8b6d549434b955c8f0109e0475e
+msgid "If you have:"
+msgstr ""
+
+#: ../../source/views/layers.rst:60
+# fc3fdeac866c4b0796bf52a19bbde31a
+msgid "Python code"
+msgstr ""
+
+#: ../../source/views/layers.rst:63
+# 8699d120ed87433d832e4ceb671eeffa
+msgid "site instance"
+msgstr ""
+
+#: ../../source/views/layers.rst:65
+# ecf65080cf0c4c5095afa1bcc0564de1
+msgid "then views and viewlets from your product can be enabled on the site instance using the following ZCML::"
+msgstr ""
+
+#: ../../source/views/layers.rst:78
+# 6c9d004e39884cc98009e1c94d817bf0
+msgid "Unconditional overrides"
+msgstr ""
+
+#: ../../source/views/layers.rst:80
+# 8ba9d75d2a944d2196ce460bb0b1c965
+msgid "If you want to override a view or a viewlet unconditionally for all sites without the add-on product installer support you need to use ``overrides.zcml``."
+msgstr ""
+
+#: ../../source/views/layers.rst:85
+# 45450ae21c3d4a92bfb0eb003ed7e98e
+msgid "Creating a layer"
+msgstr ""
+
+#: ../../source/views/layers.rst:88
+# 9305024ddb3b4c48b44a70be9dd4468e
+msgid "Theme layer"
+msgstr ""
+
+#: ../../source/views/layers.rst:90
+# 0d1a040238e542ee91a8ce441e882421
+msgid "Theme layers can be created via the following steps:"
+msgstr ""
+
+#: ../../source/views/layers.rst:92
+# b11a3210b38243aa9cbcae8c396d8280
+msgid "Subclass an interface from ``IDefaultPloneLayer``::"
+msgstr ""
+
+#: ../../source/views/layers.rst:104
+# bc2819e33e7f4b928262b14734f5667e
+msgid "Register it in ZCML. The name must match the theme name."
+msgstr ""
+
+#: ../../source/views/layers.rst:114
+# 55d2fa828f694f108210fb33783f2ac2
+msgid "Register and set your theme as the default theme in ``profiles/default/skins.xml``. Theme layers require that they are set as the default theme and not just activated on your Plone site. Example:"
+msgstr ""
+
+#: ../../source/views/layers.rst:131
+# 68e1e9b67aeb48a5b28b1331d05c0722
+msgid "Add-on layer"
+msgstr ""
+
+#: ../../source/views/layers.rst:133
+# 2be8bcd51e284ad682b2edff898e1ee3
+msgid "An add-on product layer is enabled when an add-on product is installed. Since one Zope application server may contain several Plone sites, you need to keep enabled code paths separate by using add-on layers - otherwise all views and viewlets apply to all sites in one Zope application server."
+msgstr ""
+
+#: ../../source/views/layers.rst:138
+# 8b8ba917e18c4d5fb764f66fea97e678
+msgid "You can enable views and viewlets specific to functional add-ons."
+msgstr ""
+
+#: ../../source/views/layers.rst:140
+# 80ebfde1134448c68c2d7b99d8faede1
+msgid "Unlike theme layers, add-on layers depend on the activated add-on products, not on the selected theme."
+msgstr ""
+
+#: ../../source/views/layers.rst:143
+# fe0aa696ec294c08a986e4e40d5af72b
+msgid "An add-on layer is a marker interface which is applied on the :doc:`HTTP request object </serving/http_request_and_response>` by Plone core logic."
+msgstr ""
+
+#: ../../source/views/layers.rst:147
+# f36af922c0e94ecdbe61d3ad29d45a73
+msgid "First create an :doc:`interface </components/interfaces>` for your layer in ``your.product.interfaces.py``::"
+msgstr ""
+
+#: ../../source/views/layers.rst:164
+# ff0f6f39ef994ee9a9702fc75a3f77a6
+msgid "You then need to refer to this in the ``profile/default/browserlayer.xml`` file of your add-on installer :doc:`setup profile </components/genericsetup>`:"
+msgstr ""
+
+#: ../../source/views/layers.rst:179
+# 73c0ce5cb5274f8ca63eef47c9bfec4c
+msgid "The add-on layer registry is persistent and stored in the database. The changes to add-on layers are applied only when add-ons are installed or uninstalled."
+msgstr ""
+
+#: ../../source/views/layers.rst:185
+# 08a972436a114dbe8d17167cb28172b0
+msgid "http://pypi.python.org/pypi/plone.browserlayer"
+msgstr ""
+
+#: ../../source/views/layers.rst:187
+# 05f347df8b43458db99d5aba7fdedb81
+msgid "See example in `LinguaPlone <https://github.com/plone/Products.LinguaPlone/tree/master/Products/LinguaPlone/profiles/default/browserlayer.xml>`_."
+msgstr ""
+
+#: ../../source/views/layers.rst:190
+# 9f262b92aa14407f804aa176d05a95f6
+msgid "Using layers (for customization)"
+msgstr ""
+
+#: ../../source/views/layers.rst:192
+# 4976163c1410484386c1dbeeb9c959ca
+msgid "The whole point of using layers is to enable someone else to override your :term:`ZCA` registrations (for example, to override a view). By subclassing a marker interface for some marker you can define a more specific adapter which will take precedence over the primary adapter."
+msgstr ""
+
+#: ../../source/views/layers.rst:198
+# 8fbef33b8fd54418bad17acb7530b7e1
+msgid "Manual layers"
+msgstr ""
+
+#: ../../source/views/layers.rst:200
+# afe71e84d04641cc8b72933195764d06
+msgid "Apply your layer to the HTTPRequest_ in the ``before_traverse`` hook or before you call the code which looks up the interfaces."
+msgstr ""
+
+#: ../../source/views/layers.rst:203
+# e79a98f9bd7145ca9398e52d98d81555
+msgid "Choosing skin layer dynamically 1: http://blog.fourdigits.nl/changing-your-plone-theme-skin-based-on-the-objects-portal_type"
+msgstr ""
+
+#: ../../source/views/layers.rst:205
+# 734d7baa4d1c4629aeb562cc06d0efa0
+msgid "Choosing skin layer dynamically 2: http://code.google.com/p/plonegomobile/source/browse/trunk/gomobile/gomobile.mobile/gomobile/mobile/monkeypatch.py"
+msgstr ""
+
+#: ../../source/views/layers.rst:207
+# 5a59ac9339a64194a1efd6011844d024
+msgid "See the `plone.app.z3cform.z2 <http://svn.zope.org/plone.z3cform/trunk/plone/z3cform/z2.py?rev=88331&view=markup>`_ module."
+msgstr ""
+
+#: ../../source/views/layers.rst:209
+# 692480d434bd441395aa154977091b84
+msgid "In the example below we turn on a layer for the request which is later checked by the rendering code. This way some pages can ask for special View/Viewlet rendering."
+msgstr ""
+
+#: ../../source/views/layers.rst:244
+# 8d62f0a5c7c5478596e7c06ba3731e29
+msgid "Problem with ``IDefaultBrowserLayer``"
+msgstr ""
+
+#: ../../source/views/layers.rst:246
+# 62fbbf72e3184042b4c182320d52f611
+msgid "``zope.publisher.interfaces.browser.IDefaultBrowserLayer`` is a problematic layer, because it takes precedence in the HTTP request multi-adapter look up (due to magic involving Plone themes)."
+msgstr ""
+
+#: ../../source/views/layers.rst:250
+# 9afc482cc46c4f68bc5ae1c86d6ea655
+msgid "Below is a dump of ``self.request.__provides__.__iro__`` for adding an extra form layer::"
+msgstr ""
+
+#: ../../source/views/layers.rst:261
+# 9b5ab92c204046ea8cd3952ec333fc35
+msgid "One would assume that the custom form layer (``IExperCashFormLayer``) is used and that it would take priority over the more generic ``IPloneFormLayer``. However, due to the involvement of ``IDefaultBrowserLayer`` when registering items using ``<browser:page for=\"*\">`` syntax, it does not."
+msgstr ""
+
+#: ../../source/views/layers.rst:267
+# e1f5cc580002470083e84fb209c67b30
+msgid "The fix is to make your custom layer to subclass ``IDefaultBrowserLayer``, as follows::"
+msgstr ""
+
+#: ../../source/views/layers.rst:278
+# 4eeae9db1623495ab0c30efcf39418e2
+msgid "We register a custom macro as follows:"
+msgstr ""
+
+#: ../../source/views/layers.rst:293
+# ba6ec95361ba45a0b270ad1ae81ea529
+msgid "Now, manual assignment works OK::"
+msgstr ""
+
+#: ../../source/views/layers.rst:305
+# 134e31e09f1a4b40a2f13f6598bd98ed
+msgid "(If this didn't make sense for you, don't worry. It doesn't make sense for me either.)"
+msgstr ""
+
+#: ../../source/views/layers.rst:308
+# ad9b20c2d147448ea95e4bfdfceba25a
+msgid "This is not helpful."
+msgstr ""
+
+#: ../../source/views/layers.rst:311
+# a354d30cd76e4158a1fa9eccd156f9cd
+msgid "Troubleshooting instructions for layers"
+msgstr ""
+
+#: ../../source/views/layers.rst:313
+# ff14bac6ad8b4ab8a408e9ff5ab1c2bc
+msgid "Check that your view or whatever is working without a layer assigned (globally);"
+msgstr ""
+
+#: ../../source/views/layers.rst:316
+# d2c5965f1abc4baba39e367c4696a45c
+msgid "Check that ``configure.zcml`` has a layer entry. Put some garbage to trigger a syntax error in ``configure.zcml`` to make sure that it is being loaded;"
+msgstr ""
+
+#: ../../source/views/layers.rst:320
+# 4021f22584de471a9133a8f479c28380
+msgid "Add-on layer: check that ``profiles/default/browserlayer.xml`` has a matching entry with a matching name;"
+msgstr ""
+
+#: ../../source/views/layers.rst:323
+# 3fd7ceb4dc884c03b1dd8ca552b60431
+msgid "Theme layer: if it's a theme layer, check that there is a matching ``skins.xml`` entry"
+msgstr ""
+
+#: ../../source/views/layers.rst:326
+# d0a2a70603dd4441aa2b7346e03882a9
+msgid "Check that layer name is correctly spelt in the view declaration."
+msgstr ""
+
+#: ../../source/views/layers.rst:329
+# 500c1b2725b94fd0a79c2cb5cddabdf3
+msgid "Checking active layers"
+msgstr ""
+
+#: ../../source/views/layers.rst:332
+# 7b4ca2183a1f4e2ead5cdbf307c0dce7
+msgid "Layers are activated on the current request object"
+msgstr ""
+
+#: ../../source/views/layers.rst:341
+# 1c9aa935a61348a687cab11d56266d96
+msgid "Active themes and add-on products"
+msgstr ""
+
+#: ../../source/views/layers.rst:343
+# f7d93ed8f9954b488c27dedeb841550a
+msgid "The ``registered_layers()`` method returns a list of all layers active on the site. Note that this is different to the list of layers which are applied on the current HTTP request object: the request object may contain manually activated layers."
+msgstr ""
+
+#: ../../source/views/layers.rst:362
+# 608b8e870f604c94807e910d5297aebd
+msgid "Getting active theme layer"
+msgstr ""
+
+#: ../../source/views/layers.rst:364
+# 0ef39eea57f048adb51ae42520349e62
+msgid "Only one theme layer can be active at once."
+msgstr ""
+
+#: ../../source/views/layers.rst:366
+# fa930112d54248c391f8e7a065276c8e
+msgid "The active theme name is defined in ``portal_skins`` properties. This name can be resolved to a theme layer."
+msgstr ""
+
+#: ../../source/views/layers.rst:370
+# 382e492df5ef439088c6c375f6bfa121
+msgid "Debugging active layers"
+msgstr ""
+
+#: ../../source/views/layers.rst:372
+# 92d3b9f15d1a44d38ce27e404306944b
+msgid "You can check the activated layers from HTTP request object by looking at ``self.request.__provides__.__iro__``. Layers are evaluated from zero index (highest priority) the last index (lowest priority)."
+msgstr ""
+
+#: ../../source/views/layers.rst:383
+# 88a9003b504b4cd0b22b107a5ff99c5c
+msgid "Testing Layers"
+msgstr ""
+
+#: ../../source/views/layers.rst:385
+# da4f41d5560e4ee8a78c61be73e34ad5
+msgid "Plone testing tool kits won't register layers for you, you have to do it yourself somewhere in the boilerplate code::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:3
+# ff844ea0f292424cb95ea64f21eb7e4c
+msgid "Tutorial: Overriding Viewlets"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:5
+# 782ebe5f66cd4e518878c6d28a332309
+msgid "This tutorial [1]_ describes two simple examples of overriding viewlets. To learn more about views and viewlets, see the Developer Manual section on `Views and Viewlets`_"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:9
+# 9d47f1c7ea5c4604810d88e056b4abfa
+msgid "Overriding the Logo"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:11
+# 49010e7ab9144cc5a74e0078b762b95b
+msgid "In this example, we override the logo for the site. I assume you have a theme product named my.theme with an IThemeSpecific interface."
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:13
+# fc448b1085954f6688876685694fc1a1
+msgid "Create an entry in browser/configure.zcml of your theme to override the viewlet.::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:24
+# 919f01424def49c1aa7ad5931aff877f
+msgid "Create a template file named logo.pt inside the browser directory that displays your logo image. It could contain something as simple as this.::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:34
+# 2a020d86c7a946e6b38336b75285bf0b
+msgid "Add your logo image to the browser/images directory of your theme. In this example, ++resource++my.theme.images/my_logo.png points to a file named my_logo.png inside the theme's browser/images resource directory."
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:38
+# 347c3e48d09841ad957ffb042787cbe7
+msgid "Overriding the Title"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:40
+# 16145f0148fb4ca2adf81aa8341dc717
+msgid "In this example we override the view class associated with the title viewlet. I assume you have a theme product with an IThemeSpecific interface."
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:42
+# 32e0d67880b44fcbbde79c4a74abe8ac
+msgid "Create an entry in browser/configure.zcml of your theme to override the view class.::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:52
+# 9a388242ca4044adae69392026803471
+msgid "Create a class named TitleViewlet inside browser/common.py of your theme containing code to return the appropriate title.::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:65
+# df0d9ef469424f6699eb0a28e030a19b
+msgid "Discussion"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:68
+# de94569d321242af9816f88487bbfca3
+msgid "Overriding the logo"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:70
+# 9cc150b12a2c49fd824d270817f892d2
+msgid "To override a viewlet in Plone, you need to know which viewlet to override. Using @@manage-viewlets is helpful here. It shows you all the viewlet managers on a page and the viewlets they contain."
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:72
+# 191319fbd08f4f3cb400d06caea646fa
+msgid "You can add /@@manage-viewlets to any url in your site and see the active viewlets there. Something like::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:76
+# effc778d94424024a152023e499a06dc
+msgid "Using this shows us that the logo is in the plone.logo Viewlet within the plone.portalheader ViewletManager"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:80
+# d8f697e4ddee456aad309ef5f39f08a9
+msgid "Viewlets are defined in the plone/app/layout/viewlets/configure.zcml file within the eggs area of your buildout. Looking inside that configure.zcml file we see::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:90
+# c7d838fcca0c404fa6e2df15e7e719f6
+msgid "Here's our overriding entry from above to compare::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:101
+# 7aa2d16cfb4d44e1bb11010c268e7981
+msgid "The name is the same as the item we are overriding. Notice that we give the full path to the manager, and that we are reusing the class. We also declare the name and location of our overriding template file, use our theme's interface, and set a permission."
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:105
+# 4e605d3fc89247709dc69a787fd6086c
+msgid "Overriding the title"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:107
+# 0a636115752f446dacd2579cf5556ff0
+msgid "Here is TitleViewlet from plone.app.layout. It has the page title on the left and the portal title on the right, with an emdash in between.::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:124
+# c70c9d3bb1524da1b7ef702ecc8a9584
+msgid "Here is an example for comparison that switches page title and portal title, and separates them with a pipe. The only differences are on the last line.::"
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:141
+# b4e5e2679b864ac79e667ef22bd40a76
+msgid "More information about the title tag can be found at the `HTML Head Title`_ page which is part of the `Plone Theme Reference`_."
+msgstr ""
+
+#: ../../source/views/more_view_examples.rst:144
+# 1a4ab1f8de2948038ecb15747c829998
+msgid "http://plone.org/author/spanky"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:3
+# 780c9b8ba89340aa89a1e94f330480f5
+msgid "Viewlets"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:7
+# de59f7b43b43418ab33579c35f3a510d
+msgid "Viewlets are parts of the page in Plone page rendering process. You can create, hide and shuffle them freely."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:15
+# 7614efe8a4144e66a065c5b6f316cff3
+msgid "Viewlets are view snippets which will render a part of the HTML page. Viewlets provide conflict-free way to contribute new user-interface actions and HTML snippets to Plone pages."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:19
+# 3495948705df460d8cdbdad94d4354c2
+msgid "Each viewlet is associated with a viewlet manager. To add viewlets to your HTML code you first need to add them to a viewlet manager, which allows you to shuffle viewlets around through-the-web."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:23
+# 38a91cb5094c40e3b77cb4d74acdfcbf
+msgid "What viewlets do"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:25
+# 28d2acbe1f9b40658249f128c5bc7bac
+msgid "Viewlets are managed using /@@manage-viewlets page"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:27
+# 527a645c55024a98863c1fae418caffb
+msgid "Viewlets can shown and hidden through-the-web"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:29
+# bd9c376fe56b48cb8c8a5f832d9387be
+msgid "Viewlets can be reordered (limited to reordering within container in Plone 3.x)"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:31
+# 046293d429bd4892a5c1b745e0a5c1d7
+msgid "Viewlets can be registered and overridden in a theme specific manner :doc:`using layers </views/layers>`"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:33
+# eb733f49491243a097319925dea49a77
+msgid "Viewlets have update() and render() methods"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:35
+# 89337e889c934d3599b59ce9408fb72f
+msgid "Viewlets should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:37
+# fecb00a5cbd14a6288d875ec2db5d4de
+msgid "A viewlet can be configured so that it is only available for:"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:39
+# c6e67901b88e46668add613a294163a1
+msgid "a certain interface, typically a content type (``for=`` in ZCML)"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:41
+# f8b1b7261aa444279bae9d94d4b52581
+msgid "a certain view (``view=`` in ZCML)"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:45
+# 4643f281e53e48748bee012dcf0c3609
+msgid "`Plone 4 Viewlet and viewlet manager reference <http://plone.org/documentation/manual/theme-reference/elements/elementsindexsunburst4>`_"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:47
+# 1cd0a865cba243b39cbb764bf08f1706
+msgid "`ZCML viewlet definition <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_browser/viewlet/index.html>`_."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:49
+# f4c4765acd244ca38938f25fcf5d1bf9
+msgid "http://pypi.python.org/pypi/zope.viewlet/"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:52
+# a7ba59909a1c454e930fc4a372c03e22
+msgid "Finding viewlets"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:54
+# d846349beff34ef2b578776482cdf973
+msgid "There are two through-the-web tools to start looking what viewlets are available on your installation. The available viewlets may depend on installed Plone version and installed add-ons."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:57
+# de38dd4ec3bf47b6b16917fb20766abb
+msgid "The ``portal_view_customizations`` tool in ZMI will show you viewlet registrations (and the viewlet managers they are registered for). As with views, you can hover over the viewlet name to see where it is registered in a tool tip."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:59
+# 35ed7252544d4ed1be1d877a2d3371ba
+msgid "To discover the name of a particular viewlet, you can use the @@manage-viewlets view, e.g. http://localhost:8080/plone/@@manage-viewlets."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:62
+# b27c4520937848638b235d4e29ec5fd7
+msgid "Creating a viewlet"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:64
+# 14cc206efae44539876e17f66265749f
+msgid "A viewlet consists of"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:66
+# 456e287731634f8388d4277c3c8567f2
+msgid "Python class"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:68
+# 9e5ea7a1eb524ffba5127a40d5436bc3
+msgid "Page template (.pt) file"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:70
+# be0147d31d5241f09f84ae3d052e4e13
+msgid "A :doc:`browser layer </views/layers>` defining which add-on product must be installed, so that the viewlet is rendered"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:72
+# f4f754504b984a64aab7830c9928ca08
+msgid "A related Grok or ZCML directives to register the viewlet to a correct viewlet manager with a correct layer"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:76
+# 504eb7bac8f84275a186ece9312c2440
+msgid "Re-using code from a View"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:78
+# 56cd1cb10b284ca6a856ebdae474ce71
+msgid "In the case where you might want a Viewlet and View to share the same code, remember that the View instance is available in the Viewlet under the ``view`` attribute."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:82
+# 3b2bf259dd134203a4b50c5b2d6172c1
+msgid "Thus, you can use ``self.view`` to get the view, and then use its methods."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:86
+# 7e826519501b4f3e85dbb5bc044fd71d
+msgid "Stock viewlets"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:88
+# f0f4cc3bc6b349c4a6d9fbe5a56987b2
+msgid "These can be found in `plone.app.layout.viewlet module <https://github.com/plone/plone.app.layout/blob/master/plone/app/layout/viewlets/configure.zcml>`_."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:90
+# 1b018c8c56134f1e91d04bb2fc18c52e
+msgid "The language selector lives in `plone.app.i18n.locales.browser <https://github.com/plone/plone.app.i18n/blob/master/plone/app/i18n/locales/browser/configure.zcml>`_, but it is a *view*. Don't know why."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:94
+# 828ec456d03c448fb58418a7fe91eb1c
+msgid "Creating a viewlet using Grok"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:96
+# b1bf1efa81d84c9d8a1214c147384fc0
+msgid ":doc:`Grok framework </components/grok>` allows you to register a viewlet easily using Python directives."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:98
+# d6926d2422cf4a21830a81c5e63f58db
+msgid "It is recommended that you use :doc:`Dexterity ZopeSkel add-on product code skeleton </getstarted/paste>` where you add this code."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:101
+# 7d5a553a7eb547cdae9ddbe7f0e31059
+msgid "Create *yourcomponent.app/yourcomponent/app/browser/viewlets.py*::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:145
+# df6cbe474eaa458ca121e6cf0aa50208
+msgid "Then create folder ``yourcomponent.app/yourcomponent/app/browser/templates`` where you add the related ``javascripthead.pt``:"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:155
+# 7e87882f3f354975a2ea41d9904ca042
+msgid "http://vincentfretin.ecreall.com/articles/using-five.grok-to-add-viewlets"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:158
+# 1bde2e875cb54edd96924a2d5bb6d768
+msgid "Creating a viewlet manager"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:160
+# cc9141a7dd614695adb94a681340ac12
+msgid "Viewlet managers contain viewlets. A viewlet manager is itself a Zope 3 interface which contains an OrdereredViewletManager implementation. OrderedViewletManagers store the order of the viewlets in the site database and provide the fancy /@@manage-viewlets output."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:165
+# 552ddb22ba3b48678b510ad2ff5eb965
+msgid "A viewlet manager can be rendered in a page template code using the following expression::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:169
+# 9e159f98da7c4ecfa0482f1176e93d36
+msgid "Each viewlet manager allows you to shuffle viewlets inside a viewlet manager. This is done by using ``/@@manage-viewlets`` view. These settings are stored in the site database, so a good practice is to export ``viewlets.xml`` using ``portal_setup`` and then include the necessary bits of this ``viewlets.xml`` with your add-on installer so that when your add-on is installed, the viewlet configuration is changed accordingly."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:178
+# 973a2aa0104641798b710e3c184b87d2
+msgid "You cannot move viewlets between viewlet managers. I know it sucks, but life is hard and Plone is harder. Hide viewlets in one manager using /@@manage-viewlets and viewlets.xml export, then re-register the same viewlet to a new manager."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:183
+# 333476e6c312493fa28f978b15c2bd91
+msgid "Viewlet managers are based on `zope.viewlet.manager.ViewletManager <http://svn.zope.org/zope.viewlet/trunk/src/zope/viewlet/manager.py?rev=113069&view=auto>`_ and `plone.app.viewletmanager.manager.OrderedViewletManager <https://github.com/plone/plone.app.viewletmanager/blob/master/plone/app/viewletmanager/manager.py>`_."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:188
+# 44b9335b8cc34804b014a897b530b231
+msgid "http://grok.zope.org/doc/current/reference/components.html?highlight=viewlet#grok.ViewletManager"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:190
+# 7b299554fa7c4edda7abd1d716dbf683
+msgid "http://svn.zope.org/zope.viewlet/trunk/src/zope/viewlet/viewlet.py?rev=113069&view=auto"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:192
+# 88a84229ca074e958e64cf04087384a1
+msgid "http://plone.org/documentation/manual/theme-reference/elements/viewletmanager/anatomy/"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:194
+# 5887c818dc57446ba488c6761845524f
+msgid "http://plone.org/documentation/kb/customizing-main-template-viewlets/viewlets-registration"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:197
+# 9171564413bd4620a7932237fd17078d
+msgid "Creating a viewlet manager: Grok way"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:199
+# 513446db9cd0498a861563c516970fa3
+msgid "Recommended if you want to keep the number of files and lines of XML and Python to a minimum."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:201
+# 19ebda93c0a843e29ead3363fffc925c
+msgid "An example here for related Python code::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:206
+# aef52b7f80734ed4aaa32dabc3c5a909
+msgid "Creating a viewlet manager: ZCML way"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:208
+# 0624a59f765e4c8d99c437687559007f
+msgid "For those who want to write XML."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:210
+# 7f659a39da8a4a999a43264fc8da4df7
+msgid "Usually viewlet managers are dummy interfaces and the actual implementation comes from ``plone.app.viewletmanager.manager.OrderedViewletManager``."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:213
+# 0fa69ccb004d46ba867fc1dd4c5a88d6
+msgid "In this example we put two viewlets in a new viewlet manager so that we can properly CSS float then and close this float."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:218
+# 60a4c12ce2354e6eb9c65ebb85ad069a
+msgid "This example uses extensive Python module nesting: plonetheme.yourtheme.browser.viewlets is just too deep. You really don't need to do some many levels, but the orignal plone3_theme paster templates do it in bad way. One of Python golden rules is that flat is better than nested. You can just dump everything to the root of your plonetheme.yourtheme package."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:224
+# 4c1be988f4154afba374f42617a64bf4
+msgid "In your ``browser/viewlets/manager.py`` or similar file add::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:235
+# 02c21c4aa6294039b22d9c2ac66036fe
+msgid "Then in ``browser/viewlets/configure.zcml``::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:245
+# 6e915882ebde4bd690c1abacc8c1e4ac
+msgid "Optionally you can include a template which renders some wrapping HTML around viewlets. *browser/viewlets/headerbottomviewletmanager.pt*::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:263
+# 6713b414c3f140b1ab8692cebe3bc2e1
+msgid "And then re-register some stock viewlets against your new viewlet manager in *browser/viewlets/configure.zcml*::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:288
+# 150bc451d5cd4ff3b62ff8376920eb0c
+msgid "Now, we need to render our viewlet manager somehow. One place to do it is in a ``main_template.pt``, but because we need to add this HTML output to a header section which is produced by *another* viewlet manager, we need to create a new viewlet just for rendering our viewlet manager. Yo dawg - we put viewlets in your viewlets so you can render viewlets!"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:293
+# d98396d7762d46d095dd1672d831335d
+msgid "``browser/viewlets/headerbottom.pt``::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:300
+# 0e0a5ff0598a47fd826ba33d6db87ce9
+msgid "Only six files needed to change a bit of HTML code - welcome to the land of productivity! On the top of this you also need to create a new ``viewlets.xml`` export for your theme."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:303
+# 50c35cf7da91448cbb6c24615808d3de
+msgid "After all this ZCML typing you probably should just look the grok example above."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:307
+# 3a1b59210bda4d81910f134aeecafd2f
+msgid "http://plone.org/documentation/manual/theme-reference/elements/viewletmanager/override"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:310
+# 3599666da390415eb448b7f1f209d17b
+msgid "Viewlet behavior"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:312
+# 2a3e0197ec41433fb9659201882bed3b
+msgid "Viewlets have two important methods"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:314
+# f1300d744c5d407f9f9e534864e2a98b
+msgid "update() - set up all variables"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:316
+# 272625fec04e4b558449cf37e5fa20f2
+msgid "render() - generate the resulting HTML code by evaluating the template with context variables set up in update()"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:318
+# 244470b18ffb4f3a9c3a503e3fda669a
+msgid "These methods should honour `zope.contentprovider.interfaces.IContentProvider call contract <http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto>`_."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:320
+# 9b41e1759fc74943b90fefad7e9ca1f5
+msgid "See"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:322
+# 25bc619d9e9b4292a4381967d247e188
+msgid "http://svn.zope.org/zope.contentprovider/trunk/src/zope/contentprovider/interfaces.py?rev=98212&view=auto"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:324
+# d0efe3285b9d451d88e12cc2480cafbb
+msgid "https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:328
+# 859e98b3a5744cc5b1e7effca8b00d0f
+msgid "Creating a viewlet using Python code and ZCML"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:330
+# 798eba96325541909f9cea6a3d9eace0
+msgid "Here is an example code which extends an existing Plone base viewlet (found from plone.app.layout.viewlets.base package) and then puts this viewlet to a one of viewlet managers using :doc:`ZCML </components/zcml>`."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:333
+# 261f1fa868924231b0d045ba01c9ef61
+msgid "Example Python code for viewlets.py::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:395
+# 1665b16fbc374bffbd76918dc97bda7f
+msgid "Then a sample page template (like.pt). You can use TAL template variable *view* to refer to your viewlet class instance::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:405
+# 0ce0e58034614d5780927113bb2e1d01
+msgid "Registering a viewlet using ZCML"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:407
+# f12abb6567004a558719d8795310e4d8
+msgid "Example configuration ZCML snippets below. You usually <viewlet> to *browser/configure.zcml* folder."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:429
+# b0a27e5f04c4442d891979e77372c185
+msgid "Conditionally rendering viewlets"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:431
+# 1335b10eb0104a67a8e5d2400ad30648
+msgid "There are two primary methods to render viewlets only on some pages"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:433
+# e1f10d8902554025a91306c589da75d1
+msgid "Register viewlet against some marker interface or content type class - the viewlet is rendered on this content type only. You can use :doc:`dynamic marker interfaces </components/interfaces>` to toggle interface on some individual pages through ZMI"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:438
+# def86e6dba724ca6b3dba39feb9ce4ba
+msgid "Hard-code a condition to your viewlet in Python code."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:440
+# f4785aa11be14c29a61f7d26fad3b3ed
+msgid "Below is an example of overriding a render() method to conditionally render your viewlet using Grok viewlets."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:442
+# e0e5992faba84bfb9a613e6635cefe82
+msgid "Viewlet code::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:496
+# 2b4db76f5fe54f6e961ad48619b6cddb
+msgid "Page template code"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:512
+# 09d5e2c5b684490288f7b331b0de0af6
+msgid "Below is an example of overriding a render() method to conditionally render your viewlet using Zope 3 viewlets::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:562
+# acd89a0eda594352881c15df0e31831a
+msgid "Rendering viewlet by name"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:564
+# 202b2610376f4ad9985c8834cb8caedf
+msgid "Below is a complex example how to expose viewlets without going through a viewlet manager."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:566
+# 6c1a459055f34f0db411b7e7444ad5dc
+msgid "See `collective.fastview <http://svn.plone.org/svn/collective/collective.fastview/trunk/>`_ for updates and more information."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:664
+# 9f6e437a1dfe4e919259a98591d103cd
+msgid "Rendering viewlets with accurate layout"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:666
+# bd22645d413c4b47b6afbcf2a383d811
+msgid "Default viewlet managers render viewlets as HTML code string concatenation, in the order of appearance. This is unsuitable to build complex layouts."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:669
+# 581632560ac04077b2a6b8269ab30492
+msgid "Below is an example which defines master viewlet *HeaderViewlet* which will place other viewlets into the manually tuned HTML markup below."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:672
+# 331e3c09026e4a2282289c35fe05d10c
+msgid "theme/browser/header.py::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:744
+# aec859e054644a579ef4141831630d27
+msgid "theme/browser/header_items.pt"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:765
+# 9b333d8df3ab406f8a768d3e8be7a996
+msgid "theme/browser/configure.zcml"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:839
+# b288caf5bacd4059a37f08430120f1a4
+msgid "theme/browser/templates/portal_header.pt"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:847
+# 7d747f64c4704497917a830150babf74
+msgid "theme/browser/interfaces.py code::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:864
+# ba1cd4327cd74b0fa45d5196b5d99897
+msgid "We need to create this common.py file so we can tell Plone to render our custom templates for these viewlets. Without this piece in place, our viewlets will render with Plone defaults."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:867
+# f5d150109b514008b2cc89f319ddc289
+msgid "theme/browser/common.py code::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:886
+# 4bcfa9c54e0a4305903fc3dee206ac2e
+msgid "Viewlets for one page only"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:888
+# 11497c93f01844b09abcccf8aa0bd680
+msgid "Viewlets can be registered to one special page only using a marker interface. This allow loading a page specific CSS files."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:892
+# 323a0001c66644f2af7027fb1cde08e4
+msgid "`How to get a different look for some pages of a plone-site <http://www.starzel.de/blog/how-to-get-a-different-look-for-some-pages-of-a-plone-site>`_"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:896
+# 35731a3c2a7c468885f1536941264880
+msgid "<head> viewlets"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:898
+# f733b78d67a449e7b54ebac6a1a1316b
+msgid "You can register custom Javascript or CSS files to HTML <head> section using viewlets."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:900
+# 92c52798cf30441e8c63120c7f7718a6
+msgid "Below is an head.pt which will be injected in <head>. This examples shows how to dynamically generate ``<script>`` elements. Example is taken from `mfabrik.like add-on <https://svn.plone.org/svn/collective/mfabrik.like/trunk>`_."
+msgstr ""
+
+#: ../../source/views/viewlets.rst:908
+# 2a8ec5f8beb34343a65468155664d621
+msgid "Then you register it against viewlet manager ``plone.app.layout.viewlets.interfaces.IHtmlHead``  in ``configure.zcml``"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:921
+# d1fa2977dbb04125bc06ef345015b986
+msgid "viewlet.py code::"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:961
+# a5a8e4cb410f457e8c90bbf988d85907
+msgid "Finding viewlets programmatically"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:963
+# 75332f20958947e49d9fcfeaa225819c
+msgid "Occasionaly, you may need to get hold of your viewlets in python code, perhaps in tests.  Since the availability of a viewlet is ultimately controlled by the viewlet manager to which it has been registered, using that manager is a good way to go"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:1005
+# f99177d643c3489994b026aaabc6c1f4
+msgid "Since it is possible to register a viewlet for a specific content type and for a browser layer, you may also need to use these elements in looking up your viewlet"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:1045
+# 5b8c2b772d1643f6b13f40fbec587913
+msgid "Poking viewlet registrations programmatically"
+msgstr ""
+
+#: ../../source/views/viewlets.rst:1047
+# 6534eb821fd14e9da5a8663c4246ceaa
+msgid "Below is an example how one can poke viewlets registration for a Plone site."
+msgstr ""
+
