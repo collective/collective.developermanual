@@ -4,12 +4,16 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = bin/sphinx-build
+SPHINXINTLBUILD   = bin/sphinx-intl
+TX            = bin/tx
 PAPER         =
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d build/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
+I18NOPTS        = -p locale/pot -c source/conf.py -l fr -l it -l de
+LANGS           = en it
 
 .PHONY: help clean html dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
 
@@ -18,6 +22,9 @@ help:
 	@echo "  html      to make standalone HTML files"
 	@echo "  dirhtml   to make HTML files named index.html in directories"
 	@echo "  pickle    to make pickle files"
+	@echo "  gettext   to make i18n messages files"
+	@echo "  transifex-init to register new resources in transifex"
+	@echo "  transifex-pull to pull resources from Transifex"
 	@echo "  json      to make JSON files"
 	@echo "  htmlhelp  to make HTML files and a HTML help project"
 	@echo "  qthelp    to make HTML files and a qthelp project"
@@ -29,8 +36,37 @@ help:
 clean:
 	-rm -rf build/*
 
-html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) build/html
+#html:
+#	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) build/html
+#	@echo
+#	@echo "Build finished. The HTML pages are in build/html."
+
+
+
+html: $(foreach lang,$(LANGS),html-$(lang))
+
+html-%: $(SPHINX_DEPENDENCIES)
+	$(SPHINXBUILD) -b html -D language=$* $(ALLSPHINXOPTS) build/html/$*
+	@echo
+	@echo "Build finished. The HTML pages are in build/html."
+
+#html-it:
+#	$(SPHINXBUILD) -b html -D language=it $(ALLSPHINXOPTS) build/html-it
+#	@echo
+#	@echo "Build finished. The HTML pages are in build/html."
+
+gettext:
+	$(SPHINXBUILD) -b gettext source locale
+	@echo
+	@echo "Build finished. The HTML pages are in build/gettext."
+
+transifex-init:
+	$(SPHINXINTLBUILD) update-txconfig-resources $(I18NOPTS) --transifex-project-name plone-doc
+
+transifex-pull:
+	$(SPHINXBUILD) -b gettext source locale/pot
+	$(TX) pull $(I18NOPTS)
+	$(SPHINXINTLBUILD) $(I18NOPTS) build
 	@echo
 	@echo "Build finished. The HTML pages are in build/html."
 
