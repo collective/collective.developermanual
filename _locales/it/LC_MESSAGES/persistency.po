@@ -1,0 +1,1132 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../persistency/database.rst:3
+msgid "ZODB Database"
+msgstr ""
+
+#: ../../persistency/database.rst:5 ../../persistency/persistent.rst:5
+#: ../../persistency/storage.rst:5
+msgid "Description"
+msgstr ""
+
+#: ../../persistency/database.rst:7
+msgid ""
+"Plone uses the ZODB object database to store its data.  The ZODB can act "
+"independently in-process, clustered over network or over another database "
+"engine, like SQL."
+msgstr ""
+
+#: ../../persistency/database.rst:14 ../../persistency/persistent.rst:16
+#: ../../persistency/storage.rst:13 ../../persistency/transactions.rst:8
+msgid "Introduction"
+msgstr ""
+
+#: ../../persistency/database.rst:16
+msgid ""
+"Plone uses the ZODB database.  The ZODB happily stores any Python object "
+"with any attributes |---| there is no need to write database schema or table"
+" descriptions as there is with SQL-based systems. If data models are "
+"described somehow the descriptions are written in Python, usually using "
+"``zope.schema`` package."
+msgstr ""
+
+#: ../../persistency/database.rst:23
+msgid ""
+"This chapter is about the basics of the ZODB, working with the ZODB database"
+" directly, like tuning database settings."
+msgstr ""
+
+#: ../../persistency/database.rst:26
+msgid "More information about ZODB"
+msgstr ""
+
+#: ../../persistency/database.rst:28
+msgid "http://www.zodb.org/"
+msgstr ""
+
+#: ../../persistency/database.rst:30
+msgid "`Documentation <http://www.zodb.org/zodbbook/>`_"
+msgstr ""
+
+#: ../../persistency/database.rst:32
+msgid "`API documentation <http://zodb.readthedocs.org/en/latest/api.html>`_"
+msgstr ""
+
+#: ../../persistency/database.rst:35
+msgid "Database files"
+msgstr ""
+
+#: ../../persistency/database.rst:37
+msgid ""
+"Usually Plone's database is configured to file ``var/filestorage/Data.fs`` "
+"and uploaded files can be found as BLOBs in ``var/blobstorage``."
+msgstr ""
+
+#: ../../persistency/database.rst:40
+msgid ""
+"`Copying a Plone site <http://plone.org/documentation/kb/copying-a-plone-"
+"site>`_"
+msgstr ""
+
+#: ../../persistency/database.rst:43
+msgid "Object database features"
+msgstr ""
+
+#: ../../persistency/database.rst:45
+msgid ""
+"The ZODB is an object database.  It makes very easy to store different kinds"
+" of contentish data in a graph, supporting subclassing (something which SQL "
+"often does poorly)."
+msgstr ""
+
+#: ../../persistency/database.rst:49
+msgid ""
+"Since the database stores objects, and the objects are defined in Python "
+"code, you always need the corresponding Python source code to instantiate "
+"the objects stored inside the ZODB.  This might feel awkward at first, but "
+"you need to have MySQL running to read what's inside MySQL files stored on "
+"your disk and so on ..."
+msgstr ""
+
+#: ../../persistency/database.rst:56
+msgid ""
+"The ZODB database is not usable without the Python source code used to "
+"create the data. The data is not readable using any SQL-based tools, and "
+"there exist little tools to deal with the raw data. The way to access Plone "
+"data is running Plone itself and performing queries through it."
+msgstr ""
+
+#: ../../persistency/database.rst:63
+msgid ""
+"Since correct source code is needed to read ZODB data, this poses a problem "
+"for versioning. Even if you use the correct add-on product with proper "
+"source code, if the source code version is wrong, it might not work.  Data "
+"model attributes might be added, modified or deleted between source code "
+"revisions, making data operations on the existing database fail by raising "
+"Python exceptions (``AttributeError``, ``KeyError``)."
+msgstr ""
+
+#: ../../persistency/database.rst:70
+msgid ""
+"To work around the ZODB interoperability problems, products like "
+"*ore.contentmirror* exist to duplicate Plone content data to read-only SQL "
+"database."
+msgstr ""
+
+#: ../../persistency/database.rst:75
+msgid "Query and searching"
+msgstr ""
+
+#: ../../persistency/database.rst:77
+msgid ""
+"ZODB does not provide query services as is i.e. there is no SELECT "
+"statement."
+msgstr ""
+
+#: ../../persistency/database.rst:80
+msgid ""
+"Plone provides :doc:`cataloging </searching_and_indexing/catalog>` service "
+"for this purpose."
+msgstr ""
+
+#: ../../persistency/database.rst:83
+msgid "This gives some benefits"
+msgstr ""
+
+#: ../../persistency/database.rst:85
+msgid "You define yourself how data is indexed"
+msgstr ""
+
+#: ../../persistency/database.rst:87
+msgid ""
+"The backend to perform queries is flexible - you can plug-in custom indexes"
+msgstr ""
+
+#: ../../persistency/database.rst:90
+msgid ""
+"portal_catalog default catalog is used to all content items to provide basic"
+" CMS functionality easily"
+msgstr ""
+
+#: ../../persistency/database.rst:93
+msgid ""
+"You can have optimized catalogs for specialized data (e.g. reference look-"
+"ups using reference_catalog)"
+msgstr ""
+
+#: ../../persistency/database.rst:97
+msgid "Data model"
+msgstr ""
+
+#: ../../persistency/database.rst:99
+msgid "There is no hardwired way for describe data in ZODB database."
+msgstr ""
+
+#: ../../persistency/database.rst:102
+msgid ""
+"Subclasses of ZODB ``persistent.Persistent`` class will have all their "
+"attributes and referred objects written to the database using Python pickle "
+"mechanism. Lists and dictionaries will be automatically converted to "
+"persistent versions."
+msgstr ""
+
+#: ../../persistency/database.rst:108
+msgid "There are currently three primary ways to define data models in Plone"
+msgstr ""
+
+#: ../../persistency/database.rst:110
+msgid ""
+"Using zope.schema package (modern way) to describe Python object properties"
+msgstr ""
+
+#: ../../persistency/database.rst:112
+msgid "Using Archetypes content type subsystem (all Plone 3 content)"
+msgstr ""
+
+#: ../../persistency/database.rst:114
+msgid "Not defining the model, but relying on ad hoc object attributes"
+msgstr ""
+
+#: ../../persistency/database.rst:116
+msgid ""
+"Read about :doc:`zope.schema </forms/schemas>` how to define a model for the"
+" data to be stored in ZODB database."
+msgstr ""
+
+#: ../../persistency/database.rst:121
+msgid "Transactions and committing"
+msgstr ""
+
+#: ../../persistency/database.rst:123
+msgid ""
+"`This in-depth SO answer <http://stackoverflow.com/questions/11254384/when-"
+"to-commit-data-in-zodb/>`_ explains how committing works in ZODB."
+msgstr ""
+
+#: ../../persistency/database.rst:126
+msgid "Savepoints and optimism regarding them"
+msgstr ""
+
+#: ../../persistency/database.rst:128
+msgid "PersistentList and list differences when saving data"
+msgstr ""
+
+#: ../../persistency/database.rst:132
+msgid "Browsing"
+msgstr ""
+
+#: ../../persistency/database.rst:134
+msgid ""
+"You can explore ZODB with-in Plone using `ZODBBrowser "
+"<http://plone.org/products/zodbbrowser>`_."
+msgstr ""
+
+#: ../../persistency/database.rst:137
+msgid "Packing database"
+msgstr ""
+
+#: ../../persistency/database.rst:139
+msgid ""
+"As ZODB is append-only database it remembers all its history unless packed. "
+"Packing will erase undo history."
+msgstr ""
+
+#: ../../persistency/database.rst:141
+msgid ""
+"`Why you need to regularly pack ZODB database to keep the performance up "
+"<http://www.sixfeetup.com/blog/optimize-your-plone-development-by-packing-"
+"the-zodb>`_"
+msgstr ""
+
+#: ../../persistency/database.rst:143
+msgid ""
+"`Packing is similar to VACUUM in PostgreSQL "
+"<http://stackoverflow.com/questions/11254384/when-to-commit-data-in-zodb/>`_"
+msgstr ""
+
+#: ../../persistency/database.rst:146
+msgid "Packing through-the-web"
+msgstr ""
+
+#: ../../persistency/database.rst:148
+msgid ""
+"Manual packing can be executed through Zope Control Panel (not Plone control"
+" panel) in Zope application server root (not Plone site root) in ZMI."
+msgstr ""
+
+#: ../../persistency/database.rst:152
+msgid "Packing from command line"
+msgstr ""
+
+#: ../../persistency/database.rst:154
+msgid ""
+"`plone.recipe.zeoserver <https://github.com/plone/plone.recipe.zeoserver/>`_"
+" buildout recipe provides command called ``bin/zeopack`` inside buildout. It"
+" allows you to trigger packing from the command line when Zope is clustered "
+"ZEO configuration. ``zeopack`` command runs against an on-line site."
+msgstr ""
+
+#: ../../persistency/database.rst:159
+msgid ""
+"This command is useful to run in cron to keep your Data.fs file growing "
+"forever. You can control the number of days of history to be kept, etc., "
+"using buildout recipe variables."
+msgstr ""
+
+#: ../../persistency/database.rst:162 ../../persistency/persistent.rst:81
+#: ../../persistency/persistent.rst:117
+msgid "More info"
+msgstr ""
+
+#: ../../persistency/database.rst:164
+msgid "https://github.com/plone/plone.recipe.zeoserver"
+msgstr ""
+
+#: ../../persistency/database.rst:167
+msgid "Packing the database offline"
+msgstr ""
+
+#: ../../persistency/database.rst:169
+msgid ""
+"`See this blog post <http://blog.twinapex.fi/2009/09/01/packing-and-copying-"
+"data-fs-from-production-server-for-local-development/>`_."
+msgstr ""
+
+#: ../../persistency/database.rst:171
+msgid ""
+"Example how to pack a copy of Data.fs in offline using Python snippet::"
+msgstr ""
+
+#: ../../persistency/database.rst:180
+msgid ""
+"As this depends on ZODB egg, the easiest way to run the snippet is to "
+"``zopepy`` script from your ``buildout/bin`` folder::"
+msgstr ""
+
+#: ../../persistency/database.rst:185
+msgid ""
+"For more information, see :doc:`command-line scripts </misc/commandline>`."
+msgstr ""
+
+#: ../../persistency/database.rst:188
+msgid "Visualizing object graphs"
+msgstr ""
+
+#: ../../persistency/database.rst:190 ../../persistency/persistent.rst:238
+msgid ""
+"http://blog.hannosch.eu/2009/05/visualizing-persistent-structure-of.html"
+msgstr ""
+
+#: ../../persistency/database.rst:192
+msgid "http://david.wglick.org/2009/visualizing-the-zodb-with-graphviz/"
+msgstr ""
+
+#: ../../persistency/database.rst:195
+msgid "Cache size"
+msgstr ""
+
+#: ../../persistency/database.rst:197
+msgid ""
+"`Understanding ZODB cache size option <https://mail.zope.org/pipermail/zodb-"
+"dev/2010-March/013199.html>`_"
+msgstr ""
+
+#: ../../persistency/database.rst:200
+msgid "Integrity checks"
+msgstr ""
+
+#: ../../persistency/database.rst:202
+msgid ""
+"Especially when you back-up a Data.fs file, it is useful to run integrity "
+"checks for the transferred files."
+msgstr ""
+
+#: ../../persistency/database.rst:204
+msgid ""
+"ZODB provides scripts ``fstest`` and ``fsrefs`` to check if Data.fs data is "
+"intact and there are no problems due to low level disk corruption or bit "
+"flip."
+msgstr ""
+
+#: ../../persistency/database.rst:207
+msgid "http://wiki.zope.org/ZODB/FileStorageBackup"
+msgstr ""
+
+#: ../../persistency/database.rst:211
+msgid ""
+"It is recommended best practice to run integrity against your Data.fs "
+"regularly. This is the only way to detect corruption which would otherwise "
+"go unnoticed for a long time."
+msgstr ""
+
+#: ../../persistency/database.rst:216
+msgid "Restart and cache warm-up"
+msgstr ""
+
+#: ../../persistency/database.rst:218
+msgid "Discussion why Plone is slow after restart"
+msgstr ""
+
+#: ../../persistency/database.rst:220
+msgid "https://mail.zope.org/pipermail/zodb-dev/2013-March/014935.html"
+msgstr ""
+
+#: ../../persistency/database.rst:223
+msgid "Recovering old data"
+msgstr ""
+
+#: ../../persistency/database.rst:225
+msgid "Instructions for undoing deleted data and fixing broken databases."
+msgstr ""
+
+#: ../../persistency/database.rst:227
+msgid ""
+"http://www.zopatista.com/plone/2008/12/18/saving-the-day-recovering-lost-"
+"objects"
+msgstr ""
+
+#: ../../persistency/database.rst:230
+msgid "ZODB tips and tricks"
+msgstr ""
+
+#: ../../persistency/database.rst:232
+msgid "Please see"
+msgstr ""
+
+#: ../../persistency/database.rst:234
+msgid ""
+"http://plone.org/events/regional/nola05/collateral/Chris%20McDonough-"
+"ZODB%20Tips%20and%20Tricks.pdf"
+msgstr ""
+
+#: ../../persistency/index.rst:3
+msgid "ZODB, persistency and transactions"
+msgstr ""
+
+#: ../../persistency/lifecycle.rst:3
+msgid "Object lifecycles"
+msgstr ""
+
+#: ../../persistency/lifecycle.rst:5
+msgid "Plone has different lifecycles for different objects"
+msgstr ""
+
+#: ../../persistency/lifecycle.rst:7
+msgid ""
+"Persistent objects: These objects are transparently persistent. They look "
+"like normal Python objects, but they are serialized to the disk if the "
+"transaction completes successfully. Persistent object inherit from Zope's "
+"various persistent classes: persistent.Persistent, PersistentDict, "
+"PersistentList and they have special attributes like _p_mtime when the "
+"object was last written to disk. To make object persistent, it must be "
+"referred from Zope's App traversing graph. Examples: content objects, user "
+"account objects."
+msgstr ""
+
+#: ../../persistency/lifecycle.rst:15
+msgid ""
+"Request attached objects and thread-local objects: Each HTTP request is "
+"processed by its own Python thread. These objects disappear when the request"
+" has been processed. Examples: request object itself, getSite() thread-local"
+" way to access the site object, request specific permission caches."
+msgstr ""
+
+#: ../../persistency/lifecycle.rst:20
+msgid ""
+"In-process objects, or \"static\" objects are created when the server "
+"application is launched and they are gone when the application quits. "
+"Usually these objects are set-up during Plone initialization and they are "
+"read-only for served HTTP requests. Examples: content type vocabulary lists."
+msgstr ""
+
+#: ../../persistency/migrations.rst:3
+msgid "Migrations"
+msgstr ""
+
+#: ../../persistency/migrations.rst:5
+msgid ""
+"Database migrations are needed if your internal data storage format changes "
+"between versions."
+msgstr ""
+
+#: ../../persistency/migrations.rst:8
+msgid ""
+"ZODB does not require you to set object format explicitly, like in SQL you "
+"need to create table schema. However, your code will naturally fail if the "
+"data format of the object is unexpected."
+msgstr ""
+
+#: ../../persistency/migrations.rst:13
+msgid ""
+"`Changing instance attributes <http://www.zodb.org/documentation/guide/prog-"
+"zodb.html#changing-instance-attributes>`_"
+msgstr ""
+
+#: ../../persistency/persistent.rst:3
+msgid "Persistent objects"
+msgstr ""
+
+#: ../../persistency/persistent.rst:7
+msgid ""
+"This document tells how to save objects to Plone/Zope database. Persistent "
+"objects are automatically read and written from ZODB database in Plone and "
+"they appear as normal Python objects in your code. This document clarifies "
+"some of special properties, like with containers, when you deal with "
+"persistent objects programmatically."
+msgstr ""
+
+#: ../../persistency/persistent.rst:18
+msgid "**Q: How do I save() object in Plone**"
+msgstr ""
+
+#: ../../persistency/persistent.rst:20
+msgid "**A: You don't**"
+msgstr ""
+
+#: ../../persistency/persistent.rst:22
+msgid ""
+"Plone does this automatically for you. You just assign the file data as an "
+"attribute of some persistent object. When the HTTP request completes, Zope "
+"transaction manager will automatically update all changed persistent objects"
+" to the database. There is no \"save\" as such in Zope world - it all is "
+"transparent to the developer. If the transaction fails in any point, no data"
+" is being written and you do not need to worry about the partial data being "
+"written to the database."
+msgstr ""
+
+#: ../../persistency/persistent.rst:31
+msgid ""
+"Changed objects will be automatically saved (if they are attached to the "
+"traversing graph)"
+msgstr ""
+
+#: ../../persistency/persistent.rst:34
+msgid "Save will not occur if an exception is raised"
+msgstr ""
+
+#: ../../persistency/persistent.rst:36
+msgid ""
+"If your data class inherits from higher level Plone base classes (all go up "
+"to persistent.Persitent class). persistency is handled transparently for "
+"you. Plone also handles transaction automatically for each HTTP request. "
+"Unless you wish to do manual transactions there is no need to call "
+"transaction.commit()."
+msgstr ""
+
+#: ../../persistency/persistent.rst:42
+msgid ""
+"If you want to do your own persistent classes please read the following"
+msgstr ""
+
+#: ../../persistency/persistent.rst:44
+msgid ""
+"`Writing a persistent class <http://www.zodb.org/documentation/guide/prog-"
+"zodb.html#writing-a-persistent-class>`_"
+msgstr ""
+
+#: ../../persistency/persistent.rst:46
+msgid ""
+"`About persistent objects "
+"<http://www.zope.org/Documentation/Books/ZDG/current/Persistence.stx>`_"
+msgstr ""
+
+#: ../../persistency/persistent.rst:48
+msgid ""
+"`Persistent interface description "
+"<http://apidoc.zope.org/++apidoc++/Interface/persistent.interfaces.IPersistent/index.html>`_."
+msgstr ""
+
+#: ../../persistency/persistent.rst:50
+msgid ""
+"`ZODB tips and tricks "
+"<http://plone.org/events/regional/nola05/collateral/Chris%20McDonough-"
+"ZODB%20Tips%20and%20Tricks.pdf>`_"
+msgstr ""
+
+#: ../../persistency/persistent.rst:53
+msgid "Lists and dictionaries"
+msgstr ""
+
+#: ../../persistency/persistent.rst:55
+msgid ""
+"If you modify objects inside persistent lists and dictionaries, the change "
+"is not automatically reflected to the parent container."
+msgstr ""
+
+#: ../../persistency/persistent.rst:58
+msgid ""
+"`Modifying mutable objects "
+"<http://zodb.readthedocs.org/en/latest/working.html#handling-changes-to-"
+"mutable-objects>`_"
+msgstr ""
+
+#: ../../persistency/persistent.rst:61
+msgid "PersistentList vs. normal Python list"
+msgstr ""
+
+#: ../../persistency/persistent.rst:63
+msgid ""
+"All items in normal Python list are stored as one write and loaded on one "
+"write. PersistentList is slower, but allows individual objects picked from "
+"the list without loading the whole list."
+msgstr ""
+
+#: ../../persistency/persistent.rst:66 ../../persistency/persistent.rst:222
+msgid "For more information, see"
+msgstr ""
+
+#: ../../persistency/persistent.rst:68
+msgid "https://mail.zope.org/pipermail/zodb-dev/2009-December/013011.html"
+msgstr ""
+
+#: ../../persistency/persistent.rst:72
+msgid "Persistent, modifications, __setattr__ and transactions"
+msgstr ""
+
+#: ../../persistency/persistent.rst:74
+msgid ""
+"When Persitent object is modified, via attribute set or __setattr__() call, "
+"the current transaction is converted to a write transaction. Write "
+"transactions are usually undoable (visible on Zope's Undo tab)."
+msgstr ""
+
+#: ../../persistency/persistent.rst:78
+msgid ""
+"If you are using Python property mutator and even if it does not write to "
+"the object it still will trigger the object rewrite."
+msgstr ""
+
+#: ../../persistency/persistent.rst:83
+msgid "https://mail.zope.org/pipermail/zodb-dev/2009-December/013047.html"
+msgstr ""
+
+#: ../../persistency/persistent.rst:86
+msgid "Up-to-date reads"
+msgstr ""
+
+#: ../../persistency/persistent.rst:88
+msgid ""
+"Normally, ZODB only assures that objects read are consistent, but not "
+"necessarily up to date. Checking whether an object is up to date is "
+"important when information read from one object is used to update another."
+msgstr ""
+
+#: ../../persistency/persistent.rst:92
+msgid ""
+"The following will force the object to use the most up-to-date version in "
+"the transaction::"
+msgstr ""
+
+#: ../../persistency/persistent.rst:96
+msgid ""
+"A conflict error will be raised if the version of ob read by the transaction"
+" isn't current when the transaction is committed."
+msgstr ""
+
+#: ../../persistency/persistent.rst:101
+msgid "ZODB versions older than 3.10.0b5 do not support this feature."
+msgstr ""
+
+#: ../../persistency/persistent.rst:103
+msgid "More information"
+msgstr ""
+
+#: ../../persistency/persistent.rst:105
+msgid "http://pypi.python.org/pypi/ZODB3/3.10.0b5#b5-2010-09-02"
+msgstr ""
+
+#: ../../persistency/persistent.rst:108
+msgid "Accessing broken objects"
+msgstr ""
+
+#: ../../persistency/persistent.rst:110
+msgid ""
+"ZODB is object database. By default, it cannot load object from the database"
+" if the code (Python class) is not present."
+msgstr ""
+
+#: ../../persistency/persistent.rst:114
+msgid ""
+"You can still access data in the objects by creating Python code \"stubs\" "
+"which fake the non-existing classes in the run-time environment."
+msgstr ""
+
+#: ../../persistency/persistent.rst:119
+msgid ""
+"http://mockit.blogspot.com/2010/11/getting-broken-objects-out-of-zodb.html"
+msgstr ""
+
+#: ../../persistency/persistent.rst:122
+msgid "Fixing damaged objects"
+msgstr ""
+
+#: ../../persistency/persistent.rst:124
+msgid ""
+"If your BTrees have been damaged, you can use ``dm.historical`` tool to "
+"inspect the object history and rewind it to a working state."
+msgstr ""
+
+#: ../../persistency/persistent.rst:127
+msgid ""
+"http://plone.293351.n2.nabble.com/Cleaning-up-damaged-BTree-can-t-delete-"
+"folder-tp5761780p5773269.html"
+msgstr ""
+
+#: ../../persistency/persistent.rst:129
+msgid "http://pypi.python.org/pypi/dm.historical/"
+msgstr ""
+
+#: ../../persistency/persistent.rst:131 ../../persistency/persistent.rst:236
+msgid "See also"
+msgstr ""
+
+#: ../../persistency/persistent.rst:133
+msgid ":doc:`Deleting broken objects </content/deleting>`"
+msgstr ""
+
+#: ../../persistency/persistent.rst:136
+msgid "Volatile references"
+msgstr ""
+
+#: ../../persistency/persistent.rst:138
+msgid ""
+"Volatile attributes are attributes on persistent objects which never get "
+"stored. ZODB assumes variable is volatile if it has _v_ prefix."
+msgstr ""
+
+#: ../../persistency/persistent.rst:141
+msgid ""
+"Volatiles are useful when framework expects the object to conform certain "
+"interface, like form frameworks. However, your persistent object edited by "
+"form cannot have persistent attributes for all variables the form expects to"
+" see."
+msgstr ""
+
+#: ../../persistency/persistent.rst:145 ../../persistency/transactions.rst:71
+msgid "Example::"
+msgstr ""
+
+#: ../../persistency/persistent.rst:191
+msgid "Correct use of volatile variables in functions"
+msgstr ""
+
+#: ../../persistency/persistent.rst:193 ../../persistency/persistent.rst:211
+msgid "**WRONG**::"
+msgstr ""
+
+#: ../../persistency/persistent.rst:198 ../../persistency/persistent.rst:205
+#: ../../persistency/persistent.rst:216
+msgid "**RIGHT**::"
+msgstr ""
+
+#: ../../persistency/persistent.rst:224
+msgid "https://mail.zope.org/pipermail/zodb-dev/2010-May/013437.html"
+msgstr ""
+
+#: ../../persistency/persistent.rst:228
+msgid "Measuring persistent object sizes"
+msgstr ""
+
+#: ../../persistency/persistent.rst:230
+msgid "Get the size of the pickled object in the database."
+msgstr ""
+
+#: ../../persistency/persistent.rst:232
+msgid "Something like::"
+msgstr ""
+
+#: ../../persistency/persistent.rst:240 ../../persistency/storage.rst:130
+msgid "http://plone.org/documentation/kb/debug-zodb-bloat"
+msgstr ""
+
+#: ../../persistency/persistent.rst:242
+msgid ""
+"treeanalyze.py will give you the total size of a traverse graph "
+"http://svn.erp5.org/erp5/trunk/utils/treenalyser.py?view=markup&pathrev=24405"
+msgstr ""
+
+#: ../../persistency/storage.rst:3
+msgid "Storage"
+msgstr ""
+
+#: ../../persistency/storage.rst:7
+msgid ""
+"What kind of different storages (storing backends) ZODB has and how to use "
+"them."
+msgstr ""
+
+#: ../../persistency/storage.rst:15
+msgid ""
+"This page explains details how ZODB stores data. The information here is "
+"important to know to understand Plone database behavior and how to optimize "
+"your application."
+msgstr ""
+
+#: ../../persistency/storage.rst:19
+msgid "Pickling"
+msgstr ""
+
+#: ../../persistency/storage.rst:21
+msgid ""
+"ZODB is object oriented database. All data in ZODB is `pickled Python "
+"objects <http://docs.python.org/library/pickle.html>`_. Pickle is object "
+"serialization module for Python."
+msgstr ""
+
+#: ../../persistency/storage.rst:24
+msgid ""
+"Each time object is read and it is not cached, object is read from ZODB data"
+" storage and unpickled"
+msgstr ""
+
+#: ../../persistency/storage.rst:26
+msgid ""
+"Each time object is written, it is pickled and transaction machinery appends"
+" it to ZODB data storage"
+msgstr ""
+
+#: ../../persistency/storage.rst:28
+msgid ""
+"Pickle format is series of bytes. Here is example what it does look like::"
+msgstr ""
+
+#: ../../persistency/storage.rst:41
+msgid "It is not very human readable format."
+msgstr ""
+
+#: ../../persistency/storage.rst:43
+msgid ""
+"Even if you use SQL based `RelStorage "
+"<http://pypi.python.org/pypi/RelStorage/>`_ ZODB backends, the objects are "
+"still pickled to the database; SQL does not support varying table schema per"
+" row and Python objects do not have fixed schema format."
+msgstr ""
+
+#: ../../persistency/storage.rst:48
+msgid "Binary trees"
+msgstr ""
+
+#: ../../persistency/storage.rst:50
+msgid ""
+"Data is usually organized to binary trees or `BTrees "
+"<http://wiki.zope.org/ZODB/guide/node6.html>`_ . More specifically, data is "
+"usually stored as Object Oriented Binary Tree `OOBtree "
+"<http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBTree/index.html>`_ which "
+"provides Python object as key and Python object value mappings. Key is the "
+"object id in the parent container as a string and value is any pickleable "
+"Python object or primitive you store in your database."
+msgstr ""
+
+#: ../../persistency/storage.rst:56
+msgid ""
+"`ZODB data structure interfaces "
+"<http://svn.zope.org/ZODB/trunk/src/BTrees/Interfaces.py?rev=88776&view=markup>`_."
+msgstr ""
+
+#: ../../persistency/storage.rst:58
+msgid ""
+"`Using BTrees example from Zope Docs "
+"<http://zodb.org/documentation/articles/ZODB2.html#using-btrees>`_."
+msgstr ""
+
+#: ../../persistency/storage.rst:61
+msgid "Buckets"
+msgstr ""
+
+#: ../../persistency/storage.rst:63
+msgid ""
+"BTree stores data in buckets (`OOBucket "
+"<http://docs.zope.org/zope3/Code/BTrees/OOBTree/OOBucket/index.html>`_)."
+msgstr ""
+
+#: ../../persistency/storage.rst:65
+msgid ""
+"Bucket is the smallest unit of data which is written to the database once. "
+"Buckets are loaded lazily: BTree only loads buckets storing values of keys "
+"being accessed."
+msgstr ""
+
+#: ../../persistency/storage.rst:69
+msgid ""
+"BTree tries to stick as much data into one bucket once as possible. When one"
+" value in bucket is changed the whole bucket must be rewritten to the disk."
+msgstr ""
+
+#: ../../persistency/storage.rst:72
+msgid ""
+"`Default bucket size is 30 objects "
+"<http://svn.zope.org/ZODB/trunk/src/BTrees/_OOBTree.c?rev=25186&view=markup>`_."
+msgstr ""
+
+#: ../../persistency/storage.rst:75
+msgid "Storing as attribute vs. storing in BTree"
+msgstr ""
+
+#: ../../persistency/storage.rst:77
+msgid "Plone has two kinds of fundamental way to store data:"
+msgstr ""
+
+#: ../../persistency/storage.rst:79
+msgid "Attribute storage (stores values directly in the pickled objects)."
+msgstr ""
+
+#: ../../persistency/storage.rst:81
+msgid ""
+"Annotation storage (OOBTree based). Plone objects have attribute "
+"__annotations__ which is OOBtree for storing objects in name-conflict free "
+"way."
+msgstr ""
+
+#: ../../persistency/storage.rst:84
+msgid ""
+"When storing objects in annotation storage, reading object values need at "
+"least one extra database look up to load the first bucket of OOBTree."
+msgstr ""
+
+#: ../../persistency/storage.rst:88
+msgid ""
+"If the value is going to be used frequently, and especially if it is read "
+"when viewing the content object, storing it in an attribute is more "
+"efficient than storing it in an annotation. This is because the "
+"__annotations__ BTree is a separate persistent object which has to be loaded"
+" into memory, and may push something else out of the ZODB cache."
+msgstr ""
+
+#: ../../persistency/storage.rst:93
+msgid ""
+"If the attribute stores a large value, it will increase memory usage, as it "
+"will be loaded into memory each time the object is fetched from the ZODB."
+msgstr ""
+
+#: ../../persistency/storage.rst:97
+msgid "BLOBs"
+msgstr ""
+
+#: ../../persistency/storage.rst:99
+msgid "BLOBs are large binary objects like files or images."
+msgstr ""
+
+#: ../../persistency/storage.rst:101
+msgid ""
+"BLOBs are supported since ZODB 3.8.x. Plone 3.x still uses ZODB 3.7.x by "
+"default. ZODB 3.8.x works but it is not officially supported."
+msgstr ""
+
+#: ../../persistency/storage.rst:105
+msgid ""
+"When you use BLOB interface to store and retrieve data, they are stored "
+"physically as files on your file systems. File system, as the name says, was"
+" designed to handle files and has far better performance on large binary "
+"data as sticking the data into ZODB."
+msgstr ""
+
+#: ../../persistency/storage.rst:110
+msgid ""
+"BLOBs are streamable which means that you can start serving the file from "
+"the beginning of the file to HTTP wire without needing to buffer the whole "
+"data to the memory first (slow)."
+msgstr ""
+
+#: ../../persistency/storage.rst:115
+msgid "SQL values"
+msgstr ""
+
+#: ../../persistency/storage.rst:117
+msgid ""
+"Plone's Archetypes subsystem supports storing individual Archetypes fields "
+"in SQL database. This is mainly `an integration feature "
+"<http://plone.293351.n2.nabble.com/Work-with-Contents-in-SQL-database-"
+"td5868800.html>`_. Read more about this in `Archetypes manual "
+"<http://plone.org/products/archetypes/documentation/old/ArchetypesDeveloperGuide/index_html"
+"#advanced-storage-manual>`_."
+msgstr ""
+
+#: ../../persistency/storage.rst:121
+msgid "Transaction sizes"
+msgstr ""
+
+#: ../../persistency/storage.rst:123
+msgid "Discussion pointers"
+msgstr ""
+
+#: ../../persistency/storage.rst:125
+msgid "http://www.mail-archive.com/zodb-dev@zope.org/msg03398.html"
+msgstr ""
+
+#: ../../persistency/storage.rst:128
+msgid "Analysing Data.fs content offline"
+msgstr ""
+
+#: ../../persistency/transactions.rst:3
+msgid "Transactions"
+msgstr ""
+
+#: ../../persistency/transactions.rst:10
+msgid ""
+"Plone uses the `ZODB database "
+"<http://en.wikipedia.org/wiki/Zope_Object_database>`_ which implements "
+"`Multiversion concurrency control "
+"<http://en.wikipedia.org/wiki/Multiversion_concurrency_control>`_."
+msgstr ""
+
+#: ../../persistency/transactions.rst:15
+msgid ""
+"Plone will complete either *all* database modifications that occur during a "
+"request, or *none* of them. It will never write incomplete data to the "
+"database."
+msgstr ""
+
+#: ../../persistency/transactions.rst:19
+msgid "Plone and the underlying Zope handles transactions transparently."
+msgstr ""
+
+#: ../../persistency/transactions.rst:23
+msgid ""
+"Every transaction is a *read* transaction until any of the objects "
+"participating in the transaction are mutated (object attribute set), turning"
+" the transaction to a *write* transaction."
+msgstr ""
+
+#: ../../persistency/transactions.rst:29
+msgid ""
+"Old examples might refer to the ``get_transaction()`` function. This has "
+"been replaced by ``transaction.get()`` in the later Zope versions."
+msgstr ""
+
+#: ../../persistency/transactions.rst:32
+msgid ""
+"Please read this `Zope transaction tutorial "
+"<http://www.zope.org/Members/mcdonc/HowTos/transaction>`_ to get started how"
+" to use transactions with your code."
+msgstr ""
+
+#: ../../persistency/transactions.rst:36
+msgid "https://bugs.launchpad.net/zope2/+bug/143584"
+msgstr ""
+
+#: ../../persistency/transactions.rst:39
+msgid "Using transactions"
+msgstr ""
+
+#: ../../persistency/transactions.rst:41
+msgid ""
+"Normally transactions are managed by Plone and the developer should not be "
+"interested in them."
+msgstr ""
+
+#: ../../persistency/transactions.rst:44
+msgid ""
+"Special cases where one would want to manage transaction life-cycle may "
+"include:"
+msgstr ""
+
+#: ../../persistency/transactions.rst:47
+msgid "Batch creation or editing of many items once."
+msgstr ""
+
+#: ../../persistency/transactions.rst:49
+msgid "Example code:"
+msgstr ""
+
+#: ../../persistency/transactions.rst:51
+msgid ""
+"`transaction source code "
+"<http://svn.zope.org/transaction/trunk/transaction/?rev=104430>`_."
+msgstr ""
+
+#: ../../persistency/transactions.rst:53
+msgid "http://www.zope.org/Members/mcdonc/HowTos/transaction"
+msgstr ""
+
+#: ../../persistency/transactions.rst:55
+msgid "https://bugs.launchpad.net/zope3/+bug/98382"
+msgstr ""
+
+#: ../../persistency/transactions.rst:59
+msgid "Subtransactions"
+msgstr ""
+
+#: ../../persistency/transactions.rst:61
+msgid ""
+"Normally, a Zope transaction keeps a list of objects modified within the "
+"transaction in a structure in RAM."
+msgstr ""
+
+#: ../../persistency/transactions.rst:64
+msgid ""
+"This list of objects can grow quite large when there is a lot of work done "
+"across a lot of objects in the context of a transaction. *Subtransactions* "
+"write portions of this object list out to disk, freeing the RAM required by "
+"the transaction list. Using subtransactions can allow you to build "
+"transactions involving objects whose combined size is larger than available "
+"RAM."
+msgstr ""
+
+#: ../../persistency/transactions.rst:90
+msgid "Failsafe crawling and committing in batches"
+msgstr ""
+
+#: ../../persistency/transactions.rst:92
+msgid ""
+"In the case you need to access many objects in coherent and efficient "
+"manner."
+msgstr ""
+
+#: ../../persistency/transactions.rst:94
+msgid ""
+"https://bitbucket.org/gocept/gocept.linkchecker/src/80a127405ac06d2054e61dd62fcd643d864357a0/src/gocept/linkchecker/scripts"
+"/crawl-site.py?at=default"
+msgstr ""
+
+#: ../../persistency/transactions.rst:97
+msgid "Transaction boundary events"
+msgstr ""
+
+#: ../../persistency/transactions.rst:99
+msgid ""
+"It is possible to perform actions before and after transaction is written to"
+" the database."
+msgstr ""
+
+#: ../../persistency/transactions.rst:102
+msgid ""
+"http://svn.zope.org/transaction/trunk/transaction/_transaction.py?rev=81646&view=auto"
+msgstr ""
+
+#: ../../persistency/transactions.rst:105
+msgid "Viewing transaction content and debugging transactions"
+msgstr ""
+
+#: ../../persistency/transactions.rst:107
+msgid ""
+"Please see :doc:`Transaction troubleshooting "
+"</troubleshooting/transactions>`"
+msgstr ""
+
+#: ../../persistency/transactions.rst:110
+msgid "Undoing transactions"
+msgstr ""
+
+#: ../../persistency/transactions.rst:112
+msgid ""
+"Everything that has happened on Plone site can be undoed through the *Undo* "
+"tab in ZMI, in site root. By default you can undo latest 20 transactions."
+msgstr ""
+
+#: ../../persistency/transactions.rst:115
+msgid ""
+"If you need to raise this limit just replace all numbers of ``20`` with "
+"higher value in file ``App/Undo.py``, restart site and now you can undo more"
+" transactions."
+msgstr ""

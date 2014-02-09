@@ -1,0 +1,2440 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:22+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../getstarted/debug_mode.rst:3
+# ac3620f91f9e4d7abcb517a91b700dbf
+msgid "Debug mode"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:5
+#: ../../getstarted/installation.rst:5
+#: ../../getstarted/paste.rst:5
+#: ../../getstarted/python.rst:5
+#: ../../getstarted/requirements.rst:5
+#: ../../getstarted/ubuntu_production.rst:5
+# f2d5ebc2ed3f406a97950a2bfffb5ffe
+# 8e635a251dde4daba6953213400fb7d3
+# a7d5751436b3456785ab295a17dc896b
+# 1e0ecf41baf0401fbc046a3297c45abf
+# 244a545080314d648dac9d2b54c6deb8
+# 78965574744742259caf8f5b2e349359
+msgid "Description"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:7
+# f4feca5186c845068defa27b74e03b0c
+msgid "Plone can be put in the debug mode where one can diagnose start up failures and any changes to CSS, Javascript and page templates take effect immediately."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:13
+#: ../../getstarted/index.rst:10
+#: ../../getstarted/installation.rst:14
+#: ../../getstarted/installing_addons.rst:10
+#: ../../getstarted/paste.rst:13
+#: ../../getstarted/python.rst:10
+#: ../../getstarted/ubuntu_production.rst:12
+# 5fdbbd9ac8124cc7ac9109d14edbe221
+# d6f43d89bab749adbbdbdfb10d62bc16
+# 8253ce511d704bd2b7662da4cd838baf
+# 489be9129c634bde85103dffe655d9d6
+# ba6674f1990c4fd3a0d68531cd0ca81e
+# 06abcdba06774abbbf0f29448284150b
+# 07e27dac33e64231bb2030acf20b1ac8
+msgid "Introduction"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:15
+# 0ca465cb60354cc999d58912770bb327
+msgid "By default when you start Plone you start it in a **production mode**."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:17
+# 6dd96a6b89754c638b8018de2a7837e4
+msgid "Plone is faster"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:19
+# c657a1d33e8b4c899e91dcf9d587c99b
+msgid "CSS and Javascript files are *merged* instead of causing multiple HTTP request to load these assets. CSS and Javascript behavior is different in production versus debug mode, especially with files with syntax errors because of merging."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:23
+# b38204db7a724af7907038f278c9fa90
+msgid "Plone does not reload changed files from the disk"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:25
+# c932084a259045349b39814d9fdef19c
+msgid "Because of above optimizations the development against a production mode is not feasible. Instead you need to start Plone in debug mode (also known as development mode) if you are doing any site development."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:29
+# 881b7e057919498a90c21ccd07bb8275
+msgid "In **debug mode**"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:31
+# 59e80e854e7f4ef7b4e697aa98dc0afc
+msgid "If Plone start-up fails, the Python traceback of the error is printed in the terminal"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:33
+# c73d8c908f05458aacb190d85cf298a6
+msgid "All logs and debug messages are printed in the terminal; Zope process does not detach from the terminal"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:36
+# ebaa07ae3731453f814c14beeeb94c7b
+msgid "Plone is slower"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:38
+# e183abf8a2db43e88622327a1bd75c5c
+msgid "CSS and Javascript files are read file-by-file so line numbers match on the actual files on the disk. (*portal_css* and *portal_javascript* is set to debug mode when Plone is started in debug mode)"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:41
+# 56725362b20d459286e5bf614fca8457
+msgid "Plone reloads CSS, Javascript and .pt files when the page is refreshed"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:45
+# 7a2addacfe554ee1b3cbe57488330848
+msgid "Plone does not reload .py or .zcml files in the debug mode by default."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:48
+# 44bca4995ab648818a320ccc2e141ac1
+msgid "Reloading Python code"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:50
+# be67cb2c284d4490bef3a9409a8d08c2
+msgid "Reloading Python code automatically can be enabled with `sauna.reload add-on <http://pypi.python.org/pypi/sauna.reload/>`_."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:53
+# fbd8d63ab3754c869eedecba45ec2b58
+msgid "Javascript and CSS issues with production mode"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:55
+# 8fe95b43540c45fcb505c4b8ce700108
+msgid "See **portal_css** and **portal_javascript** in ZMI to inspect how your scripts are bundled."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:57
+# e6ec95f8ff94412cbe5224fcd8adb188
+msgid "Make sure your Javascript and CSS files are valid, mergeable and compressable. If they are not then you can tweak the settings for individual file in the corresponding management tool."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:62
+# 1bcf57d188da499baad1d2004349a5f9
+msgid "Refresh issues"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:64
+# 1cb76ef8c58e41bb8dab0712681e23b4
+msgid "Plone **production mode** should re-read CSS and Javascript files on Plone start-up."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:66
+# 6c68b8d6492e40bca252704d7bc08947
+msgid "Possible things to debug and force refresh of static assets"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:68
+# fafd8719948c484cb92119ff9b8d311e
+msgid "Check HTML <head> links and the actual file contents"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:70
+# 28ddf38236a34ef78fe938d2909629f1
+msgid "Go to *portal_css*, press *Save* to force CSS rebundling"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:72
+# 15aa4d590612437ea644ffefcccb08d7
+msgid "Make sure you are not using *plone.app.caching* and doing caching forever"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:74
+# 801d268ece2b4a6c94081259bbb32c0b
+msgid "Use `hard browser refresh <http://support.mozilla.org/en-US/questions/746138>`_ to override local cache"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:79
+# b77151fb3986420f9a49e8b92b4b0233
+msgid "Starting Plone in debug mode on Microsoft Windows"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:81
+# 22b3c93252f64b18bb08e3cfcf6b988e
+msgid "This document explains how to start and run the latest Plone (Plone 4.1.4) on Windows 7. This document explains post-installer steps on how to start and enter into a Plone site. Installation"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:85
+#: ../../getstarted/installation.rst:3
+# b66406b7ce01417a8a9da8cbc25ce6c2
+# 41329433034e461b86279834363b7b11
+msgid "Installation"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:86
+# 0fd7759775d94e6ab5c449fb963adfe4
+msgid "This quick start has been tested on Windows 7.  Installation remains the same on older versions of Windows through WinXP."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:88
+# 884ed61b20714d8abbeaa3597101eeec
+msgid "Run installer from `Plone.org <http://plone.org/products>`_ download page"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:90
+# 1134810be5f042b49b97771aa81d97f9
+msgid "The Plone buildout directory will be installed in C:\\\\Plone41"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:92
+# 64c3316bea7c436e8c427678ead02cf2
+msgid "The installer will launch your Plone instance when it finishes.  To connect, direct your browser to: http://127.0.0.1:8080"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:95
+# 449681808488478ba10bf30c1814531d
+msgid "In the buildout bin directory you'll find the executable files to control Plone instance."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:97
+# d39a76afb67c4a059fb2b0cc974d717a
+msgid "For greater insight into the Windows installation process, `Plone 4 Windows Installer Notes <http://plone.org/documentation/kb/plone-4-windows-installer>`_ provides alternate deployment strategies for Windows."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:100
+# 640e677f55824a4a978e5ae88bbb3d6c
+msgid "Starting and Stopping Plone"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:102
+# 60ab662586e04bff9ebbfe0c46302c74
+msgid "If your Plone instance is shutdown you can start and control it from the command prompt."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:105
+# e69fdaee18b84b498335559219355b9c
+msgid "To control Plone you need to execute your command prompt as an administrator."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:107
+# bc38a9e80feb4463b42d3c3b665989ef
+msgid "In the command prompt enter the following command to access your buildout directory (the varies according to Plone version)::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:113
+# 448396863fa84255b465098f7a13fce1
+msgid "To start Plone in debug mode type::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:117
+# 954f55eb788e4470b70f7d861bd5effc
+msgid "You can interrupt the instance by pressing CTRL-C. This will also take down the Zope application server and your Plone site."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:120
+# 0de23027b7b34af085e999bd8f2cf616
+msgid "Accessing Plone"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:122
+# c3f40a75cc314d08b86494cd578be541
+msgid "When you launch Plone in debug or daemon mode it will take a few moments to launch.  If you are in debug mode, Plone will be ready serve pages when the following line is displayed in your command prompt::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:126
+# c19f5bd5f8db4eb19edd111ddc8fd688
+msgid "When the instance is running and listing to port 8080, point your browser to address on your local computer::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:130
+# 439129967f074b8d98f2d37ae62fe990
+msgid "The Plone welcome screen will load and you can create your first Plone site directly by clicking the **Create a new Plone Site** button."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:132
+# 4720bd36ceb946de99c91c56917a6ca3
+msgid "A form will load asking for the *Path Identifier* (aka the site id) and *Title* for a new Plone site.  It will also allow you to select the main site language, and select any add-on products you wish to install with the site."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:135
+# 6612f4ab37ba4b67a546bf7d3f880e64
+msgid "These entries can all be modified once the site is created.  Changing the site id is possible, but not recommended."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:137
+# 2a2b55ce385545ca85eacc37306fbc12
+msgid "To create your site, fill in this form and click the *Create Plone Site* button.  Plone will then create and load your site."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:140
+# 88b318c7e9a54ec4aaf9d3da57d5369b
+msgid "The url of your local Plone instance will end with the site id you set when setting up your site.  If the site id were *Plone* then the resultant URL is: *http://127.0.0.1:8080/Plone*."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:142
+# caf6e45d6cfe4d158c130968f5662700
+msgid "Congratulations! You should be now logged in as an admin to your new Plone instance and you'll see the front page of Plone."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:146
+# 5d7a76347a864ee5a149b9cbb075c968
+msgid "Starting Plone in debug mode on UNIX"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:149
+# bf59ba75bf874daa809441d1d3701be0
+msgid "Single instance installation (\"zope\")"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:151
+# a04f2df568f240b09734af22f0485915
+msgid "Enter to your installation folder using ``cd`` command (depends on where you have installed Plone)::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:155
+# 6961f330332b4d45bd267b2c42a13f80
+msgid "For root installation the default location is ``/usr/local/Plone``."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:157
+# dc4f76db4a39488fba3ea25336575c38
+msgid "Type in command::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:161
+# b13d50e2e60049c9bfe912cbc8caf238
+msgid "Press CTRL+C to stop."
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:164
+# ce1fd73455474de9a2f4720eecb4193f
+msgid "Clustered installation (\"zeo\")"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:166
+# 781852bf901447e59e10f9c6ff108276
+msgid "If you have ZEO cluster mode installation you can start individual processes in debug mode::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:175
+# 5561d668b9fc496fb55db60d87c9c33d
+msgid "Determining programmatically whether Zope is in debug mode"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:177
+# 7aa869b1617e4765ab4397682d2e1e2b
+msgid "Zope2's shared global data *Globals*, keeps track on whether Zope2 is started in debug mode or not.::"
+msgstr ""
+
+#: ../../getstarted/debug_mode.rst:185
+# 29aa3ceff3134f7ebb4649daadbbf105
+msgid "There is a difference between Zope being in debug mode and the Javascript and CSS resource registries being in debug mode (although they will automatically be set to debug mode if you start Zope in debug mode)."
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:3
+# 538d278ce0da4498a6ff16af72071ddc
+msgid "Creating a Dexterity project"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:5
+# ef7a754faae64a6e916f5b7bf247cf8b
+msgid "How to create a dexterity project. This how-to explains how to setup a Dexterity-based project with minimum effort."
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:8
+# 31d872d060cc402b948202e80a5c9f8d
+msgid "There are a few bumps when creating a Dexterity-based project from scratch using zopeskel.dexterity. This getting started document explains how to work around the bugs."
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:12
+# 90e4a95045154f14ae1c4f98d94a4395
+msgid "Prerequisites"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:14
+# c83ac2a3756f4ee2b3e49d6a8ce686d3
+msgid "Python 2.6 or 2.7"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:15
+# 9e468c18a5414a84b0fd315b85be6e86
+msgid "virtualenv"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:18
+# 22b350affa3341f78f89bea6ee76c254
+msgid "Creating a virtual environment"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:20
+# 93ab978385f24add98eaa97abfadb1b7
+msgid "We'll be using paster to create a Dexterity project. First a virtual environment is created, followed by the Python eggs that are needed for Paster."
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:0
+# e8d5b9b32a3f414b8b4f8c040297034b
+msgid "Templer or Paster"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:32
+# e24fcbe432a0465c8152d5893e95e28e
+msgid "Templer is the replacement of ZopeSkel/Paster, because of a bug in zopeskel.dexterity it isn't possible to use it with Templer. Instead ZopeSkel is pinned on version 2.12.2."
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:36
+# e5df8dfd6c90487389f3d25806fb7afd
+msgid "Create a dexterity product"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:37
+# 516b3b113d4a48cf9858355451b965d4
+msgid "Use zopeskel to create a Python egg which contains a Dexterity-based product. (Note: just select default options - press Enter - for all questions during installation, except for project name which must be collective.example)"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:61
+# 1179cfc6d0c543a68c538c63e040d54b
+msgid "Fix content generation in zopeskel.dexterity"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:63
+# 298dcd044564459693bb5d9a2fc16482
+msgid "Because of a `bug <https://github.com/collective/zopeskel.dexterity/issues/1>`_ in zopeskel.dexterity paster content generation doesn't work without the fix below."
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:66
+# 7041c376f57f48c4b04da149033aebce
+msgid "Fix collective.example/setup.py by commenting plone.app.dexterity and plone.namedfile [blobs]:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:77
+# f192f4581c4a48b2a9b43ec6ae24a841
+msgid "Run the command below to apply the changes made above:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:84
+# eb161d48536f442f91b24731e5bb4f49
+msgid "Add content using paster"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:86
+# a8432da0cbae430d89b9e921037cb81b
+msgid "Using the following command the local paster command for adding content are shown:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:95
+# 171cbdc1ab004b4aa4b6128280160f50
+msgid "Add a content-type:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:105
+# 311b1b118baa4aac993054d88dc1fc67
+msgid "Fix buildout"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:107
+# af6fad4a4fb742359468cf8ed02e6cc8
+msgid "Again the buildout.cfg & plone.cfg contains errors, fix the errors before running buildout."
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:109
+# 842c0c61ba304839ba2eeef160bdf56d
+msgid "Add the following line to [buildout] part:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:115
+# 845aace638644a24850d33c3ace85a88
+msgid "Remove the following line from the [instance] part:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:121
+# 88a0cb544b594eef9fc5a5d120f34d4d
+msgid "Not a bug, but when editing the buildout update Plone to the latest version:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:128
+# b1f052d069ea44f2b4287226a7101610
+msgid "Running buildout"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:130
+# de02445de82a44ae8bb0f6c6c708ebc6
+msgid "Finally run buildout:"
+msgstr ""
+
+#: ../../getstarted/dexterity.rst:138
+# 4c01b15eeb5f4013a4bc8b22d8092731
+msgid "And start the Plone instance to add the Dexterity content type"
+msgstr ""
+
+#: ../../getstarted/index.rst:3
+# a6fd2836561641268a4951293664d7b1
+msgid "Getting started"
+msgstr ""
+
+#: ../../getstarted/index.rst:5
+# af2f955a55404e13852b2f31979d68f1
+msgid "How to get started with Plone development."
+msgstr ""
+
+#: ../../getstarted/index.rst:12
+# e3d1479deef34f37896ecd7c8dffb0ae
+msgid "Plone is developed in the :doc:`Python </getstarted/python>` programming language. :doc:`You should master Python basics </getstarted/python>` before you can efficiently customize Plone. If you are very new to Python, Plone or software development, it is suggested that you read the `Professional Plone 4 Development book <http://www.packtpub.com/professional-plone-4-development/book>`_ before you attempt to develop your own solutions."
+msgstr ""
+
+#: ../../getstarted/index.rst:18
+# a7a6a0e40cdc464abe61140e94916b4c
+msgid "If you quickly want to learn about current best-practices in developing with Plone you should also work through the `Todo list application tutorial <http://tutorialtodoapp.readthedocs.org/en/latest/index.html>`_."
+msgstr ""
+
+#: ../../getstarted/index.rst:21
+# 57610db0196749e4b52316b2b646dea5
+msgid "Plone runs on the top of the `Zope 2 application server <zope2.zope.org/>`_, meaning that one Zope 2 server process can contain and host several Plone sites. Plone also uses Zope 3 components. Zope 3 is not an upgrade for Zope 2, but a separate project."
+msgstr ""
+
+#: ../../getstarted/index.rst:25
+# 7f2a844d06c84826bce67c6e85093e36
+msgid "Internally, Plone uses the objected-oriented :doc:`ZODB </persistency/index>` database and the development mindset greatly differs from that of SQL based systems. SQL backends can still be integrated with Plone, like for any other Python application, but this is a more advanced topic."
+msgstr ""
+
+#: ../../getstarted/index.rst:30
+# 8d05f41c5d2a424badd561712622145b
+msgid "Installing Plone"
+msgstr ""
+
+#: ../../getstarted/index.rst:32
+# 2da6b930dcbd465197043e9f23c39fc2
+msgid "It is recommended that you do Plone development on Linux or OS X. Development on Windows is possible, but you need to have much more experience dealing with Python and Windows related problems, so starting on Windows is not so easy."
+msgstr ""
+
+#: ../../getstarted/index.rst:36
+# d46f983e08624b22a36149aac0cc7f20
+msgid "See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation suitable for development."
+msgstr ""
+
+#: ../../getstarted/index.rst:40
+# 10dc7bfd169341e3943fb7215a7cc58c
+msgid "Non-programming approaches for customizing Plone"
+msgstr ""
+
+#: ../../getstarted/index.rst:42
+# 2b2d916862044b7e831ae05721e4723d
+msgid "If you lack programming skill or resources, you can still get some things done in Plone:"
+msgstr ""
+
+#: ../../getstarted/index.rst:44
+# a744ab383bff4cd8af8e027f7fa45395
+msgid "`Plomino is a a powerful and flexible web-based application builder for Plone <http://www.plomino.net>`_"
+msgstr ""
+
+#: ../../getstarted/index.rst:46
+# 316ec579fb644d4dbb6eb9eeee798256
+msgid "`PloneFormGen allows you to build forms in a web browser <http://plone.org/products/ploneformgen>`_"
+msgstr ""
+
+#: ../../getstarted/index.rst:48
+# 553f5d772b834d12b34672c84ca83791
+msgid "Plone 4+ comes with through-the-web Dexterity content type editor"
+msgstr ""
+
+#: ../../getstarted/index.rst:50
+# 23fd83355e6144e4a84b200666af42c2
+msgid "However, for heavy customization, Python, JavaScript, TAL page templates and CSS programming is needed."
+msgstr ""
+
+#: ../../getstarted/index.rst:53
+# c4e42e2f0f70471595e203f5f85f328b
+msgid "Enabling debug mode"
+msgstr ""
+
+#: ../../getstarted/index.rst:55
+# 80613c8f482d4319bc907b816fb128f2
+msgid "By default, Plone runs in a *production mode* where changed files in the file system are not reflected in the served HTML. When you start developing Plone you need to first :doc:`put it into a debug mode </getstarted/debug_mode>`."
+msgstr ""
+
+#: ../../getstarted/index.rst:60
+# ee9e248f7fc042ba98727d34a57df188
+msgid "Plone add-ons as Python packages"
+msgstr ""
+
+#: ../../getstarted/index.rst:62
+# 1e1cefc9556e422c919d3334c7693ca3
+msgid "Plone sites can be customized by installing *Plone add-ons*, which add or customize functionality. You can install existing add-ons that others have developed or you can develop and install your own add-ons. Add-ons are developed and distributed as `Python packages <http://packages.python.org/distribute/setuptools.html>`_. Many open-source Python packages, including Plone add-ons, are available from `PyPI (the Python Package index) <http://pypi.python.org>`_."
+msgstr ""
+
+#: ../../getstarted/index.rst:68
+# 34a77446f2e348b2a1a54b472b838714
+msgid "Plone uses a tool called `Buildout <http://www.buildout.org/>`_ to manage the set of Python packages that are part of your Plone installation. Using Buildout involves using the ``buildout.cfg`` configuration file and the ``bin/buildout`` command."
+msgstr ""
+
+#: ../../getstarted/index.rst:74
+# 6af9a5717c3c485f98153880584ff49b
+msgid "In prior versions of Plone and Zope, add-ons were referred to as \"products\" and they were installed by copying them into a special folder called ``products``. This method is now deprecated in favor of using standard Python packages, managed by Buildout."
+msgstr ""
+
+#: ../../getstarted/index.rst:80
+# 7e5012869086400c88f522a7d6d33530
+msgid "Finding and installing add-on packages"
+msgstr ""
+
+#: ../../getstarted/index.rst:82
+# ce848488ed794099881360396ed43068
+msgid "Plone add-ons can be found at the `plone.org Products <http://plone.org/products>`_ page or at the  `PyPI (the Python Package index) <http://pypi.python.org>`_."
+msgstr ""
+
+#: ../../getstarted/index.rst:86
+# 8feb556bc30d4e66925c8d2b823befe7
+msgid "See the :doc:`Installing add-on packages using buildout </getstarted/installing_addons>` section for more details."
+msgstr ""
+
+#: ../../getstarted/index.rst:91
+# 32100a8ed00c47ec8db414f1d40631f5
+msgid "Creating your first add-on"
+msgstr ""
+
+#: ../../getstarted/index.rst:93
+# e42aa443a0694b5a83a9fe6ced206094
+msgid "Since Python egg package structure is little bit complex, to get started with your first add-on you can create a code skeleton (scaffold) for it using :doc:`Plone ZopeSkel code templates </getstarted/paste>`."
+msgstr ""
+
+#: ../../getstarted/index.rst:96
+# a9b870bef8ce400c8d5b3cd0ef87375b
+msgid "ZopeSkel generates a basic Python egg package with some Plone files in-place."
+msgstr ""
+
+#: ../../getstarted/index.rst:98
+# b53ec30b90184e82a935960a5d1b59ee
+msgid "This package is registered to buildout as a development egg in the ``buildout.cfg`` file."
+msgstr ""
+
+#: ../../getstarted/index.rst:100
+# 7c9d096209584aacb25608a70c7c129c
+msgid "Buildout is rerun which regenerates your ``bin/instance`` script with the new set of Python eggs."
+msgstr ""
+
+#: ../../getstarted/index.rst:102
+# be5424f117c444d8b05a0428c70c6cdf
+msgid "You start your Plone instance in debug mode."
+msgstr ""
+
+#: ../../getstarted/index.rst:104
+# 7af197daeaca4a068b79a3af2e0150ae
+msgid "You install your add-on through ``Add/remove add-ons``"
+msgstr ""
+
+#: ../../getstarted/index.rst:108
+# b9b157cf2df24c4a8948babf114499c5
+msgid "There are different scaffolds for different kind of add-ons. The most typically used are ``plone3_theme``, ``archetype`` (create Archetypes content), ``dexterity`` (create Dexterity content) and ``plone`` (barebone Plone add-on)."
+msgstr ""
+
+#: ../../getstarted/index.rst:112
+# cff2dea0cca44e9bb4f49f570e064438
+msgid "Please read how to use :doc:`ZopeSkel to bootstrap your first add-on </getstarted/paste>`."
+msgstr ""
+
+#: ../../getstarted/index.rst:114
+# ed4f004e20714160a49c3fe05a6756fb
+msgid "If you want to create a package with Dexterity content types please read about :doc:`Setting up a Dexterity project</reference_manuals/external/plone.app.dexterity/prerequisite>`."
+msgstr ""
+
+#: ../../getstarted/index.rst:117
+# 56c282a9558242b6b2817d78077b9ab7
+msgid "Plone development workflow"
+msgstr ""
+
+#: ../../getstarted/index.rst:119
+# 029a7f23f1ab4776a3e7f0f7080ec09e
+msgid "You never edit Plone files directly. Everything under ``parts`` and ``eggs`` folders in your Plone installation is downloaded from the Internet and dynamically generated by Buildout, based on ``buildout.cfg``. Buildout is free to override these files on any update."
+msgstr ""
+
+#: ../../getstarted/index.rst:123
+# bea32682f4dc4365b4f432cec8b17a58
+msgid "You need to have your own add-on in the ``src/`` folder as created above. There you overlay changes to the existing Plone core through extension mechanisms provided by Plone:"
+msgstr ""
+
+#: ../../getstarted/index.rst:126
+# 9d58513f8ea1411395fe3b4225f71ac3
+msgid ":doc:`Layers </views/layers>`"
+msgstr ""
+
+#: ../../getstarted/index.rst:128
+# 7775992984624f768087a83109c6c8b2
+msgid ":doc:`Adapters </components/adapters>`"
+msgstr ""
+
+#: ../../getstarted/index.rst:130
+# 396c59d4884645b297f6e35f619ddd1e
+msgid ":doc:`Installation profiles </components/genericsetup>`"
+msgstr ""
+
+#: ../../getstarted/index.rst:132
+# 69843acf04a34eb6807bf4512583c105
+msgid "Plone development always happens on your local computer or the development server. The changes are moved to production through version control system like Git or Subversion."
+msgstr ""
+
+#: ../../getstarted/index.rst:135
+# a308931361274b0e9d37091842e0531a
+msgid "**The best practice is that you install Plone on your local computer for development**."
+msgstr ""
+
+#: ../../getstarted/index.rst:138
+# 85badf48ca424eee9d7706fa98638381
+msgid "Plone add-on features"
+msgstr ""
+
+#: ../../getstarted/index.rst:140
+# 7f3f6dc318fc48a3a11dacca60e739ab
+msgid "Plone add-ons usually:"
+msgstr ""
+
+#: ../../getstarted/index.rst:142
+# d533e71ad02a4de3aa7b51620c1e3aaa
+msgid "Create custom :doc:`content types </content/index>` or extend existing ones for your specialized need. Plone has two subsystems for content types: :doc:`Dexterity (new) </content/dexterity>` and :doc:`Archetypes (old) </content/archetypes/index>`."
+msgstr ""
+
+#: ../../getstarted/index.rst:145
+# aeb131ffa4b94e9cb2ae331c9df0b27a
+msgid "Add new :doc:`views </views/browserviews>` for your site and its content."
+msgstr ""
+
+#: ../../getstarted/index.rst:147
+# e650ab53bcf647bba4359b57e8c6f470
+msgid "Create Python-processed :doc:`forms </forms/index>` on your site."
+msgstr ""
+
+#: ../../getstarted/index.rst:149
+# 8d88160b89ee4be188cb204a07a4de8e
+msgid "Theme your site"
+msgstr ""
+
+#: ../../getstarted/index.rst:151
+#: ../../getstarted/paste.rst:205
+# 10414aff2027467993cd1f2440a640e1
+# ff2fb673d10841279aa8b17bd578ef12
+msgid "etc."
+msgstr ""
+
+#: ../../getstarted/index.rst:153
+# 5ad7a935097944b6b476ff11a6f297c6
+msgid "A lot of Plone functionality is built on :doc:`Zope 3 development patterns </components/index>` like adapters and interfaces. These design patterns take some time to learn, but they are crucial in complex component based software like Plone."
+msgstr ""
+
+#: ../../getstarted/index.rst:159
+# 10fa4f570bc44c938f0d25233e3b3426
+msgid "Development mode restarts"
+msgstr ""
+
+#: ../../getstarted/index.rst:161
+# 30882b52904a44609f0f8c71bf39d720
+msgid "Plone must be started in the development mode using ``bin/instance fg`` command. Then"
+msgstr ""
+
+#: ../../getstarted/index.rst:163
+# be48d802e0e14c53a7da4af240e388ac
+msgid "Javascript files are in debug mode and automatically loaded when you hit refresh"
+msgstr ""
+
+#: ../../getstarted/index.rst:165
+# 521f4d3bdbd048969c6c42630e8d172f
+msgid "CSS files are in debug mode and automatically loaded when you hit refresh"
+msgstr ""
+
+#: ../../getstarted/index.rst:167
+# 3ea41bb0af09497798860c8f3a883e71
+msgid "TAL page templates (.pt files) are automatically reloaded on every request"
+msgstr ""
+
+#: ../../getstarted/index.rst:169
+# 0fe125afc9fa44b98fa498162ece1fb5
+msgid ":doc:`GenericSetup XML files are reloaded </components/genericsetup>`"
+msgstr ""
+
+#: ../../getstarted/index.rst:171
+# 7213088b291b405a96aec8147483c1db
+msgid "Please note that Plone development mode does not reload ``.py`` or ``.zcml`` files by default. This is possible, however.  Use the `sauna.reload <http://pypi.python.org/pypi/sauna.reload/>`_ package to make Plone reload your Python code automatically when it is changed."
+msgstr ""
+
+#: ../../getstarted/index.rst:176
+# 105966a20b0b4393b1504a57964a81e4
+msgid "Through-the-web customizations"
+msgstr ""
+
+#: ../../getstarted/index.rst:178
+# 53da23fa87af408eadc49536d770eb6a
+msgid "Some aspects of Plone can be changed through the Zope Management Interface (ZMI). Documentation here does not focus on extending functionality through the ZMI because this method is severely limited and usually can take you only half way there."
+msgstr ""
+
+#: ../../getstarted/index.rst:183
+# 440d994f97584efea8e79bdbd9c50a25
+msgid "Hello World Tutorial"
+msgstr ""
+
+#: ../../getstarted/index.rst:185
+# 5857bf794d054e9e88b56f595e436571
+msgid "We have a :doc:`tutorial </reference_manuals/active/helloworld/index>` introducing the basics of Plone development."
+msgstr ""
+
+#: ../../getstarted/index.rst:187
+# b77dc462155846da96efd8ea30967061
+msgid "The tutorial covers a basic form, a custom content-type, and a dynamic view. It also has detailed sections on building a development environment, installing Plone, and creating an add-on package for your development code."
+msgstr ""
+
+#: ../../getstarted/index.rst:192
+# 212cee6e1b164f2498b5649e83117715
+msgid "More info"
+msgstr ""
+
+#: ../../getstarted/index.rst:206
+# f669c3607ff946038ed1b7b7329f4b03
+msgid "Plone resources"
+msgstr ""
+
+#: ../../getstarted/index.rst:208
+# d82137065c5c450ba287d9e4cbefd690
+msgid "`Plone Trac <http://dev.plone.org/plone>`_ contains bug reports, Plone source code and commits. Useful when you encounter a new exception or you are looking for a reference on how to use the API."
+msgstr ""
+
+#: ../../getstarted/index.rst:212
+# bd99062a18434a5d9114c31a16daa3ec
+msgid "`Plone source code in version control system <https://github.com/plone>`_."
+msgstr ""
+
+#: ../../getstarted/index.rst:214
+# 73e64800aad64a9da83378dceb17ed03
+msgid "`Plone API (in development) <http://ploneapi.readthedocs.org/>`_."
+msgstr ""
+
+#: ../../getstarted/index.rst:218
+# 459f43c9ab6444618c4161780e91e373
+msgid "Zope resources"
+msgstr ""
+
+#: ../../getstarted/index.rst:220
+# 09b1f0c74b9b4833800dd24987bf3cf5
+msgid "`Zope source code in version control system <http://svn.zope.org/>`_."
+msgstr ""
+
+#: ../../getstarted/index.rst:222
+# 6e0f0cb6526848ef95e91faf0a4c8245
+msgid "`Zope 2 book <http://docs.zope.org/zope2/zope2book/>`_. This describes old Zope 2 technologies. The book is mostly good for explaining some old things, but '''do not''' use it as a reference for building new things."
+msgstr ""
+
+#: ../../getstarted/index.rst:226
+# ce7b70245cb34e76ae0f913c6389f7ee
+msgid "The chapters on Zope Page Templates however are still the best reference on the topic."
+msgstr ""
+
+#: ../../getstarted/installation.rst:7
+# 3311b72c1ed943d8ac84bd485524d5d9
+msgid "Installation instructions for Plone for various operating systems and situations."
+msgstr ""
+
+#: ../../getstarted/installation.rst:16
+# ee265b3ac97e4c42a4ed7cbb36a19f3a
+msgid "This document covers the basics of installing Plone on popular operating systems. It will also point you to other documents for more complex or demanding installations."
+msgstr ""
+
+#: ../../getstarted/installation.rst:19
+# e186e12a0378475aadf89adecbd6253f
+msgid "Plone runs as an application on the Zope application server. That server is installed automatically by the install process."
+msgstr ""
+
+#: ../../getstarted/installation.rst:23
+# dcfc4e12cc0b462985838f63e9fc29dd
+msgid "We strongly advise against installing Plone via OS package or port. There is no .rpm, .deb, or BSD port that is supported by the Plone community. Plone dependencies can and should be installed via package or port -- but not Plone itself."
+msgstr ""
+
+#: ../../getstarted/installation.rst:26
+# b15bc713c587431ab925430047f7ec6b
+msgid "Download Plone"
+msgstr ""
+
+#: ../../getstarted/installation.rst:28
+# 47c9f69da87a4453ac7a4aeed59b2066
+msgid "Plone is available for Microsoft Windows, Mac OSX X, Linux and BSD operating systems."
+msgstr ""
+
+#: ../../getstarted/installation.rst:30
+# c43137d8023044f1801653ee3515a92c
+msgid "`Download the latest Plone release <http://plone.org/products/plone/latest_release>`_."
+msgstr ""
+
+#: ../../getstarted/installation.rst:32
+# f5ddcde246fa4640ba9bde9f1296541c
+msgid "Binary installers are available for Windows and OS X. Installation on Linux, BSD and other Unix workalikes requires a source code installation, made easy by our Unified Installer. \"Unified\" refers to its ability to install on most Unix workalikes."
+msgstr ""
+
+#: ../../getstarted/installation.rst:35
+# 75f74995ce4d433e8350af42c66f05a1
+msgid "Plone installation requirements"
+msgstr ""
+
+#: ../../getstarted/installation.rst:37
+# 5033fcd82b3441219bfd9667f17b74ea
+msgid "See :doc:`Plone installation requirements <requirements>` for detailed requirements."
+msgstr ""
+
+#: ../../getstarted/installation.rst:39
+# 4ccd312897b74bfe909f48b1c48721a0
+msgid "You need at a dedicated or virtual private server (VPS) with 512 MB RAM available. Shared hosting is not supported unless the shared hosting company says Plone is good to go. See :doc:`Plone installation requirements <requirements>`."
+msgstr ""
+
+#: ../../getstarted/installation.rst:43
+# 465b2ed02fa74a9280131342761ca8fe
+msgid "If you are installing for production — rather than testing or evaluation — review :doc:`Deploying and installing Plone in production </reference_manuals/active/deployment>` before installation."
+msgstr ""
+
+#: ../../getstarted/installation.rst:49
+# 672e0cfa520548fd81c05bab5d03cd29
+msgid "How to install Plone"
+msgstr ""
+
+#: ../../getstarted/installation.rst:51
+# 931a9c5d55cb4d1a8e15d27ff2545b14
+msgid "Plone can run on all popular desktop or server operating systems, including Linux, OS X, BSD and Microsoft Windows."
+msgstr ""
+
+#: ../../getstarted/installation.rst:54
+# f27eb49181c94b038f65f346a70515e9
+msgid "You may install Plone on the server for production usage"
+msgstr ""
+
+#: ../../getstarted/installation.rst:56
+# d6c290ca5494434b83d48bbe10315bf6
+msgid "You may install Plone locally on your own computer for the development and test drive"
+msgstr ""
+
+#: ../../getstarted/installation.rst:59
+# b5384853551c435898a8360a5ce01d86
+msgid "Ubuntu / Debian"
+msgstr ""
+
+#: ../../getstarted/installation.rst:61
+# 504ae9d56be34b4dac2fed02830d4032
+msgid "We describe Ubuntu/Debian installation in detail as an example of installation on a common Unix workalike. The only difference for most other systems would be in package-manager commands and package names. See :doc:`Plone installation requirements <requirements>` for package names and commands on other platforms."
+msgstr ""
+
+#: ../../getstarted/installation.rst:64
+# 66c82440672e4b748b515a62aabcf796
+msgid "Installing Plone using the Unified UNIX Installer"
+msgstr ""
+
+#: ../../getstarted/installation.rst:68
+# edc11a3ed00144a1bd4e4cc284f2f650
+msgid "This is the recommended method for a *development or evaluation* installation of Plone on a Unix workalike. For a *production* installation, :doc:`Installing Plone for Production on Ubuntu </getstarted/ubuntu_production>` is a much better guide."
+msgstr ""
+
+#: ../../getstarted/installation.rst:72
+# 497a8453ad9c41bdbbdd1fc12f145afb
+msgid "This recipe is good for:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:74
+# 41c91dc4e7644a50ab9b636f2a8c2359
+msgid "Plone development and testing on Ubuntu / Debian"
+msgstr ""
+
+#: ../../getstarted/installation.rst:76
+# a08c3227c10a404095ba47c213579b5e
+msgid "Operating system installations where you have administrator (root) access. Note that root access is not strictly necessary as long as you have required software installed beforehand on the server, but this tutorial assumes you need to install the software yourself and you are the admin. If you don't have the ability to install system libraries, you'll need to get your sysadmin to do it for you. The libraries required are in common use."
+msgstr ""
+
+#: ../../getstarted/installation.rst:81
+# 1d90900dd6714ae5a80f0c0100074a5a
+msgid "The resulting installation is self-contained, does not touch system files, and is safe to play with (no root/sudoing is needed)."
+msgstr ""
+
+#: ../../getstarted/installation.rst:85
+# cbc6e2329c344bc6b7796339f815cf4e
+msgid "If you are not familiar with UNIX operating system command line you might want to study this `Linux shell tutorial <http://linuxcommand.org/learning_the_shell.php>`_ first."
+msgstr ""
+
+#: ../../getstarted/installation.rst:89
+# 264b55033fe64f158d2e2ac9c026b874
+msgid "For information on using this installation with more advanced production hosting environments and deployments, see the :doc:`hosting guide </hosting>`."
+msgstr ""
+
+#: ../../getstarted/installation.rst:93
+# 7ec892065d9248fdbc4b3d2ff18c2e5a
+msgid "Instructions are tested for the *Ubuntu 12.04 Long Term Support* release."
+msgstr ""
+
+#: ../../getstarted/installation.rst:96
+# 4fed665beff6454cbd6a45cf7728b392
+msgid "Install the operating system software and libraries needed to run Plone"
+msgstr ""
+
+#: ../../getstarted/installation.rst:102
+# d0c923d57c064c44b9651f77e8353d27
+msgid "You will probably also want these optional system packages (see `Plone manual for more information <http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries>`_):"
+msgstr ""
+
+#: ../../getstarted/installation.rst:110
+# 284b2ac809ec47638eee8320cc8936a6
+msgid "**libreadline-dev** is only necessary if you wish to build your own python rather than use your system's python 2.7."
+msgstr ""
+
+#: ../../getstarted/installation.rst:112
+# b036f6308cf64cc1b2c1f53b4b5702a2
+msgid "If you're planning on developing with Plone, install git version control support::"
+msgstr ""
+
+#: ../../getstarted/installation.rst:118
+# 883a489690f4427da35f023922ed2d18
+msgid "If sudo command is not recognized or does not work you don't have administrator rights to Ubuntu / Debian operating system. Please contact your server vendor or consult the operating system support forum."
+msgstr ""
+
+#: ../../getstarted/installation.rst:122
+# 8ddfc5998afd4390b9dbabb2609c3877
+msgid "Download the latest Plone unified installer"
+msgstr ""
+
+#: ../../getstarted/installation.rst:124
+# d89d7866f81a44f28a873726d6e2f0c0
+msgid "Download from `the plone.org download page <http://plone.org/download>`_ to your server using wget command. Curl also works. Substitute the latest version number for 4.3.2 in the instructions below."
+msgstr ""
+
+#: ../../getstarted/installation.rst:133
+# 2efb37cd4026485e8a1f6dcde2ade279
+msgid "Run the Plone installer in standalone mode"
+msgstr ""
+
+#: ../../getstarted/installation.rst:148
+# f80efa179b464ef5b0a966265942a8e9
+msgid "install.sh has many options, use:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:154
+# 1dcb8513e07b44398a77bbbc522b2647
+msgid "to discover them."
+msgstr ""
+
+#: ../../getstarted/installation.rst:156
+# 07b52097cbc44849b790011162ed8b48
+msgid "The default admin credentials will be printed to the console. You can change this password after logging in to the Zope Management Interface."
+msgstr ""
+
+#: ../../getstarted/installation.rst:161
+# b77c32cf09e7422292c2a5eeb8e99d2e
+msgid "The password is also written down in the ``buildout.cfg`` file, but this setting is not effective after Plone has been started for the first time. Changing this setting does not do any good."
+msgstr ""
+
+#: ../../getstarted/installation.rst:166
+# 55e773edc45c488692fa9884366bb25c
+msgid "Install the Plone developer tools"
+msgstr ""
+
+#: ../../getstarted/installation.rst:168
+# 3eeb48dc85964f7caaeb68c584eb2597
+msgid "If you're using this Plone install for development, add the common development tool set."
+msgstr ""
+
+#: ../../getstarted/installation.rst:175
+# cebb17787cf04468910ea6be986413a6
+msgid "You'll need to add the \"-c develop.cfg\" again each time you run buildout, or you'll lose the extra development tools."
+msgstr ""
+
+#: ../../getstarted/installation.rst:178
+# 58c3516eb78a4043a93ee3daf67e59b2
+msgid "Start Plone"
+msgstr ""
+
+#: ../../getstarted/installation.rst:180
+# a40f8ed2cd8641e6af4862c049472efc
+msgid "If you're developing, start Plone in foreground mode for a test run (you'll see potential errors in the console):"
+msgstr ""
+
+#: ../../getstarted/installation.rst:187
+# decc715cd9f9442bb6f6e99d54a0e9d9
+msgid "When you start Plone in the foreground, it runs in debug mode, which is much slower than production mode since it reloads templates for every request."
+msgstr ""
+
+#: ../../getstarted/installation.rst:189
+# ca0979a43873403ab9d30e015c5b86f6
+msgid "For evaluation, instead use:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:196
+# 141b7d5ad2024171a5818daefc5fd71a
+msgid "Use"
+msgstr ""
+
+#: ../../getstarted/installation.rst:203
+# f181b58c3e54480ba2b16d286e693d37
+msgid "to stop the instance."
+msgstr ""
+
+#: ../../getstarted/installation.rst:205
+# 012ecd1520cd4eadae3df69aa3fb9d9f
+msgid "By default, Plone will listen to port 8080 on available network interfaces. That may be changed by editing buildout.cfg and re-running buildout."
+msgstr ""
+
+#: ../../getstarted/installation.rst:209
+# 317a6d2c0531426e88dd5363e0b2f610
+msgid "You've got Plone"
+msgstr ""
+
+#: ../../getstarted/installation.rst:211
+# 1e178eccd4f84b8388b8a74f02a4e634
+msgid "Now take a look at your Plone site by visiting the following address in your webbrowser::"
+msgstr ""
+
+#: ../../getstarted/installation.rst:215
+# 92e0e6c16c2e4995809848ec52d70175
+msgid "The greeting page will let you create a new site. For this you need the login credentials printed to your terminal earlier, also available at ``~/Plone/zinstance/adminPassword.txt``."
+msgstr ""
+
+#: ../../getstarted/installation.rst:218
+# 5f29d66882a64fa4948c2114d270ade2
+msgid "If everything is OK, press ``CTRL-C`` in the terminal to stop Plone if you're running in debug mode. Use the ``plonectl stop`` command if you didn't start in debug mode."
+msgstr ""
+
+#: ../../getstarted/installation.rst:220
+# 6d6410568f6c4daa97ba4cfcdef8df85
+msgid "If you have problems, please see the `help guidelines <http://plone.org/help>`_."
+msgstr ""
+
+#: ../../getstarted/installation.rst:222
+# a0e8d2b59cdf439ab6185272601f11e3
+msgid "For automatic start-up when your server boots up, init scripts, etc. please see the :doc:`hosting guide </hosting>`."
+msgstr ""
+
+#: ../../getstarted/installation.rst:226
+# e93ac97d5e804927a150019856b95db3
+msgid "Installing Plone using buildout on Ubuntu / Debian"
+msgstr ""
+
+#: ../../getstarted/installation.rst:228
+# 9b610f21338745959c38f778c055d07b
+msgid "Here are quick instructions to install Plone using a pre-installed buildout and the OS-provided Python interpreter. This procedure is only useful if you know buildout well enough to tailor your own buildout configuration."
+msgstr ""
+
+#: ../../getstarted/installation.rst:233
+# c273175c1e6f4cf2975fc08b8e63e092
+msgid "You need to manage dependencies (``Python``, ``libxml``, ``Pillow``) yourself."
+msgstr ""
+
+#: ../../getstarted/installation.rst:235
+# 08554e322970495daa9d33b81120d80e
+msgid "This will:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:237
+# 351a5d82339f47d08c56e2974bbd5d35
+msgid "create a default ``buildout.cfg`` configuration file and folder structure around it;"
+msgstr ""
+
+#: ../../getstarted/installation.rst:240
+# 281925b794254ae88796151e356dc0f3
+msgid "automatically download and install all packages from `pypi.python.org <pypi.python.org>`_;"
+msgstr ""
+
+#: ../../getstarted/installation.rst:242
+# c4d2734ff0474b86bfe8bf509db54e27
+msgid "configure Plone and Zope for you."
+msgstr ""
+
+#: ../../getstarted/installation.rst:244
+# c4ad3ad12bd149c4b1a88aabbad7950c
+msgid "Install ``virtualenv`` for python (on Ubuntu):"
+msgstr ""
+
+#: ../../getstarted/installation.rst:250
+# e8ea5d01e606469b8da83125a7475b2d
+msgid "Create a ``virtualenv`` where you can install some Python packages (``ZopeSkel``, ``Pillow``):"
+msgstr ""
+
+#: ../../getstarted/installation.rst:257
+# 72a48dac062e4d3891e16aa1ed0c46eb
+msgid "In this virtualenv install ``ZopeSkel`` (from the release 2 series):"
+msgstr ""
+
+#: ../../getstarted/installation.rst:264
+# b16ef347bd6944519b35814386369974
+msgid "Create Plone buildout project using ZopeSkel:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:270
+# ccf404a7198340e5a75913e4761e24c9
+msgid "Optionally edit ``buildout.cfg`` at this point. Run buildout (use Python 2.6 for Plone 4.1):"
+msgstr ""
+
+#: ../../getstarted/installation.rst:278
+# c791b9275d09410ebffa6be8bfbac4ab
+msgid "More info:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:280
+# 68ca8b8420f742468d85015169f070e0
+msgid ":doc:`ZopeSkel </getstarted/paste>`"
+msgstr ""
+
+#: ../../getstarted/installation.rst:281
+# 50015fbe970d4dfe883783df06b0c496
+msgid "`virtualenv <http://pypi.python.org/pypi/virtualenv>`_"
+msgstr ""
+
+#: ../../getstarted/installation.rst:282
+# 7f13ae7d3d0c407c906eb1011fdc442f
+msgid "`Pillow <http://pypi.python.org/pypi/Pillow/>`_"
+msgstr ""
+
+#: ../../getstarted/installation.rst:283
+# 913b55367a724d2c85eb25f23336f60d
+msgid "`lxml <http://lxml.de/>`_"
+msgstr ""
+
+#: ../../getstarted/installation.rst:286
+# da5ddf19c57a419e91d2c246e6d875b6
+msgid "Installing Plone using RPMs, .dev, ... packages"
+msgstr ""
+
+#: ../../getstarted/installation.rst:288
+# 8f1973914cee4cefbf5da5226ac90bd7
+msgid "Not supported by Plone community."
+msgstr ""
+
+#: ../../getstarted/installation.rst:290
+# 3e3e173f5d8e459ab439801a36fd8fd8
+msgid "(i.e. you're on your own, and don't say we didn't tell you.)"
+msgstr ""
+
+#: ../../getstarted/installation.rst:293
+# b9c9c3b036f84b92ac017f3a4b48f3b9
+msgid "Microsoft Windows"
+msgstr ""
+
+#: ../../getstarted/installation.rst:296
+# c36f4f07c2d14ce8b2b405b0bb65270f
+msgid "Installing Plone on Windows"
+msgstr ""
+
+#: ../../getstarted/installation.rst:298
+# 4a7e0157caee45aeb543809a4012442c
+msgid "By far the easiest way to install on Windows is to use the binary installer provided on plone.org. This installation is adequate for Python development. It is very rare to need C language extensions."
+msgstr ""
+
+#: ../../getstarted/installation.rst:301
+# c2fca4b5b584443c8b87d787d878c35f
+msgid "If you have needs beyond those met by the Windows Installer, read on."
+msgstr ""
+
+#: ../../getstarted/installation.rst:303
+# 3e971d68d42d4b2c9a0f5bf1f825a29a
+msgid "For Plone 4.1 and later, see these instructions:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:305
+# 5b2502ba85e94d67890b9b1e60ccfff1
+msgid "https://docs.google.com/document/d/19-o6yYJWuvw7eyUiLs_b8br4C-Kb8RcyHcQSIf_4Pb4/edit"
+msgstr ""
+
+#: ../../getstarted/installation.rst:307
+# c5d82d6d480e4e40beae904da5c29d0a
+msgid "If you wish to develop Plone on Windows you need to set-up a working MingW environment (this can be somewhat painful if you aren't used to it):"
+msgstr ""
+
+#: ../../getstarted/installation.rst:310
+# c414448bc4da4307bf2acc78c15576f1
+msgid "http://plone.org/documentation/kb/using-buildout-on-windows"
+msgstr ""
+
+#: ../../getstarted/installation.rst:313
+# 4b88dc08a5424cb4ab5269fef9ed24c7
+msgid "OSX"
+msgstr ""
+
+#: ../../getstarted/installation.rst:316
+# 264dbdcaddb846b78341071cecca5da4
+msgid "Installing Plone using OSX binary installer"
+msgstr ""
+
+#: ../../getstarted/installation.rst:318
+# 0af0bdff6343424a8ce9a47b39174d86
+msgid "This is the recommended method if you want to try Plone for the first time."
+msgstr ""
+
+#: ../../getstarted/installation.rst:320
+# 6f958ccb40b743318702dedf747ca04b
+msgid "Please use the installer from the download page `<http://plone.org/products/plone/releases>`_."
+msgstr ""
+
+#: ../../getstarted/installation.rst:322
+# 09e9ffcbaae2454aa1cde870c737b8d6
+msgid "The binary installer is intended to provide an environment suitable for testing, evaluating, and developing theme and add-on packages. It will not give you the ability to add or develop components that require a C compiler. This is *very* rarely needed."
+msgstr ""
+
+#: ../../getstarted/installation.rst:327
+# 925404bee62045b0bca7f6f44845bc6e
+msgid "Installing Plone from source on OS X"
+msgstr ""
+
+#: ../../getstarted/installation.rst:329
+# 861d147b89d045899cd9f3c8474e20bc
+msgid "Installation via the Unified Installer or buildout is very similar to Unix. However, you will need to install a command-line build environment. To get a free build kit from Apple, do one of the following:"
+msgstr ""
+
+#: ../../getstarted/installation.rst:332
+# 3ba6e92009b24bf9af59ea969e5ac5e6
+msgid "Download gcc and command-line tools from https://developer.apple.com/downloads/. This will require an Apple developer id."
+msgstr ""
+
+#: ../../getstarted/installation.rst:336
+# 8fd74a3432ac4b4d8a20731e5eb9972e
+msgid "Install Xcode from the App Store. After installation, visit the Xcode app's preference panel to download the command-line tools."
+msgstr ""
+
+#: ../../getstarted/installation.rst:339
+# 75da7f654b044f789ca9ee0aa96c5bc8
+msgid "After either of these steps, you immediately should be able to install Plone using the Unified Installer."
+msgstr ""
+
+#: ../../getstarted/installation.rst:341
+# 0dd29bf89309469e8d0b0349d70c1024
+msgid "Proceed as with Linux."
+msgstr ""
+
+#: ../../getstarted/installation.rst:344
+# d0429b3a3c1f4207aa44408c281686d2
+msgid "LibXML2/LibXSLT Versions"
+msgstr ""
+
+#: ../../getstarted/installation.rst:346
+# 039d4e1d72aa4244aa1b09bd2d16d3ac
+msgid "If you are installing Plone 4.2+ or 4.1 with Diazo, you will need up-to-date versions of libxml2 and libxslt::"
+msgstr ""
+
+#: ../../getstarted/installation.rst:351
+# c99525894d454cdda6270f52a9939bac
+msgid "Ideally, install these via system packages or ports. If that's not possible, use most current version of the z3c.recipe.staticlxml buildout recipe to build an lxml (Python wrapper) egg with static libxml2 and libxslt components."
+msgstr ""
+
+#: ../../getstarted/installation.rst:354
+# 55b481d92edd474da33477b798fe6091
+msgid "Don't worry about this if you're using an installer."
+msgstr ""
+
+#: ../../getstarted/installation.rst:357
+# 35a4ae26c998482c8cac44864f03a046
+msgid "Entering debug mode after installation"
+msgstr ""
+
+#: ../../getstarted/installation.rst:359
+# 5e4f4048d8ee40c798fb2709a566b865
+msgid "When you have Plone installed and want to start development you need do :doc:`enter debug mode </getstarted/debug_mode>`."
+msgstr ""
+
+#: ../../getstarted/installation.rst:363
+# c5e96cb4a0844aeab0fa07f46d6b0583
+msgid "Installer source code"
+msgstr ""
+
+#: ../../getstarted/installation.rst:365
+# 44debd9df47c42349ad33e637e464e38
+msgid "https://github.com/plone/Installers-UnifiedInstaller"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:3
+# 978608126ec54ada8da15398c697b1eb
+msgid "Installing add-on packages using buildout"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:12
+# ea7102e0893c4a5584aa20e0b340fb93
+msgid "Plone uses `Buildout <http://www.buildout.org/>`_ for installing add-on packages. See :doc:`installation instructions </getstarted/installation>` for how to create a Plone installation suitable for development."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:18
+# 907ff1fccba6401885cf69e631521451
+msgid "Discovering Plone add-ons and other python packages"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:20
+# 96e8d949c07a40b5b540434b78b75853
+msgid "The `plone.org Products <http://plone.org/products>`_ is a directory of Plone add-on packages where a lot of add-on packages for Plone are listed."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:24
+# 1bed707481f7407b9f7b7740c06616fa
+msgid "A lot more packages can be found in the `PyPI (the Python Package index) <http://pypi.python.org>`_, although most of the packages might not be Plone specific."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:30
+# 9636bbaced5347e782733c0242b1837f
+msgid "Installing add-ons using buildout"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:32
+# 15ab0e1d9591416da961b1cd623b1796
+msgid "Add-on packages which are uploaded to `PyPI <http://pypi.python.org>`_ or `plone.org <http://plone.org/products>`_ as *egg* can be installed by buildout."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:36
+# 319816e844e544f794b578ea83e5c1c3
+msgid "Edit your `buildout.cfg` file and add the add-on package to the list of eggs:"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:50
+# a8b89cb63f574d7aa2962b422c53eb24
+msgid "The above example works for the buildout created by the unified installer. If you however have a custom buildout you might need to add the egg to the *eggs* list in the *[instance]* section rather than adding it in the *[buildout]* section."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:56
+# b8331bacf06b4f55937a272041a10738
+msgid "For the changes to take effect you need to re-run buildout from your console:"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:64
+# a6e388903ec84bad87d5296e322111dc
+msgid "Restart your instance for the changes to take effect:"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:72
+# 2ce19d598a6a4579bbdda788323fc012
+msgid "Installing development version of add-on packages"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:74
+# 61fed404dfb14d7c94e51c865ef5aaf5
+msgid "If you need to use the latest development version of an add-on package you can easily get the source in your development installation using the buildout extension `mr.developer <http://pypi.python.org/pypi/mr.developer>`_."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:79
+# d9bc15940cf04649bbfabdc2a3b18039
+msgid "For managing the sources it is recommended to create a `sources.cfg` which you can include in your buildout."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:92
+# 04b05d86889644b491c6505e9c750ed4
+msgid "Adding add-on package names to the **auto-checkout** list will make buildout check out the source to the `src` directory upon next buildout run."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:98
+# 214de20399b94c7d9aec1535c0512142
+msgid "It is not recommended to use `auto-checkout = *`, especially when you extend from a big list of sources, such as the plonesource.org list."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:104
+# fdfd870500704ba78faa051e49a65993
+msgid "The `auto-checkout` option only checks out the source. It is also required to add the package to the `eggs` list for getting it installed, see above."
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:108
+# 4ff31ce2370c4030991c5effb5154216
+msgid "After creating a `sources.cfg` you need to make sure that it gets loaded by the `buildout.cfg`. This is done by adding it to the `extends` list in your `buildout.cfg`:"
+msgstr ""
+
+#: ../../getstarted/installing_addons.rst:120
+# ac020822050147bc90fd4d0f7479927d
+msgid "As always: after modifying the buildout configuration you need to rerun buildout and restart your instance:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:3
+# d1ed5e6f814f4393b64268d84602a380
+msgid "Bootstrapping Plone add-on development"
+msgstr ""
+
+#: ../../getstarted/paste.rst:7
+# d58d536ef37f43e4aeb8111510663ef8
+msgid "ZopeSkel is a tool which generates a code skeleton template for your Plone add-on you wish to develop."
+msgstr ""
+
+#: ../../getstarted/paste.rst:15
+# 08a1f74fa95d42dbadecd92c6c41ce10
+msgid "ZopeSkel provides a command-line utility and a number of templates that help you to generate skeleton code for a Plone project.  Using ZopeSkel you can create Plone buildouts, add-on packages and themes.  The skeleton code created by ZopeSkel follows generally accepted best practices, and will get you started developing for the Plone CMS."
+msgstr ""
+
+#: ../../getstarted/paste.rst:23
+# 9f4875bee7784e19a008a5f04d4f11bf
+msgid "Add-on creation and installation steps"
+msgstr ""
+
+#: ../../getstarted/paste.rst:25
+# 63d5ff487c7f4a27872e7fa91a709f50
+msgid "There are three steps in your add-on creation and installation procedure:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:27
+# b22ea69ccf144230b1022e3d6cc4ca50
+msgid "Create the add-on code skeleton using ZopeSkel as instructed below. The tool will provide sensible defaults for all options, so if you unsure about an answer, simple accept the default."
+msgstr ""
+
+#: ../../getstarted/paste.rst:32
+# 56e64c782c904f94812c1a565d81d293
+msgid "Make your new add-on available in buildout as described in the installation instructions below. Adding code to buildout is done only once. After this you can see your package listed in the ``bin/instance`` script when you open the file."
+msgstr ""
+
+#: ../../getstarted/paste.rst:38
+# b700b922443e4118a2a0c99a2bd2b02b
+msgid "After this, Zope will load your Python and ZCML code every time Zope is restarted."
+msgstr ""
+
+#: ../../getstarted/paste.rst:42
+# 746989cb87fe49cd960754d3e6d00588
+msgid "Adding ZopeSkel to your buildout"
+msgstr ""
+
+#: ../../getstarted/paste.rst:44
+# d467960363a6458b9a1962ad10037f8e
+msgid "To install ZopeSkel in your buildout, add the following to your ``buildout.cfg`` in the appropriate places::"
+msgstr ""
+
+#: ../../getstarted/paste.rst:69
+# 60e07f23a64443bb877abc857b055934
+msgid "In buildout.cfg # marks comment at the end of the line - you don't need to type those"
+msgstr ""
+
+#: ../../getstarted/paste.rst:71
+# 12edd08853da4996b1e7e276b4c8ff34
+msgid "After adding this, run buildout and it will install ZopeSkel that it requires. After buildout completes, you will find the ``zopeskel`` command in the ``bin`` directory of your buildout.  You can use this command to list template, run them, and build the skeleton code you need to get started."
+msgstr ""
+
+#: ../../getstarted/paste.rst:78
+# 678e7edb078a4ea29a852dec4121f8bd
+msgid "To find out what templates are available, run:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:84
+# 37c17effcf8447689b295fde3e32fbe5
+msgid "To get extensive documentation on the abilities of ZopeSkel, run:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:91
+# 23bcf182d34c4bc1bf37b8384d1afb61
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../getstarted/paste.rst:93
+# 603db10fb75d45de8ad7f423b4593c9b
+msgid "If you get any exceptions running this command see :doc:`troubleshooting </troubleshooting/exceptions>`. If self-service help doesn't get you anywhere `file issues on Github <https://github.com/collective/ZopeSkel/issues>`_."
+msgstr ""
+
+#: ../../getstarted/paste.rst:100
+# b2d8dd6c21e348a68ecbc612a2796105
+msgid "If you are migrating from a version of ZopeSkel prior to 3.0, you may need to remove the old ZopeSkel egg before you begin."
+msgstr ""
+
+#: ../../getstarted/paste.rst:106
+# 4c9f92e8340444ebbd9a42c1d0e7d594
+msgid "ZopeSkel Templates"
+msgstr ""
+
+#: ../../getstarted/paste.rst:110
+# 99bdaec8be114d55b9822dd8d497039e
+msgid "The templates listed below may not be the only ones available when you install ZopeSkel. New templates are being developed actively."
+msgstr ""
+
+#: ../../getstarted/paste.rst:116
+# 28e0eca69d5b491da0ce89b8058bf700
+msgid "``archetypes``"
+msgstr ""
+
+#: ../../getstarted/paste.rst:115
+# 8f9dd3865b2f4f648663fc380fb00252
+msgid "Creates a package skeleton for :doc:`Archetypes </content/archetypes/index>` based content types."
+msgstr ""
+
+#: ../../getstarted/paste.rst:119
+# b1718fc45bf446238cc2aaf9733c3603
+msgid "``dexterity``"
+msgstr ""
+
+#: ../../getstarted/paste.rst:119
+# 84ac71c88eb242fbae2d88b5d48f5fa9
+msgid "Creates a package for developing Dexterity content types."
+msgstr ""
+
+#: ../../getstarted/paste.rst:124
+# 4c0c72fea219410fb0cdfea75ba8eb0b
+msgid "``plone_basic``"
+msgstr ""
+
+#: ../../getstarted/paste.rst:122
+# 4b294f52c9c541a285abf695ea376e03
+msgid "Creates a basic skeleton good for general Plone add-on packages. Minimal and clean.  You can use this package to set up views, forms, portlets, and many other add-on features."
+msgstr ""
+
+#: ../../getstarted/paste.rst:128
+# 94ca1e360698417f9c35a5402d4af0d9
+msgid "``plone3_theme``"
+msgstr ""
+
+#: ../../getstarted/paste.rst:127
+# c63796a8e6334b178a5c46228e693bc0
+msgid "Creates a basic skeleton good for creating old style theme for Plone (views, viewlets and so on)"
+msgstr ""
+
+#: ../../getstarted/paste.rst:134
+# e503aaec54a740e2a12d9c61a2923118
+msgid "``plone_nested``"
+msgstr ""
+
+#: ../../getstarted/paste.rst:131
+# 0567e57b273241cfb77081d989bd011a
+msgid "Creates a nested namespace package with the same basic skeleton as ``plone_basic``.  This is generally used for packages that are meant to be part of a set, like ``collective.blog.feeds``, ``collective.formwidget.autocomplete`` or ``collective.geo.mapwidget``."
+msgstr ""
+
+#: ../../getstarted/paste.rst:137
+# dae8b986ae99416b98c8c333118ba95b
+msgid "Creating an add-on product skeleton"
+msgstr ""
+
+#: ../../getstarted/paste.rst:139
+# 21367fb7cb244df5b732661559d2d1b3
+msgid "After you have followed the steps above how include ZopeSkel to your buildout, you can create your first add-on."
+msgstr ""
+
+#: ../../getstarted/paste.rst:142
+# 791322bab38f4e0cb274c3b56d32a07e
+msgid "To create an Archetypes-based content types package:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:155
+# bb0fa95934ea4c18a88d937b6e9b8b0e
+msgid "Now it will ask you a series of question for the add-on properties. After this ``yourcompany.productname`` folder is created with prepopulated subfolders and files."
+msgstr ""
+
+#: ../../getstarted/paste.rst:160
+# be126a14dec74cdb802c2aeb8ecb91d9
+msgid "If you are unsure about questions, you may type ``?`` to get more information. You can also just hit enter to accept the default value. These are sensible for most cases."
+msgstr ""
+
+#: ../../getstarted/paste.rst:166
+# d34040ec18c74843942993e12bdfff6f
+msgid "After answering the questions, you'll have a new python package in the ``src`` directory of your buildout. To begin using this code, you'll need to include the newly created package in your ``buildout.cfg``::"
+msgstr ""
+
+#: ../../getstarted/paste.rst:177
+# 0e56b01177ee4ec98eaade3c29078fdf
+msgid "Rerun buildout to pick up the new package."
+msgstr ""
+
+#: ../../getstarted/paste.rst:179
+# 1f33af741f234e52ab62e34fb7d63943
+msgid ":doc:`Restart Plone in foreground mode </troubleshooting/basic>`. If your new code files contain errors it usually fails at this point with a :doc:`Python traceback </troubleshooting/exceptions>`. This traceback will contain valuable information about what went wrong, and will be the first thing anyone will ask for if you seek help."
+msgstr ""
+
+#: ../../getstarted/paste.rst:185
+# 7a861e74a8324570b24c1b90bde1c359
+msgid "Once Plone has started, log in as admin and go to :guilabel:`Site Setup` > :guilabel:`Add-ons`. If your package has a ``GenericSetup`` profile, you should see your add-on in the list of available add-ons at the top of the page."
+msgstr ""
+
+#: ../../getstarted/paste.rst:191
+# ba36449ead064d1d80a881dccb8052c9
+msgid "Local commands"
+msgstr ""
+
+#: ../../getstarted/paste.rst:193
+# 7e1059c6fef640f8943bb0245ffd46a6
+msgid "Besides project templates, ZopeSkel allows templates to define **local commands**. Local commands are context-aware commands that allow you to add more functionality to an existing project generated by ZopeSkel."
+msgstr ""
+
+#: ../../getstarted/paste.rst:197
+# 4429364fabf3431bb9f4017505e6dc31
+msgid "Examples of the kind of Plone functionality you can add with local commands:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:199
+# c2a0021c1e9b42f4854ba40404d70554
+msgid "Content types inside your add-on."
+msgstr ""
+
+#: ../../getstarted/paste.rst:200
+# a0ade77e324a415f82cb0f99f543e270
+msgid "Schemas for your content types."
+msgstr ""
+
+#: ../../getstarted/paste.rst:201
+# 3a46770f589047daa6637a26eb9fc877
+msgid "Browser views"
+msgstr ""
+
+#: ../../getstarted/paste.rst:202
+# c7081f5a2c574ec4b1452ae85be79710
+msgid "Browser layers (to allow you to isolate add-on code to sites where your package is activated)"
+msgstr ""
+
+#: ../../getstarted/paste.rst:209
+# 25c3fa7d8733475dbb968ae7a9325aa1
+msgid "Local commands work only with paster command run from buildout bin/ directory. Do not try to run local commands with system-wide paster command."
+msgstr ""
+
+#: ../../getstarted/paste.rst:214
+# e4187fac72a6423693496bf9c08e2e1e
+msgid "Local commands are not available until your egg is registered as development egg in your buildout, you have run buildout and you use paster command provided by buildout."
+msgstr ""
+
+#: ../../getstarted/paste.rst:218
+# 4b6da28622bd4f6d99c9ceee7f945559
+msgid "If you follow the instructions below and do not see an ``add`` local command, please verify that your package has been properly added to your buildout and that buildout has been re-run afterwards."
+msgstr ""
+
+#: ../../getstarted/paste.rst:226
+# 6b1ff14bb8254512ae4c5a5c8b6ada15
+msgid "Adding a Content Type to your package"
+msgstr ""
+
+#: ../../getstarted/paste.rst:228
+# c3db9863c2354a40a20314684948523f
+msgid "In this example we will continue ``yourcompany.productname`` development and add our first Archetypes-based content type."
+msgstr ""
+
+#: ../../getstarted/paste.rst:231
+# d13db42323ca43df940e67ae83edf7df
+msgid "Example of creating a content type:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:240
+# 71f7dfc570af4a6a862254b4554221b2
+msgid "You must create the ``src`` folder **inside** your package. Otherwise the ``paster add`` command cannot work."
+msgstr ""
+
+#: ../../getstarted/paste.rst:243
+# a5d7320aa3af48ce9f095c9be85dbfc0
+msgid "To list the local commands available to your package, type:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:249
+# 8c4715950681465f9fb174d4c4f89586
+msgid "This will display local commands that will work for the package you have created. Different package types have different local commands. Next you can use the ``paster add`` local command to add new functionality to your existing code."
+msgstr ""
+
+#: ../../getstarted/paste.rst:255
+# 29ee6c777db84721a7907a40a9b9f40f
+msgid "For example, to add a special content type for managing lectures:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:261
+# abf4fbc5865344acb35722dec76e97cc
+msgid "After the content type is added, you can add schema fields for the type:"
+msgstr ""
+
+#: ../../getstarted/paste.rst:269
+# 94d140f694ab481fb56110584a590870
+msgid "New content types are added to Plone using GenericSetup. GenericSetup profiles are run when an add-on product is **activated**. To see the content type you create, you'll need to restart Plone **and** reinstall the add-on."
+msgstr ""
+
+#: ../../getstarted/paste.rst:275
+# 21a62aff063a479cabbcdfc2b0fc23b2
+msgid "Site setup and Add-on installation"
+msgstr ""
+
+#: ../../getstarted/paste.rst:277
+# 9e9fb44e365f40fbb9d29a51b485d36e
+msgid "If you want your add-on to be 'activated' by going to the Plone Add-on control panel, you will need to have a :doc:`GenericSetup profile </components/genericsetup>`. ZopeSkel can set this up for you, just say 'Yes' if you are asked. Some templates require a profile, and will not ask. This profile modifies the site database **every time you run Add-on installer your site setup**. If you make changes to your profile, you need to **re-run the installation of your package** to pick up those changes."
+msgstr ""
+
+#: ../../getstarted/paste.rst:287
+# 43712ba889a84bf7885b803195babb6d
+msgid "A GenericSetup profile is just a bunch of XML files with information that is written to the database when the add-on is installed. This is independent of Python and ZCML code, and GenericSetup XML can be updated without restarting the site."
+msgstr ""
+
+#: ../../getstarted/paste.rst:292
+# f967a805bfdc4e76ab06bd08dd428e39
+msgid "Not all add-ons provide GenericSetup profiles. If an add-on does not modify the site database in any way, e.g. they provide only new :doc:`views </views/browserviews>`, it may not require one. But a GenericSetup profile is required in order to have the add-on appear in the list of 'available add-ons' in the Plone Add-ons control panel."
+msgstr ""
+
+#: ../../getstarted/paste.rst:301
+# 39c54eb3188b47e78b3534cba29ec7d7
+msgid "In-depth background information"
+msgstr ""
+
+#: ../../getstarted/paste.rst:304
+# b2134244ca5340b3bfc3c6669652f0a3
+msgid "How paster local commands work"
+msgstr ""
+
+#: ../../getstarted/paste.rst:306
+# 95421a7d7eee4c1db09b21756f8980d9
+msgid "Paster reads ``setup.py``. If it finds a ``paster_plugins`` section there, it will look for local commands."
+msgstr ""
+
+#: ../../getstarted/paste.rst:309
+# e4c7fe8787c9418592e6e8f1223c6512
+msgid "This allows paster to know that packages created by that template provide local commands defined by the templer system which underlies ZopeSkel."
+msgstr ""
+
+#: ../../getstarted/paste.rst:313
+# dd2fc8e94841456bbe23a542737f2e4a
+msgid ":doc:`More about paster templates </misc/paster_templates>`."
+msgstr ""
+
+#: ../../getstarted/paste.rst:316
+# 69cc68ab30d74fd1b6aa8cdc78308d09
+msgid "setup.py install_requires"
+msgstr ""
+
+#: ../../getstarted/paste.rst:318
+# e20563a6c22f4f518c07eedd2938cbc1
+msgid "Python modules can specify dependencies to other modules by using the ``install_requires`` section in ``setup.py``. For example, a Plone add-on might read::"
+msgstr ""
+
+#: ../../getstarted/paste.rst:328
+# 45355dc63ef64239bf30a05f0e5b3c5b
+msgid "This means that when you use setuptools/buildout/pip/whatever Python package installation tool to install your package from the `Python Package Index (PyPi) <http://pypi.python.org/pypi>`_ it will also automatically install Python packages declared in ``install_requires``."
+msgstr ""
+
+#: ../../getstarted/paste.rst:335
+# 9f14404efb104789a30285d0bd180c21
+msgid "paster and ``install_requires``"
+msgstr ""
+
+#: ../../getstarted/paste.rst:339
+# 02ac7b5be5194092bafbd28cafe559d0
+msgid "Never use a system-wide paster installation with local commands. This is where things usually go haywire. Paster is not aware of this external Python package configuration set (paster cannot see them in its ``PYTHONPATH``). Also don't try to execute system-wide ``paster`` in a Python source code folder containing ``setup.py``. Otherwise paster downloads all the dependencies mentioned in the ``setup.py`` into that folder even though they would be available in the ``eggs`` folder (which paster is not aware of)."
+msgstr ""
+
+#: ../../getstarted/python.rst:3
+# aa4fdbbd3ca44da3b107f815f13b1cba
+msgid "Python for beginners"
+msgstr ""
+
+#: ../../getstarted/python.rst:7
+# e12a40a6d7d0449aae1dba6503ff556a
+msgid "The basics of Python programming, and performing Python interpreter installations."
+msgstr ""
+
+#: ../../getstarted/python.rst:12
+# 4b37496b1b284e8a8b3da1b280687cf1
+msgid "`Python <http://python.org>`_ is the programming language used by `Plone <http://plone.org>`_ and `Zope <http://zope.org>`_. One needs to have at least basic Python experience before considering building Plone add-ons or customizations."
+msgstr ""
+
+#: ../../getstarted/python.rst:18
+# a7f61504cb74419cb56253464ea41d7f
+msgid "You should not try to write programs for Plone before you can program Python on the basic level."
+msgstr ""
+
+#: ../../getstarted/python.rst:21
+# 989fa215c8b34de4ad9188138c1553a2
+msgid "Python tutorials and online classes"
+msgstr ""
+
+#: ../../getstarted/python.rst:23
+# 88f13c91031c4ec494dd0c649ed07ea3
+msgid "`Official Python tutorial <http://docs.python.org/tutorial/>`_"
+msgstr ""
+
+#: ../../getstarted/python.rst:25
+# de2c693f4d2041d3ab763f9ba57d9dcf
+msgid "`Google Python classes <http://code.google.com/edu/languages/google-python-class/>`_"
+msgstr ""
+
+#: ../../getstarted/python.rst:27
+# df19ed5477384b9893ffbc61ec606990
+msgid "`Free Python books <http://pythonbooks.revolunet.com/>`_"
+msgstr ""
+
+#: ../../getstarted/python.rst:29
+# 41de01cd5a5f4b739554925c35e20604
+msgid "`Dive into Python book <http://www.diveintopython.net/toc/index.html>`_"
+msgstr ""
+
+#: ../../getstarted/python.rst:31
+# d608e048b6564002966cae101554e574
+msgid "`Python at codeacademy.org <http://www.codecademy.com/#!/exercises/0>`_"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:3
+# 2a33ccf16e504b47addce6c0fb9c9cb4
+msgid "Plone Installation Requirements"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:7
+# 68d297ebbe5f438595f77ba5009326db
+msgid "Requirements for installing Plone. Details the tools and libraries (dependencies) required to install Plone."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:15
+# 5b086930cc5f489e97610a9f1f971994
+msgid "Hosting requirements"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:17
+# 105adc345a9341fbbaec5922d67e8876
+msgid "To run a Plone based web site on your own server you need:"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:19
+# 11807057121b4d0686fe2e70815adb5e
+msgid "A server machine connected to Internet (public sites) or your intranet (company intranet sites);"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:21
+# 76ccbd1232c64f3e92a75640be2aace8
+msgid "Remote console, like SSH access, for installing Plone. FTP is not enough."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:23
+# 22c4d0f80fce4a488db7e8085c3bdb37
+msgid "Plone requires several system libraries. These need to be installed by a user with root access."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:27
+# b7b03f8470e74ffebbcc953e9d495fbb
+msgid "Operating system"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:29
+# 3cb19a7029794fc2b9473b4697af8bcf
+msgid "Plone has been successfully installed on:"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:31
+# 5c3b871e18964139bee863ee845633d2
+msgid "Windows"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:33
+# 1066b90adf2b41219d3040bd1f6733a1
+msgid "Nearly every popular Linux distribution;"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:35
+# 2e8e4714d67d436c9f24c93e15c48e77
+msgid "Nearly every popular BSD distribution"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:37
+# 32a43e9fe1c24364bf927eeddd3470fc
+msgid "OS X (using our OS X installer or XCode)"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:39
+# a8af794fbd8e4bc79b7a5fc07e2e8d3f
+msgid "Solaris and several other proprietery \\*nix systems"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:41
+# b50de80102f74849a0822acded66d04b
+msgid "To install on Windows, it is strongly recommended to use the Plone Windows Installer. Otherwise, you will need `Cygwin <http://www.cygwin.com>`_ to provide a \\*nix build environment."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:46
+# 03de8acc337e40e58f12dc52869160f0
+msgid "Hardware (or virtual environment) requirements"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:48
+# 0c01c22934e2403fa0b8d729ffba7de6
+msgid "The hardware requirements below give a rough estimation of the minimum hardware setup needed for a Plone server."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:50
+# bff5f7e17b3d46ad94e3dbfc503d896c
+msgid "Add-on products and caching solutions may increase RAM requirements."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:52
+# 5b0da39449434fa2979fc4777d259cbd
+msgid "One Zope application server is able to run several Plone sites with the same software configuration. This lowers the requirements when hosting multiple sites on the same server."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:55
+# 5aefddf5cf8343d999ce73a44fa657da
+msgid "Minimum requirements"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:57
+# db37407b12d64aa6a68bb13c5da2dd05
+msgid "Minimum 256 MB RAM and 512 MB of swap space per Plone site"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:59
+# 407e484321b94a91ba6ca86fad79513a
+msgid "Minimum 512 MB hard disk space"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:62
+# 5afac3c0912e4fa9b8a15b0748bb0a4d
+msgid "Recommended"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:64
+# e6c2f72b41a1483e9a35fd532b99a1be
+msgid "2 GB or more RAM per Plone site"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:66
+# 9e1cd86acdc94cc2a9513b63b81c20c7
+msgid "40 GB or more hard disk space"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:70
+# 394c72e0b1f4424083f62e87b4e6145b
+msgid "All Plone versions"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:72
+# 38c5e185722644fca3ddbe09500f2478
+msgid "A complete GNU build kit including GCC including gcc, gmake, patch, tar, gunzip, bunzip2, wget."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:75
+# cccdd66c551e472d97d05bf37161e138
+msgid "Most required libraries listed below must be installed as development versions (dev)."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:77
+# 118303e9086243388d0c645301bc7b43
+msgid "Tools and libraries marked with \"*\" are either included with the Unified Installer or automatically downloaded."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:80
+# 607ea7e2c3e740d5aa2fcf0efb9100c3
+msgid "If you use your system Python, you should use Python's virtualenv to create an isolated virtual Python. System Pythons may use site libraries that will otherwise interfere with Zope/Plone."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:85
+# ffffb3d0a6fd414e90a1a17c96706d35
+msgid "Optional libraries"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:87
+# 546b8fba533b4b3496f67e85f151c38a
+msgid "If Plone can find utilities that convert various document formats to text, it will include them in the site index. To get PDFs and common office automation formats indexed, add:"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:89
+# 2e0a5b2c5b1648e5b97f49b8e3bd4256
+msgid "poppler-utils (PDFs)"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:90
+# 816593e178534b7fa5744950823e7c9b
+msgid "wv (office docs)"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:92
+# 6a42dbe3dcb34959a5957b3bd49d1e80
+msgid "These may be added after initial installation."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:95
+# bfc09d89b8ff401692628c2ba2546fc2
+msgid "Plone 4.3 / 4.2"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:98
+#: ../../getstarted/requirements.rst:119
+# 152331be90fa4914a7e1d81c5dcf6f0a
+# ad776f3fb4914f778c9e976dcb6cfa70
+msgid "Python"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:100
+# dd7252effc574ef7a8002e96b9abb10a
+msgid "Python 2.7 (dev), built with support for expat (xml.parsers.expat), zlib and ssl. (Python XML support may be a separate package on some platforms.)*"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:103
+#: ../../getstarted/requirements.rst:124
+# 3e5950110cd04d1e9fa43e595eddd1a8
+# 89c3e9515f594be39e0c9391f740996a
+msgid "virtualenv*"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:106
+#: ../../getstarted/requirements.rst:127
+# 153f2dcb26f34515815873591b4800fa
+# 2fcf4fc555db43958b3a20e5ccb987a6
+msgid "Libraries"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:108
+#: ../../getstarted/requirements.rst:129
+# 42e0f6a65ada450db184d53622d1aed7
+# 8ca788ee36d84743839d774548c365bd
+msgid "libz (dev)"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:109
+#: ../../getstarted/requirements.rst:130
+# 8a96ace5bec04d3498c00583fca1090e
+# b6e0ef483e2041959a5e8883653e76a7
+msgid "libjpeg (dev)*"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:110
+#: ../../getstarted/requirements.rst:131
+# d1a4b47eeebe42da89c6941bfde51174
+# c47ec05e19a84620b5fac0d8cc7cf17d
+msgid "readline (dev)*"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:111
+# c408062db6d94508b19811be8ef70793
+msgid "libssl or openssl (dev)"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:112
+# 4b8598b5e5024592869777d2229d4df6
+msgid "libxml2 >= 2.7.8 (dev)*"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:113
+# d45162eef0364abfb65be2fcd8b1849c
+msgid "libxslt >= 1.1.26 (dev)*"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:116
+# bf213c93f713416ea50a4e41e218132e
+msgid "Plone 4.1"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:121
+# 06205613a93245bf954e42ac60971156
+msgid "Python 2.6 (dev), built with support for expat (xml.parsers.expat), zlib and ssl. (Python XML support may be a separate package on some platforms.)*"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:135
+# a7aeec93c87f4ef990ef786c521f32e2
+msgid "Minimal build"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:137
+# 14d6cf867107477f81a8a84103d43566
+msgid "With complete requirements in place, a barebones Plone install may be created with a few steps. '~...#' is a system prompt. Adjust the Plone and Python versions to match your requirements::"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:169
+# 6ffaa622eefb498bb2410f178c0b0570
+msgid "This build will install Plone, ready to be run with::"
+msgstr ""
+
+#: ../../getstarted/requirements.rst:173
+# cb6e9fea54a34f8d9b66098801e0da7b
+msgid "running attached to port 8080. Use login id \"admin\" and password \"admin\" for initial login."
+msgstr ""
+
+#: ../../getstarted/requirements.rst:175
+# ce00bda0d1614f18b2e204b3dc885c8d
+msgid "This build would be adequate for a quick evaluation installation. For a production or development installation, use one of `Plone's installers <http://plone.org/products/plone>`_."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:3
+# 694617ad6d7240a490ce7b7b551efec9
+msgid "Tutorial: Installing Plone for Production on Ubuntu"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:7
+# 2c24810e437142769608ec5d6ee727a2
+msgid "A step-by-step guide to installing Plone 4.x on a recent Ubuntu LTS [12.04] server installation."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:14
+# 826f9d28cafb42f38af94027f08599b8
+msgid "This tutorial walks you step-by-step through a minimum responsible installation of Plone for production on a recent Ubuntu LTS server."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:16
+# 20c70bb707364f74ac27fe4c4dd73836
+msgid "The installation includes Plone itself; nginx for a reverse-proxy; a send-only mail-transfer agent; and firewall rules. We'll set Plone to start with server startup and will add cron jobs to periodically pack the database and create snapshot backups."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:18
+# 3a63e74085f949f1995fdb723d7a69e7
+msgid "This minimal install will work for production for a smaller Plone site, and will provide a good base for scaling up for a larger site."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:21
+# ae140cf8e3c34a3d958be84ba7be5fd2
+msgid "Requirements"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:23
+# 4184a07c2fa6481a81f2911dd16b6f6b
+msgid "A clean installation of a recent Ubuntu server. The tutorial has been tested on cloud and virtual box servers. The install described here will run in 512 MB RAM. More RAM will be needed for larger or busy sites."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:25
+# 879f9593dca34d04a3cfc8197b8c9d61
+msgid "A hostname for the new site. You or your DNS admin should have already created a hostname (e.g., www.yoursite.com) and a host record pointing to the new server."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:27
+# 5cb07a652c124e2197407c793b8c7feb
+msgid "Unix command-line and basic system administrator skills. You should know how to use `ssh` to create a terminal session with your new server. You should know how to use `vi` or some other terminal editor."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:29
+# fef50859c87b431a917a3aa978248a36
+msgid "An Internet connection."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:32
+# f9a4454b299e414898abb72fb135e309
+msgid "Step 1: Platform preparation"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:34
+# e542a03afc0542dbbd570801887a6997
+msgid "Get to the point where you can ssh to the server as a non-root user and use `sudo` to gain root permissions."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:36
+# e6692e30192941aa88da225b1e8d689f
+msgid "First step with any new server is to update the already installed system libraries:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:43
+# 7ae8d61a11c64ac3802f48235cd50884
+msgid "Then, install the platform's build kit, nginx, and supervisor:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:50
+# b761c3b89f984fcb82a2941367970dd9
+msgid "Step 2: Install Plone"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:52
+# 2b2dde8fea144e0282f52212d5f1d9f2
+msgid "Check `http://plone.org/products/plone <http://plone.org/products/plone>`_. Follow the `Download` link to get to the latest release. Copy the URL for the `Unified Installer`. Substitute that URL below:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:58
+# c790b9cd361641eb974cc4f02877735c
+msgid "Unpack, change into the unpack directory and run the installer:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:66
+# 6519155a8ca449209988e47b0785efbe
+msgid "This will install Plone to /usr/local/Plone. There are installer options to put it elsewhere. Run `./install.sh`` with no arguments to get options."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:70
+# 3ad7a04a3162409c94621fb8c63698dc
+msgid "Note that this is `root` installation. The installer will create special system users to build and run Plone."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:74
+# 38994f58c6ca49b4a18bfb3f85f63621
+msgid "This creates a `zeo` installation with two Plone clients. We will only connect one of those clients to the Internet. The other will be reserved for debugging and administrator access. If you know this is a larger site and wish to use load balancing, you may create more clients with the `--clients=##` command-line argument to create more clients. They're also easy to add later."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:76
+# fd76fb7c525d4f1b8cf9780014dd8b31
+msgid "If you hit an \"lxml\" error during installation (ie the log shows \"Error: Couldn't install: lxml 2.3.6\") you may need additional libraries. Take a look at http://plone.org/documentation/manual/installing-plone/installing-on-linux-unix-bsd/debian-libraries"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:79
+# 66f3b33e7d5d4868a84c0eab2eb347ce
+msgid "When the install completes, you'll be shown the preset administrative password. Record it. If you lose it, you may see it again:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:86
+# d0277a1683fc4c13a735d61526012313
+msgid "Step 3: Set Plone to start with the server"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:88
+# 187b6460d45f429da1b5601bedc84ff9
+msgid "We're going to use `supervisor` to start Plone with the server. To do so, we'll create a supervisor configuration file:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:94
+# 39230883bbef495e89972f9de6b21fea
+msgid "Specify that supervisor should start the database server and client1 automatically::"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:107
+# 56074d3d84db4831a4ef71a6bad3ca9d
+msgid "When that file is saved you're set to start on server start. To start immediately, tell supervisor about the new components:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:123
+# 38d44d4a09f24059978804f20fdcb519
+msgid "Step 4: Create a Plone site"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:125
+# 89a8f32ea9604fd6bea58b57f880a0f9
+msgid "At this point, you should be able to open a web browser and point it to port 8080 on your new server. Do so, and use your administrative password to create a Plone site with the id \"Plone\". (Feel free to use a different ID, just remember it below when you set up virtual hosting rules.)"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:128
+# 49d0baa9dbc44e8397ec58bd7a1fabca
+msgid "Step 5: Set up virtual hosting"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:130
+# 6d2dbf4e20714920ac050ffa55bda45b
+msgid "We're going to use nginx as a reverse proxy. Virtual hosting will be established by rewrite rules. You need two bits of information: 1) the hostname you want to use (for which DNS records should already be set up); 2) the id of the Plone site you created."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:132
+# 9b92007acc8948aa93417690b9997294
+msgid "We'll set up nginx by adding a new configuration file:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:138
+#: ../../getstarted/ubuntu_production.rst:195
+# 08a2045fcaad4cdabdefe351b9df7889
+# 0239dc66a68a451a95720aaf79ffc40f
+msgid "Add the contents::"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:160
+#: ../../getstarted/ubuntu_production.rst:199
+# 8680eb5ceb4c41638ee76377cbd40a80
+# 915d19d1e46e4cccb6d2eb55935d53f3
+msgid "And save."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:164
+# fd1113bd96fa4e1e97c89ae92683dbf9
+msgid "The `location ~* manage_` rule will deny access to most of the Zope Management interface. (You'll get to that by bypassing nginx.)"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:168
+# 770db3ca9f784021a431e0349754115c
+msgid "The second server stanza sets up an automatic redirect that will transfer requests for the bare hostname to its `www.` form. You may not want or need that."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:170
+# bcc9981ab2f74e3b8652550814462288
+msgid "Enable the new nginx site configuration:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:177
+# e505bb8692d24fcd9001759b5c539ef2
+msgid "And, tell nginx to reload the configuration:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:184
+# 4a257aec49174fc0b9d4ac37d2d70613
+msgid "Try out your virtual hosting."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:187
+# 50b47ca77ed04bb290caadf233d06372
+msgid "Step 6: Set up packing and backup"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:189
+# f359d7bb5ed34c199f6b3d4b82b31f39
+msgid "We want the Zope database to be packed weekly. We'll do so by setting up a `cron` job:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:203
+# 9467917130bd4d239a9b19302e6fba42
+msgid "Pick a time when your system can take some extra load. Don't use the day/time above."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:205
+# 18b8c688bf984ddda4fb76e795889a9e
+msgid "Let's also create a daily snapshot of the database:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:211
+# 09ceced64de540cc8c58cff75074c731
+msgid "Add the contents below, adjust the time, and save::"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:217
+# 50d27463392a4164a77657ce7805f75a
+msgid "This snapshot will give you a stable copy of the database at a particular time. You'll need a separate strategy to backup the server's file system, including the snapshot."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:220
+# b9841a2d026c4d028dc571e165a1ba46
+msgid "Step 7: Add a send-only Mail Transfer Agent"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:222
+# 8bbbcaf103414d558570b113af44fc0f
+msgid "You don't need this step if you have an MTA on another server, or are using a mail-send service. If you don't have that available, this step will create a localhost, port 25, MTA that you may use with Plone's mail setup."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:224
+# ca8d60318ad44ec5a4971695503030b4
+msgid "We're going to use Postfix. There are lots of alternatives."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:226
+# abca26b968a4490b9731b037e2738901
+msgid "Add the Postfix package and edit its main configuration file:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:233
+# 75030b2acb0f4f6da38bc0606af5c04e
+msgid "Change the bottom section to turn off general mail in::"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:246
+# 8d81118358474bad8d6e6d00025b29f7
+msgid "Tell postfix to restart:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:253
+# 035c3e6e861d4c389122c61ab3c5311f
+msgid "Step 8: Set up a firewall"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:255
+# 9f1b123e61c545fc9a6135491bf831f8
+msgid "You *must* set up a firewall. But, you may be handling that outside the system, for example via AWS security groups."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:257
+# 2ef9694bba2b4cccb3f9d42831fcf4d2
+msgid "If you want to use a software firewall on the machine, you may use `ufw` to simplify rule setup."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:268
+# 749e30e2c3624e3da74620240bf28618
+msgid "This blocks everything but SSH and HTTP."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:270
+# 8445d169d5284454872168fcabf02cbd
+msgid "So, you may be wondering, how do you do Zope Management Interface administration? SSH port forwarding will allow you to build a temporary encrypted tunnel from your workstation to the server."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:273
+# d6a5f7d46e334cc7ae650278ef3cd395
+msgid "Execute on your workstation the command:"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:279
+# 92fede9559354c6dbb573378291ad056
+msgid "Now, ask for http://localhost:8080/ in your workstation web browser, and you'll be looking at the ZMI root."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:282
+# 8dbed20b4d674848a361e9e7c8a75011
+msgid "Scaling up"
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:284
+# 23f447e07cb94b26a47e6dca5c94926b
+msgid "This installation will do well on a minimum server configuration (512MB RAM). If you've a larger site, buy more memory and set up reverse-proxy caching and load balancing."
+msgstr ""
+
+#: ../../getstarted/ubuntu_production.rst:287
+# 6a436b847b874bec8b7ff7c33f170874
+msgid "`Deploying and installing Plone in production <http://developer.plone.org/reference_manuals/active/deployment>`_ is a good introduction to scaling topics."
+msgstr ""
+

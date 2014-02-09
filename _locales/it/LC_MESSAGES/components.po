@@ -1,0 +1,2787 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../components/adapters.rst:3
+msgid "Adapters"
+msgstr ""
+
+#: ../../components/adapters.rst:8 ../../components/customizing_plone.rst:8
+#: ../../components/events.rst:13 ../../components/genericsetup.rst:14
+#: ../../components/grok.rst:14 ../../components/index.rst:6
+#: ../../components/interfaces.rst:8 ../../components/utilities.rst:13
+#: ../../components/zcml.rst:12
+msgid "Introduction"
+msgstr ""
+
+#: ../../components/adapters.rst:10
+msgid ""
+"Adapters make it possible to extend the behavior of a class without "
+"modifying the class itself. This allows more modular, readable code in "
+"complex systems where there might be hundreds of methods per class. Some "
+"more advantages of this concept are:"
+msgstr ""
+
+#: ../../components/adapters.rst:15
+msgid "The class interface itself is more readable (less visible clutter);"
+msgstr ""
+
+#: ../../components/adapters.rst:16
+msgid "class functionality can be extended outside the class source code;"
+msgstr ""
+
+#: ../../components/adapters.rst:17
+msgid ""
+"add-on products may extend or override parts of the class functionality. "
+"Frameworks use adapters extensively, because adapters provide easy "
+"integration points.  External code can override adapters to retrofit/modify "
+"functionality. For example: a theme product might want to override a "
+"searchbox viewlet to have a search box with slightly different functionality"
+" and theme-specific goodies."
+msgstr ""
+
+#: ../../components/adapters.rst:25
+msgid ""
+"The downside is that adapters cannot be found by \"exploring\" classes or "
+"source code. They must be well documented in order to be discoverable."
+msgstr ""
+
+#: ../../components/adapters.rst:28
+msgid ""
+"Read more about adapters in the `zope.component README "
+"<http://docs.zope.org/zope.component/narr.html#adapters>`_."
+msgstr ""
+
+#: ../../components/adapters.rst:31
+msgid ""
+"`Adapter ZCML <http://docs.zope.org/zope.component/zcml.html#adapter>`_."
+msgstr ""
+
+#: ../../components/adapters.rst:33
+msgid "Adapters are matched by:"
+msgstr ""
+
+#: ../../components/adapters.rst:35
+msgid "Provider interface (what functionality adapter provides)."
+msgstr ""
+
+#: ../../components/adapters.rst:36
+msgid "Parameter interfaces."
+msgstr ""
+
+#: ../../components/adapters.rst:38
+msgid "There are two kinds of adapters:"
+msgstr ""
+
+#: ../../components/adapters.rst:40
+msgid "Normal adapters that take only one parameter."
+msgstr ""
+
+#: ../../components/adapters.rst:41
+msgid "Multi-adapters take many parameters in the form of a tuple."
+msgstr ""
+
+#: ../../components/adapters.rst:44
+msgid "Example adapters users"
+msgstr ""
+
+#: ../../components/adapters.rst:46
+msgid ""
+"http://plone.org/documentation/manual/theme-"
+"reference/buildingblocks/components/themespecific"
+msgstr ""
+
+#: ../../components/adapters.rst:49
+msgid "Registering an adapter"
+msgstr ""
+
+#: ../../components/adapters.rst:52
+msgid "Registering using ZCML"
+msgstr ""
+
+#: ../../components/adapters.rst:54
+msgid ""
+"An adapter provides functionality to a class. This functionality becomes "
+"available when the interface is queried from the instance of class."
+msgstr ""
+
+#: ../../components/adapters.rst:57
+msgid ""
+"Below is an example how to make a custom \"image provider\". The image "
+"provider provides a list of images for arbitrary content."
+msgstr ""
+
+#: ../../components/adapters.rst:60
+msgid "This is the image provider interface::"
+msgstr ""
+
+#: ../../components/adapters.rst:72
+msgid "This is our content class::"
+msgstr ""
+
+#: ../../components/adapters.rst:82
+msgid "This is the adapter for the content class::"
+msgstr ""
+
+#: ../../components/adapters.rst:113
+msgid ""
+"Register the adapter for your custom content type ``MyShoppableItemType`` in"
+" the ``configure.zcml`` file of your product:"
+msgstr ""
+
+#: ../../components/adapters.rst:124
+msgid "Then we can query the adapter and use it. Unit testing example::"
+msgstr ""
+
+#: ../../components/adapters.rst:138
+msgid "Registering using Python"
+msgstr ""
+
+#: ../../components/adapters.rst:140
+msgid "Register to *Global Site Manager* using ``registerAdapter()``."
+msgstr ""
+
+#: ../../components/adapters.rst:142 ../../components/events.rst:176
+#: ../../components/genericsetup.rst:137 ../../components/interfaces.rst:61
+#: ../../components/interfaces.rst:80 ../../components/interfaces.rst:162
+#: ../../components/interfaces.rst:262 ../../components/interfaces.rst:286
+#: ../../components/utilities.rst:150 ../../components/utilities.rst:188
+msgid "Example::"
+msgstr ""
+
+#: ../../components/adapters.rst:153 ../../components/grok.rst:32
+#: ../../components/grok.rst:231 ../../components/index.rst:33
+msgid "More info"
+msgstr ""
+
+#: ../../components/adapters.rst:155
+msgid "http://www.muthukadan.net/docs/zca.html#registration"
+msgstr ""
+
+#: ../../components/adapters.rst:158
+msgid "Generic adapter contexts"
+msgstr ""
+
+#: ../../components/adapters.rst:160
+msgid "The following interfaces are useful when registering adapters:"
+msgstr ""
+
+#: ../../components/adapters.rst:163 ../../components/interfaces.rst:34
+msgid "``zope.interface.Interface``"
+msgstr ""
+
+#: ../../components/adapters.rst:163
+msgid "Adapts to any object"
+msgstr ""
+
+#: ../../components/adapters.rst:166 ../../components/interfaces.rst:41
+msgid "``Products.CMFCore.interfaces.IContentish``"
+msgstr ""
+
+#: ../../components/adapters.rst:166
+msgid "Adapts to any Plone content object"
+msgstr ""
+
+#: ../../components/adapters.rst:169
+msgid "``zope.publisher.interfaces.IBrowserView``"
+msgstr ""
+
+#: ../../components/adapters.rst:169
+msgid "Adapts to any ``BrowserView(context, request)`` object"
+msgstr ""
+
+#: ../../components/adapters.rst:172
+msgid "Multi-adapter registration"
+msgstr ""
+
+#: ../../components/adapters.rst:174
+msgid ""
+"You can specify any number of interfaces in the ``<adapter for=\"\" />`` "
+"attribute. Separate them with spaces or newlines."
+msgstr ""
+
+#: ../../components/adapters.rst:177
+msgid "Below is a view-like example which registers against:"
+msgstr ""
+
+#: ../../components/adapters.rst:179
+msgid "any context (``zope.interface.Interace``);"
+msgstr ""
+
+#: ../../components/adapters.rst:180
+msgid ""
+"HTTP request objects "
+"(``zope.publisher.interfaces.browser.IBrowserRequest``)."
+msgstr ""
+
+#: ../../components/adapters.rst:182
+msgid "Emulate view registration (context, request):"
+msgstr ""
+
+#: ../../components/adapters.rst:194
+msgid "Getting the adapter"
+msgstr ""
+
+#: ../../components/adapters.rst:196
+msgid "There are two functions that may be used to get an adapter:"
+msgstr ""
+
+#: ../../components/adapters.rst:198
+msgid ""
+"``zope.component.getAdapter`` will raise an exception if the adapter is not "
+"found."
+msgstr ""
+
+#: ../../components/adapters.rst:201
+msgid ""
+"``zope.component.queryAdapter`` will return ``None`` if the adapter is not "
+"found."
+msgstr ""
+
+#: ../../components/adapters.rst:204
+msgid "``getAdapter``/``queryAdapter`` arguments:"
+msgstr ""
+
+#: ../../components/adapters.rst:209
+msgid "# Tuple consisting of: (*Object implementing the first interface*,"
+msgstr ""
+
+#: ../../components/adapters.rst:207
+msgid ""
+"*object implementing the second interface*, ...) The interfaces are in the "
+"order in which they were declared in the ``<adapter for=\"\">`` attribute."
+msgstr ""
+
+#: ../../components/adapters.rst:211
+msgid "# Adapter marker interface."
+msgstr ""
+
+#: ../../components/adapters.rst:213
+msgid "Example registration:"
+msgstr ""
+
+#: ../../components/adapters.rst:227
+msgid ""
+"Corresponding query code, to look up an adapter implementing the "
+"interfaces::"
+msgstr ""
+
+#: ../../components/adapters.rst:247
+msgid ""
+"You cannot get adapters on module-level code during import, as the Zope "
+"Component Architecture is not yet initialized."
+msgstr ""
+
+#: ../../components/adapters.rst:252
+msgid "Listing adapter registers"
+msgstr ""
+
+#: ../../components/adapters.rst:254
+msgid ""
+"The following code checks whether the ``IHeaderBehavior`` adapter is "
+"registered correctly::"
+msgstr ""
+
+#: ../../components/adapters.rst:265
+msgid "Alternative listing adapters"
+msgstr ""
+
+#: ../../components/adapters.rst:267
+msgid "Getting all multi-adapters (context, request)::"
+msgstr ""
+
+#: ../../components/adapters.rst:274
+msgid "This does not list locally-registered adapters such as Zope views."
+msgstr ""
+
+#: ../../components/adapters.rst:278
+msgid "Local adapters"
+msgstr ""
+
+#: ../../components/adapters.rst:280
+msgid ""
+"Local adapters are effective only inside a certain container, such as a "
+"folder.  They use ``five.localsitemanager`` to register themselves."
+msgstr ""
+
+#: ../../components/adapters.rst:283
+msgid ""
+"http://opkode.net/media/blog/schema-extending-an-object-only-inside-a"
+"-specific-folder"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:3
+msgid "Customizing Plone"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:10
+msgid ""
+"Plone can be customized in two different ways, depending on which kind of "
+"component you are trying to change:"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:13
+msgid "Through-the-web."
+msgstr ""
+
+#: ../../components/customizing_plone.rst:15
+msgid "By add-on products."
+msgstr ""
+
+#: ../../components/customizing_plone.rst:17
+msgid ""
+"You should never edit files directly in an egg folder. Instead you usually "
+"create a customized version of the item you wish to modify and then "
+"configure Plone to use your customized version instead of the stock one."
+msgstr ""
+
+#: ../../components/customizing_plone.rst:23
+msgid "Through-the-web changes"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:25
+msgid ""
+"Minor configuration changes can be done through the web. These changes are "
+"effective immediately and don't require you to write any code or restart "
+"Zope application server. The downside is that since through-the-web changes "
+"don't have a source code \"recipe\" for what you did, the changes are not "
+"automatically repeatable. If you need to do the same changes for another "
+"site again, or you need heavily modify your site, you need go through manual"
+" steps to achieve the same customization."
+msgstr ""
+
+#: ../../components/customizing_plone.rst:35
+msgid "Possible through-the-web changes are:"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:37
+msgid ""
+"Site settings: E.g. adding/removing `content rules "
+"<http://plone.org/documentation/how-to/content-rules>`_"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:39
+msgid ""
+"Showing and hiding viewlets (parts of the page) using ``@@manage-viewlets``"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:41
+msgid ""
+"Exporting and importing parts of the site configuration in ``portal_setup``"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:43
+msgid "Customizing viewlet templates in ``portal_view_customization``"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:45
+msgid "Customize ``portal_skins`` layer theme files in portal_skins"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:47
+msgid ""
+"Uploading Javascript files, CSS files and images through Zope management "
+"interface and registering using ``portal_css`` and ``portal_javascripts``"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:51
+msgid "Through the code changes"
+msgstr ""
+
+#: ../../components/customizing_plone.rst:53
+msgid ""
+"To expand Plone using Python, you have to create your own add-on product. "
+"Add-on products are distributed as packaged Python modules called eggs_. The"
+" recommended way is to use the paster_ command to generate an add-on product"
+" skeleton which you can use as a starting point for your development. Paster"
+" also contains useful subcommands, like ``addcontent``, which automate "
+"various Plone add-on development tasks."
+msgstr ""
+
+#: ../../components/customizing_plone.rst:61
+msgid "Another `paster tutorial <http://www.unc.edu/~jj/plone/>`_"
+msgstr ""
+
+#: ../../components/events.rst:3
+msgid "Events"
+msgstr ""
+
+#: ../../components/events.rst:5 ../../components/genericsetup.rst:5
+#: ../../components/grok.rst:5 ../../components/utilities.rst:5
+#: ../../components/zcml.rst:5
+msgid "Description"
+msgstr ""
+
+#: ../../components/events.rst:7
+msgid ""
+"How to add event hooks to your Plone code to perform actions when something "
+"happens on a Plone site."
+msgstr ""
+
+#: ../../components/events.rst:15
+msgid ""
+"This document briefly discusses event handling using the ``zope.event`` "
+"module. The Zope Component Architecture's `zope.event package "
+"<http://pypi.python.org/pypi/zope.event>`_ is used to manage subscribeable "
+"events in Plone."
+msgstr ""
+
+#: ../../components/events.rst:20
+msgid "Some of the notable characteristics of the Plone event system are:"
+msgstr ""
+
+#: ../../components/events.rst:22
+msgid "it is simple;"
+msgstr ""
+
+#: ../../components/events.rst:23
+msgid ""
+"subscriber calling order is not modifiable |---| you cannot set the order in"
+" which event handlers are called;"
+msgstr ""
+
+#: ../../components/events.rst:25
+msgid ""
+"events cannot be cancelled |---| all handlers will always get the event;"
+msgstr ""
+
+#: ../../components/events.rst:26
+msgid "event handlers cannot have return values;"
+msgstr ""
+
+#: ../../components/events.rst:27
+msgid ""
+"exceptions raised in an event handler will interrupt the request processing."
+msgstr ""
+
+#: ../../components/events.rst:30 ../../components/events.rst:123
+msgid "For more information, see:"
+msgstr ""
+
+#: ../../components/events.rst:32 ../../components/events.rst:127
+msgid ""
+"http://plone.org/products/dexterity/documentation/manual/five.grok/core-"
+"components/events"
+msgstr ""
+
+#: ../../components/events.rst:35
+msgid "Registering an event handler"
+msgstr ""
+
+#: ../../components/events.rst:37
+msgid "Plone events can be scoped:"
+msgstr ""
+
+#: ../../components/events.rst:39
+msgid "*globally* (no scope)"
+msgstr ""
+
+#: ../../components/events.rst:40
+msgid "per *content type*"
+msgstr ""
+
+#: ../../components/events.rst:44
+msgid "Example: Register an event-handler on your contenttype's creation"
+msgstr ""
+
+#: ../../components/events.rst:47
+msgid "In your.product/your/product/configure.zcml insert::"
+msgstr ""
+
+#: ../../components/events.rst:56
+msgid ""
+"The first line defines to which interface you want to bind the execution of "
+"your code, which means here, that the code will only be executed if the "
+"object is one of your contenttype's. If you want this to be interface-"
+"agnostic, insert an asterix as a wildcard instead."
+msgstr ""
+
+#: ../../components/events.rst:60
+msgid ""
+"The second line defines the event on which this should happen, which is here"
+" 'IObjectInitializedEvent'. For more available possible events to be used as"
+" a trigger, see:: "
+"http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced"
+"/event-handlers.html"
+msgstr ""
+
+#: ../../components/events.rst:64
+msgid ""
+"The third line gives the path to the script that is supposed to be executed."
+msgstr ""
+
+#: ../../components/events.rst:66
+msgid "Create your.product/your/product/your_python_file.py and insert::"
+msgstr ""
+
+#: ../../components/events.rst:72
+msgid ""
+"For Dexterity-contenttype's and additional ZOPE-Illumination see also: "
+"http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced"
+"/event-handlers.html"
+msgstr ""
+
+#: ../../components/events.rst:78
+msgid "Subscribing using the ``grok`` API"
+msgstr ""
+
+#: ../../components/events.rst:82
+msgid "Since the release of Plone 4, this (grok) method is simpler."
+msgstr ""
+
+#: ../../components/events.rst:84
+msgid ""
+"Example subscription which subscribes a content type to add and edit "
+"events::"
+msgstr ""
+
+#: ../../components/events.rst:108
+msgid "Example subscription which subscribes events without context::"
+msgstr ""
+
+#: ../../components/events.rst:125
+msgid ":doc:`Using Grok </components/grok>`"
+msgstr ""
+
+#: ../../components/events.rst:130
+msgid "Subscribing using ZCML"
+msgstr ""
+
+#: ../../components/events.rst:132
+msgid "Subscribing to a global event using :term:`ZCML`."
+msgstr ""
+
+#: ../../components/events.rst:141
+msgid "For this event, the Python code in ``smartcard.py`` would be::"
+msgstr ""
+
+#: ../../components/events.rst:149
+msgid ""
+"Custom event example subscribing to all ``IMyEvents`` when fired by "
+"``IMyObject``::"
+msgstr ""
+
+#: ../../components/events.rst:158
+msgid "Life cycle events example::"
+msgstr ""
+
+#: ../../components/events.rst:169
+msgid "Subscribing using Python"
+msgstr ""
+
+#: ../../components/events.rst:171
+msgid ""
+"The following subscription is valid through the process life cycle. In unit "
+"tests, it is important to clear test event handlers between the test steps."
+msgstr ""
+
+#: ../../components/events.rst:193
+msgid "Firing an event"
+msgstr ""
+
+#: ../../components/events.rst:195
+msgid ""
+"Use ``zope.event.notify()`` to fire event objects to their subscribers."
+msgstr ""
+
+#: ../../components/events.rst:197
+msgid "Example of how to fire an event in unit tests::"
+msgstr ""
+
+#: ../../components/events.rst:207
+msgid "Event types"
+msgstr ""
+
+#: ../../components/events.rst:210
+msgid "*Creation* events"
+msgstr ""
+
+#: ../../components/events.rst:214
+msgid "``Products.Archetypes.interfaces.IObjectInitializedEvent``"
+msgstr ""
+
+#: ../../components/events.rst:213
+msgid ""
+"is fired for an Archetypes-based object when it's being initialised; i.e.  "
+"when it's being populated for the first time."
+msgstr ""
+
+#: ../../components/events.rst:218
+msgid "``Products.Archetypes.interfaces.IWebDAVObjectInitializedEvent``"
+msgstr ""
+
+#: ../../components/events.rst:217
+msgid ""
+"is fired for an Archetypes-based object when it's being initialised via "
+"WebDAV."
+msgstr ""
+
+#: ../../components/events.rst:222
+msgid "``zope.lifecycleevent.IObjectCreatedEvent``"
+msgstr ""
+
+#: ../../components/events.rst:221
+msgid ""
+"is fired for all Zopeish objects when they are being created (they don't "
+"necessarily need to be content objects)."
+msgstr ""
+
+#: ../../components/events.rst:226
+msgid ""
+"Archetypes and Zope 3 events might not be compatible with each other. Please"
+" see links below."
+msgstr ""
+
+#: ../../components/events.rst:229
+msgid "Other resources:"
+msgstr ""
+
+#: ../../components/events.rst:231
+msgid ""
+"http://plone.org/documentation/manual/developer-manual/archetypes/other-"
+"useful-archetypes-features/how-to-use-events-to-hook-the-archetypes-"
+"creation-process"
+msgstr ""
+
+#: ../../components/events.rst:233
+msgid "http://n2.nabble.com/IObjectInitializedEvent-tp4784897p4784897.html"
+msgstr ""
+
+#: ../../components/events.rst:237
+msgid "*Modified* events"
+msgstr ""
+
+#: ../../components/events.rst:239
+msgid ""
+"Two different content event types are available and might work differently "
+"depending on your scenario:"
+msgstr ""
+
+#: ../../components/events.rst:244
+msgid "``Products.Archetypes.interfaces.IObjectEditedEvent``"
+msgstr ""
+
+#: ../../components/events.rst:243
+msgid ""
+"called for Archetypes-based objects that are not in the creation stage any "
+"more."
+msgstr ""
+
+#: ../../components/events.rst:248
+msgid ""
+"``Products.Archetypes.interfaces.IObjectEditedEvent`` is fired after "
+"``reindexObject()`` is called. If you manipulate your content object in a "
+"handler for this event, you need to manually reindex new values, or the "
+"changes will not be reflected in the ``portal_catalog``."
+msgstr ""
+
+#: ../../components/events.rst:254
+msgid "``zope.lifecycleevent.IObjectModifiedEvent``"
+msgstr ""
+
+#: ../../components/events.rst:254
+msgid ""
+"called for creation-stage events as well, unlike the previous event type."
+msgstr ""
+
+#: ../../components/events.rst:257
+msgid "``Products.Archetypes.interfaces.IWebDAVObjectEditedEvent``"
+msgstr ""
+
+#: ../../components/events.rst:257
+msgid ""
+"called for Archetypes-based objects when they are being edited via WebDAV."
+msgstr ""
+
+#: ../../components/events.rst:260
+msgid "``Products.Archetypes.interfaces.IEditBegunEvent``"
+msgstr ""
+
+#: ../../components/events.rst:260
+msgid "called for Archetypes-based objects when an edit operation is begun."
+msgstr ""
+
+#: ../../components/events.rst:264
+msgid "``Products.Archetypes.interfaces.IEditCancelledEvent``"
+msgstr ""
+
+#: ../../components/events.rst:263
+msgid ""
+"called for Archetypes-based objects when an edit operation is canceled."
+msgstr ""
+
+#: ../../components/events.rst:267
+msgid "*Delete* events"
+msgstr ""
+
+#: ../../components/events.rst:269
+msgid ""
+"Delete events can be fired several times for the same object. Some delete "
+"event transactions are rolled back."
+msgstr ""
+
+#: ../../components/events.rst:272
+msgid ""
+"Read more about Delete events in `this discussion "
+"<http://plone.293351.n2.nabble.com/Event-on-object-deletion-"
+"td3670562.html>`_."
+msgstr ""
+
+#: ../../components/events.rst:275
+msgid "*Copy* events"
+msgstr ""
+
+#: ../../components/events.rst:278
+msgid "``zope.lifecycleevent.IObjectCopiedEvent``"
+msgstr ""
+
+#: ../../components/events.rst:278
+msgid "is triggered when an object is copied."
+msgstr ""
+
+#: ../../components/events.rst:281
+msgid "*Workflow* events"
+msgstr ""
+
+#: ../../components/events.rst:284
+msgid "``Products.DCWorkflow.interfaces.IBeforeTransitionEvent``"
+msgstr ""
+
+#: ../../components/events.rst:284
+msgid "is triggered before a workflow transition is executed."
+msgstr ""
+
+#: ../../components/events.rst:287
+msgid "``Products.DCWorkflow.interfaces.IAfterTransitionEvent``"
+msgstr ""
+
+#: ../../components/events.rst:287
+msgid "is triggered after a workflow transition has been executed."
+msgstr ""
+
+#: ../../components/events.rst:289
+msgid ""
+"The DCWorkflow events are low-level events that can tell you a lot about the"
+" previous and current states."
+msgstr ""
+
+#: ../../components/events.rst:295
+msgid "``Products.CMFCore.interfaces.IActionSucceededEvent``"
+msgstr ""
+
+#: ../../components/events.rst:293
+msgid ""
+"this is a higher level event that is more commonly used to react after a "
+"workflow action has completed."
+msgstr ""
+
+#: ../../components/events.rst:298
+msgid "*Zope startup* events"
+msgstr ""
+
+#: ../../components/events.rst:302
+msgid "``zope.processlifetime.IProcessStarting``"
+msgstr ""
+
+#: ../../components/events.rst:301
+msgid ""
+"is triggered after component registry has been loaded and Zope is starting "
+"up."
+msgstr ""
+
+#: ../../components/events.rst:306
+msgid "``zope.processlifetime.IDatabaseOpened``"
+msgstr ""
+
+#: ../../components/events.rst:305
+msgid "is triggered after the main ZODB database has been opened."
+msgstr ""
+
+#: ../../components/events.rst:309
+msgid "Asynchronous event handling"
+msgstr ""
+
+#: ../../components/events.rst:311
+msgid ""
+"http://stackoverflow.com/questions/15875088/running-plone-subscriber-events-"
+"asynchronously"
+msgstr ""
+
+#: ../../components/events.rst:314 ../../components/interfaces.rst:110
+msgid "See also"
+msgstr ""
+
+#: ../../components/events.rst:316
+msgid "http://pypi.python.org/pypi/zope.event/3.4.1"
+msgstr ""
+
+#: ../../components/events.rst:318
+msgid ""
+"http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/subscriber/index.html"
+msgstr ""
+
+#: ../../components/events.rst:320
+msgid "``zope.component.registry``"
+msgstr ""
+
+#: ../../components/genericsetup.rst:3
+msgid "Add-on installation and export framework: GenericSetup"
+msgstr ""
+
+#: ../../components/genericsetup.rst:7
+msgid ""
+"GenericSetup is a framework to modify the Plone site during add-on product "
+"installation and uninstallation. It provides XML-based rules to change the "
+"site settings easily."
+msgstr ""
+
+#: ../../components/genericsetup.rst:16
+msgid ""
+"GenericSetup is an XML-based way to import and export Plone site "
+"configurations."
+msgstr ""
+
+#: ../../components/genericsetup.rst:18
+msgid "It is mainly used to prepare the Plone site for add-on products, by:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:20
+msgid "registering CSS files,"
+msgstr ""
+
+#: ../../components/genericsetup.rst:21
+msgid "registering Javascript files,"
+msgstr ""
+
+#: ../../components/genericsetup.rst:22
+msgid "setting various properties,"
+msgstr ""
+
+#: ../../components/genericsetup.rst:23
+msgid "registering portlets,"
+msgstr ""
+
+#: ../../components/genericsetup.rst:24
+msgid "registering portal_catalog search query indexes,"
+msgstr ""
+
+#: ../../components/genericsetup.rst:25
+msgid "...and so on..."
+msgstr ""
+
+#: ../../components/genericsetup.rst:27
+msgid ""
+"GenericSetup is mostly used to apply add-on-specific changes to the site "
+"configuration, and to enable add-on-specific behavior when the add-on "
+"installer is run."
+msgstr ""
+
+#: ../../components/genericsetup.rst:31
+msgid ""
+"GenericSetup XML files are usually in a ``profiles/default`` folder inside "
+"the add-on product."
+msgstr ""
+
+#: ../../components/genericsetup.rst:34
+msgid ""
+"All run-time configurable items, like viewlets order through ``/@@manage-"
+"viewlets`` page, are made repeatable using GenericSetup profile files."
+msgstr ""
+
+#: ../../components/genericsetup.rst:38
+msgid ""
+"You do not need to hand-edit GenericSetup profile files. You can always "
+"change the configuration options through Plone or using the Zope Management "
+"Interface. Then you can export the resulting profile as an XML file, using "
+"the *Export* tab in the ``portal_setup`` ZMI tool."
+msgstr ""
+
+#: ../../components/genericsetup.rst:44
+msgid ""
+"Directly editing XML profile files does not change anything on the site, "
+"even after Zope restart. This is because run-time configurable items are "
+"stored in the database. If you edit profile files, you need reimport edited "
+"files using the ``portal_setup`` tool or rerun the add-on product installer "
+"in Plone control panel. This import will read XML files and change Plone "
+"database accordingly."
+msgstr ""
+
+#: ../../components/genericsetup.rst:55
+msgid "Difference between ZCML and GenericSetup"
+msgstr ""
+
+#: ../../components/genericsetup.rst:57
+msgid ""
+"ZCML changes affect loaded Python code in **all** sites inside Zope whereas "
+"GenericSetup XML files affect only one Plone site and its database. "
+"GenericSetup XML files are always database changes."
+msgstr ""
+
+#: ../../components/genericsetup.rst:62
+msgid ""
+"Relationship between ZCML and site-specific behavior is usually done using "
+":doc:`layers </views/layers>`. ZCML directives, like viewlets and views, are"
+" registered to be active on a certain layer only using ``layer`` attribute. "
+"When GenericSetup XML is imported through ``portal_setup``, or the product "
+"add-on installer is run for a Plone site, the layer is activated for the "
+"particular site only, enabling all views registered for this layer."
+msgstr ""
+
+#: ../../components/genericsetup.rst:74
+msgid ""
+"The ``metadata.xml`` file (add-on dependency and version information) is "
+"read during Plone start-up. If this file has problems your add-on might not "
+"appear in the installer control panel."
+msgstr ""
+
+#: ../../components/genericsetup.rst:78
+msgid ""
+"`GenericSetup tutorial "
+"<http://plone.org/documentation/tutorial/genericsetup>`_"
+msgstr ""
+
+#: ../../components/genericsetup.rst:80
+msgid ""
+"`GenericSetup product page "
+"<http://pypi.python.org/pypi/Products.GenericSetup/1.4.5>`_."
+msgstr ""
+
+#: ../../components/genericsetup.rst:82
+msgid ""
+"`Source code "
+"<http://svn.zope.org/Products.GenericSetup/trunk/Products/GenericSetup/README.txt?rev=87436&view=auto>`_."
+msgstr ""
+
+#: ../../components/genericsetup.rst:0
+msgid "Todo"
+msgstr ""
+
+#: ../../components/genericsetup.rst:84
+msgid "should the link be specifically to rev=87436?"
+msgstr ""
+
+#: ../../components/genericsetup.rst:88
+msgid "Creating a profile"
+msgstr ""
+
+#: ../../components/genericsetup.rst:90
+msgid ""
+"You use ``<genericsetup>`` directive in your add-on product's "
+"``configure.zcml``. The name for the default profile executed by the Plone "
+"add-on installer is \"default\". If you need different profiles for e.g. "
+"unit testing you can declare them here."
+msgstr ""
+
+#: ../../components/genericsetup.rst:95
+msgid ""
+"Profile XML files go in the ``profiles/default`` folder inside your add-on "
+"product."
+msgstr ""
+
+#: ../../components/genericsetup.rst:118
+msgid "Add-on-specific issues"
+msgstr ""
+
+#: ../../components/genericsetup.rst:120
+msgid "Add-on products may contain:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:122
+msgid ""
+"A default GenericSetup XML profile which is automatically run when the "
+"product is installed using the quick-installer. The profile name is "
+"\"default\"."
+msgstr ""
+
+#: ../../components/genericsetup.rst:126
+msgid ""
+"Other profiles which the user may install using the ``portal_setup`` "
+"*Import* tab, or which can be manually enabled for unit tests."
+msgstr ""
+
+#: ../../components/genericsetup.rst:128
+msgid ""
+"An \"Import various\" step, which runs Python code every time the "
+"GenericSetup XML profile is installed."
+msgstr ""
+
+#: ../../components/genericsetup.rst:130
+msgid "For more information about custom import steps, see:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:132
+msgid ""
+"http://n2.nabble.com/indexing-of-content-created-by-Generic-Setup-"
+"tp4454703p4454703.html"
+msgstr ""
+
+#: ../../components/genericsetup.rst:135
+msgid "Listing available profiles"
+msgstr ""
+
+#: ../../components/genericsetup.rst:146
+msgid "Results::"
+msgstr ""
+
+#: ../../components/genericsetup.rst:155
+msgid "Installing a profile"
+msgstr ""
+
+#: ../../components/genericsetup.rst:157
+msgid ""
+"This is usually unit test specific question how to enable certain add-ons "
+"for unit testing."
+msgstr ""
+
+#: ../../components/genericsetup.rst:160
+msgid "PloneTestCase.setupPloneSite"
+msgstr ""
+
+#: ../../components/genericsetup.rst:162
+msgid ""
+"See *Running add-on installers and extensions profiles for unit tests*."
+msgstr ""
+
+#: ../../components/genericsetup.rst:165
+msgid "Manually"
+msgstr ""
+
+#: ../../components/genericsetup.rst:167
+msgid ""
+"You might want to install profiles manually if they need to be enabled only "
+"for certain tests."
+msgstr ""
+
+#: ../../components/genericsetup.rst:169
+msgid ""
+"The profile name is in the format ``profile-${product name}:${profile id}``"
+msgstr ""
+
+#: ../../components/genericsetup.rst:171
+msgid "Unit testing example::"
+msgstr ""
+
+#: ../../components/genericsetup.rst:177 ../../components/genericsetup.rst:358
+msgid "Upgrade steps"
+msgstr ""
+
+#: ../../components/genericsetup.rst:179
+msgid "If you need to migrate data or settings on new add-on versions"
+msgstr ""
+
+#: ../../components/genericsetup.rst:181
+msgid ""
+"http://stackoverflow.com/questions/15316583/how-to-define-a-procedure-to-"
+"upgrade-an-add-on"
+msgstr ""
+
+#: ../../components/genericsetup.rst:184
+msgid "Uninstall profile"
+msgstr ""
+
+#: ../../components/genericsetup.rst:186
+msgid ""
+"For the theory, see: `<http://plone.org/documentation/kb/genericsetup"
+"/creating-an-uninstall-profile>`_"
+msgstr ""
+
+#: ../../components/genericsetup.rst:189
+msgid ""
+"For an example, see the `collective.pdfpeek source code "
+"<http://svn.plone.org/svn/collective/collective.pdfpeek/trunk/collective/pdfpeek/profiles/>`_."
+msgstr ""
+
+#: ../../components/genericsetup.rst:193
+msgid "Dependencies"
+msgstr ""
+
+#: ../../components/genericsetup.rst:195
+msgid ""
+"GenericSetup profile can contain dependencies to other add-on product "
+"installers and profiles."
+msgstr ""
+
+#: ../../components/genericsetup.rst:197
+msgid ""
+"`More information about GenericSetup dependencies "
+"<http://plone.org/products/plone/roadmap/195/>`_."
+msgstr ""
+
+#: ../../components/genericsetup.rst:199
+msgid ""
+"For example, if you want to declare dependency to *collective.basket* add-on"
+" product, so that it is automatically installed when your add-on installed "
+"you can use the declaration below. This way, you can be sure that all "
+"layers, portlets, etc. features which require database changes are usable "
+"from *collective.basket* add-on products when your add-on product is run."
+msgstr ""
+
+#: ../../components/genericsetup.rst:204
+msgid "``metadata.xml``:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:216
+msgid "*collective.basket* declares the profile in its configure.zcml:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:231
+msgid ""
+"Unlike other GenericSetup XML files, ``metadata.xml`` is read on the start-"
+"up and this read is cached. Always restart Plone after editing "
+"``metadata.xml``. If your ``metadata.xml`` file contains syntax errors or "
+"dependencies to a missing or non-existent product (e.g. due to a typo in a "
+"name) your add-on will disappear from the installation control panel."
+msgstr ""
+
+#: ../../components/genericsetup.rst:241
+msgid ""
+"The ``Products.*`` Python namespace needs to declare generic setup "
+"dependencies specially: You actually do not mention ``Products.xxx`` space."
+msgstr ""
+
+#: ../../components/genericsetup.rst:245
+msgid "To declare dependency to ``Products.Carousel``:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:260
+msgid "Custom installer code (``setuphandlers.py``)"
+msgstr ""
+
+#: ../../components/genericsetup.rst:262
+msgid ""
+"Besides out-of-the-box XML steps which easily provide both install and "
+"uninstall, GenericSetup provides a way to run a custom Python code when your"
+" add-on product is installed and uninstalled. This is not very "
+"straightforward process, though."
+msgstr ""
+
+#: ../../components/genericsetup.rst:267
+msgid ""
+"The best practice is to create a ``setuphandlers.py`` file which contains "
+"function ``setupVarious()`` which runs required Python code to make changes "
+"to Plone site object. This function is registerd as a custom "
+"``genericsetup:importStep`` in XML."
+msgstr ""
+
+#: ../../components/genericsetup.rst:275
+msgid ""
+"When you do custom ``importStep``\\s, remember to write uninstallation code "
+"as well."
+msgstr ""
+
+#: ../../components/genericsetup.rst:278
+msgid ""
+"However, the trick is that all GenericSetup import steps, including your "
+"custom step, are run for *every* add-on product when they are installed. "
+"Thus, if your need to run code which is specific **during your add-on "
+"install only** you need to use a marker text file which is checked by "
+"GenericSetup context."
+msgstr ""
+
+#: ../../components/genericsetup.rst:285
+msgid ""
+"Also you need to register this custom import step in ``configure.zcml``"
+msgstr ""
+
+#: ../../components/genericsetup.rst:303
+msgid "``setuphandlers.py`` example"
+msgstr ""
+
+#: ../../components/genericsetup.rst:330
+msgid ""
+"And add a dummy text file "
+"``your.package/your/package/profiles/default/your.package.marker.txt``::"
+msgstr ""
+
+#: ../../components/genericsetup.rst:335 ../../components/genericsetup.rst:346
+#: ../../components/genericsetup.rst:544
+msgid "More information"
+msgstr ""
+
+#: ../../components/genericsetup.rst:337
+msgid "http://keeshink.blogspot.com/2009/02/creating-portal-content-in.html"
+msgstr ""
+
+#: ../../components/genericsetup.rst:339
+msgid ""
+"http://maurits.vanrees.org/weblog/archive/2009/12/catalog (unrelated, but "
+"contains pointers)"
+msgstr ""
+
+#: ../../components/genericsetup.rst:342
+msgid "Overriding import step order"
+msgstr ""
+
+#: ../../components/genericsetup.rst:344
+msgid "You need ``import_steps.xml``."
+msgstr ""
+
+#: ../../components/genericsetup.rst:348
+msgid ""
+"http://plone.293351.n2.nabble.com/Overriding-import-step-order-"
+"td2189638.html"
+msgstr ""
+
+#: ../../components/genericsetup.rst:350
+msgid ""
+"http://dev.communesplone.org/trac/browser/communesplone/urban/trunk/profiles/default/import_steps.xml?rev=5652"
+msgstr ""
+
+#: ../../components/genericsetup.rst:353
+msgid "Controlling the import step execution order"
+msgstr ""
+
+#: ../../components/genericsetup.rst:355
+msgid ""
+"http://plone.293351.n2.nabble.com/indexing-of-content-created-by-Generic-"
+"Setup-td4454703.html"
+msgstr ""
+
+#: ../../components/genericsetup.rst:360
+msgid ""
+"You can define upgrade steps to run code only when someone upgrades your "
+"product from version *x* to *y*."
+msgstr ""
+
+#: ../../components/genericsetup.rst:363
+msgid ""
+"As an example, let's say that the new version of YOUR.PRODUCT defines a "
+"*price* field on a content type *MyType* to be a string, but previously "
+"(version 1.1.  and earlier) it was a float. Code that uses this field and "
+"assumes it to be a float will break after the upgrade, so you'd like to "
+"automatically convert existing values for the field to string."
+msgstr ""
+
+#: ../../components/genericsetup.rst:369
+msgid ""
+"(Obviously, you could do this very quickly in a simple script, but having a "
+"GenericSetup upgrade step means non-technical people can do it as well. As "
+"it turns out, once you have the script, it's easy to put its code in an "
+"upgrade step.)"
+msgstr ""
+
+#: ../../components/genericsetup.rst:375
+msgid "Increment profile version"
+msgstr ""
+
+#: ../../components/genericsetup.rst:377
+msgid ""
+"First increase the number of the version in the "
+"``profiles/default/metadata.xml``. This version number should be an integer."
+" Package version are different because they add sens like the status of the "
+"addon: is it stable, is it in dev, in beta, which branch it is. A profile "
+"version indicate only that you have to migrate data in the database."
+msgstr ""
+
+#: ../../components/genericsetup.rst:384
+msgid "Add upgrade step"
+msgstr ""
+
+#: ../../components/genericsetup.rst:386
+msgid "Next we add an upgrade step:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:408
+msgid ""
+"You can use a wildcard character for *source* to indicate an upgrade for any"
+" previous version. To run the upgrade step only when upgrading from a "
+"specific version, use that version's number."
+msgstr ""
+
+#: ../../components/genericsetup.rst:412
+msgid ""
+"A *sortkey* can be used to indicate the order in which upgrade steps are "
+"run."
+msgstr ""
+
+#: ../../components/genericsetup.rst:416
+msgid "Add upgrade code"
+msgstr ""
+
+#: ../../components/genericsetup.rst:418
+msgid ""
+"The code for the upgrade method itself is best placed in a *upgrades.py* "
+"module::"
+msgstr ""
+
+#: ../../components/genericsetup.rst:459
+msgid "Other examples of using generic setup to run import steps are below"
+msgstr ""
+
+#: ../../components/genericsetup.rst:461
+msgid "If you want to call types.xml use typeinfo::"
+msgstr ""
+
+#: ../../components/genericsetup.rst:465
+msgid "If you want to call workflow.xml use workflow::"
+msgstr ""
+
+#: ../../components/genericsetup.rst:469
+msgid ""
+"The ids of the various default import steps are defined in the "
+"import_steps.xml of CMFDefault. visit it at "
+"http://svn.zope.org/CMF/branches/2.1/CMFDefault/profiles/default/import_steps.xml?logsort=date&rev=78624&view=markup"
+msgstr ""
+
+#: ../../components/genericsetup.rst:472
+msgid "XXX Fix the link above"
+msgstr ""
+
+#: ../../components/genericsetup.rst:474
+msgid ""
+"After restarting Zope, your upgrade step should be visible in the ZMI: The "
+"*portal_setup* tool has a tab *Upgrades*. Select your product profile to see"
+" which upgrade steps Zope knows about for your product."
+msgstr ""
+
+#: ../../components/genericsetup.rst:478
+msgid ""
+"You can create many upgrade steps under one migration. This is useful when "
+"you want to have the ability to re-run some parts of the migration and make "
+"your code more re-useable (for example cook css resource of your theme)."
+msgstr ""
+
+#: ../../components/genericsetup.rst:482
+msgid ""
+"Here is an example of many upgrade steps you can have to achieve on a site "
+"policy:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:538
+msgid "Add-on product appears twice in the installer list"
+msgstr ""
+
+#: ../../components/genericsetup.rst:540
+msgid ""
+"This happens if you are developing your own add-on and keep changing things."
+" You have an error in your add-on product ZCML code which causes "
+"portal_quickinstaller to have two entries."
+msgstr ""
+
+#: ../../components/genericsetup.rst:546
+msgid ""
+"http://plone.293351.n2.nabble.com/Product-twice-in-quickinstaller-"
+"td5345492.html#a5345492"
+msgstr ""
+
+#: ../../components/genericsetup.rst:549
+msgid "Preventing uninstall"
+msgstr ""
+
+#: ../../components/genericsetup.rst:551
+msgid ""
+"You might want to prevent your add-on product uninstall for some reason."
+msgstr ""
+
+#: ../../components/genericsetup.rst:553
+msgid "Example:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:566
+msgid ""
+"This example if for Extensions/install.py, old Plone 2 way of writing "
+"installers"
+msgstr ""
+
+#: ../../components/genericsetup.rst:571
+msgid "Plone GenericSetup Reference"
+msgstr ""
+
+#: ../../components/genericsetup.rst:574
+msgid "portlets.xml"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.portlets-2.4.5-py2.7.egg/plone/app/portlets/exportimport/portlets.pydocstring
+#: of plone.app.portlets.exportimport.portlets:1
+msgid ""
+"When creating custom portlet managers, you will need to extend existing "
+"portlets to be addable to that manager: ::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.portlets-2.4.5-py2.7.egg/plone/app/portlets/exportimport/portlets.pydocstring
+#: of plone.app.portlets.exportimport.portlets:8
+msgid ""
+"You can also change the title and description of the portlet with the extend"
+" attribute: ::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.portlets-2.4.5-py2.7.egg/plone/app/portlets/exportimport/portlets.pydocstring
+#: of plone.app.portlets.exportimport.portlets:17
+msgid ""
+"Remove a portlet definition using the 'remove' attribute so that it can no "
+"longer be added via @@manage-portlets. This does not remove any assignments:"
+" ::"
+msgstr ""
+
+#: ../../components/genericsetup.rst:579
+msgid "viewlets.xml"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:1
+msgid "The following examples would all be added into the viewlets.xml file."
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:3
+msgid "Re-order viewlets::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:11
+msgid ""
+"Move a viewlet using insert-before and insert-after (this will only affect "
+"the skinname that is specified, in this case 'My Custom Theme')::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:20
+msgid "Hide a viewlet (here we hide the colophon for 'My Custom Theme')::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:27
+msgid "Unhide a specific viewlet using the remove attribute::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:34
+msgid "Unhide all viewlets for a given manager using the purge attribute::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:39
+msgid "Hide a viewlet for all skins::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/plone.app.viewletmanager-2.0.4-py2.7.egg/plone/app/viewletmanager/exportimport/storage.pydocstring
+#: of plone.app.viewletmanager.exportimport.storage:45
+msgid ""
+"Pro Tip: Using skinname=\"*\" currently only works if the manager has "
+"already been registered in each skin (see Plone Trac ticket #7166)"
+msgstr ""
+
+#: ../../components/genericsetup.rst:584
+msgid "cssregistry.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:586 ../../components/genericsetup.rst:591
+#: ../../components/genericsetup.rst:596
+msgid "see :ref:`resourceregistries`"
+msgstr ""
+
+#: ../../components/genericsetup.rst:589
+msgid "jsregistry.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:594
+msgid "kssregistry.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:601
+msgid "Resource Registries"
+msgstr ""
+
+#: ../../components/genericsetup.rst:607
+msgid "Content Generation"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of Products.GenericSetup.content:1
+msgid "Filesystem exporter / importer adapters."
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of Products.GenericSetup.content.FolderishExporterImporter:1
+msgid "Tree-walking exporter / importer for \"folderish\" types."
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of Products.GenericSetup.content.FolderishExporterImporter:3
+msgid ""
+"Folderish instances are mapped to directories within the 'structure' portion"
+" of the profile, where the folder's relative path within the site "
+"corresponds to the path of its directory under 'structure'."
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of Products.GenericSetup.content.FolderishExporterImporter:7
+msgid ""
+"The subobjects of a folderish instance are enumerated in the '.objects' file"
+" in the corresponding directory.  This file is a CSV file, with one row per "
+"subobject, with the following wtructure::"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of Products.GenericSetup.content.FolderishExporterImporter:13
+msgid ""
+"Subobjects themselves are represented as individual files or subdirectories "
+"within the parent's directory."
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of Products.GenericSetup.content.FolderishExporterImporter.export:1
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of
+#: Products.GenericSetup.content.FolderishExporterImporter.listExportableItems:1
+msgid "See IFilesystemExporter."
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.GenericSetup-1.7.4-py2.7.egg/Products/GenericSetup/content.pydocstring
+#: of Products.GenericSetup.content.FolderishExporterImporter.import_:1
+msgid "See IFilesystemImporter."
+msgstr ""
+
+#: ../../components/genericsetup.rst:614
+msgid "Generic Setup files"
+msgstr ""
+
+#: ../../components/genericsetup.rst:617
+msgid "sharing.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:619
+msgid ""
+"The sharing.xml file let you add custom roles to the sharing tab. For "
+"reference, visit: :doc:`Local Roles </security/local_roles>`."
+msgstr ""
+
+#: ../../components/genericsetup.rst:623
+msgid "tinymce.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:626
+msgid "propertiestool.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:627
+msgid ""
+"In the propertiestool.xml you can change all values of the "
+"portal_properties."
+msgstr ""
+
+#: ../../components/genericsetup.rst:629
+msgid ""
+"take a look at: http://plone.org/documentation/manual/developer-manual"
+"/generic-setup/reference/properties-ref"
+msgstr ""
+
+#: ../../components/genericsetup.rst:632
+msgid "metadata.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:635
+msgid "actions.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:638
+msgid "skins.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:641
+msgid "workflows.xml"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.DCWorkflow-2.2.4-py2.7.egg/Products/DCWorkflow/exportimport.pydocstring
+#: of Products.DCWorkflow.exportimport:1
+msgid "DCWorkflow export / import support."
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.DCWorkflow-2.2.4-py2.7.egg/Products/DCWorkflow/exportimport.pydocstring
+#: of Products.DCWorkflow.exportimport:3
+msgid "$Id: exportimport.py 121521 2011-05-03 13:13:36Z erico_andrei $"
+msgstr ""
+
+#: ../../components/genericsetup.rst:646
+msgid "repositorytool.xml"
+msgstr ""
+
+#: ../../../../../../../buildout-cache/python2.7/eggs/Products.CMFEditions-2.2.8-py2.7.egg/Products/CMFEditions/exportimport/repository.pydocstring
+#: of Products.CMFEditions.exportimport.repository.RepositoryToolXMLAdapter:1
+msgid "Mode in- and exporter for RepositoryTool."
+msgstr ""
+
+#: ../../components/genericsetup.rst:652
+msgid "contentrules.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:658
+msgid "pluginregistry.xml"
+msgstr ""
+
+#: ../../components/genericsetup.rst:660
+msgid ""
+"This configures PAS plugin orderings and active plugins. It isn't part of "
+"Plone itself, it is used by other frameworks and can be used in Plone with a"
+" little extra configuration."
+msgstr ""
+
+#: ../../components/genericsetup.rst:664
+msgid ""
+"First, you need a monkey patch in your ``__init__.py``` to point the "
+"importer at where Plone keeps its PAS plugins."
+msgstr ""
+
+#: ../../components/genericsetup.rst:675
+msgid ""
+"Secondly, code to handle the import step needs to be activated in Plone:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:686
+msgid "Now you can use ``pluginregistry.xml`` in your generic setup profiles:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:733
+msgid "Best Practices"
+msgstr ""
+
+#: ../../components/genericsetup.rst:735
+msgid ""
+"When importing items such as property sheets, make sure not to override "
+"other profile settings by setting the purge attribute to False. This will "
+"add the items listed to the property instead of resetting the property. "
+"Example:"
+msgstr ""
+
+#: ../../components/genericsetup.rst:747
+msgid ""
+"Only use the configuration that you need. When you export your site's "
+"configuration, it will include things that you don't need. For example, if "
+"you needed to change only the 'Allow anonymous to view about' property, this"
+" is what your propertiestool.xml would look like:"
+msgstr ""
+
+#: ../../components/grok.rst:3
+msgid "Grok framework"
+msgstr ""
+
+#: ../../components/grok.rst:7
+msgid ""
+"Using Grok framework in Plone programming. Grok provides  Dont-Repeat-"
+"Yourself API to create Zope 3 components easier."
+msgstr ""
+
+#: ../../components/grok.rst:16
+msgid ""
+"Grok is a project to give sane, easy to use, API to Zope 3 systems. It "
+"exists as standalone, but Plone compatible port five.grok is available for "
+"Plone 3.3 and onwards."
+msgstr ""
+
+#: ../../components/grok.rst:19
+msgid "Benefits over using pure Zope 3 APIs"
+msgstr ""
+
+#: ../../components/grok.rst:21
+msgid ""
+"No ZCML files or XML sit-ups needed (except bootstrapping one configure.zcml"
+" file)"
+msgstr ""
+
+#: ../../components/grok.rst:23
+msgid ""
+"More things are automatic and less explicit hand-written code needed. E.g. "
+"template file and view class are automatically matched."
+msgstr ""
+
+#: ../../components/grok.rst:25
+msgid "Less code generation"
+msgstr ""
+
+#: ../../components/grok.rst:27
+msgid ""
+"Grok will automatically scan all .py files in your product and run "
+"registration code in them. This way you can use Python decorators and "
+"magical classes to perform tasks which before needed to have hand written "
+"registration code."
+msgstr ""
+
+#: ../../components/grok.rst:34
+msgid "http://grok.zope.org/"
+msgstr ""
+
+#: ../../components/grok.rst:36
+msgid "http://pypi.python.org/pypi/five.grok"
+msgstr ""
+
+#: ../../components/grok.rst:39
+msgid "Tutorial"
+msgstr ""
+
+#: ../../components/grok.rst:41
+msgid "http://plone.org/products/dexterity/documentation/manual/five.grok"
+msgstr ""
+
+#: ../../components/grok.rst:43
+msgid "http://www.martinaspeli.net/articles/using-grok-techniques-in-plone"
+msgstr ""
+
+#: ../../components/grok.rst:46
+msgid "Using Grok in your package"
+msgstr ""
+
+#: ../../components/grok.rst:49
+msgid "configure.zcml - register your package for grokking"
+msgstr ""
+
+#: ../../components/grok.rst:51
+msgid "To enable grok'ing for your package:"
+msgstr ""
+
+#: ../../components/grok.rst:53
+msgid ""
+"The top-level ``configure.zcml`` must include the ``grok`` namespace and the"
+" ``grok:grok`` directive. You do not need to put this directive subpackages."
+" This directive scans your package source tree recursively for grok'ed "
+"files."
+msgstr ""
+
+#: ../../components/grok.rst:58
+msgid ""
+"The package must be loaded using ``setup.py`` auto-include, NOT using a "
+"``zcml =`` section in ``buildout.cfg``. Otherwise templates are not loaded."
+msgstr ""
+
+#: ../../components/grok.rst:62
+msgid ""
+"Optionally, add ``templates`` and ``static`` folders to your package root."
+msgstr ""
+
+#: ../../components/grok.rst:64
+msgid ""
+"You still need to include subpackages for old-fashioned :term:`ZCML` "
+"configurations."
+msgstr ""
+
+#: ../../components/grok.rst:67
+msgid "Example"
+msgstr ""
+
+#: ../../components/grok.rst:90
+msgid ""
+"If you are using components from other packages you might also want to add"
+msgstr ""
+
+#: ../../components/grok.rst:96
+msgid ""
+"This makes the ``configure.zcml`` and thus Python code of all modules listed"
+" in ``setup.py`` *install_requires* section is loaded before your module is "
+"being processed."
+msgstr ""
+
+#: ../../components/grok.rst:101
+msgid "setup.py - include five.grok package dependency for download"
+msgstr ""
+
+#: ../../components/grok.rst:103
+msgid "You still need to get ``five.grok`` package to your buildout."
+msgstr ""
+
+#: ../../components/grok.rst:105
+msgid ""
+"Edit your Python egg ``setup.py`` file and list ``five.grok`` as "
+"dependency::"
+msgstr ""
+
+#: ../../components/grok.rst:109
+msgid ""
+"Re-run buildout. Now buildout should download ``five.grok`` for PyPi and "
+"activate it for you."
+msgstr ""
+
+#: ../../components/grok.rst:111
+msgid ""
+"If you are using Plone 4.1 or older you also need `Dexterity extends = line "
+"pindowns in your buildout <http://plone.org/products/dexterity/documentation"
+"/how-to/install>`_. Otherwise you may get *Version Conflict* errors when "
+"running buildout."
+msgstr ""
+
+#: ../../components/grok.rst:115
+msgid "Plone 4.3 migration and five.grok dependency"
+msgstr ""
+
+#: ../../components/grok.rst:117
+msgid ""
+"Please see `Plone 4.2 -> 4.3 Dexterity upgrade guide "
+"<http://plone.org/documentation/manual/upgrade-guide/version/upgrading-"
+"plone-4.2-to-4.3/dexterity-optional-extras>`_ first."
+msgstr ""
+
+#: ../../components/grok.rst:120
+msgid "Migrating Dexterity and z3c.forms to Plone 4.3"
+msgstr ""
+
+#: ../../components/grok.rst:122
+msgid ""
+"Plone 4.3 ships with Dexterity. ``five.grok`` is a huge dependency with a "
+"lot of code of which maintenance cannot be guaranteed in the future (`See "
+"grok.zope.org <http://grok.zope.org>`_, `discussion "
+"<http://plone.293351.n2.nabble.com/The-grokless-madness-and-unable-to-"
+"create-a-simple-form-tp7564179p7564184.html>`_). Because Plone community "
+"cannot commit to maintain this code, but we still want to use the best "
+"goodies of grok based development, some compromises was made for Plone 4.3 "
+"regarding grok style forms and directives."
+msgstr ""
+
+#: ../../components/grok.rst:128
+msgid ""
+"You can include ``five.grok`` as a dependency, as you have done this far, "
+"but it is not going to be in Plone default installation in foreseeable "
+"future. Please see migration notes."
+msgstr ""
+
+#: ../../components/grok.rst:131
+msgid ""
+"``grok()`` declarations, like ``grok.name()`` in classes are not supported "
+"by Plone 4.3 out of the box"
+msgstr ""
+
+#: ../../components/grok.rst:133
+msgid ""
+"``plone.directives.form`` goodies distributed to two supported packages: "
+"``plone.supermodel`` and ``plone.autoform``"
+msgstr ""
+
+#: ../../components/grok.rst:136
+msgid ""
+"To make your code Plone 4.3 compatible, grokless way do imports as "
+"following::"
+msgstr ""
+
+#: ../../components/grok.rst:144
+msgid "And you can use them like::"
+msgstr ""
+
+#: ../../components/grok.rst:163
+msgid "Migrating views from five.grok to plain Plone"
+msgstr ""
+
+#: ../../components/grok.rst:165
+msgid ""
+"If you further want to break the dependency with ``five.grok`` and get rid "
+"of ``grok.xxx()`` directives in your classes here are further dependency."
+msgstr ""
+
+#: ../../components/grok.rst:169
+msgid ""
+"Remove ``five.grok`` from the dependency list of your egg and remove "
+"``<grok:grok>`` ZCML directive in ``configure.zcml``."
+msgstr ""
+
+#: ../../components/grok.rst:171
+msgid "Remove ``from five import grok`` in all of your package modules."
+msgstr ""
+
+#: ../../components/grok.rst:173
+msgid ""
+"Manually :doc:`register static media folder of your egg "
+"</templates_css_and_javascripts/resourcefolders>`"
+msgstr ""
+
+#: ../../components/grok.rst:175
+msgid ""
+"Declare views and forms using `configure.zcml "
+"<http://developer.plone.org/views/browserviews.html#creating-a-view-using-"
+"zcml>`_"
+msgstr ""
+
+#: ../../components/grok.rst:177
+msgid ""
+"Remove ``grok.templatedir()`` and map view classes to templates using "
+"``<browser:page>`` ZCML directive."
+msgstr ""
+
+#: ../../components/grok.rst:179
+msgid "Grok migration source example::"
+msgstr ""
+
+#: ../../components/grok.rst:194
+msgid "ZCML migration ``configuration.zcml`` target example::"
+msgstr ""
+
+#: ../../components/grok.rst:216
+msgid ""
+"Forms handle ``update()`` themselves - this concerns only non-form views"
+msgstr ""
+
+#: ../../components/grok.rst:218
+msgid ""
+"If your view has ``update()`` method you need to call it manually in "
+"``__call__()`` because ``BrowserView`` base class doesn't do this."
+msgstr ""
+
+#: ../../components/grok.rst:221
+msgid "class MyView(BrowserView):"
+msgstr ""
+
+#: ../../components/grok.rst:224
+msgid "def update(self):"
+msgstr ""
+
+#: ../../components/grok.rst:224
+msgid "..."
+msgstr ""
+
+#: ../../components/grok.rst:228
+msgid "def __call__(self):"
+msgstr ""
+
+#: ../../components/grok.rst:227
+msgid ""
+"self.update() return self.index()  # Or self.render() for grok.CodeView"
+msgstr ""
+
+#: ../../components/grok.rst:233
+msgid "Tutorials"
+msgstr ""
+
+#: ../../components/grok.rst:235
+msgid ""
+"http://plone.org/products/dexterity/documentation/manual/five.grok/background"
+"/adding-five.grok-as-a-dependency"
+msgstr ""
+
+#: ../../components/grok.rst:237
+msgid "Steps:"
+msgstr ""
+
+#: ../../components/grok.rst:239
+msgid "Add dependencies to your ``setup.py``."
+msgstr ""
+
+#: ../../components/grok.rst:241
+msgid "Edit ``buildout.cfg`` to include the good known version set."
+msgstr ""
+
+#: ../../components/grok.rst:243
+msgid "Add the ``grok`` :term:`ZCML` directive to ``configure.zcml``."
+msgstr ""
+
+#: ../../components/index.rst:3
+msgid "Component architecture"
+msgstr ""
+
+#: ../../components/index.rst:8
+msgid ""
+"Plone logic is wired together by Zope 3 component architecture. It provides "
+"\"enterprise business logic\" engine for Plone."
+msgstr ""
+
+#: ../../components/index.rst:11
+msgid ""
+"The architecture provides pluggable system :doc:`interfaces "
+"</components/interfaces>`, adapters, utilities and registries. The wiring of"
+" components is done on XML based language called :doc:`ZCML "
+"</components/zcml>`."
+msgstr ""
+
+#: ../../components/index.rst:17
+msgid "Grok - wrapper around Z3"
+msgstr ""
+
+#: ../../components/index.rst:19
+msgid ""
+"On Z3 component layer there exist higher level framework called :doc:`Grok "
+"</components/grok>` which gives you a way to automatic scan Python modules "
+"for decorators and directives without the need off manually writing ZCML "
+"code or Python to register your business logic."
+msgstr ""
+
+#: ../../components/index.rst:24
+msgid "Database drops using Generic setup"
+msgstr ""
+
+#: ../../components/index.rst:26
+msgid ""
+"Zope 3 components act on Python codebase level which is shared by all sites "
+"in the same Zope application server process. When you install new add-ons to"
+" Plone site, the add-ons modify the site database using :doc:`GenericSetup "
+"</components/genericsetup>` framework. GenericSetup is mostly visible as "
+"*/profiles/default* folder and its XML files in your add-on."
+msgstr ""
+
+#: ../../components/index.rst:35
+msgid "http://www.muthukadan.net/docs/zca.html"
+msgstr ""
+
+#: ../../components/interfaces.rst:3
+msgid "Interfaces"
+msgstr ""
+
+#: ../../components/interfaces.rst:10
+msgid ""
+"Interfaces define what methods an object provides. Plone extensively uses "
+"interfaces to define APIs between different subsystems. They provide a more "
+"consistent and declarative way to define bridges between two different "
+"things, when duck-typing is not enough."
+msgstr ""
+
+#: ../../components/interfaces.rst:16
+msgid ""
+"An interface defines the shape of a hole where different pieces fit. The "
+"shape of the piece is defined by the interface, but the implementation "
+"details like color, material, etc. can vary."
+msgstr ""
+
+#: ../../components/interfaces.rst:20
+msgid ""
+"See `zope.interface package README "
+"<http://pypi.python.org/pypi/zope.interface>`_."
+msgstr ""
+
+#: ../../components/interfaces.rst:23
+msgid "Common interfaces"
+msgstr ""
+
+#: ../../components/interfaces.rst:25
+msgid "Some interfaces are commonly used throughout Plone."
+msgstr ""
+
+#: ../../components/interfaces.rst:27
+msgid ""
+"The usual use case is that a :doc:`context directive for a view "
+"</views/browserviews>` is provided, specifying where the view is available "
+"(e.g. for which content types)."
+msgstr ""
+
+#: ../../components/interfaces.rst:33
+msgid ""
+"Base class of all interfaces. Also used as a ``*`` wildcard when registering"
+" views, meaning that the view applies on every object."
+msgstr ""
+
+#: ../../components/interfaces.rst:37
+msgid ""
+"All *content* items on the site. In the site root, this interface excludes "
+"Zope objects like ``acl_users`` (the user folder) and ``portal_skins`` which"
+" might otherwise appear in the item listing when you iterate through the "
+"root content."
+msgstr ""
+
+#: ../../components/interfaces.rst:44
+msgid "``Products.CMFCore.interfaces.IFolderish``"
+msgstr ""
+
+#: ../../components/interfaces.rst:44
+msgid "All *folders* in the site."
+msgstr ""
+
+#: ../../components/interfaces.rst:47
+msgid "``Products.CMFCore.interfaces.ISiteRoot``"
+msgstr ""
+
+#: ../../components/interfaces.rst:47
+msgid "The Plone site root object."
+msgstr ""
+
+#: ../../components/interfaces.rst:53
+msgid "``plone.app.layout.navigation.interfaces import INavigationRoot``"
+msgstr ""
+
+#: ../../components/interfaces.rst:50
+msgid ""
+"Navigation top object - where the breadcrumbs are anchored. On multilingual "
+"sites, this is the top-level folder for the current language."
+msgstr ""
+
+#: ../../components/interfaces.rst:56
+msgid "Implementing one or multiple interfaces"
+msgstr ""
+
+#: ../../components/interfaces.rst:58
+msgid ""
+"Use ``zope.interface.implements()`` in your class body. Multiple interfaces "
+"can be provided as arguments."
+msgstr ""
+
+#: ../../components/interfaces.rst:73
+msgid "Removing parent class interface implementations"
+msgstr ""
+
+#: ../../components/interfaces.rst:75
+msgid ""
+"``implementsOnly()`` redeclares all inherited interface implementations. "
+"This is useful if you, for example, want to make :doc:`z3c.form "
+"</forms/z3c.form>` widget bindings more accurate."
+msgstr ""
+
+#: ../../components/interfaces.rst:85
+msgid "Checking whether object provides an interface"
+msgstr ""
+
+#: ../../components/interfaces.rst:88
+msgid "``providedBy``"
+msgstr ""
+
+#: ../../components/interfaces.rst:90
+msgid "In Python you can use code::"
+msgstr ""
+
+#: ../../components/interfaces.rst:100
+msgid "``plone_interface_info``"
+msgstr ""
+
+#: ../../components/interfaces.rst:102
+msgid "In page templates you can use ``plone_interface_info`` helper view::"
+msgstr ""
+
+#: ../../components/interfaces.rst:112
+msgid ""
+"https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/interface.py"
+msgstr ""
+
+#: ../../components/interfaces.rst:116
+msgid "Interface resolution order"
+msgstr ""
+
+#: ../../components/interfaces.rst:118
+msgid ""
+"Interface resolution order (IRO) is the list of interfaces provided by the "
+"object (directly, or implemented by a class), sorted by priority."
+msgstr ""
+
+#: ../../components/interfaces.rst:121
+msgid ""
+"Interfaces are evaluated from zero index (highest priority) to the last "
+"index (lowest priority)."
+msgstr ""
+
+#: ../../components/interfaces.rst:124
+msgid ""
+"You can access this information for the object for debugging purposes using "
+"a magical attribute::"
+msgstr ""
+
+#: ../../components/interfaces.rst:131
+msgid ""
+"Since adapter factories are *dynamic* (adapter interfaces not hardcoded on "
+"the object), the object can still adapt to interfaces which are not listed "
+"in ``__iro__``."
+msgstr ""
+
+#: ../../components/interfaces.rst:137
+msgid "Getting interface string id"
+msgstr ""
+
+#: ../../components/interfaces.rst:139
+msgid "The interface id is stored in the ``__identifier__`` attribute."
+msgstr ""
+
+#: ../../components/interfaces.rst:141
+msgid "Example file ``yourpackage/interfaces.py``::"
+msgstr ""
+
+#: ../../components/interfaces.rst:152
+msgid "Note that this attribute does not respect import aliasing."
+msgstr ""
+
+#: ../../components/interfaces.rst:154
+msgid ""
+"Example: ``Products.ATContentTypes.interfaces.IATDocument.__identifier__`` "
+"is ``Products.ATContentTypes.interfaces.document.IATDocument``."
+msgstr ""
+
+#: ../../components/interfaces.rst:158
+msgid "Getting interface class by its string id"
+msgstr ""
+
+#: ../../components/interfaces.rst:160
+msgid "Use the `zope.dottedname`_ package."
+msgstr ""
+
+#: ../../components/interfaces.rst:176
+msgid "Applying interfaces for several content types"
+msgstr ""
+
+#: ../../components/interfaces.rst:178
+msgid "You can apply marker interfaces to content types at any time."
+msgstr ""
+
+#: ../../components/interfaces.rst:180
+msgid "Example use cases:"
+msgstr ""
+
+#: ../../components/interfaces.rst:182
+msgid "You want to assign a viewlet to a set of particular content types."
+msgstr ""
+
+#: ../../components/interfaces.rst:184
+msgid "You want to enable certain behavior on certain content types."
+msgstr ""
+
+#: ../../components/interfaces.rst:188
+msgid ""
+"A marker interface is needed only when you need to create a common nominator"
+" for several otherwise unrelated classes. You can use one existing class or "
+"interface as a context without explicitly creating a marker interface. "
+"Places accepting ``zope.interface.Interface`` as a context usually accept a "
+"normal Python class as well (``isinstance`` behavior)."
+msgstr ""
+
+#: ../../components/interfaces.rst:195
+msgid ""
+"You can assign the marker interface for several classes in ZCML using a "
+"``<class>`` declaration. Here we're assigning ``ILastModifiedSupport`` to "
+"documents, events and news items:"
+msgstr ""
+
+#: ../../components/interfaces.rst:215
+msgid ""
+"Then we can have a viewlet for these content types only using the following "
+"(grok example)::"
+msgstr ""
+
+#: ../../components/interfaces.rst:232
+msgid "Related:"
+msgstr ""
+
+#: ../../components/interfaces.rst:234
+msgid ""
+"`zope.dottedname`_ allows you to resolve dotted names to Python objects "
+"manually"
+msgstr ""
+
+#: ../../components/interfaces.rst:238
+msgid "Dynamic marker interfaces"
+msgstr ""
+
+#: ../../components/interfaces.rst:240
+msgid ""
+"Zope allows to you to dynamically turn on and off interfaces on any content "
+"objects through the :term:`ZMI`. Browse to any object and visit the "
+":guilabel:`Interfaces` tab."
+msgstr ""
+
+#: ../../components/interfaces.rst:244
+msgid ""
+"Marker interfaces might need to be explicitly declared using the "
+":term:`ZCML` ``<interface>`` directive, so that Zope can find them:"
+msgstr ""
+
+#: ../../components/interfaces.rst:254
+msgid ""
+"The interface dotted name must refer directly to the interface class and not"
+" to an import from other module, like ``__init__.py``."
+msgstr ""
+
+#: ../../components/interfaces.rst:258
+msgid "Setting dynamic marker interfaces programmatically"
+msgstr ""
+
+#: ../../components/interfaces.rst:260
+msgid "Use the ``mark()`` function from `Products.Five`_."
+msgstr ""
+
+#: ../../components/interfaces.rst:270
+msgid "This marking persists with the object: it is not temporary."
+msgstr ""
+
+#: ../../components/interfaces.rst:272
+msgid ""
+"Under the hood: ``mark()`` delegates to "
+"``zope.interface.directlyProvides()`` |---| with the result that a "
+"persistent object (e.g. content item) has a reference to the interface class"
+" you mark it with in its ``__provides__`` attribute; this attribute is "
+"serialized and loaded by ZODB like any other reference to a class, and "
+"`zope.interface`_ uses object specification descriptor magic (just like it "
+"does for any other object, persistent or not) to resolve provided "
+"interfaces."
+msgstr ""
+
+#: ../../components/interfaces.rst:283
+msgid ""
+"To remove a marker interface from an object, use the ``erase()`` function "
+"from `Products.Five`_."
+msgstr ""
+
+#: ../../components/interfaces.rst:294
+msgid "Tagged values"
+msgstr ""
+
+#: ../../components/interfaces.rst:296
+msgid ""
+"Tagged values are arbitrary metadata you can stick on "
+"``zope.interface.Interface`` subclasses. For example, the `plone.autoform`_ "
+"package uses them to set form widget hints for `zope.schema`_ data model "
+"declarations."
+msgstr ""
+
+#: ../../components/utilities.rst:3
+msgid "Utilities"
+msgstr ""
+
+#: ../../components/utilities.rst:7
+msgid ""
+"Utility design pattern in Zope 3 allows easily overridable singleton class "
+"instances for your code."
+msgstr ""
+
+#: ../../components/utilities.rst:15
+msgid "Utility classes provide site-wide utility functions."
+msgstr ""
+
+#: ../../components/utilities.rst:17
+msgid "They are registered by marker interfaces."
+msgstr ""
+
+#: ../../components/utilities.rst:19
+msgid ""
+"Site customization logic or add-on products can override utilities for "
+"enhanced or modified functionality"
+msgstr ""
+
+#: ../../components/utilities.rst:22
+msgid "Utilities can be looked up by name or interface"
+msgstr ""
+
+#: ../../components/utilities.rst:24
+msgid ""
+"Compared to \"plain Python functions\", utilities provide the advantage of "
+"being plug-in points without need of :doc:`monkey-patching "
+"</misc/monkeypatch>`."
+msgstr ""
+
+#: ../../components/utilities.rst:28
+msgid "Read more in"
+msgstr ""
+
+#: ../../components/utilities.rst:30
+msgid ""
+"http://plone.org/products/dexterity/documentation/manual/five.grok/core-"
+"components/utilities"
+msgstr ""
+
+#: ../../components/utilities.rst:32
+msgid ""
+"`zope.component documentation "
+"<http://apidoc.zope.org/++apidoc++/Code/zope/component/README.txt/index.html>`_."
+msgstr ""
+
+#: ../../components/utilities.rst:35
+msgid "Local and global utilities"
+msgstr ""
+
+#: ../../components/utilities.rst:37
+msgid "Utilities can be"
+msgstr ""
+
+#: ../../components/utilities.rst:39
+msgid "*global* - registered during Zope start-up"
+msgstr ""
+
+#: ../../components/utilities.rst:41
+msgid ""
+"*local* - registered during add-on installer for a certain site/content item"
+msgstr ""
+
+#: ../../components/utilities.rst:43
+msgid ""
+"Local utilities are registered to persistent objects. The context of local "
+"utilities is stored in a thread-local variable which is set during "
+"traversal. Thus, when you ask for local utilities, they usually come from a "
+"persistent registry set up in the Plone site root object."
+msgstr ""
+
+#: ../../components/utilities.rst:48
+msgid ""
+"Global utilities are registered in ZCML and affect all Zope application "
+"server and Plone site instances."
+msgstr ""
+
+#: ../../components/utilities.rst:51
+msgid "Some hints::"
+msgstr ""
+
+#: ../../components/utilities.rst:57
+msgid "Registering a global utility"
+msgstr ""
+
+#: ../../components/utilities.rst:59
+msgid ""
+"A utility is constructed when Plone is started and ZCML is read. Utilities "
+"take no constructor parameters. If you need to use parameters like context "
+"or request, consider using views or adapters instead. Utilities may or may "
+"not have a name."
+msgstr ""
+
+#: ../../components/utilities.rst:64
+msgid ""
+"A utility can be provided by a function: the function is called and it "
+"returns the utility object."
+msgstr ""
+
+#: ../../components/utilities.rst:67
+msgid ""
+"A utility can be provided by a class: the class ``__call__()`` method itself"
+" acts as an factory and returns a new class instance."
+msgstr ""
+
+#: ../../components/utilities.rst:70
+msgid "ZCML example:"
+msgstr ""
+
+#: ../../components/utilities.rst:81
+msgid "Python example (named utility)::"
+msgstr ""
+
+#: ../../components/utilities.rst:91
+msgid ""
+"The utility class \"factory\" is in its simplest form a class which "
+"implements the interface::"
+msgstr ""
+
+#: ../../components/utilities.rst:104
+msgid "Class is constructed / factory is run during the ZCML initialization."
+msgstr ""
+
+#: ../../components/utilities.rst:106
+msgid "To use this class::"
+msgstr ""
+
+#: ../../components/utilities.rst:115
+msgid "Registering a local utility"
+msgstr ""
+
+#: ../../components/utilities.rst:117
+msgid ""
+"http://plone.org/documentation/manual/developer-manual/generic-"
+"setup/reference/component-registry"
+msgstr ""
+
+#: ../../components/utilities.rst:119
+msgid ""
+"http://davisagli.com/blog/registering-add-on-specific-components-using-"
+"z3c.baseregistry"
+msgstr ""
+
+#: ../../components/utilities.rst:121
+msgid "http://pypi.python.org/pypi/z3c.baseregistry"
+msgstr ""
+
+#: ../../components/utilities.rst:125
+msgid ""
+"Local utilities may be destroyed when the add-on product that provides them "
+"is reinstalled. Do not use them to store any data."
+msgstr ""
+
+#: ../../components/utilities.rst:129
+msgid "http://markmail.org/thread/twuhyldgyje7p723"
+msgstr ""
+
+#: ../../components/utilities.rst:132
+msgid "Overriding utility"
+msgstr ""
+
+#: ../../components/utilities.rst:134
+msgid ""
+"If you want to override any existing utility you can re-register the utility"
+" in the ``overrides.zcml`` file in your product."
+msgstr ""
+
+#: ../../components/utilities.rst:138
+msgid "Getting a utility"
+msgstr ""
+
+#: ../../components/utilities.rst:140
+msgid "There are two functions:"
+msgstr ""
+
+#: ../../components/utilities.rst:143
+msgid "``zope.component.getUtility``"
+msgstr ""
+
+#: ../../components/utilities.rst:143
+msgid "will raise an exception if the utility is not found."
+msgstr ""
+
+#: ../../components/utilities.rst:146
+msgid "``zope.component.queryUtility``"
+msgstr ""
+
+#: ../../components/utilities.rst:146
+msgid "will return ``None`` if the utility is not found."
+msgstr ""
+
+#: ../../components/utilities.rst:148
+msgid "Utility query parameters are passed to the utility class constructor."
+msgstr ""
+
+#: ../../components/utilities.rst:160
+msgid ""
+"You cannot use ``getUtility()`` on Python module level code during import, "
+"as the Zope Component Architecture is not yet initialized at that time. "
+"Always call ``getUtility()`` from an HTTP request end point or after Zope "
+"has been started."
+msgstr ""
+
+#: ../../components/utilities.rst:166
+msgid "Query local + global utilities:"
+msgstr ""
+
+#: ../../components/utilities.rst:168
+msgid ""
+"``zope.component.queryUtility()`` for local utilities, with global fallback."
+msgstr ""
+
+#: ../../components/utilities.rst:170
+msgid "Query only global utilities::"
+msgstr ""
+
+#: ../../components/utilities.rst:178
+msgid ""
+"Due to Zope component architecture initialization order, you cannot call "
+"``getUtility()`` in module-level Python code. Module-level Python code is "
+"run when the module is being imported, and Zope components are not yet set "
+"up at this point."
+msgstr ""
+
+#: ../../components/utilities.rst:184
+msgid "Getting all named utilities of one interface"
+msgstr ""
+
+#: ../../components/utilities.rst:186
+msgid "Use ``zope.component.getUtilitiesFor()``."
+msgstr ""
+
+#: ../../components/utilities.rst:205
+msgid "Unregistering utilities"
+msgstr ""
+
+#: ../../components/utilities.rst:207
+msgid "http://www.muthukadan.net/docs/zca.html#unregisterutility"
+msgstr ""
+
+#: ../../components/utilities.rst:210
+msgid "Removing persistent local utilities"
+msgstr ""
+
+#: ../../components/utilities.rst:212
+msgid ""
+"http://plone.org/documentation/kb/manually-removing-local-persistent-"
+"utilities"
+msgstr ""
+
+#: ../../components/utilities.rst:213
+msgid "http://blog.fourdigits.nl/removing-a-persistent-local-utility"
+msgstr ""
+
+#: ../../components/utilities.rst:214
+msgid "http://blog.fourdigits.nl/removing-a-persistent-local-utility-part-ii"
+msgstr ""
+
+#: ../../components/zcml.rst:3
+msgid "ZCML"
+msgstr ""
+
+#: ../../components/zcml.rst:7
+msgid "What Plone programmers should know about ZCML."
+msgstr ""
+
+#: ../../components/zcml.rst:14
+msgid ""
+":term:`ZCML` stands for the *Zope Configuration Mark-up Language*.  It is an"
+" XML-based language used to extend and plug into systems based on the Zope "
+"Component Architecture (:term:`ZCA`)."
+msgstr ""
+
+#: ../../components/zcml.rst:18
+msgid "It provides:"
+msgstr ""
+
+#: ../../components/zcml.rst:20
+msgid "conflict resolution (e.g. two plug-ins cannot overlap);"
+msgstr ""
+
+#: ../../components/zcml.rst:21
+msgid "extensible syntax based on namespaces."
+msgstr ""
+
+#: ../../components/zcml.rst:23
+msgid "Downsides of ZCML are:"
+msgstr ""
+
+#: ../../components/zcml.rst:25
+msgid "it is cumbersome to write by hand;"
+msgstr ""
+
+#: ../../components/zcml.rst:26
+msgid "lack of end-user documentation."
+msgstr ""
+
+#: ../../components/zcml.rst:28
+msgid "Plone uses ZCML to:"
+msgstr ""
+
+#: ../../components/zcml.rst:30
+msgid ""
+"register components with various places in the system, both core and add-"
+"ons."
+msgstr ""
+
+#: ../../components/zcml.rst:35
+msgid "Everything you can do in ZCML can also be done in Python code."
+msgstr ""
+
+#: ../../components/zcml.rst:37
+msgid ""
+"After developers found ZCML cumbersome, the :doc:`Grok framework "
+"</components/grok>` was created. Grok makes it possible use the ZCA without "
+"writing XML by enabling Python directives and function decorators to be used"
+" instead."
+msgstr ""
+
+#: ../../components/zcml.rst:42
+msgid "More info:"
+msgstr ""
+
+#: ../../components/zcml.rst:44
+msgid ""
+"`ZCML reference <http://docs.zope.org/zope3/ZCML/@@staticmenu.html>`_ (does "
+"not include Plone specific directives)"
+msgstr ""
+
+#: ../../components/zcml.rst:46
+msgid "http://docs.zope.org/zopetoolkit/codingstyle/zcml-style.html"
+msgstr ""
+
+#: ../../components/zcml.rst:49
+msgid "ZCML workflow"
+msgstr ""
+
+#: ../../components/zcml.rst:51
+msgid ""
+"Each Plone component (core, add-on) has a base ``configure.zcml`` in the "
+"package root.  This :term:`ZCML` file can include additional nested "
+"configuration files using the ``<include>`` directive."
+msgstr ""
+
+#: ../../components/zcml.rst:55
+msgid "ZCML is always interpreted during Plone start-up."
+msgstr ""
+
+#: ../../components/zcml.rst:57
+msgid ""
+"Your :doc:`unit test </testing_and_debugging/unit_testing>` may need to "
+"manually include ZCML."
+msgstr ""
+
+#: ../../components/zcml.rst:60
+msgid ""
+":doc:`Funny exception error messages occur if Plone is started in the "
+"production mode and ZCML was not properly read for all the packages "
+"</troubleshooting/exceptions>`"
+msgstr ""
+
+#: ../../components/zcml.rst:64
+msgid "When Plone is started all ZCML files are read."
+msgstr ""
+
+#: ../../components/zcml.rst:66
+msgid ""
+"New way: Python egg ``setup.py`` file contains a `autoinclude "
+"<http://plone.org/products/plone/roadmap/247>`_ hint and is picked up "
+"automatically when all the packages are scanned."
+msgstr ""
+
+#: ../../components/zcml.rst:70
+msgid ""
+"Old way: ZCML reference must be manually added to the ``zcml = section`` in "
+"``buildout.cfg``"
+msgstr ""
+
+#: ../../components/zcml.rst:73
+msgid ""
+"If ZCML contains errors :doc:`Plone does not start up in the foreground "
+"</troubleshooting/basic>`"
+msgstr ""
+
+#: ../../components/zcml.rst:77
+msgid "Overrides"
+msgstr ""
+
+#: ../../components/zcml.rst:79
+msgid ""
+"Besides layer overrides, ZCML provides more hardcore ways to override things"
+" in buildout. These overrides can also override utilities etc. and overrides"
+" take effect during ZCML parsing, not when site is run."
+msgstr ""
+
+#: ../../components/zcml.rst:84
+msgid ""
+"Create ``overrides.zcml`` file in your egg to the same folder as "
+"``configure.zcml``"
+msgstr ""
+
+#: ../../components/zcml.rst:86
+msgid "Syntax is 100% same as in ``configure.zcml``"
+msgstr ""
+
+#: ../../components/zcml.rst:88
+msgid "Restart Plone."
+msgstr ""
+
+#: ../../components/zcml.rst:92
+msgid ""
+"Before Plone 3.3, ZCML directives could not be automatically picked up from "
+"eggs. To make Plone pick up the directions in ``overrides.zcml``, you'd have"
+" to add this line in ``buildout.cfg``::"
+msgstr ""
+
+#: ../../components/zcml.rst:100
+msgid ""
+"Since Plone 3.3, the ``z3c.autoinclude`` plugin can do this "
+"(http://plone.org/products/plone/roadmap/247/)."
+msgstr ""
+
+#: ../../components/zcml.rst:105
+msgid "Specify files and code from another package"
+msgstr ""
+
+#: ../../components/zcml.rst:107
+msgid ""
+"If you ever find yourself needing to use a template from another package, "
+"you can do so with using the configure tag which will then run the block of "
+":term:`ZCML` in the context of that package."
+msgstr ""
+
+#: ../../components/zcml.rst:112
+msgid ""
+"Here is an example of defining portlet manager to be defined in another "
+"manager::"
+msgstr ""
+
+#: ../../components/zcml.rst:136
+msgid "Conditionally run :term:`ZCML`"
+msgstr ""
+
+#: ../../components/zcml.rst:138
+msgid ""
+"You can conditionally run :term:`ZCML` if a certain package or feature is "
+"installed."
+msgstr ""
+
+#: ../../components/zcml.rst:141
+msgid "First, include the namespace at the top of the :term:`ZCML` file::"
+msgstr ""
+
+#: ../../components/zcml.rst:150
+msgid "Examples"
+msgstr ""
+
+#: ../../components/zcml.rst:152
+msgid "conditionally run for package::"
+msgstr ""
+
+#: ../../components/zcml.rst:157
+msgid "conditionally run for feature::"
+msgstr ""

@@ -1,0 +1,860 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../members/index.rst:3
+msgid "Users and members"
+msgstr ""
+
+#: ../../members/member_basics.rst:3
+msgid "Member manipulation"
+msgstr ""
+
+#: ../../members/member_basics.rst:5 ../../members/member_profile.rst:7
+#: ../../members/membrane.rst:5 ../../members/sharing_tab.rst:12
+msgid "Description"
+msgstr ""
+
+#: ../../members/member_basics.rst:7
+msgid "How to programmatically create, read, edit and delete site members."
+msgstr ""
+
+#: ../../members/member_basics.rst:12 ../../members/member_profile.rst:12
+#: ../../members/membrane.rst:16 ../../members/sharing_tab.rst:19
+msgid "Introduction"
+msgstr ""
+
+#: ../../members/member_basics.rst:14
+msgid ""
+"In Plone, there are two loosely-coupled subsystems relating to members:"
+msgstr ""
+
+#: ../../members/member_basics.rst:20
+msgid "*Authentication and permission* information"
+msgstr ""
+
+#: ../../members/member_basics.rst:17
+msgid ""
+"(``acl_users`` under site root), managed by the :term:`PAS`. In a default "
+"installation, this corresponds to Zope user objects. PAS is *pluggable*, "
+"though, so it may also be authenticating against an LDAP server, Plone "
+"content objects, or other sources."
+msgstr ""
+
+#: ../../members/member_basics.rst:26
+msgid "*Member profile* information"
+msgstr ""
+
+#: ../../members/member_basics.rst:23
+msgid ""
+"accessible through the ``portal_membership`` tool. These represent Plone "
+"members. PAS authenticates, and the Plone member object provides metadata "
+"about the member."
+msgstr ""
+
+#: ../../members/member_basics.rst:29
+msgid "Getting the logged-in member"
+msgstr ""
+
+#: ../../members/member_basics.rst:31
+msgid ""
+"Anonymous and logged-in members are exposed via the :doc:`IPortalState "
+"context helper </misc/context>`."
+msgstr ""
+
+#: ../../members/member_basics.rst:34
+msgid ""
+"Example (browserview: use ``self.context`` since ``self`` is not "
+"acquisition-wrapped)::"
+msgstr ""
+
+#: ../../members/member_basics.rst:48
+msgid "or from a template:"
+msgstr ""
+
+#: ../../members/member_basics.rst:57
+msgid "Getting any member"
+msgstr ""
+
+#: ../../members/member_basics.rst:59
+msgid "To get a member by username (you must have ``Manager`` role)::"
+msgstr ""
+
+#: ../../members/member_basics.rst:64
+msgid "To get all usernames::"
+msgstr ""
+
+#: ../../members/member_basics.rst:70
+msgid "Getting member information"
+msgstr ""
+
+#: ../../members/member_basics.rst:72
+msgid ""
+"Once you have access to the member object, you can grab basic information "
+"about it."
+msgstr ""
+
+#: ../../members/member_basics.rst:75
+msgid "Get the user's name::"
+msgstr ""
+
+#: ../../members/member_basics.rst:80
+msgid "Reseting user password without emailing them"
+msgstr ""
+
+#: ../../members/member_basics.rst:82
+msgid ""
+"https://plone.org/documentation/kb/reset-a-password-without-having-to-email-"
+"one-to-the-user"
+msgstr ""
+
+#: ../../members/member_basics.rst:85
+msgid "Exporting and importing member passwords"
+msgstr ""
+
+#: ../../members/member_basics.rst:87
+msgid ""
+"You can also get at the hash of the user's password (only the hash is "
+"available, and only for standard Plone user objects) (in this example we're "
+"in Plone add-on context, since ``self`` is acquisition-wrapped)::"
+msgstr ""
+
+#: ../../members/member_basics.rst:96
+msgid ""
+"Note that this is a private data structure. Depending on the Plone version "
+"and add-ons in use, it may not be available."
+msgstr ""
+
+#: ../../members/member_basics.rst:99
+msgid ""
+"You can use this hash directly when importing your user data, for example as"
+" follows (can be executed from a :doc:`debug prompt </misc/commandline>`.)::"
+msgstr ""
+
+#: ../../members/member_basics.rst:123
+msgid ""
+"Also, take a look at a script for exporting Plone 3.0's memberdata and "
+"passwords:"
+msgstr ""
+
+#: ../../members/member_basics.rst:126
+msgid ""
+"http://blog.kagesenshi.org/2008/05/exporting-plone30-memberdata-and.html"
+msgstr ""
+
+#: ../../members/member_basics.rst:131
+msgid "Iterating all site users"
+msgstr ""
+
+#: ../../members/member_basics.rst:133 ../../members/member_basics.rst:178
+#: ../../members/member_basics.rst:195 ../../members/member_basics.rst:211
+#: ../../members/member_basics.rst:259 ../../members/member_basics.rst:268
+#: ../../members/member_basics.rst:290 ../../members/member_profile.rst:91
+#: ../../members/member_profile.rst:104 ../../members/membrane.rst:50
+msgid "Example::"
+msgstr ""
+
+#: ../../members/member_basics.rst:148
+msgid "Zope users, such as *admin*, are not included in this list."
+msgstr ""
+
+#: ../../members/member_basics.rst:152
+msgid "Getting all *Members* for a given *Role*"
+msgstr ""
+
+#: ../../members/member_basics.rst:154
+msgid ""
+"In this example we use the ``portal_membership`` tool. We assume that a role"
+" called ``Agent`` exists and that we already have the context::"
+msgstr ""
+
+#: ../../members/member_basics.rst:166
+msgid "Groups"
+msgstr ""
+
+#: ../../members/member_basics.rst:168
+msgid ""
+"Groups are stored as ``PloneGroup`` objects. ``PloneGroup`` is a subclass of"
+" ``PloneUser``.  Groups are managed by the ``portal_groups`` tool."
+msgstr ""
+
+#: ../../members/member_basics.rst:171
+msgid ""
+"https://github.com/plone/Products.PlonePAS/tree/master/Products/PlonePAS/plugins/ufactory.py"
+msgstr ""
+
+#: ../../members/member_basics.rst:173 ../../members/member_basics.rst:190
+msgid ""
+"https://github.com/plone/Products.PlonePAS/tree/master/Products/PlonePAS/plugins/group.py"
+msgstr ""
+
+#: ../../members/member_basics.rst:176
+msgid "Creating a group"
+msgstr ""
+
+#: ../../members/member_basics.rst:186
+msgid "For more information, see:"
+msgstr ""
+
+#: ../../members/member_basics.rst:188
+msgid ""
+"https://github.com/plone/Products.PlonePAS/tree/master/Products/PlonePAS/tests/test_groupstool.py"
+msgstr ""
+
+#: ../../members/member_basics.rst:193
+msgid "Add local roles to a group"
+msgstr ""
+
+#: ../../members/member_basics.rst:201
+msgid ""
+"This is an example of code in a *view*, where ``context`` is available."
+msgstr ""
+
+#: ../../members/member_basics.rst:205
+msgid "Update properties for a group"
+msgstr ""
+
+#: ../../members/member_basics.rst:207
+msgid ""
+"The ``editGroup`` method modifies the title and description in the "
+"``source_groups`` plugin, and subsequently calls ``setGroupProperties(kw)`` "
+"which sets the properties on the ``mutable_properties`` plugin."
+msgstr ""
+
+#: ../../members/member_basics.rst:218
+msgid "Getting available groups"
+msgstr ""
+
+#: ../../members/member_basics.rst:220
+msgid ""
+"Getting all groups on the site is possible through ``acl_users`` and the "
+"``source_groups`` plugin, which provides the functionality to manipulate "
+"Plone groups."
+msgstr ""
+
+#: ../../members/member_basics.rst:224
+msgid "Example to get only ids::"
+msgstr ""
+
+#: ../../members/member_basics.rst:230
+msgid "Example to get full group information::"
+msgstr ""
+
+#: ../../members/member_basics.rst:240
+msgid "List users within all groups"
+msgstr ""
+
+#: ../../members/member_basics.rst:242
+msgid "Example to get the email addresses of all users on a site, by group::"
+msgstr ""
+
+#: ../../members/member_basics.rst:257
+msgid "Adding a user to a group"
+msgstr ""
+
+#: ../../members/member_basics.rst:266
+msgid "Removing a user from a group"
+msgstr ""
+
+#: ../../members/member_basics.rst:273
+msgid "Getting groups for a certain user"
+msgstr ""
+
+#: ../../members/member_basics.rst:275
+msgid ""
+"Below is an example of getting groups for the logged-in user (Plone 3 and "
+"earlier)::"
+msgstr ""
+
+#: ../../members/member_basics.rst:281
+msgid "In Plone 4 you have to use::"
+msgstr ""
+
+#: ../../members/member_basics.rst:288
+msgid "Checking whether a user exists"
+msgstr ""
+
+#: ../../members/member_basics.rst:295
+msgid "See also:"
+msgstr ""
+
+#: ../../members/member_basics.rst:297
+msgid ""
+"http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/RegistrationTool.py?rev=110418&view=auto"
+msgstr ""
+
+#: ../../members/member_basics.rst:303
+msgid "Creating users"
+msgstr ""
+
+#: ../../members/member_basics.rst:305
+msgid "Use the ``portal_registration`` tool. Example (browserview)::"
+msgstr ""
+
+#: ../../members/member_basics.rst:361
+msgid "Batch member creation"
+msgstr ""
+
+#: ../../members/member_basics.rst:363
+msgid "http://plone.org/documentation/kb/batch-adding-users"
+msgstr ""
+
+#: ../../members/member_basics.rst:367
+msgid "Email login"
+msgstr ""
+
+#: ../../members/member_basics.rst:370
+msgid "Plone 3 does not allow a dot in the username."
+msgstr ""
+
+#: ../../members/member_basics.rst:370
+msgid ""
+"This is available as an add-on; see "
+"http://plone.org/products/betahaus.emaillogin"
+msgstr ""
+
+#: ../../members/member_basics.rst:372
+msgid "In Plone 4, it is a default feature."
+msgstr ""
+
+#: ../../members/member_basics.rst:376
+msgid "Custom member creation form: complex example"
+msgstr ""
+
+#: ../../members/member_basics.rst:378
+msgid ""
+"Below is an example of a Grok form which the administrator can use to create"
+" new users. New users will receive special properties and a folder for which"
+" they have ownership access.  The password is set to be the same as the "
+"username.  The user is added to a group named \"companies\"."
+msgstr ""
+
+#: ../../members/member_basics.rst:383
+msgid "Example ``company.py``::"
+msgstr ""
+
+#: ../../members/member_profile.rst:3
+msgid "Member profiles"
+msgstr ""
+
+#: ../../members/member_profile.rst:9
+msgid "How to manage Plone member properties programmatically"
+msgstr ""
+
+#: ../../members/member_profile.rst:14
+msgid ""
+"Member profile fields are the fields which the logged-in member can edit "
+"himself on his user account page."
+msgstr ""
+
+#: ../../members/member_profile.rst:17
+msgid "For more info, see:"
+msgstr ""
+
+#: ../../members/member_profile.rst:20
+msgid "``MemberDataTool``"
+msgstr ""
+
+#: ../../members/member_profile.rst:20 ../../members/member_profile.rst:23
+msgid ""
+"http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/MemberDataTool.py?rev=110418&view=auto"
+msgstr ""
+
+#: ../../members/member_profile.rst:23
+msgid "``MemberData`` class"
+msgstr ""
+
+#: ../../members/member_profile.rst:25
+msgid "PlonePAS subclasses and extends MemberData and MemberDataTool."
+msgstr ""
+
+#: ../../members/member_profile.rst:27
+msgid ""
+"`See PlonePAS MemberDataTool "
+"<http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L27>`_."
+msgstr ""
+
+#: ../../members/member_profile.rst:29
+msgid ""
+"`See PlonePAS MemberData class "
+"<http://dev.plone.org/collective/browser/Products.PlonePAS/trunk/Products/PlonePAS/tools/memberdata.py?rev=122125#L220>`_."
+msgstr ""
+
+#: ../../members/member_profile.rst:32
+msgid "Getting member profile properties"
+msgstr ""
+
+#: ../../members/member_profile.rst:36
+msgid ""
+"The following applies to vanilla Plone. If you have customized membership "
+"behavior it won't necessarily work."
+msgstr ""
+
+#: ../../members/member_profile.rst:39
+msgid ""
+"Member profile properties (title, address, biography, etc.) are stored in "
+"``portal_membership`` tool."
+msgstr ""
+
+#: ../../members/member_profile.rst:42
+msgid ""
+"Available fields can be found in the :term:`ZMI` -> ``portal_membership`` ->"
+" :guilabel:`Properties` tab."
+msgstr ""
+
+#: ../../members/member_profile.rst:45
+msgid ""
+"The script below is a simple example showing how to list all member email "
+"addresses::"
+msgstr ""
+
+#: ../../members/member_profile.rst:57
+msgid "Accessing member data"
+msgstr ""
+
+#: ../../members/member_profile.rst:0 ../../members/member_profile.rst:0
+msgid "Todo"
+msgstr ""
+
+#: ../../members/member_profile.rst:61
+msgid "Get member data by username"
+msgstr ""
+
+#: ../../members/member_profile.rst:64
+msgid "Further reading"
+msgstr ""
+
+#: ../../members/member_profile.rst:68
+msgid ""
+"`ToolbarViewlet has some sample code "
+"<https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/viewlets/common.py>`_"
+msgstr ""
+
+#: ../../members/member_profile.rst:67
+msgid "how to retrieve these properties."
+msgstr ""
+
+#: ../../members/member_profile.rst:71
+msgid "Getting member fullname"
+msgstr ""
+
+#: ../../members/member_profile.rst:73
+msgid ""
+"In Python code you can access properties on the ``MemberData`` object::"
+msgstr ""
+
+#: ../../members/member_profile.rst:77
+msgid "In a template you can do something along the same lines::"
+msgstr ""
+
+#: ../../members/member_profile.rst:83
+msgid "Note that this code won't work for anonymous users."
+msgstr ""
+
+#: ../../members/member_profile.rst:86
+msgid "Setting member profile properties"
+msgstr ""
+
+#: ../../members/member_profile.rst:88
+msgid ""
+"Use ``setMemberProperties(mapping={...})`` to batch update properties. Old "
+"properties are not removed."
+msgstr ""
+
+#: ../../members/member_profile.rst:96
+msgid ""
+"New properties must be explicitly declared in ``portal_memberdata``, before "
+"creation of the member, or ``setMemberProperties()`` will silently fail."
+msgstr ""
+
+#: ../../members/member_profile.rst:102
+msgid "How to retrofit existing members with new properties?"
+msgstr ""
+
+#: ../../members/member_profile.rst:135
+msgid "Setting password"
+msgstr ""
+
+#: ../../members/member_profile.rst:137
+msgid "Password is a special case."
+msgstr ""
+
+#: ../../members/member_profile.rst:139
+msgid "Example how to set the user password::"
+msgstr ""
+
+#: ../../members/member_profile.rst:147
+msgid "Increase minimum password size"
+msgstr ""
+
+#: ../../members/member_profile.rst:149
+msgid ""
+"To increase the minimum password size, copy ``validate_pwreset_password`` to"
+" your custom folder and insert the following lines::"
+msgstr ""
+
+#: ../../members/member_profile.rst:155
+msgid ""
+"This will increase the minimum password size for the password reset form to "
+"8 characters. (This does not effect new user registration, that limit will "
+"still be 5.)"
+msgstr ""
+
+#: ../../members/member_profile.rst:159
+msgid "Don't forget to update your form templates to reflect your changes!"
+msgstr ""
+
+#: ../../members/member_profile.rst:164
+msgid "Default password length - password reset form"
+msgstr ""
+
+#: ../../members/member_profile.rst:166
+msgid ""
+"The password reset form's minimum password length is 5 characters. To "
+"increase this:"
+msgstr ""
+
+#: ../../members/member_profile.rst:169
+msgid ""
+"Copy ``validate_pwreset_password`` into your custom folder and add the "
+"following lines::"
+msgstr ""
+
+#: ../../members/member_profile.rst:175
+msgid "before the ``if state.getErrors():`` method."
+msgstr ""
+
+#: ../../members/member_profile.rst:177
+msgid ""
+"This would increase the minimum password size to 8 characters. Remember to "
+"update your form templates accordingly."
+msgstr ""
+
+#: ../../members/member_profile.rst:182
+msgid "Setting visual editor for all users"
+msgstr ""
+
+#: ../../members/member_profile.rst:184
+msgid "The *visual editor* property is set on the member upon creation."
+msgstr ""
+
+#: ../../members/member_profile.rst:186
+msgid ""
+"If you want to change all site members to use TinyMCE instead of Kupu. you "
+"have to do it using the command-line --- Plone provides no through-the-web "
+"way to change the properties of other members. Here is a script which does "
+"the job:"
+msgstr ""
+
+#: ../../members/member_profile.rst:192
+msgid "``migrate.py``::"
+msgstr ""
+
+#: ../../members/member_profile.rst:222
+msgid "Run it::"
+msgstr ""
+
+#: ../../members/member_profile.rst:228
+msgid ""
+"The script does not work through the :term:`ZMI` as member properties do not"
+" have proper security declarations, so no changes are permitted."
+msgstr ""
+
+#: ../../members/member_profile.rst:233
+msgid "Password reset requests"
+msgstr ""
+
+#: ../../members/member_profile.rst:235
+msgid ""
+"Directly manipulating password reset requests is useful e.g. for testing."
+msgstr ""
+
+#: ../../members/member_profile.rst:237
+msgid "Poking requests::"
+msgstr ""
+
+#: ../../members/member_profile.rst:246
+msgid "Clearing all requests::"
+msgstr ""
+
+#: ../../members/membrane.rst:3
+msgid "Members as content"
+msgstr ""
+
+#: ../../members/membrane.rst:7
+msgid ""
+"The ``Products.membrane`` and ``Products.remember`` add-ons provide member "
+"management where members are represented by Plone content items. The member-"
+"as-content paradigm makes member management radically flexible: members can "
+"be in different folders, have different workflows and states and different "
+"profile fields."
+msgstr ""
+
+#: ../../members/membrane.rst:18
+msgid ""
+"*remember* (small r) and *membrane* are framework add-on products for Plone "
+"which allows you to manipulate site members as normal content objects. The "
+"product also allows distributed user management and different user classes."
+msgstr ""
+
+#: ../../members/membrane.rst:23
+msgid ""
+"``Products.membrane`` provides a framework for integrating ``acl_users``, "
+"which manages access rights, with content-like members and tasks like login."
+msgstr ""
+
+#: ../../members/membrane.rst:27
+msgid ""
+"``Products.remember`` is a basic implementation of this with two different "
+"user workflows and a normal user schema."
+msgstr ""
+
+#: ../../members/membrane.rst:31
+msgid "Basics"
+msgstr ""
+
+#: ../../members/membrane.rst:33
+msgid ""
+"Read the `membrane tutorial "
+"<http://plone.org/documentation/tutorial/borg/membrane>`_."
+msgstr ""
+
+#: ../../members/membrane.rst:35
+msgid "See the example code ``Products.membrane.example``."
+msgstr ""
+
+#: ../../members/membrane.rst:37
+msgid "Read the documents at ``Products.remember/docs/tutorial``."
+msgstr ""
+
+#: ../../members/membrane.rst:39
+msgid ""
+"See the `Weblion FacultyStaffDirectory product "
+"<https://weblion.psu.edu/trac/weblion/wiki/FacultyStaffDirectory>`_, which "
+"is a sophisticated implementation of the framework."
+msgstr ""
+
+#: ../../members/membrane.rst:43
+msgid ""
+"It is recommended to enable debug-level logging output for membrane related "
+"unit tests, as ``PlonePAS`` code swallows several exceptions and does not "
+"output them unless debug level is activated."
+msgstr ""
+
+#: ../../members/membrane.rst:48
+msgid "Getting member by username"
+msgstr ""
+
+#: ../../members/membrane.rst:63
+msgid "Getting Plone member from ``MembraneUser`` or ``owner`` record"
+msgstr ""
+
+#: ../../members/membrane.rst:65
+msgid ""
+"Below is an example of how to resolve member content object from "
+"``MembraneUser`` record \"owner\" who is user \"local_user\"::"
+msgstr ""
+
+#: ../../members/membrane.rst:75
+msgid "Creating a member"
+msgstr ""
+
+#: ../../members/membrane.rst:77
+msgid "The following snippet works in unit tests::"
+msgstr ""
+
+#: ../../members/membrane.rst:108
+msgid "Populating member fields automatically"
+msgstr ""
+
+#: ../../members/membrane.rst:110
+msgid "Use the following unit test snippet::"
+msgstr ""
+
+#: ../../members/membrane.rst:148
+msgid "Checking member validity"
+msgstr ""
+
+#: ../../members/membrane.rst:150
+msgid "The following snippet is useful for unit testing::"
+msgstr ""
+
+#: ../../members/membrane.rst:163
+msgid "Setting user password"
+msgstr ""
+
+#: ../../members/membrane.rst:165
+msgid ""
+"Passwords are stored hashed and can be set using the "
+"``BaseMember._setPassword()`` method."
+msgstr ""
+
+#: ../../members/membrane.rst:168
+msgid ""
+"``_setPassword()`` takes the password as a plain-text argument and hashes it"
+" before storing::"
+msgstr ""
+
+#: ../../members/membrane.rst:173
+msgid ""
+"You may also use the ``portal_registrations`` tool. This method is security-"
+"checked and may be used from ZMI scripts::"
+msgstr ""
+
+#: ../../members/membrane.rst:179
+msgid ""
+"Use ``getToolByName`` rather than acquiring the tool from  ``context`` if "
+"you're doing this in a browser view."
+msgstr ""
+
+#: ../../members/membrane.rst:183
+msgid "Accessing hashed password"
+msgstr ""
+
+#: ../../members/membrane.rst:185
+msgid "Use the password attribute directly::"
+msgstr ""
+
+#: ../../members/membrane.rst:189
+msgid "The password hash should be a unicode string."
+msgstr ""
+
+#: ../../members/membrane.rst:192
+msgid ""
+"By default, ``Products.remember`` uses the ``HMACHash`` hasher. As a salt, "
+"the ``str(context)`` string is used. This means that it is not possible to "
+"move hashed password from one context item to another. For more information,"
+" see the ``Products.remember.content.password_hashers`` module."
+msgstr ""
+
+#: ../../members/membrane.rst:199
+msgid "Moving members"
+msgstr ""
+
+#: ../../members/membrane.rst:201
+msgid ""
+"Moving members is not straightforward, as by default member password is "
+"hashed with the member location."
+msgstr ""
+
+#: ../../members/membrane.rst:204
+msgid ""
+"Members need to reregister their password after being moved from one folder "
+"to another."
+msgstr ""
+
+#: ../../members/membrane.rst:207
+msgid ""
+"Here is a complex function to perform moving by recreating the user and "
+"deleting the old object::"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:3
+msgid "Sharing"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:5
+msgid ""
+"TODO: remove this file, eventually move code example to a \"cookbook\" "
+"section."
+msgstr ""
+
+#: ../../members/sharing_tab.rst:7
+msgid "Out of date"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:9
+msgid ""
+"This page is out of date. Please visit: :doc:`Local Roles "
+"</security/local_roles>`."
+msgstr ""
+
+#: ../../members/sharing_tab.rst:14
+msgid "Customizing the sharing feature of Plone"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:22
+msgid ""
+"`Sharing tab source code "
+"<https://github.com/plone/plone.app.workflow/tree/master/plone/app/workflow/browser/sharing.py>`_"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:24
+msgid ""
+"`Default sharing tab role translations "
+"<https://github.com/plone/plone.app.workflow/tree/master/plone/app/workflow/configure.zcml>`_"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:28
+msgid "http://pypi.python.org/pypi/collective.sharingroles"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:30
+msgid ""
+"http://encolpe.wordpress.com/2010/02/08/add-a-new-role-in-the-sharing-tab-"
+"for-plone-3/"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:33
+msgid "Setting sharing rights programmatically"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:36
+msgid "Complex example: Create one folder per group and add sharing rights"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:38
+msgid "The sample code"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:40
+msgid ""
+"Creates one folder per group, with some groups excluded. The folder is not "
+"created if it exists."
+msgstr ""
+
+#: ../../members/sharing_tab.rst:42
+msgid "Blocks role inheritance for the group"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:44
+msgid "Gives edit access to the group through sharing"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:46
+msgid "Gives view access to the logged in users through sharing"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:48
+msgid ""
+"Example is provided as Zope External Method. Create External Method in the "
+"target parent folder through ZMI. Then run \"Test\" for this external method"
+" in ZMI."
+msgstr ""
+
+#: ../../members/sharing_tab.rst:107
+msgid "General methods to manipulate local roles (sharing)"
+msgstr ""
+
+#: ../../members/sharing_tab.rst:114
+msgid "would grant the role \"Reader\" (Can View on the Sharing Tab) to userid."
+msgstr ""
+
+#: ../../members/sharing_tab.rst:116
+msgid ""
+"Beware that this will set the local roles for the user to only ['Reader']. "
+"If the user already has other local roles, this will (untested) clear those."
+msgstr ""
+
+#: ../../members/sharing_tab.rst:118
+msgid "It will not affect inherited roles."
+msgstr ""

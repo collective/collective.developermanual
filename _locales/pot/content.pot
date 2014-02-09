@@ -1,0 +1,4932 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:22+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../content/archetypes/archetypes_references.rst:3
+# 02ca040a3ac843c6b0f11deab4f814db
+msgid "Archetypes ReferenceFields"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:5
+#: ../../content/archetypes/converting-content-types.rst:5
+#: ../../content/archetypes/fields.rst:5
+#: ../../content/archetypes/files.rst:5
+#: ../../content/archetypes/references.rst:5
+#: ../../content/archetypes/templates.rst:5
+#: ../../content/creating.rst:5
+#: ../../content/deleting.rst:5
+#: ../../content/dexterity.rst:5
+#: ../../content/dynamic_views.rst:7
+#: ../../content/events.rst:5
+#: ../../content/importexport.rst:5
+#: ../../content/listing.rst:5
+#: ../../content/ownership.rst:7
+#: ../../content/rename.rst:5
+#: ../../content/timestamps.rst:5
+#: ../../content/types.rst:5
+#: ../../content/uid.rst:5
+#: ../../content/workflow.rst:5
+# 5e89a0fc58384d3390b0ad7cfaf624e5
+# 8c13d864fc8a4c9392139a60fd3fc6d8
+# 2a9cbaeb79164404a5872e57b9c3c78b
+# 7d6fab88ec56498db13800eeac3745dd
+# c890bbad8cf6475fa9dc40a19b7a7a40
+# 723cde83d89a4f6cbed7a32b0328f5e6
+# 0d237e0b648149a5ab30d916d18989c1
+# 312cc837665f4452b733f7abc61f07b7
+# 03d5e5a3c3734e10b93fa3c8a062cf35
+# 7b4ab64d7e2249b4acff575d029a98c4
+# d025fa94698e4fa9932dd9b5f2add9c6
+# 2e02c294b3704fc0a28620ec76c39722
+# 893246d6a56f4fb9b7edba2ccbdbb3c0
+# bcb6f4ed3a684f17a04d87bf434e387c
+# 2f1f5c6c990e4aedbcc92553d0c7d5e7
+# b449284c43374be9a1ee9d1340b34eb4
+# 181b1b7e2dd54992846c24c4ab634901
+# 675cd2f343934ca890a9f545c97317b1
+# 62f6b7dd4ed644f5990c24723c61981f
+msgid "Description"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:7
+# a02ad4a318d84087bcb163c4fe9c2de7
+msgid "Using ReferenceField to have references to other Archetypes content items in Plone."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:13
+#: ../../content/archetypes/fields.rst:12
+#: ../../content/archetypes/references.rst:14
+#: ../../content/archetypes/templates.rst:12
+#: ../../content/archetypes/validators.rst:8
+#: ../../content/deleting.rst:13
+#: ../../content/dexterity.rst:12
+#: ../../content/dynamic_views.rst:12
+#: ../../content/events.rst:12
+#: ../../content/history.rst:8
+#: ../../content/importexport.rst:12
+#: ../../content/listing.rst:12
+#: ../../content/manipulating.rst:8
+#: ../../content/ownership.rst:12
+#: ../../content/rename.rst:12
+#: ../../content/timestamps.rst:13
+#: ../../content/types.rst:12
+#: ../../content/uid.rst:13
+#: ../../content/workflow.rst:12
+# 569440583c6746d6b4dd7b948b0282b1
+# fa0ed3e7959c4c1785d4bedfd836218d
+# 9dafba1aafbd40a68d2caf8107d089b5
+# 9ae550426e0644448dac6314469fb512
+# 1eed39bf26e24cf5b7e94bfc2c19e952
+# e59dc61895f0400291fbb6395bb45ef6
+# 856c638eda1f44f19e8cf3bca3fe68e3
+# ace61a6d5aae41faae1a7450f5bff409
+# 9c25ccf0063744edb2d1616eb0223c9f
+# 1c95f5e34c2d4822bee6ce2bd6dbeb5d
+# 3ca841c94d144e3c9fa72e2c72fb603d
+# 19866fc4950f45dd939dac24d0b3bf34
+# ee2160b45d7e4cfca8f3872059ba3874
+# cdd7f8307559425b951de5538889c7b9
+# 431d788de09546bab3efa3eea15b0557
+# db8271cf9f0c44ddbec84bbaaeaa1b1e
+# 7ae84c76ec334332b4c1315363869104
+# 894b6066daf24172a442deab9d3468af
+# a55b34e9b1e249b0a1b59b957f0a1429
+msgid "Introduction"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:15
+# ba2aaebfe5f94aa79df62628fe36f3c3
+msgid "Archetypes comes with a kind of field called ReferenceField which is used to store references to other Archetypes objects, or any object providing the IReferenceable interface."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:19
+# 89e4753a8e864911b58f01568cdf26cb
+msgid "References are maintained in the ``uid_catalog`` and ``reference_catalog`` catalogs.  You can find both at the root of your Plone site. Check them to see their indexes and metadata."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:23
+# af448724d1e44a55aaec5fbcb581cec5
+msgid "Although you could use the ZCatalog API to manage Archetypes references, these catalogs are rarely used directly. A ``ReferenceField`` and its API is used instead."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:27
+# 97c60622b61c43508dd22c7fd323aabb
+msgid "Example declaration of a ``ReferenceField`` inside a schema::"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:37
+# 7e60eccfbaaa4fd19fe08c42f20447c8
+msgid "Check the *Fields Reference* section in the *Archetypes Developer Manual* at http://plone.org to learn about the ``ReferenceField`` available options."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:40
+# b5ea3239e9644285ac1d7bd6b9b9f976
+msgid "Archetypes reference fields just store the UID (Universal Object Identifier) of an object providing the ``IReferenceable`` interface. Continuing with the example above, you will usually use the regular field API (getters/setters)."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:44
+# 80d2073bfc7543498b53dd92ac804c31
+msgid "You can get the UID of a referenceable object easily::"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:48
+# f19006c68f3b447886949cb6da0976e5
+msgid "To set a reference, you can use the the setter method with either a list of UIDs or one UID string, or one object or a list of objects (in the case the ``ReferenceField`` is multi-valued) to which you want to add a reference to. ``None`` and ``[]`` are equal."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:53
+# 416aab55a1844a5e8d5bc50ac331185a
+msgid "In this example we set a reference from the ``myct1`` object to the ``areferenceableobject`` object::"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:58
+# a294baa1f9194aeba51282f460a87baf
+msgid "To get the object(s) referenced, just use the getter. Note that what you get is the objects themselves, not their \":doc:`brains </searching_and_indexing/query>`\"::"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:64
+# 73a52d58579944858bfa3585df40715d
+msgid ":doc:`More info in Varnish section of this manual </hosting/varnish>`."
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:0
+#: ../../content/archetypes/converting-content-types.rst:0
+#: ../../content/dynamic_views.rst:0
+# a3b53ce491364eb2b48f942feb2b5092
+# 3f7e91d9326b485288e05b082d5ba8d7
+# 82cda7cfdbd0476892afa76c72b0c8a8
+msgid "Todo"
+msgstr ""
+
+#: ../../content/archetypes/archetypes_references.rst:71
+# 947565e90b6341c6914a35aa1d70d227
+msgid "Code to exercise the ``IReferenceable`` API, including relationships and back-references."
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:3
+# ebef0bbdf2bb4bc6b23b9b695824e7c3
+msgid "Converting one Content Type into another"
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:7
+# 91073b15215140148c2399977ab2d62b
+msgid "It is possible to 'convert' one content type into another by extracting content from the source content type and adding it to the new content type."
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:0
+#: ../../content/archetypes/files.rst:0
+#: ../../content/archetypes/templates.rst:0
+#: ../../content/timestamps.rst:0
+# 23b808dcd58341b0b347e4539fa0aa85
+# e61132efb47f42c597378e1824c5b5ec
+# fe4a5227ddc84ca08d07cf5186fd7d36
+# 1f5d4f5ff575487e8aca224801d78f12
+msgid "local"
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:14
+# 1efc42cb711b4ae4942644c614fb7dd9
+msgid "Converting Pages into News Items"
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:16
+# 6b04f9e9ec1b4a2bb1863c8edaf18887
+msgid "In this example we take a folder of *Pages* (meta type: ``Document``) and create *News Items* from them::"
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:38
+# b172d7810d224af6b1585f8fc3666211
+msgid "content type \"Service\"?"
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:41
+# 3f890ce735d14879ba0eb169f6cf3bb6
+msgid "Converting Images into News Items"
+msgstr ""
+
+#: ../../content/archetypes/converting-content-types.rst:43
+# cec5a78f5eba46c8aba90286f3f12471
+msgid "This is similar to the example of converting pages into news items. Notice that when we pass the image data to ``invokeFactory`` we need to make it into a string::"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:3
+# 280aacbf56e04dc39923c09b9f4fcb1c
+msgid "DataGridField"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:5
+# a67c661bddc74358a08328228381e406
+msgid "This document contains miscellaneous notes about DataGridField_ field and DataGridWiget widget."
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:7
+# 08d8d336a074483896f564e58e078c5d
+msgid "DataGridField is an Archetypes field and widget to add tabular structures to your custom content types."
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:10
+# f3e4580dc41049adaa4cbe8aa4f1102a
+msgid "Basics"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:12
+# 23ffe295657e409490513a72586f053e
+msgid "DataGridField acts as any other Archetypes based field."
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:14
+# cf43124f66cd41bdaf710df23d1052f1
+msgid "To read DGF content use *accessor* function::"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:18
+# c9a8d9e099f143e592f1bcd2e90271fa
+msgid "Data is a Python list of dictionaries. Each dictionary presents one row. Dictionary keys are column ids and dictionary values are cell values."
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:21
+# 304812926c6945148bce9a85a6738dae
+msgid "To set DGF content you must replace all rows at once::"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:30
+# d46ae90b5cb14020b064cca19d48ca22
+msgid "To append a row to DFG, you need to read it, manipulate the list, and then reset the value::"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:37
+# 3e5b13f5ca0c4a609c608025c3b0b6fb
+msgid "Modify cell value in DGF::"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:44
+# bacf289b49e642ed90ae9a7292bc430b
+msgid "CheckboxColumn"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:46
+# b57a5f7643ec491391754ba3cb37ce3f
+msgid "Checkbox column values are handled specially::"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:67
+#: ../../content/dynamic_views.rst:331
+# e4d6b1f5efcc479db022840f9e6da5e6
+# 59dfcbaca4ad4b06a29fda579948f229
+msgid "Other resources"
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:69
+# b94b926834e34a72bebd6dcca8f97034
+msgid "Please enable DEBUG in https://github.com/collective/Products.DataGridField/blob/master/Products/DataGridField/config.py on your local computer. After this setting has been changed, you can run unit tests and install example types on your computer."
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:73
+# 0f5987400eaa4bfda41d01cb42c13c4c
+msgid "Refer `unit tests <https://github.com/collective/Products.DataGridField/blob/master/Products/DataGridField/tests/test_columns.py>`_ for more code examples."
+msgstr ""
+
+#: ../../content/archetypes/datagridfield.rst:75
+# 3f5b912f2ebe4f1f8689eb859126ab8c
+msgid "Refer `Archetypes manual <http://plone.org/documentation/manual/archetypes-developer-manual>`_ for basics Archetypes developer information."
+msgstr ""
+
+#: ../../content/archetypes/editing.rst:3
+# 697828891bd24c5d904913cab2041429
+msgid "Customizing editing interface"
+msgstr ""
+
+#: ../../content/archetypes/editing.rst:6
+# 1b1dc186ad44477e8a33fe73db556d3f
+msgid "Remove metadata tabs"
+msgstr ""
+
+#: ../../content/archetypes/editing.rst:8
+# 29577d3ae22c4415b329334fbfc6416d
+msgid "Remove *Manage properties* permissions from the users who should not see metadata fields. Do this for all fields under the schema."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:3
+# 1b82b1aac2fc4e3f85ddf2a2ecb7abb1
+msgid "Fields and widgets"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:7
+# 474fb3e7241f444f99c45840072acabf
+msgid "How to read, add, remove and create fields and widgets available for Archetypes content types."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:14
+# 2238d2d305384fdb981396b5eb2f7cce
+msgid "This document contains instructions how to manipulate Archetypes schema (data model for content items) and fields and widgets it consists of."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:17
+# 996fa76dc02c419a9a1cef898965c9f2
+msgid "*Schema* is list of fields associated with a content type. Each field can belong to one *schemata* which corresponds to one Edit tab sub-tab in Plone user interface."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:21
+# a1c540ce200c42e580da05272d5c72a9
+msgid "Field schemata is chosen by setting field's ``schemata`` attribute."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:24
+# 0f45463e12fc48f19607a68b7f00524b
+msgid "Getting hold of schema objects"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:26
+# 3ef29eacc75740a0aa34c80f4c722d28
+msgid "Archetypes based data model is defined as Schema object, which is a list of fields."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:29
+# db8dfd3244ad44429a4e4e1d1f7b2090
+msgid "During application start-up"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:31
+# c23ab7a0b4cf463592fe37165c1444bd
+msgid "When your class is being constructed you can refer the schema simply in Python::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:44
+# 652a891b3aed479187cb1a7f0d9fa1b0
+msgid "During HTTP request processing"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:46
+# d45f0bcc18224c2981b3a9a15be04bbe
+msgid "You can access context schema object by using Schema() accessor."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:50
+# 442f30eeecfd4700946f144b8ab9ef46
+msgid "Run-time schema patching is possible, so Schema() output might differ what you put in to your content type during the construction."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:53
+#: ../../content/archetypes/fields.rst:105
+#: ../../content/archetypes/fields.rst:208
+#: ../../content/archetypes/fields.rst:607
+#: ../../content/archetypes/fields.rst:649
+#: ../../content/archetypes/references.rst:38
+#: ../../content/archetypes/storages.rst:37
+#: ../../content/creating.rst:21
+#: ../../content/creating.rst:37
+#: ../../content/creating.rst:252
+#: ../../content/creating.rst:426
+#: ../../content/deleting.rst:24
+#: ../../content/dexterity.rst:327
+#: ../../content/events.rst:100
+#: ../../content/history.rst:170
+#: ../../content/listing.rst:116
+#: ../../content/ownership.rst:23
+#: ../../content/ownership.rst:38
+#: ../../content/types.rst:160
+#: ../../content/types.rst:180
+#: ../../content/types.rst:201
+#: ../../content/types.rst:210
+#: ../../content/workflow.rst:146
+#: ../../content/workflow.rst:168
+#: ../../content/workflow.rst:294
+# f29c36f2d25449ff90e10cb18dc88d66
+# a88ad76a32234e67a698dff653e7ac31
+# 820564e72a9749ebbf88f91a58ab2367
+# 89355397892146d9b0a97bab5e57e363
+# 694985cd4ef944c28b188958290b1f95
+# b878991bf9984861b35ed536fd30abea
+# 45ec7fa1353f4905ad00c740664922df
+# 5ab5ac9b14d5437eb4c246272cd85840
+# 43e6ae13cb05469690d33fb93d2eaa21
+# 7469a8ac756547b98d78b4262c9b5a4f
+# ad9004b6935e4deb926fec2d1f7c9561
+# a424e08ce3ab425ea91e24e7da049367
+# 256adb6f659e4de28b1488404231ce66
+# bb330deeecc04093b5f457e06a85f94c
+# e54c12773f494c6ab9584ab4deb7fb50
+# 6095a78b5ee64ec395029827f447ab4c
+# 973b97ee5cf04a2e927b9256fbc367b1
+# 9040710815c243ccaf7749eae90c8ee4
+# ea820d7cdee44a40bba6133f91af7609
+# 27201883d03f49f1bec0058bfad925d7
+# 3ee39b9c403a49458e5ac7e75f218ed3
+# 7e47e9c3ceb84ad5a1476dc40338c871
+# b0d7829c1fcf436284c734f68c9aec95
+# 119ecbee71924085a32712c8d873e62a
+# 590b741f0cc24a25a3fe81b51ed27af8
+msgid "Example::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:59
+# d8362a46e79d4790a663c57149fefc84
+msgid "Schema introspection"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:61
+# dc13aba7ab5440f2a6e57723937a5ceb
+msgid "How to know what fields are available on content items."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:64
+# 267fec6f8ce6460bb5cc8889c29ee2a5
+msgid "Out of box schema source code"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:66
+# 5f1be2d95d7c458aa674c9ea1511d365
+msgid "The default Plone schemas are defined"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:68
+# c919d092d9c349a98545383d7d322c4d
+msgid "Id and title fields:"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:70
+# d3710bf9f37e4378a4a34c67d7d7f870
+msgid "https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/BaseObject.py"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:72
+# 21284b2fc2b6444db410442d63f5235e
+msgid "Category and owners schemata: Dublin core metadata"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:74
+# 0970f5e35d54411594beff0d6d7fe6b5
+msgid "https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/ExtensibleMetadata.py"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:76
+# 5bba4c472c044a5e99b7bed71dab86f8
+msgid "Settings schemata: Exclude from navigation, related items and next/previous navigation"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:78
+# 87fdcc77618b4dd0a0b432d6ec1ef62f
+msgid "https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/schemata.py"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:80
+# 11969de75973457ca98766cdab75d239
+msgid "Document content"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:82
+# 0bad794f5c9e42b7b81a96fe7499c5b9
+msgid "https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/document.py"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:84
+# f2015b2997054304b4ba57a06a27c3a2
+msgid "Image content"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:86
+# 7b119af8264947d495d3a3d006215849
+msgid "https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:88
+# 0c2b0e074b07448692edb77cb36074bf
+msgid "News content"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:90
+# bee3984d45614d8a8395215a2110de34
+msgid "https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/newsitem.py"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:93
+# 539123e92b164ba7a0a83fdd779226e1
+msgid "Run-time introspection"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:95
+# 3c54985ece0242e8bb7580608a208d9d
+msgid "You can get hold of content item schema and its fields as in the example below."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:97
+# 7a84c4ba8ac543f897b4731e2c818a2d
+msgid "You can do this either in"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:99
+# fc818fe4c02147788d634b65548ec16c
+msgid ":doc:`Your own BrowserView Python code </views/browserviews>`"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:101
+# f434a0eb114f4438ba2952ceb51be9d5
+msgid ":doc:`pdb breakpoint </testing_and_debugging/pdb>`"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:103
+# fd7f2ebfe4a84c82a95ee7ecfbdabd94
+msgid ":doc:`Command line Zope debug console </misc/commandline>`"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:110
+# 6f9f87d90f19411f88885e8b3e41f7ac
+msgid "Field can be also accessed by name::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:114
+#: ../../content/importexport.rst:223
+# e7b3a106b9804568969de989f0e426ce
+# 9b854899d32c431fbe9bfdd168f7db93
+msgid "See"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:116
+# 2c69e45bb7fd4414b59d8ff35e172922
+msgid "https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/Schema/__init__.py"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:119
+# 4d739a22fd2341dc8b16ec28b546d442
+msgid "Field name"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:121
+# 06e3907dc26e461fbbdb81d01eecc746
+msgid "Field exposes its name through getName() attribute::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:127
+# 1d3113e65da54d55b77d44d0731bfeb4
+msgid "Accessing Archetypes field value"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:130
+# e939232db57c4b30b034c9fa29910d2d
+msgid "Accessor method"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:132
+# 2313c4f4140c407c9a3b5322ef789c92
+msgid "Each field has accessor method. Accessor method is"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:134
+# 949953764baf48a89d49497c4b188c6b
+msgid "In your content type class"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:136
+# 2251e16387744d42b04bc0a80ffc91f8
+msgid "Automatically generated if you don't give it manually"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:138
+# 59c358e61fc7421aa348c70154721b1d
+msgid "Has name ``get`` + schema field name with first letter uppercase. E.g. ``yourfield`` has accessor method ``context.getYourfield()`` There are a few exceptions to this rule, for fields that correspond to Dublin Core metadata. To conform to the Dublin Core specification, the accessor method for the ``title`` field is ``Title()`` and ``Description()`` for the ``description`` field."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:146
+# 035ec2e440b74abba49cecbfe11f6623
+msgid "Raw access"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:148
+# 2733d7d2a19140138a804e6f8ce61013
+msgid "Archetypes has two kinds of access methods:"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:150
+# 813335e6045b4d8ba9cf2cfffe9b2e19
+msgid "normal, ``getSomething()``, which filters output;"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:152
+# db72debdca544fe0963bb147dbea9617
+msgid "raw, the so-called *edit* accessor, ``getRawSomething()`` which does not filter output."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:155
+# 016c708c92fc40fc9efc9b41673b5a05
+msgid "If you use direct attribute access, i.e. ``obj.something`` you can get a `BaseUnit <https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/BaseUnit.py>`_ object. ``BaseUnit`` is an encapsulation of raw data for long text or file. It contains information about mimetype, filename, encoding. To get the raw value of a ``BaseUnit`` object you can use the ``getRaw`` method, or more simply ``str(baseunit)`` (but take care that you don't mess up the encoding)."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:164
+# d13b1c5135b740c6849478c60b7834fe
+msgid "Indirect access"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:166
+# 07635669d48946658cb8345643e66042
+msgid "You can use field.get(context) to read values of fields indirectly, without knowing the accessor method."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:168
+# 50fd743a5cde49218646f9e070534fc2
+msgid "This example shows how to read and duplicate all values of lc object to nc::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:193
+# 71ecd8699e884349900b5e6aae3a62c4
+msgid "Validating objects"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:195
+# 159e684770974b68af40ffaacd31d263
+msgid "Example for *nc* AT object::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:203
+# dfef4f2b884e4b4bb2c04418beafc007
+msgid "Checking permissions"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:205
+# addc1afb29a54c41a05d9092f7d49be7
+msgid "field.writable() provides a short-cut whether the currently logged in user can change the field value."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:213
+# 1eb4dd52f79d40178385cd5fc14e6882
+msgid "There is also a verbose debugging version which will print the reason to log if the writable condition is not effective::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:220
+# 49c5d171c0bf418d8eb1cbe195e247b5
+msgid "Modifying all fields in schema"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:222
+# 17e24b74f7cb45d29d56195c2a3399f5
+msgid "You might want to modify all schema fields based on some criteria."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:224
+# c4cf289c05cd4cefa5da065e620050cd
+msgid "Example how to hide all metadata fields::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:229
+# 5d107f68e99b4aedb39012f1cd720c0c
+msgid "Reordering fields"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:231
+# 211e96c59fff4a1bae9f4e0f6b6f8d4f
+msgid "See moveField() in `Schema/__init__.py <https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/Schema/__init__.py>`_."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:233
+# fb4cce76aab94793a349510f3232a971
+msgid "Example"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:268
+# 810c164f97e142adad45b6a930e1f554
+msgid "Hiding widgets"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:270
+# 81e3958e974840f5bdb765f0004febf1
+msgid "You should not remove core Plone fields (Title, Description) as they are used by Plone internally e.g. in the navigation tree"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:273
+# aa77caa55fec4629be3de3e4e58a0542
+msgid "But you can override their accessor functions ``Title()`` and ``Description()``"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:276
+# 185fda4ccc394963aadaff69c69418bc
+msgid "You can also hide the widgets"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:278
+# 76b421e39a7b431684c800f6b26cf447
+msgid "The recommended approach is to hide the widgets, then update the field contents when the relevant data is update. E.g. you can generate title value from fields firstname and lastname."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:283
+# ceca41b1c271427e8bb2f1bb00887c95
+msgid "Below is an example which uses custom JSON field as input, and then sets title and description based on it::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:445
+# 3c7a4d450f6d4a99b89fa866164128fa
+msgid "Rendering widget"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:447
+# 57a2404547d846f6946ce081b5a7c6ea
+msgid "Archetypes is hardwired to render widgets from viewless TAL page templates."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:449
+# f6aea2386b5d4ec5a0a942c0283b6e43
+msgid "Example how to render widget for field 'maintext'::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:463
+# 45635065d6ce48e2976c39726a94a2ec
+msgid "Creating your own Field"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:465
+# 06e01804af3a4efe8329ba961ca6f52d
+msgid "Here is an example how to create a custom field based on TextField."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:467
+# 47fdb8ea09e54152bf730b3067459a8a
+msgid "Example (mfabrik/rstpage/archetypes/fields.py)::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:514
+# e8a3db26ae134aa2a0f25b345c55b1de
+msgid "Automatically generating description based on body text"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:516
+# 83dd91c567074151af82c55636a1ea7f
+msgid "Below is a sample through-the-web Python Script which you can drop to any Plone through Zope Management Interface."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:519
+# 28ec527fd3c744358bf9488149aa23b7
+msgid "Use case: People are lazy to write descriptions (as in Dublin Core metadata). You can generate some kind of description by taking the few first sentences of the text. This is not perfect, but this is way better than empty description."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:524
+# c5cbd8e150874a579cf6edb86b8dda00
+msgid "This script will provide one-time operation to automatically generate content item descriptions based on their body text by taking the first three sentences."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:528
+# 48a80f880b0a4b6fbd8aa2b67ec8e123
+msgid "The script will provide logging output to standard Plone log (var/log and stdout if Plone is run in the debug mode)."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:531
+#: ../../content/listing.rst:692
+# a44359897cd3492a91b8476df61759a3
+# fc03b3b6af7e4d4bbfc0bf9d47af7ede
+msgid "Example code::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:590
+#: ../../content/history.rst:15
+# 045c57a006fa42d192b3247caf3b1af8
+# 6ec73659fe394c079e6a420b26667f9e
+msgid "See also"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:592
+# 038f8e5f5e3c44d7b3235676ac446dae
+msgid "http://blog.mfabrik.com/2010/06/04/automatically-generating-description-based-on-body-text/"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:595
+# 4cf652a81e254d6eb0ece89d06f5942f
+msgid "Vocabularies"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:597
+# 57d7e3c9f7174c3f936a096e12e941e3
+msgid "Archetypes has its own vocabulary infrastructure which is not compatible with :doc:`zope.schema vocabularies </forms/vocabularies>`."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:600
+# 176a0b53550945c59b08d57a0deffb8c
+msgid "Dynamic vocabularies"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:602
+# f9d31e9755cb410786e57a149f6c74ac
+msgid "http://www.universalwebservices.net/web-programming-resources/zope-plone/dynamic-vocabularies-in-plone-archetypes"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:605
+# 6530fe74a8084f668e911aa9c489141e
+msgid "Rendering single field"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:612
+# 9797dbba00bb46b0b9d798a0983c735e
+msgid "Hiding widgets conditionally"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:614
+# dbf83c714e2646adbd06974c3a054638
+msgid "AT widgets have ``condition`` :doc:`expression </functionality/expressions>`."
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:616
+# b943e0da2fe741c382dc0f3e3600dbd6
+msgid "Example how to set a condition for multiple widgets to call a BrowserView to ask whether the widget should be visible or not::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:623
+# 543ede86e1854af18fecb38e9f7d57e5
+msgid "The related view with some sample code::"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:644
+# 893b8c4afcf6478ea9ef8e4633752083
+msgid "Dynamic field definitions"
+msgstr ""
+
+#: ../../content/archetypes/fields.rst:646
+# df78b7bd76e044c8ac46e6477ffed2ed
+msgid "You can override ``Schema()`` and ``Schemata()`` methods in your content type class to poke the schema per HTTP request access basis."
+msgstr ""
+
+#: ../../content/archetypes/files.rst:3
+# 37fcc8301de4452ca8b90ecfcd16fffb
+msgid "Files"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:7
+# 2280a3572517413c894ea2b6c186758f
+msgid "Using files with Archetype field"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:12
+# 84123db66f2e4315800fc6c2c67e5dc9
+msgid "Download URL for files for ATFile content"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:14
+# a0361138a34d4ce0880dedef486c9bf3
+msgid "Append ``@@download`` view to URL."
+msgstr ""
+
+#: ../../content/archetypes/files.rst:17
+# 3777acb47ede4866887cef8e9660bb8f
+msgid "Checking whether a File field has uploaded content"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:19
+# 3b5902ce02e2499896f0efe723e95391
+msgid "Calling AT File field accessor will return a ``File`` object::"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:24
+# eef94c811b574b4dbf08d8f25678e185
+msgid "Note that this may return ``None`` if the content item has been constructed but the form has not been properly saved."
+msgstr ""
+
+#: ../../content/archetypes/files.rst:27
+# a6b2bb722ba9476eb8237ab62642bd2b
+msgid "If the size is ``0``, the file is not yet uploaded::"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:32
+# d64fb629214b4202beb3b90abcb992f3
+msgid "Example how to check in a view whether AT context file size exists::"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:50
+# 2914f279c0104234978b732855d29a29
+msgid "Setting max file size to FileField and ImageField"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:52
+# cb8920c8814144afa971a303671c5ad8
+msgid "TODO"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:54
+# a18ce290b3fe461f8cea9585f9bf42a9
+msgid "http://stackoverflow.com/questions/11347200/setting-max-upload-size-for-archetypes-filefield"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:57
+# b13f9b94e22a445fa9a347c8289e63d8
+msgid "Old, deprecated, info"
+msgstr ""
+
+#: ../../content/archetypes/files.rst:59
+# fa353a3ba4c049fe8b2724df2072c980
+msgid "http://keeshink.blogspot.fi/2009/09/how-to-limit-file-upload-size.html"
+msgstr ""
+
+#: ../../content/archetypes/index.rst:3
+#: ../../content/uid.rst:140
+# ba4133361b1649979a1593d6a0aeef4a
+# 31dc5b22dffa43dc858b5c540dd27a3a
+msgid "Archetypes"
+msgstr ""
+
+#: ../../content/archetypes/index.rst:5
+# e1621f27e6c2459c9e60b1b45a059c6e
+msgid "Archetypes is a subsystem to create content types in Plone 2.x and Plone 3.x."
+msgstr ""
+
+#: ../../content/archetypes/index.rst:7
+# 38f4b723261d4d98954537eabd50f048
+msgid "`Read Archetypes developer manual <http://plone.org/documentation/manual/archetypes-developer-manual>`_."
+msgstr ""
+
+#: ../../content/archetypes/references.rst:3
+# 1939428637844c8d9c2d09eb2f722015
+msgid "References"
+msgstr ""
+
+#: ../../content/archetypes/references.rst:7
+# 6c076ad6e8cc41e18c693cae0ece22b6
+msgid "Inter-content references in Plone are done using the ``reference_catalog`` tool."
+msgstr ""
+
+#: ../../content/archetypes/references.rst:16
+# e9bca17619bc44de81e84072b6928895
+msgid "Plone uses a persistent tool called ``reference_catalog`` to store (Archetypes) object references.  It is used by the out-of-the-box \"Related items\" and you can use it in your own content types with ``ReferenceField``."
+msgstr ""
+
+#: ../../content/archetypes/references.rst:20
+# dc121e5ad9dd48eba7d8176c33b487eb
+msgid "``reference_catalog`` references can be bidirectional."
+msgstr ""
+
+#: ../../content/archetypes/references.rst:22
+# 621f31e28fb64049a5dd25bfb94ad2a3
+msgid "The ``reference_catalog`` is a catalog just like the :doc:`portal_catalog </searching_and_indexing/catalog>` |---| it just uses different indexes and metadata."
+msgstr ""
+
+#: ../../content/archetypes/references.rst:26
+# fe5adf84510b4d819235c4d32c81e77e
+msgid "The ``reference_catalog`` is defined in `ReferenceEngine.py <https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/ReferenceEngine.py>`_."
+msgstr ""
+
+#: ../../content/archetypes/references.rst:29
+# 5c9809bcab664382adb5329a8e2c8a6a
+msgid "Using references"
+msgstr ""
+
+#: ../../content/archetypes/references.rst:31
+# c5a3601377b54d7b9c4350be45b0b8ec
+msgid "Here is an example how to use reference field to make *programme* -> *researcher* references, and how to do reverse look-ups for the relationship."
+msgstr ""
+
+#: ../../content/archetypes/references.rst:35
+# 11ae10150c014d10a9489f3a28833b4b
+msgid "You use ``getReferences()`` and ``getBackReferences()`` methods to look up relationships."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:3
+# 544f1f6f9c264a4ca3755c07d5d60112
+msgid "Field storages"
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:5
+# d1b9fc1917c442e48d4993ff79114d20
+msgid "Field storage tells how the value of schema field is stored."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:8
+# 1f896fb7dab94680b0066c98d6234d46
+msgid "AttributeStorage"
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:10
+# 3b3fcd34c20b4a0c983bf02c11b8f66f
+msgid "``Products.Archetypes.storage.AttributeStorage``"
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:12
+# 5c840337cf8848d091d1438ad7038381
+msgid "This is recommended for data which is *always* read when the object is accessed:``title``, ``description``, etc."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:17
+# 3db5f513b92d448fa896b4560c2766e5
+msgid "AnnotationStorage"
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:19
+# 150fd0004b4d469fbc140d0bd858f233
+msgid "``Products.Archetypes.storage.annotation.AnnotationStorage``"
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:21
+# 59aaaf2913f54410ac4312e8426725c3
+msgid "``AnnotationStorage`` creates an object attribute ``__annotations__`` which is an ``OOBTree`` object.  An ``OOBTree`` uses *buckets* as the smallest persistent entity. A bucket usually holds a small number of items. Buckets are loaded on request and as needed compared to using native Python datatypes."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:27
+# 5a1151343d024329984905ca68c3ba74
+msgid "It is safe to assume that you can fit few variables to one bucket easily."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:29
+# 5b59cd131f0f484c84b2551346068905
+msgid "You also might want to define ``ATFieldProperty`` accessor if you are using this storage.  This allows you to read the object value using standard Python attribute access notation."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:33
+# 67840dca65a843a9b78dc458513bab38
+msgid "Note that in this case the access goes through AT accessor and mutator functions.  This differs from raw storage value access: for example the AT accessor encodes strings to UTF-8 before returning them."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:56
+# f904ca65c41841fbbd45acf1143bf717
+msgid "SQLStorage"
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:58
+# a4ccb8cb1ef247cbaca24cff28e6e499
+msgid "This stores field values in an external SQL database."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:60
+# f2dba38abaa44836884a6b174a32b5e1
+msgid "`An old documentation how to use SQL storage <http://plone.sourceforge.net/archetypes/sqlstorage-howto.html>`_."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:63
+# 629d1bf1b9c54575a32e5af0ded1b1f4
+msgid "FSSStorage"
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:65
+# 55e5183c22df4979915ded8e235ea835
+msgid "Store the raw values of fields on the file system."
+msgstr ""
+
+#: ../../content/archetypes/storages.rst:83
+# 21bf262edfa44cb1821525e6c9f567e0
+msgid "`Official documentation of fss <http://pypi.python.org/pypi/iw.fss/>`_."
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:3
+# 514a54013ec1488082a1038325850b24
+msgid "Templates"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:7
+# 5d89901f4ffb439bbbaea39ac9fce04f
+msgid "Overriding templates with Archetypes"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:14
+# 4ac91bbfb15a4a2eb03f8514065b5a06
+msgid "This document will tell how to create custom templates for Plone and Archetypes based content."
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:17
+# 212e9fcca0b74d31a439c379cc5e7f13
+msgid "This does not deal with"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:19
+# 93a24bffde58448dac010650e1df1d06
+msgid ":doc:`browser views </views/browserviews>`"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:21
+# 6ebfb03b14a240518a7461198a57816c
+msgid ":doc:`generic old style template overrides </templates_css_and_javascripts/skin_layers>`"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:24
+# 8d32d07f788c4f2db555fd2402e714f2
+msgid "The template loading mechanism"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:26
+# 6b0daeb86ac4452aa4361215fb942d45
+msgid "Archetypes tries to look up a template with name"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:28
+# ec575063c8d544798fb7267da844f59b
+msgid "*Content type name lowercased* + *_view.pt*"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:30
+# 80bb251e98ef4102b1f73321da337d15
+msgid "*Content type name lowercased* + *_edit.cpt*"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:32
+# 218e678394774573ba7245bfefacb11a
+msgid "from portal_skins."
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:34
+# bc8b5a76e71047489955f011a81eaa8c
+msgid "Example controlled page template (cpt) file yourcontenttype.cpt:"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:36
+# dd95b6ba96034ce09c8170b808757c10
+msgid "Check More info links"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:38
+# 5be04b5a21b340a6be5d9bf0d7887013
+msgid "For cpt files (controlled page template) you'll also need corresponding .metadata file::"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:57
+#: ../../content/dynamic_views.rst:30
+#: ../../content/dynamic_views.rst:67
+# c5b4eec5f6f1487c80cf85256621ce43
+# f32a643809eb4ca8b8a5d8d1180aa67b
+# 48c74fc6c8564c37b989c0705e4c10bb
+msgid "More info"
+msgstr ""
+
+#: ../../content/archetypes/templates.rst:59
+# 3854345bec734ef0990f1c48d4befbcd
+msgid "http://plone.org/documentation/manual/theme-reference/buildingblocks/skin/templates/how-to-customise-view-or-edit-on-archetypes-content-items"
+msgstr ""
+
+#: ../../content/archetypes/validators.rst:3
+# 76dc24c294614ea68cdd5f03cb24d2b9
+msgid "Validators"
+msgstr ""
+
+#: ../../content/archetypes/validators.rst:10
+# b10c1b9810524b1f94c2fa7cbb6a5d92
+msgid "This page has tips how to validate fields defined in Archetypes schema."
+msgstr ""
+
+#: ../../content/archetypes/validators.rst:13
+# 8cc75af80f8c4f1ba897a77f46d2cf30
+msgid "List of default validators"
+msgstr ""
+
+#: ../../content/archetypes/validators.rst:15
+# 4e15ce9445ee4afba883afbd57cf5835
+msgid "https://github.com/plone/Products.validation/tree/master/Products/validation/validators/BaseValidators.py"
+msgstr ""
+
+#: ../../content/archetypes/validators.rst:18
+# 8cf490b7a3474b79ab59715136176dc1
+msgid "Creating a validator"
+msgstr ""
+
+#: ../../content/archetypes/validators.rst:20
+# 7757605225e64b55a3086b31b6e0d54e
+msgid "http://play.pixelblaster.ro/blog/archive/2006/08/27/creating-an-archetypes-validator"
+msgstr ""
+
+#: ../../content/archetypes/validators.rst:22
+# fee4dafbda3444d6838be6a90a8c7647
+msgid "http://www.pererikstrandberg.se/blog/index.cgi?page=PloneArchetypesFieldValidator"
+msgstr ""
+
+#: ../../content/behaviors.rst:3
+# 9c99b9df53054fbd944b88d0ac1a8561
+msgid "Behaviors"
+msgstr ""
+
+#: ../../content/behaviors.rst:5
+# 5a9e92c8d2874eebbdd3fee05389f3ae
+msgid "Behaviors allow you the extend the functionality of existing content."
+msgstr ""
+
+#: ../../content/behaviors.rst:7
+# 01925ee6533c4e239e699bd0c051954f
+msgid "`Tutorial <http://plone.org/products/dexterity/documentation/manual/behaviors>`_"
+msgstr ""
+
+#: ../../content/behaviors.rst:9
+# 1c24522d487748e5a907e6391b6094dc
+msgid "`Source code <https://github.com/plone/plone.behavior/tree/master/plone/behavior/>`_"
+msgstr ""
+
+#: ../../content/behaviors.rst:11
+# dfce25735d5e41c4996fb3f90d79f33c
+msgid "`Good known component version set for plone.behavior <http://good-py.appspot.com/release/dexterity/1.0a1>`_"
+msgstr ""
+
+#: ../../content/behaviors.rst:14
+# 99cb2c2cf8a844649aff923b84bd8f13
+msgid "Examples"
+msgstr ""
+
+#: ../../content/behaviors.rst:16
+# 9328f111b16647c3a0d809fa9826a2d7
+msgid "For Archetypes-based content:"
+msgstr ""
+
+#: ../../content/behaviors.rst:18
+# c6d26873eabb4b1baee1019b7941b8c3
+msgid "`plone.app.headerimage <https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/behaviors.py>`_."
+msgstr ""
+
+#: ../../content/behaviors.rst:20
+# 353114cd0c694ea3b324cf7b3dee4caa
+msgid "`gomobile.mobile <https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.mobile/gomobile/mobile/behaviors.py>`_."
+msgstr ""
+
+#: ../../content/behaviors.rst:22
+# 04e3d6b8241f4fd7bc29bcef8b392871
+msgid "`gomobile.convergence <https://plonegomobile.googlecode.com/svn/trunk/gomobile/gomobile.convergence/gomobile/convergence/behaviors.py>`_."
+msgstr ""
+
+#: ../../content/content_rules.rst:3
+# 8d1d4e99f68242098b37fb4fc7beb77e
+msgid "Content rules"
+msgstr ""
+
+#: ../../content/content_rules.rst:5
+# 418b1b69fea44c9c8ec3116f1fee7f60
+msgid "`User manual <http://plone.org/documentation/tutorial/creating-content-rule-conditions-and-actions/>`_"
+msgstr ""
+
+#: ../../content/content_rules.rst:7
+# 6e671900c4cd48828729b7c8f0187a23
+msgid "`Developer manual <http://plone.org/documentation/how-to/content-rules>`_"
+msgstr ""
+
+#: ../../content/creating.rst:3
+# 305e4239ed96492f80208c2a682f933f
+msgid "Creating objects"
+msgstr ""
+
+#: ../../content/creating.rst:7
+# f15c453fe867471a936ae2d20bd5f7fb
+msgid "Creating and controlling creation of Plone content items programmatically."
+msgstr ""
+
+#: ../../content/creating.rst:13
+# fc7deeb17c214b4cad554cfcf8ab0df9
+msgid "Creating content objects"
+msgstr ""
+
+#: ../../content/creating.rst:16
+# 9843f4ee202b413ab6b40b209c267547
+msgid "Permission-aware way (Dexterity)"
+msgstr ""
+
+#: ../../content/creating.rst:18
+# e5e06bf5918548228db947687d98f132
+msgid "These instructions apply for :doc:`Dexterity </content/dexterity>` content types."
+msgstr ""
+
+#: ../../content/creating.rst:31
+# d017c9d6dcf74e6d955e988827877f8f
+msgid "Permission-aware way (Archetypes and Dexterity)"
+msgstr ""
+
+#: ../../content/creating.rst:33
+# 71be49c9041949a398774d59782df646
+msgid "``invokeFactory()`` is available on all folderish content objects. ``invokeFactory()`` calls the ``portal_factory`` persistent utility to create content item."
+msgstr ""
+
+#: ../../content/creating.rst:69
+# beddd49d362040dfa6a7ee4ec71fc27b
+msgid "Example (from unit tests)::"
+msgstr ""
+
+#: ../../content/creating.rst:76
+# fcc2421e60de44e387d0619a16337d6b
+msgid "``invokeFactory()`` will raise an ``Unauthorized`` exception if the logged-in user does not have permission to create content in the folder (lacks type specific creation permission and ``Add portal content`` permissions).  This exception can be imported as follows::"
+msgstr ""
+
+#: ../../content/creating.rst:85
+# d13e926c8a5e465f899775e437e7a2f3
+msgid "If the content class has  ``_at_rename_after_creation = True`` (Archetypes-based content) the next call to ``obj.update()`` (edit form post) will automatically generate a friendly id for the object based on the title of the object."
+msgstr ""
+
+#: ../../content/creating.rst:92
+# 4153c758ff1545398754a3b40795c1cf
+msgid "Bypassing permissions when creating content item"
+msgstr ""
+
+#: ../../content/creating.rst:94
+# b0b91c5561a3417c98515f4eaef9e06d
+msgid "If you need to have special workflows where you bypass the workflow and logged in users when creating the content item, do as follows::"
+msgstr ""
+
+#: ../../content/creating.rst:121
+# bc6a96c4312e4fdc9917b09fdab12221
+msgid "The function above only bypasses the content item construction permission check.  It does not bypass checks for setting field values for initially created content."
+msgstr ""
+
+#: ../../content/creating.rst:125
+# 2caae9a582ad40fdb5058c89700736fc
+msgid "There is also an alternative way::"
+msgstr ""
+
+#: ../../content/creating.rst:134
+# 5289115fe77e496aa054a32c5189b30b
+msgid "Manual friendly id generation"
+msgstr ""
+
+#: ../../content/creating.rst:136
+# fc882f2df5b444ffa7d8eb9345bee747
+msgid "If you are creating Plone objects by hand e.g. in a batch job and Plone automatic id generation does not kick in, you can use the following example to see how to create friendly object ids manually::"
+msgstr ""
+
+#: ../../content/creating.rst:187
+# 3642ef69f2f242148b129e5ad1ba2364
+msgid "PortalFactory"
+msgstr ""
+
+#: ../../content/creating.rst:189
+# 0ac7c72aad8b4fa6bd84fc015e91e15e
+msgid "``PortalFactory`` (only for Archetypes) creates the object in a temporary folder and only moves it to the real folder when it is first saved."
+msgstr ""
+
+#: ../../content/creating.rst:194
+# 50b424563797417f9d710646e23d097a
+msgid "To see if content is still temporary, use ``portal_factory.isTemporary(obj)``."
+msgstr ""
+
+#: ../../content/creating.rst:198
+# 80017016050a4bc5beb4be0fc379663b
+msgid "Restricting creating on content types"
+msgstr ""
+
+#: ../../content/creating.rst:200
+# bb384ab2171549ff80bbb8bbfa33f961
+msgid "Plone can restrict which content types are available for creation in a folder via the :guilabel:`Add...` menu."
+msgstr ""
+
+#: ../../content/creating.rst:204
+# e774c71674f444afb35a2e3034728571
+msgid "Restricting available types per content type"
+msgstr ""
+
+#: ../../content/creating.rst:206
+# e25f9a16b1764f9e9b5ca95056a59d9f
+msgid "``portal_types`` defines which content types can be created inside a folderish content type.  By default, all content types which have the ``global_allow`` property set can be added."
+msgstr ""
+
+#: ../../content/creating.rst:210
+# 1b49988cf7f148da8ef4521731645a63
+msgid "The behavior can be controlled with ``allowed_content_types`` setting."
+msgstr ""
+
+#: ../../content/creating.rst:212
+# e0b5b24a18824e26b918b93a255c5002
+msgid "You can change it through the ``portal_types`` management interface."
+msgstr ""
+
+#: ../../content/creating.rst:214
+# 90b3034f2d2046a19e1e816d6a9fc519
+msgid "You can change it in your add-on installer :doc:`GenericSetup </components/genericsetup>` profile."
+msgstr ""
+
+#: ../../content/creating.rst:217
+# 7362db0d0c2744fb911cf9530acf1b8e
+msgid "Example for :doc:`Dexterity content type </content/dexterity>`. The file would be something like ``profiles/default/types/yourcompany.app.typeid.xml``::"
+msgstr ""
+
+#: ../../content/creating.rst:229
+# 3a34ac84a4334bbab8f8ea5ed4f54af0
+msgid "Example for :doc:`Archetypes content </content/archetypes/index>`. The file would be something like ``profiles/default/types/YourType.xml``::"
+msgstr ""
+
+#: ../../content/creating.rst:242
+# a0efff1849cd49458a1fd14534bc2ff5
+msgid "Restricting available types per folder instance"
+msgstr ""
+
+#: ../../content/creating.rst:244
+# 2fd098e56f1e459486da6104bd1b49f7
+msgid "In the UI, you can access this feature via the :guilabel:`Add...` menu :guilabel:`Restrict` option."
+msgstr ""
+
+#: ../../content/creating.rst:247
+# 7c7c78c7cfd34f7aaa72b23192fee50a
+msgid "Type contraining is managed by the ``ATContentTypes`` product:"
+msgstr ""
+
+#: ../../content/creating.rst:249
+# fd0eb06f67c34578914cf3b76bc11cd4
+msgid "https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/lib/constraintypes.py"
+msgstr ""
+
+#: ../../content/creating.rst:266
+# 142959d40b09461ea4890426692e974f
+msgid "You can also override the ``contraintypes`` accessor method to have programmable logic regarding which types are addable and which not."
+msgstr ""
+
+#: ../../content/creating.rst:272
+# 70891804cde442d0814d135ecddb055f
+msgid "Other restrictions"
+msgstr ""
+
+#: ../../content/creating.rst:274
+# 904fd9a5ac8241deb2c4e895fa537a67
+msgid "See this discussion thread:"
+msgstr ""
+
+#: ../../content/creating.rst:276
+# 0e4f0ec0180b48ccb0e6f08b159448b6
+msgid "http://plone.293351.n2.nabble.com/Folder-constraints-not-applicable-to-custom-content-types-tp6073100p6074327.html"
+msgstr ""
+
+#: ../../content/creating.rst:279
+# 8e5f4b267acc4c09b5e397e5dd39a3ea
+msgid "Creating OFS objects"
+msgstr ""
+
+#: ../../content/creating.rst:281
+# fc8caef98ada47d9b5d90d9b19caff12
+msgid "Zope has facilities for basic folder and contained objects using the OFS_ subsystem. You do not need to work with raw objects unless you are doing your custom lightweight, Plone-free, persistent data."
+msgstr ""
+
+#: ../../content/creating.rst:285
+# dc31e869bf084911b0b63fd78e72b2f7
+msgid "More examples in:"
+msgstr ""
+
+#: ../../content/creating.rst:287
+# 765c4e4013784d07b38f257833ae9872
+msgid "`Singing & Dancing <https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/channel.py>`_."
+msgstr ""
+
+#: ../../content/creating.rst:292
+# 821b27c556284025a23b80093783da28
+msgid "Object construction life cycle"
+msgstr ""
+
+#: ../../content/creating.rst:296
+# a72a25e5918f4e37b1f48973f8843d4c
+msgid "The following applies to Archetypes-based objects only. The process might be different for Dexterity-based content."
+msgstr ""
+
+#: ../../content/creating.rst:299
+# 7cba9eb6d6b44726848ef88fe50dadfe
+msgid "Archetypes content construction has two phases:"
+msgstr ""
+
+#: ../../content/creating.rst:301
+# fe30b5abfbbd482e9b9cb253e32f8ab0
+msgid "The object is created using a ``?createType=`` URL or a ``Folder.invokeFactory()`` call.  If ``createType`` is used then the object is given a temporary id. The object has an \"in creation\" flag set."
+msgstr ""
+
+#: ../../content/creating.rst:306
+# 8765b005517b483b88bca86c61a05787
+msgid "The object is saved for the first time and the final id is generated based on the object title. The object is renamed. The creation flag is cleared."
+msgstr ""
+
+#: ../../content/creating.rst:310
+# 866fea8cc1ad4af8a3f954fdb1dcb737
+msgid "You are supposed to call either ``object.unmarkCreationFlag()`` or ``object.processForm()`` after content is created manually using ``invokeFactory()``."
+msgstr ""
+
+#: ../../content/creating.rst:314
+# bfc83f5a63ec4ff19ae19cd5bf0fe45c
+msgid "``processForm()`` will perform the following tasks:"
+msgstr ""
+
+#: ../../content/creating.rst:316
+# 4c80cbce1c874cc4a844d959fd18783f
+msgid "unmarks creation flag;"
+msgstr ""
+
+#: ../../content/creating.rst:317
+# 819d184055794f3b89ca6336f7a5eb75
+msgid "renames object according to title;"
+msgstr ""
+
+#: ../../content/creating.rst:318
+# 83ff4174e2574c85986fb8eb8d0fdc3a
+msgid "reindexes object;"
+msgstr ""
+
+#: ../../content/creating.rst:319
+# 30d9a4bdfd63438882c729209369a711
+msgid "invokes the ``after_creation`` script and fires the ``ObjectInitialized`` event."
+msgstr ""
+
+#: ../../content/creating.rst:322
+# a80c8e2f0408411280cde539f7364b9f
+msgid "If you don't want some particular step to be executed, study ``Archetypes/BaseObject.py`` and call only what you really want.  But unless ``unmarkCreationFlag()`` is called, the object will behave strangely after the first edit."
+msgstr ""
+
+#: ../../content/creating.rst:328
+# 5d39059c1b8e4c3a98611a076bc6c9fb
+msgid "Rename after creation"
+msgstr ""
+
+#: ../../content/creating.rst:330
+# 25ecd081e8f04504be830baa63b68bab
+msgid "To prevent the automatic rename on the first through-the-web save, add the following attribute to your class::"
+msgstr ""
+
+#: ../../content/creating.rst:338
+# 6102d2daf4a143d3b2b86b04be10023a
+msgid "Factory type information"
+msgstr ""
+
+#: ../../content/creating.rst:340
+# a1f02a5713bc42148d6ac43fd9715d8e
+msgid "Factory type information (FTI) is responsible for content creation in the portal.  It is independent from content type (Archetypes, Dexterity) subsystems."
+msgstr ""
+
+#: ../../content/creating.rst:346
+# 36dcdb117bca4fd5940c98627eb87faa
+msgid "The FTI codebase is old (updated circa 2001). Useful documentation might be hard to find."
+msgstr ""
+
+#: ../../content/creating.rst:349
+# 5d158f8876f44a269c075e49eb601056
+msgid "FTI is responsible for:"
+msgstr ""
+
+#: ../../content/creating.rst:351
+# 1e03f4e5fa6442cbaf46318e7cf30f57
+msgid "Which function is called when new content type is added;"
+msgstr ""
+
+#: ../../content/creating.rst:352
+# b46e217e9f1446a8bd6f8ffc22ec7704
+msgid "icons available for content types;"
+msgstr ""
+
+#: ../../content/creating.rst:353
+# 34e64c575d134a2289bc9ac65115015c
+msgid "creation views for content types;"
+msgstr ""
+
+#: ../../content/creating.rst:354
+# 9f7ecbf006884719b9c921ac859cf36f
+msgid "permission and security;"
+msgstr ""
+
+#: ../../content/creating.rst:355
+# f09fb6620d804720bca13d86c9325300
+msgid "whether discussion is enabled;"
+msgstr ""
+
+#: ../../content/creating.rst:356
+# e70a2ca041884ec68fe85068306fe577
+msgid "providing the ``factory_type_information`` dictionary. This is used elsewhere in the code (often in ``__init__.py`` of a product) to set the initial values for a *ZODB Factory Type Information* object (an object in the ``portal_types`` tool)."
+msgstr ""
+
+#: ../../content/creating.rst:361
+# beaf93258436457985fc9c660efec102
+msgid "See:"
+msgstr ""
+
+#: ../../content/creating.rst:363
+# fff3546c085b484289fdca59f89004fa
+msgid "`FTI source code <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/TypesTool.py?rev=101748&view=auto>`_."
+msgstr ""
+
+#: ../../content/creating.rst:365
+# 1cdad544c941479fb9cb280ce596361f
+msgid "`Scriptable Types Information HOW TO <http://www.zope.org/Products/CMF/docs/devel/using_scriptable_type_info/view>`_"
+msgstr ""
+
+#: ../../content/creating.rst:367
+# bee96b299a3d4bc6a5b409df119cf816
+msgid "`Notes Zope types mechanism <http://www.zope.org/Products/CMF/docs/devel/taming_types_tool/view>`_"
+msgstr ""
+
+#: ../../content/creating.rst:370
+# f0a81ada5c11453dbe01ad2c7c9137e0
+msgid "Content does not show in :guilabel:`Add` menu, or ``Unauthorized`` errors"
+msgstr ""
+
+#: ../../content/creating.rst:372
+# 343c173a6e1448ff85fc73af0dfcc4c5
+msgid "These instructions are for Archetypes content to debug issues when creating custom content types which somehow fail to become creatable."
+msgstr ""
+
+#: ../../content/creating.rst:375
+# 88781d76360a40788203c3604a8ae129
+msgid "When creating new content types, many things can silently fail due to human errors in the complex content type setup chain and security limitations. The consequence is that you don't see your content type in the :guilabel:`Add` drop-down menu.  Here are some tips for debugging."
+msgstr ""
+
+#: ../../content/creating.rst:380
+# 0fa1e3cbea1141409c11abe0d5845b2d
+msgid "Is your product broken due to Python import time errors? Check :term:`ZMI`: :guilabel:`Control panel` -> :guilabel:`Products`. Turn on Zope debugging mode to trace import errors."
+msgstr ""
+
+#: ../../content/creating.rst:384
+# 349c487a68674e0e9ca902f3b0192a05
+msgid "Have you rerun the quick installer (``GenericSetup``) after creating/modifying the content type?"
+msgstr ""
+
+#: ../../content/creating.rst:387
+# 87ff132cbd254273a3207e688bdf644f
+msgid "Do you have a correct :guilabel:`Add` permission for the product? Check ``__init__.py`` ``ContentInit()`` call."
+msgstr ""
+
+#: ../../content/creating.rst:390
+# 01e55edfda9e4f77895460bb5f690e30
+msgid "Does it show up in the portal factory? Check :term:`ZMI`: :guilabel:`portal_factory` and ``factorytool.xml``."
+msgstr ""
+
+#: ../../content/creating.rst:393
+# 492674e1c5d840888d9836aa16ce1350
+msgid "Is it corretly registered as a portal type and implictly addable? Check :term:`ZMI`: :guilabel:`portal_types`. Check ``default/profiles/type/yourtype.xml``."
+msgstr ""
+
+#: ../../content/creating.rst:397
+# 46ffb2e048a34ec9b07754ac3f12f3a4
+msgid "Does it have correct product name defined? Check :term:`ZMI`: :guilabel:`portal_types`."
+msgstr ""
+
+#: ../../content/creating.rst:400
+# fff3945834974b0187b649732fe0acbb
+msgid "Does it have a proper factory method? Check :term:`ZMI`: :guilabel:`portal_types`. Check Zope logs for ``_queryFactory`` and import errors."
+msgstr ""
+
+#: ../../content/creating.rst:404
+# ad3d0f19ec6f45368eaab407addee275
+msgid "Does it register itself with Archetypes? Check :term:`ZMI`: :guilabel:`archetypes_tool`. Make sure that you have ``ContentInit`` properly run in your ``__init__.py``. Make sure that all modules having Archetypes content types defined and ``registerType()`` call are imported in ``__init__py``."
+msgstr ""
+
+#: ../../content/creating.rst:411
+# 18fcae06be934f2194836aca4e286d87
+msgid "Link to creation page"
+msgstr ""
+
+#: ../../content/creating.rst:413
+# 4d9caabb2a8945849a4f74c7becc5aa3
+msgid "The :guilabel:`Add...` menu contains links for creating individual content types. Copy the URLs that you see there."
+msgstr ""
+
+#: ../../content/creating.rst:416
+# 0d82358d62464011930915ed2a597ada
+msgid "If you want to the user to have a choice about which content type to create, you can link to ``/folder_factories`` page. (This is also the creation page when Javascript is disabled)."
+msgstr ""
+
+#: ../../content/creating.rst:421
+# 83f2402cdfd4421dad22c5e3b8382e0f
+msgid "Populating folder on creation"
+msgstr ""
+
+#: ../../content/creating.rst:423
+# e6564517321a4ba0bcbdf167abcc5fba
+msgid "Archetypes have a hook called ``initializeArchetype()``. Your content type subclass can override this."
+msgstr ""
+
+#: ../../content/creating.rst:449
+# a76135a264bd4464bff8ec6a11c08415
+msgid "Creating content from PloneFormGen"
+msgstr ""
+
+#: ../../content/creating.rst:451
+# 69dca3805fc74eb7a70ec562e165257c
+msgid "PloneFormGen is a popular add-on for Plone."
+msgstr ""
+
+#: ../../content/creating.rst:453
+# 018eb37504944fd2b52916144d5d0bcc
+msgid "Below is a snippet for a ``Custom Script Adapter`` which allows to create content straight out of PloneFormGen in the *pending* review state (it is not public and will appear in the review list)::"
+msgstr ""
+
+#: ../../content/creating.rst:495
+#: ../../content/events.rst:126
+#: ../../content/uid.rst:79
+# 8cf6c5c768694d99b8a364b028e2cfbb
+# 5ef4abc6c26f48eb99c86efb695c8d3b
+# 19c855245ebb47f29bcf09fb94297408
+msgid "More info:"
+msgstr ""
+
+#: ../../content/creating.rst:497
+#: ../../content/creating.rst:499
+# 3eedd1f1127b45d1a70824959800695f
+# d74ba5e714fa4636812be3cbaaa7cc40
+msgid "http://plone.org/products/ploneformgen/documentation/how-to/creating-content-from-pfg"
+msgstr ""
+
+#: ../../content/creating.rst:502
+# f8c4fe819143420ba890fce7ca997e93
+msgid "Creating content using Generic Setup"
+msgstr ""
+
+#: ../../content/creating.rst:505
+# edb8db89d8c6450a902e80a3dfe8c785
+msgid "Purpose"
+msgstr ""
+
+#: ../../content/creating.rst:507
+# 4328c2011ae444458a9ae38f2fbf71bf
+msgid "You want your product to create default content in the site.  (For example, because you have a product which adds a new content type, and you want to create a special folder to put these items in.)"
+msgstr ""
+
+#: ../../content/creating.rst:511
+# 8d52d78ffd2541f98516eba45ccdd3df
+msgid "You could do this programmatically, but if you don't want anything fancy (see \"Limitations\" below), Generic Setup can also take care of it."
+msgstr ""
+
+#: ../../content/creating.rst:515
+# 884137b5065845d7bcb9e21311f4f158
+msgid "Step by step"
+msgstr ""
+
+#: ../../content/creating.rst:517
+# 888a09c030c3492f9061bcc7bf7e829a
+msgid "In your product's ``profiles/default`` folder, create a directory called ``structure``."
+msgstr ""
+
+#: ../../content/creating.rst:519
+# 09a330a7da0349c7bbeffaa36c0f637c
+msgid "To create a top-level folder with id ``my-folder-gs-created``, add a directory of that name to the structure folder."
+msgstr ""
+
+#: ../../content/creating.rst:521
+# 4b2904320a534beda107ef659b584391
+msgid "Create a file called .objects in the ``structure`` directory"
+msgstr ""
+
+#: ../../content/creating.rst:523
+# af3a9acfc1ba4c5bb6e95ef8a7418315
+msgid "Create a file called .properties in the ``my-folder-gs-created`` directory"
+msgstr ""
+
+#: ../../content/creating.rst:525
+# af705126c1df44288a85994c531732b4
+msgid "Create a file called .preserve in the ``structure`` directory"
+msgstr ""
+
+#: ../../content/creating.rst:527
+# 78e4ae3b5cd84767b83f2b17360df519
+msgid "``.objects`` registers the folder to be created::"
+msgstr ""
+
+#: ../../content/creating.rst:531
+# 4f1700dfcef146ca8681728916b6ef57
+msgid "``.properties`` sets properties of the folder to be created::"
+msgstr ""
+
+#: ../../content/creating.rst:537
+# 6a230e7d743846e99ffe6677316070e8
+msgid "``.preserve`` will make sure the folder isn't overwritten if it already exists::"
+msgstr ""
+
+#: ../../content/creating.rst:542
+# 7b661263db9a4c9aba99c3fcc9848e13
+msgid "Limitations"
+msgstr ""
+
+#: ../../content/creating.rst:544
+# da36cee58b2c4378ace3e1f363902e54
+msgid "This will only work for Plone's own content types"
+msgstr ""
+
+#: ../../content/creating.rst:546
+# 634ad18d83bf4f8db186190f4ee03f82
+msgid "Items will be in their initial workflow state"
+msgstr ""
+
+#: ../../content/creating.rst:548
+# 4fa0d484c1b3432ab235a390b3919aec
+msgid "If you want to create objects of a custom content type, or manipulate them more, you'll have to write a setuphandler. See below under \"Further Information\"."
+msgstr ""
+
+#: ../../content/creating.rst:553
+# 30f345493c77458d85644d562040709d
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../../content/creating.rst:556
+# 553ca08511fe4c79bcc423f6416c1aa8
+msgid "I don't see titles in the navigation, only ids"
+msgstr ""
+
+#: ../../content/creating.rst:558
+# 2896824e38cd4a5d94879335e9fb4861
+msgid "You may notice that the new generated content's title appears to be set to its id. In this case, the catalog needs to be updated. You can do this through the ZMI, in ``portal_catalog``."
+msgstr ""
+
+#: ../../content/creating.rst:562
+# 173055be2f274becbb33193c71fedb8e
+msgid "You could automate this process by adding a GS import step in configure.zcml, which looks like this::"
+msgstr ""
+
+#: ../../content/creating.rst:572
+# 7dd3a5853caa439c9a9235cd410c45d6
+msgid "This is the preferred way to define dependencies for import profiles: The import step declares its dependency on the content import step. 'content' is the name for the step which creates content from ``profiles/default/structure``. You could then add a method which updates the catalog in the product's ``setuphandlers.py``::"
+msgstr ""
+
+#: ../../content/creating.rst:590
+# 8a23af1122e740c786381b38cd460504
+msgid "Further information"
+msgstr ""
+
+#: ../../content/creating.rst:592
+# fe1e4f8c8ef547168a37d24024d8b840
+msgid "Original manual: http://vanrees.org/weblog/creating-content-with-genericsetup"
+msgstr ""
+
+#: ../../content/creating.rst:594
+# 9f55b86ecee345fa9e97cc4c62d7c136
+msgid "If you want to do things like workflow transitions or setting default views after creating, read http://keeshink.blogspot.de/2011/05/creating-plone-content-when-installing.html"
+msgstr ""
+
+#: ../../content/deleting.rst:3
+# b77b4923824c41ee83fd58b6b951526c
+msgid "Deleting"
+msgstr ""
+
+#: ../../content/deleting.rst:7
+# c480bd3384e848959ff2a57d8e85d910
+msgid "Deleting content items in Plone programmatically. How link integrity checks work and how (and when!) to avoid them."
+msgstr ""
+
+#: ../../content/deleting.rst:15
+# a9eecede39894a578c7e69fa8a731b7c
+msgid "This document explains how to programmatically delete objects in Plone."
+msgstr ""
+
+#: ../../content/deleting.rst:18
+# 058880d2dd014ece874770516316c9d0
+msgid "Deleting content by id"
+msgstr ""
+
+#: ../../content/deleting.rst:20
+# 0d70f87a07444ac4809bbc5dda7c6522
+msgid "Deleting content objects is done by IObjectManager."
+msgstr ""
+
+#: ../../content/deleting.rst:22
+# 48e2e12587824d5ca4e8c152483877a0
+msgid "`IObjectManager definition <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_."
+msgstr ""
+
+#: ../../content/deleting.rst:29
+# 2985686e8b4549a89af22072731172b3
+msgid "Or::"
+msgstr ""
+
+#: ../../content/deleting.rst:35
+# c3f41b7c89324d30bb098386b8f23397
+msgid "Permissions"
+msgstr ""
+
+#: ../../content/deleting.rst:37
+# e28f60eb9c9c403ca24dd6078d6b25ef
+msgid "The user must have Zope 2 *Delete objects* permission on the *content item* being deleted. This is checked in ``Products.CMFPlone.PloneFolder.manage_delObjects()``."
+msgstr ""
+
+#: ../../content/deleting.rst:40
+# ed8a0e8af72344a99f4f76dca8f0d6de
+msgid "Otherwise an ``Unauthorized`` exception is raised."
+msgstr ""
+
+#: ../../content/deleting.rst:42
+# 755da275bf1040559719a8988aa2c847
+msgid "Example how to check for this permission::"
+msgstr ""
+
+#: ../../content/deleting.rst:57
+# 99754a20f9184ca1b5458fc3037f092e
+msgid "Bypassing permissions"
+msgstr ""
+
+#: ../../content/deleting.rst:59
+# f4b3e5b70bc7463a84c3e96e77240c23
+msgid "This is handy if you work e.g. in a :doc:`debug shell </misc/commandline>` and you are deleting badly behaved objects::"
+msgstr ""
+
+#: ../../content/deleting.rst:70
+# fe266b8362a143079f8aa4330da271e3
+msgid "Deleting all content in a folder"
+msgstr ""
+
+#: ../../content/deleting.rst:72
+# 66ce36ad579046fb803651d0065a498d
+msgid "This can be a bit tricky. An example::"
+msgstr ""
+
+#: ../../content/deleting.rst:84
+# 592778f3610f4f87a041a785e1400e06
+msgid "Bypassing link integrity check"
+msgstr ""
+
+#: ../../content/deleting.rst:86
+# fc866e6e52624d7e8e81dd69b44c850b
+msgid "If link integrity checks has been enabled in the site setup, you cannot delete objects which themselves are link targets or if their children are link targets."
+msgstr ""
+
+#: ../../content/deleting.rst:90
+# 340881eb43b64ddab9dc47be45905c6f
+msgid "Instead, a ``LinkIntegrityException`` will be raised. The ``LinkIntegrityException`` contains information identifying the content which could not be deleted."
+msgstr ""
+
+#: ../../content/deleting.rst:94
+# d5bad94f0b354ac1ad4fc5e132974849
+msgid "The ``plone.app.linkintegrity.browser.remote`` module contains code which allows you to delete the object in any case. It catches the exception, modifies the HTTP request to contain a marker interface allowing delete to happen and then replays the transaction."
+msgstr ""
+
+#: ../../content/deleting.rst:100
+# c094c2446edf4fe5b45df74a8cc67c5c
+msgid "In case the link integrity check fails for ``manage_delObjects()``, you will be shown a confirmation dialog. The original request payload gets pickled and is stored encoded in the HTML form."
+msgstr ""
+
+#: ../../content/deleting.rst:104
+# fb394f6dd759402b99b0d05d4bf55caf
+msgid "When the user presses confirm, the original request gets unpickled from the ``HTTP POST`` payload. Then the view modifies the Zope publisher so that it will play the original unpickled ``HTTP POST`` with the marker interface \"Do not care about link integrity breaches\" turned on."
+msgstr ""
+
+#: ../../content/deleting.rst:110
+# 91045afec4bf47bdabbeb3734a6b4e53
+msgid "Here is an sample batch delete code which tries to work around the link integrity check::"
+msgstr ""
+
+#: ../../content/deleting.rst:148
+# cacb4109385c419eade730f9b1ec2b53
+msgid "Fail safe deleting"
+msgstr ""
+
+#: ../../content/deleting.rst:150
+# bb3c01646ddf468787e7b6ed4a50b22a
+msgid "Sometimes deletion might fail because it dispatches events which might raise exception due to bad broken objects or badly behaving code."
+msgstr ""
+
+#: ../../content/deleting.rst:154
+# eb145dcbe009428da6dfb91cdf40139f
+msgid "`OFS.ObjectManager <http://svn.zope.org/Zope/trunk/src/OFS/ObjectManager.py?rev=115507&view=auto>`_, the base class for Zope folders, provides an internal method to delete objects from a folder without firing any events::"
+msgstr ""
+
+#: ../../content/deleting.rst:161
+# 518995780dbc481c9096f2af06a2add7
+msgid "The best way to clean up bad objects on your site is via a :doc:`command line script </misc/commandline>`, in which case remember to commit the transaction after removing the broken objects."
+msgstr ""
+
+#: ../../content/deleting.rst:167
+# dce5b7c8f8674fd9b68f7ae53db44f60
+msgid "Purging site from old content"
+msgstr ""
+
+#: ../../content/deleting.rst:169
+# f83762eb68bb40ae8ccbb137baefc80d
+msgid "This term:`ZMI` script allows you to find content items of certain type and delete them if they are created too long ago::"
+msgstr ""
+
+#: ../../content/deleting.rst:203
+# 3051cac1a29f4128aefe9039be25ad0b
+msgid "Below is an advanced version for old item-date-based deletion code which is suitable for huge sites. This snippet is from the ``Products.feedfeeder`` package. It will look for ``Feedfeeder`` items (automatically generated from RSS) which are older than X days and delete them."
+msgstr ""
+
+#: ../../content/deleting.rst:210
+# e76395dabe2d4161a87cd06dd981ec17
+msgid "It's based on Zope 3 page registration (sidenote: I noticed that views do not need to be based on BrowserView page class)."
+msgstr ""
+
+#: ../../content/deleting.rst:213
+# bb655d08d4a546ea9bcfbc384280a7ff
+msgid "Transaction thresholds make sure the code runs faster and does not run out of RAM"
+msgstr ""
+
+#: ../../content/deleting.rst:216
+# 0dd873289334464585d52e037a988978
+msgid "Logging to Plone event log files"
+msgstr ""
+
+#: ../../content/deleting.rst:218
+# e2167aa5b422449482dd1bd0d01c9caf
+msgid "Number of days to look into past is not hardcoded"
+msgstr ""
+
+#: ../../content/deleting.rst:220
+# 63d0b720e4714200b442d70086f7cc45
+msgid "Manage rights needed to execute the code"
+msgstr ""
+
+#: ../../content/deleting.rst:222
+# fd9f7ec0909a435fbd4f84365fa0fc7f
+msgid "You can call this view like::"
+msgstr ""
+
+#: ../../content/deleting.rst:226
+# 79c89da6ddc74f6f9899420898cc8e25
+msgid "Here is the view Python source code::"
+msgstr ""
+
+#: ../../content/deleting.rst:307
+# c5c3de3c88734d70b7f5378f37c06682
+msgid "Then we have the view ZCML registration:"
+msgstr ""
+
+#: ../../content/dexterity.rst:3
+#: ../../content/types.rst:130
+# 73131bc0c79f4264ad3c68457e610d4a
+# 59d2651f40164b028621555db284e911
+msgid "Dexterity"
+msgstr ""
+
+#: ../../content/dexterity.rst:7
+# 60a8f9dd071d442f89256588585ded19
+msgid "Dexterity content subsystem for Plone: info for the developers."
+msgstr ""
+
+#: ../../content/dexterity.rst:14
+# 9429808d9afb4feb9aa26970d5fa6963
+msgid "Dexterity is a subsystem for content objects. It is intended to replace the default Archetypes system from Plone 5 and onward and can be already used with Plone 4."
+msgstr ""
+
+#: ../../content/dexterity.rst:19
+# 32575b6843be43df85ccd6729b1a79d8
+msgid "`Dexterity Developer Manual <http://developer.plone.org/reference_manuals/external/plone.app.dexterity>`_."
+msgstr ""
+
+#: ../../content/dexterity.rst:21
+# d3778adfa3b741c99d3a4db818c4ae6d
+msgid "`How Dexterity is related to Archetypes <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/how-is-dexterity-related-to-archetypes.html>`_"
+msgstr ""
+
+#: ../../content/dexterity.rst:24
+# 542b90722ea24575b2c04038ec983c58
+msgid "ZopeSkel templates"
+msgstr ""
+
+#: ../../content/dexterity.rst:26
+# 737e3fa8b73744ea97b0788469988840
+msgid "Please see :doc:`ZopeSkel page </getstarted/paste>` for project skeleton templates for Dexterity."
+msgstr ""
+
+#: ../../content/dexterity.rst:29
+# 7d2cc096813d4c0e96790160e8a8c386
+msgid "Here is an example how to create your own add-on using the buildout below"
+msgstr ""
+
+#: ../../content/dexterity.rst:36
+# 7b762387212445239a95d347bb9662f7
+msgid "Edit ``buildout.cfg`` and add::"
+msgstr ""
+
+#: ../../content/dexterity.rst:44
+# c5dcc95ceb204065abe0a08b1cb9f82c
+msgid "Then rerun buildout to get your new add-on skeleton included in the configuration"
+msgstr ""
+
+#: ../../content/dexterity.rst:52
+# 85862bc938a84b418a7b932f35b56a1d
+msgid "Now you can start adding content into your add-on"
+msgstr ""
+
+#: ../../content/dexterity.rst:62
+# f6f7cd36943046c1ae9f0c2e65fea410
+msgid "Buildout example"
+msgstr ""
+
+#: ../../content/dexterity.rst:64
+# fa9c03299951431bac7a15383d51484d
+msgid "Below is a sample example which will install"
+msgstr ""
+
+#: ../../content/dexterity.rst:66
+# 6f6c12d5d23e4d69bb1f44d8654485ed
+msgid "Plone 4.1 beta 1"
+msgstr ""
+
+#: ../../content/dexterity.rst:67
+# 590a7a200e2f49498898695012638b16
+msgid "Dexterity 1.0 beta 7"
+msgstr ""
+
+#: ../../content/dexterity.rst:68
+# f18c7b73f9824b12a58fc51a0766af04
+msgid "Paster command + Dexterity templates"
+msgstr ""
+
+#: ../../content/dexterity.rst:70
+# a1207ae94d5344f29b445ce08fb9c6f6
+msgid "Please tune the versions according the latest available releases."
+msgstr ""
+
+#: ../../content/dexterity.rst:72
+# d7849beee42b4285bf6594b97e7fc0fd
+msgid "``buildout.cfg``::"
+msgstr ""
+
+#: ../../content/dexterity.rst:186
+# 3621fc3613594bb79d7952608b50e8d1
+msgid "Content creation permissions"
+msgstr ""
+
+#: ../../content/dexterity.rst:188
+# ae2213fcf3e24d88b6a9debb8f4d1159
+msgid "By default, (global) Dexterity content types are addable to a folder if the editor has the ``cmf.AddPortalContent`` permission."
+msgstr ""
+
+#: ../../content/dexterity.rst:191
+# 314e93a430bd47aea3564b5ba7526996
+msgid "You might want to fine-tune permissions so that only certain privileged members are allowed to create certain content types."
+msgstr ""
+
+#: ../../content/dexterity.rst:194
+# 9b2264ff42a6479bb98a70d8c60e5338
+msgid "This behavior differs from Archetypes behavior where each content type was automatically assigned a permission for controlling its creation."
+msgstr ""
+
+#: ../../content/dexterity.rst:198
+# 5f126c8760c34fe78a407a4a4ae44c85
+msgid "Create a permission with :doc:`collective.autopermission </security/permissions>` in ``configure.zcml``"
+msgstr ""
+
+#: ../../content/dexterity.rst:207
+# 3df90238b863412d85ce5bf424fa1c3b
+msgid "Make sure that this permission becomes available on your site by adding the following to ``rolemap.xml``"
+msgstr ""
+
+#: ../../content/dexterity.rst:222
+# 96c6673979b1430a8b363fdf08ac67a8
+msgid "Add in your content type GenericSetup XML"
+msgstr ""
+
+#: ../../content/dexterity.rst:229
+#: ../../content/listing.rst:914
+# 798f6707be954357b875ca6a7378593f
+# 95bbb9db2b5747ddb5ac77ae8de372f7
+msgid "Reinstall your add-on."
+msgstr ""
+
+#: ../../content/dexterity.rst:231
+# 01c140baedb34c439c4a410025b9139e
+msgid "Confirm that the new permission appears on the :guilabel:`Security` tab in the :term:`ZMI` root."
+msgstr ""
+
+#: ../../content/dexterity.rst:235
+# 899efa58470d460bae679e1147f7d397
+msgid "Exclusion from navigation"
+msgstr ""
+
+#: ../../content/dexterity.rst:237
+# e9353a96f0f04c4f8ca8006d001029f0
+msgid "This must be enabled separately for Dexterity content types with a behavior."
+msgstr ""
+
+#: ../../content/dexterity.rst:247
+# 73f9cb80c10c47ccba941755ba89c037
+msgid "Then you can manually also check this property::"
+msgstr ""
+
+#: ../../content/dexterity.rst:262
+# 7d74c274451344f38f36ee57636230c4
+msgid "Custom add form/view"
+msgstr ""
+
+#: ../../content/dexterity.rst:264
+# a193ab0587984629bf128a77f59ee816
+msgid "Dexterity relies on ``++add++yourcontent.type.name`` traverser hook defined in ``Products/CMFCore/namespace.py``."
+msgstr ""
+
+#: ../../content/dexterity.rst:267
+# 0416fc4b51484ef6bf626561b9770d3b
+msgid "It will look up a multi-adapter using this expression::"
+msgstr ""
+
+#: ../../content/dexterity.rst:275
+# 74bec63ec4734ab1b37c4180c1c4a66d
+msgid "The ``name`` parameter is the ``portal_types`` id of your content type."
+msgstr ""
+
+#: ../../content/dexterity.rst:277
+# 1145e6f2ca9a41cb8721cba954285978
+msgid "You can register such an adapter in ``configure.zcml``"
+msgstr ""
+
+#: ../../content/dexterity.rst:298
+# 8ecccb18e85f43829f24248a8758aea9
+msgid "Then you can inherit from the proper ``plone.dexterity`` base classes::"
+msgstr ""
+
+#: ../../content/dexterity.rst:317
+# d4a7e1605d7246d1a11d574c41e94b99
+msgid "See also:"
+msgstr ""
+
+#: ../../content/dexterity.rst:319
+# 508c176c1b4f4bcb86fe3e3d923abb8a
+msgid ":doc:`FTI </content/types>`"
+msgstr ""
+
+#: ../../content/dexterity.rst:321
+# 19ed8031280d408584fd3a1864c0fb1a
+msgid ":doc:`z3c.form </forms/z3c.form>`"
+msgstr ""
+
+#: ../../content/dexterity.rst:325
+# 212b5e6a775a4111b6fab523d4fe9029
+msgid "Custom edit form"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:3
+# d92aea9a0fc047f387daafc9a7dcc129
+msgid "Dynamic views"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:9
+# ecc26968a67b418c9c6f9dc515d03faf
+msgid "How to programmatically change the active view of a Plone content item"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:14
+# 8443f45513ea4b11bb9974db69e407cf
+msgid "Dynamic views are views which the content editor can choose for his or her content from the :guilabel:`Display...` drop-down menu in the green edit frame."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:18
+# c56847d0539a4e40ae14d507b03a0226
+msgid "By default, Plone comes with dynamic views for:"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:20
+#: ../../content/listing.rst:386
+# eb029c968901476592341213ce7ab81c
+# a6cdf211203646e988f9b0e9bd29a0fc
+msgid "Folder listing"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:21
+# b5ac53a332ee453aac22bc267893dcab
+msgid "Summary"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:22
+# bc0a2411e8e14f9b9c21eef52f1d704a
+msgid "Photo album"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:23
+#: ../../content/index.rst:18
+# 00f98e324e32432f8583151c13cd1040
+# 3e4b6c49dff44e72ae073568c67736c5
+msgid "etc."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:25
+# f7a81987d91d47a8a9fe4faeb13ce99d
+msgid "The default view can be also a content item picked from the folder. Available content item types can be managed from the :term:`ZMI` at :guilabel:`portal_properties` -> :guilabel:`site_properties` -> :guilabel:`default_page_types`."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:32
+# a47d6b564479413ea6c424cd584c8241
+msgid "http://stackoverflow.com/questions/9432229/enabling-folder-as-one-of-default-content-item-views"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:35
+# 99ebb27148db40b680e0b9d7c91b70b6
+msgid "Permission for changing the view template of an item"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:37
+# 5a242d20c5d047388de1e1c2312d16cb
+msgid "A user needs the :guilabel:`Modify view template` permission to use the dynamic view dropdown. If you want to restrict this ability, grant or revoke this permission as appropriate."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:42
+# b75fc8a5313a4dacab531e6d8ecc6d40
+msgid "This can be useful for some content-types like Dexterity ones, where dynamic views are enabled by default, and the easiest way to disable them is using this permission."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:48
+# ef0aa9fe3e2740e0b2607f74e5c53775
+msgid "Default dynamic views"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:50
+# 28489770c7194e42881328f0423f82be
+msgid "Plone supports a few dynamic views for folders out of the box:"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:52
+# e7a9cea1b6174b4aae01bec008c778c7
+msgid "Summary view (``folder_summary_view``)"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:53
+# bdb7fa72e843479bb8b9ccff732b11e4
+msgid "Tabular view (``folder_tabular_view``)"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:54
+# 372ec2a0c18c4c2e80d0b17858ee180f
+msgid "Album view (``atct_album_view``)"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:55
+# 5199f0b6cbd14a228019360e376078b7
+msgid "Listing (``folder_listing``)"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:56
+# adf7111f5595410fb36d67de5cff1158
+msgid "Full view (``folder_full_view``)"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:58
+# 0629888f6bbb425880a6ebbda1799f89
+msgid "These are defined in :doc:`portal_types information </content/types>` for the *Folder* content type and mapped to the *Display* menu all over in ZCML using ``browser:menuItem`` as described below."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:62
+# d4d141ed8e5a43ba843bed2ca2bb4424
+msgid "Newly created folders have this dynamic view applied:"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:64
+# b45e83b268264ddca3923817d1e42409
+msgid "``Products.CMFPlone/skins/plone_content/folder_summary_view.pt`` (a non-view based old style Zope 2 page template)"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:69
+# e786a858e8354203b2449bf2af884534
+msgid ":doc:`Overriding views </views/browserviews>`"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:72
+# 54f1738ae8064d469854a25c5a459572
+msgid "Creating a dynamic view"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:74
+# 9dd4edcb9dce492e91a9a68d9be11012
+msgid "Here are instructions how to create your own dynamic view."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:76
+# 6292b24cadfc429f9fac1d3c572ef467
+msgid "There is also an example product `Listless view <https://github.com/miohtama/listlessview>`_, which provides \"no content listing\" view for Folder content types."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:81
+# 01032ad8a5de4c1ca476b6d0cd5f615c
+msgid "Registering a dynamic view menu item"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:83
+# 2fcf47564fdb4ccbb27e3c3919bf20a6
+msgid "In order to be able to register dynamic views, your content type must support them."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:86
+# 13971bbd90a54e0abc59663ce3bc8841
+msgid "To do this, the content type should subclass ``Products.CMFDynamicViewFTI.browserdefault.BrowserDefaultMixin``."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:89
+# d682d20b2a8c4a00a8a4e4c49ed558be
+msgid "Then, you need to register a dynamic view menu item with the corresponding view in your ``configure.zcml``:"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:103
+# 52254d582bc8472aa2b35e32d0099da2
+msgid "``Products.ATContentTypes`` uses a non-standard name for the ``interfaces`` package. There, it is ``interface``, while all other packages use ``interfaces``."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:107
+# 852def560af64273aa598ac10bc75eca
+msgid "The view must be listed in ``portal_types`` for the content type. In this case, we should enable it for Archetypes folders using the following GenericSetup XML: ``profiles/default/types/Folder.xml``."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:111
+# 4c403de352a74779b90f3f741587c26e
+msgid "Note that you don't need to copy the whole ``Folder.xml`` / ``Topic.xml`` from ``Products/CMFPlone/profiles/default/types``. Including the changed ``view_methods`` in the XML code is enough."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:115
+# 8d5ceb35cd514a509f732106af05759f
+msgid "You can also change this through portal_types in the ZMI."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:119
+# b6088ee8c221429ab4031d55dbfbbb77
+msgid "``view_methods`` must not have the ``@@view`` signature in their method name."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:135
+# 015b751c54164b17a1d0028b15b58daf
+msgid "Also, if you want :guilabel:`Collection`\\s to have this listing, you need to add the following ``profiles/default/types/Topic.xml``."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:159
+# 3e926507a2c64c98921ff0d955f65dcb
+msgid "Working around broken default view"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:161
+# 7f5fc33e494747d3bf9a4df3de739128
+msgid "If you manage to:"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:163
+# 0a72b65fcd4243c1a4afe284b98dd902
+msgid "Create a new view"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:164
+# b37771c1de544300ab37920bfcac463c
+msgid "set it to the default as a folder"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:165
+# 236bdb0fbb5d4ddab6e01a6a26f8dd6e
+msgid "and this view has a bug"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:167
+# a009afe2ffd348f0800f6cc332689596
+msgid "... you cannot access the folder anymore, because you are taken to the broken view stack trace instead instead of rendering the green edit menubar."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:170
+# 335bb1e893b147ad877b6b5fbfa19f7b
+msgid "The fix is to reset the view by browsing to the ``select_default_view`` directly. Access your folder like this::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:177
+# 6e423b6d8cad484788ae22f557026651
+msgid "Checking that your view is available"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:179
+# e5880e2595b6435896be281ec0b0491a
+msgid "``Products.CMFDynamicViewFTI.browserdefault.BrowserDefaultMixin.getAvailableLayouts()`` returns the list of known layouts in the following format::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:188
+# 1ffbbdb2bf1d4a7d972dbdf2c3efa6e2
+msgid "So to see if your view is available, check it against the ids from that result::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:195
+# 463bcd06322447359f89a282dedd0ce3
+msgid "Getting active layout"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:204
+# 3e19408a64034f2e9e2b452ad0ed1871
+msgid "Changing default view programmatically"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:211
+# bc50fae60d66434c8c75931a29af0e05
+msgid "Default page"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:213
+# 79bdf5ce7f1748cbaff0f416c7a594d3
+msgid "The default page is a *content item* chosen to be displayed when the visitor arrives at a URL without any subpages or views selected."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:216
+# 6ea2e30557ad44a1b8a76e7262e46ef4
+msgid "This is useful if you are doing the folder listing manually and you want to replace the default view."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:219
+# 51c6839737f5422780526e8a2082f711
+msgid "The ``default_page`` helper view can be used to manipulate default pages."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:221
+# 0eecd605f9e14ee6af1afed3f9e6e05a
+msgid "Getting the default page::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:231
+# 9f64236c941e41ce8ecf5a2afc1ede7d
+msgid "Another example how to use this::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:258
+# 631316b854df44278356d3895b198d1b
+msgid "Bare except?"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:260
+# b89fb8f4431e4dd8814174623c2a41d9
+msgid "Setting the default page can be done as simply as setting a ``default_page`` attribute on the folder to the id of the default page::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:265
+# 85fb7321f64b4a5e9c28aea17439dfd6
+msgid "More information can be found in"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:267
+# 385c32a4771d494896481a190ee8ab9f
+msgid "https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/context.py"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:269
+# 08e656d3301b4350823386a53f22cfeb
+msgid "https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/navigation/defaultpage.py"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:272
+# 116930058a854c3190f1d7c4ab610a4f
+msgid "Disabling dynamic views"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:274
+# 86e27e33194543528ebf60b66e11caf8
+msgid "Add to your content type class::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:284
+# 116636f3aa444217bd906e87cf1fef1f
+msgid "Setting a view using marker interfaces"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:286
+# 5495bb3f53fd4743a7ad697999347163
+msgid "If you need to have a view for few individual content items only, it is best to do this using marker interfaces."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:289
+# 706f9bdd69db46838625bcd302997fe3
+msgid "Register a view against a marker interface"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:291
+# 0538af659b4e478d81b9baac30d828b3
+msgid "Assign this marker interface to a content item using the Zope Management Interface (:term:`ZMI`)"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:294
+# e1edcf0f8ba0464884f736a4ba4b0da2
+msgid "For more info, see"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:296
+# d1098658f05c49b49de1270582d6e612
+msgid "http://www.netsight.co.uk/blog/2010/5/21/setting-a-default-view-of-a-folder-in-plone"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:298
+# 69b871f537ba49cfb33f4ff8a11af05d
+msgid ":doc:`marker interfaces </components/interfaces>`"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:302
+# 46caba3cbff249eea3bcadff58397fb5
+msgid "Migration script from default view to another"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:304
+# 12a51ec6c8d04ccfa68507b1c2d29c83
+msgid "Below is a script snippet which allows you to change the default view for all folders to another type. You can execute the script through the :term:`ZMI` as a Python Script."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:308
+# 0c876fe091074a6bbbe85592aa2988e8
+msgid "Script code::"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:321
+# c8a7a557f30a48c5945b538da5de8ae4
+msgid "This will allow you to migrate from ``collective.fancyzoom`` to Plone 4's default album view or ``Products.PipBox``."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:325
+# 1fcb7850da41424193074758125378a8
+msgid "Method aliases"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:327
+# b7b5187e8e8044fe8491d034c58674bc
+msgid "Method aliases allow you to redirect basic actions (view, edit) to content-type specific views.  Aliases are configured in ``portal_types``."
+msgstr ""
+
+#: ../../content/dynamic_views.rst:333
+# dcf4bd235c75415eaf30a3bbf4dab3b4
+msgid "http://plone.org/documentation/how-to/how-to-create-and-set-a-custom-homepage-template-using-generic-setup"
+msgstr ""
+
+#: ../../content/dynamic_views.rst:335
+# 3e174610561f4ae6a49d473e2e582ba2
+msgid "`CMFDynamicView plone.org product page <http://plone.org/products/cmfdynamicviewfti/>`_"
+msgstr ""
+
+#: ../../content/events.rst:3
+# 8ab5f928b39b4838b4d266a74d48c835
+msgid "Eventish content types"
+msgstr ""
+
+#: ../../content/events.rst:7
+# c33f579f81794063acc554604f60e0be
+msgid "Creating and programming event and eventish content types in Plone"
+msgstr ""
+
+#: ../../content/events.rst:14
+# 8069529c45cb43b59754d908f4001af6
+msgid "Plone supports events as content. Events have a start time, end time and other fields. They can be exported to standard ``vCal`` (compatible with Outlook) and ``iCal`` (compatible with OSX) formats. A default calendar shows published events in a calendar view."
+msgstr ""
+
+#: ../../content/events.rst:21
+# c6727a8c73044ac387ef995f8dc73609
+msgid "Recurring events (events repeating with an interval) are not supported out-of-the-box on Plone 4.0 or older."
+msgstr ""
+
+#: ../../content/events.rst:25
+#: ../../content/events.rst:451
+# 0ba4874ff2de4b5796d982a12b597ef0
+# b8184c91068f4150b2c4d44e70aab4d0
+msgid "Further reading"
+msgstr ""
+
+#: ../../content/events.rst:28
+# 7ade435bd90c44d58c065eb394985197
+msgid "`vs.event <http://plone.org/products/vs.event>`_"
+msgstr ""
+
+#: ../../content/events.rst:28
+# 6c715c03fd3c4846a448c97167425da4
+msgid "recurring events for Plone 3 and 4.0"
+msgstr ""
+
+#: ../../content/events.rst:31
+# 60435c7cb2f043b8a40820e1f6ced886
+msgid "`plone.app.event <http://www.zopyx.com/blog/plone.app.event>`_"
+msgstr ""
+
+#: ../../content/events.rst:31
+# c1ec760332c44c5d87c5449f2a7ad399
+msgid "recurring events for Plone 4.1+"
+msgstr ""
+
+#: ../../content/events.rst:34
+# c6eced5cf2654610b703e226e3acd265
+msgid "`Dateable <http://plone.org/products/dateable>`_"
+msgstr ""
+
+#: ../../content/events.rst:34
+# e60e44b0e6ce439fbb033191d4e802a2
+msgid "Plone code to bring all the different calendar extensions together"
+msgstr ""
+
+#: ../../content/events.rst:36
+# 4b9cc7f73f2446bb9c1f70c37cceb4c5
+msgid "http://www.inigo-tech.com/blog/customizing-p4a.calendar-and-the-power-of-collections-and-views"
+msgstr ""
+
+#: ../../content/events.rst:37
+# b85d2bd084ed4937bfb4d98461b49f01
+msgid "http://regebro.wordpress.com/2009/01/28/ui-help-needed-recurring-events-form-usability/"
+msgstr ""
+
+#: ../../content/events.rst:40
+# dfef0f946b174d118bc651176c3ca6bb
+msgid "``portal_calendar``"
+msgstr ""
+
+#: ../../content/events.rst:42
+# 6b380f586d054c10a2424132681bd994
+msgid "The ``portal_calendar`` service is provided by ``Products.CMFCalendar``. It provides facilities to query the event calendar conveniently."
+msgstr ""
+
+#: ../../content/events.rst:45
+# df6b02fde8f4424c8912e9a14c02b1f7
+msgid "The most useful ``portal_calendar`` call is ``portal_calendar.getEventsForCalendar(month, year, path=navigation_root_path)`` to get the event listing of a certain month."
+msgstr ""
+
+#: ../../content/events.rst:50
+# efb8f111ac11453b85467f19a03e9a52
+msgid "Adding a new event type to the calendar"
+msgstr ""
+
+#: ../../content/events.rst:52
+# cddf7f38804244fb952dec2afaabad28
+msgid "Use-case: you've created a content type and want it to be shown in the calendar portlet."
+msgstr ""
+
+#: ../../content/events.rst:55
+# 9e87e5bf085c4e36bc1c04cf34fd4040
+msgid "First add a custom import step. In ``profiles/default/import_steps.xml``"
+msgstr ""
+
+#: ../../content/events.rst:69
+# b811b4f16bb04387b2aa816171e5fbad
+msgid "Then in this custom step call the ``portal_calendar`` service. Note that you might want to preserve the existing event types. Plone's default event type is called ``Event``."
+msgstr ""
+
+#: ../../content/events.rst:73
+# ee9208c986ba4191b8ee3c0bcf6aba4c
+msgid "``setuphandlers.py``::"
+msgstr ""
+
+#: ../../content/events.rst:92
+# 627c0c7a11384f12aa81b1bc6a669189
+msgid "Credits: ecarloshanson, optilude."
+msgstr ""
+
+#: ../../content/events.rst:95
+# ebf2e5fcc944429e9a34a3611fd6eb1b
+msgid "Getting eventish content types"
+msgstr ""
+
+#: ../../content/events.rst:97
+# a2e0d93c3a884df6bbc4ff47ca993e40
+msgid "``portal_calendar`` maintains the list of eventish content types appearing in Plone calendar services."
+msgstr ""
+
+#: ../../content/events.rst:106
+# 1da01f485be549b5ad36a03c65b12f4c
+msgid "Getting calendar publishing states"
+msgstr ""
+
+#: ../../content/events.rst:108
+# f0a9d956872447a6ab03633d4243f122
+msgid "Workflow states in which events appear in the calendar::"
+msgstr ""
+
+#: ../../content/events.rst:113
+# 3a234d7484c64e78ae71f163ff9c0683
+msgid "iCal export"
+msgstr ""
+
+#: ../../content/events.rst:115
+# c3246ae95aaa4e0bbb7f248b437b3659
+msgid "Plone 3+ provides ``ics_view`` which applies to:"
+msgstr ""
+
+#: ../../content/events.rst:117
+# 7971e65ae0df480199d63252edaf74cd
+msgid "Single :guilabel:`Event` content items"
+msgstr ""
+
+#: ../../content/events.rst:118
+# 0f8a7473dcf54751941be726a67d2c2b
+msgid ":guilabel:`Folder`\\s"
+msgstr ""
+
+#: ../../content/events.rst:120
+# 5c248e595cd94e21a9a089caa6d286cb
+msgid "The view creates an ``iCal`` export of the content. A single exported ``iCal`` file (mimetype: ``text/calendar``) can contain several events. When applied to a folder, the view exports all items that provide the ``Products.ATContentTypes.interfaces.ICalendarSupport`` interface."
+msgstr ""
+
+#: ../../content/events.rst:128
+# 80fe49010d11414597a5031527e900ac
+msgid "http://stackoverflow.com/q/11862095/315168"
+msgstr ""
+
+#: ../../content/events.rst:130
+# 8e28dd8fc908451cbd9e99d03777cfba
+msgid "https://github.com/plone/Products.ATContentTypes/blob/master/Products/ATContentTypes/browser/calendar.py#L25"
+msgstr ""
+
+#: ../../content/events.rst:133
+# 99611a4c70d445f2bf8bbafa80033253
+msgid "Purging old events"
+msgstr ""
+
+#: ../../content/events.rst:135
+# 3cf8ddda2540424d82b85a2c7e9b773d
+msgid "After the event end day the event stays visible in Plone listings."
+msgstr ""
+
+#: ../../content/events.rst:137
+# 54ff1a4ab8d04dbfb044ae8eaed4fad1
+msgid "You need to have a special janiator script / job if you want to get old events deleted from your site after they have been passed."
+msgstr ""
+
+#: ../../content/events.rst:140
+# 5441d72f38434c0884f6f8065f3d632e
+msgid "Below is a ZMI script which will delete events which are more than 30 days past their ending date::"
+msgstr ""
+
+#: ../../content/events.rst:176
+# c372595569864e218bb12ce15ddb009b
+msgid "Recurrence calendar support in Plone 3"
+msgstr ""
+
+#: ../../content/events.rst:178
+# 306c43936d634d689340d7b483557bce
+msgid "``vs.event`` has an index ``recurrence_days`` which stores the dates when the recurrent event appears five years ahead of the time when the event is saved."
+msgstr ""
+
+#: ../../content/events.rst:182
+# a119e5783e884accad3feec184998c81
+msgid "Below is the glue code which is needed to support the recurrent event in the Plone 3 calendar portlet. It combines ``vs.event``, ``plone.app.portlets`` and ``Products.CMFCalendar`` bits to pull the necessary stuff together (a task which was not trivial)."
+msgstr ""
+
+#: ../../content/events.rst:189
+# d0003a8ae84a4d80bfeecce17506662e
+msgid "Making recurrent event appear in the calendar portlet"
+msgstr ""
+
+#: ../../content/events.rst:191
+# 1d3b7aed353f47a3b01263aab607ecbe
+msgid "Below is a calendar portlet ``Renderer`` code which can be used to make recurrent events appear in the standard Plone calendar portlet::"
+msgstr ""
+
+#: ../../content/events.rst:440
+# 59f42f3bec8547208788be6a8eff6d29
+msgid "Beta code notice"
+msgstr ""
+
+#: ../../content/events.rst:442
+# a42d76fe18d04666a9636544fcbfdf3d
+msgid "Make sure that the ``recurrence_days`` index from ``vs.event`` is working - if it isn't, check :doc:`Custom indexing example </searching_and_indexing/indexing>` how to create your own recurrency indexer. After you save your ``vs.event`` content item, you should see data in the ``recurrence_days`` index through ``portal_catalog`` browsing interface."
+msgstr ""
+
+#: ../../content/events.rst:453
+# fceea716a2724a16beefe2ffa1a8b97d
+msgid "http://plone.293351.n2.nabble.com/what-s-dateable-chronos-how-to-render-recurrence-events-in-a-calendar-portlet-tp5282788p5287261.html"
+msgstr ""
+
+#: ../../content/events.rst:455
+# a9d918333fe3499fa8ec6adf18cadecc
+msgid "``vs.event`` has ``KeywordIndex`` ``recurrence_days`` which contains a * value created by ``vs.event.content.recurrence.VSRecurrenceSupport.getOccurrenceDays()``. This value is a list of dates 5 years ahead when the event occurs."
+msgstr ""
+
+#: ../../content/events.rst:461
+# dc544854423e443387e2fae77e885b76
+msgid "Plone 3 provides a view called ``calendar_view`` (configured in * ``Products.CMFPlone/deprecated.zcml``) but this view is not used - do not it let fool you."
+msgstr ""
+
+#: ../../content/events.rst:465
+# 131a01e546b54e12bf5b72d4c1fc0ce4
+msgid "Required :term:`ZCML` for the indexing::"
+msgstr ""
+
+#: ../../content/history.rst:3
+# 170ef65e09fd4726982cf2537141e830
+msgid "History and versioning"
+msgstr ""
+
+#: ../../content/history.rst:10
+# cb0d3a8fe08a4e13b10653f526272ef5
+msgid "Plone versioning allows you to go back between older edits of the same content object."
+msgstr ""
+
+#: ../../content/history.rst:12
+# a259701861654945b20e5778112b1301
+msgid "`Versioning allows you to restore and diff previous copies of the same content <http://plone.org/documentation/manual/plone-3-user-manual/managing-content/versioning-plone-v3.0-plone-v3.2>`_. More about `CMFEditions here <http://plone.org/products/cmfeditions/documentation/refmanual/cmfeditionoverview>`_."
+msgstr ""
+
+#: ../../content/history.rst:17
+# 44261ed8dfa94f68a1d716d8b93bac4a
+msgid "`Versioning tutorial for custom content types <http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-enable-versioning-history-for-a-custom-content-type>`_."
+msgstr ""
+
+#: ../../content/history.rst:20
+# 6befb52c610744f49ad809a83288364c
+msgid "Enabling versioning on your custom content type (Plone 3 ONLY)"
+msgstr ""
+
+#: ../../content/history.rst:24
+# 38ad14249fbc438685e02aee7e415718
+msgid "This information applies for Plone 3 only."
+msgstr ""
+
+#: ../../content/history.rst:26
+# 307d07c7435946f1b9e2f16dfecd7fde
+msgid "By default, version history is not enabled for custom content types. Below are some notes how to enable it."
+msgstr ""
+
+#: ../../content/history.rst:29
+# 45ae4f3aef9f499ba206132b3aae34d2
+msgid "Inherit HistoryAwareMixin in your content type class::"
+msgstr ""
+
+#: ../../content/history.rst:37
+# 3a9b290dabf04b2baf7b4340b50104de
+msgid "Add versioning migration code to your setuphandlers.py / custom import steps::"
+msgstr ""
+
+#: ../../content/history.rst:72
+# 82eb44b4b61244139dacd451bcda64d6
+msgid "To see which fields differ between versions, diff tool must be configured to support your custom content types. GenericSetup support is available after Plone 3.2. For older you must manually create entries in portal_diff_tool. Example GenericSetup difftool.xml::"
+msgstr ""
+
+#: ../../content/history.rst:90
+# 6fb920ff81c34a90a509e382f414a7b4
+msgid "If you have customized the edit process of your content type, make sure that your edit action traverses to update_version_before_edit.cpt. For hints how to do this, see portal_form_controller actions tab. Example::"
+msgstr ""
+
+#: ../../content/history.rst:130
+# c6879f0c89dd4d2b96d169f3d968624d
+msgid "If you are using custom roles you need to have at least CMFEditions: Save new version permission enabled for the roles or you'll get exception::"
+msgstr ""
+
+#: ../../content/history.rst:144
+# db5c6f8a19154a0cb496979709127012
+msgid "If your content type contains blob fields you want to version, you will need to edit portal_modifier/CloneBlobs entry and add your portal type to the condition field."
+msgstr ""
+
+#: ../../content/history.rst:147
+# b3cf2ea40331431d86a16c776c27a3ad
+msgid "For more information"
+msgstr ""
+
+#: ../../content/history.rst:149
+# 294469917fe14a3db92c23c16725eb44
+msgid "http://plone.org/documentation/manual/developer-manual/archetypes/appendix-practicals/enabling-versioning-on-your-custom-content-types"
+msgstr ""
+
+#: ../../content/history.rst:152
+# 049dee5093f949ffbd2576b72e3c749a
+msgid "Checking whether versioning is enabled"
+msgstr ""
+
+#: ../../content/history.rst:154
+# 41ab889e49d44ed2abae480dd90e010b
+msgid "The following check is performed by update_versioning_before_edit and update_versioning_on_edit scripts::"
+msgstr ""
+
+#: ../../content/history.rst:168
+# 0b92ec54b6d34df8941a50555d719737
+msgid "Inspecting versioning policies"
+msgstr ""
+
+#: ../../content/history.rst:176
+# 9c9071daab8a4222af643a569f0b305b
+msgid "Will output (inc. some custom content types)::"
+msgstr ""
+
+#: ../../content/history.rst:189
+# d68b53a9953b41fa8207198ba47d1d6b
+msgid "How versioning (CMFEditions) works"
+msgstr ""
+
+#: ../../content/history.rst:191
+# 24739db707fa4f5fb0ef5640bb20d4b9
+msgid "http://svn.zope.de/plone.org/collective/Products.CMFEditions/trunk/doc/DevelDoc.html"
+msgstr ""
+
+#: ../../content/history.rst:195
+# 8b42abd47c974c8580c630bdd67dcb08
+msgid "You might actually want to check out the package to get your web browser to properly read the file."
+msgstr ""
+
+#: ../../content/history.rst:199
+# 8b7411f909134402a3645aebc75b6d04
+msgid "Getting the complete revision history for an object"
+msgstr ""
+
+#: ../../content/history.rst:201
+# 1a73240ae86c4e51927548215a46ce8e
+msgid "You may find yourself needing to (programmatically) get some/all of a content object's revision history. The content history view can be utilised to do this; this view is the same one that is visible through Plone's web interface at ``@@contenthistory`` (or indirectly on ``@@historyview``).  This code works with Plone 4.1 and has been utilised for exporting raw content modification information:"
+msgstr ""
+
+#: ../../content/history.rst:214
+# 1d232a36982742d6a69bb886d034f07f
+msgid "If you want to run this from somewhere without a ``REQUEST`` available, such as the *Plone/Zope debug console*, then you'll need to fake a request and access level accordingly. Note the subtle change to using ``ContentHistoryViewlet`` rather than ``ContentHistoryView`` - we need to avoid initialising an entire view because this involves component lookups (and thus, pain).  We also need to fake our security as well to avoid anything being left out from the history."
+msgstr ""
+
+#: ../../content/history.rst:238
+# 2f88777860ab4684a26fba228daf8cee
+msgid "The end result should look something like this, which has plenty of tasty morsels to pull apart and use::"
+msgstr ""
+
+#: ../../content/history.rst:292
+# 1bb746f796bf4c3495a33d272cb69eb5
+msgid "For instance, you can determine who the last person to modify this Plone content was by looking at the first list element (and get all their details from the actor information). Refer to the source of ``plone.app.layout.viewlets.content`` for more information about ``ContentHistoryView``, ``ContentHistoryViewlet`` and ``WorkflowHistoryViewlet``.  Using these other class definitions, you can see that you can get just the workflow history using ``.workflowHistory()`` or just the revision history using ``.revisionHistory()``."
+msgstr ""
+
+#: ../../content/history.rst:302
+# 106486980b0147fd8776ba5ed553ba1a
+msgid "Purging history"
+msgstr ""
+
+#: ../../content/history.rst:304
+# 5acc99ed8f8e477387be3dfd05f7dec1
+msgid "http://stackoverflow.com/questions/9683466/purging-all-old-cmfeditions-versions"
+msgstr ""
+
+#: ../../content/importexport.rst:3
+# 3164b1c4e1e142eca3cb2866d93a55ea
+msgid "Importing and exporting content"
+msgstr ""
+
+#: ../../content/importexport.rst:7
+# ad41405465eb476094649b48a33f32eb
+msgid "Importing and exporting content between Plone sites and other CMS systems"
+msgstr ""
+
+#: ../../content/importexport.rst:14
+# c47acffffbf742d0b25ce660ac6e2d48
+msgid "Goal: you want to import and export content between Plone sites."
+msgstr ""
+
+#: ../../content/importexport.rst:16
+# 08376c2c83404680aab11bd5b0cfa9b6
+msgid "If both sites have identical version and add-on product configuration you can use Zope Management Interface export/import"
+msgstr ""
+
+#: ../../content/importexport.rst:18
+# 354918698ba44c97a93ae588af7238e4
+msgid "If they don't (e.g. have different Plone version on source and target site), you need to use add-on products to export and import the content to a common format, e.g. JSON files."
+msgstr ""
+
+#: ../../content/importexport.rst:23
+# d585c23593684f37a22f96d6269f2038
+msgid "Zope 2 import / export"
+msgstr ""
+
+#: ../../content/importexport.rst:25
+# d2c2df1c3a6e4c79bb90a280f4afd2f7
+msgid "Zope 2 can import/export parts of the site in .zexp format which is basically a Python pickle data of the exported objects. Data is raw dump of Python internal data structures which means that the source and the target Plone versions must be compatible regarding the data e.g. no export from Plone 3 to Plone 4."
+msgstr ""
+
+#: ../../content/importexport.rst:30
+# 416781268a354dba9817d960c8e53d77
+msgid "To export a folder from a site to another do"
+msgstr ""
+
+#: ../../content/importexport.rst:32
+# eaa2a3eeb7ff47438c45f2cfca13f8d8
+msgid "Go to Zope Management Interface root"
+msgstr ""
+
+#: ../../content/importexport.rst:34
+# a12f94e30eda4484a2bc2001f24b15be
+msgid "Checkbox a folder"
+msgstr ""
+
+#: ../../content/importexport.rst:36
+# 49e08b9b43254ae1b6b12b3c2c8b15c4
+msgid "Press *Import / Export*"
+msgstr ""
+
+#: ../../content/importexport.rst:38
+# ff77fb834e064309a90deaf2a47ee93f
+msgid "Export as .zexp"
+msgstr ""
+
+#: ../../content/importexport.rst:40
+# 2dd9f3a3832e486eb7b970dcfe1a910e
+msgid "Zope 2 will tell you the path where .zexp was created on the server"
+msgstr ""
+
+#: ../../content/importexport.rst:42
+# 00e85bb0fd824311873b92076d37def4
+msgid "Zope .zexp to *youranothersite*/var/instance folder"
+msgstr ""
+
+#: ../../content/importexport.rst:44
+# f2177c5f03224f0abf5fdb0cef50b11d
+msgid "Go to ZMI root of your another site"
+msgstr ""
+
+#: ../../content/importexport.rst:46
+# a64b4a5672ad45fa86dd721f483f5065
+msgid "Press Import / Export"
+msgstr ""
+
+#: ../../content/importexport.rst:48
+# 3dd005da347b45de9cb6de08a665c498
+msgid "In *Import from file* you should see now your .zexp file"
+msgstr ""
+
+#: ../../content/importexport.rst:50
+# 42a95045ad004f779a76500281f7f0f8
+msgid "Import it"
+msgstr ""
+
+#: ../../content/importexport.rst:52
+# 44cf62949b6c4b00abaa9b0430b3657b
+msgid "Go to portal_catalog -> Advanced tab. *Clear and Rebuild* the catalog (raw Zope pickle does not know about anything living inside the catalog)"
+msgstr ""
+
+#: ../../content/importexport.rst:55
+# eeee1a57b1f642e5bc2a2b675de52ee1
+msgid "collective.transmogrifier"
+msgstr ""
+
+#: ../../content/importexport.rst:57
+# 24b7f2e03b1442f78cd9ce644d21912b
+msgid "On it's own `collective.transmogrifier <http://pypi.python.org/pypi/collective.transmogrifier>`_ isn't an import tool, rather a generic framework for creating pipelines to process data. Pipeline configs are .ini-style files that join together blueprints to quickly create a tool for processing data."
+msgstr ""
+
+#: ../../content/importexport.rst:61
+# 8275ea8e4d9a4107b7f5d0a472c0ba56
+msgid "The following add-ons make it useful in a Plone context:"
+msgstr ""
+
+#: ../../content/importexport.rst:63
+# bf464fa8fbef415593a46ff71e245578
+msgid "`plone.app.transmogrifier <https://pypi.python.org/pypi/plone.app.transmogrifier>`_ provides integration with GenericSetup, so you can run pipelines as part of import steps, and some useful blueprints."
+msgstr ""
+
+#: ../../content/importexport.rst:66
+# 87e1381e5a814f36a80deace751644a1
+msgid "`quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_ also provides it's own Plone integration, and some useful blueprints. See the site for some example configs for migration."
+msgstr ""
+
+#: ../../content/importexport.rst:69
+# 2f871cb1053f447da154bc2a6a55196d
+msgid "`transmogrify.dexterity <https://github.com/collective/transmogrify.dexterity>`_ provides some blueprints relevant to Dexterity types, and has some default pipelines for you to use."
+msgstr ""
+
+#: ../../content/importexport.rst:73
+# 398b81239dfa43e2a3cd59ddb6a90018
+msgid "transmogrify.dexterity: CSV import"
+msgstr ""
+
+#: ../../content/importexport.rst:75
+# 1335f7019bad408aa53abd4a72cc866c
+msgid "``transmogrify.dexterity`` will register the pipeline ``transmogrify.dexterity.csvimport``, which can be used to import from CSV to dexterity objects."
+msgstr ""
+
+#: ../../content/importexport.rst:78
+# 5e7f1aa799c245eebc99829fd4a53147
+msgid "For more information on using, see `the package documentation <https://github.com/collective/transmogrify.dexterity>`_."
+msgstr ""
+
+#: ../../content/importexport.rst:81
+# ec04d8efd6c14323ac486c7df34864b9
+msgid "transmogrify.dexterity: JSON import/export"
+msgstr ""
+
+#: ../../content/importexport.rst:83
+# f4c1989f0645461dba875a5bf010d1c4
+msgid "``transmogrify.dexterity`` also contains some ``quintagroup.transmogrifier`` pipeline configs. To use these, first install both ``quintagroup.transmogrifier`` and ``transmogrify.dexterity``, then add the following to your ZCML::"
+msgstr ""
+
+#: ../../content/importexport.rst:89
+# 7525017933694d7d9bd29428f7549d64
+msgid "Then the \"Content (transmogrifier)\" generic setup import / export will import / export site content to JSON files."
+msgstr ""
+
+#: ../../content/importexport.rst:91
+# 2fdca03bdf9848538dfc80aecd8a8541
+msgid "For more information on using, see `this blog post <http://shuttlethread.com/blog/development-with-transmogrify.dexterity>`_."
+msgstr ""
+
+#: ../../content/importexport.rst:94
+# 81dae04f1d0147498dec591817c6140f
+msgid "quintagroup.transmogrifier: Exporting single folder only"
+msgstr ""
+
+#: ../../content/importexport.rst:96
+# fd155f12c1e443f4a903daa33a0c30ba
+msgid "Here is explained how to export and import `Plone CMS <http://plone.org>`_ folders between different Plonen versions, or different CMS systems, using  XML based content marshalling and `quintagroup.transmogrifier <http://projects.quintagroup.com/products/wiki/quintagroup.transmogrifier>`_."
+msgstr ""
+
+#: ../../content/importexport.rst:101
+# 8e4500256dad4dee9772b09c3a7c25ce
+msgid "This overcomes some problems with Zope management based export/import which uses `Python pickles <http://docs.python.org/library/pickle.html>`_ and thus needs identical codebase on the source and target site. Exporting and importing between Plone 3 and Plone 4 is possible."
+msgstr ""
+
+#: ../../content/importexport.rst:105
+# 17124917ef6841b892023ad018bf103c
+msgid "You can limit export to cover source content to with arbitrary :doc:`portal_catalog </searching_and_indexing/query>` conditions. If you limit source content by path you can effectively export single folder only."
+msgstr ""
+
+#: ../../content/importexport.rst:108
+# 6a4d5002e1914b918b6cfe77e4b43a1a
+msgid "The recipe described here assumes the exported and imported site have the same path for the folder. Manually rename or move the folder on source or target to change its location."
+msgstr ""
+
+#: ../../content/importexport.rst:113
+# 054bbf88e67f4af083b4b4ca811fb878
+msgid "The instructions here requires quintagroup.transmogrify version 0.4 or later."
+msgstr ""
+
+#: ../../content/importexport.rst:116
+# 1171c959220c448c8b2f3007bb1174ad
+msgid "Source site"
+msgstr ""
+
+#: ../../content/importexport.rst:118
+# db888b47c3684d6e9db5d1f914439d0a
+msgid "Execute these actions on the source Plone site."
+msgstr ""
+
+#: ../../content/importexport.rst:120
+#: ../../content/importexport.rst:179
+# 0904be04ce2a4d169d39dc58a061687f
+# 10eab22f94a342e3a2468de30c0928e7
+msgid "Install ``quintagroup.transmogrifier`` via buildout and Plone add-on control panel."
+msgstr ""
+
+#: ../../content/importexport.rst:122
+# 9ff444fd5bc44954aabad8ab4c05e2c1
+msgid "Go to *Site setup* > *Content migration*."
+msgstr ""
+
+#: ../../content/importexport.rst:124
+# fd9273e30a4f46ce8e21216cd35893c5
+msgid "Edit export settings. Remove unnecessary pipeline entries by looking the example below. Add a new ``catalogsource`` blueprint. The ``exclude-contained`` option makes sure we do not export unnecessary items from the parent folders::"
+msgstr ""
+
+#: ../../content/importexport.rst:141
+# 75fb54248d174efa8caffbf13a445b7e
+msgid "Also we need to include some field-level excluding bits for the folders, because the target site does not necessary have the same content types available as the source site and this may prevent setting up folderish content settings::"
+msgstr ""
+
+#: ../../content/importexport.rst:151
+# db151f1f755f4b9783e10f4a9aa76c8f
+msgid "You might want to remove other, unneeded blueprints from the export ``pipeline``. For example, ``portletexporter`` may cause problems if the source and target site do not have the same portlet code."
+msgstr ""
+
+#: ../../content/importexport.rst:155
+# 2d6e7ccda1fb4c00a30f2fd9ed0bce1d
+msgid "Go to *Zope Management Interface* > *portal_setup* > *Export* tab. Check Content (transmogrifier) step. Press *Export Selected Steps* at the bottom of the page. Now a .tar.gz file will be downloaded."
+msgstr ""
+
+#: ../../content/importexport.rst:158
+# e0f46d761585427aa2acab6c54d8d4c8
+msgid "During the export process ``instance.log`` file is updated with status info. You might want to follow it in real-time from UNIX command line"
+msgstr ""
+
+#: ../../content/importexport.rst:165
+# 710a6c1f80b9460d950baf23cf9229f0
+msgid "In log you should see entries running like::"
+msgstr ""
+
+#: ../../content/importexport.rst:175
+# 0761ce6075cc4a34a3c74b51b9d96992
+msgid "Target site"
+msgstr ""
+
+#: ../../content/importexport.rst:177
+# b5426537063e419eaff7eb2aa261fd24
+msgid "Execute these actions on the target Plone site."
+msgstr ""
+
+#: ../../content/importexport.rst:181
+# 672d529bb9554c68932c9c82d8ebe626
+msgid "Open target site ``instance.log`` file for monitoring the import process"
+msgstr ""
+
+#: ../../content/importexport.rst:187
+# 6d68f6d6b191433dbc7f6341cbdcad8f
+msgid "Go to *Zope Management Interface* > *portal_setup* > *Import* tab."
+msgstr ""
+
+#: ../../content/importexport.rst:189
+# 53b865e6936a4512b7f087828d5e2f63
+msgid "Choose downloaded ``setup_toolxxx.tar.gz`` file at the bottom of the page, for *Import uploaded tarball* input."
+msgstr ""
+
+#: ../../content/importexport.rst:192
+# 4c89e4d6893e448baa663c7c4ef07729
+msgid "Run import and monitoring log file for possible errors. Note that the import completes even if the target site would not able to process incoming content. If there is a serious problem the import seems to complete successfully, but no content is created."
+msgstr ""
+
+#: ../../content/importexport.rst:199
+# fd029227524e4382ba15ba78e9f33a70
+msgid "Currently export/import is not perfect. For example, ZMI content type icons  are currently lost in the process. It is recommended to do a test run on a staging server before doing this process on a production server. Also, the item order in the folder is being lost."
+msgstr ""
+
+#: ../../content/importexport.rst:205
+# 5ca3adefad774d909b78d521541404fa
+msgid "More information"
+msgstr ""
+
+#: ../../content/importexport.rst:207
+# 9edefd562968407885e42e1466545ec7
+msgid ":doc:`How to perform portal_catalog queries </searching_and_indexing/query>`"
+msgstr ""
+
+#: ../../content/importexport.rst:209
+# e36f64ce6b5541c78235adfa0516189f
+msgid "http://webteam.medsci.ox.ac.uk/integrators-developers/transmogrifier-i-want-to-.../"
+msgstr ""
+
+#: ../../content/importexport.rst:211
+# 98d19ac7911449c49a88b9821d7d209d
+msgid "https://svn.plone.org/svn/collective/quintagroup.transmogrifier/trunk/quintagroup/transmogrifier/catalogsource.py"
+msgstr ""
+
+#: ../../content/importexport.rst:214
+# 01a98e8b4fe5479abdc42e427e47a1f0
+msgid "Fast content import"
+msgstr ""
+
+#: ../../content/importexport.rst:216
+# e363ba036fb94802acde1cdea4a17425
+msgid "See `this blog post <http://blog.redturtle.it/redturtle-blog/fast-content-import>`_"
+msgstr ""
+
+#: ../../content/importexport.rst:219
+# c4eddaaf5b36437ba97f1adde5349f59
+msgid "collective.jsonmigrator"
+msgstr ""
+
+#: ../../content/importexport.rst:221
+# 752e91da52ea4b4d9328416e8809fdaa
+msgid "Convert Plone content to JSON and move it between sites."
+msgstr ""
+
+#: ../../content/importexport.rst:225
+# b0e2ac19ead241fbb1f7f0ec0872ee45
+msgid "https://github.com/collective/collective.jsonmigrator"
+msgstr ""
+
+#: ../../content/importexport.rst:227
+# 31885e8b76014a20baac93ac1284f709
+msgid "https://github.com/collective/collective.jsonify"
+msgstr ""
+
+#: ../../content/importexport.rst:229
+# e49e3a1cf52143b78789366a9c45bc55
+msgid "http://stackoverflow.com/questions/13721016/exporting-plone-archetypes-data-in-json"
+msgstr ""
+
+#: ../../content/importexport.rst:232
+# c94662f28aec4204969db1ff21fa3e8a
+msgid "Simple JSON export"
+msgstr ""
+
+#: ../../content/importexport.rst:234
+# c9a7d395754240f8b021938bc30e271e
+msgid "Below is a simple helper script / BrowserView for a JSON export of Plone folder content. Works Plone 3.3+. It handles also binary data and nested folders."
+msgstr ""
+
+#: ../../content/importexport.rst:237
+# a4b9d47e57ff4e4d8b38b7a447c01dc7
+msgid "export.py::"
+msgstr ""
+
+#: ../../content/index.rst:3
+# caa219dbbe8640fda0644d8e4effd6a5
+msgid "Content management"
+msgstr ""
+
+#: ../../content/index.rst:5
+# 3842a632695a435e8927010b96ea060a
+msgid "In Plone, User editable objects are content objects. Content objects have different flavours depending on their type."
+msgstr ""
+
+#: ../../content/index.rst:8
+# c32f2c07636f405c9931154ca42593c7
+msgid "Examples:"
+msgstr ""
+
+#: ../../content/index.rst:10
+# 9c74207695304763a91b3a9be693abda
+msgid "Pages (ATDocument class)"
+msgstr ""
+
+#: ../../content/index.rst:12
+# 7b38ad523f1b49269c96d80feb34a171
+msgid "Images (ATImage class)"
+msgstr ""
+
+#: ../../content/index.rst:14
+# 3c02e41dd58c4f31a2d734e1e4ca23d9
+msgid "News items"
+msgstr ""
+
+#: ../../content/index.rst:16
+# ca25ded3d7d44b92a4de11713857f75e
+msgid "Events"
+msgstr ""
+
+#: ../../content/index.rst:20
+# ca083ea4f3a1425b9500296eb2161541
+msgid "There are two different subsystems to create content objects in Plone"
+msgstr ""
+
+#: ../../content/index.rst:22
+# b1eca905bbc244508b96fbcdc3bd32c8
+msgid "Archetypes (Plone 2.x and Plone 3.x)"
+msgstr ""
+
+#: ../../content/index.rst:24
+# fdae7ecb0ef94ae598245870091c3c67
+msgid "Dexterity (Plone 4.x and Plone 3.x)"
+msgstr ""
+
+#: ../../content/listing.rst:3
+# 8634b328549543448af799b6ec9072c7
+msgid "Listing objects"
+msgstr ""
+
+#: ../../content/listing.rst:7
+# ac4443243ff84dbe9b59a4eba09ea308
+msgid "How to programmatically generate folder listings in Plone."
+msgstr ""
+
+#: ../../content/listing.rst:14
+# 6fd602d30063486988f3d883c9872a2f
+msgid "Plone has several methods of getting the list of folder items, depending on whether:"
+msgstr ""
+
+#: ../../content/listing.rst:17
+# 16b78eeb123a4c14b6cb714b3e7ec969
+msgid "you want to get all items, or only items visible for the currently logged in user;"
+msgstr ""
+
+#: ../../content/listing.rst:19
+# 4ba9cbd60d0541d5ade9c48f8eaa79e0
+msgid "you want to get hold of the item objects themselves or just indexed metadata (the latter is faster);"
+msgstr ""
+
+#: ../../content/listing.rst:23
+# 43597ffa5a554eaa85a15fb35dd371e6
+msgid "you want to get Plone's contentish items only (``contentItems``) or Zope 2 management objects too (``objectIds``); the latter covers various site utilities found in the portal root and otherwise hidden magical items."
+msgstr ""
+
+#: ../../content/listing.rst:28
+# 24428a15ce8942529c1ca2d1783f6049
+msgid "Special attention must be paid also to object ids. Zope locates all objects by traversing the site graph using ids. The id mapping is usually a property of a *parent* object, not the child. Thus most of the listing methods tend to return ``(id, object)`` tuples instead of plain objects."
+msgstr ""
+
+#: ../../content/listing.rst:35
+# 652e1472d8da4c019b797007413701a4
+msgid "Ensuring that the content item is a folder"
+msgstr ""
+
+#: ../../content/listing.rst:37
+# 2ab7190b752f4ddba859ab48a69b38a1
+msgid "All Plone folderish content types provide the ``IFolderish`` interface. Check that this is present to make sure that a content item is a folder, and that ``contentItems()`` and the other methods are available::"
+msgstr ""
+
+#: ../../content/listing.rst:64
+# 4c6ab52fdb8643e5aefcdf32d0e5a034
+msgid "Getting all content objects inside a folder"
+msgstr ""
+
+#: ../../content/listing.rst:66
+# 266b3294eccf4051aff4b7190a51f5a0
+msgid "The ``contentItems`` method is defined in ``CMFCore/PortalFolder.py``. From Plone 4 and later, you can also use ``folder.items()`` instead (this applies to the whole section below). See source code for details, e.g. filtering and other forms of listing."
+msgstr ""
+
+#: ../../content/listing.rst:72
+# 909f12a87ae34e91afc6a14ca6dddbdd
+msgid "Querying folder through catalog"
+msgstr ""
+
+#: ../../content/listing.rst:74
+# 8eec29370c99448ba01826f6a4ef202f
+msgid "These methods apply for real folders, and not for collections."
+msgstr ""
+
+#: ../../content/listing.rst:77
+# 7967b969ce834721a305632e60acf4b3
+msgid "Getting indexed objects"
+msgstr ""
+
+#: ../../content/listing.rst:79
+# 43b763cf359f43c0995214c01980d384
+msgid "This is a faster method. ``portal_catalog`` must be up-to-date for the folder. This will return :doc:`brain objects </searching_and_indexing/query>`::"
+msgstr ""
+
+#: ../../content/listing.rst:85
+# 305e76c1a7a94fcb8dc1a1d9ab92a538
+msgid "Getting full objects"
+msgstr ""
+
+#: ../../content/listing.rst:93
+# 18c67d55260246e791e98f5ba1f883c9
+msgid "The ``contentItems()`` call may be costly, since it will return the actual content objects, not the indexed metadata from the ``portal_catalog``. You should avoid this method if possible."
+msgstr ""
+
+#: ../../content/listing.rst:100
+# f0f53632b0d94cecb7440988bfb222f1
+msgid "``folder.contentItems()`` returns all items regardless of the user security context."
+msgstr ""
+
+#: ../../content/listing.rst:103
+# 5bdfe8e0d3ce43f2b25d3dd41f01a562
+msgid "Getting folder objects filtered"
+msgstr ""
+
+#: ../../content/listing.rst:105
+# 2c993f532c53417887bd6ce6c6408f3a
+msgid "The ``listFolderContents()`` method retrieves the content objects from the folder. It takes ``contentFilter`` as an argument to specify filtering of the results. ``contentFilter`` uses the same syntax as ``portal_catalog`` queries, but does not support all the same parameters; e.g. ``object_provides`` is not supported. See the `ContentFilter class <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/PortalFolder.py?view=markup>`_ for details."
+msgstr ""
+
+#: ../../content/listing.rst:123
+# d8014fb86df242e4a58bca4ae7d97ca8
+msgid "Security warning: ``listFolderContents()`` honors the currently logged-in user roles."
+msgstr ""
+
+#: ../../content/listing.rst:128
+# 7d72e6224d624886a8d022d61aca1df8
+msgid "Performance warning: slow for large folders. Rather use ``portal_catalog`` and path-based queries to query items in a large folder."
+msgstr ""
+
+#: ../../content/listing.rst:133
+# b6bfb7af89f9427d8429297b9ac1367b
+msgid "Rules for filtering items"
+msgstr ""
+
+#: ../../content/listing.rst:135
+# 2f99ab653b284d80bc5ec05a667ce6a4
+msgid "Plone applies some default rules for ``listFolderContents()``"
+msgstr ""
+
+#: ../../content/listing.rst:137
+# 30fbcc8d9a96430682f4f0ef6067cf17
+msgid "``portal_properties.nav_tree_properties.metaTypesNotToQuery``: folders (large folders) don't generate listing."
+msgstr ""
+
+#: ../../content/listing.rst:140
+# 0ef7a2a740344efe95120cb350052812
+msgid ":doc:`default_page </content/dynamic_views>` are not listed."
+msgstr ""
+
+#: ../../content/listing.rst:142
+# 401178f69a134c0da6f153870c64877f
+msgid "``portal_properties.nav_tree_properties``: meta types marked here do not appear in the listing."
+msgstr ""
+
+#: ../../content/listing.rst:146
+# b32fe18afcdb47498962805119956b13
+msgid "Why does ``folder_listing`` not list my contents?"
+msgstr ""
+
+#: ../../content/listing.rst:148
+# a3939c2dbd16450496cf0d068615397a
+msgid "The site search settings (*Site Setup*--> *Search*) modifies the way ``folder_listing`` works."
+msgstr ""
+
+#: ../../content/listing.rst:151
+# 6d9514a04bb84a328eab13228bc79670
+msgid "So for example, if you specifify that you do not want to search objects of type *Page*, they will not appear in ``folder_listing`` anymore."
+msgstr ""
+
+#: ../../content/listing.rst:154
+# c8338290264c4299bee064af8b43b661
+msgid "From `this thread <http://lists.plone.org/pipermail/plone-product-developers/2012-March/thread.html#11436>`_."
+msgstr ""
+
+#: ../../content/listing.rst:158
+# 5c112067a82a4af59299e01fb0f21948
+msgid "orderObjects() to set a key for ordering the items in a particular folder"
+msgstr ""
+
+#: ../../content/listing.rst:160
+# 95b2eddcdf084c548f926857e2fef78a
+msgid "With Plone 4+ an adapter can be registered and used to apply a custom order to a particular folder: see ``setOrdering``. The ``DefaultOrdering`` adapter allows a key to be set for a particular folder, and optionally to reverse the order. This can be adjusted via a method on the folder::"
+msgstr ""
+
+#: ../../content/listing.rst:170
+# 9b963d3029664cb0afd35d623b95b7dd
+msgid "Unlike the python sort() and sorted() methods, the key parameter expects an attribute, not a function."
+msgstr ""
+
+#: ../../content/listing.rst:176
+# 004a8ab2ba924d8cb1dd9929a89e300f
+msgid "Enforcing manual sort order"
+msgstr ""
+
+#: ../../content/listing.rst:178
+# ffd585613f3f411d94b8283b609ad226
+msgid "Below is an example of how to order content items by their manual sort order (the one you create via drag and drop on the contents tab)::"
+msgstr ""
+
+#: ../../content/listing.rst:207
+# 8e73f98c8ff9425ba331789a38533466
+msgid "Getting object ids"
+msgstr ""
+
+#: ../../content/listing.rst:209
+# 7dca208ef74c4d7fb4ed62bb6916fd54
+msgid "If you need to get ids only, use the ``objectIds()`` method, or ``keys()`` in Plone 4. This is a fast method::"
+msgstr ""
+
+#: ../../content/listing.rst:219
+# f8e180b943774a548a9a5e3a004b8c92
+msgid "``objectIds()`` and ``keys()`` will return ids for raw Zope 2 objects too, not just Plone content.  If you call ``objectIds()`` on the portal root object, you will get objects like ``acl_users``, ``portal_workflow`` and so on ..."
+msgstr ""
+
+#: ../../content/listing.rst:226
+# a52e2c4abf754b45a253d73d4294b5e2
+msgid "Getting non-contentish Zope objects"
+msgstr ""
+
+#: ../../content/listing.rst:228
+# 23a5b28f82234964a47cfca03bdd1012
+msgid "In some special cases, it is necessary to manipulate non-contentish Zope objects."
+msgstr ""
+
+#: ../../content/listing.rst:230
+# 2d038f68c5b645c9b1caab6549cc50aa
+msgid "This listing method applies to all `OFS.Folder.Folder objects <http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=96262&view=auto>`_, not just Plone content objects::"
+msgstr ""
+
+#: ../../content/listing.rst:241
+# 934948b049d9409f81c925e3c1a957dc
+msgid "Checking for the existence of a particular object id"
+msgstr ""
+
+#: ../../content/listing.rst:243
+# d5e631146d5540a4b87607434e955b58
+msgid "If you want to know whether the folder has a certain item or not, you can use the following snippet."
+msgstr ""
+
+#: ../../content/listing.rst:247
+# dff535e7a75a4889aa7189674a785ac3
+msgid "Plone 4"
+msgstr ""
+
+#: ../../content/listing.rst:249
+# b0e54385ca354668bf4e331579981289
+msgid "Use ``has_key``::"
+msgstr ""
+
+#: ../../content/listing.rst:257
+# 2efe0669fb50487293ed2cce8e897a02
+msgid "Plone 3"
+msgstr ""
+
+#: ../../content/listing.rst:259
+# 2fd20a9ccef1433eae0c7c3af0aae242
+msgid "There is a special case for Large Plone Folders (BTree-based). The following is optimal code, but you can simplify it if you don't need to check if the folder is a ``BTreeFolder``::"
+msgstr ""
+
+#: ../../content/listing.rst:277
+# 5a1dd9c8ed2346a789738654499a85ae
+msgid "Listing the folder items using ``portal_catalog``"
+msgstr ""
+
+#: ../../content/listing.rst:279
+# 159a2c56bf7d4fff9bcdf34e0e5ed981
+msgid "This should be your preferred method for querying folder items. ``portal_catalog`` searches are fast, because they return catalog brain objects instead of the real content objects (less database look ups)."
+msgstr ""
+
+#: ../../content/listing.rst:286
+# 073d85251688429ca53ed649edaca723
+msgid "Returned catalog brain data, such as ``Title``, will be UTF-8 encoded. You need to call ``brain[\"title\"].decode(\"utf-8\")`` or similar on all text you want to extract from the data."
+msgstr ""
+
+#: ../../content/listing.rst:290
+# 44b47904f4d547b3812c57d7ba75d587
+msgid "Simple example how to get all items in a folder::"
+msgstr ""
+
+#: ../../content/listing.rst:307
+# 4e329bbcd01543d28d730fcc09f7a413
+msgid "Here's a complex example of how to perform various filtering operations, honouring some default Plone filtering rules. This example is taken from ``Products.CMFPlone/skins/plone_scripts/getFolderContents``::"
+msgstr ""
+
+#: ../../content/listing.rst:351
+# 2ce678aef9664a139bcef400058aae1b
+msgid "Count of content items"
+msgstr ""
+
+#: ../../content/listing.rst:354
+# c7f409e8997845a3a841c9227de98ec7
+msgid "Counting items using ``getFolderContents``"
+msgstr ""
+
+#: ../../content/listing.rst:356
+# 0d05b508c7d244e6b1186815c75319ae
+msgid "The least expensive call for this, if you have tens of items, is to call ``len()`` on the result of calling ``getFolderContents()``, which is a ``portal_catalog`` based query::"
+msgstr ""
+
+#: ../../content/listing.rst:363
+# 25b848b8e95d422f85422869694d3bb5
+msgid "Counting items using ``contentItems``"
+msgstr ""
+
+#: ../../content/listing.rst:365
+# 28ece8f70ddb48c0ae3b18f8822f3285
+msgid "Alternatively, if you know there are not many objects in in the folder, you can call ``contentItems()`` (or simply ``items()`` in Plone 4 or newer), as this will potentially wake fewer items than a complex catalog query."
+msgstr ""
+
+#: ../../content/listing.rst:371
+# 18724b21fe864ca198850ab265a88d22
+msgid "Security: This method does not consider access rights."
+msgstr ""
+
+#: ../../content/listing.rst:373
+# ceb30396a93741dc968b9bc896545101
+msgid "Example (AT content class method)::"
+msgstr ""
+
+#: ../../content/listing.rst:382
+# b8778f9197ef4d59b3737ca8b5ae6eda
+msgid "Navigational view URL"
+msgstr ""
+
+#: ../../content/listing.rst:384
+# 4c4bba73a9504cc99b40ec19fcc5fdcd
+msgid "Plone has a special default navigation URL which is used in"
+msgstr ""
+
+#: ../../content/listing.rst:388
+# 31c5e86df3694075af95872925c06b69
+msgid "Navigation tree"
+msgstr ""
+
+#: ../../content/listing.rst:390
+# 43b6c124060047148287b4b6f63fb340
+msgid "It is not necessarily the object URL itself (``/folder/item``), but can be e.g. ``/folder/item/@@yourcustomview``"
+msgstr ""
+
+#: ../../content/listing.rst:393
+# 6f7ed0a08a144b5f8c2212fd140c9f93
+msgid "The view action URL must be configured in ``portal_types`` and separately enabled for the content type in ``site_properties``."
+msgstr ""
+
+#: ../../content/listing.rst:396
+# 74420cb749b849a3b1bdd98c2eb8762f
+msgid "For more information see"
+msgstr ""
+
+#: ../../content/listing.rst:398
+# a6c1b4300a324dd0aaaf528f23fc91c4
+msgid "http://stackoverflow.com/questions/12033414/change-link-in-contents-listing-for-custom-content-type#comment16065296_12033414"
+msgstr ""
+
+#: ../../content/listing.rst:401
+# 8e7473696f6e41e1b282ed2d513c3ba9
+msgid "Custom folder listing"
+msgstr ""
+
+#: ../../content/listing.rst:403
+# 3a638368bcdb44b6be65582f9a22139c
+msgid "Here is an example how to create a view which will render a custom listing for a folder or a collection (``ATTopic``)."
+msgstr ""
+
+#: ../../content/listing.rst:406
+# 15cf6efb4681421d943f956ddaec6a2b
+msgid "The view is called ``ProductSummaryView`` and it is registered with the name ``productsummary``. This example is not suitable for your add-on product as is: you need to tailor it for your specific needs."
+msgstr ""
+
+#: ../../content/listing.rst:413
+# 20b7b167064d4473a97a1ca593a63cb1
+msgid "If you are going to call ``item/getObject`` on a catalog brain, it might cause excessive database load as it causes a new database query per object. Try use information available in the catalog or add more catalog indexes. To know more about the issue read about waking up database objects."
+msgstr ""
+
+#: ../../content/listing.rst:420
+# 983931b3705a414b8162a8c857fc42fa
+msgid "First, let's register our view. We could limit content types for which the view is enabled by specifying ``Products.ATContentTypes.interface.IATFolder`` or ``Products.ATContentTypes.interface.IATTopic`` in the ``for`` attribute. Cf. the ``configure.zcml`` snippet below:"
+msgstr ""
+
+#: ../../content/listing.rst:437
+# 722a387ffbb94689b310c9743589c09c
+msgid "Below is the example view code, named as ``productcardsummaryview.py``::"
+msgstr ""
+
+#: ../../content/listing.rst:519
+# 4c5abc90657346e2be32764493a71cb5
+msgid "Below is the corresponding page template skeleton ``productcardsummaryview.pt``:"
+msgstr ""
+
+#: ../../content/listing.rst:624
+# 9ad994a491444e63ba8119f6db595acc
+msgid "Go to view page by adding ``/@@productsummary`` to your folder URL."
+msgstr ""
+
+#: ../../content/listing.rst:627
+# 72755e5705944c668e2e948a5c689de4
+msgid "Making view available in the :guilabel:`Display...` menu"
+msgstr ""
+
+#: ../../content/listing.rst:629
+# 368e6b2763874d468ab739ec51f1f37d
+msgid "You need to add the ``browser:menuItem`` entry to make your view appear in the :guilabel:`Display...` menu from which folders and topics can choose the style of the display."
+msgstr ""
+
+#: ../../content/listing.rst:633
+# 7dff4923930546859480e32aed18152e
+msgid "See :doc:`dynamic views </content/dynamic_views>`."
+msgstr ""
+
+#: ../../content/listing.rst:635
+# f96df5c0576b4f2d9fd1eb78fbb18f6a
+msgid "You need to add:"
+msgstr ""
+
+#: ../../content/listing.rst:637
+# 8c104fe81c24486c9fb00b7440675583
+msgid "``<browser:menuItem>`` configuration directive with view id (e.g. ``@@productsummary``)"
+msgstr ""
+
+#: ../../content/listing.rst:640
+# 1d319e2123db439998eaba67bb9a1737
+msgid "New properties to ``Folder.xml`` or ``Topic.xml`` so that the view becomes available"
+msgstr ""
+
+#: ../../content/listing.rst:644
+# c3f99f7f571c49d5aa12c87b491eacce
+msgid "Preventing folder listing"
+msgstr ""
+
+#: ../../content/listing.rst:646
+# 3d46541b282243b0875c61fbc6bfe35d
+msgid "If the users can access the content items they can usually also list them."
+msgstr ""
+
+#: ../../content/listing.rst:648
+# 8cea4360a89e424ab53bf0f5d4506f63
+msgid "Here is a no-warranty hack how to prevent ``folder_listing`` if needed::"
+msgstr ""
+
+#: ../../content/listing.rst:675
+# 69381cfb3cdf41e1b30fbeda4da73231
+msgid "Complex folder listings and filtering"
+msgstr ""
+
+#: ../../content/listing.rst:677
+# cad0e1901dd0469cb99f96f3b9349a34
+msgid "The following example is for a very complex folder listing view. You can call view methods to returns the listed items themselves and render the HTML in another view --- this allows you to recycle this listing code easily."
+msgstr ""
+
+#: ../../content/listing.rst:682
+# 084d112749954edf968feae861a6d0dc
+msgid "The view does the various sanity checks that normal Plone item listings do:"
+msgstr ""
+
+#: ../../content/listing.rst:684
+# a60f813a79264d419942f4b87ec46051
+msgid "no meta items,"
+msgstr ""
+
+#: ../../content/listing.rst:685
+# 3a24fdf2dd8e4c12876417a5dfad14da
+msgid "no large folders,"
+msgstr ""
+
+#: ../../content/listing.rst:686
+# 5bfa10792bff4d3e9a7e7b508751c6b4
+msgid "no default views,"
+msgstr ""
+
+#: ../../content/listing.rst:687
+# 6514e630063747888c4331ad24d4cddc
+msgid "filter by active language,"
+msgstr ""
+
+#: ../../content/listing.rst:688
+# 3ac745c2183f452186d4448a3c6426d0
+msgid "do not list items where you do not have the ``View`` permission,"
+msgstr ""
+
+#: ../../content/listing.rst:689
+# 1442089e733d4731832b1d84716b8071
+msgid "perform the listing on the parent container if the context itself is not folderish."
+msgstr ""
+
+#: ../../content/listing.rst:861
+# a64f739a2fac48dc88b9741efbd6727a
+msgid "Empty listing view"
+msgstr ""
+
+#: ../../content/listing.rst:863
+# 8e255517b42a4020b3d1520341b28b31
+msgid "Sometimes you want a show folder without listing its content. You can create a :doc:`dynamic view </content/dynamic_views>` in your add-on which is available from *Display...* menu."
+msgstr ""
+
+#: ../../content/listing.rst:867
+# b0eb1059bf0f4d458a2dd7a36215c7dc
+msgid "Example ``configure.zcml`` bit"
+msgstr ""
+
+#: ../../content/listing.rst:879
+# e934fe2378014fed8e2de5a3a87f33cc
+msgid "Example ``empty-listing.pt``"
+msgstr ""
+
+#: ../../content/listing.rst:899
+# bc89a06e99d8477cb8a469777921e414
+msgid "Example ``profiles/default/types/Folder.xml``"
+msgstr ""
+
+#: ../../content/listing.rst:916
+# 3eca5079447c4c44b7588323187b3624
+msgid "*empty-listing* should appear in *Display...* menu."
+msgstr ""
+
+#: ../../content/manipulating.rst:3
+# fa8630ab59df49478d3f2a5240ad2900
+msgid "Manipulating objects"
+msgstr ""
+
+#: ../../content/manipulating.rst:10
+# ec4bb346aa93480eb87b5f96a18a2efe
+msgid "Manipulating objects depends on whether they are based on the Archetypes subsystem or on the Dexterity subsystem."
+msgstr ""
+
+#: ../../content/manipulating.rst:13
+# 1245f4a48b314a3d9b96dcc94c5c5970
+msgid "For more information, consult the manual of the relevant subsystem:"
+msgstr ""
+
+#: ../../content/manipulating.rst:15
+# 85bd1deabb8d4ce395c8bdded16ff0b7
+msgid "`Archetypes examples <http://plone.org/documentation/tutorial/manipulating-plone-objects-programmatically/reading-and-writing-field-values>`_."
+msgstr ""
+
+#: ../../content/manipulating.rst:17
+# eb81ad992d42446c8961b6f39f1f08d3
+msgid "See `Manipulating Content Objects </reference_manuals/external/plone.app.dexterity/reference/manipulating-content-objects.html>`_ in the Dexterity manual"
+msgstr ""
+
+#: ../../content/manipulating.rst:20
+# 294f51b89b5e4ca28f4e4739b04ffe1e
+msgid "Reindexing modified objects"
+msgstr ""
+
+#: ../../content/manipulating.rst:22
+# 8d9a2552f2ed4eb0bc88ab474397f5c1
+msgid "After modifying the object, you need to reindex it in the ``portal_catalog`` to update the search and listing information."
+msgstr ""
+
+#: ../../content/manipulating.rst:25
+# 10733fb995c944b4a23dd8ea3bed2ff7
+msgid "Cataloging has a quirk regarding the ``modified`` metadata: when calling ``reindexObject`` on an object, the value for ``modified`` in ``portal_catalog`` will be set to the time of the reindex, regardless of the value of the modified property of the object."
+msgstr ""
+
+#: ../../content/manipulating.rst:30
+# 336cbca52d17401ea443aa721a9a4762
+msgid "In order to store the correct value you can do an extra reindex of the object with the ``modified`` index as parameter."
+msgstr ""
+
+#: ../../content/manipulating.rst:33
+# c9d222c4961f4acebc000313efdb99f0
+msgid "First do a normal ``reindexObject``, then call it with the modified index explicitly::"
+msgstr ""
+
+#: ../../content/manipulating.rst:39
+# 67aed4d6bbf44d4783e3fdca6fec8db4
+msgid "For more information, see :doc:`\\** How to update this document </searching_and_indexing/indexing>`."
+msgstr ""
+
+#: ../../content/ownership.rst:3
+# 8642cc8a877b49639ffcd51b8f828afa
+msgid "Ownership of content"
+msgstr ""
+
+#: ../../content/ownership.rst:9
+# bdb89235410d40319753dd4f961a44c0
+msgid "Programmatically manipulate Plone content item's ownership"
+msgstr ""
+
+#: ../../content/ownership.rst:14
+# 488315010df24747af4dab95c38e9199
+msgid "Each content item has an owner user."
+msgstr ""
+
+#: ../../content/ownership.rst:16
+# 4d5f01171fcb45df907ba6a1daaf7b25
+msgid "Owned item instances are of subclass of AccessControl.Owned"
+msgstr ""
+
+#: ../../content/ownership.rst:18
+# c91200012e764d41a362f55b638ca251
+msgid "http://svn.zope.org/Zope/trunk/src/AccessControl/Owned.py?rev=96262&view=auto"
+msgstr ""
+
+#: ../../content/ownership.rst:21
+# 9f754c0eead64eb5a915f8385141aeeb
+msgid "Getting the owner of the item"
+msgstr ""
+
+#: ../../content/ownership.rst:30
+# 9e7a20b63a2f44a689e17fb2fea97551
+msgid "Changing ownership of content"
+msgstr ""
+
+#: ../../content/ownership.rst:32
+# 74c056c4c7d34020a166168bc4dcdb21
+msgid "You can use AccessControl.Owner.changeOwnership::"
+msgstr ""
+
+#: ../../content/ownership.rst:36
+# 6e65a4efb9154a878e5aa3ec2769b0a7
+msgid "User is PropertiedUser object."
+msgstr ""
+
+#: ../../content/ownership.rst:49
+# 8572aab4b9744308900a226825a8795b
+msgid "This only changes the owner attribute, not the role assignments. You need to change those too."
+msgstr ""
+
+#: ../../content/ownership.rst:52
+# 19ab7ffa530b4a62a46decbd4c6deb17
+msgid "Example how to add ownership for additional user using local roles::"
+msgstr ""
+
+#: ../../content/ownership.rst:59
+# a6fd0b77dcca49a99bfdf3219c5ee1e7
+msgid "This does not update Dublin Core metadata fields like creator."
+msgstr ""
+
+#: ../../content/ownership.rst:63
+# 656a961d4a1d4e4b81e73f93cce385af
+msgid "Contributors"
+msgstr ""
+
+#: ../../content/ownership.rst:65
+# 06da717478e146ddbd8bd2f77f0982c7
+msgid "Contributors is an automatically managed list where persons, who have been editing in the past, real names are listed. Contributors data is available as Python list of real names."
+msgstr ""
+
+#: ../../content/ownership.rst:70
+# 1361ea9cc6e14e30b4a8c4156f793a4f
+msgid "Contributors does not store user references, because one might want to maintain contributor data even after the user has been deleted."
+msgstr ""
+
+#: ../../content/ownership.rst:73
+# d21f46d0ebfc4a7abd425d6dff91528b
+msgid "Some sample code::"
+msgstr ""
+
+#: ../../content/rename.rst:3
+# 3221a21ba45c4ba4b44c248c1f8b0e66
+msgid "Renaming content"
+msgstr ""
+
+#: ../../content/rename.rst:7
+# 2530272f10b44d9593a7a33b5a58af50
+msgid "How to programmatically rename Plone content items"
+msgstr ""
+
+#: ../../content/rename.rst:14
+# a197b364797c4fda8c5677150788d3b4
+msgid "This page tells how to rename Plone content objects and change their ids."
+msgstr ""
+
+#: ../../content/rename.rst:16
+# 503591b70bde4cab9b47a4fb93c404d5
+msgid "This only concerns URL path ids"
+msgstr ""
+
+#: ../../content/rename.rst:18
+# 4f78aeeef66749309a7e1b33a903ae10
+msgid "Archetypes' Unique ID (UID) is not affected by the rename operation"
+msgstr ""
+
+#: ../../content/rename.rst:20
+# f7d806da3ac14c07bfdc244deb3d1e56
+msgid "Title can be changed using ``setTitle()`` (Archetypes) or related mutator"
+msgstr ""
+
+#: ../../content/rename.rst:23
+# c693c5ee617f408e96bfa7689ef75290
+msgid "Renaming objects"
+msgstr ""
+
+#: ../../content/rename.rst:25
+# 8b1ef1c69ecc427e8fa11fe75ca7dc8e
+msgid "OFS interface has facilities to rename objects"
+msgstr ""
+
+#: ../../content/rename.rst:27
+# 398e0f1ba2b44fd59fae78464c2fdba8
+msgid "http://svn.zope.org/Zope/trunk/src/OFS/interfaces.py?rev=105745&view=auto"
+msgstr ""
+
+#: ../../content/rename.rst:29
+# 56d3b8d860aa44b69d768a1be5e8d2a8
+msgid "``manage_renameObject(oldid, newid)`` for one item"
+msgstr ""
+
+#: ../../content/rename.rst:31
+# 6504175caee14a8a975bba6c8e5f0cec
+msgid "``manage_renameObject([oldid, oldid2], [newid, newid2])`` for rename many items"
+msgstr ""
+
+#: ../../content/rename.rst:33
+# 2ce8a9a25c5747778339ebe1a6a457d9
+msgid "Products.CMFPlone.PloneFolder overrides manage_renameObject() to have hooks to reindex the new object path"
+msgstr ""
+
+#: ../../content/rename.rst:39
+# 10ef8909f6594e02bf5d257f8e34fb63
+msgid "Security warning: \"Copy or Move\" permission is needed on the object by the logged in user."
+msgstr ""
+
+#: ../../content/rename.rst:44
+# aca0a0b8cd3f49de834822043793cf25
+msgid "New id must be a 8-bit string, not unicode. The system might accept values in invalid format."
+msgstr ""
+
+#: ../../content/rename.rst:47
+# 694dc8df6ee247aaa3e12307d05cf307
+msgid "Example how to rename object *lc* to have *-old* suffix::"
+msgstr ""
+
+#: ../../content/rename.rst:57
+# 6c1596a37f8642929ba70ea650060e34
+msgid "These checks performed before rename by the manage_renameObject()::"
+msgstr ""
+
+#: ../../content/rename.rst:71
+# 24d77920b0a149a4b43262765977424a
+msgid "Testing warning: Rename mechanism relies of Persistent attribute called _p_jar to be present on the content object. By default, this is not the case on unit tests. You need to call transaction.savepoint() to make _p_jar appear on persistent objects."
+msgstr ""
+
+#: ../../content/rename.rst:75
+# 408d9a2a0558415684e9923e44e8628a
+msgid "Unit testing example::"
+msgstr ""
+
+#: ../../content/timestamps.rst:3
+# 2374f128a4514502b611467a86b846e1
+msgid "Timestamps"
+msgstr ""
+
+#: ../../content/timestamps.rst:7
+# 00bc1708bcb14e898f8f42f3cf0ac2be
+msgid "How to read created and modified timestamps on Plone content items programmatically"
+msgstr ""
+
+#: ../../content/timestamps.rst:15
+# e7e00918280a4c459f4ea457ac97b8e5
+msgid "Here are some useful timestamps you can extract from content objects and examples how to use them."
+msgstr ""
+
+#: ../../content/timestamps.rst:18
+# 2221329fac21492fa1c7275a6cbaef10
+msgid "Timestamps are part of metadata. For Archetypes, metadata is defined in `ExtensibleMetadata <https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/ExtensibleMetadata.py>`_."
+msgstr ""
+
+#: ../../content/timestamps.rst:21
+# eef7b6976985453c85dfa2ab982cb20e
+msgid ":doc:`Zope 2 DateTime </misc/datetime>` date objects are used."
+msgstr ""
+
+#: ../../content/timestamps.rst:24
+# 13e13a77c0cb42709d703c4a97b8bfaf
+msgid "Last modification date"
+msgstr ""
+
+#: ../../content/timestamps.rst:26
+# 512a16d846254d69abdf71b2772fafe2
+msgid "Products.Archetypes.ExtensibleMetadata.modified() function will give the last modification date as Zope DateTime object. This is part of Dublin Core metadata."
+msgstr ""
+
+#: ../../content/timestamps.rst:29
+#: ../../content/timestamps.rst:123
+# 642cad357efd42ba8b2e608ca88bf34f
+# 2cf460b1d56547cea278ea23b3665a97
+msgid "Example (Zope console debug mode)::"
+msgstr ""
+
+#: ../../content/timestamps.rst:35
+# 917ce3c6916f466d806e5c9ab3efcc2b
+msgid "Setting modification date explicitly"
+msgstr ""
+
+#: ../../content/timestamps.rst:37
+# 6d7f14c275314234b3f7aa35621ac0e9
+msgid "You might want to manual set modification date"
+msgstr ""
+
+#: ../../content/timestamps.rst:39
+# e0d0df5a4d114922a3e7488fdd6d8ddf
+msgid "When you migrate content"
+msgstr ""
+
+#: ../../content/timestamps.rst:41
+# 93efe7687ad74f2aa9a30e84f8f7089d
+msgid "When you edit content subobjects and want to update the timestamp of parent object to reflect this changes"
+msgstr ""
+
+#: ../../content/timestamps.rst:43
+# e1198f5dcb054adab7181effae27ef34
+msgid "Example (Zope console debug mode, assume obj is Archetypes content item)::"
+msgstr ""
+
+#: ../../content/timestamps.rst:59
+# 22029138ab0f474cb16bd787260be40d
+msgid "Viewlet example"
+msgstr ""
+
+#: ../../content/timestamps.rst:61
+# c077b7d284c34702bfa229d960b6405c
+msgid "Below is an example how to create a custom last modified viewlet."
+msgstr ""
+
+#: ../../content/timestamps.rst:63
+# b1929976d9b248d68cf3bd3016a8788c
+msgid "Viewlet code::"
+msgstr ""
+
+#: ../../content/timestamps.rst:88
+# 1a9ce7e2889c415fa4bd2f94c4f6c465
+msgid "Template (lastmodified.py)::"
+msgstr ""
+
+#: ../../content/timestamps.rst:94
+# 7acd6ef37b724bca8fc7f71bb10a450f
+msgid "Viewlet registration::"
+msgstr ""
+
+#: ../../content/timestamps.rst:107
+# 5899c3351bc143d294c49f55e78e42b5
+msgid "CSS::"
+msgstr ""
+
+#: ../../content/timestamps.rst:118
+# e6c960af270c4f7faf6e6a8a97d74155
+msgid "Creation date"
+msgstr ""
+
+#: ../../content/timestamps.rst:120
+# 3cdec324ed904b2aa163e746d44b9dd6
+msgid "Products.Archetypes.ExtensibleMetadata.created() function will give the creation date as Zope DateTime object. This is part of Dublin Core metadata."
+msgstr ""
+
+#: ../../content/timestamps.rst:130
+# 4ec9885ef94d4ba7978e3fdab17230e1
+msgid "IsExpired()"
+msgstr ""
+
+#: ../../content/timestamps.rst:132
+# a81faa642def4eeea2f0aebe6fabf032
+msgid "https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/utils.py#L112"
+msgstr ""
+
+#: ../../content/types.rst:3
+# ceee77a3733f44a5bfeb7b1dadfb7274
+msgid "Content types"
+msgstr ""
+
+#: ../../content/types.rst:7
+# e21d51f1ffed4edfbeea34a266fd3756
+msgid "Plone's content type subsystems and creating new content types programmatically."
+msgstr ""
+
+#: ../../content/types.rst:14
+# 13eca23eb921416687903405ef10e80f
+msgid "Plone has two kind of content types subsystems:"
+msgstr ""
+
+#: ../../content/types.rst:16
+# 2b9df5d287e0430081aec2c62de55f41
+msgid ":doc:`Archetypes </content/archetypes/index>`-based"
+msgstr ""
+
+#: ../../content/types.rst:18
+# 139673b25f7b435b8546d2a1ebdeec2e
+msgid ":doc:`Dexterity </content/dexterity>`-based (new)"
+msgstr ""
+
+#: ../../content/types.rst:20
+# 72ae4c84000f4421941c0fcc5401c327
+msgid "See also Plomino (later in this document)."
+msgstr ""
+
+#: ../../content/types.rst:22
+# 7c8e7221504b4ca48c5136e3edc78ccf
+msgid "Flexible architecture allows other kinds of content type subsystems as well."
+msgstr ""
+
+#: ../../content/types.rst:25
+# 8779648b973b44bdb1c4ed5d964c44ca
+msgid "Type information registry"
+msgstr ""
+
+#: ../../content/types.rst:27
+# a15e2d666fb34d909d279334c15ca2e3
+msgid "Plone maintains available content types in the ``portal_types`` tool."
+msgstr ""
+
+#: ../../content/types.rst:29
+# c06d12772e464d9d8831be38bae6ad55
+msgid "``portal_types`` is a folderish object which stores type information as child objects, keyed by the ``portal_type`` property of the types."
+msgstr ""
+
+#: ../../content/types.rst:33
+# 1e6b0f1b291a4ed4860789050553ed6d
+msgid "``portal_factory`` is a tool responsible for creating the persistent object representing the content."
+msgstr ""
+
+#: ../../content/types.rst:35
+# 0dee76340e8641cba246e043f0f28c32
+msgid "`TypesTool source code <http://svn.zope.org/Products.CMFCore/trunk/Products/CMFCore/TypesTool.py?rev=101748&view=auto>`_."
+msgstr ""
+
+#: ../../content/types.rst:38
+# 0d27bcdbaed24e6fb376267c4afdd85c
+msgid "Listing available content types"
+msgstr ""
+
+#: ../../content/types.rst:40
+# d11981345630412b9d86c3c67a933fcb
+msgid "Often you need to ask the user to choose specific Plone content types."
+msgstr ""
+
+#: ../../content/types.rst:42
+# 84d279cc0bc94abeaac37ed968884c42
+msgid "Plone offers two Zope 3 vocabularies for this purpose:"
+msgstr ""
+
+#: ../../content/types.rst:44
+# cd8052155e5d47c3a414210c138c753b
+msgid "``plone.app.vocabularies.PortalTypes``"
+msgstr ""
+
+#: ../../content/types.rst:45
+# d59e80e8bff844ca8c3557cdcd327690
+msgid "a list of types installed in ``portal_types``"
+msgstr ""
+
+#: ../../content/types.rst:47
+# bb01311ee4fb4373a0d66c376f26bf30
+msgid "``plone.app.vocabularies.ReallyUserFriendlyTypes``"
+msgstr ""
+
+#: ../../content/types.rst:47
+# 8d07df049d174b9bbb6ffa1544209f64
+msgid "a list of those types that are likely to mean something to users."
+msgstr ""
+
+#: ../../content/types.rst:49
+# 2cd48c0ab69740229085d2a8a3ed9325
+msgid "If you need to build a vocabulary of user-selectable content types in Python instead, here's how::"
+msgstr ""
+
+#: ../../content/types.rst:85
+# 0c78baaf6a2c445a82d40232c7c88e3e
+msgid "Creating a new content type"
+msgstr ""
+
+#: ../../content/types.rst:87
+# cb635e7215ef4c5faccdbb03648afb0a
+msgid "These instructions apply to :doc:`Archetypes</content/archetypes/index>`-based content types."
+msgstr ""
+
+#: ../../content/types.rst:90
+# 860d092b8df94256b4e5bcceaaf0bb19
+msgid "You need to have an add-on product code skeleton created using paster's *archetypes* template."
+msgstr ""
+
+#: ../../content/types.rst:92
+# 2d7588c9c418444a969ccec7f6032080
+msgid "Use the ``paster addcontent content`` command to create new content types."
+msgstr ""
+
+#: ../../content/types.rst:94
+# 85d9af618ee54132aa95c3c5c7bbbbc1
+msgid "Related how-tos:"
+msgstr ""
+
+#: ../../content/types.rst:96
+# 50b8f51727a84565bb19277e8b736fdc
+msgid "http://lionfacelemonface.wordpress.com/tutorials/zopeskel-archetypes-howto/"
+msgstr ""
+
+#: ../../content/types.rst:98
+# 8a27b09eb98e42d68971a96a7e52288a
+msgid "http://docs.openia.com/howtos/development/plone/creating-a-site-archetypes-object-and-contenttypes-with-paster?set_language=fi&cl=fi"
+msgstr ""
+
+#: ../../content/types.rst:100
+# 030b7ced76d540e48d7cc4f7584d05d5
+msgid "http://www.unc.edu/~jj/plone/"
+msgstr ""
+
+#: ../../content/types.rst:104
+# 0f01472688894fe496189545eefe77e3
+msgid "Creating types by hand is not worth the trouble. Please use a code generator to create the skeleton for your new content type."
+msgstr ""
+
+#: ../../content/types.rst:109
+# 33b4470097fa4107bbf0c1735c240d4e
+msgid "The content type name must not contain spaces. Neither the content type name or the description may contain non-ASCII letters. If you need to change these please create a translation catalog which will translate the text to one with spaces or international letters."
+msgstr ""
+
+#: ../../content/types.rst:117
+# 8c29dc76ccf140da9b002f5fd078158b
+msgid "Debugging new content type problems"
+msgstr ""
+
+#: ../../content/types.rst:119
+# 2c04ea2a47ff4b2b897bd2d38ce54749
+msgid "Creating types by hand is not worth the trouble."
+msgstr ""
+
+#: ../../content/types.rst:121
+# 306d8cc8506b415b88fec800ff950cd7
+msgid "`Why doesn't my custom content type show up in add menu <http://plone.org/documentation/faq/why-doesnt-my-custom-content-type-show-up-in-add-menu/>`_ checklist."
+msgstr ""
+
+#: ../../content/types.rst:124
+# 2579d7d2315f4bc8a616c9c45f305765
+msgid "Creating new content types through-the-web"
+msgstr ""
+
+#: ../../content/types.rst:126
+# 00c8e14063054d62a9cb67e08249d74b
+msgid "There exist solutions for non-programmers and Plone novices to create their content types more easily."
+msgstr ""
+
+#: ../../content/types.rst:132
+# 4e2c8a185df14d0a947f5979de42472e
+msgid "http://plone.org/products/dexterity"
+msgstr ""
+
+#: ../../content/types.rst:134
+# 95ecf29181ff42908cea1fb5640aa0a5
+msgid "Core feature"
+msgstr ""
+
+#: ../../content/types.rst:136
+# ba4eaae2fd954b61a8e57e9c93144bd9
+msgid "Use Dexterity control panel in site setup"
+msgstr ""
+
+#: ../../content/types.rst:139
+# 5254a2fb0fa842548c7a24feffed2d04
+msgid "Plomino (Archetypes-based add-on)"
+msgstr ""
+
+#: ../../content/types.rst:141
+# 8e70f25394ed4e5696b2f2ce75bd7239
+msgid "With Plomino you can make an entire web application that can organize & manipulate data with very limited programming experience."
+msgstr ""
+
+#: ../../content/types.rst:144
+# 66fbf2646ede400fb30e00cda8e24d97
+msgid "http://www.plomino.net/"
+msgstr ""
+
+#: ../../content/types.rst:146
+# f176c0e181d94d8587d80376669ceb7a
+msgid "http://www.youtube.com/view_play_list?p=469DE37C742F31D1"
+msgstr ""
+
+#: ../../content/types.rst:149
+# c88dc0a267bf446186b9fd51bac30739
+msgid "Implicitly allowed"
+msgstr ""
+
+#: ../../content/types.rst:151
+# 5e9500cd9cc2410ab316fbb120e456fb
+msgid ":guilabel:`Implictly allowed` is a flag specifying whether the content is globally addable or must be specifically enabled for certain folders."
+msgstr ""
+
+#: ../../content/types.rst:155
+# cd1034e0f4f74b499204cd85a10d37e4
+msgid "The following example allows creation of :guilabel:`Large Plone Folder` anywhere at the site (it is disabled by default). For available properties, see ``TypesTool._advanced_properties``."
+msgstr ""
+
+#: ../../content/types.rst:168
+# 08784d6ee0b546b7831a959dc4fe8c32
+msgid "Constraining the addable types per type instance"
+msgstr ""
+
+#: ../../content/types.rst:170
+# 084d47ff48294a68beb45b6df9b0110a
+msgid "For the instances of some content types, the user may manually restrict which kinds of objects may be added inside. This is done by clicking the :guilabel:`Add new...` link on the green edit bar and then choosing :guilabel:`Restrictions...`."
+msgstr ""
+
+#: ../../content/types.rst:175
+# e840fa3b3ebc417f8eeb6bc87e778e25
+msgid "This can also be done programmatically on an instance of a content type that supports it."
+msgstr ""
+
+#: ../../content/types.rst:178
+# 3db275d8a2084b98a6f7db43551d39b3
+msgid "First, we need to know whether the instance supports this."
+msgstr ""
+
+#: ../../content/types.rst:188
+# bc70bd15cbca465a986b8335a8940885
+msgid "If ``setConstrainTypesMode`` is ``1``, then only the types enabled by using ``setLocallyAllowedTypes`` will be allowed."
+msgstr ""
+
+#: ../../content/types.rst:191
+# bfd74da5cb0043b5b07bc4b800dbe9ed
+msgid "The types specified by ``setLocallyAllowedTypes`` must be a subset of the allowable types specified in the content-type's FTI (Factory Type Information) in the ``portal_types`` tool."
+msgstr ""
+
+#: ../../content/types.rst:196
+# ce3174c7d0f34a869ec8eaab2ee8f0d4
+msgid "If you want the types to appear in the :guilabel: ``Add new..`` dropdown menu, then you must also set the immediately addable types. Otherwise, they will appear under the :guilabel:`more` submenu of :guilabel:`Add new..`."
+msgstr ""
+
+#: ../../content/types.rst:205
+# 7762e9d4c1cf46b98507ec5f08159867
+msgid "The immediately addable types must be a subset of the locally allowed types."
+msgstr ""
+
+#: ../../content/types.rst:207
+# 69917d82d6b14ad4bdb6bca56f9852be
+msgid "To retrieve information on the constrained types, you can just use the accessor equivalents of the above methods."
+msgstr ""
+
+#: ../../content/types.rst:218
+# bde1a4abae9840eeb5f627fb5441cf8f
+msgid "**Be careful of Acquisition**. You might be acquiring these methods from the current instance's parent. It would be wise to first check whether the current object has this attribute, either by using ``shasattr`` or by using ``hasattr`` on the object's base (access the base object using ``aq_base``)."
+msgstr ""
+
+#: ../../content/types.rst:224
+# 1f2c276980ec4a8abd0eb973897edb26
+msgid "The default addable types are the types that are addable when ``constrainTypesMode`` is ``0`` (i.e not enabled)."
+msgstr ""
+
+#: ../../content/types.rst:227
+# 5acc0849ddbf4f5aa935bf0b819c394a
+msgid "For more information, see **Products/CMFPlone/interfaces/constraints.py**"
+msgstr ""
+
+#: ../../content/uid.rst:3
+# 5cdd86123c73424991204641fe218fd9
+msgid "Content identification (ids)"
+msgstr ""
+
+#: ../../content/uid.rst:7
+# b01b8267d0c0417daa1c65a30b012202
+msgid "Different ids, UIDs, integer ids or whatever can identify your Plone content and give access to it."
+msgstr ""
+
+#: ../../content/uid.rst:16
+# 0cd6d95b0fb14d1196cbe96a972b489a
+msgid "Id"
+msgstr ""
+
+#: ../../content/uid.rst:18
+# 24072da5287f4f3ea2e166d6843993c1
+msgid "Content id generally refers the item id **within the folder**. Together with folder path this identifies the content in unique way."
+msgstr ""
+
+#: ../../content/uid.rst:21
+# 75925c14dcc24ae5b10431cb249bca9a
+msgid "Naturally, this id changes when the content is renamed or moved."
+msgstr ""
+
+#: ../../content/uid.rst:23
+# 8e600b50102f453386238648120d9b94
+msgid "Use :doc:`traversing </serving/traversing>` to resolve object by path+id."
+msgstr ""
+
+#: ../../content/uid.rst:26
+# 405f95993fb44eed91853358ee6839d1
+msgid "UID and UUID"
+msgstr ""
+
+#: ../../content/uid.rst:28
+# 7408a619f12042639a61d251e95e151f
+msgid "UID is a unique, non-human-readable identifier for a content object which stays on the object even if the object is moved."
+msgstr ""
+
+#: ../../content/uid.rst:31
+# fb7d5871ab554ff18b4d4b9d477e89b5
+msgid "Plone uses UUIDs for"
+msgstr ""
+
+#: ../../content/uid.rst:33
+# 925e8356d1144a6b96f86706d248bfcc
+msgid "Storing content-to-content references (Archetypes, ReferenceField)"
+msgstr ""
+
+#: ../../content/uid.rst:35
+# 82031bb4feca470b8923d370731fa005
+msgid "Linking by UIDs (Kupu) - this enables persistent links even though the object is moved"
+msgstr ""
+
+#: ../../content/uid.rst:37
+# 2b8ba5fff62b4c3a89e0543b5c26a306
+msgid "Plain UID is supported by Archetypes only and is based on reference_catalog"
+msgstr ""
+
+#: ../../content/uid.rst:39
+# c37abaa353814a10935c8fa0e7b7f460
+msgid "UUID is supported by Archetypes and Dexterity both and you should use this for new projects"
+msgstr ""
+
+#: ../../content/uid.rst:41
+# 2c51f52660644d8dba49b4fce5f86401
+msgid "UIDs are available for Archetypes content and unified UUIDs for both Archetypes and Dexterity content items since ``plone.app.dexterity`` version 1.1."
+msgstr ""
+
+#: ../../content/uid.rst:46
+# 8d53094ea7c24597a16a1577eabf7857
+msgid "If you have pre-Dexterity 1.1 content items you must run a migration step in portal_setup to give them UUIDs."
+msgstr ""
+
+#: ../../content/uid.rst:49
+# 9d9ae12f27964226b8bb2bd0cad7f718
+msgid "To get object UUID you can use `plone.app.uuid <http://pypi.python.org/pypi/plone.app.uuid/>`_ package."
+msgstr ""
+
+#: ../../content/uid.rst:51
+# 43ce6b61ec0545caa0f17305e9742048
+msgid "Getting object UUID::"
+msgstr ""
+
+#: ../../content/uid.rst:66
+# dd9da02f3bb24195bae524a5e0464cb8
+msgid "Looking up object by UUID:"
+msgstr ""
+
+#: ../../content/uid.rst:68
+# 8b0a32c62c4543e78e24b839e945f1cb
+msgid "Use `plone.app.uuid.utils.uuidToObject <https://github.com/plone/plone.app.uuid/blob/master/plone/app/uuid/utils.py>`_::"
+msgstr ""
+
+#: ../../content/uid.rst:81
+# 7f23b9252e5e4d59b6ebceb9c35a08ba
+msgid "http://stackoverflow.com/questions/8618917/portal-catalog-unique-ids-for-both-archetypes-and-dexterity-content"
+msgstr ""
+
+#: ../../content/uid.rst:85
+# 0281642dbb4e4cd1a86bb58d26ac8fc6
+msgid "UUID Acquisition problem with Dexterity Content Types"
+msgstr ""
+
+#: ../../content/uid.rst:87
+# 7eca682eaec545078b5168c5910226fa
+msgid "Make sure your Dexterity content type has the `plone.app.referenceablebehavior.interfaces.IReferenceable <https://github.com/plone/plone.app.referenceablebehavior/blob/master/plone/app/referenceablebehavior/interfaces.py>`_ behavior enabled. If not, when querying for an object's UUID, you will get its parent UUID. Then you can end up with a lot of objects with the same UUID as their parent."
+msgstr ""
+
+#: ../../content/uid.rst:89
+# 2e0b1531cfd7473a9df57d16769af2c1
+msgid "If you run into this issue, here's an easy upgrade step to fix it::"
+msgstr ""
+
+#: ../../content/uid.rst:123
+# f74912eb62c04544b4547c8ce7e28e33
+msgid "Make sure to have the IReferenceable behavior listed in the content type XML definition before running the upgrade step. Also note that this upgrade step will recalculate the UUID for all \"my.custom.content.type\" objects."
+msgstr ""
+
+#: ../../content/uid.rst:128
+# 05a31a60aa814f45b4fddb0e7324f2e4
+msgid "intids"
+msgstr ""
+
+#: ../../content/uid.rst:130
+# 98375a8187414fe4aa6a69329379690e
+msgid "Integer ids (\"intids\") are fast look-up ids provided by ``plone.app.intid`` and ``five.intid`` packages.  Instead of relying on globally unique identifier strings (UIDs) they use 64-bit integers, making low-level resolution faster."
+msgstr ""
+
+#: ../../content/uid.rst:135
+# 99262a6d0ab24324ac67f9d01de9cada
+msgid "https://github.com/plone/plone.app.intid"
+msgstr ""
+
+#: ../../content/uid.rst:137
+# bc625698355c4c6aa0d3889e05e75926
+msgid "http://stackoverflow.com/questions/8629390/how-to-use-intids"
+msgstr ""
+
+#: ../../content/uid.rst:142
+# ffbed9a3ed294c55b3fa14e36299750c
+msgid "This info only for Plone 3.x projects."
+msgstr ""
+
+#: ../../content/uid.rst:145
+# 19fd1475c2404c41bf2b90a8eb97de2d
+msgid "Getting the object's UID"
+msgstr ""
+
+#: ../../content/uid.rst:147
+# e3d0c81a5f41412da032540b5d0c110e
+msgid "Use UID() accessor function"
+msgstr ""
+
+#: ../../content/uid.rst:149
+# 884cf6afec6b440c9ecd68466c57bf02
+msgid "Example how to get UID of *events* folder::"
+msgstr ""
+
+#: ../../content/uid.rst:156
+# fa89a00a1ca24ec19f8c8d3eb465739b
+msgid "Looking up object by UID"
+msgstr ""
+
+#: ../../content/uid.rst:158
+# 00973060d2234b03a1cc90aa9565689f
+msgid "Use lookupObject() in reference catalog."
+msgstr ""
+
+#: ../../content/uid.rst:163
+# 5363ece42b984855bcb1aceaa6904012
+msgid "*None* will be returned if there is content item with matching UID (the item has been deleted)."
+msgstr ""
+
+#: ../../content/workflow.rst:3
+# c4bfdeeb87624a419db3939cfe3c5391
+msgid "Workflows"
+msgstr ""
+
+#: ../../content/workflow.rst:7
+# bc060f6abd3f474bb7388433c7c02e83
+msgid "Programming workflows in Plone."
+msgstr ""
+
+#: ../../content/workflow.rst:14
+# 74ce4cad29a24ad09767ee33e1a38052
+msgid "The DCWorkflow product manages the default Plone workflow system."
+msgstr ""
+
+#: ../../content/workflow.rst:16
+# d09c1d1a81a44ce99bf045ea874347e7
+msgid "A workflow state is not directly stored on the object. Instead, a separate portal_workflow tool must be used to access a workflow state. Workflow look-ups involve an extra database fetch."
+msgstr ""
+
+#: ../../content/workflow.rst:20
+# 2af2c6f747c04f749cda8d4de52fa83f
+msgid "For more information, see"
+msgstr ""
+
+#: ../../content/workflow.rst:22
+# 2549bfbd38bc4ee085922041d136eedd
+msgid "http://www.martinaspeli.net/articles/dcworkflows-hidden-gems"
+msgstr ""
+
+#: ../../content/workflow.rst:25
+# 74b9b45db7f34af9b6d68f7660654e03
+msgid "Creating workflows"
+msgstr ""
+
+#: ../../content/workflow.rst:27
+# f68b50174d1c428f96f0eab5c0bffaa2
+msgid "The recommended method is to use the portal_workflow user interface in the Zope Management Interface to construct the workflow through-the-web and then you can export it using GenericSetup's portal_setup tool."
+msgstr ""
+
+#: ../../content/workflow.rst:30
+# 7aa790f0850445bea1d7d0c5262c5ac0
+msgid "Include necessary parts from exported workflows.xml and workflows folder in your add-on product GenericSetup profile (add-on folder profiles/default)."
+msgstr ""
+
+#: ../../content/workflow.rst:34
+# 286d8ef74d8d46459f97a5eb54a28a8a
+msgid "Model the workflow online"
+msgstr ""
+
+#: ../../content/workflow.rst:36
+# 29f1cc5fecb0420b82ed006b60db1950
+msgid "Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_workflows/manage_main', copy and paste 'simple_publication_workflow', to have a skeleton for start-off, rename 'copy_of_simple_publication_workflow' to 'your_workflow' or add a new workflow via the dropdwon-menu and have a tabula rasa."
+msgstr ""
+
+#: ../../content/workflow.rst:40
+# 414236a125b0489cbcae13ea4b4ebe34
+msgid "Add and remove states and transitions, assign permissions etc., for more information see:"
+msgstr ""
+
+#: ../../content/workflow.rst:42
+# 1c5e676f59d14913a95684fafbf05ab0
+msgid "http://plone.org/documentation/kb/creating-workflows-in-plone"
+msgstr ""
+
+#: ../../content/workflow.rst:46
+# ea2669784f1d4e149d75bf5b3160f666
+msgid "Putting it in your product"
+msgstr ""
+
+#: ../../content/workflow.rst:47
+# 86d7d88887cf4578bd646434fdda5a5d
+msgid "Go to 'http:yourhost.com:8080/yourPloneSiteName/portal_setup/manage_exportSteps', check 'Workflow Tool' and hit 'Export selected steps', unzip the downloaded file and put the definitions.xml-file in 'your/product/profiles/default/workflows/your_workflow/' (you'll need to create the latter two directories)."
+msgstr ""
+
+#: ../../content/workflow.rst:53
+# 5a89be06accc4ba0897bbb39a6460e0c
+msgid "Configure workflow via GenericSetup"
+msgstr ""
+
+#: ../../content/workflow.rst:56
+# 531ad8dc79ee4eec91f64592f0fcfdd9
+msgid "Assign a workflow"
+msgstr ""
+
+#: ../../content/workflow.rst:58
+# b3cfaeb001be456ea751823d0c60c093
+msgid "In your/product/profiles/default/workflows.xml, insert:"
+msgstr ""
+
+#: ../../content/workflow.rst:71
+# 6668283ffdc14382ab85f9231b36beaa
+msgid "Assigning a workflow globally as default"
+msgstr ""
+
+#: ../../content/workflow.rst:73
+# e1ad7de5bb354456aed650929f6ed1fd
+msgid "In your/product/profiles/default/workflows.xml, add:"
+msgstr ""
+
+#: ../../content/workflow.rst:87
+# 7b8913f1b13b4282a51802fafea7485f
+msgid "Binding a workflow to a content type"
+msgstr ""
+
+#: ../../content/workflow.rst:89
+# 668bb660f7fb483f958ae46a008f86a4
+msgid "Example with GenericSetup *workflows.xml*"
+msgstr ""
+
+#: ../../content/workflow.rst:103
+# d2d1a9c6f9184cd6ac82ee71123befe7
+msgid "Disabling workflow for a content type"
+msgstr ""
+
+#: ../../content/workflow.rst:104
+# bc64c453636544eca70acc6b447003c7
+msgid "If a content type doesn't have a workflow it uses its parent container security settings. By default, content types Image and File have no workflow."
+msgstr ""
+
+#: ../../content/workflow.rst:107
+# 8014c87ed0f848c695830bb8f07d6ffe
+msgid "Workflows can be disabled by setting the workflow setting empty in portal_workflow in ZMI."
+msgstr ""
+
+#: ../../content/workflow.rst:109
+# 3124c3f358a94578bd771f994fb0c466
+msgid "Example how to do it with GenericSetup *workflows.xml*"
+msgstr ""
+
+#: ../../content/workflow.rst:126
+# 5d28d18f3b414d0e9cdfac56aac727a4
+msgid "Updating security settings after changing workflow"
+msgstr ""
+
+#: ../../content/workflow.rst:128
+# cd7dd03c2e2b4dc982305844fb86eb04
+msgid "Through the web this would be done by going to ZMI > portal_workflow > update security settings"
+msgstr ""
+
+#: ../../content/workflow.rst:131
+# 98a31f438c894b1a8803de9080902f93
+msgid "To update security settings programmatically use the method updateRoleMappings. The snippet below demonstrates this::"
+msgstr ""
+
+#: ../../content/workflow.rst:141
+# d153dbe4bf0d42149b832bb2b2144329
+msgid "Programatically"
+msgstr ""
+
+#: ../../content/workflow.rst:144
+# 0000acc8f5994b52bd1ab5751f479538
+msgid "Getting the current workflow state"
+msgstr ""
+
+#: ../../content/workflow.rst:157
+# 52af18a5a6ee4867a4c73be8a8522480
+msgid "Filtering content item list by workflow state"
+msgstr ""
+
+#: ../../content/workflow.rst:159
+# 79a20ddbb82542e4bd2ef64025c25b2b
+msgid "Here is an example how to iterate through content item list and let through only content items having certain state."
+msgstr ""
+
+#: ../../content/workflow.rst:164
+# 396636699de44873b1a16eff448edd43
+msgid "Usually you don't want to do this, but use content aware folder listing method or portal_catalog query which does filtering by permission check."
+msgstr ""
+
+#: ../../content/workflow.rst:185
+# 3a1a873580bb48aaae11f7c23cbd0c26
+msgid "Changing workflow state"
+msgstr ""
+
+#: ../../content/workflow.rst:187
+# b8f55347f2ab484dbf65d20091a2b507
+msgid "You cannot directly set the workflow to any state, but you must push it through legal state transitions."
+msgstr ""
+
+#: ../../content/workflow.rst:190
+# fbf24c7dd46d41db92a9bfede0fc87c0
+msgid "**Security warning**: Workflows may have security assertations which are bypassed by admin user. Always test your workflow methods using a normal user."
+msgstr ""
+
+#: ../../content/workflow.rst:193
+# e01f03aa6f754932931e6440a4eb75cd
+msgid "Example how to publish content item ``banner``::"
+msgstr ""
+
+#: ../../content/workflow.rst:208
+# 78bb88e7b3844d0f8dacb84f4826e32c
+msgid "Example how to submit to review::"
+msgstr ""
+
+#: ../../content/workflow.rst:223
+# e0ad5ac27d9640dd9a4316bca62fd31f
+msgid "Example how to cause specific transitions based on another event (e.g. a parent folder state change). This code must be part of your product's trusted code not a workflow script because of the permission issues mentioned above. See also see :doc:`../components/events` ::"
+msgstr ""
+
+#: ../../content/workflow.rst:255
+# c0bffdbd01fd49d1bcc0b98df3e23f8e
+msgid "Gets the list of ids of all installed workflows"
+msgstr ""
+
+#: ../../content/workflow.rst:257
+# 91b9e467669d4345acfbf59e4079681a
+msgid "Useful to test if a particular workflow is installed::"
+msgstr ""
+
+#: ../../content/workflow.rst:264
+# a51beb8d9fdf4b57a7e5142e09f26722
+msgid "Getting default workflow for a portal type"
+msgstr ""
+
+#: ../../content/workflow.rst:266
+# 773f2e84069f42b48757b60cf210e59d
+msgid "Get default workflow for the type::"
+msgstr ""
+
+#: ../../content/workflow.rst:272
+# 3ebcb2ea9da547929d8572187e09c059
+msgid "Getting workflows for an object"
+msgstr ""
+
+#: ../../content/workflow.rst:274
+# 17928d1e8e1340fab2e376b207d06b87
+msgid "How to test which workflow the object has::"
+msgstr ""
+
+#: ../../content/workflow.rst:289
+# deedebd7da5545cb875b2d14945dcf31
+msgid "Via HTTP"
+msgstr ""
+
+#: ../../content/workflow.rst:291
+# e204a3b062d74c418217c496caf26ab8
+msgid "Plone provides a ``workflow_action`` script which is able to trigger the status modification through an HTTP request (browser address bar)."
+msgstr ""
+

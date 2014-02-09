@@ -40,7 +40,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinxcontrib_robotdoc',
-    'sphinxcontrib.contributors'
+#    'sphinxcontrib.contributors'
 ]
 
 # See http://sphinx.pocoo.org/ext/todo.html#confval-todo_include_todos
@@ -263,8 +263,9 @@ def create_symlinks_for_external_docs():
                 raise
 
 # Ignore for now so that we get collective-docs.rtd.org project built complete
-try:
-    create_symlinks_for_external_docs()
-except Exception as e:
-    import traceback ; traceback.print_exc()
-    pass
+#try:
+#    create_symlinks_for_external_docs()
+#except Exception as e:
+#    import traceback ; traceback.print_exc()
+#    pass
+locale_dirs = ['_locales/']

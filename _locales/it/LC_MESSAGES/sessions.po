@@ -1,0 +1,788 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../sessions/cookies.rst:3
+msgid "Cookies"
+msgstr ""
+
+#: ../../sessions/cookies.rst:5 ../../sessions/login.rst:5
+#: ../../sessions/session_variables.rst:5
+msgid "Description"
+msgstr ""
+
+#: ../../sessions/cookies.rst:7
+msgid "Handling session and other cookies in Plone"
+msgstr ""
+
+#: ../../sessions/cookies.rst:12 ../../sessions/login.rst:12
+#: ../../sessions/session_variables.rst:13
+msgid "Introduction"
+msgstr ""
+
+#: ../../sessions/cookies.rst:14
+msgid "Setting and getting cookies"
+msgstr ""
+
+#: ../../sessions/cookies.rst:16
+msgid "http://www.dieter.handshake.de/pyprojects/zope/book/chap3.html"
+msgstr ""
+
+#: ../../sessions/cookies.rst:18
+msgid ""
+"http://stackoverflow.com/questions/1034252/how-do-you-get-and-set-cookies-"
+"in-zope-and-plone"
+msgstr ""
+
+#: ../../sessions/cookies.rst:21
+msgid "Reading cookies"
+msgstr ""
+
+#: ../../sessions/cookies.rst:23
+msgid "Usually you want to read incoming cookies sent by the browser."
+msgstr ""
+
+#: ../../sessions/cookies.rst:25 ../../sessions/session_variables.rst:36
+#: ../../sessions/session_variables.rst:80
+#: ../../sessions/session_variables.rst:116
+#: ../../sessions/statusmessages.rst:20
+msgid "Example::"
+msgstr ""
+
+#: ../../sessions/cookies.rst:30
+msgid "Setting cookies"
+msgstr ""
+
+#: ../../sessions/cookies.rst:32
+msgid ""
+"See `HTTPResponse.setCookie() "
+"<https://github.com/zopefoundation/Zope/blob/master/src/ZPublisher/HTTPResponse.py#L241>`_."
+msgstr ""
+
+#: ../../sessions/cookies.rst:35
+msgid "Modifying HTTP response cookies"
+msgstr ""
+
+#: ../../sessions/cookies.rst:37
+msgid ""
+"You might want to tune up or clean cookies after some other part of Plone "
+"code has set them. You can do this in :doc:`post-publication event handler "
+"</serving/http_request_and_response>`."
+msgstr ""
+
+#: ../../sessions/cookies.rst:40
+msgid "Example ``cleancookies.py`` (needs ZCML subscriber registration too)::"
+msgstr ""
+
+#: ../../sessions/cookies.rst:74
+msgid "Default Plone cookies"
+msgstr ""
+
+#: ../../sessions/cookies.rst:76
+msgid "Typical Plone cookies::"
+msgstr ""
+
+#: ../../sessions/cookies.rst:97
+msgid "Zope session cookie"
+msgstr ""
+
+#: ../../sessions/cookies.rst:99
+msgid "This cookie looks like::"
+msgstr ""
+
+#: ../../sessions/cookies.rst:103
+msgid "It is set first time when session data is written."
+msgstr ""
+
+#: ../../sessions/cookies.rst:106
+msgid "Language cookie"
+msgstr ""
+
+#: ../../sessions/cookies.rst:108
+msgid ""
+"``I18N_LANGUAGE`` is set by ``portal_languages`` tool. Disable it by *Use "
+"cookie for manual override* setting in ``portal_languages``."
+msgstr ""
+
+#: ../../sessions/cookies.rst:112
+msgid ""
+"Also, language cookie has a special lifecycle when LinguaPlone is installed."
+" This may affect your front-end web server caching. If configured "
+"improperly, the language cookie gets set on images and static assets like "
+"CSS HTTP responses."
+msgstr ""
+
+#: ../../sessions/cookies.rst:116
+msgid ""
+"http://stackoverflow.com/questions/5715216/why-plone-3-sets-language-cookie-"
+"to-css-js-registry-files-and-how-to-get-rid-o"
+msgstr ""
+
+#: ../../sessions/cookies.rst:119
+msgid "Session cookie lifetime"
+msgstr ""
+
+#: ../../sessions/cookies.rst:121
+msgid "Setting session cookie lifetime"
+msgstr ""
+
+#: ../../sessions/cookies.rst:123
+msgid "http://plone.org/documentation/kb/cookie-duration"
+msgstr ""
+
+#: ../../sessions/cookies.rst:126
+msgid "Sanitizing cookies for the cache"
+msgstr ""
+
+#: ../../sessions/cookies.rst:128
+msgid ""
+"You don't want to store HTTP responses with cookies in a front end cache "
+"server, because this would be a leak of other users' information."
+msgstr ""
+
+#: ../../sessions/cookies.rst:131
+msgid ""
+"Don't cache pages with cookies set. Also with multilingual sites it makes "
+"sense to have unique URLs for different translations as this greatly "
+"simplifies caching (you can ignore language cookie)."
+msgstr ""
+
+#: ../../sessions/cookies.rst:135
+msgid "Note that cookies can be set:"
+msgstr ""
+
+#: ../../sessions/cookies.rst:137
+msgid "by the server (Plone itself)"
+msgstr ""
+
+#: ../../sessions/cookies.rst:139
+msgid "on the client side, by Javascript (Google Analytics)"
+msgstr ""
+
+#: ../../sessions/cookies.rst:141
+msgid ""
+"... so you might need to clean cookies for both incoming HTTP requests and "
+"HTTP responses."
+msgstr ""
+
+#: ../../sessions/cookies.rst:144
+msgid ":doc:`More info in Varnish section of this manual </hosting/varnish>`."
+msgstr ""
+
+#: ../../sessions/cookies.rst:147
+msgid "Signing cookies"
+msgstr ""
+
+#: ../../sessions/cookies.rst:149
+msgid "Kind of... crude example"
+msgstr ""
+
+#: ../../sessions/cookies.rst:151
+msgid "https://gist.github.com/3951630"
+msgstr ""
+
+#: ../../sessions/index.rst:3
+msgid "Sessions and cookies"
+msgstr ""
+
+#: ../../sessions/login.rst:3
+msgid "Login and logout"
+msgstr ""
+
+#: ../../sessions/login.rst:7
+msgid "Login and logout related programming activities in Plone"
+msgstr ""
+
+#: ../../sessions/login.rst:14
+msgid "This chapter contains login and logout related code snippets."
+msgstr ""
+
+#: ../../sessions/login.rst:17
+msgid "Login entry points"
+msgstr ""
+
+#: ../../sessions/login.rst:19
+msgid "There are two login points in Plone"
+msgstr ""
+
+#: ../../sessions/login.rst:21
+msgid ""
+"``/login`` view (appended to any content URL) directs you to the page where "
+"you came from after the login."
+msgstr ""
+
+#: ../../sessions/login.rst:23
+msgid ""
+"``/login_form`` view does login without the redirect back to the original "
+"page."
+msgstr ""
+
+#: ../../sessions/login.rst:25
+msgid "In addition, the ``/logout`` action logs the user out."
+msgstr ""
+
+#: ../../sessions/login.rst:27
+msgid ""
+"The logic that drives the login process is implemented using the CMF form "
+"controller framework (legacy). To customize it, you need to override one or "
+"more of the ``login_*`` scripts. This can be accomplished in two ways: "
+"register your own skin directory or use `z3c.jbot "
+"<http://pypi.python.org/pypi/z3c.jbot>`_. Note that in both cases, you need "
+"to copy the ``.metadata`` file as well."
+msgstr ""
+
+#: ../../sessions/login.rst:31
+msgid "Extracting credentials"
+msgstr ""
+
+#: ../../sessions/login.rst:33
+msgid ""
+"Extracting credentials try to extract log-in (username, password) from HTTP "
+"request."
+msgstr ""
+
+#: ../../sessions/login.rst:35
+msgid ""
+"Below is an example how to extract and authenticate the user manually. It is"
+" mostly suitable for unit testing. Note that given login field isn't "
+"necessarily the username. For example, `betahaus.emaillogin "
+"<http://pypi.python.org/pypi/betahaus.emaillogin>`_ add-on authenticates "
+"users by their email addresses."
+msgstr ""
+
+#: ../../sessions/login.rst:40
+msgid ""
+"Credential extraction will go through all plug-ins registered for `PlonePAS "
+"<https://github.com/plone/Products.PlonePAS/tree/master/README.txt>`_ "
+"system."
+msgstr ""
+
+#: ../../sessions/login.rst:43
+msgid ""
+"The first found login/password pair attempt will be used for user "
+"authentication."
+msgstr ""
+
+#: ../../sessions/login.rst:45 ../../sessions/login.rst:99
+msgid "Unit test example::"
+msgstr ""
+
+#: ../../sessions/login.rst:85
+msgid "Authenticating the user"
+msgstr ""
+
+#: ../../sessions/login.rst:88
+msgid "Using username and password"
+msgstr ""
+
+#: ../../sessions/login.rst:90
+msgid ""
+"Authenticating the user will check that username and password are correct."
+msgstr ""
+
+#: ../../sessions/login.rst:92
+msgid ""
+"Pluggable Authentication Service (acl_users under site root) will go through"
+" all authentication plug-ins and return the first successful authenticated "
+"users."
+msgstr ""
+
+#: ../../sessions/login.rst:96
+msgid ""
+"Read more in `PlonePAS "
+"<https://github.com/plone/Products.PlonePAS/tree/master/README.txt>`_."
+msgstr ""
+
+#: ../../sessions/login.rst:111
+msgid "Using username only"
+msgstr ""
+
+#: ../../sessions/login.rst:113
+msgid "Useful for sudo style logins."
+msgstr ""
+
+#: ../../sessions/login.rst:124
+msgid "See also"
+msgstr ""
+
+#: ../../sessions/login.rst:126
+msgid ""
+"http://svn.plone.org/svn/collective/niteoweb.loginas/trunk/niteoweb/loginas/browser/login_as.py"
+msgstr ""
+
+#: ../../sessions/login.rst:129
+msgid "Post-login actions"
+msgstr ""
+
+#: ../../sessions/login.rst:131
+msgid ""
+"Post-login actions are executed after a successful login. Post-login actions"
+" which you could want to change are"
+msgstr ""
+
+#: ../../sessions/login.rst:133
+msgid "Where to redirect the user after login"
+msgstr ""
+
+#: ../../sessions/login.rst:135
+msgid "Setting the status message after login"
+msgstr ""
+
+#: ../../sessions/login.rst:137
+msgid ""
+"Post-login code can be executd with :doc:`events </components/events>` "
+"defined in PluggableAuthService service."
+msgstr ""
+
+#: ../../sessions/login.rst:140
+msgid "``IUserLoggedInEvent``"
+msgstr ""
+
+#: ../../sessions/login.rst:142
+msgid "``IUserInitialLoginInEvent`` (logs for the first time)"
+msgstr ""
+
+#: ../../sessions/login.rst:144
+msgid "``IUserLoggedOutEvent``"
+msgstr ""
+
+#: ../../sessions/login.rst:146
+msgid ""
+"Here is an :doc:`Grok based </components/grok>` example how to redirect a "
+"user to a custom folder after he/she logs in (overrides standard Plone login"
+" behavior)"
+msgstr ""
+
+#: ../../sessions/login.rst:149
+msgid "``postlogin.py``::"
+msgstr ""
+
+#: ../../sessions/login.rst:246
+msgid "Post-logout actions"
+msgstr ""
+
+#: ../../sessions/login.rst:248
+msgid ""
+"Products.PlonePAS.tools.membership fires "
+"``Products.PlonePAS.events.UserLoggedOutEvent`` when the user logs out via "
+"*Log out* menu item."
+msgstr ""
+
+#: ../../sessions/login.rst:253
+msgid ""
+"You cannot catch session timeout events this way... only explicit logout "
+"action."
+msgstr ""
+
+#: ../../sessions/login.rst:256
+msgid "Example ZCML"
+msgstr ""
+
+#: ../../sessions/login.rst:264
+msgid "Example Python::"
+msgstr ""
+
+#: ../../sessions/login.rst:285 ../../sessions/login.rst:310
+msgid "More info"
+msgstr ""
+
+#: ../../sessions/login.rst:287
+msgid ""
+"https://github.com/plone/Products.PlonePAS/blob/master/Products/PlonePAS/tools/membership.py#L645"
+msgstr ""
+
+#: ../../sessions/login.rst:290
+msgid "Entry points to logged in member handling"
+msgstr ""
+
+#: ../../sessions/login.rst:292
+msgid ""
+"See "
+"``Products.PluggableAuthService.PluggableAuthService._extractUserIds()``. It"
+" will try to extract credentials from incoming HTTP request, using different"
+" \"extract\" plug-ins of PAS framework."
+msgstr ""
+
+#: ../../sessions/login.rst:296
+msgid ""
+"``PluggableAuthService`` is also known as ``acl_users`` persistent object in"
+" the site root."
+msgstr ""
+
+#: ../../sessions/login.rst:299
+msgid ""
+"For each set of extracted credentials, try to authenticate a user;  "
+"accumulate a list of the IDs of such users over all our authentication and "
+"extraction plugins."
+msgstr ""
+
+#: ../../sessions/login.rst:303
+msgid ""
+"``PluggableAuthService`` may use :doc:`ZCacheable </performance/ramcache>` "
+"pattern to see if the user data exists already in the cache, based on any "
+"extracted credentials, instead of actually checking whether the credentials "
+"are valid or not. PluggableAuthService must be set to have cache end. By "
+"default it is not set, but installing LDAP sets it to RAM cache."
+msgstr ""
+
+#: ../../sessions/login.rst:312
+msgid ""
+"https://github.com/plone/plone.app.ldap/tree/master/plone/app/ldap/ploneldap/util.py"
+msgstr ""
+
+#: ../../sessions/login.rst:315
+msgid "PAS cache settings"
+msgstr ""
+
+#: ../../sessions/login.rst:317
+msgid "Here is a short view snippet to set PAS cache state::"
+msgstr ""
+
+#: ../../sessions/login.rst:384
+msgid "... and related ZCML"
+msgstr ""
+
+#: ../../sessions/login.rst:397
+msgid "Login as another user (\"sudo\")"
+msgstr ""
+
+#: ../../sessions/login.rst:399
+msgid ""
+"If you need to login to production system another user and you do not know "
+"the password, there is an add-on product for it"
+msgstr ""
+
+#: ../../sessions/login.rst:402
+msgid "http://pypi.python.org/pypi/niteoweb.loginas"
+msgstr ""
+
+#: ../../sessions/login.rst:404
+msgid "Another option"
+msgstr ""
+
+#: ../../sessions/login.rst:406
+msgid "http://pypi.python.org/pypi/Products.OneTimeTokenPAS"
+msgstr ""
+
+#: ../../sessions/login.rst:409
+msgid "Getting logged in users"
+msgstr ""
+
+#: ../../sessions/login.rst:0
+msgid "Todo"
+msgstr ""
+
+#: ../../sessions/login.rst:411
+msgid "Was somewhere, but can't find where."
+msgstr ""
+
+#: ../../sessions/login.rst:414
+msgid "Locking user account after too many retries"
+msgstr ""
+
+#: ../../sessions/login.rst:416
+msgid ""
+"For security reasons, you might want to locking users after too many tries "
+"of logins. This protects user accounts against brute force attacks."
+msgstr ""
+
+#: ../../sessions/login.rst:419
+msgid ""
+"https://svn.plone.org/svn/collective/PASPlugins/Products.LoginLockout/branches"
+"/ajung-login-logging/"
+msgstr ""
+
+#: ../../sessions/login.rst:422
+msgid "Hyperlinks to authenticated Plone content in Microsoft Office"
+msgstr ""
+
+#: ../../sessions/login.rst:424
+msgid ""
+"Microsoft Office applications (in the first instance Word and Excel), have "
+"been observed to attempt to resolve hyperlinks once clicked, prior to "
+"sending the hyperlink to the user's browser.  So, if such a link points to "
+"some Plone content that requires authentication, the Office application will"
+" request the URL first, and receive a 302 Redirect to the ``require_login`` "
+"Python script on the relevant Plone instance.  So, if your original "
+"hyperlink was like so::"
+msgstr ""
+
+#: ../../sessions/login.rst:434
+msgid ""
+"and this URL requires authentication, then the Office application will send "
+"your browser to this URL::"
+msgstr ""
+
+#: ../../sessions/login.rst:439
+msgid ""
+"Normally, this isn't a problem if a user is logged out at the time. They "
+"will be presented with the relevant login form and upon login, they will be "
+"redirected accordingly to the ``came_from=`` URL."
+msgstr ""
+
+#: ../../sessions/login.rst:443
+msgid ""
+"However, if the user is *already* logged in on the site, visiting this URL "
+"will result in an ``Insufficient Privileges`` page being displayed.  This is"
+" to be expected of Plone (as this URL is normally only reached if the given "
+"user has no access), but because of Microsoft Office's mangling of the URL, "
+"may not necessarily be correct as the user may indeed have access."
+msgstr ""
+
+#: ../../sessions/login.rst:449
+msgid ""
+"The following drop-in replacement for the ``require_login`` script has been "
+"tested in Plone 4.1.3 (YMMV).  Upon a request coming into this script, it "
+"attempts (a hack) to traverse to the given path. If permission is actually "
+"allowed, Plone redirects the user back to the content. Otherwise, things "
+"proceed normally and the user has no access (and is shown the appropriate "
+"message)::"
+msgstr ""
+
+#: ../../sessions/login.rst:485
+msgid "For further reading see:"
+msgstr ""
+
+#: ../../sessions/login.rst:487
+msgid ""
+"http://plone.293351.n2.nabble.com/Linking-to-private-page-from-MS-Word-"
+"redirect-to-login-form-td5495131.html"
+msgstr ""
+
+#: ../../sessions/login.rst:488
+msgid ""
+"http://plone.293351.n2.nabble.com/Problem-with-links-to-files-stored-in-"
+"Plone-td3055014.html"
+msgstr ""
+
+#: ../../sessions/login.rst:489
+msgid ""
+"http://bytes.com/topic/asp-classic/answers/596062-hyperlinks-microsoft-"
+"applications-access-word-excel-etc"
+msgstr ""
+
+#: ../../sessions/login.rst:490
+msgid "https://community.jivesoftware.com/docs/DOC-32157"
+msgstr ""
+
+#: ../../sessions/login.rst:493
+msgid "Single Sign-On and Active Directory"
+msgstr ""
+
+#: ../../sessions/login.rst:495
+msgid ""
+"Plone can be used in a Microsoft Active Directory environment (or standard "
+"Kerberos environment) such that users are automatically and transparently "
+"authenticated to Plone without requesting credentials from the user."
+msgstr ""
+
+#: ../../sessions/login.rst:498
+msgid ""
+"This is quite an advanced topic and requires some set up on the server, but "
+"can be achieved with Plone running on either Unix/Linux or Windows "
+"environments."
+msgstr ""
+
+#: ../../sessions/login.rst:501
+msgid ""
+"More details can be found in this presentation from Plone Open Garden 2013:"
+msgstr ""
+
+#: ../../sessions/login.rst:503
+msgid ""
+"http://www.slideshare.net/hammertoe/plone-and-singlesign-on-active-"
+"directory-and-the-holy-grail"
+msgstr ""
+
+#: ../../sessions/login.rst:504
+msgid "http://www.youtube.com/watch?v=-FLQxeD5_1M"
+msgstr ""
+
+#: ../../sessions/login.rst:507
+msgid "Preventing duplicate logins from different browsers"
+msgstr ""
+
+#: ../../sessions/login.rst:509
+msgid ""
+"http://stackoverflow.com/questions/2562385/limit-concurrent-user-logins-in-"
+"plone-zope"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:3
+msgid "Sessions"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:7
+msgid ""
+"How Plone handles anonymous and logged-in user sessions. How to store and "
+"retrieve session data variables programmatically."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:15
+msgid "Sessions are visitor sessions at the site."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:17
+msgid "Sessions have features like:"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:19
+msgid "Login and logout, but also identified by a cookie"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:21
+msgid "Timeout"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:23
+msgid "Hold arbitrary per-user data on server side"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:25
+msgid "Identified by cookies"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:27
+msgid ""
+"In Plone, sessions are managed by Zope's session_data_manager tool. The "
+"source code is in `Products.Sessions "
+"<https://github.com/zopefoundation/Zope/tree/master/src/Products/Sessions/>`_."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:32
+msgid "Setting a session parameter"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:34
+msgid "Plone has a tool called ``session_data_manager``."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:44
+msgid "Getting a session"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:46
+msgid ""
+"Plone has a convenience method to get the session of the current user::"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:52
+msgid "Getting session id"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:54
+msgid ""
+"Each session has a unique id associated with it, for both both anonymous and"
+" logged-in users."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:57
+msgid ""
+"Session data is stored in browser cookies, so sessions are browser-specific."
+" If the same user has multiple browsers open on your site, each browser will"
+" have its own session."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:61
+msgid "If you need to refer to the session id, you can query for it::"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:69
+msgid "Initial construction of session data"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:71
+msgid ""
+"The example below creates a session data variable when it is accessed for "
+"the first time. For the subsequent accesses, the same object is returned. "
+"The object changes are automatically persisted if it inherits from the "
+"``persistent.Persistent`` class."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:78
+msgid "Session data stored this way does not survive Plone restart."
+msgstr ""
+
+#: ../../sessions/session_variables.rst:114
+msgid "Deleting session data"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:134
+msgid "Session data and unit testing"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:136
+msgid ""
+"Please see http://article.gmane.org/gmane.comp.web.zope.plone.user/104243"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:139
+msgid "Using Plone authentication cookie in other systems"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:141
+msgid ""
+"http://stackoverflow.com/questions/12167202/how-to-wrap-plone-"
+"authentication-around-a-third-party-"
+"servlet/12171528#comment16307483_12171528"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:144
+msgid "Exploring Plone session configuration"
+msgstr ""
+
+#: ../../sessions/session_variables.rst:146
+msgid ""
+"http://stackoverflow.com/questions/12211682/how-to-export-plone-session-"
+"configuration"
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:3
+msgid "Status messages"
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:5
+msgid ""
+"Status messages are session-bound information which allow the user to see "
+"notifications when the page is rendered next time."
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:8
+msgid ""
+"Status messages are stored session in safely manner which prevents Cross-"
+"Site Scripting attacks which might occur due to delivering message "
+"information as HTTP GET query parameters."
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:15
+msgid "Setting a status message"
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:17
+msgid ""
+"Status messages have text (unicode) and type (str). All pending status "
+"messages are shown to the user when the next page is rendered."
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:28
+msgid "Example which you can use in Python scripts::"
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:34
+msgid "Rendering status message style by hand-crafted HTML"
+msgstr ""
+
+#: ../../sessions/statusmessages.rst:36
+msgid ""
+"If you want to insert elements looking status messages on your page use the "
+"following mark-up"
+msgstr ""

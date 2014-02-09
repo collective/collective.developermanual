@@ -1,0 +1,3262 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:22+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../misc/annotations.rst:7
+# 62f3d4d9cbec479f9bf438765953007b
+msgid "Annotations"
+msgstr ""
+
+#: ../../misc/annotations.rst:9
+#: ../../misc/asyncronoustasks.rst:6
+#: ../../misc/commandline.rst:5
+#: ../../misc/datetime.rst:5
+#: ../../misc/email.rst:5
+#: ../../misc/facebook.rst:5
+#: ../../misc/flowplayer.rst:5
+#: ../../misc/html.rst:5
+#: ../../misc/navigationtree.rst:7
+#: ../../misc/normalizing_ids.rst:5
+#: ../../misc/paster_templates.rst:5
+#: ../../misc/seo.rst:5
+#: ../../misc/slideshow.rst:5
+#: ../../misc/sql.rst:5
+#: ../../misc/upgrade.rst:5
+# 6d3af20fec6549189fd49e2cd3a6f923
+# dea19e5bce39466fa296852db33451c2
+# c1766bd44d2b457a987ea1e4daf3ec27
+# 7612a016130d439a9ec6e1a7ec7b8e0a
+# 08e7620a80f4488da2977b1a1657f523
+# dec07ffc1cd14d829fc83dc125ebe41d
+# 6455180eb6c748509b040b0a69b56529
+# c1ef7ee0f91446bcbf3ab7e126738d76
+# 6a7aef8cdb154f1e82dc8ecbe3d84726
+# fabfa50e65bb452893f7e76fbc066fb3
+# 353631f810a2493eb80c9d43200808ae
+# c6c7c28eb9324a219143c4db1bddacf8
+# 7b0062d0d32f4c32a429343064e9475b
+# 35ffee45497d488c978aeec85b15cd95
+# 88efb40aefd24890bd20847e0a5789a4
+msgid "Description"
+msgstr ""
+
+#: ../../misc/annotations.rst:11
+#: ../../misc/slideshow.rst:7
+# 0e4392e1041d40788bf681407d8000f0
+# c3ddbbc723184aa391fb9a6336e8c802
+msgid "How to use annotation design pattern to store arbitrary values on Python objects (Plone site, HTTP request) for storage and caching purposes."
+msgstr ""
+
+#: ../../misc/annotations.rst:17
+#: ../../misc/commandline.rst:13
+#: ../../misc/context.rst:8
+#: ../../misc/datetime.rst:12
+#: ../../misc/email.rst:12
+#: ../../misc/facebook.rst:12
+#: ../../misc/flowplayer.rst:12
+#: ../../misc/html.rst:12
+#: ../../misc/navigationtree.rst:13
+#: ../../misc/normalizing_ids.rst:12
+#: ../../misc/paster_templates.rst:11
+#: ../../misc/porg.rst:8
+#: ../../misc/portal_transforms.rst:8
+#: ../../misc/seo.rst:12
+#: ../../misc/slideshow.rst:14
+#: ../../misc/sql.rst:12
+# 6b8159646806461c847c9e7b10156382
+# 7158b153fecc420d844c41a3776659a8
+# 7443be262ef14882bb69ddd91135bbb6
+# 331ccff81cc54729b9c6f670f911b79a
+# a43ba83cc0804ec7afae3ae830a13f6a
+# 0085de4cb33a4560b4669afceee3f854
+# 3e0095aed68f4c6a934b0837ff89be36
+# 0204bd8eb76b4684973b20ddcceab10d
+# 9b90c26708994d0a95a6a80b10883c66
+# ae35e2892021481ab192252c5e452435
+# c96eef80ff6c45c5967e9dbe91dc09e7
+# 5c4e82c00c554cab8c859017d22e813e
+# 9969443de59f4eaf9a380c004a3f78c2
+# 4b7d2956a11e41949a39651b99fce865
+# f8f51d2bd86147e7b82303ae6a724eec
+# 7f6cc30def2048668a50c505378abbed
+msgid "Introduction"
+msgstr ""
+
+#: ../../misc/annotations.rst:19
+# ee47f912967a4f6c974f31d2f35032ad
+msgid "Annotations is conflict-free way to stick attributes on arbitrary Python objects."
+msgstr ""
+
+#: ../../misc/annotations.rst:21
+# ee45ce20d73d44c6b2045376a0ef475f
+msgid "Plone uses annotations for:"
+msgstr ""
+
+#: ../../misc/annotations.rst:23
+# 5464587108614da68364823fa7e78c08
+msgid "Storing field data in Archetypes (Annotation storage)."
+msgstr ""
+
+#: ../../misc/annotations.rst:25
+# 92754a90da4d43a1a1fbca704555de93
+msgid "Caching values on HTTP request object (plone.memoize cache decorators)."
+msgstr ""
+
+#: ../../misc/annotations.rst:27
+# 4f6861d0377c486eb39c0472f585aeb1
+msgid "Storing settings information in portal or content object (various add-on products)."
+msgstr ""
+
+#: ../../misc/annotations.rst:30
+# bd60b4ee1da049ad894d1e19b68b261a
+msgid "See `zope.annotation package <http://pypi.python.org/pypi/zope.annotation/3.4.1>`_."
+msgstr ""
+
+#: ../../misc/annotations.rst:33
+# 8da27d2b0570473f96e4b1a01f669164
+msgid "HTTP request example"
+msgstr ""
+
+#: ../../misc/annotations.rst:35
+# 4212b804ae2a41e4afa9ad6374056fe0
+msgid "Store cached values on HTTP request during the life cycle of one request processing.  This allows you to cache computed values if the computation function is called from the different, unrelated, code paths."
+msgstr ""
+
+#: ../../misc/annotations.rst:54
+# 40ae40663dc24dff8dcb692c8dfcad8d
+msgid "Content annotations"
+msgstr ""
+
+#: ../../misc/annotations.rst:57
+# 572dd8388945437c985f42d31e339fb9
+msgid "Overview and basic usage"
+msgstr ""
+
+#: ../../misc/annotations.rst:59
+# 0289f11e54b3450bbf3fb4a9e14b9748
+msgid "If you want to extend any Plone content to contain \"custom\" settings annotations is the recommended way to do it."
+msgstr ""
+
+#: ../../misc/annotations.rst:62
+# e0baa5d9d7a849dd9517ea951637fc01
+msgid "Your add-on can store its settings in Plone site root object using local utilities or annotations."
+msgstr ""
+
+#: ../../misc/annotations.rst:65
+# 36a351c30e40473e9cee8b25fb5a0a18
+msgid "You can store custom settings on content objects using annotations."
+msgstr ""
+
+#: ../../misc/annotations.rst:67
+# 30427f1a4dd444bca2c8c20633342220
+msgid "By default, in content annotations are stored:"
+msgstr ""
+
+#: ../../misc/annotations.rst:69
+# dd7b5c9d5098478f8043edf699d6b15d
+msgid "Assigned portlets and their settings."
+msgstr ""
+
+#: ../../misc/annotations.rst:71
+# 97c619d691994c0ea0324fa376502fee
+msgid "Archetypes content type fields using ``AnnotationStorage`` (like ``text`` field on Document)."
+msgstr ""
+
+#: ../../misc/annotations.rst:74
+# c45e065baedc49be88fe18dfe5915e51
+msgid "Behavior data from :mod:`plone.behavior` package."
+msgstr ""
+
+#: ../../misc/annotations.rst:76
+#: ../../misc/paster_templates.rst:138
+# e591788f27614d57aeca8327ee32471a
+# 8dfdd2d5341047c9902617b740fb6814
+msgid "Example:"
+msgstr ""
+
+#: ../../misc/annotations.rst:91
+# 5edb60df62b5490bb06cd5c4748459d0
+msgid "Advanced content annotation"
+msgstr ""
+
+#: ../../misc/annotations.rst:93
+# 7846b0402f894a36ab4a4c93b28120a9
+msgid "The above example is enough for storing simple values as annotations. You may provide more complex annotation objects depending on your application logic on various content types. This example shows how to add a simple \"Like / Dislike\" counter on a content object."
+msgstr ""
+
+#: ../../misc/annotations.rst:119
+# adfda227dcae428a94b026b76db300ea
+msgid "At this step it is essential to check that your custom annotation class can be `pickled <http://docs.python.org/library/pickle.html#what-can-be-pickled-and-unpickled>`_. In the Zope world, this means that you cannot hold in your annotation object any reference to a content too."
+msgstr ""
+
+#: ../../misc/annotations.rst:127
+# 21d4d37e382a402098ec7cfd20c7cc53
+msgid "Use the UID of a content object if you need to keep the reference of that content object in an annotation."
+msgstr ""
+
+#: ../../misc/annotations.rst:130
+# baca81721405430d96ad55039e1f5bd8
+msgid "The most pythonic recipe to get (and set if not existing) your annotation for a given key is:"
+msgstr ""
+
+#: ../../misc/annotations.rst:148
+# adc2f872a304423ca5a151add75cf12d
+msgid "This way, you're sure that :"
+msgstr ""
+
+#: ../../misc/annotations.rst:150
+# acdb5740359d4bddad2dba3858994198
+msgid "You won't create annotations on an object that can't support them."
+msgstr ""
+
+#: ../../misc/annotations.rst:152
+# a479c9243da7497ea1b0a7d6516c3a22
+msgid "You will create a new fresh annotation mastered with your :class:`LikeDislike` for your context object if it does not already exist."
+msgstr ""
+
+#: ../../misc/annotations.rst:155
+# ac796afb549948f5a9a2f80c84837a85
+msgid "You can play with your :class:`LikeDislike` annotation object as with any Python object, all attributes changes will be stored automatically in the annotations of the associated content object."
+msgstr ""
+
+#: ../../misc/annotations.rst:162
+# 0526f14f700a4c9888a6e87ea9370eb3
+msgid "Wrapping your annotation with an adapter"
+msgstr ""
+
+#: ../../misc/annotations.rst:164
+# adea3ec2ea6244e8aa919981e2752b66
+msgid ":mod:`zope.annotation` comes with the :func:`factory` function that transforms the annotation class into an adapter (possibly named as the annotation key)."
+msgstr ""
+
+#: ../../misc/annotations.rst:167
+# 363a43b4ab8a4e4bb55d90c37fb57429
+msgid "In addition the annotation created this way have location awareness, having :attr:`__parent__` and :attr:`__name__` attributes."
+msgstr ""
+
+#: ../../misc/annotations.rst:170
+# 92562c00b99b4f6b9938cd99d89b270a
+msgid "Let's go back to the above sample and use the :func:`zope.annotation.factory` function."
+msgstr ""
+
+#: ../../misc/annotations.rst:246
+# 6ba5d9403dbf4be7957f801a1d28f56e
+msgid "Read a full doc / test / demo of the :func:`zope.annotation.factory` in the :file:`README.txt` file in the root of :mod:`zope.annotation` package for more advanced usages."
+msgstr ""
+
+#: ../../misc/annotations.rst:251
+# 5504ea0778254921a24ab4dc136dfaea
+msgid "Cleaning up content annotations"
+msgstr ""
+
+#: ../../misc/annotations.rst:255
+# 233f191b0a6e474b899f8f77b15ff5d9
+msgid "If you store full Python objects in annotations you need to clean them up during your add-on uninstallation. Otherwise if Python code is not present you cannot no longer import or export Plone site (annotations are pickled objects in the database and pickles do no longer work if the code is not present)."
+msgstr ""
+
+#: ../../misc/annotations.rst:261
+# a49c771c50014a12a0482e9df7e05b70
+msgid "How to clean up annotations on content objects:"
+msgstr ""
+
+#: ../../misc/annotations.rst:303
+# 1d8c34be649846fc95e937ec58530769
+msgid "Make your code persistence free"
+msgstr ""
+
+#: ../../misc/annotations.rst:305
+# 904b30fd8fe24011ac2f6b0f1a413fd7
+msgid "There is one issue with the above methods: you are creating new persistent classes so your data need your source code. That makes your code hard to uninstall (have to keep the code BBB + cleaning up the DB by walking throw all objects)"
+msgstr ""
+
+#: ../../misc/annotations.rst:310
+# 82e4a58160ed4eeaa2cb8af780418fb2
+msgid "So here is an other pattern to store data in annotations: Use already existing persistent base code instead of creating your own."
+msgstr ""
+
+#: ../../misc/annotations.rst:313
+# 63faa4aef3164cc5b8ec535af3a8f3db
+msgid "Please use one of theses:"
+msgstr ""
+
+#: ../../misc/annotations.rst:315
+# d55d6d2bcee14dd896d8ac94a9ddda56
+msgid "BTrees"
+msgstr ""
+
+#: ../../misc/annotations.rst:316
+# e8f9c607ab1e43f18bcf68fbfa490c6e
+msgid "PersistentList"
+msgstr ""
+
+#: ../../misc/annotations.rst:317
+# d57375df75014f25ac7cbe1473a4dcc6
+msgid "PersistentDict"
+msgstr ""
+
+#: ../../misc/annotations.rst:319
+# 797beda3956c4b94aa7ccd4d249f302b
+msgid "This pattern is used by cioppino.twothumbs and collective.favoriting addons."
+msgstr ""
+
+#: ../../misc/annotations.rst:321
+# 843355fca81b453ba9856aa13a4b7340
+msgid "How to achieve this: https://gist.github.com/toutpt/7680498"
+msgstr ""
+
+#: ../../misc/annotations.rst:324
+# 9a07440ac70d443db2996918bc681ec1
+msgid "Other resources"
+msgstr ""
+
+#: ../../misc/annotations.rst:326
+# f118bf0d5d1348b18b2f03e349ea10a7
+msgid "http://plone.org/documentation/tutorial/embrace-and-extend-the-zope-3-way/annotations"
+msgstr ""
+
+#: ../../misc/annotations.rst:3
+# ae6fcac78dcf44c5a147497acaf7f7f2
+msgid "annotation"
+msgstr ""
+
+#: ../../misc/annotations.rst:159
+# 69463e5b994e446da713bba4fd610b62
+msgid "adapter"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:3
+# a73a4f430b1e4406b3b469eb4b7d7c24
+msgid "Clock and asyncronous tasks"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:8
+# fd7d5f8282ff46e3a54f5d39800b8678
+msgid "How to run background tasks or cron jobs with Zope"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:13
+# fcaba7d6cea247a38f1bff5e35b13b7c
+msgid "Cron jobs"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:15
+# 994dc9ea00004b219b3f1d0c2d7ab10f
+msgid "You can use simple UNIX cron + wget combo to make timed jobs in Plone."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:17
+# 7b903d88833f4b7b8c5ea5771d44add9
+msgid "If you need to authenticate, e.g. as an admin, Zope users (not Plone users) can be authenticated using HTTP Basic Auth."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:20
+# 2e13bd84545848c48cacef545b3c06d6
+msgid "Create user in Zope root (not Plone site root) in acl_users folder"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:22
+# 45bea4ad0e8d4297abe0ecf729014d5a
+msgid "Call it via HTTP Basic Auth"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:24
+# b922f3b553514257aca204aa707ea675
+msgid "http://username:password@localhost:8080/yoursideid/@@clock_view_name"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:26
+# db2b24547add42f28231324442e4fbaf
+msgid "The ``--auth-no-challenge`` option to the wget command will authenticate even if the server doesn't ask you to authenticate. It might come in handy, as Plone does not ask for HTTP authentication, and will just serve Unauthorized if permissions aren't sufficient."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:32
+# 699d483d2e254c43bfeb83f9db9b31ac
+msgid "Clock server"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:34
+# 40aa54eb008e4978bd2ad01dade44e6b
+msgid "You can make Zope to make regular calls to your views."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:36
+# b60444042ab44b6caf6968632e3e9293
+msgid "Add in buildout.cfg::"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:55
+# b937de1eac1c414f9ce4e7130da88954
+msgid "Create a corresponding user in ZMI."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:57
+# c2fedb0b529a4944a15e825a9139f992
+msgid "In detail:"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:59
+# f9e94edf7f4647c9a12f0248bbec0bc6
+msgid "method - Path from root to an executable Zope method (Python script, external method, etc.) The method must receive no arguments."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:60
+# f9206a20e71e4934a28e90adb4200db3
+msgid "period - Seconds between each call to the method. Typically, at least 30 specified."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:61
+# e77d0bff3d5049bea31a420b015a1163
+msgid "user - a Zope Username"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:62
+# 32982c5cee4341b9b552c30d14c3b7da
+msgid "password - The password of this user Zope"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:63
+# 1e9e301be5df4a56857e1de434a5b9a2
+msgid "host - The name of the host that is in the header of a request as host: is specified."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:65
+# a4a2b46860f24c9bb9a814c5d23e886b
+msgid "To check whether the server clock is running, restart the instance or the ZEO client in the foreground and see if a message similar to the following is displayed:"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:69
+# 6aa89c95d4fc4291bb8c45072e622cf0
+msgid "2009-03-03 19:57:38 INFO ZServer Clock server for \"/ mysite / do_stuff\" started (user: admin, period: 60)"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:71
+# 540d6f41bed74200930ce3439a228303
+msgid "If you are using a public source control repository for your ``buildout.cfg`` you might want to put zope-conf-additional= to ``secret.cfg`` which lies only on the production server and is never committed to the version control::"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:83
+# aafbaaf6d9914ec28c628a329493bf4d
+msgid "Creating a separate ZEO instance for long running tasks"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:85
+# 1ad0bf4568ea4346959d3a4f89466c66
+msgid "Below is an example how to extend a single process Plone instance buildout to contain two ZEO front end processes, client1 and client2 and dedicate client2 for long running tasks. In this example, ``Products.feedfeeder`` RSS zopeuser is set to run on client2."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:90
+# 96caffc834674e1193b1a144d8e4d5b1
+msgid "Client1 keeps acting like standalone instance, in the same port as instance used to be"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:92
+# f0735a1e8ad84d9d9af21cf8d59acfcf
+msgid "Clocked tasks are run on client2 - it does not serve other HTTP requests. Clocked tasks are done using Zope clock server."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:95
+# 3388c2fd4b014bc18a9acef3f9755c55
+msgid "The purpose of this is that client2 does heavy writes to the database, potentially blocking the normal site operation of the site if we don't have a separate client for it."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:98
+# f3ba4135f45f4aeb9976b54a3df958b2
+msgid "We create additional ``production.cfg`` file which extends the default ``buildout.cfg`` file. You still can use ``buildout.cfg`` as is for the development, but on the productoin server your buildout command must be run for the ZEO server enabled file."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:102
+# defd81a5bde145a7b7926281679d7e79
+msgid "Actual clock server jobs, with usernames and passwords, are stored in a separate ``secret.cfg`` file which is only available on the production server and is not stored in the version control system. The user credentials for a specially created a Zope user, not Plone user. This user can be created through ``acl_users`` in Zope root in ZMI."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:107
+# 684c8c7f53844b21923aa1f26c14d6e7
+msgid "We also include ``plonectl`` command for easy management of ZEO server, client1 and client2."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:109
+# 73c7c7b8622d4e3ea9ab5771a637ec46
+msgid "``production.cfg`` (note - you need to run this with ``bin/buildout -c production.cfg``)::"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:163
+# 6bdf0672e476473594dc8a6369798c19
+msgid "``secret.cfg`` contains actual clocked jobs. This file contains passwords so it is not recommended to put it under the version control::"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:210
+# 4ee833c8eee54abd816767a4f6b9896a
+msgid "Asynchronous"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:212
+# 8c543e380f0b4675980c4f2de1d39a56
+msgid "Asyncronous tasks are long-running tasks which are run on their own thread."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:215
+# 9dbdb03cffdd45358d238f6350693ced
+msgid "lovely.remotetask"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:217
+# 18e661c92ad3463195fbcecd59cc2c7a
+msgid "``lovely.remotetask`` is worked based long-running task manager for Zope 3."
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:0
+# 422107d4596e4b679930cb909f6cc5b5
+msgid "Todo"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:219
+# f675d40afd26439aa1c1380131246318
+msgid "NO WORKING EXAMPLES HOW TO USE THIS"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:221
+# b49624612b8a429397d2782578a7b14d
+msgid "`lovely.remotetask package <http://pypi.python.org/pypi/lovely.remotetask>`_ package page"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:223
+# dc2ded7ea3064db387aa7f4cc06be85a
+msgid "http://tarekziade.wordpress.com/2007/09/28/a-co-server-for-zope/"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:225
+# 819bea38673a4ead9e6f876776ce2a8d
+msgid "http://swik.net/Zope/Planet+Zope/Trying+lovely.remotetask+for+cron+jobs/c1kfs"
+msgstr ""
+
+#: ../../misc/asyncronoustasks.rst:227
+# d2a25ebc35a74c7d9bbd93695be1cad5
+msgid "http://archives.free.net.ph/message/20081015.201535.2d147fec.fr.html"
+msgstr ""
+
+#: ../../misc/commandline.rst:3
+# 21bbd82ef7524e1aa340a59f351550f7
+msgid "Command-line interaction and scripting"
+msgstr ""
+
+#: ../../misc/commandline.rst:7
+# c1f1174c9df44a0f90c60d9cad12458f
+msgid "How to run command-line Python scripts, timed jobs (cron) and batch jobs against Plone sites and Zope application server."
+msgstr ""
+
+#: ../../misc/commandline.rst:17
+# fd4e6488b73c4148b5dfc858c851b0e3
+msgid "Plone code is somewhat ugly and expects you to have real HTTP request lifecycle to do many things. For command line scripts, you need to mock up this and mocking up ofter fails. Instead of trying to create a pure command-line script, just create a browser view and call that browser view usings wget or lynx or similar command line HTTP tool."
+msgstr ""
+
+#: ../../misc/commandline.rst:23
+# b5ecc323f7714d9a87fda7fd2611db38
+msgid "Zope provides facilities to run command-line scripts. or maintenance work, like migration script."
+msgstr ""
+
+#: ../../misc/commandline.rst:26
+# 5c1ffb14498d44d28d04f2bcc05fdda6
+msgid "The output to terminal is instance (Plone buffers HTML output)"
+msgstr ""
+
+#: ../../misc/commandline.rst:28
+# 2a3080ddc0b04669827877158b8cf852
+msgid "You can stop processing using CTRL+C"
+msgstr ""
+
+#: ../../misc/commandline.rst:30
+# e46ef2c20de54b73953ffb8b19b2824c
+msgid "You can integrate scripts with standard UNIX tools, like cron"
+msgstr ""
+
+#: ../../misc/commandline.rst:34
+# 22bd1009c674432b933b0fcffdfc3199
+msgid "If the site runs in a single process Zope mode (no ZEO), the actual site instance must be stopped to run a command line script as the one process locks the database (Data.fs)."
+msgstr ""
+
+#: ../../misc/commandline.rst:38
+# 814845dcf0ad4511953f6d98c4c84fed
+msgid "Command line scripts are also useful for long-running transaction processing"
+msgstr ""
+
+#: ../../misc/commandline.rst:40
+# b99e7889b8e447bbbd519c8e88fc05dd
+msgid "A web site runs in multi-client ZEO mode. One client is always offline, reserved for running command-line scripts."
+msgstr ""
+
+#: ../../misc/commandline.rst:43
+# 1ff92f39ec424f7da0dae9e3b135aac7
+msgid "Asynchronous long-running transactions are run from this ZEO client, without disturbing the normal site functionality"
+msgstr ""
+
+#: ../../misc/commandline.rst:46
+# 2b26fcbb553247eeb722498f1f7089c9
+msgid "See also"
+msgstr ""
+
+#: ../../misc/commandline.rst:48
+# 24b1f6089f444ac3a5cd9f3d68728579
+msgid "`lovely.remotetask package <http://pypi.python.org/pypi/lovely.remotetask>`_ for more fine-graned control and Zope-based cron jobs"
+msgstr ""
+
+#: ../../misc/commandline.rst:53
+# 1bf9e12b7b8c424b89e2def894c64471
+msgid "Starting interactive interpreter"
+msgstr ""
+
+#: ../../misc/commandline.rst:55
+# 743aef0f0630499cb7e5a400b3cc4bb5
+msgid "The *bin/instance debug* command starts an interactive interpreter with the Zope application server and database loaded. To have persistent utilities loaded, you should also provide the id of your Plone site. The following example assumes you have a plone site named \"Plone\""
+msgstr ""
+
+#: ../../misc/commandline.rst:59
+#: ../../misc/commandline.rst:73
+#: ../../misc/context.rst:150
+#: ../../misc/context.rst:182
+#: ../../misc/datetime.rst:105
+#: ../../misc/paster_templates.rst:219
+# 9d7995e172c745c0b6f8addf200dd832
+# 5826fd3bf4584544b34932b549936b2c
+# 382e111c5f554506b7c370721eb9e267
+# 391c300158d14342ae3f8134511e570c
+# c105eb2dcec3419fba7a05fd20d3e9a3
+# 8d1a8c1ec8144d6bb5fbd017c90a00c4
+msgid "Example::"
+msgstr ""
+
+#: ../../misc/commandline.rst:65
+# c65e4dc27fea46ebb9c7aa2611acc60c
+msgid "The instance must be stopped in order to run this."
+msgstr ""
+
+#: ../../misc/commandline.rst:68
+# dbede7bb6bb14ed781c337b9b008b7fc
+msgid "Running scripts"
+msgstr ""
+
+#: ../../misc/commandline.rst:70
+# a7db54e0472540d683102416324d5daf
+msgid "Use *bin/instance run* command to run scripts which can interact with the opened database."
+msgstr ""
+
+#: ../../misc/commandline.rst:77
+# 667885f8605c4c74ad8917cdc7b27de8
+msgid "The script will have global ``app`` variable assigned to the Zope application server root. You can use this as a starting point and traverse into your Plone site(s)."
+msgstr ""
+
+#: ../../misc/commandline.rst:80
+# e04543d4322b4ccf95a93fdfe5c05670
+msgid "Script could look like::"
+msgstr ""
+
+#: ../../misc/commandline.rst:108
+# ced16ed42ea34a5c8d6a065421fffabf
+msgid "You probably need to spoof your :doc:`security credentials </security/permissions>`."
+msgstr ""
+
+#: ../../misc/commandline.rst:112
+# 5021bab5e79b4fe8bdaa60ce7048e5a8
+msgid "Instance must be stopped in order to run this."
+msgstr ""
+
+#: ../../misc/commandline.rst:115
+# 544830c06f4c45cfb86aa2ddeed9a918
+msgid "Cron and timed jobs"
+msgstr ""
+
+#: ../../misc/commandline.rst:117
+# 225771fcc6504cdd9f32d4a9a25aee59
+msgid "Cron is UNIX clock daemon for timed tasks."
+msgstr ""
+
+#: ../../misc/commandline.rst:119
+# 0be4b9be72c140f29b335ff3a8b61d87
+msgid "If you have a ZEO cluster you can have one ZEO client reserved for command line processing. Cron job will run scripts through this ZEO client."
+msgstr ""
+
+#: ../../misc/commandline.rst:122
+# de432acca2344e3f9253eeee4c83d1ee
+msgid "Alternatively, you can use"
+msgstr ""
+
+#: ../../misc/commandline.rst:124
+# bc2d30cc8db841b49660c7f823efc33f
+msgid "cron to call localhost URL using curl or wget UNIX commands"
+msgstr ""
+
+#: ../../misc/commandline.rst:126
+# 28a3cba589e24cc5922dcafcd6412d59
+msgid "Use Zope clock daemon"
+msgstr ""
+
+#: ../../misc/commandline.rst:130
+# 9b000f3d1c504b3eaf19f89b8b4b59cd
+msgid "For long running batch processes it is must that you run your site in ZEO mode. Otherwise the batch job will block the site access for the duration of the batch job transaction. If the batch job takes long to process the site might be unavailable for the visitors for a long period."
+msgstr ""
+
+#: ../../misc/commandline.rst:138
+# d8843b633283468b9bc44c4cae8f4ea2
+msgid "Scripting context"
+msgstr ""
+
+#: ../../misc/commandline.rst:140
+# f03c54354deb469489d8466a56e0e3f5
+msgid "The command line interpreter and scripts gets following global context variables"
+msgstr ""
+
+#: ../../misc/commandline.rst:142
+# 8fda74015d3c41faa56828a4994f9f2a
+msgid "*app* global variable which holds the root of Zope application server."
+msgstr ""
+
+#: ../../misc/commandline.rst:144
+# 419490d14d9d42e6beb3113d909bbdb2
+msgid "sys.argv contains command-line parameters after python script name"
+msgstr ""
+
+#: ../../misc/commandline.rst:146
+# 84ddee0b05e042a2ae744f240e37abd8
+msgid "argv[0] = script name"
+msgstr ""
+
+#: ../../misc/commandline.rst:148
+# f0b4748b9d0641ea8127c3c0ed9d1f29
+msgid "arvg[1] = first command line argument"
+msgstr ""
+
+#: ../../misc/commandline.rst:151
+# ce45648460eb44bd8df1cf544046a694
+msgid "To access your site object, you can traverse down from app::"
+msgstr ""
+
+#: ../../misc/commandline.rst:159
+# ef576b76c9cc42c8adab5e682a0b853b
+msgid "Committing transactions"
+msgstr ""
+
+#: ../../misc/commandline.rst:161
+# 74e5a9166fe548c7b0c5ea0b1b498f1c
+msgid "You need to manually commit transactions if you change ZODB data from the command line."
+msgstr ""
+
+#: ../../misc/commandline.rst:163
+# 388be652f840422588c8ecaa1ac3530e
+msgid "Example how to commit::"
+msgstr ""
+
+#: ../../misc/commandline.rst:170
+#: ../../misc/commandline.rst:297
+#: ../../misc/datetime.rst:52
+#: ../../misc/facebook.rst:58
+#: ../../misc/html.rst:89
+# fcb647c80aa24b66ae6df8c426f6441d
+# 3530a374f48944009ca80897b9d57299
+# 7b30b28785004578ae9bbd68220386ef
+# 0d39c635a5db44d4bb8a01f3f9c1c865
+# a89ed01f25fd4548a3d69ad889d12172
+msgid "More info"
+msgstr ""
+
+#: ../../misc/commandline.rst:172
+# abf91f2bd03143c0a057474cc6088ca9
+msgid "http://www.enfoldsystems.com/software/server/docs/4.0/enfolddebuggingtools.html"
+msgstr ""
+
+#: ../../misc/commandline.rst:175
+# 6c94a75eff884aad8c073cdc9fc49d9c
+msgid "zopepy"
+msgstr ""
+
+#: ../../misc/commandline.rst:177
+# ee7172be966a4147a3c114307b51d6b0
+msgid "zopepy buildout recipe creating bin/zopepy command which you can use to run Python scripts in Zope environment set-up (PYTHONPATH, database connection, etc.)"
+msgstr ""
+
+#: ../../misc/commandline.rst:180
+# f1986942e4f448cda47480eeea36509e
+msgid "http://pypi.python.org/pypi/zc.recipe.egg"
+msgstr ""
+
+#: ../../misc/commandline.rst:182
+# 9d1be078efcf46d7a3bd8c0b1ca8de60
+msgid "buildout.cfg example::"
+msgstr ""
+
+#: ../../misc/commandline.rst:193
+# add06e0c9af241af8cb53d4b173feaff
+msgid "Then running::"
+msgstr ""
+
+#: ../../misc/commandline.rst:197
+# b6a2d351c15d43558c9c4cc3e2ad1367
+msgid "...or if you want to run a script outside buildout folder::"
+msgstr ""
+
+#: ../../misc/commandline.rst:204
+# ad79686165eb46b2940a3c0a2d85d5da
+msgid "Setting up ZEO for command line-processing"
+msgstr ""
+
+#: ../../misc/commandline.rst:206
+# 2406ccdf298641dfb5949f4aa1ea904f
+msgid "Plone site HTTP requests are processed by one process per requests. One process cannot handle more than one request once. If you need to have long-running transactions you need to at least two front end processes, ZEO clients, so that long-running transactions won't block your site."
+msgstr ""
+
+#: ../../misc/commandline.rst:212
+# 434acad3b47e47d7ae9bf226b210235b
+msgid ":doc:`Converting instance to ZEO based configuration </reference_manuals/old/buildout/zope_to_zeo>`"
+msgstr ""
+
+#: ../../misc/commandline.rst:214
+# aa82c96a38e04876896d426905316580
+msgid "Your code might want to call transaction.commit() now and then to commit the current transaction."
+msgstr ""
+
+#: ../../misc/commandline.rst:218
+# 2ea509dd14ae4c46bb4886d3aa653b86
+msgid "Posing as user"
+msgstr ""
+
+#: ../../misc/commandline.rst:220
+# 40ba2ffe88224d6f90aa4091b647a578
+msgid "Zope functionality often assumes you have logged in as certain user or you are anonymous user. Command-line scripts do not have user information set by default."
+msgstr ""
+
+#: ../../misc/commandline.rst:224
+# 4c4a3af31fc94ad29512bfaaeeb7156b
+msgid "How to set the effective Zope user to admin::"
+msgstr ""
+
+#: ../../misc/commandline.rst:233
+# d87b667705404b3bb3f8f53d72beaf0c
+msgid "Spoofing HTTP request"
+msgstr ""
+
+#: ../../misc/commandline.rst:235
+# eba96e1d1b1241ea881704c8c8700299
+msgid "When running from command-line, HTTP request object is not available. Some Zope code might expect this and you need to spoof the request."
+msgstr ""
+
+#: ../../misc/commandline.rst:238
+# 9ddc2859840c4a1886534cac0d7262e8
+msgid "Below is an example command line script which set-ups faux HTTP request and portal_skins skin layers::"
+msgstr ""
+
+#: ../../misc/commandline.rst:299
+# 0b0f207b95044c0583b04f79866ab466
+msgid "http://wiki.zope.org/zope2/HowToFakeREQUESTInDebugger"
+msgstr ""
+
+#: ../../misc/commandline.rst:302
+# 3e5f6fa065ab4d089b17a7942a8f1959
+msgid "Creating Plone site in buildout"
+msgstr ""
+
+#: ../../misc/commandline.rst:304
+# 17145ae3242d49b0809f99ce557a1bd1
+msgid "You can pre-generate the site from the buildout run."
+msgstr ""
+
+#: ../../misc/commandline.rst:306
+# b722ec5831b44bdbae570a8121c0e021
+msgid "https://pypi.python.org/pypi/collective.recipe.plonesite#example"
+msgstr ""
+
+#: ../../misc/commandline.rst:309
+# 4295b4fc390b4573b0f8f7a6d1435e0d
+msgid "screen"
+msgstr ""
+
+#: ../../misc/commandline.rst:311
+# 2cefa14a34244532aa263ad6429d6d68
+msgid "screen is an UNIX command to start a virtual terminal. Screen lets processes run even if your physical terminal becomes disconnected. This effectively allows you to run long-running command line jobs over a crappy Internet connection."
+msgstr ""
+
+#: ../../misc/commandline.rst:317
+# 36b2bcbdc7fb433b8a63414a5246121e
+msgid "Start new screen"
+msgstr ""
+
+#: ../../misc/commandline.rst:319
+#: ../../misc/commandline.rst:332
+# 342fe07555d54782be8765a06e9c9e99
+# eeb58c60a4804a4695c04603c6aedb13
+msgid "Type command::"
+msgstr ""
+
+#: ../../misc/commandline.rst:323
+# a4f88621607249e6b19b382520053ab4
+msgid "If you have sudo'ed to another user you first need to run::"
+msgstr ""
+
+#: ../../misc/commandline.rst:327
+# 37f1dbbb66b94f0fa9858cb21b4cf8bd
+msgid "http://dbadump.blogspot.com/2009/04/start-screen-after-sudo-su-to-another.html"
+msgstr ""
+
+#: ../../misc/commandline.rst:330
+# d9204a5633e64897923e79a76aa3bc75
+msgid "Attach to an existing screen"
+msgstr ""
+
+#: ../../misc/context.rst:3
+# b4bfc40839504e74b07b721f6af6d389
+msgid "Helper views and tools"
+msgstr ""
+
+#: ../../misc/context.rst:10
+# fe0e479597fe407c94397f62eb68b842
+msgid "This document explains how to access view and context utilities in Plone."
+msgstr ""
+
+#: ../../misc/context.rst:13
+# 2be91789f1b742a792f2eba8ba90af6b
+msgid "IPortalState and IContextState"
+msgstr ""
+
+#: ../../misc/context.rst:15
+# 76b9db36f8e346f9b1bf5b56e292de5d
+msgid "``IPortalState`` defines ``IContextState`` view-like interfaces to access miscellaneous information useful for the rendering of the current page. The views are cached properly, so they should access the information quite effectively."
+msgstr ""
+
+#: ../../misc/context.rst:20
+# a58d32baede043ad9960a98a3157fdf6
+msgid "``IPortalState`` is mapped as the ``plone_portal_state`` name view."
+msgstr ""
+
+#: ../../misc/context.rst:22
+# 7f478cb41aa7402eb8ab40d9e0ed86df
+msgid "``IContextState`` is mapped as the ``plone_context_state`` named view."
+msgstr ""
+
+#: ../../misc/context.rst:24
+# b1a158a4416f4b00bf451b64e5355113
+msgid "``ITools`` is mapped as the ``plone_tools`` named view."
+msgstr ""
+
+#: ../../misc/context.rst:26
+# fcb8d959f44740fdad9a1f68576d0d0f
+msgid "To see what's available through the interface, read the documentation in the `plone.app.layout.globals.interfaces <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/interfaces.py>`_ module."
+msgstr ""
+
+#: ../../misc/context.rst:31
+# fadbcbab45e34effbc55b1af578d5cc5
+msgid "Example showing how to get the portal root URL::"
+msgstr ""
+
+#: ../../misc/context.rst:51
+# b991e0ec72344a07b5f02299022df7e4
+msgid "Example showing how to get the current language::"
+msgstr ""
+
+#: ../../misc/context.rst:60
+# cd37a05ac0924676bff41389c7ccb207
+msgid "Example showing how to expose ``portal_state`` helper to a template:"
+msgstr ""
+
+#: ../../misc/context.rst:62
+# ebdaad0875084ffda3319ffaf486f833
+msgid "ZCML includes ``portal_state`` in ``allowed_attributes``"
+msgstr ""
+
+#: ../../misc/context.rst:74
+# cf8d0d74a9e34c6f8dc0cd09e0b16142
+msgid "A Python class exposes the variable::"
+msgstr ""
+
+#: ../../misc/context.rst:86
+# af75e7450a134369bab5873950dd9d59
+msgid "Templates can use it as follows:"
+msgstr ""
+
+#: ../../misc/context.rst:94
+# d439a3b628bf494a857773514305256e
+msgid "You can directly look up ``portal_state`` in templates using acquisition and view traversal, without need of ZCML code or Python view code changes. This is useful e.g. in overridden viewlet templates:"
+msgstr ""
+
+#: ../../misc/context.rst:117
+# c3b3e0766192491489ca9d3e12975662
+msgid "Use in templates and expressions"
+msgstr ""
+
+#: ../../misc/context.rst:119
+# 7e3c272c0c234ee689dac7a161ee3e3c
+msgid "You can use ``IContextState`` and ``IPortalState`` in :term:`TALES` expressions, e.g. ``portal_actions``, as well."
+msgstr ""
+
+#: ../../misc/context.rst:122
+# 498eafd53b4c4a68932b65298f93aa05
+msgid "Example ``portal_actions`` conditional expression::"
+msgstr ""
+
+#: ../../misc/context.rst:128
+# d7489220b7a348a2a005018d8cdee783
+msgid "Tools"
+msgstr ""
+
+#: ../../misc/context.rst:130
+# 0945e58944704db5ab0819def9aafb2d
+msgid "Tools are persistent utility classes available in the site root. They are visible in the :term:`ZMI`, and sometimes expose useful information or configuration here. Tools include e.g.:"
+msgstr ""
+
+#: ../../misc/context.rst:134
+# 41c08dc2f90649a0b288d3f4dc2d4b39
+msgid "``portal_catalog``"
+msgstr ""
+
+#: ../../misc/context.rst:135
+# 054b69e2e7124b0ca860f3103b1adb6e
+msgid "Search and indexing facilities for content"
+msgstr ""
+
+#: ../../misc/context.rst:136
+# 02732a288c9c4e9186348d115492807a
+msgid "``portal_workflow``"
+msgstr ""
+
+#: ../../misc/context.rst:137
+# c7fa33d389624a5a898b5c1b7c7a7012
+msgid "Look up workflow status, and do workflow-related actions."
+msgstr ""
+
+#: ../../misc/context.rst:139
+# 4577515cb8c54b4b9f65f7b3a7c8b986
+msgid "``portal_membership``"
+msgstr ""
+
+#: ../../misc/context.rst:139
+# b179d3a1dfd140de9c21dbeace7b6a04
+msgid "User registration information."
+msgstr ""
+
+#: ../../misc/context.rst:142
+# 6b93b0dcbd2b4608a4eb8838e917b22d
+msgid "ITools interface"
+msgstr ""
+
+#: ../../misc/context.rst:144
+# ef5251cf661e47aa808cb1489743cc25
+msgid "`plone.app.layout.globals.interfaces.ITools interface <https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/interfaces.py>`_ and Tools BrowserView provide cached access for the most commonly needed tools."
+msgstr ""
+
+#: ../../misc/context.rst:148
+# c38c0f2d77864719805aedf2f4b5091d
+msgid "``ITools`` is mapped as the ``plone_tools`` view for traversing."
+msgstr ""
+
+#: ../../misc/context.rst:166
+# 02294fdb5f234da990b0536b1b5a9897
+msgid "``IPlone``"
+msgstr ""
+
+#: ../../misc/context.rst:168
+# 4ffe0369a1bb4199a189a6bb1fc65247
+msgid "`Products.CMFPlone.browser.interfaces.IPlone <https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/interfaces.py#L183>`_ provides some helper methods for Plone specific functionality and user interface."
+msgstr ""
+
+#: ../../misc/context.rst:171
+# aff981edec834e3f994d34e5c35c2602
+msgid "``IPlone`` helper views is registered under the name ``plone``"
+msgstr ""
+
+#: ../../misc/context.rst:174
+# e8ed647ffe004f6ca612d1d4aa06d13d
+msgid "``getToolByName``"
+msgstr ""
+
+#: ../../misc/context.rst:176
+# 55e3b43c34c94c48ba11fb4ae564fb49
+msgid "``getToolByName`` is the old-fashioned way of getting tools, using the context object as a starting point. It also works for tools which do not implement the ``ITools`` interface."
+msgstr ""
+
+#: ../../misc/context.rst:180
+# 19979cfc6f1840dfa34ababfebc31162
+msgid "``getToolByName`` gets any Plone portal root item using acquisition."
+msgstr ""
+
+#: ../../misc/datetime.rst:3
+# 0b39fa624a4845a68b1f02b9e09b68fb
+msgid "Zope DateTime"
+msgstr ""
+
+#: ../../misc/datetime.rst:7
+# 9d9af3365e9f42e6acd38842cbf44ec5
+msgid "Using Zope DateTime class in Plone programming"
+msgstr ""
+
+#: ../../misc/datetime.rst:14
+# 1334bf6cd9114ad5a4aa209c481d29cd
+msgid "Some Plone dates are stored as Zope DateTime objects. This is different from standard Python datetime (notice the letter casing). Zope DateTime predates Python datetime which was added in Python 2.4. Zope DateTime is old code, so do rites necessary for your religion before programming with it."
+msgstr ""
+
+#: ../../misc/datetime.rst:20
+#: ../../misc/datetime.rst:61
+# 1e9c694678e54162874801864467185d
+# fae19509253d41959402acaf23e30e41
+msgid "`Zope DateTime HTML API documentation <http://pypi.python.org/pypi/DateTime/>`_"
+msgstr ""
+
+#: ../../misc/datetime.rst:22
+# 60c10eee73cb42c690d62995f12e5b65
+msgid "`Python datetime documentation <http://docs.python.org/library/datetime.html>`_"
+msgstr ""
+
+#: ../../misc/datetime.rst:26
+# cd38126239d14a5da477417cb2a32d43
+msgid "Using Python datetime is recommended if possible. Zope DateTime should be dealt in legacy systems only as Python datetime is much more documented and widely used."
+msgstr ""
+
+#: ../../misc/datetime.rst:31
+# a2e8a946802142c382289d881cd812e3
+msgid "Default formatting"
+msgstr ""
+
+#: ../../misc/datetime.rst:33
+# bc1dae3463d8493a9d5589419b05a143
+msgid "Since Plone 4"
+msgstr ""
+
+#: ../../misc/datetime.rst:35
+# a869d35e318945d2bdfba281af47ec17
+msgid "A per-language format string from a translations is preferred"
+msgstr ""
+
+#: ../../misc/datetime.rst:37
+# e0236e53d1604eb8a8c25a41af87c49d
+msgid "If such string is not available the default is taken from portal_properties / site_properties"
+msgstr ""
+
+#: ../../misc/datetime.rst:40
+# f88049d62e9d4f0c998a6ec9098a46e6
+msgid "Formatting examples"
+msgstr ""
+
+#: ../../misc/datetime.rst:42
+# de717824f71f42ff988ee3d2f3af10d7
+msgid "US example::"
+msgstr ""
+
+#: ../../misc/datetime.rst:47
+# fc147c0b23f74b0db8660eca55a158fb
+msgid "European style format:"
+msgstr ""
+
+#: ../../misc/datetime.rst:49
+# 5b07d694b88f428088c828e4fc0ca4e2
+msgid "localTimeFormat: %d.%m.%Y (like 1.12.2010) localLongTimeFormat: %H:%M %d.%m.%Y (like 12:59 1.12.2010)"
+msgstr ""
+
+#: ../../misc/datetime.rst:54
+# 5bceac717d9640eaa36f16128da11268
+msgid "https://dev.plone.org/wiki/DateTimeFormatting"
+msgstr ""
+
+#: ../../misc/datetime.rst:56
+# 506d96ee50f9422c84cceb94a7370fa9
+msgid "http://docs.python.org/library/time.html#time.strftime"
+msgstr ""
+
+#: ../../misc/datetime.rst:59
+# 6d572be5c23845409c3f396d391c86de
+msgid "DateTime API"
+msgstr ""
+
+#: ../../misc/datetime.rst:63
+# 1ec9ac6ee95846c98977c72760df9efb
+msgid "You may find the following links useful"
+msgstr ""
+
+#: ../../misc/datetime.rst:65
+# ea828113b185498895fee911c2fabb05
+msgid "`Source code <http://svn.zope.org/DateTime/trunk/src/DateTime/DateTime.py?rev=96241&view=auto>`_"
+msgstr ""
+
+#: ../../misc/datetime.rst:67
+# 60a968d926674585b5264887809f0867
+msgid "`README <http://svn.zope.org/DateTime/trunk/src/DateTime/DateTime.txt?rev=96241&view=auto>`_"
+msgstr ""
+
+#: ../../misc/datetime.rst:69
+# 3c28dfd4eb674ef0b0e268e88caaef6d
+msgid "`Interface description <http://svn.zope.org/DateTime/trunk/src/DateTime/interfaces.py?rev=96241&view=auto>`_"
+msgstr ""
+
+#: ../../misc/datetime.rst:72
+# bc7134987deb47d48a53beaac9a1f83e
+msgid "Converting between DateTime and datetime"
+msgstr ""
+
+#: ../../misc/datetime.rst:74
+# ef83c98df2f942e7b562e26769c8fb26
+msgid "Since two different datetime object types are used, you need to often convert between them."
+msgstr ""
+
+#: ../../misc/datetime.rst:76
+# de00bc7230de4e87ae7571ebda837d3d
+msgid "You can convert Zope DateTime objects to datetime objects like so::"
+msgstr ""
+
+#: ../../misc/datetime.rst:82
+# e3633df467544b55af86d4d5d1f556dd
+msgid "Vice versa, to convert from a Python datetime object to a Zope DateTime one::"
+msgstr ""
+
+#: ../../misc/datetime.rst:86
+# 7f9b365088274a239f2a93e538f465d5
+msgid "Note, if you use timezone information in python datetime objects, you might loose some information when converting. Zope DateTime handles all timezone information as offsets from GMT."
+msgstr ""
+
+#: ../../misc/datetime.rst:92
+# 9c0345d13df14e5c9b903a9504d30af7
+msgid "DateTime problems and pitfalls"
+msgstr ""
+
+#: ../../misc/datetime.rst:94
+# 86272b54634947be8926dadcb7b47fd2
+msgid "This **will fail** silenty and you get a wrong date::"
+msgstr ""
+
+#: ../../misc/datetime.rst:98
+# dd019ca6b06a44c48457914acd26fd9e
+msgid "Please see"
+msgstr ""
+
+#: ../../misc/datetime.rst:100
+# e4629d71d97c4664b41f50bc941462be
+msgid "http://pyyou.wordpress.com/2010/01/11/datetime-against-mx-datetime/"
+msgstr ""
+
+#: ../../misc/datetime.rst:103
+# 45f0308681714b408e1111d1534c846b
+msgid "Parsing both US and European dates"
+msgstr ""
+
+#: ../../misc/datetime.rst:119
+# 031b91099b724eccaf1a2cdeff961fab
+msgid "Friendly date/time formatting"
+msgstr ""
+
+#: ../../misc/datetime.rst:121
+# ee6da87162c844df93e1ab72f9332164
+msgid "Format datetime relative to the current time, human-readable::"
+msgstr ""
+
+#: ../../misc/datetime.rst:170
+# eadb74f8a4df42cc8e2fca677f9b4993
+msgid "Friendly date/time from TAL"
+msgstr ""
+
+#: ../../misc/datetime.rst:172
+# a675e8eb2fb5403194b634fe3dd094e9
+msgid "From within your TAL templates, you can call :meth:`toLocalizedTime` like::"
+msgstr ""
+
+#: ../../misc/email.rst:3
+# 070e47b8f7b7425f8ddd1407ab6ba272
+msgid "Sending email"
+msgstr ""
+
+#: ../../misc/email.rst:7
+# 5c6ef734211341fca8f175500654984b
+msgid "How to programmatically send email in Plone"
+msgstr ""
+
+#: ../../misc/email.rst:14
+# dedabbd9da9c427fada754d6d8dd21d1
+msgid "This document tells how to send email from Plone."
+msgstr ""
+
+#: ../../misc/email.rst:16
+# be39c94e503e48189fe43d3deef6c519
+msgid "Email can be sent:"
+msgstr ""
+
+#: ../../misc/email.rst:18
+# 07abe21f64f64f6d908e3b34cec492cf
+msgid "manually, by calling *MailHost*;"
+msgstr ""
+
+#: ../../misc/email.rst:19
+# deaf9e23d69640318255840ac2594473
+msgid "using a *Content Rule* (content rules have an email-out action by default) which can be activated by a workflow transition, for example;"
+msgstr ""
+
+#: ../../misc/email.rst:21
+# 09a183ffd2f745f9abda71ce11df6580
+msgid "triggering email-based password reset."
+msgstr ""
+
+#: ../../misc/email.rst:25
+# 48fcf07144a44e679909251c696e0a0b
+msgid "Configuring MailHost for a mail queue"
+msgstr ""
+
+#: ../../misc/email.rst:27
+# d27685cfd1ae4ce193c68e3a3ccacf36
+msgid "Products.MailHost supports asynchronous sending in a separate thread via a mail queue."
+msgstr ""
+
+#: ../../misc/email.rst:31
+# 4fd190d373ac4f1bad500e5722c476dc
+msgid "Using a mail queue is recommended for production sites."
+msgstr ""
+
+#: ../../misc/email.rst:33
+# b734daae554c45da812efa2fd3dcaf25
+msgid "To enable the queue, go to the ZMI and the MailHost tool. Here, check the \"Use mail queue\" setting and set the \"Queue directory\". The queue directory is given as an absolute path on your server, must have a maildir layout (it needs the directories 'cur', new' and 'tmp' in it) and must be writeable by the system user, under which the Zope thread runs."
+msgstr ""
+
+#: ../../misc/email.rst:41
+# 8b1b7d141e3d450a857461571f657ab4
+msgid "Manually calling MailHost"
+msgstr ""
+
+#: ../../misc/email.rst:43
+# f76307c9204941f68143148133c42d1b
+msgid "After your ``mail_text`` is prepared, sending it is as simple as::"
+msgstr ""
+
+#: ../../misc/email.rst:57
+# 21022cec7f9b4976b412f81a9413dd2b
+msgid "Preparing mail text"
+msgstr ""
+
+#: ../../misc/email.rst:59
+# 3a91857b456b4526b370515bb42d9e8a
+msgid "``mail_text`` can be generated by calling a page template (``.pt``) with keyword arguments. The values are accessed in the template as ``option/keyword``. For example, take a sample template:"
+msgstr ""
+
+#: ../../misc/email.rst:79
+# 6973e81b42f5443db4f05bc155576118
+msgid "This can be called with a ``member`` object and the ``portal_url``::"
+msgstr ""
+
+#: ../../misc/email.rst:87
+# 4ee3a5be8ba64c609cdc3d17b3fcafe5
+msgid "For more complete examples (with i18n support, etc.) see the password reset modules (particularly ``Products.remember.tools.registration``)."
+msgstr ""
+
+#: ../../misc/email.rst:92
+# dec483ad1d4e400eba7e95891fa1a27b
+msgid "If you don't need to have third parties to override your email templates it might be cleaned to use Python string templates, as XML based TAL templates are not designed for plain text templating."
+msgstr ""
+
+#: ../../misc/email.rst:97
+# 66cd558dd89e4ff2a666ee5ab3d91207
+msgid "Graceful failing"
+msgstr ""
+
+#: ../../misc/email.rst:99
+# d979fda0174448de993cab0f919b412e
+msgid "In the case SMTP server rejects the connection. etc. don't abort the current transaction (which is the default behavior)"
+msgstr ""
+
+#: ../../misc/email.rst:102
+# 32b32fc73a8e4a4aa172ebf7a874f2a5
+msgid "http://stackoverflow.com/questions/9013009/ploneformgen-and-fail-safe-email-send"
+msgstr ""
+
+#: ../../misc/facebook.rst:3
+# 1625fc828beb49b3a3e99ebec743d39c
+msgid "Facebook integration"
+msgstr ""
+
+#: ../../misc/facebook.rst:7
+# df4cc1a3b5764618a0ac72d91e085697
+msgid "How to integrate Facebook to Plone site"
+msgstr ""
+
+#: ../../misc/facebook.rst:14
+# e5e2697e2a7b414c821727604a7a780c
+msgid "See the add-on"
+msgstr ""
+
+#: ../../misc/facebook.rst:16
+# 02345af2c6e146ca9bfecfbe6b4857a3
+msgid "http://plone.org/products/facebook-like-button"
+msgstr ""
+
+#: ../../misc/facebook.rst:18
+# e5cba17344e942d0938ee702458f5db4
+msgid "for non-programming integration."
+msgstr ""
+
+#: ../../misc/facebook.rst:21
+# df8a6b6519a94b17b92cdccdffdc6733
+msgid "Like button"
+msgstr ""
+
+#: ../../misc/facebook.rst:23
+# 8ed948e082f6419b8d1a28023269bd83
+msgid "Here is an example which creates a Like button pointing to the current page."
+msgstr ""
+
+#: ../../misc/facebook.rst:25
+# fecc6b5f27b2436daa59a444b3016240
+msgid "Page template code:"
+msgstr ""
+
+#: ../../misc/facebook.rst:31
+# 22c3eaee3b204154af5e0d08ecd0a93d
+msgid "View code"
+msgstr ""
+
+#: ../../misc/facebook.rst:55
+# 44a76f1f43fb4947afc1678ae6352e79
+msgid "If you are using Like button you should also add OpenGraph metadata to your pages as described below."
+msgstr ""
+
+#: ../../misc/facebook.rst:60
+# a51860750e314604af13545e2917bf5a
+msgid "http://developers.facebook.com/docs/reference/plugins/like/"
+msgstr ""
+
+#: ../../misc/facebook.rst:63
+# 2db99f0972594ae7901a9d4b5b134cbc
+msgid "OpenGraph metadata"
+msgstr ""
+
+#: ../../misc/facebook.rst:65
+# bfec89641c6c4deab9a4ca516650bf54
+msgid "OpenGraph is Facebook page metadata protocol. You'll insert extra <meta> tags on the page which will give additional information about the page to be displayed with Facebook links."
+msgstr ""
+
+#: ../../misc/facebook.rst:69
+# d91ab658bdfd48a1b5ee55df25ec073e
+msgid "http://developers.facebook.com/docs/opengraph/"
+msgstr ""
+
+#: ../../misc/facebook.rst:71
+# f312e26499954ebdba15f326bdf80f6d
+msgid "Below is an example of filling in Facebook metadata"
+msgstr ""
+
+#: ../../misc/facebook.rst:73
+# 92bc2303ded941f897fe2e597c8704a8
+msgid "Using content description in Facebook"
+msgstr ""
+
+#: ../../misc/facebook.rst:75
+# d2cc4b7b8149449fb5d58d9be1e2b6b3
+msgid "Having main image"
+msgstr ""
+
+#: ../../misc/facebook.rst:77
+# 81433de8b052459aa7328fb8e77061c7
+msgid "Having location"
+msgstr ""
+
+#: ../../misc/facebook.rst:79
+# c9ba9bc473d5480da653bbed029a07e7
+msgid "Having contact info"
+msgstr ""
+
+#: ../../misc/facebook.rst:83
+# 64192abe9d2442c3928d601d54df997e
+msgid "You need to include your Facebook app or your Facebook user id as the admin for the site in the metadata. Otherwise Facebook will report an error for the page."
+msgstr ""
+
+#: ../../misc/facebook.rst:87
+# 068cbb9930514f299f4c1f13ced1fd7e
+msgid "You can see Facebook id your yourself and your friends here"
+msgstr ""
+
+#: ../../misc/facebook.rst:89
+# f5f2d8fef08e43368cf2b558ae609dd2
+msgid "http://apps.facebook.com/whatismyid"
+msgstr ""
+
+#: ../../misc/facebook.rst:91
+# 3705a3e7858a4c329841dd788488cc41
+msgid "Simple example. Add this to your :doc:`main_template.pt </templates_css_and_javascripts/template_basics>`. Supports Plone default content types and news item image"
+msgstr ""
+
+#: ../../misc/facebook.rst:124
+# d634deb59aaa480fadba99b0c5de911e
+msgid "Complex example for custom content type"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:3
+# 180728ba885a4072990634498f3469ea
+msgid "Flowplayer"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:7
+# f6375a7329d84e2c87e4387fe1e22949
+msgid "Using Flowplayer video player in your Plone add-ons."
+msgstr ""
+
+#: ../../misc/flowplayer.rst:14
+# 4c538ad333474ed3adf4666ce3ba4baf
+msgid "Flowplayer is a GPL'ed Flash-based video player."
+msgstr ""
+
+#: ../../misc/flowplayer.rst:16
+# 863b013cd3544691a2eed3534fcd0ea9
+msgid "Plone integration exists as an add-on product:"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:18
+# 73001abdde6e410ea0e6b6203bdcb73b
+msgid "http://plone.org/products/collective-flowplayer"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:21
+# a82e22855ddd4af4b728bb0ba0e0d2de
+msgid "Creating a custom Flowplayer"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:23
+# f8f0013473654956a152f33499bfd294
+msgid "Here is a walkthrough how to create a custom content-type with a video field which plays the uploaded video using Flowplayer in a page template with parameters you define."
+msgstr ""
+
+#: ../../misc/flowplayer.rst:27
+# ea50484104ae495cade303c5314062a4
+msgid "Dexterity model definition::"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:41
+# 2c7b0c96ffd44a69b3ad4161828c308a
+msgid "Helper view Python code::"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:55
+# c0de97ef158b4eb792447e946d0408d3
+msgid "Helper view template:"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:75
+# a5532677f0034332842cd08ff3344e7f
+msgid "Using the view:"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:98
+# a1f7e661abfd4751bddb60b794008699
+msgid "Javascript, registered in ``portal_javascripts``, doing the magic:"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:172
+# d856718773954d818b0ab8701dc1c538
+msgid "Needed CSS:"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:186
+# a3ea969a9fee45b5a19343873f70c765
+msgid "if your player is not displayed on the page load, but is displayed after you click somewhere to the player container area, be sure there is no HTML code nor text inside the player container HTML tag. Such code/text is considered as player splash screen and player is waiting for click to the splash."
+msgstr ""
+
+#: ../../misc/flowplayer.rst:193
+# e341c59f9678408a9efc4003f20ef2cc
+msgid "Non-buffered MP4 playback fix"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:195
+# 8242e24801c64b7eb14be0191caa0925
+msgid "MPEG4 files must be specially prepared (quick play fix), so that the playback starts instantly and the player does not try to buffer the whole file first"
+msgstr ""
+
+#: ../../misc/flowplayer.rst:199
+# ffcb6fc38cbf4d18bc2e8a1fd86196e2
+msgid "https://twitter.com/moo9000/status/253947688276594688"
+msgstr ""
+
+#: ../../misc/html.rst:3
+# 5935c4b4a2db4926b8a6abb0be02d627
+msgid "HTML manipulation and transformations"
+msgstr ""
+
+#: ../../misc/html.rst:7
+# d1645a5fc4794362af5521eb0c39e5b1
+msgid "How to programmatically rewrite HTML in Plone."
+msgstr ""
+
+#: ../../misc/html.rst:14
+# 65772bae62ad470e9a66035558d0ec0f
+msgid "It is recommended to use the `lxml <http://lxml.de/>`_ library for all HTML DOM manipulation in Python."
+msgstr ""
+
+#: ../../misc/html.rst:17
+# 136d48bd7ae541358732bda9a5ffc4a4
+msgid "Plone is no exception."
+msgstr ""
+
+#: ../../misc/html.rst:20
+# 8180ded2372d4b9e96a73589a19178fd
+msgid "Converting HTML to plain text"
+msgstr ""
+
+#: ../../misc/html.rst:22
+# f5c82c2b861143a8add81cce08534357
+msgid "The most common use case is to override ``SearchableText()`` to return HTML content for portal_catalog for indexing."
+msgstr ""
+
+#: ../../misc/html.rst:25
+# 18058fa384364a33ae9fa679e950db35
+msgid "http://stackoverflow.com/questions/6956326/custom-searchabletext-and-html-fields-in-plone"
+msgstr ""
+
+#: ../../misc/html.rst:28
+# 1b8bfe401e834eb8a773850ab4dfe76c
+msgid "Converting plain text to HTML"
+msgstr ""
+
+#: ../../misc/html.rst:30
+# 25663e18d4864eb797b97bdb08b2d291
+msgid "You can use ``portal_transforms`` to do plain text -> HTML conversion."
+msgstr ""
+
+#: ../../misc/html.rst:32
+# 16e9f2fba0d7458292ac7b24f90e42f5
+msgid "Below is an example how to create a Description field rendered with new line support."
+msgstr ""
+
+#: ../../misc/html.rst:34
+# 62a41ab92dda45ec9bb7889e3bb4f85f
+msgid "description.py::"
+msgstr ""
+
+#: ../../misc/html.rst:68
+# 5609209213f940608968b5ba28ff381f
+msgid "Now you can do in your page template"
+msgstr ""
+
+#: ../../misc/html.rst:91
+# 5089bcfab8874c54bdccf1c67265e1c0
+msgid "http://svn.plone.org/svn/collective/intelligenttext/trunk/README.txt"
+msgstr ""
+
+#: ../../misc/html.rst:94
+# 1d5cfc7e3b5641c4a0a3086e09f65366
+msgid "Rewriting relative links"
+msgstr ""
+
+#: ../../misc/html.rst:96
+# 1a1a6df22123405da4bdcf024b2b6e91
+msgid "Below is an example which:"
+msgstr ""
+
+#: ../../misc/html.rst:98
+# cdaad65c9878417f974c4260e59d6484
+msgid "rewrites all relative links of Page content as absolute;"
+msgstr ""
+
+#: ../../misc/html.rst:99
+# c0917f4d7c634c9f923429f03bf946ca
+msgid "removes some nasty tags from Page content;"
+msgstr ""
+
+#: ../../misc/html.rst:100
+# 0d46dbddf01b4e8c8bf476c8b096e8d0
+msgid "outputs the folder content and subcontent as one continuous page;"
+msgstr ""
+
+#: ../../misc/html.rst:101
+# 48b3222dc0ad4db7a23f23b9dd0d597f
+msgid "is based on :doc:`Grok views </components/grok>`."
+msgstr ""
+
+#: ../../misc/html.rst:103
+# a36ac284a17245969b4c6ae5e60d7710
+msgid "This is suitable for e.g. printing the whole folder in one pass."
+msgstr ""
+
+#: ../../misc/html.rst:105
+# 79d1750cb7e04c58b9863d383397a7b1
+msgid "``help.py``::"
+msgstr ""
+
+#: ../../misc/html.rst:215
+# b326209d6b9a4a60ac23e560c468cef9
+msgid "``help.pt``"
+msgstr ""
+
+#: ../../misc/index.rst:3
+# 251d38c14d544c909ad8348d5a216af1
+msgid "Miscellaneous information"
+msgstr ""
+
+#: ../../misc/index.rst:5
+# 5929c4ca3163431d932517951be6b84f
+msgid "This section describes functions and APIs which are not directly related to any bigger subsystems."
+msgstr ""
+
+#: ../../misc/index.rst:7
+# a1e9d82ec9b04658864cabc524329e49
+msgid "# Managing member profile (portal_membership under site root)"
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:3
+# fece815579de4b3daa61e3940d487956
+msgid "Monkey-patching"
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:5
+# ec95d01731194507b52ee00ee736508c
+msgid "A monkey patch (also spelled monkey-patch, MonkeyPatch) is a way to extend or modify the runtime code of dynamic languages (e.g. Smalltalk, JavaScript, Objective-C, Ruby, Perl, Python, Groovy, etc.) without altering the original source code."
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:10
+# 6d5d0f21d3ac44ac8efd5775978bdb45
+msgid "Plone community promotes conflict free way to do monkey patching using `collective.monkeypatcher package <http://pypi.python.org/pypi/collective.monkeypatcher>`_."
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:15
+# 71a317fd30004c05b30dc1191077d8d7
+msgid "Patching constants"
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:17
+# 96b132da913249ae9f46a6a1fe955a74
+msgid "Some modules (typically ``config.py`` files) include constant definitions used throughout the package. Given that ``collective.monkeypatcher`` is intended to patch methods you'll not be able to patch a constant straightforward. Instead you'll have to make use of the ``handler`` option::"
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:31
+#: ../../misc/monkeypatch.rst:62
+# 339940c76e144985a116e1c69c1ce5be
+# f13786ecfcd34d5bb887300ca29a4a99
+msgid "And your ``patches.py`` module should include this::"
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:43
+# 6c1ca544820446f2947dcc22c6168e10
+msgid "This way the **original** ``SIZE_CONST`` constant would be replaced by the result of the lambda function, which is our new constant."
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:47
+# 54cdb6fa7db84583acd174c60be6b165
+msgid "Patching @property methods"
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:49
+# ae2a7d40399a4d6baddd3034add3e381
+msgid "If you are to patch a ``@property`` decorated method you can use the ``handler`` configuration option::"
+msgstr ""
+
+#: ../../misc/monkeypatch.rst:77
+# 2f851218cfb84e2d9b2a24799e83e7dc
+msgid "This way the **original** ``items`` method would be replaced by the result of the lambda function, which is a ``@property`` decorated method written in a different way."
+msgstr ""
+
+#: ../../misc/navigationtree.rst:3
+# 17675b7c4bd34c09a1c2d5c574656d32
+msgid "Navigation trees"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:9
+# 9f54abec3e0e4e9b96fb18ca9cc2baa6
+msgid "How navigation trees are generate in Plone and how to generate custom navigation trees."
+msgstr ""
+
+#: ../../misc/navigationtree.rst:15
+# 4556dda8719e45119268bd2ff69524f9
+msgid "Plone exposes methods to build navigation trees."
+msgstr ""
+
+#: ../../misc/navigationtree.rst:17
+# f8a1301e580a4c64afe2da33d916762a
+msgid "`Products.CMFPlone.browser.navtree <https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/browser/navtree.py>`_"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:19
+# 6c47dc3c78334605a3f2a681fe3454d5
+msgid "`plone.app.layout.navigation.navtree.buildFolderTree <https://github.com/plone/plone.app.layout/blob/master/plone/app/layout/navigation/navtree.py>`_"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:21
+# 55b7e8d4b0324afb95e966b7d881ba53
+msgid "These are internally used by navigation portlet and sitemap."
+msgstr ""
+
+#: ../../misc/navigationtree.rst:24
+# 38f772aee9534c6786c68411e2353d0e
+msgid "Creating a custom navigation tree"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:26
+# 9e1b8b9a71e94ebb9405b830e6f940d9
+msgid "See `Products.PloneHelpCenter <https://github.com/collective/Products.PloneHelpCenter/blob/0f2fac5a7216eb8c0d83736dbcbd6a4385f9b4f4/Products/PloneHelpCenter/content/ReferenceManual.py>`_ for full code."
+msgstr ""
+
+#: ../../misc/navigationtree.rst:28
+# 9f81fcaeb2fa4dd7905a45870aa328de
+msgid "The following example builds Table of Contents for *Reference Manual* content type::"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:43
+# 94e8ed08a8e24cc4a764d6f4a9458312
+msgid "Excluding items in the navigation tree"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:45
+# 2e16330c49294c4e9879dc53b5e52739
+msgid "Your navigation tree strategy must define method ``nodeFilter()`` which can check for portal_catalog metadata column ``exclude_from_nav``."
+msgstr ""
+
+#: ../../misc/navigationtree.rst:48
+# 3a630a40bcaf480b9d8f93c35aa1b855
+msgid "Example (from Products.CMFPlone.broser.navtree)::"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:61
+# b4908ab80b664a04a4bb837c5102eb87
+msgid "Querying items in natural sort order"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:63
+# bb9edf6b44c84a59ab31bc839fbb3cd9
+msgid "Sometimes you want to display content items as they appear in Plone navigation. Below is an example which builds a flat vobulary for a form checbox list based on a custom portal_catalog query and root folder."
+msgstr ""
+
+#: ../../misc/navigationtree.rst:67
+# 3b48e05dde0c43e2943ba6cc5ad0c7ea
+msgid "query_items_in_natural_sort_order::"
+msgstr ""
+
+#: ../../misc/navigationtree.rst:119
+# 2ad7d7b8d47b46c8888587cbeb1f646d
+msgid "How to use::"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:3
+# e068747286dd48b1aaca61f40e17bdcd
+msgid "Normalizing ids"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:7
+# a570962148ec403b84d516b5ea85e391
+msgid "How to convert arbitrary text input to URL/CSS/file/programming safe ids."
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:14
+# bccb41601d38441dbe2d801f20c5910e
+msgid "Normalizers turns arbitrary string (with unicode letters) to machine friendly ASCII ids. Plone provides different id normalizers."
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:17
+# 58f342db11b54756920d8ca84d765ede
+msgid "E.g::"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:21
+# 512fa33ce1d640489c77d88a6c3ac226
+msgid "Plone has conversion utilities for"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:23
+# ba68018383c142bd95039d26179d5e71
+msgid "For URIs and URLs (plone.i18n.normalizer.interfaces.IURLNormalizer)"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:25
+# 2fb2be77eb59464ab6b619adf2d7d8ac
+msgid "For filenames"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:27
+# d307350b13bd47bca499790e48f2c7b3
+msgid "For HTML ids and CSS"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:29
+# 9efc3ff87ba14049ad22d238adcc24bb
+msgid "Normalization depends on the locale. E.g. in English \"\" will be normalized as \"ae\" but in Finnish it will be normalized \"å\" -> \"a\"."
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:32
+# 36dd284fa4074644bbbcf09c8a0cc068
+msgid "See `plone.i18n.normalizers package <https://github.com/plone/plone.i18n/tree/master/plone/i18n/normalizer/__init__.py>`_."
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:35
+#: ../../misc/paster_templates.rst:97
+#: ../../misc/paster_templates.rst:272
+# 8a8bf5e6884a47099b32e8a265825f2c
+# 73b8f6df2e7c45ce90b9c7362852f51c
+# 1d53fef42cdd46539c2ca6d9a0b931b6
+msgid "Examples"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:37
+# b8a56bac8c224b9984f0f3a63cb71fcb
+msgid "Simple example for CSS id::"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:45
+# dced5ab4df7c405a84aacc90c24e2384
+msgid "Hard-coded id localizer which directly uses class instance and does not allow override by utility configuration. You can use normalizers this way also when getUtility() is not available (e.g. start up code)::"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:52
+# 32f5d68dd3f344b181c78db74aaf66c7
+msgid "Language specific example for URL::"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:60
+# d5957aa1fdb446468c6705f4323dd827
+msgid "To see available language specific localizers, see the source code of plone.i18n.normalizers package."
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:62
+# 51a4fd834374443aa9dfffc40a391623
+msgid "More examples:"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:64
+# 11d6f1c0586c48f78f4207144bf1dae1
+msgid "`Static text portlets normalizes portlet title for CSS class <https://github.com/plone/plone.portlet.static/tree/master/plone/portlet/static/static.py>`_."
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:67
+# 0ac91f7442bc4b449a42f0a213344010
+msgid "Creating ids programmatically"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:69
+# 007825d633a847efa3b48be2a22998b4
+msgid "If you are creating content programmatically using invokeFactory() or by calling the class constructor you need to provide the id yourself."
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:72
+# f80f66c9f77d4dfeb222df188e7832fd
+msgid "Below is an example how to generate id from a title. *container* is the folderish object that will contain our new object.::"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:95
+# 05062feb523e49c198fb81fb927ae774
+msgid "Other"
+msgstr ""
+
+#: ../../misc/normalizing_ids.rst:97
+# 3e4899674f26482680d5213fcab3512f
+msgid "`Enforcing normalization for old migrated context <http://plone.org/documentation/how-to/how-to-force-all-your-old-content-into-the-new-normalized-id-format>`_."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:3
+# 2d92a26da91a4fa0b8806fd86947b067
+msgid "Creating your own Paster templates"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:7
+# 42229156aa9744b4b65ae98ecd6e364f
+msgid "How to create Paster code skeleton templates to easily add your own add-on product types or code inside your add-on porduct."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:13
+# 93d31787488e42a68103846e6fa80092
+msgid "Plone CMS and Python extensively use :doc:`paster code templating system </getstarted/paste>` to aid add-on product development."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:16
+# b43c04800b2747a598e81f1adada1ac1
+msgid "Paster allows you to create code from code skeleton templates, automatically filling in your company name etc."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:19
+# 47a84d53c85e46cb83f548995c5482a4
+msgid "Default Plone templates are in `ZopeSkel <http://plone.org/products/zopeskel>`_ package."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:21
+# f31d6046ac554e28a43ae29c957487da
+msgid "This document tells how to create your own paster templates"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:23
+# 1720d2dbb58c47b3b7773f9899643808
+msgid "For information how to use paster please refer to :doc:`paster section in tutorials </getstarted/paste>`"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:25
+#: ../../misc/paster_templates.rst:81
+#: ../../misc/paster_templates.rst:111
+#: ../../misc/paster_templates.rst:160
+#: ../../misc/paster_templates.rst:175
+#: ../../misc/paster_templates.rst:206
+#: ../../misc/paster_templates.rst:256
+# 50b14b1c80014e339523f65feebce3a8
+# b1c90ac4084441b0b48224c0fad522c6
+# aefcd4a798844d6090f7bf2473a4ff63
+# 9e5ab83ed5a3424facb9da7b12bfa8f9
+# d52e7ffe76294547a21c0f66d49cf8ae
+# a2d1271bfa4b4b59b8f58a0ebeba05b6
+# 422cd26e71804ed3a1c4b2f7485e2b46
+msgid "More information"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:27
+# 8462d75764cd4c79ad878acdb3c558b1
+msgid "http://wiki.pylonshq.com/display/pylonscookbook/Creating+Templates+For+The+paster+create+Command"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:29
+# bd659bf997b24fd787e43e3e6d63dfac
+msgid "http://plone.org/products/zopeskel"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:31
+# f0ff6547434345f2b2b28da3d45a53fc
+msgid "http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:33
+# a44b3586019d4ee09a90cad5bffe74e4
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:36
+# 6fe8f328d5034bc6850d3ad1a81b9129
+msgid "Extending ZopeSkel"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:38
+# 0d3e50feba7940fd9640801816384756
+msgid "First you need to create a Python egg where your templates will be contained. We use ZopeSkel's *plone* template, but generic Python template should do as well."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:41
+# 3c861c0dc9604c22af9c8d0bea91fe87
+msgid "paster create -t plone gomobile.templates"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:45
+# 8452fa93f5a0432bb0ea23e73d546a31
+msgid "You do not need tests.py or configure.zcml files in the template package itself."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:48
+# fb9be45d81294699a5a255292578122c
+msgid "setup.py entries"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:50
+# 135e54ba020c42779008874cd5ee0b75
+msgid "Then we edit ``setup.py`` and add paster template entry points::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:66
+# c91339cbc46a432db6d70067abc12095
+msgid "You could also have \"subtemplates\" with local paster commands which add more code into existing code skeletons::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:75
+# 4e9367d39e744d8f8526e22e85cc229a
+msgid "Entry points"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:77
+# 2ced2e70ea2847d3ad03f286cbdda9e7
+msgid "Entrypoints allow different plug-in systems through using the standard Python eggs and ``setup.py`` file. Plone 3.3+ picks Plone add-ons through this way and ``paster`` command pick available templates from all available eggs this way."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:83
+# 93024efd05a74e91ac868e113a4439ef
+msgid "http://wiki.pylonshq.com/display/pylonscookbook/Using+Entry+Points+to+Write+Plugins"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:86
+# 4da9d13d00374572a146aab367fc35f9
+msgid "Template class"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:88
+# 7b33107184e94b8c8b0e99b8382871f4
+msgid "Paster template is defined with a class referred from the entry point. Here is an example how we extend the existing Plone template class"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:92
+# de04be5b26be446490f3bd5a2d5611d8
+msgid "Variables and asking for the user input"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:94
+# d67d49ca7f73437d85dce243cad0cb1a
+msgid "*ZopeSkel* contains facilities how to ask template input from the user who is running Paster. It provides some sane way to give defaults and validate the input."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:99
+# 102dfb69f9c34e8f844a727b9d5e532b
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/abstract_buildout.py"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:103
+# f09d720948f14c0e8d372769ef7601d9
+msgid "ZopeSkel input definitions should work both on command line and on the web based generator."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:106
+# 4ccab364220f4cf399ff7bc1ac18d026
+msgid "Pre- and postcondition triggers"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:108
+# 714ab027f88c49898dc7f97ad38e0330
+msgid "If you want to run special code before the templates are run and after they have successfully complete, ZopeSkel provides some logic for this."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:113
+# 38775ee971b64d5eae92a75825ee8c1f
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/hosting.py"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:115
+# c51f9672d3fd46318ac371bb3d8fb89d
+msgid "http://pythonpaste.org/script/paste/script/templates.py.html?f=11&l=143#11"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:118
+# 9fed89332ee84ac2ba85ea209ca1db6b
+msgid "Template folder structure"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:120
+# b293cdcf4e4e414b9e8d4201a8a31e58
+msgid "All templates should go to ``templates`` folder in your ZopeSkel extension namespace."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:122
+# a0f2eab6cbcf4093abbe58a289f94275
+msgid "Filenames and folder names can contain variable substitues as::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:126
+# 36b95639495948d29af643323e920c7c
+msgid "will be mapped to::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:131
+# f52f5506fc5f4bcaafc996008f3138b9
+msgid "Template files"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:133
+# 329ab321062e4f988e7e02cef074549f
+msgid "Files having special ``_tmpl`` extension will have string substitution performed on then. Paster supports `Cheetah templates <http://packages.python.org/Cheetah/users_guide/index.html>`_ (default) and `Python string templates <http://docs.python.org/release/2.5.2/lib/node40.html>`_"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:140
+# 0c356a793e8f4261a0bd16d050aa5d95
+msgid "http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/templates/dexterity/setup.py_tmpl"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:142
+# 390e716b64584f7e8e4725b33666d0b7
+msgid "The best way to get the initial template files and folders for your add-on template is to checkout some existing ZopeSkel package, like *collective.dexteritypaste* and export its *templates* folder to your own add-on template."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:148
+# dea839ba46b8434b926a165aec97a5cc
+msgid "As writing of this I am not aware of any meta-template to create paster templates. But should thing would be greatly beneficial."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:153
+# 1c382b7328bc49c4b6ba778c6cd6c752
+msgid "Variable substitution"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:155
+# 3fc4c6c5018b40cda22929dd2ce4cff5
+msgid "Simple string variable substitution is like::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:162
+# 74a951eb4ede40ef961482750aa58219
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/localcommands/templates/plone/portlet/tests/test_+portlet_filename+.py_tmpl"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:165
+# 09056308d6a4435ea509b7d46cd3ed33
+msgid "Default variables"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:167
+# 23cdea7564c14209b818d1ab4c0f35d8
+msgid "Defaulte template variables are inherited from various base classes of ZopeSkel templates. One good place to look them is ``basic_namespace.py`` template declaration."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:170
+# 2bc3eb988d71442ca3bffcef5bd3452f
+msgid "Useful snippets::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:177
+# d0f25901ef6d4aa4b0ba92cdc6e8003d
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/basic_namespace.py"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:180
+# 70a1ce63c34b4bbc89305d4e643f3b7c
+msgid "Variable preparation"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:182
+# d56c2286cb5f4e68be90d13b2eb7d5a1
+msgid "You can also prepare template variables in Python code in your Paster template class's ``pre()`` method::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:208
+# a5796083d8884bc98d5833a129ad0243
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/localcommands/plone.py"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:211
+# 1256393f33a94fbfaa3fffc64c2abd7b
+msgid "Escaping strings"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:213
+# 97039dc0b95a444e88139df5e0b93e6c
+msgid "If you have any page template (``*.pt``) files you need to templatetize you will encounter problem that both Cheetah and Zope Page Templates use the similar string expansion syntax causing a conflict."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:217
+# a1e6b9713a444555a57ed513ef07b696
+msgid "You can use \\ (backslash) before dollar sign to escape it."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:224
+# b5e9499476e94813a037d00e130045c9
+msgid "Conditions and branching"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:226
+# e7a415e22126410285d83d3fcaff81ad
+msgid "If you need to have if, for and buddies in the templates see Cheetah manual."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:228
+# 0ab2c9c75da245de8559f5a19271b247
+msgid "Example"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:230
+# 61618b5eac3d432abff5f03c345d4714
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/templates/plone/+namespace_package+/+package+/configure.zcml_tmpl"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:233
+# 65577966e84d4efb9b2417cb30361a0a
+msgid "Local commands"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:235
+# c66ff89fdd5b40949687047a5b9bae7f
+msgid "Local commands define insert snippets which will be injected to the existing files."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:237
+# 03257c7a196c41a1a7bbf70fb0c83b7b
+msgid "The marker for snippet injects is::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:241
+# 07f375a9066a421996dbb05d7399ae84
+msgid "You need to put it to the comment format of the file type. Example for XML would be (``configure.zcml_tmpl``)::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:245
+# f3e30eca735b4cc685811c2792f14950
+msgid "Local command injection templates have ``_insert`` in their filename extension. Then the local command injection snippet ``configure.zcml_insert`` look like::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:258
+# 38a45bc5fbb44bedabcf793c53dbb71d
+msgid "http://pythonpaste.org/script/developer.html#what-do-commands-look-like"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:260
+# c7a545a70fd64d2aa7591090c2568bd8
+msgid "Some examples"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:262
+# 5a0595bcaba4456f8cecd7d12f7e5f9e
+msgid "http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/templates/dexterity/+namespace_package+/+package+/configure.zcml_tmpl"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:264
+# 04bf3b5b704843318b9f2ee8cdfce3d4
+msgid "http://svn.plone.org/svn/collective/collective.dexteritypaste/trunk/collective/dexteritypaste/localcommands/templates/dexterity/behavior/behavior/configure.zcml_insert"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:267
+# 05670530ce0746da8c0a58413774a1b3
+msgid "Testing the templates"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:269
+# d71155b637bb4c869279a6b3665c9ef5
+msgid "ZopeSkel provides some doctest based testing facilities to hook your templates to automatic testing facilities, mainly for the regression testing."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:274
+# d94d04b4c96249b4a729582e0384049e
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/docs/plone3_buildout.txt"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:276
+# f14f8dedcb0946388548ff1474f26abd
+msgid "http://svn.plone.org/svn/collective/ZopeSkel/trunk/zopeskel/docs/localcommands.txt"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:279
+# c7e6814e03de4c82ac5e06cb2cd731db
+msgid "Developing template egg with paster and buildout.cfg"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:281
+# 06e74034f12d44a590d14b0588f44843
+msgid "The preferred method to run paster with Plone is to have it automatically pulled in and configured for you by :doc:`buildout </reference_manuals/old/buildout/index>`."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:285
+# fbc56f13fe014059b85380946a380f93
+msgid "develop-eggs"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:287
+# fe5f10e24f03446aa8a857e0a319ced7
+msgid "You need to specially mention to buildout which Python eggs are in source code form."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:290
+# 496b25f85cdb4347adff2ffdd1232ef4
+msgid "You can use ``develop-eggs`` directive"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:292
+# cea0e5f39d5346e4bd62caad1e267d41
+msgid "You can use buildout extensions designed for source code and version control management, like `mr.developer <http://pypi.python.org/pypi/mr.developer>`_."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:295
+# 85f83ae99dc24b6e86bc26621de9b564
+msgid "Then you need to declare ``[paster]`` part and section in ``buildout.cfg``::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:315
+# e5152e883ea9439ebaaa82e30624b172
+msgid "Rerun buildout."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:317
+# 711b2b180f0a43ebbffd48c04247b50c
+msgid "Now when you run paster command it should show your custom template::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:330
+# a8c3148fd806421198830bbcd7a1fb79
+msgid "Testing the generated product"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:332
+# 82700c2b74e646a2b98e43ef10dfb0d8
+msgid "This checks that your template generates viable code. We use package called ``gomobiletheme.yourcompany`` in this examples."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:335
+# f4f895b358cd482d9e59355dee1cd9b2
+msgid "Steps"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:337
+# 7973246dc6f3444887d36c520c353501
+msgid "Generate a product skeleton using ``paster`` in non-interactive mode"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:345
+# 2544c8d65f7e4bec83cbda099d89f658
+msgid "Use -f switch or you might encounter problems with template inheritance."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:347
+# a455ef1ae5614ffb87e1b16f422f9805
+msgid "`See paster bug regarding template inheritance and -f switch <http://trac.pythonpaste.org/pythonpaste/ticket/445>`_."
+msgstr ""
+
+#: ../../misc/paster_templates.rst:349
+# 373c516bcc874055a22c004703baea98
+msgid "Put the newly created add-on skeleton to ``buildout.cfg`` in develop eggs and eggs::"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:357
+# cc8e91cda4604708858bf3fe01122ea1
+msgid "Run buildout"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:363
+# b51079c855624429b75bc039cca02c08
+msgid "Run :doc:`testrunner </testing_and_debugging/unit_testing>` for the created add-on"
+msgstr ""
+
+#: ../../misc/paster_templates.rst:369
+# 4ed10ea0f30d4af9860840c96ac4c641
+msgid "See ``bin/paste create --help`` for other useful debug switches."
+msgstr ""
+
+#: ../../misc/plone5way.rst:3
+# 29849a284818499da060e6cd5df71f77
+msgid "Concerns regarding removal of portal_skins and reliance on browser views"
+msgstr ""
+
+#: ../../misc/plone5way.rst:8
+# dde19efcb6084b1b82eb17d1d32228a8
+msgid "Specific Things We Like to Do with portal_skins"
+msgstr ""
+
+#: ../../misc/plone5way.rst:11
+# 431d5e9c395348809b673ff62f187c6c
+msgid "This document includes a bunch of specific use cases showing how we as integrators typically rely on portal_skin."
+msgstr ""
+
+#: ../../misc/plone5way.rst:14
+# e129578796a04949b205847b2841c3da
+msgid "Nathan Van Gheem's responses below are indented."
+msgstr ""
+
+#: ../../misc/plone5way.rst:18
+# d74c8347b6234252bf713d5e482fbb19
+msgid "Live Sites"
+msgstr ""
+
+#: ../../misc/plone5way.rst:20
+# 21322cef601743bfbc34368f08e388b9
+msgid "We can modify live sites’ appearance without having to touch the file system by putting things in the custom folder."
+msgstr ""
+
+#: ../../misc/plone5way.rst:25
+# 88514f2c4edc4277937bcf579bdc26ce
+msgid "Plone has, and will always try to provide a rich TTW editing and customization story. This is true with plone.app.theming and diazo. If all skins are removed, we WILL provide an alternative way to customize template TTW. Right now, it looks to me like making portal_view_customizations work better."
+msgstr ""
+
+#: ../../misc/plone5way.rst:33
+# b30ba0de4ac9431c84becdf70027da56
+msgid "No Filesystem or Buildout Access"
+msgstr ""
+
+#: ../../misc/plone5way.rst:35
+# 790f2f7d6b8a400baaa764fa591e2ac5
+msgid "We often do not have access to the file system nor can we run buildout."
+msgstr ""
+
+#: ../../misc/plone5way.rst:38
+# 1911a533a4fb470b8e9dfd3dbe768864
+msgid "See Live Sites response."
+msgstr ""
+
+#: ../../misc/plone5way.rst:41
+# 386b86d197f845a688f3711c3cac34c0
+msgid "Customizing a collection’s display"
+msgstr ""
+
+#: ../../misc/plone5way.rst:43
+# fd16637cc270471d9ba7af79ae69bb9d
+msgid "We have some custom content types that we want to display using a collection. We build the collection and specify “item type”.  We want the display to show fields that are unique to the custom content types.  We locate the collection view template, customize it, rename it (to, say, custom_collection_view), enhance it to show the additional field values, then in portal_types we add the new custom_collection_view to the list of available views for Topics.  The collection’s “Display” menu now includes the new custom_collection_view."
+msgstr ""
+
+#: ../../misc/plone5way.rst:52
+# ee5434ca290946f19c4b7f0987083ff6
+msgid "First off, best case we still have a story to do the exact same thing only with portal_view_customizations."
+msgstr ""
+
+#: ../../misc/plone5way.rst:55
+# 97d554bb07054e2882c0aa7ac4d6fc3a
+msgid "Secondly, it can be easier to hit that use-case with a combination of collective.listingviews and diazo. There has been discussion of integrating a lot of what collective.listingviews does and more into plone.app.theming."
+msgstr ""
+
+#: ../../misc/plone5way.rst:61
+# 3874e989b199407c890de48c88720c07
+msgid "Creating a cloned content type so that it has a different default view"
+msgstr ""
+
+#: ../../misc/plone5way.rst:63
+# b2ebb3b233a5461b8ba05b9b86b9c4b0
+msgid "Let’s say a site has a custom content type based on Document but we want to have the default view include boilerplate text around the rich text and description. We would go to portal_types, clone the Document type, rename the cloned type “Project”.  Then we go to portal_skins, find document_view, customize it, rename it to project_view, and add the boilerplate text we want.  Then back in portal_types for Project, we change the default view to project_view.  This way, anywhere in the site we create a Project object, its default view (its only view) shows the boilerplate text we wanted."
+msgstr ""
+
+#: ../../misc/plone5way.rst:73
+# a8fab5c71b62435ea3d285485fb4fa53
+msgid "Cloned content types will still be available with dexterity. In fact, it’ll be incredibly more robust and powerful."
+msgstr ""
+
+#: ../../misc/plone5way.rst:77
+# 58776b0ce882469eb6f43ae9014c31e7
+msgid "For the views, look to the previous point about using collective.listingviews and diazo."
+msgstr ""
+
+#: ../../misc/plone5way.rst:82
+# 057a0a3c3f954e0684b72fe8fd8f1777
+msgid "Classic Portlets"
+msgstr ""
+
+#: ../../misc/plone5way.rst:84
+# 13e95da990724d61a89facc893361764
+msgid "We use classic portlets a lot to put together (quickly) something that displays arbitrary content."
+msgstr ""
+
+#: ../../misc/plone5way.rst:88
+# 6294266c324444aaba4aa9c84e91436a
+msgid "There is nothing scheduled to get rid of portlet or the classic portlet right now. portal_skins will still be there."
+msgstr ""
+
+#: ../../misc/plone5way.rst:92
+# 4b39e83bfe634346b8106ff9a3476277
+msgid "That being said, I might need more specific use-cases of how you’re using classic portlets in order to explain how it’d be a replacement."
+msgstr ""
+
+#: ../../misc/plone5way.rst:97
+# 0d303d90d4684d26bbe627d16625e026
+msgid "Things We Don’t Like About Having to Rely Only on Browser Views"
+msgstr ""
+
+#: ../../misc/plone5way.rst:100
+# 28d5d73d304b46d5925e1b45e0563ef2
+msgid "Why browser views are hard for integrators (non-developers):"
+msgstr ""
+
+#: ../../misc/plone5way.rst:102
+# c433e764f6e9459a92887b9a019766c1
+msgid "We may not have file system access"
+msgstr ""
+
+#: ../../misc/plone5way.rst:103
+# a3f8898a231c455eacc9dbaf2e6f8a54
+msgid "We may not want to have to (and are not in fact able to) create a product to register a new view"
+msgstr ""
+
+#: ../../misc/plone5way.rst:105
+# 8220e9e305e14a7a8fa072c0a4a9efa8
+msgid "We may not want to have to re-run buildout (nor are we able to) to register a new view"
+msgstr ""
+
+#: ../../misc/plone5way.rst:107
+# 46e29760e8fd45008c36813513c70bb0
+msgid "Unless a browser view is correctly registered, customizing it via portal_view_customizations breaks Python methods associated with the view"
+msgstr ""
+
+#: ../../misc/plone5way.rst:111
+# 3a38235a063441b3b69e1887ed144fc0
+msgid "I hope I’ve addressed your concerns. The final point is valid and a concern of mine also. We’ll need to make sure there is a way to customize all templates safely. I sort of hope people simply won’t be doing TTW customizations of templates as much anymore though and they’ll just use diazo with something like listingviews."
+msgstr ""
+
+#: ../../misc/plone5way.rst:117
+# 02666e00144643a480dc65a6ef42f051
+msgid "Others might have different ideas about how things will work. Dylan Jay might be someone that can give really good answers regarding these questions."
+msgstr ""
+
+#: ../../misc/plone5way.rst:120
+# ae92cf2ec60d4e44aa9ca9068922168c
+msgid "A good discussion regarding some of these issues can be found at: http://plone.293351.n2.nabble.com/enhanced-collections-views-td7565206.html;cid=1372262563684-127"
+msgstr ""
+
+#: ../../misc/plone5way.rst:123
+# 0ceb3d236e9645fb8cb69d3c01a90353
+msgid "The final response there has a good overview."
+msgstr ""
+
+#: ../../misc/porg.rst:3
+# 5bd9b1f8ab744ed38d0602d9cc6c48f8
+msgid "Running plone.org site locally"
+msgstr ""
+
+#: ../../misc/porg.rst:10
+# 96334f32a57543a2a69f76ef4718ea2d
+msgid "This document tells how to duplicate plone.org to your local machine. Previous Plone development experience needed."
+msgstr ""
+
+#: ../../misc/porg.rst:14
+# 18258fd7dd5d4862bab1c4b00a253e8a
+msgid "Base buildout and Zope"
+msgstr ""
+
+#: ../../misc/porg.rst:16
+# 1d87154b63d847648908571179dc1957
+msgid "Grab your own buildout copy from"
+msgstr ""
+
+#: ../../misc/porg.rst:18
+# afbe5fcd84c040aeb71cd1a33ac8c1ff
+msgid "https://github.com/plone/Products.PloneOrg"
+msgstr ""
+
+#: ../../misc/porg.rst:20
+# 398bb342bde24773b5ac7e45158ff02e
+msgid "buildout it"
+msgstr ""
+
+#: ../../misc/porg.rst:22
+# 242aa5485ada408f949d66704d2d3a93
+msgid "bin/instance fg"
+msgstr ""
+
+#: ../../misc/porg.rst:25
+# 35a98261d9f0443397f33adc7c6b161e
+msgid "XDV theming"
+msgstr ""
+
+#: ../../misc/porg.rst:27
+# 25339132c73b426c99e44fea002a845c
+msgid "Enter xdv::"
+msgstr ""
+
+#: ../../misc/porg.rst:31
+# 84ae76865c364708833695381f8ffddc
+msgid "Checkout dv.xdvserver::"
+msgstr ""
+
+#: ../../misc/porg.rst:35
+# 7653aebd1f95473197b3380f9447b9c8
+msgid "Get static folder to correct context::"
+msgstr ""
+
+#: ../../misc/porg.rst:39
+# 06b288e6f2194b94837aa7829505b6c5
+msgid "Edit nginx.cfg::"
+msgstr ""
+
+#: ../../misc/porg.rst:50
+# 1782be2ce03c478fb17dd297b81f3583
+msgid "NGINX build instructions for OSX: http://www.ravelrumba.com/blog/install-nginx-webfaction/"
+msgstr ""
+
+#: ../../misc/porg.rst:52
+# ed5206a653a54d92be671557fb5687b3
+msgid "Add --with-pcre=/path/to/your/pcre-8.1 in nginx.cfg. This must point extracted PCRE source code (you don't need to compile PCRE by hand, just get the source)"
+msgstr ""
+
+#: ../../misc/porg.rst:55
+# 4510f8cd0e39451eba4eba85d6816af3
+msgid "Build it::"
+msgstr ""
+
+#: ../../misc/porg.rst:59
+# 1bf37bb3208c4f34beb970f1c9325cf4
+msgid "If nginx building fails you can reset it with::"
+msgstr ""
+
+#: ../../misc/porg.rst:63
+# ffb887b34cd34f4680e89dd158968e0a
+msgid "If your buildout fails with messages like::"
+msgstr ""
+
+#: ../../misc/porg.rst:71
+# de0622f3726e4c3ca87711a2bdb7c99a
+msgid "After buildout completes do ngingx configtest::"
+msgstr ""
+
+#: ../../misc/porg.rst:77
+# 8949587646ce41d0a42d302f42e92fee
+msgid "Then run it::"
+msgstr ""
+
+#: ../../misc/porg.rst:81
+# a2c587c9e062404598dc838430b48da4
+msgid "Add see that this servers static plone.html::"
+msgstr ""
+
+#: ../../misc/porg.rst:86
+# 3c8c2286ed084497a4a05a9ee3621884
+msgid "Now you can edit nginx.cfg to pull content from your local Plone::"
+msgstr ""
+
+#: ../../misc/porg.rst:97
+# 431346224bbe4f7bbc3495f1870930cc
+msgid "You also need to touch static/rules/default.xml and comment out::"
+msgstr ""
+
+#: ../../misc/porg.rst:104
+# 97b5ec77f454463094c0dbfcc7d772e2
+msgid "Rebuild and restart nginx::"
+msgstr ""
+
+#: ../../misc/porg.rst:108
+# 5eaf8a37489f464191260f5ab233b43a
+msgid "Start Plone instance::"
+msgstr ""
+
+#: ../../misc/porg.rst:113
+#: ../../misc/porg.rst:119
+# 8f76dbf61c644b3495d0adde67acb4d8
+# 76f40e88f8f2436a8e20b1d756b05120
+msgid "Try::"
+msgstr ""
+
+#: ../../misc/porg.rst:117
+# 1501be54effc4bcd8361213d69c5f0a8
+msgid "This should give Zope access and unthemed Plone site."
+msgstr ""
+
+#: ../../misc/porg.rst:123
+# f4a7a800e13645c8a59d0591b9465c34
+msgid "It should show the themed default \"Welcome to Plone page\" instead of static XDV HTML content  before."
+msgstr ""
+
+#: ../../misc/porg.rst:126
+# dcefd6b316044ee19d9d925511a7c4a5
+msgid "Notes"
+msgstr ""
+
+#: ../../misc/porg.rst:128
+# 58abd89053514bc88d798ebe93b55b08
+msgid "Front page theming is done by static/plone-wide.html"
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:3
+# 60e1663dbbdf40938e6875f12702d539
+msgid "Changing Portal Transforms Settings via Python"
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:10
+# e169ec28a4ea4d60b26657f60e2c585f
+msgid "If you have to change some portal_transforms settings you can't use a Generic Setup config file for this (as of 2010-03-25, Products.PortalTransforms 2.0b4). But you can change it with python and a Generic Setup import step. Here's how to do it."
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:15
+# a383775d27ef4b89a83966009b799380
+msgid "Security: The configuration shown below allows users to use nasty HTML tags which can be a security issue if not used carefully."
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:17
+# 1f26cfe40f684c1da7dfb860a5f1258e
+msgid "Let's say we have a plone package called MY.PACKAGE."
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:20
+# 647e2ed77674410a92a4c994ead14214
+msgid "Writing an Generic Setup Import Step Method"
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:22
+# 272fe4c858a34885a6d6500cb60981dd
+msgid "This setup method is defined in MY.PACKAGE/setuphandlers.py. It configures the safe_html portal_transform a bit less paranoid about nasty tags and valid_tags, so that content managers are allowed to insert iframe, object, embed, param, script, style, tags and more into the TinyMCE editor::"
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:86
+# a1119655433349dfa9ba63030b201f3b
+msgid "Registering the Import Step Method with Generic Setup"
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:88
+# fbfe9c6e6baf47c0b039a1bb2e8ce234
+msgid "Add an import step in MY.PACKAGE/MYPROFILESDIR/PROFILENAME/import_steps.xml like so:::"
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:102
+# d28f6d192dfc4b18b785d9f7442d6243
+msgid "And create the File MY.PACKAGE/MYPROFILESDIR/PROFILENAME/MY.PACKAGE-PROFILENAME.txt, so that this import step is not run for any profile but just for this one."
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:108
+# 1fc9974046324ce98daeca67e0f600f2
+msgid "Calling the Import Step Method in ZMI, portal_setup"
+msgstr ""
+
+#: ../../misc/portal_transforms.rst:110
+# 32ea94adcca04714af1b4d0699d00a53
+msgid "Goto your site's portal_setup in ZMI, select your registered profile and import the import step \"MY.PACKAGE portal_transforms setup\". That's it."
+msgstr ""
+
+#: ../../misc/seo.rst:3
+# f0530ba39c4a47f9ae98ff4da368bfa3
+msgid "Search engine optimization (seo)"
+msgstr ""
+
+#: ../../misc/seo.rst:7
+# b903c62416844225939eb53cca715e7a
+msgid "How to make Plone more search engine aware"
+msgstr ""
+
+#: ../../misc/seo.rst:14
+# 83ac3514e49844a58afeda1dff0d82d5
+msgid "Plone is very search-engine friendly out of the box."
+msgstr ""
+
+#: ../../misc/seo.rst:16
+# dd6ae5b1e9144b6399bcbc7b269b8a5e
+msgid "You can further fine-tune your search engine optimizations with PloneSEO add-on"
+msgstr ""
+
+#: ../../misc/seo.rst:18
+# 9ad9c5f7540f44fda57e4ae486aa2de4
+msgid "http://plone.org/products/plone-seo/"
+msgstr ""
+
+#: ../../misc/seo.rst:21
+# 62d11bc92e83446f8c3243f36200835e
+msgid "robots.txt"
+msgstr ""
+
+#: ../../misc/seo.rst:23
+# d240a5c3b3f44e5b80b3269761c09170
+msgid "You probably want to exclude following from the search engine listing"
+msgstr ""
+
+#: ../../misc/seo.rst:25
+# fac4d49953f64325a6499a5397a4f5a5
+msgid "Your image bank"
+msgstr ""
+
+#: ../../misc/seo.rst:27
+# 91539321cea14473a0de99c3b93e83e9
+msgid "All search listings"
+msgstr ""
+
+#: ../../misc/seo.rst:29
+# 5ae008151d524c7893e66a3d57546af8
+msgid "Login form"
+msgstr ""
+
+#: ../../misc/seo.rst:31
+# 8a91d778e77847048c38b10b34e2f71a
+msgid "Send to form"
+msgstr ""
+
+#: ../../misc/seo.rst:33
+# bc105abf249043ef8daff6d7af0bbffc
+msgid "... generally all forms"
+msgstr ""
+
+#: ../../misc/seo.rst:35
+# 57b0074af1214dfa9f6c0746a4472127
+msgid "See"
+msgstr ""
+
+#: ../../misc/seo.rst:37
+# 4479b6e1b53d4e038c6dc0425aed4f3c
+msgid "http://opensourcehacker.com/2009/08/07/seo-tips-query-strings-multiple-languages-forms-and-other-content-management-system-issues/"
+msgstr ""
+
+#: ../../misc/seo.rst:40
+# 1bfb2ed759124383ab97514dd1b7c1a1
+msgid "Procedural robots.txt"
+msgstr ""
+
+#: ../../misc/seo.rst:42
+# 799a75532fa54af883a60f0c045f0cb1
+msgid "Below is an example how to generate ``robots.txt`` in ZMI Python script. It prevents accidental indexing of the site from non HTTP 80 ports if you need to leave Zope direct port open for the world for some reason."
+msgstr ""
+
+#: ../../misc/seo.rst:46
+# 67fbb9c9f5244e549ba7c871fd95f368
+msgid "Create new Script (Python) in your site root in ZMI::"
+msgstr ""
+
+#: ../../misc/slideshow.rst:3
+# 14200cb96bba482ebbbe3bf3a26116ca
+msgid "Slidehows and carousels"
+msgstr ""
+
+#: ../../misc/slideshow.rst:16
+# 4346c08756a84a089cdf257cebb7a60c
+msgid "Header slideshows"
+msgstr ""
+
+#: ../../misc/slideshow.rst:18
+# daa70910b9f546bbb8b82da02dfc1638
+msgid "`Products.Carousel <http://plone.org/products/carousel/>`_"
+msgstr ""
+
+#: ../../misc/slideshow.rst:20
+# cb51b9e34bf145f8894db78b6b2b23ec
+msgid "AJAX'y image pop-ups"
+msgstr ""
+
+#: ../../misc/slideshow.rst:22
+# 8aa0365d776e483994136fc9d5ce1dc8
+msgid "http://plone.org/products/pipbox"
+msgstr ""
+
+#: ../../misc/slideshow.rst:25
+# 361176b6c1674e2db2288393803a0ff4
+msgid "Migrate Products.Slideshow to Products.Carousel"
+msgstr ""
+
+#: ../../misc/slideshow.rst:27
+# c5a733a5e6fe4a5592c7aaaf22d543ee
+msgid "Here is a sample migration code to transform your site from one add-on to another."
+msgstr ""
+
+#: ../../misc/slideshow.rst:30
+# 49463bec85574d1a8fff20074a2ef229
+msgid "We create a migration view which you can call by typing in view name manually to web browser."
+msgstr ""
+
+#: ../../misc/slideshow.rst:33
+# 29d13ea775e74c76bd040e78f0e7c231
+msgid "This code will"
+msgstr ""
+
+#: ../../misc/slideshow.rst:35
+# 82611055212e4741a65ca70650f83208
+msgid "Scan site for folders which have Slideshow add-on enabled. In this example we check against a predefined list (scanned earlier), but the code contains example how to detect slideshow folders"
+msgstr ""
+
+#: ../../misc/slideshow.rst:38
+# a74b3c180839435aa32a0b494ca1f1a4
+msgid "Create Carousel for those folders"
+msgstr ""
+
+#: ../../misc/slideshow.rst:40
+# 95de0933d2c944f2a5f2cc6de4ab4e9d
+msgid "Create corresponds Carousel Banners for all Slideshow Image content items"
+msgstr ""
+
+#: ../../misc/slideshow.rst:42
+# 802b83e9467a426bb4c9ae4739fdf2be
+msgid "Set some Carousel settings"
+msgstr ""
+
+#: ../../misc/slideshow.rst:44
+# b1d02696839143d98e87f00ae5c94906
+msgid "Make sure that we invalidate cache for content items going through migration"
+msgstr ""
+
+#: ../../misc/slideshow.rst:46
+# 65fc51a4303a48f38603d8e7c205f9c5
+msgid "Set a new default view for folders which were using slideshow"
+msgstr ""
+
+#: ../../misc/slideshow.rst:48
+# 1b0c67b6feeb446cbe24ff633fa986b9
+msgid "Also"
+msgstr ""
+
+#: ../../misc/slideshow.rst:50
+# b6457a8c72cf416a887e2d40d775f79d
+msgid "After inspecting the process was ok you can delete migrated images"
+msgstr ""
+
+#: ../../misc/slideshow.rst:52
+# c612a9ed16984326a4c91fdfc46d5c03
+msgid "carousel.py::"
+msgstr ""
+
+#: ../../misc/slideshow.rst:341
+# dec489bb4c574932a735c9c79e4242b9
+msgid "ZCML bits::"
+msgstr ""
+
+#: ../../misc/slideshow.rst:358
+# 1135720df7374d249343c4941aa8d011
+msgid "Setting every carousel widths on the site"
+msgstr ""
+
+#: ../../misc/slideshow.rst:360
+# f10be172ffa94097a83e3e7767955b13
+msgid "Another example to manipulate Products.Carousel. This script will update all carousel settings on the site to have new image width."
+msgstr ""
+
+#: ../../misc/slideshow.rst:395
+# 29134049cac04b6f980d7882132ff789
+msgid "ZCML"
+msgstr ""
+
+#: ../../misc/slideshow.rst:407
+# 3645a9554af74fc6b52e0b1f745e720b
+msgid "AJAX full-size image loading for album views"
+msgstr ""
+
+#: ../../misc/slideshow.rst:409
+# 0247099595eb476cae2f298d4ca46618
+msgid "Plone album views can be easily converted to pop-up image viewing with PipBox."
+msgstr ""
+
+#: ../../misc/slideshow.rst:411
+# c691ba8666494054bd130a2c45b61f64
+msgid "Put the following to portal_properties / pipbox_properties"
+msgstr ""
+
+#: ../../misc/slideshow.rst:413
+# 1e0f3ffb2f884b229769da7a16fc75f5
+msgid "Album view <a> click handler::"
+msgstr ""
+
+#: ../../misc/slideshow.rst:420
+# a3835da1776a47ad8cfd20cf9d5ab767
+msgid "portal_javascript must be in debug mode while testing different Products.PipBox handlers."
+msgstr ""
+
+#: ../../misc/sql.rst:3
+# 756d9af8867641058ddd14ff6ea60ad6
+msgid "SQL"
+msgstr ""
+
+#: ../../misc/sql.rst:7
+# 39a1cf824ff440a78e05210425883ee5
+msgid "Using SQL databases (MySQL, PostgreSQL, others) in Plone"
+msgstr ""
+
+#: ../../misc/sql.rst:14
+# 553431ea5ba148d0934e0c988be5ed3c
+msgid "If you are building the codebase Plone behaves as any other Python application."
+msgstr ""
+
+#: ../../misc/sql.rst:16
+# 8fdd9a9048634627951a4549257e8ea5
+msgid "Write your SQL related code using known available Python SQL libraries and frameworks"
+msgstr ""
+
+#: ../../misc/sql.rst:18
+# f580b09d60154ccd916a3ad0998667f3
+msgid "Plug your code to Plone HTML pages through :doc:`views </views/browserviews>`"
+msgstr ""
+
+#: ../../misc/sql.rst:20
+# dc96baa7033147d583eb47702e55e5c9
+msgid "Example Python SQL libraries"
+msgstr ""
+
+#: ../../misc/sql.rst:22
+# be2ad2c93875474095dcff05ae93007c
+msgid "http://www.sqlalchemy.org/"
+msgstr ""
+
+#: ../../misc/sql.rst:25
+# e1e3ad644fd749d5b69154bb87cf4dd2
+msgid "ZSQL"
+msgstr ""
+
+#: ../../misc/sql.rst:27
+# 42524d77181042cfa9585d571537f99f
+msgid "ZSQL is something probably written before you knew what SQL is. Never ever use ZSQL in new code. It's not following any modern best practices and has history of 1990s code. You have been warned. Stay away. The grue is near."
+msgstr ""
+
+#: ../../misc/upgrade.rst:3
+# 00880b182ea74259a951dff78cb0d5c5
+msgid "Upgrade tips"
+msgstr ""
+
+#: ../../misc/upgrade.rst:7
+# b29fe6bf386c4669b666384208082a1d
+msgid "Advanced tips for upgrading Plone."
+msgstr ""
+
+#: ../../misc/upgrade.rst:10
+# 6b43197164be4223a04369f12f5b9a51
+msgid "General Tips"
+msgstr ""
+
+#: ../../misc/upgrade.rst:12
+# 4cedc9d345e848189d9805fc7e8aa33b
+msgid "This guide contains some tips for Plone upgrades. For more Information, see also the `Official Plone upgrade guide <http://plone.org/documentation/manual/upgrade-guide>`_"
+msgstr ""
+
+#: ../../misc/upgrade.rst:17
+# b043bc96865d43b190a6703ccd3b9654
+msgid "Recommended set-up"
+msgstr ""
+
+#: ../../misc/upgrade.rst:19
+# b4f8e8ec7dad4e28bed78b14131351d6
+msgid "Test upgrade on your local development computer first."
+msgstr ""
+
+#: ../../misc/upgrade.rst:21
+# 720a9af29fd54d829b5abe8fc1c1aaf1
+msgid "Create two buildouts. One for the old Plone version (your existing buildout) and one for new version."
+msgstr ""
+
+#: ../../misc/upgrade.rst:24
+# 68243ec78ba4432691ffa5c5e9d12e6c
+msgid "Prepare the migration in old buildout. After all preparations are done, copy Data.fs to new buildout and run plone_migration tool there."
+msgstr ""
+
+#: ../../misc/upgrade.rst:29
+# d3285195a161407b8f51d654458bb0e0
+msgid "Clear catalog"
+msgstr ""
+
+#: ../../misc/upgrade.rst:31
+# 2ee761d26d3648aea81bf65ef5a9c8f3
+msgid "Before moving the Data.fs to new version, clear all site portal_catalog information."
+msgstr ""
+
+#: ../../misc/upgrade.rst:36
+# d49d0fd933cb45feb71aa129b7192bd2
+msgid "Fix persistent utilities"
+msgstr ""
+
+#: ../../misc/upgrade.rst:38
+# c93459eb036247d3856243913e105061
+msgid "You might need to clean up some leftovers from uninstalled add-ons which have not performed a clean uninstall."
+msgstr ""
+
+#: ../../misc/upgrade.rst:41
+# 4fd495173e564f5fbe7c47eca8a96ae3
+msgid "Use this utility:"
+msgstr ""
+
+#: ../../misc/upgrade.rst:43
+# b49996cd9f974898ba1afd7e39c645a8
+msgid "http://pypi.python.org/pypi/wildcard.fixpersistentutilities"
+msgstr ""
+
+#: ../../misc/upgrade.rst:45
+# d23164b7b7e947b0801cf6293f54fe36
+msgid "Perform this against old buildout"
+msgstr ""
+
+#: ../../misc/upgrade.rst:49
+# 93d68accb1d54a2e8b83b7a715c68513
+msgid "Content Upgrades"
+msgstr ""
+
+#: ../../misc/upgrade.rst:51
+# 9742ad7b24f74b7c9a7db2722f6be132
+msgid "For content migrations, `Products.contentmigration <https://pypi.python.org/pypi/Products.contentmigration/>`_  can help you. Documentation on how to use it can be found on `plone.org <http://plone.org/documentation/kb/migrate-custom-types-with-products.contentmigration>`_."
+msgstr ""
+
+#: ../../misc/upgrade.rst:58
+# 4a6f35fa0ef04454af443ab42525d5d3
+msgid "Migration from non-folderish to folderish Archetypes based content types"
+msgstr ""
+
+#: ../../misc/upgrade.rst:60
+# 6b0969d8a57d4c18b3eabcfef474aa70
+msgid "Non-folderish content types are missing some BTree attributes, which folderish content types have (See ``Products.BtreeFolder2.BTreeFolder2Base._initBtrees`` )."
+msgstr ""
+
+#: ../../misc/upgrade.rst:64
+# 43186cca2339492f8b3df86c013b1c26
+msgid "plone.app.folder provides an upgrade view to migrate pre-plone.app.folder (or non-folderish) types to the new BTree based implementation (defined in: ``plone.app.folder.migration.BTreeMigrationView``)."
+msgstr ""
+
+#: ../../misc/upgrade.rst:68
+# 2bf0112b4d944db89d379d855476b89b
+msgid "To upgrade your non-folderish content types to folderish ones, just call ``@@migrate-btrees`` on your Plone site root, and you're done."
+msgstr ""
+
+#: ../../misc/upgrade.rst:71
+# 4ee297f855f74e5eae1b6083dc1ec001
+msgid "This applies to Archetypes based content types."
+msgstr ""
+
+#: ../../misc/upgrade.rst:75
+# 87235077b233437897c2a38f8b734c75
+msgid "Upgrading theme"
+msgstr ""
+
+#: ../../misc/upgrade.rst:77
+# 3f4989c016914472b8ae16d72b509d18
+msgid "Make sure that your site them works on Plone 4. Official upgrade guide has tips how the theme codebase should be upgraded."
+msgstr ""
+
+#: ../../misc/upgrade.rst:83
+# f4e1b37ca66f41e8b5052ab02d1f52a0
+msgid "Theme fixing and portal_skins"
+msgstr ""
+
+#: ../../misc/upgrade.rst:85
+# fe16be3235084b7babba976f4aec4079
+msgid "Your theme might be messed up after upgrade."
+msgstr ""
+
+#: ../../misc/upgrade.rst:87
+# 31942d96b27d4a2faed52dbf272d65ef
+msgid "Try playing around setting in *portal_skins* *Properties* tab. You can enable, disable and reorder skins layer applied in the theme."
+msgstr ""
+
+#: ../../misc/upgrade.rst:90
+# 06e8896d294a424a8f167e141a87cdb1
+msgid "Upgrade may change the default theme and you might want to restore custom theme in *portal_skins*."
+msgstr ""
+
+#: ../../misc/upgrade.rst:95
+# af7feda681d44623ba7364e6f4e43b0e
+msgid "Upgrade tips for plone.app.discussion"
+msgstr ""
+
+#: ../../misc/upgrade.rst:98
+# 74411809101f4e4b9696b4e4010416b5
+msgid "Enabling plone.app.discussion after Plone 4.1 upgrade"
+msgstr ""
+
+#: ../../misc/upgrade.rst:100
+# e009e8f72c2545ad9f7b4a5b61e69534
+msgid "After migration from an earlier version of Plone, you will may notice that you do not have a *Discussion* control panel for ``plone.app.discussion``, the new commenting infrastructure which now ships as part of new Plone installs beyond version 4.1.  If a check of your *Site Setup* page reveals that you do not have the *Discussion* control panel, implement the following."
+msgstr ""
+
+#: ../../misc/upgrade.rst:108
+# 5596f1253b5e4f2489a757ed66736011
+msgid "Install plone.app.discussion manually"
+msgstr ""
+
+#: ../../misc/upgrade.rst:110
+# 75e795da71404670935013347a8bf2b8
+msgid "Log into your Plone site as a user with Manager access"
+msgstr ""
+
+#: ../../misc/upgrade.rst:111
+# b1346a03fa3c47c98be84a15d4ccebc5
+msgid "Browse to the following URL to manually install ``plone.app.discussion``::"
+msgstr ""
+
+#: ../../misc/upgrade.rst:115
+# d27f636a7aa04a82bb672d1cc2f91d12
+msgid "In the *Select Profile or Snapshot* drop-down menu, select ``Plone Discussions``."
+msgstr ""
+
+#: ../../misc/upgrade.rst:117
+# c6e8cfaa433f4f4aaf3445ef8cc025ee
+msgid "Click the ``Import all steps`` button at the bottom of the page."
+msgstr ""
+
+#: ../../misc/upgrade.rst:118
+# cb0d595f5685445892f4a927592ec546
+msgid "Confirm that *Discussion* is now present as a control panel in your *Site Setup*"
+msgstr ""
+
+#: ../../misc/upgrade.rst:123
+# c80d0b9bc1074036a7420eee3323a597
+msgid "Migrate existing comments"
+msgstr ""
+
+#: ../../misc/upgrade.rst:125
+# 37c29c9b47334cb393c023f8663929c0
+msgid "Follow the instructions regarding `How to migrate comments to plone.app.discussion <http://plone.org/products/plone.app.discussion/documentation/how-to/how-to-migrate-comments-to-plone.app.discussion>`_ to migrate existing Plone comments."
+msgstr ""
+
+#: ../../misc/upgrade.rst:132
+# b153cb20a6384a9bbfe42371826798bc
+msgid "Fixing Creator details on existing comments"
+msgstr ""
+
+#: ../../misc/upgrade.rst:134
+# 8b7cff5d91bf4ab6abe19b8fd248ca4b
+msgid "You may notice that some of your site's comments have the user's ID as their Creator property.  At time of writing (for ``plone.app.discussion==2.0.10``), the Creator field should refer to the user's full name and not their user ID. You'll likely notice that a number of other fields, including ``author_username``, ``author_name`` and ``author_email`` are not present on some of your migrated comments.  Reasons why comments get migrated but unsuccessfully are being investigated."
+msgstr ""
+
+#: ../../misc/upgrade.rst:142
+# 208fa04d14844da6a71ebf56fa1da838
+msgid "This may change for future versions of ``plone.app.discussion``.  For now, though, having the user ID left as the Creator is less than helpful and means aspects like the username, name, and email not present affect usability of comments."
+msgstr ""
+
+#: ../../misc/upgrade.rst:147
+# f4aab884cf6b400893f5ef0fcf56d102
+msgid "If a site has many comments with this issue, it is possible to step through all of them and correct them.  Using a script like the following will process each of the affected comments accordingly:"
+msgstr ""
+
+#: ../../misc/upgrade.rst:176
+# 23cdcb37c7d3497a90a9268c6c48a43f
+msgid "This can be run anywhere an Acquisition ``context`` object is available, such as running your Zope instance in ``debug`` mode, an ipython prompt, or some other function on the filesystem.  The ``getSite()`` function call can (and may need to) be replaced with some other pre-existing context object if that is more suitable."
+msgstr ""
+
+#: ../../misc/upgrade.rst:182
+# 6b94b2de56344b0189d30ec664fcaeaf
+msgid "Keep in mind that this script was successfully used in a situation where no possible collisions existed between correctly-migrated comments Creators' full names and user IDs (the code looks up the Creator in the hope of finding a valid Plone member).  So, if you had a situation where you had some correctly migrated comments written by a user with ID ``david`` and full name of ``Administrator``, and also had a user with the ID of ``Administrator``, then this script may not be suitable.  In the test situation, the three attributes of ``author_username``, ``author_name``, and ``author_email`` were observed as all being ``None``, so in checking for this too, this may avoid problems.  Test the code first with something like a ``print`` statement to ensure all comments will get modified correctly."
+msgstr ""
+

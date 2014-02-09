@@ -1,0 +1,3776 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Plone community and other individual contributors
+# This file is distributed under the same license as the Plone Developer Documentation package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: plone-doc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-08 13:29\n"
+"PO-Revision-Date: 2014-02-08 12:46+0000\n"
+"Last-Translator: Giacomo <giacomo.spettoli@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# 985194d769a44adb9d4b07cf3a2b1f51
+#: ../../source/forms/files.rst:3
+msgid "Files and images"
+msgstr "Files and images"
+
+# 20ac9041d38840348bfa2a4becffb35a
+#: ../../source/forms/files.rst:7
+msgid ""
+"How to program files and image fields for ``z3c.forms`` and Dexterity "
+"content types"
+msgstr "How to program files and image fields for ``z3c.forms`` and Dexterity content types"
+
+# 17f336cd1d52486c99ce2c7d03482402
+# a31fd6ca77884b489149d76a59b2becf
+# b521444a241140e0b9177b43df3550e1
+# d18656f63a5b4ae389a03041a0450bf2
+# 396ca585fdc140f9a7999e3a3f181777
+# af6e7ec5d98b4e928731f0e2a51d990c
+# f1895a11787d450fa935ee6c92b0411f
+# b9c2e5bdf78e4cbda0fc5d7e67d3317d
+#: ../../source/forms/files.rst:13 ../../source/forms/manual.rst:10
+#: ../../source/forms/ploneformgen.rst:10 ../../source/forms/schemas.rst:13
+#: ../../source/forms/vocabularies.rst:14 ../../source/forms/wysiwyg.rst:12
+#: ../../source/forms/z3c.form.rst:14 ../../source/forms/z3c.form.rst:2147
+msgid "Introduction"
+msgstr "Introduction"
+
+# a959ec44b4a84c62959eb38f48a4b0d2
+#: ../../source/forms/files.rst:15
+msgid ""
+"This chapter discuss about file uploads and downloads using zope.schema "
+"based forms and content with :doc:`Dexterity content subsystem "
+"</content/dexterity>`."
+msgstr "This chapter discuss about file uploads and downloads using zope.schema based forms and content with :doc:`Dexterity content subsystem </content/dexterity>`."
+
+# 6371ef89646743e387b512f827ee031a
+#: ../../source/forms/files.rst:20
+msgid ""
+"These instructions apply for Plone 4 and forward. These instructions does "
+"not apply for Archetypes content or PloneFormGen."
+msgstr "These instructions apply for Plone 4 and forward. These instructions does not apply for Archetypes content or PloneFormGen."
+
+# 3e263c3a97724299ba47c1236f448c93
+#: ../../source/forms/files.rst:23
+msgid ""
+"Plone uses \"blobs\" (large binary objects) to store file-like data in the "
+"ZODB. The ZODB writes these objects to the filesystem as separate files, but"
+" due to security, performance and transaction consideration, the original "
+"filename is not visible. The files are stored in a distributed tree."
+msgstr "Plone uses \"blobs\" (large binary objects) to store file-like data in the ZODB. The ZODB writes these objects to the filesystem as separate files, but due to security, performance and transaction consideration, the original filename is not visible. The files are stored in a distributed tree."
+
+# 23618dbd5c0945feb7b44aa7166d55cf
+#: ../../source/forms/files.rst:28
+msgid "For more introduction information, see:"
+msgstr "For more introduction information, see:"
+
+# 0e17d00928d44f328f7136cefab38061
+# 6572dd2673a84fe5853bce9551baffc0
+#: ../../source/forms/files.rst:30 ../../source/forms/files.rst:35
+msgid ""
+"http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced"
+"/files-and-images.html"
+msgstr "http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/files-and-images.html"
+
+# 24e3381e53fe4954b7db3949b61f68a4
+#: ../../source/forms/files.rst:33
+msgid "Simple content item file or image field"
+msgstr "Simple content item file or image field"
+
+# 3e2fd16bbd344f28a612928db153c23e
+#: ../../source/forms/files.rst:38
+msgid "Simple upload form example"
+msgstr "Simple upload form example"
+
+# 23e0b6692a774956bf7cac463041d478
+#: ../../source/forms/files.rst:40
+msgid ""
+"The example below uses :doc:`five.grok </components/grok>` to declare the "
+"form schema and form."
+msgstr "The example below uses :doc:`five.grok </components/grok>` to declare the form schema and form."
+
+# b80bce0d1e3a45a9af917887298db900
+#: ../../source/forms/files.rst:43
+msgid ""
+"We use `plone.namedfile <http://pypi.python.org/pypi/plone.namedfile>`_ for "
+"the upload field, which is a CSV file. We accept the upload and then process"
+" the file."
+msgstr "We use `plone.namedfile <http://pypi.python.org/pypi/plone.namedfile>`_ for the upload field, which is a CSV file. We accept the upload and then process the file."
+
+# 896693ef2d4a448fb67e5fa87eb34d09
+#: ../../source/forms/files.rst:47
+msgid ""
+"You need to declare an ``extends`` directive to pin down required dependency"
+" versions in ``buildout.cfg``. For more information, see :doc:`buildout "
+"troubleshooting </troubleshooting/buildout>`."
+msgstr "You need to declare an ``extends`` directive to pin down required dependency versions in ``buildout.cfg``. For more information, see :doc:`buildout troubleshooting </troubleshooting/buildout>`."
+
+# 3431ca9c2e9d42d89832b21ec0bfb89f
+#: ../../source/forms/files.rst:51
+msgid ""
+"You also need to declare the following packages as dependencies in the "
+"``install_dependencies`` directive of your ``setup.py`` file:"
+msgstr "You also need to declare the following packages as dependencies in the ``install_dependencies`` directive of your ``setup.py`` file:"
+
+# dce0b1967605469e9550fc3fa41f6fef
+#: ../../source/forms/files.rst:54
+msgid "``five.grok``,"
+msgstr "``five.grok``,"
+
+# 838757763d814f36bd3cd0c470fd0f8e
+#: ../../source/forms/files.rst:55
+msgid "``plone.autoform``,"
+msgstr "``plone.autoform``,"
+
+# 2c24a5c83c604f9493c0b9ea3a135294
+#: ../../source/forms/files.rst:56
+msgid "``plone.directives.form``."
+msgstr "``plone.directives.form``."
+
+# fc2f7202d2a949389a49a5bce9b8aa0f
+#: ../../source/forms/files.rst:58
+msgid ""
+"After doing this, rerunning ``buildout`` will pull in these packages for you"
+" and you will be able to import them successfully. For more information, see"
+" `plone.directives.form README "
+"<http://pypi.python.org/pypi/plone.directives.form>`_."
+msgstr "After doing this, rerunning ``buildout`` will pull in these packages for you and you will be able to import them successfully. For more information, see `plone.directives.form README <http://pypi.python.org/pypi/plone.directives.form>`_."
+
+# c71a1a91f1604fdebb3977bdde7d352e
+#: ../../source/forms/files.rst:62
+msgid "Code::"
+msgstr "Code::"
+
+# f26287d1737d4d3abfef3b37a130cfe6
+#: ../../source/forms/files.rst:193
+msgid "File field contents"
+msgstr "File field contents"
+
+# 947eabecf9b4457e890e9cb843002dd9
+# 7bccd126a00e4c62b17a7d05cb497bf2
+# 5e352d7c95cb4dfa9189c4da3b0d0883
+# 5769d3e6d3804568953024589998f8f6
+# 078e74f1df81470c81f1950241afabc5
+# 311ee29cad3d48b08a71a0e72893540a
+# b9f53da8bafb4bff9ff0388d66e22dc1
+# 401f0583ef9b4ba5bcfc10311d7f01eb
+# 73f7086988c54b77841c7f8e0bd85476
+# d98084eb623c4f6eb0359bcbf243d976
+# c5a0feea343641eba40369b108db69be
+# d7d930cc06aa4948bee2a956b1ef4727
+# 0ff9dfd8ce3648a7a7ceb6463f7410b3
+# 3876761a840e46389f2c40f7113992df
+# 69a2c0fbe5294286a052331009b5306c
+# 2d893a9dd5ad4056801dbf01dcbbb4b2
+# 6ea51cab36da4fea942de0f1d49da5c1
+# 02e43f8059f647198a8f7815d6c8649c
+# 1bea49cdb99241c5bb5897a53cab8850
+# 44fccfe3f33a446294733990e8b96ce4
+# f53789a9df0844999b05d70fa0e8091c
+# eeb5de112ef148c7a371a17ddddfe294
+# cd1bf261848b4b0a93b56f5168fc824e
+# 750248c88ba9472cb7bb772b9f3c5245
+# af74762317384755afe02fc9b002ea44
+# 9fba6ccc88c64b66bf5d9238c6d48ce7
+# 4a3283f7dc4f4c8cae26d3212f3aefd1
+# 928f0451ff414546ab938059e6b2802e
+# 1462cc485f064413968985d134574c08
+# e708c53aba8f45a99b59f905c3a5bde3
+#: ../../source/forms/files.rst:195 ../../source/forms/files.rst:409
+#: ../../source/forms/schemas.rst:92 ../../source/forms/schemas.rst:127
+#: ../../source/forms/schemas.rst:199 ../../source/forms/schemas.rst:269
+#: ../../source/forms/schemas.rst:366 ../../source/forms/schemas.rst:492
+#: ../../source/forms/schemas.rst:541 ../../source/forms/vocabularies.rst:74
+#: ../../source/forms/vocabularies.rst:143 ../../source/forms/wysiwyg.rst:361
+#: ../../source/forms/z3c.form.rst:285 ../../source/forms/z3c.form.rst:407
+#: ../../source/forms/z3c.form.rst:541 ../../source/forms/z3c.form.rst:598
+#: ../../source/forms/z3c.form.rst:637 ../../source/forms/z3c.form.rst:700
+#: ../../source/forms/z3c.form.rst:744 ../../source/forms/z3c.form.rst:769
+#: ../../source/forms/z3c.form.rst:844 ../../source/forms/z3c.form.rst:984
+#: ../../source/forms/z3c.form.rst:1304 ../../source/forms/z3c.form.rst:1380
+#: ../../source/forms/z3c.form.rst:1393 ../../source/forms/z3c.form.rst:1447
+#: ../../source/forms/z3c.form.rst:1678 ../../source/forms/z3c.form.rst:1722
+#: ../../source/forms/z3c.form.rst:2172 ../../source/forms/z3c.form.rst:2191
+msgid "Example::"
+msgstr "Example::"
+
+# b615de3c26f84985a2a579efeee6b154
+#: ../../source/forms/files.rst:244
+msgid "Connstring download URLs"
+msgstr "Connstring download URLs"
+
+# cfc3f75c015f4a80b47f2e6542882b5e
+#: ../../source/forms/files.rst:247
+msgid "Simple example"
+msgstr "Simple example"
+
+# 0ed5ae19524b41099c92f49307b50351
+#: ../../source/forms/files.rst:249
+msgid "In Dexterity you can specify a ``@@download`` field for content types:"
+msgstr "In Dexterity you can specify a ``@@download`` field for content types:"
+
+# 0883dfcca4c046908925749244e42a88
+#: ../../source/forms/files.rst:260
+msgid "Complex example"
+msgstr "Complex example"
+
+# 9bea94f780a04041ac6dc48a35233d68
+#: ../../source/forms/files.rst:262
+msgid ""
+"You need to expose file content to the site user through a view and then "
+"refer to the URL of the view in your HTML template. There are some tricks "
+"you need to keep in mind:"
+msgstr "You need to expose file content to the site user through a view and then refer to the URL of the view in your HTML template. There are some tricks you need to keep in mind:"
+
+# 7f55b915f94d4e18a72c628bbb53300a
+#: ../../source/forms/files.rst:266
+msgid ""
+"All file download URLs should be timestamped, or the reupload file change "
+"will not be reflected in the browser."
+msgstr "All file download URLs should be timestamped, or the reupload file change will not be reflected in the browser."
+
+# 4b9bb6bcea2b446983327c5be6970866
+#: ../../source/forms/files.rst:269
+msgid ""
+"You might want to serve different file types from different URLs and set "
+"special HTTP headers for them."
+msgstr "You might want to serve different file types from different URLs and set special HTTP headers for them."
+
+# f97b9baf6db0475aa85cef250ec3b0e2
+#: ../../source/forms/files.rst:272
+msgid "Complex example (``plone.app.headeranimations``)::"
+msgstr "Complex example (``plone.app.headeranimations``)::"
+
+# dc2b288a744843998c5c640703defaac
+#: ../../source/forms/files.rst:324
+msgid "Streaming file data"
+msgstr "Streaming file data"
+
+# 5b86638b527d4ce8a3ffa4629ce0f2a4
+#: ../../source/forms/files.rst:326
+msgid ""
+"File data is delivered to the browser as a stream. The view function returns"
+" a streaming iterator instead of raw data. This greatly reduces the latency "
+"and memory usage when the file should not be buffered as a whole to memory "
+"before sending."
+msgstr "File data is delivered to the browser as a stream. The view function returns a streaming iterator instead of raw data. This greatly reduces the latency and memory usage when the file should not be buffered as a whole to memory before sending."
+
+# 7f89ffd9245348a5a12e4ac7c3541bc8
+#: ../../source/forms/files.rst:331
+msgid "Example (``plone.app.headeranimation``)::"
+msgstr "Example (``plone.app.headeranimation``)::"
+
+# 67b7070e0bd941b480986ece243d5a79
+#: ../../source/forms/files.rst:402
+msgid "``POSKeyError`` on missing blob"
+msgstr "``POSKeyError`` on missing blob"
+
+# a0120fcaf02c4a129f86e1a42453169a
+#: ../../source/forms/files.rst:404
+msgid ""
+"A ``POSKeyError`` is raised when you try to access blob *attributes*, but "
+"the actual file is not available on the disk. You can still load the blob "
+"object itself fine (as it's being stored in the ZODB, not on the "
+"filesystem)."
+msgstr "A ``POSKeyError`` is raised when you try to access blob *attributes*, but the actual file is not available on the disk. You can still load the blob object itself fine (as it's being stored in the ZODB, not on the filesystem)."
+
+# 3d2436ec6f20441e9021b98baf32fc11
+#: ../../source/forms/files.rst:423
+msgid ""
+"This might occur for example because you have copied the ``Data.fs`` file to"
+" another computer, but not blob files."
+msgstr "This might occur for example because you have copied the ``Data.fs`` file to another computer, but not blob files."
+
+# 7dfc255171c94e32870f34c8e1c0b0e4
+#: ../../source/forms/files.rst:426
+msgid ""
+"You probably want to catch ``POSKeyError`` s and return something more sane "
+"instead::"
+msgstr "You probably want to catch ``POSKeyError`` s and return something more sane instead::"
+
+# e69e7fcc18204417b50d1f736a665506
+#: ../../source/forms/files.rst:461
+msgid "See also"
+msgstr "See also"
+
+# 81ba1b09d45f4856992203ae449a7da6
+#: ../../source/forms/files.rst:463
+msgid "http://pypi.python.org/pypi/experimental.gracefulblobmissing/"
+msgstr "http://pypi.python.org/pypi/experimental.gracefulblobmissing/"
+
+# f0116cba8c2f430787927c593a331668
+#: ../../source/forms/files.rst:466
+msgid "Widget download URLs"
+msgstr "Widget download URLs"
+
+# a1bd1fc09c34441fa9e5f266a656e62e
+#: ../../source/forms/files.rst:468
+msgid ""
+"Some things you might want to keep in mind when playing with forms and "
+"images:"
+msgstr "Some things you might want to keep in mind when playing with forms and images:"
+
+# 8f201f4236b743719173e44e1163864a
+#: ../../source/forms/files.rst:471
+msgid ""
+"Image data might be incomplete (no width/height) during the first ``POST``."
+msgstr "Image data might be incomplete (no width/height) during the first ``POST``."
+
+# 5c17a49bbe6f483da18d85eb59eefbb5
+#: ../../source/forms/files.rst:473
+msgid "Image URLs might change in the middle of request (image was updated)."
+msgstr "Image URLs might change in the middle of request (image was updated)."
+
+# 16ed41a9fa0349ccaf8fe7b3b9ba3d87
+#: ../../source/forms/files.rst:475
+msgid ""
+"If your form content is something else than traversable context object then "
+"you must fix file download URLs manually."
+msgstr "If your form content is something else than traversable context object then you must fix file download URLs manually."
+
+# e7a838efcdd345459ac2fe136142b2d1
+#: ../../source/forms/files.rst:478
+msgid ""
+"See `example in plone.app.headeranimations "
+"<https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/widgets.py>`_."
+msgstr "See `example in plone.app.headeranimations <https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/widgets.py>`_."
+
+# 9c0ec0313b1d46efaf3603137ef7b1c1
+#: ../../source/forms/files.rst:481
+msgid "Migrating custom content for blobs"
+msgstr "Migrating custom content for blobs"
+
+# 9dba675fe3914a7dafa21778588af55c
+#: ../../source/forms/files.rst:483
+msgid "Some hints how to migrate your custom content:"
+msgstr "Some hints how to migrate your custom content:"
+
+# 62d6a2d837024db5a05844c39b8c575e
+#: ../../source/forms/files.rst:485
+msgid ""
+"http://plone.293351.n2.nabble.com/plone-4-upgrade-blob-and-large-files-"
+"tp5500503p5500503.html"
+msgstr "http://plone.293351.n2.nabble.com/plone-4-upgrade-blob-and-large-files-tp5500503p5500503.html"
+
+# b4a3dc65dfa94591be2ef79272cbe90a
+#: ../../source/forms/files.rst:488
+msgid "Form encoding"
+msgstr "Form encoding"
+
+# 6278b6a66d164138815268853898706e
+#: ../../source/forms/files.rst:492
+msgid ""
+"Make sure that all forms containing file content are posted as "
+"``enctype=\"multipart/form-data\"``.  If you don't do this, Zope decodes "
+"request ``POST`` values as string input and you get either empty strings or "
+"filenames as your file content data. The older ``plone.app.z3cform`` "
+"templates do not necessarily declare ``enctype``, meaning that you need to "
+"use a custom page template file for forms doing uploads."
+msgstr "Make sure that all forms containing file content are posted as ``enctype=\"multipart/form-data\"``.  If you don't do this, Zope decodes request ``POST`` values as string input and you get either empty strings or filenames as your file content data. The older ``plone.app.z3cform`` templates do not necessarily declare ``enctype``, meaning that you need to use a custom page template file for forms doing uploads."
+
+# 736311c3d218470a87b62013720b9929
+#: ../../source/forms/files.rst:499
+msgid "Example correct form header:"
+msgstr "Example correct form header:"
+
+# ccaba2ea0dba4ff49002f853bd33e2e6
+#: ../../source/forms/files.rst:507
+msgid "File-system access in load-balanced configurations"
+msgstr "File-system access in load-balanced configurations"
+
+# f959567cfd3347aabe9ce6f35b919c94
+#: ../../source/forms/files.rst:509
+msgid ""
+"The `plone.namedfiled <http://plone.org/products/plone.app.blob>`_ product "
+"page contains configuration instructions for ``plone.namedfile`` and ZEO."
+msgstr "The `plone.namedfiled <http://plone.org/products/plone.app.blob>`_ product page contains configuration instructions for ``plone.namedfile`` and ZEO."
+
+# 8b5c7a98b92846cd82e9e6c059f46612
+#: ../../source/forms/index.rst:3
+msgid "Models, forms, fields and widgets"
+msgstr "Models, forms, fields and widgets"
+
+# 5b2391281c1b42a2a06c7dabcb98423c
+#: ../../source/forms/index.rst:5
+msgid "Plone includes several alternative form mechanisms:"
+msgstr "Plone includes several alternative form mechanisms:"
+
+# abf85e19f67343f4bbd9f43be3a43b33
+#: ../../source/forms/index.rst:7
+msgid "For content-oriented forms:"
+msgstr "For content-oriented forms:"
+
+# 7157f19a647e4d229665a2a4983cbd1d
+#: ../../source/forms/index.rst:9
+msgid ":doc:`Dexterity </getstarted/dexterity>` for Plone 4.1+"
+msgstr ":doc:`Dexterity </getstarted/dexterity>` for Plone 4.1+"
+
+# e82c037c2444411c9b6f6181c916c4bd
+#: ../../source/forms/index.rst:11
+msgid ""
+":doc:`Archetypes </reference_manuals/old/archetypes/index>` is used for "
+"content types in Plone 3.x"
+msgstr ":doc:`Archetypes </reference_manuals/old/archetypes/index>` is used for content types in Plone 3.x"
+
+# aab9537c65254ddea06510787e79cc1a
+#: ../../source/forms/index.rst:13
+msgid ""
+"For convenience forms built and maintained through-the-web and where the "
+"results are stored in CSV sheet or emailed:"
+msgstr "For convenience forms built and maintained through-the-web and where the results are stored in CSV sheet or emailed:"
+
+# 1d29fa1161f6451caede643c18a8dd4e
+#: ../../source/forms/index.rst:15
+msgid ":doc:`PloneFormGen </reference_manuals/active/ploneformgen/index>`"
+msgstr ":doc:`PloneFormGen </reference_manuals/active/ploneformgen/index>`"
+
+# d3a71ef103ae4daf8502823924ba8b6f
+#: ../../source/forms/index.rst:17
+msgid ""
+"For application and utility forms where custom logic is added by writing "
+"Python code:"
+msgstr "For application and utility forms where custom logic is added by writing Python code:"
+
+# 7a9c1389e4a7431e9a0700975dab58e1
+#: ../../source/forms/index.rst:19
+msgid "z3c.form for Plone 4.x"
+msgstr "z3c.form for Plone 4.x"
+
+# acb57d5cfb134e18b56d31d3a0c2ecd9
+#: ../../source/forms/index.rst:21
+msgid "zope.formlib is used for stock forms in Plone 3.x"
+msgstr "zope.formlib is used for stock forms in Plone 3.x"
+
+# 7e637213497d4bb49103d35f42e5f352
+#: ../../source/forms/index.rst:23
+msgid "This documentation applies only for form libraries."
+msgstr "This documentation applies only for form libraries."
+
+# 1a46ce1fd0a94042955b11f8c9f5e17d
+#: ../../source/forms/index.rst:25
+msgid ""
+"You need to identify which form library you are dealing with and read the "
+"form library specific documentation."
+msgstr "You need to identify which form library you are dealing with and read the form library specific documentation."
+
+# a115fa47c4c34f719b433c2ee00670c2
+#: ../../source/forms/index.rst:28
+msgid ""
+"Zope 3 schema (zope.schema package) is database-neutral and framework-"
+"neutral way to describe Python data models."
+msgstr "Zope 3 schema (zope.schema package) is database-neutral and framework-neutral way to describe Python data models."
+
+# 48ce1ce1aa874d24908b54acc3a2897b
+#: ../../source/forms/index.rst:31
+msgid "Modelling data"
+msgstr "Modelling data"
+
+# d35f25ff75a3433f89745d4461a9302b
+#: ../../source/forms/index.rst:40
+msgid "Forms, fields and widgets"
+msgstr "Forms, fields and widgets"
+
+# 71faa53cde0c44ae8aac2d933344c95d
+#: ../../source/forms/index.rst:51
+msgid "Creating forms through-the-web without programming"
+msgstr "Creating forms through-the-web without programming"
+
+# bd0776a1ab3f4328b831d2b86c1c9eab
+#: ../../source/forms/manual.rst:3
+msgid "Processing raw HTTP post requests"
+msgstr "Processing raw HTTP post requests"
+
+# 0387423371084210a0b918b7f984bf6f
+#: ../../source/forms/manual.rst:7
+msgid "How to read incoming HTTP POST values without form frameworks"
+msgstr "How to read incoming HTTP POST values without form frameworks"
+
+# abef08009fe14430b7ebb65de4497412
+#: ../../source/forms/manual.rst:12
+msgid ""
+"See :doc:`HTTP request object </serving/http_request_and_response>` for "
+"basics."
+msgstr "See :doc:`HTTP request object </serving/http_request_and_response>` for basics."
+
+# 396599dc18c141f1ac0bc6461889c576
+#: ../../source/forms/manual.rst:14
+msgid ""
+"Here is an example view which checks if a form button has been pressed, and "
+"takes action accordingly. The view is implemented using :doc:`grok framework"
+" </components/grok>`."
+msgstr "Here is an example view which checks if a form button has been pressed, and takes action accordingly. The view is implemented using :doc:`grok framework </components/grok>`."
+
+# 405a9187a9d34d06a28b47ba0ad9cbb5
+#: ../../source/forms/manual.rst:18
+msgid "View code::"
+msgstr "View code::"
+
+# 49349d8dd47a45a89c04dc7f6aaae067
+#: ../../source/forms/manual.rst:49
+msgid "Page template code:"
+msgstr "Page template code:"
+
+# 9e22670c875a47f2b6a96f4dd2fb1fa0
+#: ../../source/forms/manual.rst:84
+msgid "Magical Zope form variables"
+msgstr "Magical Zope form variables"
+
+# 64323b8272cb4fc19698917a3e291fcd
+#: ../../source/forms/manual.rst:87
+msgid ""
+"Zope provides some magical HTTP POST variable names which are automatically "
+"converted to native Python primitives by ZPublisher."
+msgstr "Zope provides some magical HTTP POST variable names which are automatically converted to native Python primitives by ZPublisher."
+
+# 8ec3949e52194ca1ad30019d413fac0d
+#: ../../source/forms/manual.rst:91
+msgid "Quick explanation"
+msgstr "Quick explanation"
+
+# 9db1c46996d6438a8ec29b3bd186771b
+#: ../../source/forms/manual.rst:93
+msgid "If you have HTML::"
+msgstr "If you have HTML::"
+
+# d2222bbe986f43b5a70d1cbbd3f6096f
+#: ../../source/forms/manual.rst:97
+msgid "Then::"
+msgstr "Then::"
+
+# 292dbe4a2c844dc596f5df75f81e69b1
+#: ../../source/forms/manual.rst:101
+msgid "will return integer 30 instead of string \"30\"."
+msgstr "will return integer 30 instead of string \"30\"."
+
+# 0c8e1b4e9ffe479186133d89840290f9
+#: ../../source/forms/manual.rst:105
+msgid ""
+"This behavior is hard-coded to ZPublisher and cannot be extended or "
+"disabled. The recommendation is not to use it, but do the conversion of "
+"data-types yourself or use a more high-level form framework like z3c.form."
+msgstr "This behavior is hard-coded to ZPublisher and cannot be extended or disabled. The recommendation is not to use it, but do the conversion of data-types yourself or use a more high-level form framework like z3c.form."
+
+# 0a62745bca8549a4a1482be12f55a3b7
+# ffa7b16e0d734351bb54b805061d0437
+#: ../../source/forms/manual.rst:110 ../../source/forms/z3c.form.rst:1761
+msgid "More information"
+msgstr "More information"
+
+# 094aec54d7534381b6dffb37e5f8afdc
+#: ../../source/forms/manual.rst:112
+msgid "http://www.zope.org/Members/Zen/howto/FormVariableTypes"
+msgstr "http://www.zope.org/Members/Zen/howto/FormVariableTypes"
+
+# ecd639f9784c4c828311ca401607e94b
+#: ../../source/forms/ploneformgen.rst:3
+msgid "PloneFormGen"
+msgstr "PloneFormGen"
+
+# 31e191374f8246b5a61da6bfcd4e241e
+#: ../../source/forms/ploneformgen.rst:7
+msgid ""
+"PloneFormGen allows you to build and maintain convenience forms through "
+"Plone edit interface."
+msgstr "PloneFormGen allows you to build and maintain convenience forms through Plone edit interface."
+
+# db39c6c8b60a492ba55acf271ed2d577
+#: ../../source/forms/ploneformgen.rst:12
+msgid ""
+"*PloneFormGen* is a Plone add-on Product that provides a generic Plone form "
+"generator using fields, widgets and validators from Archetypes. Use it to "
+"build simple, one-of-a-kind, web forms that save or mail form input."
+msgstr "*PloneFormGen* is a Plone add-on Product that provides a generic Plone form generator using fields, widgets and validators from Archetypes. Use it to build simple, one-of-a-kind, web forms that save or mail form input."
+
+# e97f444f5f7a4cd8845e87005e7b18a3
+#: ../../source/forms/ploneformgen.rst:14
+msgid ""
+"To build a web form, create a form folder, then add form fields as contents."
+" Individual fields can display and validate themselves for testing purposes."
+" The form folder creates a form from all the contained field content "
+"objects."
+msgstr "To build a web form, create a form folder, then add form fields as contents. Individual fields can display and validate themselves for testing purposes. The form folder creates a form from all the contained field content objects."
+
+# 110b3d32263c405e9156ec055a14e441
+#: ../../source/forms/ploneformgen.rst:16
+msgid ""
+"Final disposition of form input is handled via plug-in action products. "
+"Action adapters included with this release include a mailer, a save-data "
+"adapter that saves input in tab-separated format for later download, and a "
+"custom-script adapter that makes it possible to script simple actions "
+"without recourse to the Zope Management Interface."
+msgstr "Final disposition of form input is handled via plug-in action products. Action adapters included with this release include a mailer, a save-data adapter that saves input in tab-separated format for later download, and a custom-script adapter that makes it possible to script simple actions without recourse to the Zope Management Interface."
+
+# 94e01cc25bbf4f088135bac5d3b8d238
+#: ../../source/forms/ploneformgen.rst:18
+msgid ""
+"To make it easy to get started, newly created form folders are pre-populated"
+" to act as a simple e-mail response form."
+msgstr "To make it easy to get started, newly created form folders are pre-populated to act as a simple e-mail response form."
+
+# f243754d0c8d47d29e3ac1a3d234bc2b
+#: ../../source/forms/ploneformgen.rst:20
+msgid "`PloneFormGen product page <http://plone.org/products/ploneformgen>`_"
+msgstr "`PloneFormGen product page <http://plone.org/products/ploneformgen>`_"
+
+# fd8d97f6cffe4bf29adf95920e2440dd
+#: ../../source/forms/ploneformgen.rst:22
+msgid ""
+":doc:`PloneFormGen documentation and tutorials "
+"</reference_manuals/active/ploneformgen/index>`"
+msgstr ":doc:`PloneFormGen documentation and tutorials </reference_manuals/active/ploneformgen/index>`"
+
+# 881dcb3a545144c794f66db8a5f04104
+#: ../../source/forms/ploneformgen.rst:24
+msgid ""
+":doc:`Creating forms with PloneFormGen add-on without programming "
+"</reference_manuals/active/ploneformgen/getting_started>`"
+msgstr ":doc:`Creating forms with PloneFormGen add-on without programming </reference_manuals/active/ploneformgen/getting_started>`"
+
+# 06942202e4fc4ef3b5e08873abf9435c
+#: ../../source/forms/schemas.rst:3
+msgid "Modelling using zope.schema"
+msgstr "Modelling using zope.schema"
+
+# 159863ae828443f8b77a8776460a19e3
+#: ../../source/forms/schemas.rst:7
+msgid ""
+"zope.schema package provide a storage-neutral way to define Python object "
+"models with validators."
+msgstr "zope.schema package provide a storage-neutral way to define Python object models with validators."
+
+# b741efcc697041cbb986e57f957572ea
+#: ../../source/forms/schemas.rst:15
+msgid ""
+"Zope 3 schemas are a database-neutral and form-library-neutral way to "
+"describe Python data models."
+msgstr "Zope 3 schemas are a database-neutral and form-library-neutral way to describe Python data models."
+
+# 6163fe022bbb4b108f911d7cd4960c3c
+#: ../../source/forms/schemas.rst:18
+msgid "Plone uses Zope 3 schemas for these purposes:"
+msgstr "Plone uses Zope 3 schemas for these purposes:"
+
+# fccb6823a4e34ce793f9de037e094d2a
+#: ../../source/forms/schemas.rst:20
+msgid "to describe persistent data models;"
+msgstr "to describe persistent data models;"
+
+# 808da848921f4c92a79c13b363df1871
+#: ../../source/forms/schemas.rst:21
+msgid "to describe HTML form data;"
+msgstr "to describe HTML form data;"
+
+# 8da89225caf0448ea9ad53107cb009bf
+#: ../../source/forms/schemas.rst:22
+msgid "to describe ZCML configuration data."
+msgstr "to describe ZCML configuration data."
+
+# 52d38277ee2949cab7c5453be6977f37
+#: ../../source/forms/schemas.rst:24
+msgid ""
+"Since Zope 3 schemas are not bound to e.g. a SQL database engine, it gives "
+"you very reusable way to define data models."
+msgstr "Since Zope 3 schemas are not bound to e.g. a SQL database engine, it gives you very reusable way to define data models."
+
+# d8dd46e0dbc0481388f55605b001087d
+#: ../../source/forms/schemas.rst:27
+msgid ""
+"Schemas are just regular Python classes, with some special attribute "
+"declarations.  They are always subclasses of ``zope.interface.Interface``. "
+"The schema itself cannot be a concrete object instance |---| you need to "
+"either have a ``persistent.Persistent`` object (for database data) or a "
+"``z3c.form.form.Form`` object (for HTML forms)."
+msgstr "Schemas are just regular Python classes, with some special attribute declarations.  They are always subclasses of ``zope.interface.Interface``. The schema itself cannot be a concrete object instance |---| you need to either have a ``persistent.Persistent`` object (for database data) or a ``z3c.form.form.Form`` object (for HTML forms)."
+
+# 0bd5c89dba474431b615fc2f51de82b5
+#: ../../source/forms/schemas.rst:33
+msgid "Zope 3 schemas are used for tasks like:"
+msgstr "Zope 3 schemas are used for tasks like:"
+
+# 24e473e073c84294853b66abab2a6a7d
+#: ../../source/forms/schemas.rst:35
+msgid ""
+"defining allowed input data format (string, integer, object, list, etc.) for"
+" Python class instance attributes;"
+msgstr "defining allowed input data format (string, integer, object, list, etc.) for Python class instance attributes;"
+
+# e1c3cdbe3a44414b8ee998053bd3cde4
+#: ../../source/forms/schemas.rst:37
+msgid "specifying required attributes on an object;"
+msgstr "specifying required attributes on an object;"
+
+# fe4183af1b034667ae44ac3e9142a057
+#: ../../source/forms/schemas.rst:38
+msgid "defining custom validators on input data."
+msgstr "defining custom validators on input data."
+
+# da0dbcb025694abbab3276ebd207585f
+#: ../../source/forms/schemas.rst:40
+msgid ""
+"The basic unit of data model declaration is the *field*, which specifies "
+"what kind of data each Python attribute can hold."
+msgstr "The basic unit of data model declaration is the *field*, which specifies what kind of data each Python attribute can hold."
+
+# 59d32f7efc3b49debdba92fbe8bad529
+# 4893e7c4a7ed40838378083630145f1c
+# 5a6fb502e6b84e9e9d2a42b7a3607894
+# 166f2a513f074f949cb97e27332c5a51
+# d535cba64cc14997b14ed2c986378a4d
+# 5524338f73e947808cedabd450c1a155
+#: ../../source/forms/schemas.rst:44 ../../source/forms/wysiwyg.rst:39
+#: ../../source/forms/wysiwyg.rst:316 ../../source/forms/z3c.form.rst:626
+#: ../../source/forms/z3c.form.rst:1438 ../../source/forms/z3c.form.rst:2273
+msgid "More info"
+msgstr "More info"
+
+# 9a0875b1c0994ccc9f39912b2a305f30
+#: ../../source/forms/schemas.rst:46
+msgid "`zope.schema <http://pypi.python.org/pypi/zope.schema>`_ on PyPi"
+msgstr "`zope.schema <http://pypi.python.org/pypi/zope.schema>`_ on PyPi"
+
+# e35a2d9f6ba143a58e2d5a0836690149
+#: ../../source/forms/schemas.rst:48
+msgid ""
+"`zope.schema source code "
+"<http://svn.zope.org/zope.schema/trunk/src/zope/schema/>`_ - definite source"
+" for field types and usage."
+msgstr "`zope.schema source code <http://svn.zope.org/zope.schema/trunk/src/zope/schema/>`_ - definite source for field types and usage."
+
+# 25849826d00348b598cb1b2a2d14e2c9
+#: ../../source/forms/schemas.rst:50
+msgid ""
+"``zope.schema`` provides a very comprehensive set of fields out of the box. "
+"Finding good documentation for them, however, can be challenging.  Here are "
+"some starting points:"
+msgstr "``zope.schema`` provides a very comprehensive set of fields out of the box. Finding good documentation for them, however, can be challenging.  Here are some starting points:"
+
+# 14b3116cf97442b8a9934ac905c13f7e
+#: ../../source/forms/schemas.rst:55
+msgid ""
+"`Dexterity field list "
+"<http://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/fields.html>`_."
+msgstr "`Dexterity field list <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/fields.html>`_."
+
+# b79d3df0044849ad935bc475f1a60d61
+#: ../../source/forms/schemas.rst:59
+msgid "Example of a schema"
+msgstr "Example of a schema"
+
+# af39841d0a5141129f43a4520bf110b5
+#: ../../source/forms/schemas.rst:61
+msgid "Let's define a data model to store addresses::"
+msgstr "Let's define a data model to store addresses::"
+
+# 8f81f5dbfb6c47f589107bb2dbfe2c89
+#: ../../source/forms/schemas.rst:85
+msgid ""
+"Next, we define a concrete persistent class which uses this data model.  We "
+"can use this class to store data based on our model definition in the ZODB "
+"database."
+msgstr "Next, we define a concrete persistent class which uses this data model.  We can use this class to store data based on our model definition in the ZODB database."
+
+# 5467b56b7c13442aa1e883ab24034302
+#: ../../source/forms/schemas.rst:89
+msgid ""
+"We use ``zope.schema.fieldproperty.FieldProperty`` to bind persistent class "
+"attributes to the data definition."
+msgstr "We use ``zope.schema.fieldproperty.FieldProperty`` to bind persistent class attributes to the data definition."
+
+# 0a1d0ba2fcfb40778bca7133213a3d06
+#: ../../source/forms/schemas.rst:115
+msgid ""
+"For persistent objects, see :doc:`persistent object documentation "
+"</persistency/persistent>`."
+msgstr "For persistent objects, see :doc:`persistent object documentation </persistency/persistent>`."
+
+# a63e945f6c484543ab4a17eda5689236
+#: ../../source/forms/schemas.rst:120
+msgid "Using schemas as data models"
+msgstr "Using schemas as data models"
+
+# f939cd05315e4977b4ae6764282fbeea
+#: ../../source/forms/schemas.rst:123
+msgid ""
+"Based on the example data model above, we can use it in e.g. content type "
+":doc:`browser views </views/browserviews>` to store arbitrary data as "
+"content type attributes."
+msgstr "Based on the example data model above, we can use it in e.g. content type :doc:`browser views </views/browserviews>` to store arbitrary data as content type attributes."
+
+# e50666b3b2594b448b75fae8a2ed4d89
+#: ../../source/forms/schemas.rst:151
+msgid "Field constructor parameters"
+msgstr "Field constructor parameters"
+
+# c7ed0616fcae43a58e624bcf6ec6db0c
+#: ../../source/forms/schemas.rst:153
+msgid ""
+"The ``Field`` base class defines a list of standard parameters that you can "
+"use to construct schema fields.  Each subclass of ``Field`` will have its "
+"own set of possible parameters in addition to this."
+msgstr "The ``Field`` base class defines a list of standard parameters that you can use to construct schema fields.  Each subclass of ``Field`` will have its own set of possible parameters in addition to this."
+
+# eeaea1ff29344285b98c365215402843
+#: ../../source/forms/schemas.rst:157
+msgid ""
+"See the full list `here "
+"<http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/Field/index.html>`_."
+msgstr "See the full list `here <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_bootstrapfields/Field/index.html>`_."
+
+# 7d7ffd41a3904d96b42ef061f27db923
+#: ../../source/forms/schemas.rst:161
+msgid "field title as unicode string"
+msgstr "field title as unicode string"
+
+# 504b031a477340e4b6369e5527f741c1
+#: ../../source/forms/schemas.rst:164
+msgid "field description as unicode string"
+msgstr "field description as unicode string"
+
+# 53ee4c0fb09142df8f6432107c073c00
+#: ../../source/forms/schemas.rst:167
+msgid "boolean, whether the field is required"
+msgstr "boolean, whether the field is required"
+
+# dc9594029c514c2096c9836a6754d3b0
+#: ../../source/forms/schemas.rst:170
+msgid "Default value if the attribute is not present"
+msgstr "Default value if the attribute is not present"
+
+# cb12c8f7594047399e1fa41e39b39da8
+#: ../../source/forms/schemas.rst:172
+msgid "... and so on."
+msgstr "... and so on."
+
+# 9ee1b72014824be89e9ce5c62b4f65bc
+#: ../../source/forms/schemas.rst:176
+msgid ""
+"Do not initialize any non-primitive values using the *default* keyword "
+"parameter of schema fields.  Python and the ZODB stores objects by "
+"reference.  Python code will construct only *one* field value during schema "
+"construction, and share its content across all objects.  This is probably "
+"not what you intend. Instead, initialize objects in the ``__init__()`` "
+"method of your schema implementer."
+msgstr "Do not initialize any non-primitive values using the *default* keyword parameter of schema fields.  Python and the ZODB stores objects by reference.  Python code will construct only *one* field value during schema construction, and share its content across all objects.  This is probably not what you intend. Instead, initialize objects in the ``__init__()`` method of your schema implementer."
+
+# d7dea11caf9a49ceaef47a174c2ca5fe
+#: ../../source/forms/schemas.rst:183
+msgid ""
+"In particular, dangerous defaults are: ``default=[]``, ``default={}``, "
+"``default=SomeObject()``."
+msgstr "In particular, dangerous defaults are: ``default=[]``, ``default={}``, ``default=SomeObject()``."
+
+# 9179181ab8054807b1bc5e04d2c35ce7
+#: ../../source/forms/schemas.rst:188
+msgid "Schema introspection"
+msgstr "Schema introspection"
+
+# a568c761a8bc44b08cccda2d7cd8120b
+#: ../../source/forms/schemas.rst:190
+msgid ""
+"The ``zope.schema._schema`` module provides some introspection functions:"
+msgstr "The ``zope.schema._schema`` module provides some introspection functions:"
+
+# 5bc1e8496763462780089f2c6734a325
+#: ../../source/forms/schemas.rst:192
+msgid "``getFieldNames(schema_class)``"
+msgstr "``getFieldNames(schema_class)``"
+
+# 6f8593d7ddd24a2a923745d0db2c8285
+#: ../../source/forms/schemas.rst:193
+msgid "``getFields(schema_class)``"
+msgstr "``getFields(schema_class)``"
+
+# 88f556bdab40419794ee569856653b41
+#: ../../source/forms/schemas.rst:194
+msgid ""
+"``getFieldNamesInOrder(schema)`` |---| retain the orignal field declaration "
+"order."
+msgstr "``getFieldNamesInOrder(schema)`` |---| retain the orignal field declaration order."
+
+# 232235c2ee6a4e50a356383588eb301c
+#: ../../source/forms/schemas.rst:196
+msgid ""
+"``getFieldsInOrder(schema)`` |---| retain the orignal field declaration "
+"order."
+msgstr "``getFieldsInOrder(schema)`` |---| retain the orignal field declaration order."
+
+# e25a5f7727dd497484c8fb22b7d2cf12
+#: ../../source/forms/schemas.rst:212
+msgid "Dumping schema data"
+msgstr "Dumping schema data"
+
+# 89edbaa6acf54bba9d8db925f25bf3f1
+#: ../../source/forms/schemas.rst:214
+msgid ""
+"Below is an example how to extract all schema defined fields from an object."
+msgstr "Below is an example how to extract all schema defined fields from an object."
+
+# 3a680b3043a74367b9c6232c696a9fe4
+#: ../../source/forms/schemas.rst:242
+msgid "Finding the schema for a Dexterity type"
+msgstr "Finding the schema for a Dexterity type"
+
+# 220a6397ac5b4cccb07f0efd6fb3650c
+#: ../../source/forms/schemas.rst:244
+msgid ""
+"When trying to introspect a Dexterity type, you can get a reference to the "
+"schema thus::"
+msgstr "When trying to introspect a Dexterity type, you can get a reference to the schema thus::"
+
+# cbbfccc0a5f3476e86b4b671e38bd487
+#: ../../source/forms/schemas.rst:251
+msgid ""
+"...and then inspect it using the methods above. Note this won't have "
+"behavior fields added to it at this stage, only the fields directly defined "
+"in your schema."
+msgstr "...and then inspect it using the methods above. Note this won't have behavior fields added to it at this stage, only the fields directly defined in your schema."
+
+# 0d8a47201e524f08bccd5c7cdba5e545
+#: ../../source/forms/schemas.rst:256
+msgid "Field order"
+msgstr "Field order"
+
+# 01ab2a34ab7846b48c54975f6f411c57
+#: ../../source/forms/schemas.rst:258
+msgid ""
+"The ``order`` attribute can be used to determine the order in which fields "
+"in a schema were defined. If one field was created after another (in the "
+"same thread), the value of ``order`` will be greater."
+msgstr "The ``order`` attribute can be used to determine the order in which fields in a schema were defined. If one field was created after another (in the same thread), the value of ``order`` will be greater."
+
+# d84aa3d47da847478c64a776ee789007
+#: ../../source/forms/schemas.rst:264
+msgid "Default values"
+msgstr "Default values"
+
+# 06f322fcf6ff4dda9fa1574609bed3c1
+#: ../../source/forms/schemas.rst:266
+msgid ""
+"To make default values of schema effective, class attributes must be "
+"implemented using ``FieldProperty``."
+msgstr "To make default values of schema effective, class attributes must be implemented using ``FieldProperty``."
+
+# b0ecc4b5c7d6449187982df9427da330
+#: ../../source/forms/schemas.rst:291
+msgid "Validation and type constrains"
+msgstr "Validation and type constrains"
+
+# 29521652ae794e69ae91a1f6166c142d
+#: ../../source/forms/schemas.rst:293
+msgid ""
+"Schema objects using field properties provide automatic validation "
+"facilities, preventing setting badly formatted attributes."
+msgstr "Schema objects using field properties provide automatic validation facilities, preventing setting badly formatted attributes."
+
+# b91ad674fdde49979cbcf9c17c475822
+#: ../../source/forms/schemas.rst:296
+msgid "There are two aspects to validation:"
+msgstr "There are two aspects to validation:"
+
+# 535d3fe9e0db478a8c4b81a6de5d8f15
+#: ../../source/forms/schemas.rst:298
+msgid "Checking the type constraints (done automatically)."
+msgstr "Checking the type constraints (done automatically)."
+
+# 81bb19b65c264986b926814b211d1094
+#: ../../source/forms/schemas.rst:299
+msgid "Checking whether the value fills certain constrains (validation)."
+msgstr "Checking whether the value fills certain constrains (validation)."
+
+# 31f4ff90304147d0972b42a4feff7bf1
+#: ../../source/forms/schemas.rst:301
+msgid "Example of how type constraints work::"
+msgstr "Example of how type constraints work::"
+
+# 9df333c1323145d2a302c71f319186f3
+#: ../../source/forms/schemas.rst:332
+msgid "Example of validation (email field)::"
+msgstr "Example of validation (email field)::"
+
+# 72b23080d6b94681a570b1cb70006ab3
+#: ../../source/forms/schemas.rst:352
+msgid "Persistent objects and schema"
+msgstr "Persistent objects and schema"
+
+# 2d843d3041fe4c95a5e9f3fc31b02575
+#: ../../source/forms/schemas.rst:354
+msgid ""
+"ZODB persistent objects do not provide facilities for setting field defaults"
+" or validating the data input."
+msgstr "ZODB persistent objects do not provide facilities for setting field defaults or validating the data input."
+
+# 01370dfd4b1c4ed4a0baefb7c5634c08
+#: ../../source/forms/schemas.rst:357
+msgid ""
+"When you create a persistent class, you need to provide field properties for"
+" it, which will sanify the incoming and outgoing data."
+msgstr "When you create a persistent class, you need to provide field properties for it, which will sanify the incoming and outgoing data."
+
+# 9473569f746b44ad9e4e60e092909fa1
+#: ../../source/forms/schemas.rst:360
+msgid ""
+"When the persistent object is created it has no attributes. When you try to "
+"access the attribute through a named "
+"``zope.schema.fieldproperty.FieldProperty`` accessor, it first checks "
+"whether the attribute exists. If the attribute is not there, it is created "
+"and the default value is returned."
+msgstr "When the persistent object is created it has no attributes. When you try to access the attribute through a named ``zope.schema.fieldproperty.FieldProperty`` accessor, it first checks whether the attribute exists. If the attribute is not there, it is created and the default value is returned."
+
+# 36728878d646440f8456fc031f562dc9
+#: ../../source/forms/schemas.rst:417
+msgid "Now you see the magic::"
+msgstr "Now you see the magic::"
+
+# a8d78dad46c4498ab37b8a09f19b6313
+#: ../../source/forms/schemas.rst:426
+msgid "Collections (and multichoice fields)"
+msgstr "Collections (and multichoice fields)"
+
+# e42ff808318c4123aca4dfee5e577c38
+#: ../../source/forms/schemas.rst:428
+msgid ""
+"Collections are fields composed of several other fields. Collections also "
+"act as multi-choice fields."
+msgstr "Collections are fields composed of several other fields. Collections also act as multi-choice fields."
+
+# 1c29c951bbf94ce781594d30782689ae
+#: ../../source/forms/schemas.rst:431
+msgid "For more information see:"
+msgstr "For more information see:"
+
+# 8f450678b93f4695b32075860b16bfca
+#: ../../source/forms/schemas.rst:433
+msgid ""
+"`Using Zope schemas with a complex vocabulary and multi-select fields "
+"<http://www.upfrontsystems.co.za/Members/izak/sysadman/using-zope-schemas-"
+"with-a-complex-vocabulary-and-multi-select-fields>`_"
+msgstr "`Using Zope schemas with a complex vocabulary and multi-select fields <http://www.upfrontsystems.co.za/Members/izak/sysadman/using-zope-schemas-with-a-complex-vocabulary-and-multi-select-fields>`_"
+
+# 30d90a7f375444cbbea91ae9bedf2513
+#: ../../source/forms/schemas.rst:435
+msgid ""
+"Collections section in `zope.schema documentation "
+"<http://apidoc.zope.org/++apidoc++/Code/zope/schema/fields.txt/index.html>`_"
+msgstr "Collections section in `zope.schema documentation <http://apidoc.zope.org/++apidoc++/Code/zope/schema/fields.txt/index.html>`_"
+
+# 51073fb6fbb540fea04089331934f529
+#: ../../source/forms/schemas.rst:437
+msgid ""
+"Schema `field sources documentation "
+"<http://apidoc.zope.org/++apidoc++/Code/zope/schema/sources.txt/index.html>`_"
+msgstr "Schema `field sources documentation <http://apidoc.zope.org/++apidoc++/Code/zope/schema/sources.txt/index.html>`_"
+
+# 1b5c688c38d9444da5a7003f7176a8fd
+#: ../../source/forms/schemas.rst:439
+msgid ""
+"`Choice field "
+"<http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/Choice/index.html>`_"
+msgstr "`Choice field <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/Choice/index.html>`_"
+
+# 91893b440ccb4036b4e39a0369c087ad
+#: ../../source/forms/schemas.rst:441
+msgid ""
+"`List field "
+"<http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/List/index.html>`_."
+msgstr "`List field <http://apidoc.zope.org/++apidoc++/Code/zope/schema/_field/List/index.html>`_."
+
+# a5a15227b27c44939703a86cee1df46e
+#: ../../source/forms/schemas.rst:445
+msgid "Single-choice example"
+msgstr "Single-choice example"
+
+# f2621cbfea8b4fb082f0a8fb70ce133f
+#: ../../source/forms/schemas.rst:447
+msgid "Only one value can be chosen."
+msgstr "Only one value can be chosen."
+
+# f43f488561814756a3cc1317f84e225c
+#: ../../source/forms/schemas.rst:449
+msgid "Below is code to create Python logging level choice::"
+msgstr "Below is code to create Python logging level choice::"
+
+# 817d391ee3f446809369a2fe8406c6c0
+#: ../../source/forms/schemas.rst:487
+msgid "Multi-choice example"
+msgstr "Multi-choice example"
+
+# e9f3ebb68773434995ce9dd01ceb670f
+#: ../../source/forms/schemas.rst:489
+msgid ""
+"Using zope.schema.List, many values can be chosen once. Each value is "
+"atomically constrained by *value_type* schema field."
+msgstr "Using zope.schema.List, many values can be chosen once. Each value is atomically constrained by *value_type* schema field."
+
+# 64169ec29f6e4ddd9af78b2c24271652
+# c7a849c2b9604219805a382f363159f1
+#: ../../source/forms/schemas.rst:513 ../../source/forms/z3c.form.rst:499
+msgid "Dynamic schemas"
+msgstr "Dynamic schemas"
+
+# 0585fde8dd5741668648a260a0c46e4c
+#: ../../source/forms/schemas.rst:515
+msgid ""
+"Schemas are singletons, as there only exist one class instance per Python "
+"run-time. For example, if you need to feed schemas generated dynamically to "
+"form engine, you need to"
+msgstr "Schemas are singletons, as there only exist one class instance per Python run-time. For example, if you need to feed schemas generated dynamically to form engine, you need to"
+
+# 3dedf1b0fa8e4ea59ecf069eced45139
+#: ../../source/forms/schemas.rst:519
+msgid ""
+"If the form engine (e.g. z3c.form refers to schema fields, then replace "
+"these references with dynamically generated copes)"
+msgstr "If the form engine (e.g. z3c.form refers to schema fields, then replace these references with dynamically generated copes)"
+
+# 615b39fe30394459a9385efb444b24f9
+#: ../../source/forms/schemas.rst:522
+msgid ""
+"Generate a Python class dynamically. Output Python source code, then "
+"``eval()`` it. Using ``eval()`` is almost always considered as a bad "
+"practice."
+msgstr "Generate a Python class dynamically. Output Python source code, then ``eval()`` it. Using ``eval()`` is almost always considered as a bad practice."
+
+# f5a349491fb24f48bf1f98cbc21268dc
+#: ../../source/forms/schemas.rst:528
+msgid ""
+"Though it is possible, you should not modify zope.schema classes in-place as"
+" the same copy is shared between different threads and if there are two "
+"concurrent HTTP requests problems occur."
+msgstr "Though it is possible, you should not modify zope.schema classes in-place as the same copy is shared between different threads and if there are two concurrent HTTP requests problems occur."
+
+# 805cd14fe33d4196a3f602b7df322860
+#: ../../source/forms/schemas.rst:534
+msgid "Replacing schema fields with dynamically modified copies"
+msgstr "Replacing schema fields with dynamically modified copies"
+
+# dc0cb770028843bc90769243b0f6853b
+#: ../../source/forms/schemas.rst:536
+msgid ""
+"The below is an example for z3c.form. It uses Python ``copy`` module to copy"
+" f.field reference, which points to zope.schema field. For this field copy, "
+"we modify *required* attribute based on input."
+msgstr "The below is an example for z3c.form. It uses Python ``copy`` module to copy f.field reference, which points to zope.schema field. For this field copy, we modify *required* attribute based on input."
+
+# 41ac4e1ec31940e5b0c10cb1e879a2f7
+#: ../../source/forms/schemas.rst:568
+msgid "Don't use dict {} or list [] as a default value"
+msgstr "Don't use dict {} or list [] as a default value"
+
+# b78d8b46ade0436181e9a65accba452f
+#: ../../source/forms/schemas.rst:570
+msgid ""
+"Because how Python object construction works, giving [] or {} as a default "
+"value will make all created field values to share this same object."
+msgstr "Because how Python object construction works, giving [] or {} as a default value will make all created field values to share this same object."
+
+# a622c43e64854b6eaf33ffe3344ff302
+#: ../../source/forms/schemas.rst:573
+msgid "http://effbot.org/zone/default-values.htm"
+msgstr "http://effbot.org/zone/default-values.htm"
+
+# ac62c690bc43497c891bf789256810c7
+#: ../../source/forms/schemas.rst:575
+msgid "Use value adapters instead"
+msgstr "Use value adapters instead"
+
+# 95ce046486e842d286ee1da8e513a536
+#: ../../source/forms/schemas.rst:577
+msgid "http://pypi.python.org/pypi/plone.directives.form#value-adapters"
+msgstr "http://pypi.python.org/pypi/plone.directives.form#value-adapters"
+
+# 697fc51a4f764913b86f4c2dcc768fb4
+#: ../../source/forms/vocabularies.rst:3
+msgid "Vocabularies"
+msgstr "Vocabularies"
+
+# 70832d6cae864c319109d88053ebc399
+#: ../../source/forms/vocabularies.rst:7
+msgid ""
+"Vocabularies are lists of (value -> human readable title) pairs used by e.g."
+" selection drop downs. zope.schema provides tools to programmatically "
+"construct their vocabularies."
+msgstr "Vocabularies are lists of (value -> human readable title) pairs used by e.g. selection drop downs. zope.schema provides tools to programmatically construct their vocabularies."
+
+# bd0fd8d517b74d7e8eca39100433b397
+#: ../../source/forms/vocabularies.rst:16
+msgid "Vocabularies specify options for choice fields."
+msgstr "Vocabularies specify options for choice fields."
+
+# fdddd68424cd40648c24cf4247756820
+#: ../../source/forms/vocabularies.rst:18
+msgid ""
+"Vocabularies are normally described using "
+"zope.schema.vocabulary.SimpleVocabulary and "
+"zope.schema.vocabulary.SimpleTerm objects. `See the source code "
+"<http://svn.zope.org/zope.schema/trunk/src/zope/schema/vocabulary.py?rev=75170&view=auto>`_."
+msgstr "Vocabularies are normally described using zope.schema.vocabulary.SimpleVocabulary and zope.schema.vocabulary.SimpleTerm objects. `See the source code <http://svn.zope.org/zope.schema/trunk/src/zope/schema/vocabulary.py?rev=75170&view=auto>`_."
+
+# 5b7a03e40e9c4849ad8415707ca3d73d
+#: ../../source/forms/vocabularies.rst:24
+msgid "Vocabulary terms"
+msgstr "Vocabulary terms"
+
+# 6fc6e287ee9e4393b3c032d51270bf98
+#: ../../source/forms/vocabularies.rst:26
+msgid "zope.schema defines different vocabulary term possibilities."
+msgstr "zope.schema defines different vocabulary term possibilities."
+
+# 49d3bb5024a542f5b6679e63641c4ac3
+#: ../../source/forms/vocabularies.rst:28
+msgid ""
+"A term is an entry in the vocabulary. The term has a value. Most terms are "
+"tokenised terms which also have a token, and some terms are titled, meaning "
+"they have a title that is different to the token."
+msgstr "A term is an entry in the vocabulary. The term has a value. Most terms are tokenised terms which also have a token, and some terms are titled, meaning they have a title that is different to the token."
+
+# cdd72c43a8ee4a338f196ed9871f0d2b
+#: ../../source/forms/vocabularies.rst:30
+msgid "In ``SimpleTerm`` instances"
+msgstr "In ``SimpleTerm`` instances"
+
+# 90057e8c815d41bc8903954341822f35
+#: ../../source/forms/vocabularies.rst:32
+msgid ""
+"``SimpleTerm.token`` must be an ASCII string. It is the value passed with "
+"the request when the form is submitted. A token must uniquely identify a "
+"term."
+msgstr "``SimpleTerm.token`` must be an ASCII string. It is the value passed with the request when the form is submitted. A token must uniquely identify a term."
+
+# 28a652b50a5c4fceaa7c6e0134ef8a17
+#: ../../source/forms/vocabularies.rst:34
+msgid ""
+"``SimpleTerm.value`` is the actual value stored on the object. This is not "
+"passed to the browser or used in the form. The value is often a unicode "
+"string, but can be any type of object."
+msgstr "``SimpleTerm.value`` is the actual value stored on the object. This is not passed to the browser or used in the form. The value is often a unicode string, but can be any type of object."
+
+# f168d0e00bde4d60867b7769cd90d657
+#: ../../source/forms/vocabularies.rst:36
+msgid ""
+"``SimpleTerm.title`` is a unicode string or translatable message. It is used"
+" in the form."
+msgstr "``SimpleTerm.title`` is a unicode string or translatable message. It is used in the form."
+
+# 5d9312267c704634a503d16b81634d7e
+#: ../../source/forms/vocabularies.rst:38
+msgid "Some info::"
+msgstr "Some info::"
+
+# adda3ebc1bed413bb154e0ebc9a1de1f
+#: ../../source/forms/vocabularies.rst:67
+msgid ""
+"If you need international texts please note that only title is, and should "
+"be, translated. Value and token should always carry the same value."
+msgstr "If you need international texts please note that only title is, and should be, translated. Value and token should always carry the same value."
+
+# c9840a07ff844f79b3aab2c25b0933a6
+#: ../../source/forms/vocabularies.rst:72
+msgid "Creating a vocabulary"
+msgstr "Creating a vocabulary"
+
+# 05d15117526b4041b76359ac4c8e1531
+#: ../../source/forms/vocabularies.rst:84
+msgid "Example 2::"
+msgstr "Example 2::"
+
+# a63871b4246e432db3795c2446a4a0f5
+#: ../../source/forms/vocabularies.rst:101
+msgid "Stock vocabularies"
+msgstr "Stock vocabularies"
+
+# fb680280c79148dfb06731d7fd89b44d
+#: ../../source/forms/vocabularies.rst:103
+msgid "Some vocabularies Plone provides out of the box"
+msgstr "Some vocabularies Plone provides out of the box"
+
+# 3fb0da52de1d4502a8336f74f757d33d
+#: ../../source/forms/vocabularies.rst:105
+msgid ""
+"`Some common named vocabularies "
+"<http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/vocabularies.html"
+"#some-common-vocabularies>`_"
+msgstr "`Some common named vocabularies <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/vocabularies.html#some-common-vocabularies>`_"
+
+# cca3efa57d344bea90ffc2cdeb79bf76
+#: ../../source/forms/vocabularies.rst:107
+msgid ""
+"`Thumbnail size vocabulary (TinyMCE) "
+"<https://github.com/plone/Products.TinyMCE/blob/master/Products/TinyMCE/vocabularies.py>`_"
+msgstr "`Thumbnail size vocabulary (TinyMCE) <https://github.com/plone/Products.TinyMCE/blob/master/Products/TinyMCE/vocabularies.py>`_"
+
+# 222c00deecf046899d4ceddb554d9435
+#: ../../source/forms/vocabularies.rst:110
+msgid "Creating vocabulary from list of objects"
+msgstr "Creating vocabulary from list of objects"
+
+# 163f17e010e041f89d26b02a184f6cbe
+#: ../../source/forms/vocabularies.rst:112
+msgid "Here is one example where value = title in term::"
+msgstr "Here is one example where value = title in term::"
+
+# 7cd452aad14442a89893d8d034b83452
+#: ../../source/forms/vocabularies.rst:117
+msgid "Retrieving a vocabulary"
+msgstr "Retrieving a vocabulary"
+
+# c11a649174cb4e5e96bda61d50785059
+#: ../../source/forms/vocabularies.rst:119
+msgid ""
+"zope.schema's SimpleVocabulary objects are retrieved via factories "
+"registered as utilities."
+msgstr "zope.schema's SimpleVocabulary objects are retrieved via factories registered as utilities."
+
+# 949b3f2943db46b09b3729fbe9cc8922
+#: ../../source/forms/vocabularies.rst:121
+msgid "To get one, use zope.component's getUtility::"
+msgstr "To get one, use zope.component's getUtility::"
+
+# 4f87df70caa54fdb95c5d81a6f0626b6
+#: ../../source/forms/vocabularies.rst:131
+msgid "Getting a term"
+msgstr "Getting a term"
+
+# 7f6cf9d941784a848af4eb242802fa9d
+#: ../../source/forms/vocabularies.rst:133
+msgid "By term value::"
+msgstr "By term value::"
+
+# 66b71f0b929d42df98d04ce42ee66464
+#: ../../source/forms/vocabularies.rst:141
+msgid "Listing a vocabulary"
+msgstr "Listing a vocabulary"
+
+# ae4d7eeab0ea41c890b42738b2798141
+#: ../../source/forms/vocabularies.rst:150
+msgid "Dynamic vocabularies"
+msgstr "Dynamic vocabularies"
+
+# b7429eb461904357a24f80e21798d82e
+#: ../../source/forms/vocabularies.rst:152
+msgid ""
+"Dynamic vocabularies' values may change run-time. They are usually generated"
+" based on some context data."
+msgstr "Dynamic vocabularies' values may change run-time. They are usually generated based on some context data."
+
+# 909ac72f9cd44a51bfa55c3e7132001f
+#: ../../source/forms/vocabularies.rst:155
+msgid ""
+"Note that the examples below need grok package installed and <grok:grok "
+"package=\"...\"> directive in configure.zcml."
+msgstr "Note that the examples below need grok package installed and <grok:grok package=\"...\"> directive in configure.zcml."
+
+# 65d9394c11ff4a6fa81d2a5f79344489
+#: ../../source/forms/vocabularies.rst:158
+msgid ""
+"Complete example with portal_catalog query, vocabulary creation and form"
+msgstr "Complete example with portal_catalog query, vocabulary creation and form"
+
+# 4a171ac43d194eb8b7cffc320f769f4c
+#: ../../source/forms/vocabularies.rst:271
+msgid "Complex example 2"
+msgstr "Complex example 2"
+
+# a908d731fb0c4e5d97edb610c221a369
+#: ../../source/forms/vocabularies.rst:336
+msgid ""
+"For another example, see `Dynamic sources "
+"<http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/vocabularies.html"
+"#dynamic-sources>`_ chapter in Dexterity manual."
+msgstr "For another example, see `Dynamic sources <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/vocabularies.html#dynamic-sources>`_ chapter in Dexterity manual."
+
+# 739529651bef41b4b8422f59d30d6740
+#: ../../source/forms/vocabularies.rst:340
+msgid "Registering a named vocabulary provider in ZCML"
+msgstr "Registering a named vocabulary provider in ZCML"
+
+# 1664064f0c6b4d8fbd8ad28d165c3db6
+#: ../../source/forms/vocabularies.rst:342
+msgid ""
+"You can use ``<utility>`` in ZCML to register vocabularies by name and then "
+"refer them by name via ``getUtility()`` or in zope.schema.Choice."
+msgstr "You can use ``<utility>`` in ZCML to register vocabularies by name and then refer them by name via ``getUtility()`` or in zope.schema.Choice."
+
+# f64b1ca3ff3342a685921fbfb6b5b080
+#: ../../source/forms/vocabularies.rst:353
+msgid "Then you can refer to vocabulary by its name::"
+msgstr "Then you can refer to vocabulary by its name::"
+
+# dcee32b93e184f449a283fa5b7f2dc7a
+#: ../../source/forms/vocabularies.rst:361
+msgid ""
+"For more information see `vocabularies API doc "
+"<http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/vocabulary/index.html>`_."
+msgstr "For more information see `vocabularies API doc <http://apidoc.zope.org/++apidoc++/ZCML/http_co__sl__sl_namespaces.zope.org_sl_zope/vocabulary/index.html>`_."
+
+# 04f787590c1b4ab6a5475468403949d0
+#: ../../source/forms/wysiwyg.rst:3
+msgid "WYSIWYG text editing and TinyMCE"
+msgstr "WYSIWYG text editing and TinyMCE"
+
+# e438c2073d3b492c90a1bd709cc437a1
+#: ../../source/forms/wysiwyg.rst:7
+msgid "WYSIWYG text field editor programming in Plone."
+msgstr "WYSIWYG text field editor programming in Plone."
+
+# 4fcbb59132a3487cb2cb061bc312367c
+#: ../../source/forms/wysiwyg.rst:14
+msgid "Plone supports TinyMCE (default), Kupu and CKEditor."
+msgstr "Plone supports TinyMCE (default), Kupu and CKEditor."
+
+# 3218380720df49f0aa3267d68c689c10
+#: ../../source/forms/wysiwyg.rst:16
+msgid ""
+"TinyMCE and Plone integration is distributed in `Products.TinyMCE package "
+"<http://pypi.python.org/pypi/Products.TinyMCE>`_."
+msgstr "TinyMCE and Plone integration is distributed in `Products.TinyMCE package <http://pypi.python.org/pypi/Products.TinyMCE>`_."
+
+# 03fca61cd1cc407a84d4ff1f8ff23e14
+#: ../../source/forms/wysiwyg.rst:20
+msgid "Disabling HTML filtering and safe HTML transformation"
+msgstr "Disabling HTML filtering and safe HTML transformation"
+
+# bd1b8e94c59744cb9a58dd9f16df0d96
+#: ../../source/forms/wysiwyg.rst:22
+msgid ""
+"By default Plone does HTML filtering to prevent `cross-site scripting "
+"<http://en.wikipedia.org/wiki/Cross-site_scripting>`_ attacks. This will "
+"make Plone to strip away from HTML"
+msgstr "By default Plone does HTML filtering to prevent `cross-site scripting <http://en.wikipedia.org/wiki/Cross-site_scripting>`_ attacks. This will make Plone to strip away from HTML"
+
+# f29d2c61cee34b089b3bafec9f4dcc35
+#: ../../source/forms/wysiwyg.rst:25
+msgid "`<script>` tags"
+msgstr "`<script>` tags"
+
+# ec667f8c43184b3db1b6e9e0183fb8fb
+#: ../../source/forms/wysiwyg.rst:27
+msgid "Some other potentially unsafe tags and attributes"
+msgstr "Some other potentially unsafe tags and attributes"
+
+# c4f606841ad5470b8f37b466ba32e62a
+#: ../../source/forms/wysiwyg.rst:29
+msgid ""
+"If you need to put `<scrip>` tag on your content text in TinyMCE you can "
+"disable this security feature."
+msgstr "If you need to put `<scrip>` tag on your content text in TinyMCE you can disable this security feature."
+
+# ba62042a23214f8e87e53713282affe1
+#: ../../source/forms/wysiwyg.rst:33
+msgid ""
+"If you don't trust all of your site editors, then this will open your site "
+"for an attack."
+msgstr "If you don't trust all of your site editors, then this will open your site for an attack."
+
+# 5d9569e3d74149f0be883451465f2dff
+#: ../../source/forms/wysiwyg.rst:35
+msgid ""
+"In the Zope Management Interface, at the top of a Plone site, go to "
+"portal_transforms and open the safe_html transform. Disable it by putting a "
+"\"1\" in the disable_transform field and saving."
+msgstr "In the Zope Management Interface, at the top of a Plone site, go to portal_transforms and open the safe_html transform. Disable it by putting a \"1\" in the disable_transform field and saving."
+
+# 0b775878c90d4c3e87901ab15af56935
+#: ../../source/forms/wysiwyg.rst:37
+msgid "A site restart might be required depending on Plone version."
+msgstr "A site restart might be required depending on Plone version."
+
+# befe304f2d21425ba03b96c3fec29f39
+#: ../../source/forms/wysiwyg.rst:41
+msgid ""
+"http://stackoverflow.com/questions/5796643/make-plone-accept-any-html-input"
+msgstr "http://stackoverflow.com/questions/5796643/make-plone-accept-any-html-input"
+
+# b82bcc5aee724fe9a12be7abd58a41b0
+#: ../../source/forms/wysiwyg.rst:46
+msgid "Content linking"
+msgstr "Content linking"
+
+# 02908581167b45ff84173feba4ac92c5
+#: ../../source/forms/wysiwyg.rst:48
+msgid ""
+"Plone offers many kind of support and enhancements in site internal content "
+"linking"
+msgstr "Plone offers many kind of support and enhancements in site internal content linking"
+
+# a4796a78e2494b8f812311a98a404850
+#: ../../source/forms/wysiwyg.rst:50
+msgid ""
+"Delete protection: :doc:`warning if you try to delete content which is being"
+" referred </content/deleting>`."
+msgstr "Delete protection: :doc:`warning if you try to delete content which is being referred </content/deleting>`."
+
+# 2e9f3cb37c3b4dcabd4e1dae2f98413d
+#: ../../source/forms/wysiwyg.rst:52
+msgid "Migrating of links when the content is being moved"
+msgstr "Migrating of links when the content is being moved"
+
+# 1f34e447f78c4eecbbf8c1ddd17706f3
+#: ../../source/forms/wysiwyg.rst:54
+msgid ""
+"The recommended method for linking the content is *Linking by UID* since "
+"*Products.TinyMCE* version 1.3."
+msgstr "The recommended method for linking the content is *Linking by UID* since *Products.TinyMCE* version 1.3."
+
+# eb12ee49b083445caee56ddb80f36e21
+#: ../../source/forms/wysiwyg.rst:56
+msgid ""
+"When the text is saved in TinyMCE all relative links are converted to "
+":doc:`UID links </content/uid>` in the saved HTML payload"
+msgstr "When the text is saved in TinyMCE all relative links are converted to :doc:`UID links </content/uid>` in the saved HTML payload"
+
+# 866f373e8547498abd355058c8dfb3bd
+#: ../../source/forms/wysiwyg.rst:58
+msgid ""
+"When the text is displayed again, the HTML is run through output filter and "
+"UID links are converted back to human readable links"
+msgstr "When the text is displayed again, the HTML is run through output filter and UID links are converted back to human readable links"
+
+# d6405a8fc49a4c848638b68d7c3c8884
+#: ../../source/forms/wysiwyg.rst:60
+msgid ""
+"This solves issues with earlier Plone versions where the link targets become"
+" invalid when a HTML textfield with relative links where shown on the other "
+"page as the original context."
+msgstr "This solves issues with earlier Plone versions where the link targets become invalid when a HTML textfield with relative links where shown on the other page as the original context."
+
+# f9f2ef618ac54de49ea98b5e1ed64f93
+#: ../../source/forms/wysiwyg.rst:65
+msgid ""
+"You might need to turn on *Linking by UID* setting on in the site setup if "
+"you are migrating from older Plone sites."
+msgstr "You might need to turn on *Linking by UID* setting on in the site setup if you are migrating from older Plone sites."
+
+# 2195e70a820d4f328e7cac21c686ef14
+#: ../../source/forms/wysiwyg.rst:68
+msgid "Editor preferences"
+msgstr "Editor preferences"
+
+# d47e124179954402b7531bdb69db73b9
+#: ../../source/forms/wysiwyg.rst:70
+msgid ""
+"Plone supports user text changeable editor. The active editor is stored in "
+"the :doc:`user preferences </members/member_profile>`."
+msgstr "Plone supports user text changeable editor. The active editor is stored in the :doc:`user preferences </members/member_profile>`."
+
+# a999608b839a4e56b26303c3d00d90cd
+#: ../../source/forms/wysiwyg.rst:73
+msgid ""
+"The user can fallback to hand-edited HTML by setting active editor to none."
+msgstr "The user can fallback to hand-edited HTML by setting active editor to none."
+
+# a7c08f0170f048ba87ad6c35b1deecaa
+#: ../../source/forms/wysiwyg.rst:75
+msgid ""
+"The rich text widget can also support optional input formats besides HTML: "
+"structured text and so on."
+msgstr "The rich text widget can also support optional input formats besides HTML: structured text and so on."
+
+# 1c88f7616e76480bad27551e829095b6
+#: ../../source/forms/wysiwyg.rst:79
+msgid "Text format selector"
+msgstr "Text format selector"
+
+# 823438df0dad488b86d5b8b38ed469d6
+#: ../../source/forms/wysiwyg.rst:81
+msgid ""
+"The format selector itself is rendered by ``wysiwyg_support.pt`` macros "
+"which is Plone core"
+msgstr "The format selector itself is rendered by ``wysiwyg_support.pt`` macros which is Plone core"
+
+# 7e9a03c609f24732a5151ba4a9c98753
+#: ../../source/forms/wysiwyg.rst:84
+msgid ""
+"https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_wysiwyg/wysiwyg_support.pt"
+msgstr "https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/skins/plone_wysiwyg/wysiwyg_support.pt"
+
+# 59e428908a2340c2ae8259fc12da2182
+#: ../../source/forms/wysiwyg.rst:87
+msgid "Applying styles only edit view"
+msgstr "Applying styles only edit view"
+
+# 864be02061644cdbb75471eda5775849
+#: ../../source/forms/wysiwyg.rst:89
+msgid ""
+"You can use TinyMCE body selector make your CSS class have different styles "
+"in view and edit modes (inside TinyMCE)"
+msgstr "You can use TinyMCE body selector make your CSS class have different styles in view and edit modes (inside TinyMCE)"
+
+# dc9f1104002b4bc5b17a7661ca98cb42
+#: ../../source/forms/wysiwyg.rst:113
+msgid ""
+"Firefox does not actually support column breaks, so this was useful "
+"headaching experience."
+msgstr "Firefox does not actually support column breaks, so this was useful headaching experience."
+
+# 7b8676949ffe4de09f15d311e90720d4
+#: ../../source/forms/wysiwyg.rst:116
+msgid "Customizing TinyMCE options"
+msgstr "Customizing TinyMCE options"
+
+# 0b252521f888422ca129c7b973d105d8
+#: ../../source/forms/wysiwyg.rst:118
+msgid ""
+"In your add-on code, all TinyMCE options in the control panel can be "
+"exported and imported :doc:`using GenericSetup, portal_setup and tinymce.xml"
+" </components/genericsetup>`."
+msgstr "In your add-on code, all TinyMCE options in the control panel can be exported and imported :doc:`using GenericSetup, portal_setup and tinymce.xml </components/genericsetup>`."
+
+# 4aedf3d4b2e94f36adcbc951ed9c8f48
+#: ../../source/forms/wysiwyg.rst:122
+msgid "Custom field-specific style list for TinyMCE"
+msgstr "Custom field-specific style list for TinyMCE"
+
+# 2d64f5c171ec45479c3209d2d638cc92
+#: ../../source/forms/wysiwyg.rst:125
+msgid "Dexterity"
+msgstr "Dexterity"
+
+# 70667ea4e4b84bce94ecaac5ed2e68bd
+#: ../../source/forms/wysiwyg.rst:127
+msgid "Oho."
+msgstr "Oho."
+
+# 4be995bd7803437dbc5a0915bcbbcf7a
+#: ../../source/forms/wysiwyg.rst:130
+msgid "Archetypes"
+msgstr "Archetypes"
+
+# ba73f1fbaacb4c109f93a523b48c5f55
+#: ../../source/forms/wysiwyg.rst:132
+msgid "For Archetypes see"
+msgstr "For Archetypes see"
+
+# 2cc04208465a4cd29abe7a9a2d4a4009
+#: ../../source/forms/wysiwyg.rst:134
+msgid ""
+"http://plone.org/products/tinymce/documentation/how-to/how-to-customize-"
+"tinymce-for-an-archetypes-richwidget"
+msgstr "http://plone.org/products/tinymce/documentation/how-to/how-to-customize-tinymce-for-an-archetypes-richwidget"
+
+# 0063c0db7c69449b850544b4184c74ab
+#: ../../source/forms/wysiwyg.rst:137
+msgid "Rich text transformations"
+msgstr "Rich text transformations"
+
+# 306c2235b3b2461b8f8b021ee8397a5f
+#: ../../source/forms/wysiwyg.rst:139
+msgid ""
+"http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced"
+"/rich-text-markup-transformations.html"
+msgstr "http://developer.plone.org/reference_manuals/external/plone.app.dexterity/advanced/rich-text-markup-transformations.html"
+
+# 0388cd75c4ce4942af6ed15c1311b4fa
+#: ../../source/forms/wysiwyg.rst:141
+msgid "http://pypi.python.org/pypi/plone.app.textfield"
+msgstr "http://pypi.python.org/pypi/plone.app.textfield"
+
+# b239d8a37515411d852b03f1b3968bf1
+#: ../../source/forms/wysiwyg.rst:145
+msgid "Hacking TinyMCE Javascript"
+msgstr "Hacking TinyMCE Javascript"
+
+# 3bc4172aaeab4038afa69195a7b554dd
+#: ../../source/forms/wysiwyg.rst:147
+msgid ""
+"Plone ships with pre-compressed TinyMCE source code enabled by default."
+msgstr "Plone ships with pre-compressed TinyMCE source code enabled by default."
+
+# 72e38f15cd28491ba3908fab33822e98
+#: ../../source/forms/wysiwyg.rst:149
+msgid ""
+"If you want to toy around with TinyMCE source code itself, you might want to"
+" first enable the usage of debug version of TinyMCE source."
+msgstr "If you want to toy around with TinyMCE source code itself, you might want to first enable the usage of debug version of TinyMCE source."
+
+# 1bc7db3668f24d709d3b26497b088342
+#: ../../source/forms/wysiwyg.rst:152
+msgid ""
+"In ``Products.TinyMCE.skins`` open tiny_mce_src.js and copy-paste its "
+"content into tiny_mce.js."
+msgstr "In ``Products.TinyMCE.skins`` open tiny_mce_src.js and copy-paste its content into tiny_mce.js."
+
+# 6dc7c1367cb24becbdda1b4d4b54bc10
+#: ../../source/forms/wysiwyg.rst:157
+msgid ""
+"Replacing tiny_mce.js with tiny_mce_src.js in portal_javascripts doesn't "
+"seem to work as it breaks TinyMCE plug-in loading."
+msgstr "Replacing tiny_mce.js with tiny_mce_src.js in portal_javascripts doesn't seem to work as it breaks TinyMCE plug-in loading."
+
+# 211749278ddf456fa9ab66767f64a025
+#: ../../source/forms/wysiwyg.rst:161
+msgid "TinyMCE plug-ins"
+msgstr "TinyMCE plug-ins"
+
+# 94d8fdbe3f804668abd2679895119498
+#: ../../source/forms/wysiwyg.rst:163
+msgid ""
+"TinyMCE consists of plug-ins. Existing plug-ins can be overlaid with your "
+"custom version by loading Javascript after core TinyMCE load."
+msgstr "TinyMCE consists of plug-ins. Existing plug-ins can be overlaid with your custom version by loading Javascript after core TinyMCE load."
+
+# a2fbc807346741ee9ed3b599f10489f2
+#: ../../source/forms/wysiwyg.rst:166
+msgid ""
+"Default TinyMCE plug-in Javascript files can be found under "
+"Products.TinyMCE/skins/tinymce/plugins"
+msgstr "Default TinyMCE plug-in Javascript files can be found under Products.TinyMCE/skins/tinymce/plugins"
+
+# de22d888863e4e308f641a3aa97365e3
+#: ../../source/forms/wysiwyg.rst:168
+msgid ""
+"Usually TinyMCE plug-ins dialogs load in <iframe> and HTML code loads "
+"separate CSS and JS files from the main site"
+msgstr "Usually TinyMCE plug-ins dialogs load in <iframe> and HTML code loads separate CSS and JS files from the main site"
+
+# bfb290e4b8e34dd1a3173149cea6aee5
+#: ../../source/forms/wysiwyg.rst:173
+msgid "Adding a new plug-in"
+msgstr "Adding a new plug-in"
+
+# cc36c92246874bb58d84ecf4e2b067cb
+#: ../../source/forms/wysiwyg.rst:175
+msgid "Here are instructions how to add new buttons to TinyMCE"
+msgstr "Here are instructions how to add new buttons to TinyMCE"
+
+# 485abafb146e4f74a379a96eca9bc735
+#: ../../source/forms/wysiwyg.rst:177
+msgid "Some rules"
+msgstr "Some rules"
+
+# 1d5fe167148049e989b3bda47a66b5fb
+#: ../../source/forms/wysiwyg.rst:179
+msgid "Plug-in id goes to ``tinymce.xml``"
+msgstr "Plug-in id goes to ``tinymce.xml``"
+
+# 05ec723fd1d340af9e1067ae1c34b0cd
+#: ../../source/forms/wysiwyg.rst:181
+msgid ""
+"Your plug-in must be in a file called ``editor_plugin.js`` in skins layer"
+msgstr "Your plug-in must be in a file called ``editor_plugin.js`` in skins layer"
+
+# f87c1d53ff9e4785ad97762fdc30ffc5
+#: ../../source/forms/wysiwyg.rst:183
+msgid "You must have a skins layer folder named after your plug-in id"
+msgstr "You must have a skins layer folder named after your plug-in id"
+
+# 64181a9503474f4eaffbe841a9271174
+#: ../../source/forms/wysiwyg.rst:185
+msgid "You don't register plug-in Javascript *portal_javascripts*"
+msgstr "You don't register plug-in Javascript *portal_javascripts*"
+
+# e7f9c7dfeae74bfab6cee0bc781c4a27
+#: ../../source/forms/wysiwyg.rst:187
+msgid ""
+"TinyMCE button row is in the main document. However, the edit area itself is"
+" in <iframe>. Also, many of TinyMCE dialogs are launched in <iframe> and "
+"they load a hardcoded set of Javascript files (they don't use any kind of "
+"Plone master template or <head> section)."
+msgstr "TinyMCE button row is in the main document. However, the edit area itself is in <iframe>. Also, many of TinyMCE dialogs are launched in <iframe> and they load a hardcoded set of Javascript files (they don't use any kind of Plone master template or <head> section)."
+
+# 1a5977fd67154560a99087e4d50cacc1
+#: ../../source/forms/wysiwyg.rst:191
+msgid "So in the end you'll have a file::"
+msgstr "So in the end you'll have a file::"
+
+# 1d6770ead77a43a387644c0722e34f14
+#: ../../source/forms/wysiwyg.rst:195
+msgid "Why all this? I don't know. And honestly, in this point, I don't care."
+msgstr "Why all this? I don't know. And honestly, in this point, I don't care."
+
+# a8a825494cf1488c995e7923332db156
+#: ../../source/forms/wysiwyg.rst:197
+msgid "Register your specially named skin layer in ``skins.xml``::"
+msgstr "Register your specially named skin layer in ``skins.xml``::"
+
+# e19975000a764b9fa7dee1647cbdfc2a
+#: ../../source/forms/wysiwyg.rst:214
+msgid "Register your plugin in ``tinymce.xml`` GenericSetup install profile"
+msgstr "Register your plugin in ``tinymce.xml`` GenericSetup install profile"
+
+# cf9b66fb7c1844cfb30976f307cc3858
+#: ../../source/forms/wysiwyg.rst:233
+msgid "Then finally drop a ``editor_plugin.js`` to your plug-in folder"
+msgstr "Then finally drop a ``editor_plugin.js`` to your plug-in folder"
+
+# d94dcb261b87426fb8162544e81c46b4
+#: ../../source/forms/wysiwyg.rst:284
+msgid "Media resources"
+msgstr "Media resources"
+
+# e685a508cd0340f7a34471c0df06a76f
+#: ../../source/forms/wysiwyg.rst:286
+msgid ""
+"TinyMCE exposes URL to your plug-in base folder, where editor_plugin.js is, "
+"as plug-in ``init()`` parameter."
+msgstr "TinyMCE exposes URL to your plug-in base folder, where editor_plugin.js is, as plug-in ``init()`` parameter."
+
+# c8831a90478b4c408718ccf00c775236
+#: ../../source/forms/wysiwyg.rst:288
+msgid "You can construct relative URLs to set media resources in ``init()``."
+msgstr "You can construct relative URLs to set media resources in ``init()``."
+
+# a26ef453720044679abee13076d99d95
+#: ../../source/forms/wysiwyg.rst:299
+msgid "Language resources"
+msgstr "Language resources"
+
+# 25382d155d00402a9af220a14bde53dd
+#: ../../source/forms/wysiwyg.rst:301
+msgid ""
+"TinyMCE does not directly accept strings as labels, but uses its own "
+"internal translation mechanism which is not gettext."
+msgstr "TinyMCE does not directly accept strings as labels, but uses its own internal translation mechanism which is not gettext."
+
+# 8321f2a433b74eb58b567b98730f9915
+#: ../../source/forms/wysiwyg.rst:303
+msgid "Create folder ``langs`` under plug-in base folder"
+msgstr "Create folder ``langs`` under plug-in base folder"
+
+# 538afc49abca462dabd6970816a0c50b
+#: ../../source/forms/wysiwyg.rst:305
+msgid "There create file ``en.js``"
+msgstr "There create file ``en.js``"
+
+# 7c5a2c02f5c6479eaf57f260c6f7ce04
+#: ../../source/forms/wysiwyg.rst:307
+msgid "Sample content"
+msgstr "Sample content"
+
+# b273912a7e894e729340ac049a8407a1
+#: ../../source/forms/wysiwyg.rst:318
+msgid ""
+"https://svn.plone.org/svn/collective/medialog.tinymceplugins.helpmenu/trunk/medialog/tinymceplugins/helpmenu/skins/tinymce_plugin_helpmenu/editor_plugin.js"
+msgstr "https://svn.plone.org/svn/collective/medialog.tinymceplugins.helpmenu/trunk/medialog/tinymceplugins/helpmenu/skins/tinymce_plugin_helpmenu/editor_plugin.js"
+
+# e1455fdcf80144869eaccada50691ed1
+#: ../../source/forms/wysiwyg.rst:321
+msgid "Customizing existing plug-in"
+msgstr "Customizing existing plug-in"
+
+# d3f9ea7c9cbd4cddae782fe11aa783f7
+#: ../../source/forms/wysiwyg.rst:323
+msgid "The recommended way is to customize TinyMCE"
+msgstr "The recommended way is to customize TinyMCE"
+
+# c1e1e4d0bd49426493df70a720d526e8
+#: ../../source/forms/wysiwyg.rst:325
+msgid ""
+"Re-register plug-in by simply including a plug-in JS code in a separate "
+"Javascript file loaded after tinymce.js"
+msgstr "Re-register plug-in by simply including a plug-in JS code in a separate Javascript file loaded after tinymce.js"
+
+# 8c59d2745b804038a172f9cacb28c44a
+#: ../../source/forms/wysiwyg.rst:328
+msgid ""
+"override existing individual TinyMCE files using :doc:`jbot "
+"</templates_css_and_javascripts/skin_layers>`."
+msgstr "override existing individual TinyMCE files using :doc:`jbot </templates_css_and_javascripts/skin_layers>`."
+
+# 8f6a241ba46b42f0b8253a6e3c188435
+#: ../../source/forms/wysiwyg.rst:332
+msgid "Overriding plug-in"
+msgstr "Overriding plug-in"
+
+# c7ab414918d34fd08afd892eac770ab6
+#: ../../source/forms/wysiwyg.rst:334
+msgid ""
+"Create a duplicate of plug-in JS file (table.js), register it as a custom "
+"Javascript from your add-on resource folder."
+msgstr "Create a duplicate of plug-in JS file (table.js), register it as a custom Javascript from your add-on resource folder."
+
+# d6045bfb4bc94d61969eacf7e1a42584
+#: ../../source/forms/wysiwyg.rst:337
+msgid ""
+"TinyMCE overrides previous plug-in registrations with new ones and you can "
+"just re-register your own plug-in version to override the existing version."
+msgstr "TinyMCE overrides previous plug-in registrations with new ones and you can just re-register your own plug-in version to override the existing version."
+
+# 42a678f2d7d0482899adeb7e57f544c3
+#: ../../source/forms/wysiwyg.rst:340
+msgid "Refer it in portal_javascripts"
+msgstr "Refer it in portal_javascripts"
+
+# 2da704486ea249ba85c3bf1813dab19b
+#: ../../source/forms/wysiwyg.rst:356
+msgid "Overriding plug-in resources"
+msgstr "Overriding plug-in resources"
+
+# 8fba87c521f146f5a447aa7b2ec474d8
+#: ../../source/forms/wysiwyg.rst:358
+msgid ""
+"Yoiu can also override CSS, HTML (.htm.pt templates) with ``z3c.jbot`` as "
+"instructed above."
+msgstr "Yoiu can also override CSS, HTML (.htm.pt templates) with ``z3c.jbot`` as instructed above."
+
+# cde8ad910f36457fb3c70779a2d521f7
+#: ../../source/forms/wysiwyg.rst:367
+msgid ""
+"Since there resources are loaded in <iframe> the normal browser refresh does"
+" not trigger reload for them. Right click <iframe>, choose Refresh from "
+"context menu."
+msgstr "Since there resources are loaded in <iframe> the normal browser refresh does not trigger reload for them. Right click <iframe>, choose Refresh from context menu."
+
+# 28c0025b30a2491e9a1d28f916f887d5
+#: ../../source/forms/wysiwyg.rst:372
+msgid "Ploneboard and anonymous editor"
+msgstr "Ploneboard and anonymous editor"
+
+# fbc00fd7cdd14ccc930572dbf0f36104
+#: ../../source/forms/wysiwyg.rst:374
+msgid "Problems with TinyMCE and Ploneboard."
+msgstr "Problems with TinyMCE and Ploneboard."
+
+# 745e92daf6bd49769ddc3fa16f58934b
+#: ../../source/forms/wysiwyg.rst:376
+msgid "For more information, see"
+msgstr "For more information, see"
+
+# 85311a5a11d54667b35e965d8aeb1b82
+#: ../../source/forms/wysiwyg.rst:378
+msgid ""
+"http://www.llakomy.com/articles/enable-kupu-for-anonymous-in-ploneboard"
+msgstr "http://www.llakomy.com/articles/enable-kupu-for-anonymous-in-ploneboard"
+
+# 494e4687de1f497882e7e79b225dc14c
+#: ../../source/forms/wysiwyg.rst:382
+msgid "TinyMCE shortcuts"
+msgstr "TinyMCE shortcuts"
+
+# ee4f461013dd4b0ab09f48d2d7624e96
+#: ../../source/forms/wysiwyg.rst:384
+msgid ""
+"``Products.TinyMCE`` versions 1.3+ provide a shortcut view in link and image"
+" dialogs. You can add your own site specific shortcuts here."
+msgstr "``Products.TinyMCE`` versions 1.3+ provide a shortcut view in link and image dialogs. You can add your own site specific shortcuts here."
+
+# 96454624b8fa446e81994b5a4b5ca5be
+#: ../../source/forms/wysiwyg.rst:387
+msgid ""
+"The most common use case is a shortcut link a folder which acts as a site "
+"image bank. On multilingual sites this folder is"
+msgstr "The most common use case is a shortcut link a folder which acts as a site image bank. On multilingual sites this folder is"
+
+# 566cef55b8f64d439e16cf19b5bf14e5
+#: ../../source/forms/wysiwyg.rst:390
+msgid "Below natural language folders in the site root"
+msgstr "Below natural language folders in the site root"
+
+# d8ff3ac6275b43ad92ffb23943ef566a
+#: ../../source/forms/wysiwyg.rst:392
+msgid "Language neutral"
+msgstr "Language neutral"
+
+# 76841e4118b044a39aa902dd79fa1a80
+#: ../../source/forms/wysiwyg.rst:394
+msgid "These make navigating to the folder using normal means very difficult."
+msgstr "These make navigating to the folder using normal means very difficult."
+
+# 441054553f6d49b7a8a1d56026b86bf6
+#: ../../source/forms/wysiwyg.rst:396
+msgid ""
+"New TinyMCE shortcuts can be registered as global utility via "
+"`Products.TinyMCE.interfaces.IShortcut interface "
+"<https://github.com/plone/Products.TinyMCE/blob/master/Products/TinyMCE/interfaces/shortcut.py>`_."
+msgstr "New TinyMCE shortcuts can be registered as global utility via `Products.TinyMCE.interfaces.IShortcut interface <https://github.com/plone/Products.TinyMCE/blob/master/Products/TinyMCE/interfaces/shortcut.py>`_."
+
+# 4eed0591ba6a4fe79e3b9cbdebadccc0
+#: ../../source/forms/wysiwyg.rst:401
+msgid "We'll register our image bank as a shortcut into TinyMCE image dialog."
+msgstr "We'll register our image bank as a shortcut into TinyMCE image dialog."
+
+# aa3ab634df394e09afb8e24e8bc12991
+#: ../../source/forms/wysiwyg.rst:403
+msgid "First make sure your add-on is :doc:`grok'ed </components/grok>`."
+msgstr "First make sure your add-on is :doc:`grok'ed </components/grok>`."
+
+# 6ac1ae550db14611804f520bd5513ab9
+#: ../../source/forms/wysiwyg.rst:405
+msgid ""
+"Then drop in the following file ``shortcut.py`` file into your :doc:`add-on "
+"</getstarted/index>`::"
+msgstr "Then drop in the following file ``shortcut.py`` file into your :doc:`add-on </getstarted/index>`::"
+
+# 0909dfadb3954353b97b6b2ca78bde80
+#: ../../source/forms/wysiwyg.rst:434
+msgid ""
+"After this you still need to go to TinyMCE control panel "
+"(``http://localhost:8080/Plone/@@tinymce-controlpanel``) and enable the link"
+" button in the settings for *Image Shortcuts*."
+msgstr "After this you still need to go to TinyMCE control panel (``http://localhost:8080/Plone/@@tinymce-controlpanel``) and enable the link button in the settings for *Image Shortcuts*."
+
+# 1b874f5421b94958b486bb968bd6c280
+#: ../../source/forms/wysiwyg.rst:440
+msgid ""
+"You might also want to disable TinyMCE inline image uploads through CSS and "
+"disable image creation in arbitrary folders on your site. Currently the only"
+" way is to override TinyMCE internal CSS files using z3c.bot."
+msgstr "You might also want to disable TinyMCE inline image uploads through CSS and disable image creation in arbitrary folders on your site. Currently the only way is to override TinyMCE internal CSS files using z3c.bot."
+
+# f336788c342d47e7b18855e73c28e2df
+#: ../../source/forms/z3c.form.rst:3
+msgid "z3c.form library"
+msgstr "z3c.form library"
+
+# 83681a2ec5c6474f966d7d0d9c807815
+#: ../../source/forms/z3c.form.rst:7
+msgid ""
+"``z3c.form`` is flexible and powerful form library for Zope 3 applications. "
+"It is the recommended way to create complex Python-driven forms for Plone 4 "
+"and later versions."
+msgstr "``z3c.form`` is flexible and powerful form library for Zope 3 applications. It is the recommended way to create complex Python-driven forms for Plone 4 and later versions."
+
+# 69b379013ff248d09085190a48a9ac7c
+#: ../../source/forms/z3c.form.rst:16
+msgid "Plone uses *z3c.form* library with the following integration steps"
+msgstr "Plone uses *z3c.form* library with the following integration steps"
+
+# 19d06ea3b04545b09cb9a2f855e7ecbe
+#: ../../source/forms/z3c.form.rst:18
+msgid ""
+"`plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ "
+"provides Plone specific widgets and main template"
+msgstr "`plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ provides Plone specific widgets and main template"
+
+# 9a028e329e854ce387d2566a6ad55f29
+#: ../../source/forms/z3c.form.rst:21
+msgid ""
+"`plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_ integrates "
+"*z3c.form* with applications using Zope 2 mechanisms like acquisition"
+msgstr "`plone.z3cform <http://pypi.python.org/pypi/plone.z3cform>`_ integrates *z3c.form* with applications using Zope 2 mechanisms like acquisition"
+
+# 9c477846a2834df897ebf0c5e78a9b08
+#: ../../source/forms/z3c.form.rst:24
+msgid ""
+"`z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is a form library which "
+"can be used with any Python application using Zope 3 HTTP requests objects"
+msgstr "`z3c.form <http://pypi.python.org/pypi/z3c.form/>`_ is a form library which can be used with any Python application using Zope 3 HTTP requests objects"
+
+# da7c761882264a258e64fd68f8e9a6d3
+#: ../../source/forms/z3c.form.rst:27
+msgid ""
+"(Plone 4.4+ only) `plone.app.widgets "
+"<https://github.com/plone/plone.app.widgets/>`_ provide a better widget set "
+"over *z3c.form* default with more JavaScript-enabled features"
+msgstr "(Plone 4.4+ only) `plone.app.widgets <https://github.com/plone/plone.app.widgets/>`_ provide a better widget set over *z3c.form* default with more JavaScript-enabled features"
+
+# 4a7b7563a5fb4120aa586db8746e149f
+#: ../../source/forms/z3c.form.rst:31
+msgid ""
+"Forms are modelled using :doc:`zope.schema </forms/schemas>` models written "
+"as Python classes. Widgets for modelled data are set by using either "
+"*plone.directives.form* hints set onto schema class or in "
+"``z3c.form.form.Form`` based classes body."
+msgstr "Forms are modelled using :doc:`zope.schema </forms/schemas>` models written as Python classes. Widgets for modelled data are set by using either *plone.directives.form* hints set onto schema class or in ``z3c.form.form.Form`` based classes body."
+
+# 77a09e7608b94a01a09040c805ff5b2e
+#: ../../source/forms/z3c.form.rst:35
+msgid "Starting points to learn *z3c.form* in Plone"
+msgstr "Starting points to learn *z3c.form* in Plone"
+
+# 07be49a0465540518b59feaa8efea9d6
+#: ../../source/forms/z3c.form.rst:37
+msgid ""
+"Read about `creating schema-driven forms with Dexterity content subsystem "
+"<http://developer.plone.org/reference_manuals/external/plone.app.dexterity"
+"/schema-driven-forms/index.html>`_"
+msgstr "Read about `creating schema-driven forms with Dexterity content subsystem <http://developer.plone.org/reference_manuals/external/plone.app.dexterity/schema-driven-forms/index.html>`_"
+
+# 556c0c7176cd4664a770437bbda70d19
+#: ../../source/forms/z3c.form.rst:39
+msgid ""
+"`TODO app tutorial for Plone "
+"<http://developer.plone.org/reference_manuals/external/tutorials.todoapp/docs/index.html>`_"
+msgstr "`TODO app tutorial for Plone <http://developer.plone.org/reference_manuals/external/tutorials.todoapp/docs/index.html>`_"
+
+# 4ec968709d41481aa58d81b3cdc40a0c
+#: ../../source/forms/z3c.form.rst:41
+msgid "Other related packages you might want to take a closer look"
+msgstr "Other related packages you might want to take a closer look"
+
+# 1e99d5e0cc394748811a183541c542d8
+#: ../../source/forms/z3c.form.rst:43
+msgid ""
+"Extra, more powerful widgets, from `collective.z3cform.widgets "
+"<https://github.com/collective/collective.z3cform.widgets>`_"
+msgstr "Extra, more powerful widgets, from `collective.z3cform.widgets <https://github.com/collective/collective.z3cform.widgets>`_"
+
+# af7aa213dbac455c8a92b30f0105e917
+#: ../../source/forms/z3c.form.rst:45
+msgid ""
+"Tabular data edit `collective.z3cform.datagridfield "
+"<https://github.com/collective/collective.z3cform.datagridfield>`_"
+msgstr "Tabular data edit `collective.z3cform.datagridfield <https://github.com/collective/collective.z3cform.datagridfield>`_"
+
+# ad02225828b44a3987e1fed9db6512cd
+#: ../../source/forms/z3c.form.rst:47
+msgid ""
+"Build JavaScript interfaces with `plone.app.jqueryui "
+"<https://github.com/plone/plone.app.jqueryui>`_"
+msgstr "Build JavaScript interfaces with `plone.app.jqueryui <https://github.com/plone/plone.app.jqueryui>`_"
+
+# 1aeef049ef3d4825883300bdb0509ddd
+#: ../../source/forms/z3c.form.rst:49
+msgid ""
+"Handling image and file fields with `plone.namedfile "
+"<https://github.com/plone/plone.namedfile>`_"
+msgstr "Handling image and file fields with `plone.namedfile <https://github.com/plone/plone.namedfile>`_"
+
+# 18206b4cdfbb40e0a792592f20f15bb7
+#: ../../source/forms/z3c.form.rst:51
+msgid ""
+"Configuring forms with `plone.form.directives "
+"<https://pypi.python.org/pypi/plone.directives.form>`_"
+msgstr "Configuring forms with `plone.form.directives <https://pypi.python.org/pypi/plone.directives.form>`_"
+
+# f993deb86e454a37af62009653a16a62
+#: ../../source/forms/z3c.form.rst:54
+msgid "``z3c.form`` big picture"
+msgstr "``z3c.form`` big picture"
+
+# 538bb1336e2c4a1fa1b5f26d36b42e07
+#: ../../source/forms/z3c.form.rst:56
+msgid "The form model consists of:"
+msgstr "The form model consists of:"
+
+# e2c9c2bfd6e34e84bb9e6ea21359503c
+#: ../../source/forms/z3c.form.rst:59
+msgid "The incoming HTTP request."
+msgstr "The incoming HTTP request."
+
+# 2cedf098c15c4c0c85e0541a81ac7ffe
+#: ../../source/forms/z3c.form.rst:62
+msgid ""
+"The Plone content item which was associated with the form view when URL "
+"traversing was done."
+msgstr "The Plone content item which was associated with the form view when URL traversing was done."
+
+# d53eae968ee441269654ddc52915cfb1
+#: ../../source/forms/z3c.form.rst:66
+msgid ""
+"The actual object extracted from context and manipulated by the form if "
+"``ignoreContext`` is not ``False``."
+msgstr "The actual object extracted from context and manipulated by the form if ``ignoreContext`` is not ``False``."
+
+# a5e1ae5cc9c94634b84f18a2a5370850
+#: ../../source/forms/z3c.form.rst:70
+msgid ""
+"A message displayed at the top of the form to the user when the form is "
+"rendered. Usually it will be \"Please correct the errors below\"."
+msgstr "A message displayed at the top of the form to the user when the form is rendered. Usually it will be \"Please correct the errors below\"."
+
+# b7d97fa13a804a73a716b8b46da55e8a
+#: ../../source/forms/z3c.form.rst:73
+msgid "The call-chain for a form goes like this:"
+msgstr "The call-chain for a form goes like this:"
+
+# 9d9beb6ca68c43dab60641b87784e58b
+#: ../../source/forms/z3c.form.rst:75
+msgid "``Form.update()`` is called"
+msgstr "``Form.update()`` is called"
+
+# 42692be89ea74c57982183c29ba534a2
+#: ../../source/forms/z3c.form.rst:77
+msgid ""
+"[``plone.autoform``-based forms only] Calls ``Form.updateFields()`` - this "
+"will set widget factory methods for fields. If you want to customize the "
+"type of the widget associated with the field, do it here. If your form is "
+"not ``plone.autoform``-based you need to edit ``form.schema`` widget "
+"factories on the module level code after the class has been constructed. The"
+" logic mapping widget hints to widgets is in ``plone.autoform.utils``."
+msgstr "[``plone.autoform``-based forms only] Calls ``Form.updateFields()`` - this will set widget factory methods for fields. If you want to customize the type of the widget associated with the field, do it here. If your form is not ``plone.autoform``-based you need to edit ``form.schema`` widget factories on the module level code after the class has been constructed. The logic mapping widget hints to widgets is in ``plone.autoform.utils``."
+
+# c63601d91adc4c82b9763f80337cd329
+#: ../../source/forms/z3c.form.rst:86
+msgid ""
+"Calls ``Form.updateWidgets()`` - you can customize widgets at this point, if"
+" you override this method. The ``self.widgets`` instance is created based on"
+" the ``self.fields`` property."
+msgstr "Calls ``Form.updateWidgets()`` - you can customize widgets at this point, if you override this method. The ``self.widgets`` instance is created based on the ``self.fields`` property."
+
+# ad235cd6a16e4032a90b7e6730630215
+#: ../../source/forms/z3c.form.rst:90
+msgid "Calls ``Form.updateActions()``"
+msgstr "Calls ``Form.updateActions()``"
+
+# b705a0ed0fae42f38618ddc7c26b3ec5
+#: ../../source/forms/z3c.form.rst:92
+msgid ""
+"Calls the action handler (the handler for the button which was clicked)"
+msgstr "Calls the action handler (the handler for the button which was clicked)"
+
+# ff821ff4bb5949559b9700f72e65cfaf
+#: ../../source/forms/z3c.form.rst:95
+msgid ""
+"If it's an edit form, the action handler calls ``applyChanges()`` to store "
+"new values on the object and returns ``True`` if any value was changed."
+msgstr "If it's an edit form, the action handler calls ``applyChanges()`` to store new values on the object and returns ``True`` if any value was changed."
+
+# 97656dab43e949f3af9e27e259c48368
+#: ../../source/forms/z3c.form.rst:99
+msgid "``Form.render()`` is called"
+msgstr "``Form.render()`` is called"
+
+# ab50b59533414a5e97f1758f93315bb0
+#: ../../source/forms/z3c.form.rst:101
+msgid "This renders the form as HTML, based on widgets and their templates."
+msgstr "This renders the form as HTML, based on widgets and their templates."
+
+# c1754150c31d4cc0815de5360b0f9468
+#: ../../source/forms/z3c.form.rst:104
+msgid "Form"
+msgstr "Form"
+
+# 5775f74c324d49f8b6981e7ede7e7635
+#: ../../source/forms/z3c.form.rst:107
+msgid "Simple boilerplate"
+msgstr "Simple boilerplate"
+
+# 9389057ae1564edaad30ddecd55f93a0
+#: ../../source/forms/z3c.form.rst:109
+msgid ""
+"Here is a minimal form implementation using ``z3c.form`` and Dexterity:"
+msgstr "Here is a minimal form implementation using ``z3c.form`` and Dexterity:"
+
+# 661614ed888243cfabe201874f89e0ce
+#: ../../source/forms/z3c.form.rst:111
+msgid "Include Dexterity in your buildout as instructed by Dexterity manual"
+msgstr "Include Dexterity in your buildout as instructed by Dexterity manual"
+
+# baab3179f52448a3bdaf1a9041d48440
+#: ../../source/forms/z3c.form.rst:113
+msgid "Create Plone add-on product using :doc:`Paster </getstarted/paste>`"
+msgstr "Create Plone add-on product using :doc:`Paster </getstarted/paste>`"
+
+# 84ad2f04e2c24be8862e95e46df9580c
+#: ../../source/forms/z3c.form.rst:115
+msgid "Include :doc:`five.grok support in your add-on </components/grok>`"
+msgstr "Include :doc:`five.grok support in your add-on </components/grok>`"
+
+# e64099c85d2f4339ad11beca929ac6be
+#: ../../source/forms/z3c.form.rst:117
+msgid "Toss ``form.py`` into your add-on product::"
+msgstr "Toss ``form.py`` into your add-on product::"
+
+# c888665a5ad84b46b36d43ff8dd3dfbd
+#: ../../source/forms/z3c.form.rst:178
+msgid "Setting form status message"
+msgstr "Setting form status message"
+
+# 77c204f1468348f18fef7289386985a0
+#: ../../source/forms/z3c.form.rst:180
+msgid ""
+"The form's global status message tells whether the form action succeeded or "
+"not."
+msgstr "The form's global status message tells whether the form action succeeded or not."
+
+# 6421a9dea8b64796a4e7a27efc0635fa
+#: ../../source/forms/z3c.form.rst:183
+msgid ""
+"The form status message will be rendered only on the form. If you want to "
+"set a message which will be visible even if the user renders another page "
+"after submitting the form, you need to use ``Products.statusmessage``."
+msgstr "The form status message will be rendered only on the form. If you want to set a message which will be visible even if the user renders another page after submitting the form, you need to use ``Products.statusmessage``."
+
+# 73f0bde5ff5e4d85adb00fc175bf30da
+#: ../../source/forms/z3c.form.rst:188
+msgid "To set the form status message::"
+msgstr "To set the form status message::"
+
+# 80971fb8d5e54561bc12a071b62256aa
+#: ../../source/forms/z3c.form.rst:194
+msgid "Emulating form HTTP POST in unit tests"
+msgstr "Emulating form HTTP POST in unit tests"
+
+# 704fad9d5ff64d2b8b44bd5b867fef28
+#: ../../source/forms/z3c.form.rst:196
+msgid "The HTTP request must include at least one buttons field."
+msgstr "The HTTP request must include at least one buttons field."
+
+# 5838a7cfcee54f09a1dfcd34c4b3c7dd
+#: ../../source/forms/z3c.form.rst:198
+msgid ""
+"Form widget naming must match HTTP post values. Usually widgets have "
+"``form.widgets`` prefix."
+msgstr "Form widget naming must match HTTP post values. Usually widgets have ``form.widgets`` prefix."
+
+# ece1785d650246a8af074ce0b976cf35
+#: ../../source/forms/z3c.form.rst:201
+msgid ""
+"You must emulate the ZPublisher behavior which automatically converts string"
+" input to Python primitives. For example, all choice/select values are "
+"Python lists."
+msgstr "You must emulate the ZPublisher behavior which automatically converts string input to Python primitives. For example, all choice/select values are Python lists."
+
+# a290d0c4f8a244eea0343ec9b41caaf8
+#: ../../source/forms/z3c.form.rst:205
+msgid ""
+"Some ``z3c`` widgets, like ``<select>``, need to have ``WIDGETNAME-empty-"
+"marker`` value set to the integer 1 to be processed."
+msgstr "Some ``z3c`` widgets, like ``<select>``, need to have ``WIDGETNAME-empty-marker`` value set to the integer 1 to be processed."
+
+# d9226175efdf410388286f8558119072
+#: ../../source/forms/z3c.form.rst:209
+msgid ""
+"Usually you can get the dummy HTTP request object via acquisition from "
+"``self.portal.REQUEST``"
+msgstr "Usually you can get the dummy HTTP request object via acquisition from ``self.portal.REQUEST``"
+
+# 05e9af68164d44ab9c0dd63414f21475
+#: ../../source/forms/z3c.form.rst:212
+msgid "Example (incomplete)::"
+msgstr "Example (incomplete)::"
+
+# 80d44774488a458baaf8837a0960d531
+#: ../../source/forms/z3c.form.rst:229
+msgid "A more complete example::"
+msgstr "A more complete example::"
+
+# 403ca29652b648b382f78ef053ab9529
+#: ../../source/forms/z3c.form.rst:262
+msgid ""
+"Note that you will need to set ``IFormLayer`` on the request, to prevent a "
+"``ComponentLookupError``."
+msgstr "Note that you will need to set ``IFormLayer`` on the request, to prevent a ``ComponentLookupError``."
+
+# 5de90192c4a244d7be4ce439fdf11172
+#: ../../source/forms/z3c.form.rst:267
+msgid "Changing form ACTION attribute"
+msgstr "Changing form ACTION attribute"
+
+# 8245e204400a4c35ace68774cc4ec1ea
+#: ../../source/forms/z3c.form.rst:269
+msgid ""
+"By default, the HTTP ``POST`` request is made to ``context.absolute_url()``."
+" However you might want to make the post go to an external server."
+msgstr "By default, the HTTP ``POST`` request is made to ``context.absolute_url()``. However you might want to make the post go to an external server."
+
+# 4deb925e9f764315880d62ee12d18dcd
+#: ../../source/forms/z3c.form.rst:272
+msgid ""
+"See `how to set <form> action attribute "
+"<http://pypi.python.org/pypi/plone.app.z3cform#form-action>`_"
+msgstr "See `how to set <form> action attribute <http://pypi.python.org/pypi/plone.app.z3cform#form-action>`_"
+
+# f031fea215c9481599b726604de0ace6
+#: ../../source/forms/z3c.form.rst:275
+msgid "Customizing form inner template"
+msgstr "Customizing form inner template"
+
+# cc51e6b9549d40e89130b06908ca8068
+#: ../../source/forms/z3c.form.rst:277
+msgid ""
+"If you want to change the page template producing ``<form>...</form>`` part "
+"of the HTML code, follow the instructions below."
+msgstr "If you want to change the page template producing ``<form>...</form>`` part of the HTML code, follow the instructions below."
+
+# 2b94417b98b243e6ae54fd4c03aea206
+#: ../../source/forms/z3c.form.rst:280
+msgid ""
+"Generally, when you have a template which extends Plone's ``main_template`` "
+"you need to use the "
+"``Products.Five.browser.pagetemplatefile.ViewPageTemplateFile`` class."
+msgstr "Generally, when you have a template which extends Plone's ``main_template`` you need to use the ``Products.Five.browser.pagetemplatefile.ViewPageTemplateFile`` class."
+
+# ba74034e96c2495f84f455122a67ea3b
+#: ../../source/forms/z3c.form.rst:297
+msgid "Customizing form frame"
+msgstr "Customizing form frame"
+
+# bfc046c290084c72ac9b302ca1ec52fb
+#: ../../source/forms/z3c.form.rst:299
+msgid ""
+"Please see `plone.app.zc3form README "
+"<https://github.com/plone/plone.app.z3cform>`_."
+msgstr "Please see `plone.app.zc3form README <https://github.com/plone/plone.app.z3cform>`_."
+
+# 29ac30ced54f4b3ab58e4eeb4512d433
+#: ../../source/forms/z3c.form.rst:302
+msgid "Rendering a form manually"
+msgstr "Rendering a form manually"
+
+# 3ff03f267c404de491aaca45509122f1
+#: ../../source/forms/z3c.form.rst:304
+msgid ""
+"You can directly create a form instance and call it's ``form.render()`` "
+"method. This will output the full page HTML. However, there is a way to only"
+" render the form body payload."
+msgstr "You can directly create a form instance and call it's ``form.render()`` method. This will output the full page HTML. However, there is a way to only render the form body payload."
+
+# e1a04cd9a7e243cb92845044857f4f6b
+#: ../../source/forms/z3c.form.rst:308
+msgid "First create a form and ``update()``::"
+msgstr "First create a form and ``update()``::"
+
+# ed54a7a185ba45fe8899fdd35e96554e
+#: ../../source/forms/z3c.form.rst:313
+msgid ""
+"Then you can invoke ``plone.app.z3cform`` macros directly to render the form"
+" body in your view's page template."
+msgstr "Then you can invoke ``plone.app.z3cform`` macros directly to render the form body in your view's page template."
+
+# ee470f450cff475981c27dab7fa6e2fe
+#: ../../source/forms/z3c.form.rst:355
+msgid "Fields"
+msgstr "Fields"
+
+# d41b483262b54cd79b81ad03ed97d636
+#: ../../source/forms/z3c.form.rst:357
+msgid ""
+"A field is responsible for: 1) pre-populating form values from context 2) "
+"storing data to context after successful ``POST``."
+msgstr "A field is responsible for: 1) pre-populating form values from context 2) storing data to context after successful ``POST``."
+
+# a31e90228de64d5683cfabeab3178c38
+#: ../../source/forms/z3c.form.rst:361
+msgid ""
+"Form fields are stored in the ``form.fields`` variable, which is an instance"
+" of the ``Fields`` class (ordered, dictionary-like)."
+msgstr "Form fields are stored in the ``form.fields`` variable, which is an instance of the ``Fields`` class (ordered, dictionary-like)."
+
+# 215835355de54c35b1b20d8b8966b089
+#: ../../source/forms/z3c.form.rst:365
+msgid "Creating a field"
+msgstr "Creating a field"
+
+# fec47e317e2640228489f5f50fdd0685
+#: ../../source/forms/z3c.form.rst:367
+msgid ""
+"Fields are created by adapting one or more ``zope.schema`` fields for "
+"``z3c.form`` using the ``Fields()`` constructor."
+msgstr "Fields are created by adapting one or more ``zope.schema`` fields for ``z3c.form`` using the ``Fields()`` constructor."
+
+# eab18a9d205947f2abbd0f99898e1ce1
+#: ../../source/forms/z3c.form.rst:370
+msgid "Example of creating one field::"
+msgstr "Example of creating one field::"
+
+# ed74d710454049d5b34fffd61a5715e1
+#: ../../source/forms/z3c.form.rst:381
+msgid "Another example::"
+msgstr "Another example::"
+
+# 6d7e462d5cdb490b8e797ac5d762770c
+#: ../../source/forms/z3c.form.rst:402
+msgid "Adding a field to a form"
+msgstr "Adding a field to a form"
+
+# 855983c14bfd499e99dec243dc3f9dcb
+#: ../../source/forms/z3c.form.rst:404
+msgid ""
+"Use the overridden ``+=`` operator of a ``Fields`` instance. Fields "
+"instances can be added to existing Fields instances."
+msgstr "Use the overridden ``+=`` operator of a ``Fields`` instance. Fields instances can be added to existing Fields instances."
+
+# 1a04c42c8078440293eb3ca5de244d4b
+#: ../../source/forms/z3c.form.rst:412
+msgid "Modifying a field"
+msgstr "Modifying a field"
+
+# 7cc6f48e9e874228859b8671588ed1f2
+#: ../../source/forms/z3c.form.rst:414
+msgid "Fields can be accessed by their name in ``form.fields``. Example::"
+msgstr "Fields can be accessed by their name in ``form.fields``. Example::"
+
+# 158f67d6a3884b8f9930f05662d1e5d8
+# 91112cefac1d4c55990b31c681721f2a
+#: ../../source/forms/z3c.form.rst:419 ../../source/forms/z3c.form.rst:970
+msgid "Accessing the schema of the field"
+msgstr "Accessing the schema of the field"
+
+# e75d0e70286f453d836a541320748dfb
+#: ../../source/forms/z3c.form.rst:421
+msgid ""
+"A ``zope.schema`` Field is stored as a ``field`` attribute of a field. "
+"Example::"
+msgstr "A ``zope.schema`` Field is stored as a ``field`` attribute of a field. Example::"
+
+# 2d54dc648e7542acbc528e59eeaff14f
+#: ../../source/forms/z3c.form.rst:428
+msgid ""
+"There exist only one singleton instance of a schema during run-time. If you "
+"modify the schema fields, the changes are reflected to all subsequent form "
+"updates and other forms which use the same schema."
+msgstr "There exist only one singleton instance of a schema during run-time. If you modify the schema fields, the changes are reflected to all subsequent form updates and other forms which use the same schema."
+
+# c2b4e4d4363e410aa7d6a2da65272603
+#: ../../source/forms/z3c.form.rst:434
+msgid "Read-only fields"
+msgstr "Read-only fields"
+
+# 451f899c114b4d0d90f28105bdf359d2
+#: ../../source/forms/z3c.form.rst:436
+msgid "There is ``field.readonly`` flag."
+msgstr "There is ``field.readonly`` flag."
+
+# 22e8403118c247b4aeb0975689d5a78b
+#: ../../source/forms/z3c.form.rst:438
+msgid "Example code::"
+msgstr "Example code::"
+
+# 8f93561ffdba47569c0b4fd5cbee52aa
+#: ../../source/forms/z3c.form.rst:474
+msgid ""
+"You might also want to disable the *edit* button if none of the fields are "
+"editable::"
+msgstr "You might also want to disable the *edit* button if none of the fields are editable::"
+
+# 75118fdaea394eddb2ab42098fddc73c
+#: ../../source/forms/z3c.form.rst:482
+msgid ""
+"You can also set ``z3c.form.interfaces.DISPLAY_MODE`` in ``updateWidgets()``"
+" if you are not dynamically poking form fields themselves."
+msgstr "You can also set ``z3c.form.interfaces.DISPLAY_MODE`` in ``updateWidgets()`` if you are not dynamically poking form fields themselves."
+
+# 9d9d42b1b1dc491594f5c3f5939a5db6
+#: ../../source/forms/z3c.form.rst:488
+msgid ""
+"Do not modify fields on singleton instances (form or fields objects are "
+"shared between all forms). This causes problems on concurrent access."
+msgstr "Do not modify fields on singleton instances (form or fields objects are shared between all forms). This causes problems on concurrent access."
+
+# 74705946d194496085de46a8710b52c7
+#: ../../source/forms/z3c.form.rst:494
+msgid ""
+"``zope.schema.Field`` has a ``readonly`` property. ``z3c.form.field.Field`` "
+"does not have this property, but has the ``mode`` property. Do not confuse "
+"these two."
+msgstr "``zope.schema.Field`` has a ``readonly`` property. ``z3c.form.field.Field`` does not have this property, but has the ``mode`` property. Do not confuse these two."
+
+# 4c2ed19082474af385ab2eb7fd7ca6be
+#: ../../source/forms/z3c.form.rst:501
+msgid "Below is an example of how to include new schemas on the fly::"
+msgstr "Below is an example of how to include new schemas on the fly::"
+
+# c11b8519185446cba9b26263d9d7488a
+#: ../../source/forms/z3c.form.rst:539
+msgid "Date and time"
+msgstr "Date and time"
+
+# d2d80378dae6424087539863edff8296
+#: ../../source/forms/z3c.form.rst:550
+msgid "See"
+msgstr "See"
+
+# 3a8ed8a2ceb04afe90c1582fdeda5064
+#: ../../source/forms/z3c.form.rst:552
+msgid ""
+"http://stackoverflow.com/questions/5776498/specify-datetime-format-on-zope-"
+"schema-date-on-plone"
+msgstr "http://stackoverflow.com/questions/5776498/specify-datetime-format-on-zope-schema-date-on-plone"
+
+# 71f12dab6f6641b1b53b98b69a45fa25
+#: ../../source/forms/z3c.form.rst:554
+msgid ""
+"http://svn.zope.org/zope.schema/trunk/src/zope/schema/tests/test_datetime.py?rev=113055&view=auto"
+msgstr "http://svn.zope.org/zope.schema/trunk/src/zope/schema/tests/test_datetime.py?rev=113055&view=auto"
+
+# 33bfbb2bfe0d451ab278fa5378851e5e
+#: ../../source/forms/z3c.form.rst:557
+msgid "Making boolean field required"
+msgstr "Making boolean field required"
+
+# 2e5a5c52632943b4b875d8398218a5f3
+#: ../../source/forms/z3c.form.rst:559
+msgid "E.g. to make \"Accept Terms and Conditions\" checkbox"
+msgstr "E.g. to make \"Accept Terms and Conditions\" checkbox"
+
+# e5a4c138e45e45d8bcb5e82ced763671
+#: ../../source/forms/z3c.form.rst:561
+msgid ""
+"http://stackoverflow.com/questions/9670819/how-do-i-make-a-boolean-field-"
+"required-in-a-z3c-form"
+msgstr "http://stackoverflow.com/questions/9670819/how-do-i-make-a-boolean-field-required-in-a-z3c-form"
+
+# d6942ad74a654c529ac9e8daf6d99c6e
+#: ../../source/forms/z3c.form.rst:564
+msgid "Widgets"
+msgstr "Widgets"
+
+# 6392821522894d72807898c424ad9adb
+#: ../../source/forms/z3c.form.rst:566
+msgid ""
+"Widget are responsible for 1) rendering HTML code for input; 2) parsing HTTP"
+" post input."
+msgstr "Widget are responsible for 1) rendering HTML code for input; 2) parsing HTTP post input."
+
+# 5230c70fdd3a460fa31631ed862e0055
+#: ../../source/forms/z3c.form.rst:570
+msgid ""
+"Widgets are stored as the ``widgets`` attribute of a form. It is presented "
+"by an ordered dict-like ``Widgets`` class."
+msgstr "Widgets are stored as the ``widgets`` attribute of a form. It is presented by an ordered dict-like ``Widgets`` class."
+
+# 6911f04a3be14e5daa75af838388701a
+#: ../../source/forms/z3c.form.rst:573
+msgid ""
+"Widgets are only available after the form's ``update()`` and "
+"``updateWidgets()`` methods have been called. ``updateWidgets()`` will bind "
+"widgets to the form context. For example, vocabularies defined by name are "
+"resolved at this point."
+msgstr "Widgets are only available after the form's ``update()`` and ``updateWidgets()`` methods have been called. ``updateWidgets()`` will bind widgets to the form context. For example, vocabularies defined by name are resolved at this point."
+
+# d7c33576d3314f48817365d54b2fc75c
+#: ../../source/forms/z3c.form.rst:578
+msgid "A widget has two names:"
+msgstr "A widget has two names:"
+
+# b699094d48c643fcb9ca81fd8a4e0a59
+#: ../../source/forms/z3c.form.rst:580
+msgid ""
+"``widget.__name__`` is the name of the corresponding field. Lookups from "
+"``form.widgets[]`` can be done using this name."
+msgstr "``widget.__name__`` is the name of the corresponding field. Lookups from ``form.widgets[]`` can be done using this name."
+
+# 83a636dea8664c56931f669abcea02d3
+#: ../../source/forms/z3c.form.rst:583
+msgid ""
+"``widget.name`` is the decorated name used in HTML code. It has the format "
+"``${form name}.${field set name}.${widget.__name__}``."
+msgstr "``widget.name`` is the decorated name used in HTML code. It has the format ``${form name}.${field set name}.${widget.__name__}``."
+
+# aa6a504558e64d56a80b3daa0ca97109
+#: ../../source/forms/z3c.form.rst:587
+msgid ""
+"The Zope publisher will also mangle widget names based on what kind of input"
+" the widget takes. When an HTTP ``POST`` request comes in, Zope publisher "
+"automatically converts ``<select>`` dropdowns to lists and so on."
+msgstr "The Zope publisher will also mangle widget names based on what kind of input the widget takes. When an HTTP ``POST`` request comes in, Zope publisher automatically converts ``<select>`` dropdowns to lists and so on."
+
+# 68ef43eef5de4f65ad1504ba7d5e2815
+#: ../../source/forms/z3c.form.rst:593
+msgid "Setting a widget for a field"
+msgstr "Setting a widget for a field"
+
+# 9887d9faec3d43caa3d8623316a5bf1e
+#: ../../source/forms/z3c.form.rst:596
+msgid "Using plone.directives.form schema hints"
+msgstr "Using plone.directives.form schema hints"
+
+# ed9c5c6199644eb692a3717c9dd4505d
+#: ../../source/forms/z3c.form.rst:628
+msgid ""
+"`Form schema hints "
+"<https://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference"
+"/form-schema-hints.html>`_"
+msgstr "`Form schema hints <https://developer.plone.org/reference_manuals/external/plone.app.dexterity/reference/form-schema-hints.html>`_"
+
+# 3c063af41c254aca9b05f61446c894e8
+#: ../../source/forms/z3c.form.rst:632
+msgid "Setting widget for z3c.form plain forms"
+msgstr "Setting widget for z3c.form plain forms"
+
+# cda2dd59a6714e9aae05465892ffc9f7
+#: ../../source/forms/z3c.form.rst:634
+msgid ""
+"You can set field's widgetFactory after fields have been declared in form "
+"class body."
+msgstr "You can set field's widgetFactory after fields have been declared in form class body."
+
+# 46541b69dcdf411b9582fcfd950ede7c
+#: ../../source/forms/z3c.form.rst:666
+msgid "Setting widget dynamically Form.updateWidgets()"
+msgstr "Setting widget dynamically Form.updateWidgets()"
+
+# c6ec8213c2a94e8ab68275cb4900d6c9
+#: ../../source/forms/z3c.form.rst:668
+msgid "Widget type can be set dynamically based on external conditions."
+msgstr "Widget type can be set dynamically based on external conditions."
+
+# 42d398c801fd499b8ecf9c0ffd83df49
+#: ../../source/forms/z3c.form.rst:684
+msgid "Accessing a widget"
+msgstr "Accessing a widget"
+
+# 763e5985127d47b7bf2dbcbefea29c10
+#: ../../source/forms/z3c.form.rst:686
+msgid "A widget can be accessed by its field's name. Example::"
+msgstr "A widget can be accessed by its field's name. Example::"
+
+# 57666515aa1749f6b524bae6f4795413
+#: ../../source/forms/z3c.form.rst:698
+msgid "Introspecting form widgets"
+msgstr "Introspecting form widgets"
+
+# edcd0ad533164d62b0467a1a70ee7cd7
+#: ../../source/forms/z3c.form.rst:716
+msgid "Reordering and hiding widgets"
+msgstr "Reordering and hiding widgets"
+
+# dab053410e5042f082931b961cb67347
+#: ../../source/forms/z3c.form.rst:718
+msgid ""
+"With Dexterity forms you can use `plone.directives.form "
+"<http://pypi.python.org/pypi/plone.directives.form>`_::"
+msgstr "With Dexterity forms you can use `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_::"
+
+# 8216117a5f784b97a8407012adf33b70
+#: ../../source/forms/z3c.form.rst:738
+msgid "Modifying a widget"
+msgstr "Modifying a widget"
+
+# b2a7e1f71b874c45b11929a4a9089648
+#: ../../source/forms/z3c.form.rst:740
+msgid ""
+"Widgets are stored in the ``form.widgets`` dictionary, which maps *field "
+"name* to *widget*. The widget label can be different than the field name."
+msgstr "Widgets are stored in the ``form.widgets`` dictionary, which maps *field name* to *widget*. The widget label can be different than the field name."
+
+# b548d610683b4a73996d826897958564
+#: ../../source/forms/z3c.form.rst:755
+msgid ""
+"If you want to have a completely different Python class for a widget, you "
+"need to override field's widget factory in the module body code after fields"
+" have been constructed in the class, or in the ``update()`` method for "
+"dynamically constructed fields::"
+msgstr "If you want to have a completely different Python class for a widget, you need to override field's widget factory in the module body code after fields have been constructed in the class, or in the ``update()`` method for dynamically constructed fields::"
+
+# 08ce4a50fe3542f49af798139b38f4fd
+#: ../../source/forms/z3c.form.rst:764
+msgid "Reorder form widgets"
+msgstr "Reorder form widgets"
+
+# 182998ffeb514559bd0ccc86515e6694
+#: ../../source/forms/z3c.form.rst:766
+msgid ""
+"``plone.z3cform`` allows you to reorder the field widgets by overriding the "
+"``update`` method of the form class."
+msgstr "``plone.z3cform`` allows you to reorder the field widgets by overriding the ``update`` method of the form class."
+
+# d390b5a8b63543059467e49928b4593b
+#: ../../source/forms/z3c.form.rst:782
+msgid ""
+"For more information about how to reorder fields see the ``plone.z3cform`` "
+"page at PyPI:"
+msgstr "For more information about how to reorder fields see the ``plone.z3cform`` page at PyPI:"
+
+# 555decde2c394044a519d4ab23361c31
+#: ../../source/forms/z3c.form.rst:785
+msgid ""
+"<http://pypi.python.org/pypi/plone.z3cform#fieldsets-and-form-extenders>`_"
+msgstr "<http://pypi.python.org/pypi/plone.z3cform#fieldsets-and-form-extenders>`_"
+
+# 1b77b734f794486eada68f72239d4bc5
+#: ../../source/forms/z3c.form.rst:789
+msgid "Hiding fields"
+msgstr "Hiding fields"
+
+# 1dd2aab43bca4700ad9ac25a9c2685f6
+#: ../../source/forms/z3c.form.rst:791
+msgid "Here's how to do it in pure ``z3c.form``::"
+msgstr "Here's how to do it in pure ``z3c.form``::"
+
+# 510c017146c941c787183699f1af23fc
+#: ../../source/forms/z3c.form.rst:799
+msgid ""
+"If you want to hide a widget that is part of a group, you cannot use the "
+"updateWidgets method. The groups and their widgets get initialized after the"
+" widgets have been updated. Before that, the groups variable is just a list "
+"of group factories. During the update method though, the groups have been "
+"initialized and have their own widget list each. For hiding widgets there, "
+"you have to access the group in the update method like so::"
+msgstr "If you want to hide a widget that is part of a group, you cannot use the updateWidgets method. The groups and their widgets get initialized after the widgets have been updated. Before that, the groups variable is just a list of group factories. During the update method though, the groups have been initialized and have their own widget list each. For hiding widgets there, you have to access the group in the update method like so::"
+
+# d532aee8de824be5b290846cb68afc24
+#: ../../source/forms/z3c.form.rst:814
+msgid ""
+"groups itself is a list like object, you can also remove a complete group by"
+" just removing it from the group dictionary."
+msgstr "groups itself is a list like object, you can also remove a complete group by just removing it from the group dictionary."
+
+# 10cfc66e42a64e278c6096bd193b9506
+#: ../../source/forms/z3c.form.rst:817
+msgid "Unprefixing widgets"
+msgstr "Unprefixing widgets"
+
+# 4c77be957b1d4e629170652c938ff747
+#: ../../source/forms/z3c.form.rst:819
+msgid ""
+"By default each form widget gets a name prefixed by the form id. This allows"
+" you to combine several forms on the same page."
+msgstr "By default each form widget gets a name prefixed by the form id. This allows you to combine several forms on the same page."
+
+# 7b24380e84284faca20fb4223dafbfab
+#: ../../source/forms/z3c.form.rst:822
+msgid "You can override this behavior in ``updateWidgets()``::"
+msgstr "You can override this behavior in ``updateWidgets()``::"
+
+# 91d270bf146f42b8a0e635c05403b449
+#: ../../source/forms/z3c.form.rst:832
+msgid ""
+"Some templates, like ``select_input.pt``, have hard-coded name suffixes like"
+" ``:list`` to satisfy ZPublisher machinery. If you need to get rid of these,"
+" you need to override the template."
+msgstr "Some templates, like ``select_input.pt``, have hard-coded name suffixes like ``:list`` to satisfy ZPublisher machinery. If you need to get rid of these, you need to override the template."
+
+# 7202f024059546acbb7e135793ba0bec
+#: ../../source/forms/z3c.form.rst:837
+msgid "Making widgets required conditionally"
+msgstr "Making widgets required conditionally"
+
+# 99464288d89441439c7df40bef2f75e2
+#: ../../source/forms/z3c.form.rst:839
+msgid ""
+"If you want to avoid hardwired ``required`` on fields and toggle then "
+"conditionally, you need to supply a dynamically modified schema field to the"
+" ``z3c.form.field.Fields`` instance of the form."
+msgstr "If you want to avoid hardwired ``required`` on fields and toggle then conditionally, you need to supply a dynamically modified schema field to the ``z3c.form.field.Fields`` instance of the form."
+
+# 55ecdebd26344b30a462084d8aa3c818
+#: ../../source/forms/z3c.form.rst:887
+msgid "Setting widget types"
+msgstr "Setting widget types"
+
+# 9f796d66b33d4897968a98766be082dd
+#: ../../source/forms/z3c.form.rst:889
+msgid ""
+"By default, widgets for form fields are determined by ``FieldWidget`` "
+"adapters (defined in :term:`ZCML`). You can override adapters per field "
+"using field's ``widgetFactory`` property."
+msgstr "By default, widgets for form fields are determined by ``FieldWidget`` adapters (defined in :term:`ZCML`). You can override adapters per field using field's ``widgetFactory`` property."
+
+# ae0479d628514cd395748e1473108fce
+#: ../../source/forms/z3c.form.rst:893
+msgid ""
+"Below is an example which creates a custom widget, its ``FieldWidget`` "
+"factory, and uses it for one field in one form::"
+msgstr "Below is an example which creates a custom widget, its ``FieldWidget`` factory, and uses it for one field in one form::"
+
+# 82ff7e9f32fa4a1584978c158b356e53
+#: ../../source/forms/z3c.form.rst:935
+msgid ""
+"Alternatively, you can use `plone.directives.form "
+"<http://pypi.python.org/pypi/plone.directives.form>`_ to add widget hints to"
+" form schema."
+msgstr "Alternatively, you can use `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_ to add widget hints to form schema."
+
+# 0c2e9983604042b79c4725863ab6b1cf
+#: ../../source/forms/z3c.form.rst:940
+msgid "Widget save"
+msgstr "Widget save"
+
+# 8707656c5bab4aba86144916b9de5c28
+#: ../../source/forms/z3c.form.rst:942
+msgid ""
+"After ``form.update()`` if the request was *save* and all data was valid, "
+"``form.applyChanges(data)`` is called."
+msgstr "After ``form.update()`` if the request was *save* and all data was valid, ``form.applyChanges(data)`` is called."
+
+# e1829df6ab9f4d73864e4ad7872f7b68
+#: ../../source/forms/z3c.form.rst:945
+msgid ""
+"By default widgets use ``datamanger.AttributeField`` and try to store their "
+"values as a member attribute of the object returned by "
+"``form.getContent()``."
+msgstr "By default widgets use ``datamanger.AttributeField`` and try to store their values as a member attribute of the object returned by ``form.getContent()``."
+
+# 48315be9398440d79e879966ac63b545
+#: ../../source/forms/z3c.form.rst:948
+msgid "How do add custom DataManager"
+msgstr "How do add custom DataManager"
+
+# 0160bda5df6640b2bde8808a990ea125
+#: ../../source/forms/z3c.form.rst:951
+msgid "Widget value"
+msgstr "Widget value"
+
+# f04f3e3a027746a6a2399cefd200647a
+#: ../../source/forms/z3c.form.rst:953
+msgid ""
+"The widget value, either from form ``POST`` or previous context data, is "
+"available as ``widget.value`` after the ``form.update()`` call."
+msgstr "The widget value, either from form ``POST`` or previous context data, is available as ``widget.value`` after the ``form.update()`` call."
+
+# e736a7642ea944a7a8cdc8c113aef6e9
+#: ../../source/forms/z3c.form.rst:958
+msgid "Adding a CSS class"
+msgstr "Adding a CSS class"
+
+# 83d9880b29ec4dce86eba54811856c5f
+#: ../../source/forms/z3c.form.rst:960
+msgid ""
+"Widgets have a method ``addClass()`` to add extra CSS classes. This is "
+"useful if you have Javascript/JQuery associated with your special form::"
+msgstr "Widgets have a method ``addClass()`` to add extra CSS classes. This is useful if you have Javascript/JQuery associated with your special form::"
+
+# ca24885dc83f49e0887b15bb8c2fc2b2
+#: ../../source/forms/z3c.form.rst:966
+msgid ""
+"Note that these classes are directly applied to ``<input>``, ``<select>``, "
+"etc. itself, and not to the wrapping ``<div>`` element."
+msgstr "Note that these classes are directly applied to ``<input>``, ``<select>``, etc. itself, and not to the wrapping ``<div>`` element."
+
+# 6e2caa04585d46cba700bd67a733ae98
+#: ../../source/forms/z3c.form.rst:972
+msgid ""
+"A ``zope.schema`` Field is stored as a ``field`` attribute of a widget. "
+"Example::"
+msgstr "A ``zope.schema`` Field is stored as a ``field`` attribute of a widget. Example::"
+
+# 6923115a9eb0433b9fb194319a18a820
+#: ../../source/forms/z3c.form.rst:979
+msgid "``Widget.field`` is not a ``z3c.form.field.Field`` object."
+msgstr "``Widget.field`` is not a ``z3c.form.field.Field`` object."
+
+# 2ef439333c96426187b919e8a499c25f
+#: ../../source/forms/z3c.form.rst:982
+msgid "Getting selection widget vocabulary value as human readable text"
+msgstr "Getting selection widget vocabulary value as human readable text"
+
+# 8f7505d7584243efacf732a532dc6577
+#: ../../source/forms/z3c.form.rst:992
+msgid "Example (page template)"
+msgstr "Example (page template)"
+
+# 49c3be9030ff4c9295e3edc12bf67512
+#: ../../source/forms/z3c.form.rst:1002
+msgid "Setting widget templates"
+msgstr "Setting widget templates"
+
+# 254c8f4d95144793908d2b2c9dfee448
+#: ../../source/forms/z3c.form.rst:1004
+msgid ""
+"You might want to customize the template of a widget to have custom HTML "
+"code for a specific use case."
+msgstr "You might want to customize the template of a widget to have custom HTML code for a specific use case."
+
+# bee5f1478214413e913ac21237023e51
+#: ../../source/forms/z3c.form.rst:1008
+msgid "Setting the template of an individual widget"
+msgstr "Setting the template of an individual widget"
+
+# f459aa6d184446be8918ba212b576b0e
+#: ../../source/forms/z3c.form.rst:1010
+msgid ""
+"First copy the existing page template code of the widget. For basic widgets "
+"you can find the template in the `z3c.form source tree "
+"<http://svn.zope.org/z3c.form/trunk/src/z3c/form/browser/>`_."
+msgstr "First copy the existing page template code of the widget. For basic widgets you can find the template in the `z3c.form source tree <http://svn.zope.org/z3c.form/trunk/src/z3c/form/browser/>`_."
+
+# c8a1f09f88054e04baf29c33453d4d26
+#: ../../source/forms/z3c.form.rst:1015
+msgid "``yourwidget.pt`` (text area widget copied over an example text)"
+msgstr "``yourwidget.pt`` (text area widget copied over an example text)"
+
+# c362b397d7554c2a8ab4d32a42263578
+#: ../../source/forms/z3c.form.rst:1057
+msgid ""
+"Now you can override the template factory in the ``updateWidgets()`` method "
+"of your form class"
+msgstr "Now you can override the template factory in the ``updateWidgets()`` method of your form class"
+
+# b404902cff0747ee9e128542196e2f3c
+#: ../../source/forms/z3c.form.rst:1082
+msgid ""
+"You can also interact with your ``form`` class instance from the widget "
+"template"
+msgstr "You can also interact with your ``form`` class instance from the widget template"
+
+# 59bfa984202d4dedb0e02c82892ad576
+#: ../../source/forms/z3c.form.rst:1092
+msgid "Setting template for your own widget type"
+msgstr "Setting template for your own widget type"
+
+# 665523864b7640cebb840ed9bd3c3b43
+#: ../../source/forms/z3c.form.rst:1094
+msgid ""
+"You can set the template used by the widget with the "
+"``<z3c:widgetTemplate>`` ZCML directive"
+msgstr "You can set the template used by the widget with the ``<z3c:widgetTemplate>`` ZCML directive"
+
+# f88ebfd521104455962a7486b9e5be85
+#: ../../source/forms/z3c.form.rst:1106
+msgid ""
+"You can also enforce the widget template in the ``render()`` method of the "
+"widget class::"
+msgstr "You can also enforce the widget template in the ``render()`` method of the widget class::"
+
+# ab6787df88fb43699bc4e7383fe59ca9
+#: ../../source/forms/z3c.form.rst:1132
+msgid "Widget template example::"
+msgstr "Widget template example::"
+
+# 1453a59b7548428c8153655fa07b53ed
+#: ../../source/forms/z3c.form.rst:1166
+msgid "Setting widget frame template"
+msgstr "Setting widget frame template"
+
+# fe199121185a4d7fb122b9bee03ac763
+#: ../../source/forms/z3c.form.rst:1168
+msgid ""
+"You can change how the frame around each widget is rendered in the widget "
+"rendering loop. This frame has elements like label, required marker, field "
+"description and so on."
+msgstr "You can change how the frame around each widget is rendered in the widget rendering loop. This frame has elements like label, required marker, field description and so on."
+
+# 0170af71da454bdf8a3bd5d34aaaff00
+#: ../../source/forms/z3c.form.rst:1172
+msgid ""
+"For instructions see `plone.app.z3cform README "
+"<https://github.com/plone/plone.app.z3cform/>`_"
+msgstr "For instructions see `plone.app.z3cform README <https://github.com/plone/plone.app.z3cform/>`_"
+
+# 6b52e23aefd04429b1a7250c8628c0c9
+#: ../../source/forms/z3c.form.rst:1175
+msgid "Combined widgets"
+msgstr "Combined widgets"
+
+# 0dada26a7d57476face813c9cf80c570
+#: ../../source/forms/z3c.form.rst:1177
+msgid ""
+"You can combine multiple widgets to one with "
+"``z3c.form.browser.multil.MultiWidget`` and "
+"``z3c.form.browser.object.ObjectWidget`` classes."
+msgstr "You can combine multiple widgets to one with ``z3c.form.browser.multil.MultiWidget`` and ``z3c.form.browser.object.ObjectWidget`` classes."
+
+# 964c3061b7a942c19db904fadb98d790
+#: ../../source/forms/z3c.form.rst:1179
+msgid "Example how to create a min max input widget."
+msgstr "Example how to create a min max input widget."
+
+# 4e20859ef9cc4170b912678e43d8e2d1
+#: ../../source/forms/z3c.form.rst:1181
+msgid "Python code to setup the widget:"
+msgstr "Python code to setup the widget:"
+
+# be985dbd359541989a6a17be216b3314
+#: ../../source/forms/z3c.form.rst:1214
+msgid "Then we do some widget marking in ``updateWidgets()``::"
+msgstr "Then we do some widget marking in ``updateWidgets()``::"
+
+# fb7ebec2967b4034b76c5bf9ccc2e978
+#: ../../source/forms/z3c.form.rst:1229
+msgid ""
+"And then the page template which renders both 0. widget  (min) and 1. widget"
+" (max) on the same line."
+msgstr "And then the page template which renders both 0. widget  (min) and 1. widget (max) on the same line."
+
+# c4ec5941fcd34648b662bfa1ee1add96
+#: ../../source/forms/z3c.form.rst:1286
+msgid "Buttons"
+msgstr "Buttons"
+
+# a21497c6a069409d9c0eeafec683f77c
+#: ../../source/forms/z3c.form.rst:1288
+msgid ""
+"Buttons enable actions in forms. ``AddForm`` and ``EditForm`` base classes "
+"come with default buttons (:guilabel:`Save`)."
+msgstr "Buttons enable actions in forms. ``AddForm`` and ``EditForm`` base classes come with default buttons (:guilabel:`Save`)."
+
+# e635a99e0690412581e5a57288950f65
+#: ../../source/forms/z3c.form.rst:1291
+msgid "More information in ``z3c.form`` documentation"
+msgstr "More information in ``z3c.form`` documentation"
+
+# 9fb9f8ff92b8415a8cbfb4f93fa21c8d
+#: ../../source/forms/z3c.form.rst:1293
+msgid "http://packages.python.org/z3c.form/button.html"
+msgstr "http://packages.python.org/z3c.form/button.html"
+
+# 7b63dbc06e954a288d5bfeb9b808bdfb
+#: ../../source/forms/z3c.form.rst:1296
+msgid "Adding a button to form"
+msgstr "Adding a button to form"
+
+# a61325a0d9d24d4cb9ea37e3ffc37c79
+#: ../../source/forms/z3c.form.rst:1298
+msgid ""
+"The easiest way to add handlers for buttons is to use a function decorator "
+"``z3c.form.button.buttonAndHandler()``."
+msgstr "The easiest way to add handlers for buttons is to use a function decorator ``z3c.form.button.buttonAndHandler()``."
+
+# 86f299acef0e4667a8ac4c1272c3beff
+#: ../../source/forms/z3c.form.rst:1301
+msgid ""
+"The first parameter is the user visible label and the second one is the "
+"``<input>`` name."
+msgstr "The first parameter is the user visible label and the second one is the ``<input>`` name."
+
+# eb19df5f2abd42af8cf10afca3ded8fc
+#: ../../source/forms/z3c.form.rst:1321
+msgid ""
+"The default ``z3c.form.form.AddForm`` and ``z3c.form.form.EditForm`` "
+":guilabel:`Add` and :guilabel:`Save` button handler calls are good code "
+"examples."
+msgstr "The default ``z3c.form.form.AddForm`` and ``z3c.form.form.EditForm`` :guilabel:`Add` and :guilabel:`Save` button handler calls are good code examples."
+
+# a7a4c3ade72e4e849d30608a7cca5189
+#: ../../source/forms/z3c.form.rst:1325
+msgid ""
+"http://svn.zope.org/z3c.form/trunk/src/z3c/form/form.py?rev=114824&view=auto"
+msgstr "http://svn.zope.org/z3c.form/trunk/src/z3c/form/form.py?rev=114824&view=auto"
+
+# 4d2fa8708a484368997e1fafaa6f859e
+#: ../../source/forms/z3c.form.rst:1327
+msgid ""
+"If you created a form based on another form, the buttons defined on that "
+"other form get lost. To prevent that, you must explicitly add the buttons of"
+" the base class in your form class::"
+msgstr "If you created a form based on another form, the buttons defined on that other form get lost. To prevent that, you must explicitly add the buttons of the base class in your form class::"
+
+# 4e4dbc6c68cd4990b40f88f669eeac13
+#: ../../source/forms/z3c.form.rst:1342
+msgid "Adding buttons conditionally"
+msgstr "Adding buttons conditionally"
+
+# a219aa7a29e649309ec5429b0a76f62f
+#: ../../source/forms/z3c.form.rst:1344
+msgid ""
+"The ``buttonAndHandler`` decorator can accept a condition argument. The "
+"condition should be a function that accepts the form as an argument and "
+"returns a boolean. Example, a button that only shows when a condition is "
+"met::"
+msgstr "The ``buttonAndHandler`` decorator can accept a condition argument. The condition should be a function that accepts the form as an argument and returns a boolean. Example, a button that only shows when a condition is met::"
+
+# 6e44efbe25b54fb1a27f72f98c572ada
+#: ../../source/forms/z3c.form.rst:1364
+msgid "Manipulating form buttons programmatically"
+msgstr "Manipulating form buttons programmatically"
+
+# bafdf350ebe74c4789ff6a436de47c5b
+#: ../../source/forms/z3c.form.rst:1366
+msgid ""
+"You want to manipulate buttons if you want to hide buttons dynamically, "
+"manipulate labels, etc."
+msgstr "You want to manipulate buttons if you want to hide buttons dynamically, manipulate labels, etc."
+
+# 75ab1923daf44ad3bf1542d7ab8bd17e
+#: ../../source/forms/z3c.form.rst:1369
+msgid "Buttons are stored in ``buttons`` class attribute."
+msgstr "Buttons are stored in ``buttons`` class attribute."
+
+# 23d0ce28c41c478e8ef16da3e3de8de7
+#: ../../source/forms/z3c.form.rst:1373
+msgid ""
+"Button storage is shared between all form instances, so do not mutate its "
+"content. Instead create a copy of it if you wish to have form-specific "
+"changes."
+msgstr "Button storage is shared between all form instances, so do not mutate its content. Instead create a copy of it if you wish to have form-specific changes."
+
+# 2737e604dd1f4d15a407b1508037c05a
+#: ../../source/forms/z3c.form.rst:1378
+msgid "Reading buttons"
+msgstr "Reading buttons"
+
+# 0491c5c26ddb4b1391d6f5719f979956
+#: ../../source/forms/z3c.form.rst:1389
+msgid "Removing or hiding buttons"
+msgstr "Removing or hiding buttons"
+
+# 5c5700bbd6c440a1b6cb9ee84752d618
+#: ../../source/forms/z3c.form.rst:1391
+msgid ""
+"Here is an example how to hide all buttons from a certain form instance."
+msgstr "Here is an example how to hide all buttons from a certain form instance."
+
+# 97b15b4efc244ef08ef2044ce72e0a4f
+#: ../../source/forms/z3c.form.rst:1409
+msgid "Adding buttons dynamically"
+msgstr "Adding buttons dynamically"
+
+# 7b343ac718b6478f96e8360cdbf5ad63
+#: ../../source/forms/z3c.form.rst:1411
+msgid ""
+"In the example below, the ``Buttons`` array is already constructed "
+"dynamically and we can manipulate it::"
+msgstr "In the example below, the ``Buttons`` array is already constructed dynamically and we can manipulate it::"
+
+# 51e7fc26cd8b4e94b3efa0d1e5bc30ad
+#: ../../source/forms/z3c.form.rst:1430
+msgid "Subforms"
+msgstr "Subforms"
+
+# ddd6c99174db48fcb127261a9bfcd22f
+#: ../../source/forms/z3c.form.rst:1432
+msgid "Subforms are embedded ``z3c`` forms inside a master form."
+msgstr "Subforms are embedded ``z3c`` forms inside a master form."
+
+# af0e062b26104d919b167876b465aee9
+#: ../../source/forms/z3c.form.rst:1434
+msgid ""
+"Subforms may have their own buttons or use the controls from the master "
+"form. You need to call ``update()`` manually for subforms."
+msgstr "Subforms may have their own buttons or use the controls from the master form. You need to call ``update()`` manually for subforms."
+
+# 71405d7432004353ab429dd1333da5a3
+#: ../../source/forms/z3c.form.rst:1440
+msgid "http://packages.python.org/z3c.form/subform.html"
+msgstr "http://packages.python.org/z3c.form/subform.html"
+
+# ac48192a15694fccbb8723cf8cca05f9
+#: ../../source/forms/z3c.form.rst:1443
+msgid "Adding an action to parent and subform"
+msgstr "Adding an action to parent and subform"
+
+# 010db233068e4941b0e4dd605892e9c9
+#: ../../source/forms/z3c.form.rst:1445
+msgid "Parent and subform actions must be linked."
+msgstr "Parent and subform actions must be linked."
+
+# 0870b5e721de4d41a29d15a5d9ecf640
+#: ../../source/forms/z3c.form.rst:1500
+msgid "Creating subforms at run-time"
+msgstr "Creating subforms at run-time"
+
+# 5f68f09972ba40169fb8e406a9414a45
+#: ../../source/forms/z3c.form.rst:1502
+msgid ""
+"Below is an example how to convert existing form instance to be used as an "
+"subform in another form::"
+msgstr "Below is an example how to convert existing form instance to be used as an subform in another form::"
+
+# 9e4fe76cb1a44cfb84150441fbe02a1c
+#: ../../source/forms/z3c.form.rst:1538
+msgid ""
+"If possible, try to construct your form class hierarchy so that you can use "
+"the same class mix-in for normal forms and subforms."
+msgstr "If possible, try to construct your form class hierarchy so that you can use the same class mix-in for normal forms and subforms."
+
+# 52ebdb2463b2426eb26971603d5bd616
+#: ../../source/forms/z3c.form.rst:1542
+msgid "CRUD form"
+msgstr "CRUD form"
+
+# f0b505683c24412480195c5e730ec7cd
+#: ../../source/forms/z3c.form.rst:1544
+msgid "CRUD (Create, read, update, delete) forms manage list of objects."
+msgstr "CRUD (Create, read, update, delete) forms manage list of objects."
+
+# 3b47ba6a35964317bdd2f8931cd2b114
+#: ../../source/forms/z3c.form.rst:1546
+msgid "CRUD form elements:"
+msgstr "CRUD form elements:"
+
+# 11919251084a4a5d896b1e3d279978a3
+#: ../../source/forms/z3c.form.rst:1548
+msgid "Add form creates new objects and renders the form below the table"
+msgstr "Add form creates new objects and renders the form below the table"
+
+# aa731737ca454a218b3c23c494d5b7be
+#: ../../source/forms/z3c.form.rst:1550
+msgid "Edit sub-form edits existing object and renders one table row"
+msgstr "Edit sub-form edits existing object and renders one table row"
+
+# 095ae6e4cb324526a985694bd502383c
+#: ../../source/forms/z3c.form.rst:1552
+msgid "Edit form lists all objects and allows deleting them (table master)"
+msgstr "Edit form lists all objects and allows deleting them (table master)"
+
+# 2063dae92dc04f9fb623830aab8fc6f8
+#: ../../source/forms/z3c.form.rst:1554
+msgid "CRUD form orchestrates the whole thing and renders add and edit forms"
+msgstr "CRUD form orchestrates the whole thing and renders add and edit forms"
+
+# 46e22b799bf348e9971c5553d24c5945
+#: ../../source/forms/z3c.form.rst:1556
+msgid "``view_schema`` outputs read-only fields in CRUD table"
+msgstr "``view_schema`` outputs read-only fields in CRUD table"
+
+# 48205e8ae29541b7a55e2e0685d0b486
+#: ../../source/forms/z3c.form.rst:1558
+msgid ""
+"``update_schema`` outputs editable fields in CRUD table. Usually you want "
+"either ``view_schema`` or ``update_schema``."
+msgstr "``update_schema`` outputs editable fields in CRUD table. Usually you want either ``view_schema`` or ``update_schema``."
+
+# b5ee7e82fe2e4ed2a0cb662301c9d45c
+#: ../../source/forms/z3c.form.rst:1561
+msgid "``add_schema`` outputs add form."
+msgstr "``add_schema`` outputs add form."
+
+# 91da18b1fc8f4e9d8b1eb8cc105c896a
+#: ../../source/forms/z3c.form.rst:1563
+msgid ""
+"the ``context`` attribute of add and edit form is the parent CRUD form. The "
+"``context`` attribute of an edit subform is the edit form."
+msgstr "the ``context`` attribute of add and edit form is the parent CRUD form. The ``context`` attribute of an edit subform is the edit form."
+
+# bcca148c0a0d454ab8b568d7fd536e91
+#: ../../source/forms/z3c.form.rst:1567
+msgid "Examples"
+msgstr "Examples"
+
+# 905d6af2a3f84259b84d160c3443c3d7
+#: ../../source/forms/z3c.form.rst:1569
+msgid ""
+"Easy: `plone.app.headeranimation animation and image list manager "
+"<https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/forms.py>`_."
+msgstr "Easy: `plone.app.headeranimation animation and image list manager <https://svn.plone.org/svn/collective/plone.app.headeranimation/trunk/plone/app/headeranimation/browser/forms.py>`_."
+
+# 5866b4738789475f9e74d70d7c5923bc
+#: ../../source/forms/z3c.form.rst:1571
+msgid ""
+"Complex: `Singing & dancing channel manager example "
+"<https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/browser/channel.py>`_"
+msgstr "Complex: `Singing & dancing channel manager example <https://svn.plone.org/svn/collective/collective.dancing/trunk/collective/dancing/browser/channel.py>`_"
+
+# b1f458e9cfa1479daaf6001c60d30587
+#: ../../source/forms/z3c.form.rst:1574
+msgid "Displaying the status message in a non-standard location"
+msgstr "Displaying the status message in a non-standard location"
+
+# b98c010ef41a471c980f38d2a2a47575
+#: ../../source/forms/z3c.form.rst:1576
+msgid ""
+"By default, the status message is rendered inside ``plone.app.z3cform`` "
+"``macros.pt`` above the form:"
+msgstr "By default, the status message is rendered inside ``plone.app.z3cform`` ``macros.pt`` above the form:"
+
+# df2b2697f5d04f33a36a1028f761093d
+#: ../../source/forms/z3c.form.rst:1598
+msgid ""
+"We can decouple the status message from the form, without overriding all the"
+" templates, by copying status message variable to another variable and then "
+"playing around with it in our wrapper view template."
+msgstr "We can decouple the status message from the form, without overriding all the templates, by copying status message variable to another variable and then playing around with it in our wrapper view template."
+
+# 298f303d103d4b56a18215c7441e173b
+#: ../../source/forms/z3c.form.rst:1603
+msgid "Form class::"
+msgstr "Form class::"
+
+# df0785a6c5ba46e3a9b3d9e1d0975ddc
+#: ../../source/forms/z3c.form.rst:1642
+msgid ""
+"... and then we can use a special ``result_message`` view accessor in our "
+"view template code"
+msgstr "... and then we can use a special ``result_message`` view accessor in our view template code"
+
+# dbb97fc3a1aa499a8c5f4db259a34f48
+#: ../../source/forms/z3c.form.rst:1661
+msgid "Storage format and data managers"
+msgstr "Storage format and data managers"
+
+# efff2c2cf3304f53a46a6b68b89e877d
+#: ../../source/forms/z3c.form.rst:1663
+msgid ""
+"By default, ``z3c.form`` reads incoming context values as the object "
+"attributes. This behavior can be customized using data managers."
+msgstr "By default, ``z3c.form`` reads incoming context values as the object attributes. This behavior can be customized using data managers."
+
+# 6118c06622ad459996cc620874bb1331
+#: ../../source/forms/z3c.form.rst:1667
+msgid ""
+"You can, for example, use Python dictionaries to read and store form data."
+msgstr "You can, for example, use Python dictionaries to read and store form data."
+
+# 5ae3a06f315c497cb07617d459d93274
+#: ../../source/forms/z3c.form.rst:1669
+msgid "http://packages.python.org/z3c.form/datamanager.html"
+msgstr "http://packages.python.org/z3c.form/datamanager.html"
+
+# e27c1be3664c47249a7a34724f561a87
+#: ../../source/forms/z3c.form.rst:1672
+msgid "Custom content objects"
+msgstr "Custom content objects"
+
+# 0a25a8f78d3e4461b3fed384acd3ef3f
+#: ../../source/forms/z3c.form.rst:1674
+msgid ""
+"The following hack can be used if you have an object which does not conform "
+"your form interface and you want to expose only certain object attribute to "
+"the form to be edited."
+msgstr "The following hack can be used if you have an object which does not conform your form interface and you want to expose only certain object attribute to the form to be edited."
+
+# d369089e850248369fb2032bb566d0f4
+#: ../../source/forms/z3c.form.rst:1710
+msgid ""
+"Since ``getContent()`` is also used in ``applyChanges()``, you need to "
+"override ``applyChanges()`` as well to save values correctly to a persistent"
+" object."
+msgstr "Since ``getContent()`` is also used in ``applyChanges()``, you need to override ``applyChanges()`` as well to save values correctly to a persistent object."
+
+# d8f8d7a206d54327be3ff5bd98daf2dd
+#: ../../source/forms/z3c.form.rst:1715
+msgid "Custom change applying"
+msgstr "Custom change applying"
+
+# 201a228a9eab4f08bc7e542e6f3e4a53
+#: ../../source/forms/z3c.form.rst:1717
+msgid ""
+"The default, the behavior of the ``z3c.form`` edit form is to write incoming"
+" data as the attributes of the object returned by ``getContent()``."
+msgstr "The default, the behavior of the ``z3c.form`` edit form is to write incoming data as the attributes of the object returned by ``getContent()``."
+
+# 91af6c7fc935447c8c9ad0e15990cf3d
+#: ../../source/forms/z3c.form.rst:1720
+msgid ""
+"You can override this behavior by overriding ``applyChanges()`` method."
+msgstr "You can override this behavior by overriding ``applyChanges()`` method."
+
+# f549f105a29842a484310e1d664536e9
+#: ../../source/forms/z3c.form.rst:1741
+msgid "WYSIWYG widgets"
+msgstr "WYSIWYG widgets"
+
+# ecb02d81ebe7424dbcd8f4df71eb670a
+#: ../../source/forms/z3c.form.rst:1743
+msgid ""
+"By using `plone.directives.form "
+"<http://pypi.python.org/pypi/plone.directives.form>`_ and `plone.app.z3cform"
+" <http://pypi.python.org/pypi/plone.app.z3cform>`_ packages you can do::"
+msgstr "By using `plone.directives.form <http://pypi.python.org/pypi/plone.directives.form>`_ and `plone.app.z3cform <http://pypi.python.org/pypi/plone.app.z3cform>`_ packages you can do::"
+
+# 7b93b420986a4c5faf4b96736c153efe
+#: ../../source/forms/z3c.form.rst:1763
+msgid "http://pypi.python.org/pypi/plone.directives.form"
+msgstr "http://pypi.python.org/pypi/plone.directives.form"
+
+# b5436d8ae4b2407481d603ee214a6e7f
+#: ../../source/forms/z3c.form.rst:1766
+msgid "Wrapped and non-wrapped forms"
+msgstr "Wrapped and non-wrapped forms"
+
+# e003b09dfc5c4df4a0d06ee0bd43fa4c
+#: ../../source/forms/z3c.form.rst:1768
+msgid ""
+"A ``z3c.form.form.Form`` object is \"wrapped\" when it is rendered inside "
+"Plone page frame and having acquisition chain in intact."
+msgstr "A ``z3c.form.form.Form`` object is \"wrapped\" when it is rendered inside Plone page frame and having acquisition chain in intact."
+
+# f8a25345128a43938cb32188b0147d92
+#: ../../source/forms/z3c.form.rst:1772
+msgid "Since ``plone.app.z3cform`` 0.5.0 the behavior goes like this:"
+msgstr "Since ``plone.app.z3cform`` 0.5.0 the behavior goes like this:"
+
+# aca7221af51e40c8b60d5ce02f529f8f
+#: ../../source/forms/z3c.form.rst:1774
+msgid "Plone 3 forms are automatically wrapped"
+msgstr "Plone 3 forms are automatically wrapped"
+
+# ba6ebe2f5c9e404eacb7212acbcc44e1
+#: ../../source/forms/z3c.form.rst:1776
+msgid "Plone 4 forms are unwrapped"
+msgstr "Plone 4 forms are unwrapped"
+
+# ff38ad6675234138a7daa7b74b3351e2
+#: ../../source/forms/z3c.form.rst:1778
+msgid ""
+"The wrapper is a ``plone.z3cform.interfaces.IWrappedForm`` :doc:`marker "
+"interface </components/interfaces>` on the form object, applied it after the"
+" form instance has been constructed. If this marker interface is not "
+"applied, ``plone.z3cform.ZopeTwoFormTemplateFactory`` tries to embed the "
+"form into Plone page frame. If the form is not intended to be rendered as a "
+"full page form, this usually leads to the following exception::"
+msgstr "The wrapper is a ``plone.z3cform.interfaces.IWrappedForm`` :doc:`marker interface </components/interfaces>` on the form object, applied it after the form instance has been constructed. If this marker interface is not applied, ``plone.z3cform.ZopeTwoFormTemplateFactory`` tries to embed the form into Plone page frame. If the form is not intended to be rendered as a full page form, this usually leads to the following exception::"
+
+# 425839f864d949e1a187609d3d48992a
+#: ../../source/forms/z3c.form.rst:1789
+msgid ""
+"The form tries to render the full Plone page. Rendering this page needs an "
+"acquisition chain set-up for the view and the template. Embedded forms do "
+"not have this, or it would lead to recursion error."
+msgstr "The form tries to render the full Plone page. Rendering this page needs an acquisition chain set-up for the view and the template. Embedded forms do not have this, or it would lead to recursion error."
+
+# 4590fe3142cd4178b0347fa2bee3378b
+#: ../../source/forms/z3c.form.rst:1794
+msgid ""
+"If you are constructing form instances manually and want to render them "
+"without Plone page decoration, you must make sure that automatic form "
+"wrapping does not take place::"
+msgstr "If you are constructing form instances manually and want to render them without Plone page decoration, you must make sure that automatic form wrapping does not take place::"
+
+# 8839bffc723e401db9946086a41d245f
+#: ../../source/forms/z3c.form.rst:1824
+msgid "Embedding z3c.form forms in portlets, viewlets and views"
+msgstr "Embedding z3c.form forms in portlets, viewlets and views"
+
+# a7826c95b81449b9b29f4fcd94c8c97c
+#: ../../source/forms/z3c.form.rst:1826
+msgid ""
+"By default, when ``plone.app.z3cform`` is installed through the add-on "
+"installer, all forms have full Plone page frame. If you are rendering forms "
+"inside non-full-page objects, you need to change the default template."
+msgstr "By default, when ``plone.app.z3cform`` is installed through the add-on installer, all forms have full Plone page frame. If you are rendering forms inside non-full-page objects, you need to change the default template."
+
+# 32ffcbdc5c5d49fbb8b2168883f422d8
+#: ../../source/forms/z3c.form.rst:1831
+msgid ""
+"Below is an example how to include a ``z3c.form``-based form in a portlet."
+msgstr "Below is an example how to include a ``z3c.form``-based form in a portlet."
+
+# 47999079c54d4bc185a179b82510ff0a
+#: ../../source/forms/z3c.form.rst:1835
+msgid ""
+"``plone.app.z3cform`` version 0.5.1 or later is needed, as older versions do"
+" not support overriding ``form.action`` property."
+msgstr "``plone.app.z3cform`` version 0.5.1 or later is needed, as older versions do not support overriding ``form.action`` property."
+
+# 0588fe94297144cbb4592d2c87fcd00f
+#: ../../source/forms/z3c.form.rst:1839
+msgid "You need the following:"
+msgstr "You need the following:"
+
+# 6c6874db1afc4cc2b78c9d2571b133b8
+#: ../../source/forms/z3c.form.rst:1841
+msgid "a ``z3c.form`` class"
+msgstr "a ``z3c.form`` class"
+
+# bad0e261c8884524b9caa59b29020945
+#: ../../source/forms/z3c.form.rst:1843
+msgid "the viewlet/portlet class"
+msgstr "the viewlet/portlet class"
+
+# badbc00f49c146029b023b284e424280
+#: ../../source/forms/z3c.form.rst:1845
+msgid ""
+"A form wrapper template which renders the frame around the form. The default"
+" version renders the whole Plone page frame --- you don't want this when the"
+" form is embedded, otherwise you get infinite recursion (plone page having a"
+" form having a plone page...)"
+msgstr "A form wrapper template which renders the frame around the form. The default version renders the whole Plone page frame --- you don't want this when the form is embedded, otherwise you get infinite recursion (plone page having a form having a plone page...)"
+
+# 864d55c6bbb841299014634d92c91749
+#: ../../source/forms/z3c.form.rst:1851
+msgid "Portlet/viewlet template which refers to the form"
+msgstr "Portlet/viewlet template which refers to the form"
+
+# e2a578f1cb4041b4878026afb787c774
+#: ../../source/forms/z3c.form.rst:1853
+msgid "ZCML to register all components"
+msgstr "ZCML to register all components"
+
+# efe05e9d41a449eb98a316cc45b7ddfb
+#: ../../source/forms/z3c.form.rst:1855
+msgid "Portlet code::"
+msgstr "Portlet code::"
+
+# afb28e7bafae40ca8a455ef8ab7cf3e7
+#: ../../source/forms/z3c.form.rst:1915
+msgid ""
+"``formwrapper.pt`` is just a dummy form view template which wraps the form. "
+"This differs from standard form wrapper by *not* rendering Plone main layout"
+" around the form."
+msgstr "``formwrapper.pt`` is just a dummy form view template which wraps the form. This differs from standard form wrapper by *not* rendering Plone main layout around the form."
+
+# c29326958799439badd074d6d9bb8373
+#: ../../source/forms/z3c.form.rst:1925
+msgid ""
+"Then the portlet template itself (``zohoportlet.pt``) renders the portlet. "
+"The form is rendered using: ``<form tal:replace=\"structure "
+"view/form_wrapper\" />``."
+msgstr "Then the portlet template itself (``zohoportlet.pt``) renders the portlet. The form is rendered using: ``<form tal:replace=\"structure view/form_wrapper\" />``."
+
+# 5c34d4e10bc342f4a98cfd33a9bcde81
+#: ../../source/forms/z3c.form.rst:1960
+msgid ""
+"Viewlets behave a little differently, since they do some acquisition chain "
+"mangling when you assign variables to ``self``. Thus you should never have "
+"``self.view = view`` or ``self.form = form`` in a viewlet."
+msgstr "Viewlets behave a little differently, since they do some acquisition chain mangling when you assign variables to ``self``. Thus you should never have ``self.view = view`` or ``self.form = form`` in a viewlet."
+
+# c0add16f60c7418ba50288b0d3b80812
+#: ../../source/forms/z3c.form.rst:1964
+msgid "Template example for viewlet (don't do ``sel.form_wrapper``)"
+msgstr "Template example for viewlet (don't do ``sel.form_wrapper``)"
+
+# cfba7e16cfb14306acebfdba6f9fadd5
+#: ../../source/forms/z3c.form.rst:1972
+msgid "Then the necessary parts of form itself::"
+msgstr "Then the necessary parts of form itself::"
+
+# c874dedc7d5d4ddd8f1aba506793b9d7
+#: ../../source/forms/z3c.form.rst:2134
+msgid "Further reading"
+msgstr "Further reading"
+
+# eb47ea94d42b4638b4c760e3593c1309
+#: ../../source/forms/z3c.form.rst:2136
+msgid ""
+"This example code was taken from the ``mfabrik.plonezohointegration`` "
+"product which is in the Plone collective."
+msgstr "This example code was taken from the ``mfabrik.plonezohointegration`` product which is in the Plone collective."
+
+# b9b489e2f15a4a7a836abbabdbbd03e8
+#: ../../source/forms/z3c.form.rst:2139
+msgid "Another tutorial:"
+msgstr "Another tutorial:"
+
+# 4d59c53ec26a44eab776e3855b472693
+#: ../../source/forms/z3c.form.rst:2141
+msgid "http://plone.org/documentation/kb/using-z3c.form-forms-in-plone"
+msgstr "http://plone.org/documentation/kb/using-z3c.form-forms-in-plone"
+
+# 186f78c9ea1649bbb562576dcbc4b1f7
+#: ../../source/forms/z3c.form.rst:2144
+msgid "Validators"
+msgstr "Validators"
+
+# 34047fc5c908422aba679f28ea1a4b53
+#: ../../source/forms/z3c.form.rst:2149
+msgid ""
+"Please read `Dexterity manual validators chapter "
+"<http://plone.org/products/dexterity/documentation/manual/schema-driven-"
+"forms/customising-form-behaviour/referencemanual-all-pages>`_."
+msgstr "Please read `Dexterity manual validators chapter <http://plone.org/products/dexterity/documentation/manual/schema-driven-forms/customising-form-behaviour/referencemanual-all-pages>`_."
+
+# ae2576bf81e24ec886deeedc89d5ce82
+#: ../../source/forms/z3c.form.rst:2151
+msgid "There are three kind of validation hooks you can use with z3c.form"
+msgstr "There are three kind of validation hooks you can use with z3c.form"
+
+# b592407e287f408a95ff30ee948841e9
+#: ../../source/forms/z3c.form.rst:2153
+msgid "zope.schema field parameter specific"
+msgstr "zope.schema field parameter specific"
+
+# c381173415414e6b891b91e40a126fc7
+#: ../../source/forms/z3c.form.rst:2155
+msgid "zope.schema @invariant (validation is model specific)"
+msgstr "zope.schema @invariant (validation is model specific)"
+
+# f22d4f198c754bd798a6da08e2df6266
+#: ../../source/forms/z3c.form.rst:2157
+msgid "zope.schema constrain (validation is model specific)"
+msgstr "zope.schema constrain (validation is model specific)"
+
+# 886fc52c89f442d3bf996db314bb9021
+#: ../../source/forms/z3c.form.rst:2159
+msgid "z3c.form (validation is bound ot the form instance)"
+msgstr "z3c.form (validation is bound ot the form instance)"
+
+# 86fefef2e3744e1295a7646134c42c6e
+#: ../../source/forms/z3c.form.rst:2162
+msgid "Field specific internal validators"
+msgstr "Field specific internal validators"
+
+# 19369b616c164d61965f2666ff70ba93
+#: ../../source/forms/z3c.form.rst:2164
+msgid ""
+"When you define your field with *zope.schema* you can enable flags for field"
+" internal validation. This include e.g."
+msgstr "When you define your field with *zope.schema* you can enable flags for field internal validation. This include e.g."
+
+# 26711a81cc534f8b9cb922d51d984493
+#: ../../source/forms/z3c.form.rst:2168
+msgid "``required`` is field required on the form or not"
+msgstr "``required`` is field required on the form or not"
+
+# 537930c9572348e8b672b3870a2fb6b3
+#: ../../source/forms/z3c.form.rst:2170
+msgid "``min`` and ``max`` for number based fields"
+msgstr "``min`` and ``max`` for number based fields"
+
+# f072101c989545c2bf837dbec2bbb1fa
+#: ../../source/forms/z3c.form.rst:2183
+msgid ""
+"For available internal validation options, see the field source code in "
+"zope.schema package."
+msgstr "For available internal validation options, see the field source code in zope.schema package."
+
+# 3eda7155d9f54d3ca2e21a25d4f06b06
+#: ../../source/forms/z3c.form.rst:2186
+msgid "Constrain validators"
+msgstr "Constrain validators"
+
+# ad4471f112604c19b3d4d301033aafa6
+#: ../../source/forms/z3c.form.rst:2188
+msgid ""
+"zope.schema fields take a callable argument ``constrain`` which defines a "
+"Python function validating the incoming value."
+msgstr "zope.schema fields take a callable argument ``constrain`` which defines a Python function validating the incoming value."
+
+# f615e4b793b24df7a7a1735b1a1bce9f
+#: ../../source/forms/z3c.form.rst:2209
+msgid "For more information, see ``zope.schema`` documentation."
+msgstr "For more information, see ``zope.schema`` documentation."
+
+# 0f1da077ee7d4e179ac347e001205b21
+#: ../../source/forms/z3c.form.rst:2212
+msgid "Invariant validators"
+msgstr "Invariant validators"
+
+# 9abb73469c7c4ff7a9e025802aaaf3f0
+#: ../../source/forms/z3c.form.rst:2214
+msgid "TODO: Are invariants useful with z3c.form??"
+msgstr "TODO: Are invariants useful with z3c.form??"
+
+# 7ee343ec9f2b467c8b74da0db3ee376b
+#: ../../source/forms/z3c.form.rst:2217
+msgid "Form widget validators"
+msgstr "Form widget validators"
+
+# 04acb3f9a44745c0a07a06b65fd4c268
+#: ../../source/forms/z3c.form.rst:2219
+msgid "Validators are best added in the schema itself."
+msgstr "Validators are best added in the schema itself."
+
+# daa76ef9a8b2416586dabaf9b9ec9666
+#: ../../source/forms/z3c.form.rst:2221
+msgid ""
+"If you are using plain ``z3c.form``, you can check the `validators "
+"documentation <http://packages.python.org/z3c.form/validator.html>`_."
+msgstr "If you are using plain ``z3c.form``, you can check the `validators documentation <http://packages.python.org/z3c.form/validator.html>`_."
+
+# 6787e2c4d11145ad89a28d483ee48bc9
+#: ../../source/forms/z3c.form.rst:2224
+msgid ""
+"The plone.form.directives package provides convenient `decorators for form "
+"validators <http://pypi.python.org/pypi/plone.directives.form#validators>`_."
+" If you use ``plone.form.directives`` validators, make sure your package is "
+":doc:`grokked </components/grok>` (otherwise validators are not registered)."
+msgstr "The plone.form.directives package provides convenient `decorators for form validators <http://pypi.python.org/pypi/plone.directives.form#validators>`_. If you use ``plone.form.directives`` validators, make sure your package is :doc:`grokked </components/grok>` (otherwise validators are not registered)."
+
+# 43fe2475bac94f5e8768f5defac0a279
+#: ../../source/forms/z3c.form.rst:2230
+msgid "Example: How to use widget specific validators with ``z3c.form``::"
+msgstr "Example: How to use widget specific validators with ``z3c.form``::"
+
+# 424f093670204f5eba8d56016d957295
+#: ../../source/forms/z3c.form.rst:2275
+msgid ""
+"http://plone.org/products/dexterity/documentation/manual/schema-driven-forms"
+"/customising-form-behaviour/validation"
+msgstr "http://plone.org/products/dexterity/documentation/manual/schema-driven-forms/customising-form-behaviour/validation"
+
+# bc3259444aff46f2b338cb01ebaa3729
+#: ../../source/forms/z3c.form.rst:2278
+msgid "Custom field specific validation in form action handlers and update()"
+msgstr "Custom field specific validation in form action handlers and update()"
+
+# fe4395641eef454c95eb1bdbe192d785
+#: ../../source/forms/z3c.form.rst:2280
+msgid "http://stackoverflow.com/a/17466776/315168"
+msgstr "http://stackoverflow.com/a/17466776/315168"
+
+# ae84077e95f94a3fae8ab11bfa3a9caf
+#: ../../source/forms/z3c.form.rst:2283
+msgid "Customizing and translating error messages"
+msgstr "Customizing and translating error messages"
+
+# ebbc82f044f54d23bb1972c0260864df
+#: ../../source/forms/z3c.form.rst:2285
+msgid "If you want to custom error messages on per-field level::"
+msgstr "If you want to custom error messages on per-field level::"
+
+# 832ca107e972431d9442488bd4f627ca
+#: ../../source/forms/z3c.form.rst:2291
+msgid ""
+"Leave ``field`` parameter out if you want the new error message to apply to "
+"all fields."
+msgstr "Leave ``field`` parameter out if you want the new error message to apply to all fields."
+
+# a3c480d29dc8416e90ea7e62de8cae08
+#: ../../source/forms/z3c.form.rst:2296
+msgid "Read-only and disabled fields"
+msgstr "Read-only and disabled fields"
+
+# 264efc3a2d6848b98ee492558b42ee61
+#: ../../source/forms/z3c.form.rst:2298
+msgid "Read-only fields are not rendered in form edit mode::"
+msgstr "Read-only fields are not rendered in form edit mode::"
+
+# 49aa11b6369d46118b997191a1d2bac5
+#: ../../source/forms/z3c.form.rst:2306
+msgid ""
+"If the widget mode is ``display`` then it is rendered as in form view mode, "
+"so that the user cannot edit::"
+msgstr "If the widget mode is ``display`` then it is rendered as in form view mode, so that the user cannot edit::"

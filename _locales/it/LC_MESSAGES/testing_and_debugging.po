@@ -1,0 +1,1328 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:3
+msgid "Boilerplate tests"
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:5
+msgid "These are test snippets useful for common use cases."
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:8
+msgid ""
+"See http://plone.org/documentation/manual/developer-manual/testing/writing-a"
+"-plonetestcase-unit-integration-test to learn about PloneTestCase helper "
+"methods."
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:12
+msgid "Test portal title::"
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:18
+msgid "Test if view is protected::"
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:29
+msgid "Test if object exists in folder::"
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:35
+msgid "Javascript registered::"
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:43
+msgid "CSS registered::"
+msgstr ""
+
+#: ../../testing_and_debugging/boilerplate_tests.rst:51
+msgid "Test that a certain skin layer is present in portal_skins::"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:3
+msgid "Clean uninstall"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:5
+#: ../../testing_and_debugging/functional_testing.rst:5
+#: ../../testing_and_debugging/logging.rst:5
+#: ../../testing_and_debugging/pdb.rst:5
+msgid "Description"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:7
+msgid "How to test that your Plone add-on uninstalls cleanly"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:12
+#: ../../testing_and_debugging/functional_testing.rst:14
+#: ../../testing_and_debugging/logging.rst:12
+#: ../../testing_and_debugging/pdb.rst:13
+#: ../../testing_and_debugging/unit_testing.rst:8
+msgid "Introduction"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:14
+msgid ""
+"Clean uninstall means that removing your add-on does not leave Plone site to"
+" broken state. Sometimes damage might not be noticed immediately, causing "
+"great frustration for the users."
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:17
+msgid "Clean uninstall procedure is"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:19
+msgid ""
+"Use ``Add on installer`` to uninstall any add-ons. This MUST remove all add-"
+"on Python objects from the site ZODB database"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:22
+msgid "Remove eggs from the buildout, rerun buildout"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:24
+msgid ""
+"If there are any Python objects, which classes come from the removed egg, "
+"around the site cannot be exported or imported anymore. Also, Plone upgrade "
+"might fail."
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:29
+msgid "Clean uninstall test procedure"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:31
+msgid "Manual procedure"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:33
+msgid "Create a Plone site from buildout, with your add-on egg present"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:35
+msgid "Install your add-on"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:37
+msgid ""
+"Play around with add-on to make sure it stores all its data (settings, local"
+" utilities, annotations, etc.)"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:40
+msgid "Uninstall add-on"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:42
+msgid "Export Plone site through ZMI as zexp"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:44
+msgid ""
+"Create another Plone site from vanilla buildout (no any add-ons installed)"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:46
+msgid "Import .zexp"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:48
+msgid ""
+"If .zexp does not contain any objects from your add-on egg, which is missing"
+" in vanilla Plone installation, your add-on installs cleanly"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:52
+msgid "Example unit test"
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:54
+msgid ""
+"This code shows how to test that certain :doc`annotations "
+"</components/annotations>` are correctly cleaned."
+msgstr ""
+
+#: ../../testing_and_debugging/clean_uninstall.rst:57
+#: ../../testing_and_debugging/functional_testing.rst:130
+#: ../../testing_and_debugging/functional_testing.rst:141
+#: ../../testing_and_debugging/functional_testing.rst:154
+#: ../../testing_and_debugging/functional_testing.rst:170
+#: ../../testing_and_debugging/functional_testing.rst:181
+#: ../../testing_and_debugging/functional_testing.rst:249
+#: ../../testing_and_debugging/functional_testing.rst:263
+#: ../../testing_and_debugging/functional_testing.rst:362
+#: ../../testing_and_debugging/logging.rst:62
+#: ../../testing_and_debugging/logging.rst:82
+#: ../../testing_and_debugging/pdb.rst:56
+#: ../../testing_and_debugging/pdb.rst:78
+#: ../../testing_and_debugging/pdb.rst:224
+#: ../../testing_and_debugging/unit_testing.rst:142
+#: ../../testing_and_debugging/unit_testing.rst:306
+msgid "Example::"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:3
+msgid "Doctests"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:5
+msgid "Doctests are way to do tests with interactive Python interpreter."
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:7
+msgid "http://plone.org/documentation/tutorial/testing/doctests"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:10
+msgid "Doctests and pdb"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:12
+msgid ""
+"Python debugger (pdb) works little differently when invoked from doctests."
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:14
+msgid ""
+"Your locals stack frame is not what you might expect and refers to doctests "
+"internals::"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:19
+msgid "Corrective action is to go one level up in the stack::"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:30
+msgid "Interlude"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:32
+msgid ""
+"Interlude is a Python package, which you can use to start an interactive "
+"Python shell from doctests, bypassing the limitations described above."
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:35
+msgid ""
+"Just depend on 'interlude' and pass it via the globs dict to the doctest or "
+"import it from there::"
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:41
+msgid ""
+"When the testrunner passes interact, you'll get an interactive Python "
+"prompt."
+msgstr ""
+
+#: ../../testing_and_debugging/doctests.rst:43
+msgid "For more information see: https://pypi.python.org/pypi/interlude"
+msgstr ""
+
+#: ../../testing_and_debugging/error_log.rst:3
+msgid "Site error log service"
+msgstr ""
+
+#: ../../testing_and_debugging/error_log.rst:5
+msgid ""
+"Plone sites contain error log service which is located as *error_log* in the"
+" site root. It logs site exceptions and makes the tracebacks accessible from"
+" Plone control panel and ZMI."
+msgstr ""
+
+#: ../../testing_and_debugging/error_log.rst:8
+msgid ""
+"The service is somewhat archaid and can log exceptions only, no plain error "
+"messages."
+msgstr ""
+
+#: ../../testing_and_debugging/error_log.rst:10
+msgid ""
+"`Site error log service source code "
+"<http://svn.zope.org/Zope/trunk/src/Products/SiteErrorLog/SiteErrorLog.py?rev=96315&view=auto>`_."
+msgstr ""
+
+#: ../../testing_and_debugging/error_log.rst:13
+msgid "Example how to add exceptions to error log"
+msgstr ""
+
+#: ../../testing_and_debugging/error_log.rst:0
+msgid "Todo"
+msgstr ""
+
+#: ../../testing_and_debugging/error_log.rst:15
+msgid "Complete \"Example how to add exceptions to error log\""
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:3
+msgid "Functional testing"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:7
+msgid ""
+"Functional testing tool allows you to use scripted browser to load pages "
+"from your site and fill in forms automatically."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:16
+msgid ""
+"PloneTestCase product provides `FunctionalTestCase "
+"<https://github.com/plone/Products.PloneTestCase/tree/master/Products/PloneTestCase/PloneTestCase.py>`_"
+" base class for functional testing. Unlike unit tests, functional tests "
+"simulate real HTTP requests with transaction life cycle."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:19
+msgid ""
+"Functional tests has different transaction for each browser.open() request"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:21
+msgid ""
+"Functional tests do traversing and can check e.g. for cookie based "
+"permissions"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:23
+msgid ""
+"Unit test method is executed in a single transaction and this might make "
+"impossible to test cache related behavior"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:27
+msgid "Test browser"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:29
+msgid ""
+"Plone uses Products.Five.testbrowser as an browser emulator used in "
+"functional tests. It is based on zope.testbrowser package. You can find more"
+" information in the `zope.testbrowser docs home page "
+"<http://pypi.python.org/pypi/zope.testbrowser>`_. The API is described in "
+"`zope.testbrowser.interfaces (3.4 used by Plone 3) "
+"<http://svn.zope.org/zope.testbrowser/tags/3.4.2/src/zope/testbrowser/interfaces.py?rev=81337&view=markup>`_."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:35
+msgid ""
+"There also exists old `zc.testbrowser "
+"<http://pypi.python.org/pypi/zc.testbrowser>`_, which is a different package"
+" with similar name."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:38
+msgid ""
+"All code assumes here is is executed in unit test context where self.portal "
+"is your unit test site instance."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:41
+msgid "Recording tests"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:43
+msgid ""
+"You can record functional tests through the browser. Think it as a Microsoft"
+" Word macro recoder kind of thing."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:45
+msgid "http://plone.org/documentation/kb/testing/zope-testrecorder"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:47
+msgid ""
+"http://pyyou.wordpress.com/2008/04/11/how-to-install-zopetestrecorder-with-"
+"buildout/"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:49
+msgid "http://pypi.python.org/pypi/zope.testrecorder"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:52
+msgid "Functional test skeleton"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:54
+msgid ""
+"First see collective.testlayer package which does some of the things "
+"described below"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:57
+msgid "http://pypi.python.org/pypi/collective.testcaselayer"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:59
+msgid "Example code::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:109
+msgid "Preparing error logger"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:111
+msgid ""
+"Since zope.testbrowser uses normal Plone paging mechanism, you won't get "
+"nice tracebacks to your console."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:113
+msgid ""
+"The following snippet allows you to extract traceback data from "
+"site.error_log utility and print it to the console. Put it to your "
+"afterSetUp()::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:128
+msgid "Opening an URL"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:139
+msgid "Logging in"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:152
+msgid "Logout"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:165
+msgid "Showing the contents from the last request"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:167
+msgid ""
+"After test browser has opened an URL its content can be read from "
+"browser.contents variable."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:175
+msgid "Getting a form handler"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:177
+msgid ""
+"You can use testbrowser ``getForm()`` to access different forms on a page."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:179
+msgid "Form look-up is available by ``name`` or ``index``."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:186
+msgid "Listing available form controls"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:188
+msgid "You can do the following to know what content your form has eaten"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:190
+msgid ""
+"the mechanize browser instance that is used through zope.testbrowser. "
+"zope.testbrowser internally uses a testbrowser provided by the mechanize "
+"package. The mechanize objects are saved in browser.mech_browser and as "
+"attributes on different other instances returned by zope.testbrowser. "
+"mechanize has a different, less convenient api, but also provides more "
+"options. To see a list of all controls in a for you can do e.g.::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:205
+msgid "... or one-liner ...::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:209
+msgid "the HTML page source code::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:215
+msgid "Filling in a text field on  a page"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:217
+msgid "You can manipulate ``value`` of various form input controls."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:219
+msgid "Example how to submit Plone search page::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:239
+msgid "Selecting a checkbox"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:241
+msgid "Checkboxes are usually presented as name:list style names::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:247
+msgid "Clicking a button"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:254
+msgid ""
+"If you have a form instance, you can use the submit action. To click on the "
+"Button labeled \"Log in\" in the login form, you do::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:261
+msgid "Checking Unauthorized response"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:293
+msgid ""
+"Another example where test browser / Zope 2 publisher where invalidly "
+"handling Unauthorized exception::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:315
+msgid "Checking a HTTP response header"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:317
+msgid "Exaple:"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:319
+msgid ""
+"self.assertEqual(self.browser.headers[\"Content-type\"], 'application/octet-"
+"stream')"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:322
+msgid "Checking HTTP exception"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:324
+msgid "Example how to check for HTTP 500 Internal Server Error::"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:340
+msgid "Setting test browser headers"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:342
+msgid ""
+"Headers must be passed to underlying PublisherMechanizeBrowser instance and "
+"test browser must be constructed based on this instance."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:347
+msgid ""
+"When passing parameters to PublisherMechanizeBrowser.addheaders HTTP prefix "
+"will be automatically added to header name."
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:351
+msgid "Add header to browser"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:360
+msgid "Setting user agent"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:398
+msgid "For more information, see"
+msgstr ""
+
+#: ../../testing_and_debugging/functional_testing.rst:400
+msgid "https://mail.zope.org/pipermail/zope3-users/2008-May/007871.html"
+msgstr ""
+
+#: ../../testing_and_debugging/index.rst:3
+msgid "Testing and debugging"
+msgstr ""
+
+#: ../../testing_and_debugging/index.rst:5
+msgid "This section contains tips how to test and debug your code."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:3
+msgid "Logging"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:7
+msgid "How to write log output from your Plone add-on program code"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:14
+msgid ""
+"`Python logging package <http://docs.python.org/library/logging.html>`_ is "
+"used to log from Plone."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:17
+msgid "Log file location"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:19
+msgid "By default, logs go to ``var/log`` folder under buildout."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:21
+msgid ""
+"If Zope instance is started in the foreground mode logs will be printed in "
+"the console (stdout)."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:24
+msgid ""
+"Plone log filename varies depending on the installation mode (Zope, ZEO "
+"cluster). But for each instance there are two log files"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:27
+msgid "Event logs (errors), normally called *instance.log*"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:29
+msgid "HTTP request log (Apache compatible), normally called *Z2.log*"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:32
+msgid "Viewing logs in real time"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:34
+msgid "UNIX'y way for your terminal."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:36
+msgid ""
+"Open error log viewer using ``tail`` command (print content from file end) "
+"and wait for further file writes"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:43
+msgid "Press CTRL+C to abort."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:46
+msgid "Log level"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:48
+msgid ""
+"Default log level is ``INFO``. To enable more verbose logging, edit "
+"``buildout.cfg``,"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:50
+msgid ""
+"Change log level by editing ``[instance]`` section ``event-log-level``::"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:55
+msgid "More information"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:57
+msgid "http://pypi.python.org/pypi/plone.recipe.zope2instance"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:60
+msgid "Logging from Python code"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:75
+msgid "Logging from page templates and RestrictedPython scripts"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:77
+msgid ""
+"Python ``logging`` module doesn't provide Zope 2 security assertations and "
+"does not work in :doc:`RestrictedPython Python scripts "
+"</security/sandboxing>`."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:80
+msgid ""
+"However, you can use ``context.plone_log()`` method logging in the sandboxed"
+" execution mode."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:87
+msgid "Forcing log level and output"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:89
+msgid ""
+"The following snippet forces the log level of Python logging for the "
+"duration of the process by modifying the root logger object::"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:104
+msgid "Temporarily capturing log output"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:106
+msgid ""
+"You can capture Python logging output temporarily to a string buffer. This "
+"is useful if you want to use logging module to record the status of long "
+"running operations and later show to the end user, who does not have access "
+"to file system logs, how the operation proceeded."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:112
+msgid "Below is an Grok view code example."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:114
+msgid "Example view code::"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:232
+msgid "The related page template"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:269
+msgid "transaction_note()"
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:271
+msgid "Leave a note on Zope's *History* tab."
+msgstr ""
+
+#: ../../testing_and_debugging/logging.rst:273
+msgid ""
+"https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/utils.py#L382"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:3
+msgid "Python debugging"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:7
+msgid ""
+"Using Python command-line debugger (``pdb``) to debug Plone and Python "
+"applications."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:15
+msgid "The Python debugger (``pdb``) is an interactive command-line debugger."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:17
+msgid ""
+"It is very limited in functionality, but it will work in every environment "
+"and type of console. Plone also has through-the-web-browser PBD debugging "
+"add-on products."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:23
+msgid ""
+"``pdb`` is not the same as the Python interactive shell. ``pdb`` allows you "
+"to step through the code, whilst the Python shell allows you just to inspect"
+" and manipulate objects."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:27
+msgid ""
+"If you wish to play around with Zope in interactive Python shell or run "
+"scripts instead of debugging (exceptions), please read :doc:`Command line "
+"</misc/commandline>` documentation."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:31
+msgid "See also"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:33
+msgid "http://plone.org/documentation/kb/using-pdb"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:35
+msgid "http://plone.org/documentation/kb/best-practices/debugging-plone"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:38
+msgid "Using ``pdb``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:43
+msgid ""
+"# Go to your code and insert the statement ``import pdb; pdb.set_trace()`` "
+"at"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:41
+msgid ""
+"the point where you want have a closer look.  Next time the code is run, the"
+" execution will stop there and you can examine the current context variables"
+" from a Python command prompt."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:46
+msgid ""
+"# After you have added ``import pdb; pdb.set_trace()`` to your code, stop"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:46
+msgid ""
+"Zope and start it in the foreground using the ``bin/instance fg`` command."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:50
+msgid "# TextMate support for ``pdb`` can be found at"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:49
+msgid ""
+"`http://pypi.python.org/pypi/PdbTextMateSupport/0.3 "
+"<http://pypi.python.org/pypi/PdbTextMateSupport/0.3>`_."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:54
+msgid "# ``mr.freeze`` allows traces to be added without restarting:"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:53
+msgid ""
+"`http://pypi.python.org/pypi/mr.freeze "
+"<http://pypi.python.org/pypi/mr.freeze>`_."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:76
+msgid "Pretty printing objects"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:113
+msgid "Useful ``pdb`` commands"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:115
+msgid "Just type the command and hit enter."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:118
+msgid "``s``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:118
+msgid "step into, go into the function in the cursor"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:121
+msgid "``n``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:121
+msgid ""
+"step over, execute the function under the cursor without stepping into it"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:124
+msgid "``c``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:124
+msgid "continue, resume program"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:127
+msgid "``w``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:127
+msgid "where am I? displays current location in stack trace"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:130
+msgid "``b``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:130
+msgid "set breakpoint"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:133
+msgid "``cl``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:133
+msgid "clear breakpoint"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:136
+msgid "``bt``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:136
+msgid "print stack trace"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:139
+msgid "``up``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:139
+msgid "go to the scope of the caller function"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:142
+msgid "``pp``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:142
+msgid "pretty print object"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:146
+msgid "``until``"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:145
+msgid ""
+"Continue execution until the line with the line number greater than the "
+"current one is reached or when returning from current frame"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:150
+msgid ""
+"The ``until`` command (or ``unt``) is available only on Plone 4.x or "
+"superior as it is a new feature provided by the ``pdb`` module under Python "
+"2.6."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:156
+msgid "Useful ``pdb`` snippets"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:158
+msgid "Output object's class::"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:162
+msgid "Output object attributes and methods::"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:166
+msgid "Print local variables in the current function::"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:170
+msgid "Dumping incoming HTTP GET or HTTP POST::"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:175
+msgid "Executing code on the context of the current stack frame::"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:187
+msgid ""
+"The example above will modify the previous value of the variable ``my_tags``"
+" in the current stack frame."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:192
+msgid "Automatically start debugger when exception is raised (browser)"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:194
+msgid ""
+"You can start interactive through-the-browser Python debugger when your site"
+" throws an exception."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:197
+msgid ""
+"Instead of getting \"We're sorry there seems to be an error...\" page you "
+"get a pdb prompt which allows you to debug the exception. This is also known"
+" as post-mortem debugging."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:201
+msgid "This can be achieved with ` `Products.PDBDebugMode`` add-on."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:203
+msgid "http://pypi.python.org/pypi/Products.PDBDebugMode"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:208
+msgid ""
+"PDBDebugMode is not safe to install on the production server due to sandbox "
+"security escape."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:213
+msgid "Automatically start debugger when exception is raised (command line)"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:217
+msgid ""
+"This cannot be directly applied to a web server, but works with command line"
+" scripts."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:222
+msgid "This does not work with Zope web server launch as it forks a process."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:228
+msgid ""
+"Hit ``c`` and ``enter`` to start the application. It keeps running, until an"
+" uncaught exception is raised. At this point, it falls back to the ``pdb`` "
+"debug prompt."
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:233
+msgid "For more information see"
+msgstr ""
+
+#: ../../testing_and_debugging/pdb.rst:235
+msgid "http://docs.python.org/library/pdb.html"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:3
+msgid "Unit testing"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:10
+msgid ""
+"Unit tests are automated tests created by the developer to ensure that the "
+"add-on product is intact in the current product configuration. Unit tests "
+"are regression tests and are designed to catch broken functionality over the"
+" code evolution."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:15
+msgid ""
+"`Plone unit testing tutorial "
+"<http://plone.org/documentation/tutorial/richdocument/unit-testing>`_."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:18
+msgid "Running unit tests"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:20
+msgid ""
+"Since Plone 4, it is recommended to use ``zc.testrunner``  to run the test "
+"suites.  You need to add it to your ``buildout.cfg``, so that the ``test`` "
+"command will be generated."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:38
+msgid ""
+"On Plone 3 you can run tests with the ``bin/instance test`` command, which "
+"corresponds ``bin/test``."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:42
+msgid "Running tests for one package:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:48
+msgid "Running tests for one test case:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:54
+msgid "Running tests for two test cases:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:60
+msgid "To drop into the pdb debugger after each test failure:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:66
+msgid "To exclude tests:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:72
+msgid "To list tests that will be run:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:78
+msgid ""
+"The following will run tests for *all* Plone add-ons: useful to check "
+"whether you have a set of component that function well together:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:87
+msgid ""
+"The test runner does not give an error if you supply invalid package and "
+"test case name.  Instead it just simply doesn't execute tests."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:90
+msgid "More information:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:92
+msgid ""
+"http://plone.org/documentation/manual/upgrade-guide/version/upgrading-"
+"plone-3-x-to-4.0/updating-add-on-products-for-plone-4.0/no-longer-bin-"
+"instance-test-use-zc.recipe.testrunner"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:95
+msgid "AttributeError: 'module' object has no attribute 'test_suite'"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:97
+msgid "If you get the above error message there are two potential reasons:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:99
+msgid "You have both a ``tests.py`` file and a ``tests`` folder."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:101
+msgid ""
+"Old version: Zope version X unit test framework was updated not to need an "
+"explicit ``test_suite`` declaration in the ``test`` module any more. "
+"Instead, all subclasses of ``TestCase`` are automatically picked. However, "
+"this change is backwards incompatible. "
+"http://wiki.zope.org/zope2/HowToRunZopeUnitTests"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:108
+msgid "Test coverage"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:110
+msgid ""
+"Zope test running can show how much of your code is covered by automatic "
+"tests:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:113
+msgid "http://plone.org/documentation/kb/testing/code-coverage"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:116
+msgid "Running tests against Python egg"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:118
+msgid ""
+"You might need to add additional setup.py options to get your tests work"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:120
+msgid "http://rpatterson.net/blog/running-tests-in-egg-buildouts"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:123
+msgid "Creating unit tests"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:125
+msgid "Pointers:"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:127
+msgid "http://plone.org/documentation/kb/testing"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:129
+msgid "http://pypi.python.org/pypi/plone.app.testing"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:131
+msgid "http://pypi.python.org/pypi/Products.PloneTestCase"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:133
+msgid "http://www.zope.org/Members/shh/ZopeTestCaseWiki/ApiReference"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:136
+msgid "For new test suites, it is recommended to use `plone.app.testing`."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:140
+msgid "Base test class skeleton"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:189
+msgid "Posing as different users"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:191
+msgid "There is a shortcut to privilege you from all security checks::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:198
+msgid "In Plone 4, using plone.app.testing, use::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:196
+msgid "from plone.app.testing import login ... login(self.portal, 'admin')"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:200
+msgid "where ``self`` is the test case instance."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:204
+msgid ""
+"This privileges are effective only in the context where permissions are "
+"checked manually. They do not affect traversal-related permissions: looking "
+"up views or pages in unit test Python code.  For that kind of testing, use "
+"functional testing."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:210
+msgid "Unit tests and themes"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:212
+msgid ""
+"If your test code modifies skin registries you need to force the skin data "
+"to be reloaded."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:215
+msgid "Example (``self`` is the unit test)::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:220
+msgid "Running add-on installers and extensions profiles for unit tests"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:222
+msgid "By default, no add-on installers or extension profiles are installed."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:224
+msgid ""
+"You need to modify ``PloneTestCase.setupPloneSite()`` call in your base unit"
+" tests."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:227
+msgid "Simple example::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:231
+msgid "Complex example::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:237
+msgid "Tested package not found warning"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:239
+msgid ""
+"Installers may fail without interrupting the test run. Monitor Zope start up"
+" messages. If you get error like::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:244
+msgid "You might be missing this from your ``configure.zcml``"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:250
+msgid "... or you have a spelling error in your test setup code."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:253
+msgid "Load ZCML for testing"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:255
+msgid "For loading ZCML files in your test, you can use the Five API::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:263
+msgid "Setting log level in unit tests"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:265
+msgid ""
+"Many components use the ``DEBUG`` output level, while the default output "
+"level for unit testing is ``INFO``.  Import messages may go unnoticed during"
+" the unit test development."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:269
+msgid "Add this to your unit test code::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:279
+msgid "HTTP request"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:281
+msgid "Zope unit tests have a mock ``HTTPRequest`` object set up."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:283
+msgid "You can access it as follows::"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:288
+msgid "Setting a real HTTP request"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:298
+msgid "Grabbing emails"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:301
+msgid "Test outgoing email messages with Plone 3"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:303
+msgid "To debug outgoing email traffic you can create a dummy mailhost."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:365
+msgid "Test outgoing email messages with Plone 4"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:367
+msgid ""
+"The ``MailHost`` code has changed in Plone 4. For more detail about the "
+"changes please read the relevant section in the `Plone Upgrade Guide`_. "
+"According to that guide we can reuse some of the test code in "
+"``Products.CMFPlone.tests``."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:374
+msgid ""
+"Here's some example of a ``unittest.TestCase`` based on the excellent "
+"``plone.app.testing`` framework. Adapt it to your own needs."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:459
+msgid "Unit testing and the Zope component architecture"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:461
+msgid ""
+"If you are dealing with the Zope component architecture at a low level in "
+"your unit tests, there are some things to remember, because the global site "
+"manager doesn't behave properly in unit tests."
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:465
+msgid ""
+"See discussion: http://plone.293351.n2.nabble.com/PTC-global-components-bug-"
+"tp3413057p3413057.html"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:468
+msgid "ZCML"
+msgstr ""
+
+#: ../../testing_and_debugging/unit_testing.rst:470
+msgid ""
+"Below are examples how to run special ZCML snippets for your unit tests."
+msgstr ""

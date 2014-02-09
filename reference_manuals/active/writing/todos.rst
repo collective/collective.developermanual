@@ -14,4 +14,3 @@ See http://sphinx.pocoo.org/ext/todo.html for details.
 TODO items
 ===========
 
-.. todolist::

@@ -1,0 +1,767 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../images/content.rst:3
+msgid "Image-like content"
+msgstr ""
+
+#: ../../images/content.rst:5 ../../images/templates.rst:5
+msgid "Description"
+msgstr ""
+
+#: ../../images/content.rst:7
+msgid "How to programmatically manipulate images on your Plone site."
+msgstr ""
+
+#: ../../images/content.rst:12
+msgid "Introduction"
+msgstr ""
+
+#: ../../images/content.rst:14
+msgid "Plone supports image content in two forms:"
+msgstr ""
+
+#: ../../images/content.rst:16
+msgid ""
+"As stand-alone content type, images will be visible in the sitemap. This is "
+"the case for the default ``Image`` content type, but you can create custom "
+"content types with similar properties."
+msgstr ""
+
+#: ../../images/content.rst:20
+msgid ""
+"As a field, the image is directly associated with one content object.  Use "
+"``Archetypes.fields.ImageField``."
+msgstr ""
+
+#: ../../images/content.rst:25
+msgid "Custom image content type"
+msgstr ""
+
+#: ../../images/content.rst:27
+msgid ""
+"If you want to have your custom content type behave like the stock Plone "
+"``Image`` content type:"
+msgstr ""
+
+#: ../../images/content.rst:30
+msgid ""
+"Inherit from the content class "
+"``Products.ATContentType.content.image.ATImage`` and use the schema from "
+"that class."
+msgstr ""
+
+#: ../../images/content.rst:33
+msgid ""
+"When writing the ``GenericSetup`` XML of your type, follow the example of "
+"`Image.xml "
+"<https://github.com/plone/Products.CMFPlone/tree/master/Products/CMFPlone/profiles/default/types/Image.xml>`_."
+msgstr ""
+
+#: ../../images/content.rst:35
+msgid ""
+"Do not set workflow for your type in ``profiles/default/workflows.xml``"
+msgstr ""
+
+#: ../../images/content.rst:48
+msgid "Image scales (Plone 4)"
+msgstr ""
+
+#: ../../images/content.rst:50
+msgid ""
+"Archetypes based content image scales is handled by `plone.namedfile "
+"<https://pypi.python.org/pypi/plone.namedfile>`_."
+msgstr ""
+
+#: ../../images/content.rst:52
+msgid ""
+"Archetypes based content image scales is handled by `plone.app.imaging "
+"<http://plone.org/products/plone.app.imaging>`_."
+msgstr ""
+
+#: ../../images/content.rst:54
+msgid ""
+"Both packages offer the same traverseable `@@images` view which can be used "
+"from page templates and Python code to provide different image scales for "
+"image fields on content."
+msgstr ""
+
+#: ../../images/content.rst:58
+msgid "Image scales (Plone 3)"
+msgstr ""
+
+#: ../../images/content.rst:60
+msgid ""
+"When the image is uploaded, both field or content, Plone creates scaled-down"
+" versions from it by default."
+msgstr ""
+
+#: ../../images/content.rst:63
+msgid ""
+"These are configured using the ``ImageField`` *``sizes``* parameter. See the"
+" ``ImageField`` class notes here:"
+msgstr ""
+
+#: ../../images/content.rst:66 ../../images/templates.rst:174
+msgid ""
+"https://github.com/plone/Products.Archetypes/tree/master/Products/Archetypes/Field.py"
+msgstr ""
+
+#: ../../images/content.rst:68
+msgid "The default image scales for ``Image`` content are configured in:"
+msgstr ""
+
+#: ../../images/content.rst:70 ../../images/content.rst:95
+#: ../../images/templates.rst:154
+msgid ""
+"https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py"
+msgstr ""
+
+#: ../../images/content.rst:72
+msgid "Configuration::"
+msgstr ""
+
+#: ../../images/content.rst:83
+msgid "More info:"
+msgstr ""
+
+#: ../../images/content.rst:85
+msgid ""
+"http://plone.293351.n2.nabble.com/Register-browser-view-for-image-scales-"
+"tp5626267p5626267.html"
+msgstr ""
+
+#: ../../images/content.rst:88
+msgid "``getScale()``"
+msgstr ""
+
+#: ../../images/content.rst:90
+msgid ""
+"``ImageField`` provides a ``getScale()`` method to get the scaled version of"
+" the image based on the ``sizes`` configuration key."
+msgstr ""
+
+#: ../../images/content.rst:93
+msgid "See example in ``__bobo_traverse__``:"
+msgstr ""
+
+#: ../../images/content.rst:99
+msgid "Accessing images"
+msgstr ""
+
+#: ../../images/content.rst:101
+msgid ""
+"``ImageField`` is mapped to a traversable attribute of your content type. "
+"E.g. if your content object has a field ``imageOne`` and is found at this "
+"URL::"
+msgstr ""
+
+#: ../../images/content.rst:106
+msgid "the image can be directly downloaded from::"
+msgstr ""
+
+#: ../../images/content.rst:112
+msgid "Scaled versions for Image content (``ATImage``)"
+msgstr ""
+
+#: ../../images/content.rst:114
+msgid ""
+"If you want different scales you can add ``image_XXX`` prefix where ``XXX`` "
+"is the corresponding scale name::"
+msgstr ""
+
+#: ../../images/content.rst:119
+msgid ""
+"In **Plone 4** this behavior comes from the monkey-patch applied by the "
+"`plone.app.imaging <http://plone.org/products/plone.app.imaging>`_ package."
+msgstr ""
+
+#: ../../images/content.rst:122
+msgid ""
+"In **Plone 3** this hook is defined in ``__bobo_traverse__`` in ``ATImage`` "
+"class: * "
+"https://github.com/plone/Products.ATContentTypes/tree/master/Products/ATContentTypes/content/image.py"
+msgstr ""
+
+#: ../../images/content.rst:127
+msgid "``portal_catalog`` and images"
+msgstr ""
+
+#: ../../images/content.rst:129
+msgid ""
+"Do not index image objects themselves, as adding image data to the "
+"``portal_catalog`` brain objects would greatly increase their site and make "
+"brain look-up slow."
+msgstr ""
+
+#: ../../images/content.rst:133
+msgid ""
+"Instead, index only image paths using :doc:`getPhysicalPath() "
+"</serving/traversing>`. When you need to display image using metadata "
+"columns, you can generate the image URL manually. Then, the image object "
+"will be woken up when the browser makes a HTTP request for the image."
+msgstr ""
+
+#: ../../images/content.rst:140
+msgid "Custom image scales and recreating scale data"
+msgstr ""
+
+#: ../../images/content.rst:143
+msgid "For Plone 4"
+msgstr ""
+
+#: ../../images/content.rst:145
+msgid ""
+"`plone.app.imaging <http://plone.org/products/plone.app.imaging>`_ allows "
+"you to configure available image scales in ``portal_properties`` -> "
+"``imaging_properties``."
+msgstr ""
+
+#: ../../images/content.rst:149
+msgid ""
+"You can update these through-the-web or using :doc:`GenericSetup profile "
+"</components/genericsetup>`."
+msgstr ""
+
+#: ../../images/content.rst:152
+msgid "``propertiestool.xml``"
+msgstr ""
+
+#: ../../images/content.rst:181
+msgid ""
+"For Plone 4, after adding new scales no batch processing of existing images "
+"are needed and new scales are created on-demand when the images are viewed "
+"for the first time."
+msgstr ""
+
+#: ../../images/content.rst:187
+msgid "For Plone 3"
+msgstr ""
+
+#: ../../images/content.rst:189
+msgid ""
+"Below is an example showing how to make custom image scales available in "
+"your Plone site."
+msgstr ""
+
+#: ../../images/content.rst:192
+msgid "Monkey-patch ``ATImages`` to have new scale versions available."
+msgstr ""
+
+#: ../../images/content.rst:194
+msgid ""
+"Have migration code which will run all through all ``ATImage`` content on "
+"the site and recreate their scale versions, thus populating image scale data"
+" for new scale versions also."
+msgstr ""
+
+#: ../../images/content.rst:198
+msgid ""
+"The new sizes are automatically effected to rich text editor image sizes "
+"options (active WYSIWYG editor on Plone site)"
+msgstr ""
+
+#: ../../images/content.rst:201
+msgid "``images.py``::"
+msgstr ""
+
+#: ../../images/content.rst:287
+msgid "``configure.zcml``"
+msgstr ""
+
+#: ../../images/content.rst:305
+msgid "Automatic image scales on ReferenceFields"
+msgstr ""
+
+#: ../../images/content.rst:307
+msgid "Python code::"
+msgstr ""
+
+#: ../../images/content.rst:343
+msgid "in configure.zcml::"
+msgstr ""
+
+#: ../../images/index.rst:3
+msgid "Images"
+msgstr ""
+
+#: ../../images/index.rst:5
+msgid "Image manipulation related documentation."
+msgstr ""
+
+#: ../../images/pil.rst:3
+msgid "Python Imaging Library (PIL)"
+msgstr ""
+
+#: ../../images/pil.rst:5
+msgid ""
+"Plone uses internally  Python Imaging Library (PIL) for low level image "
+"manipulation and decoding."
+msgstr ""
+
+#: ../../images/pil.rst:9
+msgid "Installing PIL"
+msgstr ""
+
+#: ../../images/pil.rst:11
+msgid ""
+"This concerns only UNIXes as Windows installer comes with PIL binaries."
+msgstr ""
+
+#: ../../images/pil.rst:14
+msgid ""
+"http://www.koansys.com/tech/install-plone-with-zopeskel-buildout-needs-pil"
+msgstr ""
+
+#: ../../images/pil.rst:16
+msgid ""
+"http://blog.twinapex.fi/2009/11/19/installing-python-imaging-library-pil-"
+"under-virtualenv-or-buildout/"
+msgstr ""
+
+#: ../../images/pil.rst:18
+msgid ""
+"http://destefano.wordpress.com/2008/03/18/zope-buildouts-for-plone-on-os-x"
+"-heaven-or-hell/"
+msgstr ""
+
+#: ../../images/pil.rst:20
+msgid ""
+"PIL has libjpeg as a dependency and you need to install it using your "
+"operating system package manager. On OSX you can use `macports "
+"<http://www.macports.org/>`_."
+msgstr ""
+
+#: ../../images/pil.rst:24
+msgid ""
+"Make sure that you don't have PIL without libjpeg support in your system-"
+"wide Python setup"
+msgstr ""
+
+#: ../../images/pil.rst:28
+msgid "Installing libjpeg on OS X"
+msgstr ""
+
+#: ../../images/pil.rst:30
+msgid "Get http://www.ijg.org/files/jpegsrc.v7.tar.gz, and then::"
+msgstr ""
+
+#: ../../images/pil.rst:39
+msgid "Then you can install PIL with JPEG support."
+msgstr ""
+
+#: ../../images/pil.rst:42
+msgid "Pillow"
+msgstr ""
+
+#: ../../images/pil.rst:44
+msgid ""
+"In late 2010, a packaging fork called `Pillow`_ was created to offer better "
+"multi-OS installation support. Specifically it offers:"
+msgstr ""
+
+#: ../../images/pil.rst:46
+msgid "Setuptools compatibility"
+msgstr ""
+
+#: ../../images/pil.rst:47
+msgid "Hosting (and mirroring) by PyPI (vs. off site)"
+msgstr ""
+
+#: ../../images/pil.rst:48
+msgid "Windows eggs"
+msgstr ""
+
+#: ../../images/pil.rst:49
+msgid ""
+"Bug fixes (many of which simply add vendor-specific library directories to "
+"the compiler's search path.)"
+msgstr ""
+
+#: ../../images/pil.rst:51
+msgid ""
+"As a result, PIL can now be installed on many more systems simply by using "
+"the \"Pillow\" package name. E.g.::"
+msgstr ""
+
+#: ../../images/pil.rst:55
+msgid "Or::"
+msgstr ""
+
+#: ../../images/pil.rst:59
+msgid "Or add to the list of eggs in your Buildout."
+msgstr ""
+
+#: ../../images/templates.rst:3
+msgid "Images in page templates"
+msgstr ""
+
+#: ../../images/templates.rst:7
+msgid "How to link to images in page templates in Plone."
+msgstr ""
+
+#: ../../images/templates.rst:12
+msgid "Putting a static image into a page template"
+msgstr ""
+
+#: ../../images/templates.rst:14
+msgid "Here is an example how to create an ``<img>`` tag in a ``.pt`` file:"
+msgstr ""
+
+#: ../../images/templates.rst:20
+msgid "Let's break this down:"
+msgstr ""
+
+#: ../../images/templates.rst:22 ../../images/templates.rst:31
+msgid "Obviously we are rendering an ``<img>`` tag."
+msgstr ""
+
+#: ../../images/templates.rst:24 ../../images/templates.rst:33
+msgid ""
+"The ``src`` attribute is dynamically generated using a :term:`TALES` "
+"expression."
+msgstr ""
+
+#: ../../images/templates.rst:27
+msgid ""
+"We use *string comprehension* to create the ``src`` attribute. Alternatively"
+" we could use e.g. the ``python:`` :term:`TALES` expression type and embed "
+"one line python of code to generate the attribute value."
+msgstr ""
+
+#: ../../images/templates.rst:35
+msgid ""
+"We use a *string comprehension* to create the ``src`` attribute. "
+"Alternatively, we could for example use the ``python:`` protocol and embed "
+"one line of python code to generate the attribute value."
+msgstr ""
+
+#: ../../images/templates.rst:39
+msgid ""
+"We look up a helper view called :doc:`plone_portal_state </misc/context>`. "
+"This is a ``BrowserView`` shipped with Plone. Its purpose is to expose "
+"different helper methods to page templates and Python code."
+msgstr ""
+
+#: ../../images/templates.rst:43
+msgid ""
+"We call ``plone_portal_state``'s ``portal_url()`` method. This will return "
+"the root URL of our site. Note that this is not necessary the domain's top-"
+"level URL, as Plone sites can be nested in folders, or served on a path "
+"among unrelated web properties."
+msgstr ""
+
+#: ../../images/templates.rst:49
+msgid ""
+"We append our Zope 3 resource path to our site root URL (see below). This "
+"maps to some static media folder in our add-on files on the disk."
+msgstr ""
+
+#: ../../images/templates.rst:52
+msgid "There we point to ``close-icon.png`` image file."
+msgstr ""
+
+#: ../../images/templates.rst:54
+msgid ""
+"We also add the ``alt`` attribute of the ``<img>`` tag normally. It is not "
+"dynamically generated."
+msgstr ""
+
+#: ../../images/templates.rst:57
+msgid ""
+"When the page template is generated, the following snippet could look like, "
+"for example:"
+msgstr ""
+
+#: ../../images/templates.rst:64
+msgid "... or:"
+msgstr ""
+
+#: ../../images/templates.rst:70
+msgid "... depending on the site virtual hosting configuration."
+msgstr ""
+
+#: ../../images/templates.rst:73
+msgid "Relative image look-ups"
+msgstr ""
+
+#: ../../images/templates.rst:77
+msgid ""
+"Never create relative image look-ups without prefixing the image source URL "
+"with the site root."
+msgstr ""
+
+#: ../../images/templates.rst:80
+msgid "Hardcoded relative image path might seem to work:"
+msgstr ""
+
+#: ../../images/templates.rst:86
+msgid ""
+"... but this causes a different image *base URL* to be used on every page. "
+"The image URLs, from the browser point of view, would be:"
+msgstr ""
+
+#: ../../images/templates.rst:93
+msgid "... and then in another folder:"
+msgstr ""
+
+#: ../../images/templates.rst:99
+msgid "... which **prevents the browser from caching the image**."
+msgstr ""
+
+#: ../../images/templates.rst:102
+msgid "Registering static media folders in your add-on product"
+msgstr ""
+
+#: ../../images/templates.rst:105
+msgid "Zope 3 resource directory"
+msgstr ""
+
+#: ../../images/templates.rst:107
+msgid ""
+"The right way to put in a static image is to use a Zope 3 resource "
+"directory."
+msgstr ""
+
+#: ../../images/templates.rst:110
+msgid ""
+"Create folder ``yourcompany.product/yourcompany/product/browser/static``."
+msgstr ""
+
+#: ../../images/templates.rst:112
+msgid ""
+"Add the following :term:`ZCML` to "
+"``yourcompany.product/yourcompany/product/browser/configure.zcml``."
+msgstr ""
+
+#: ../../images/templates.rst:123
+msgid ""
+"This will be picked up at the ``++resource++yourcompany.product/`` static "
+"media path."
+msgstr ""
+
+#: ../../images/templates.rst:126
+msgid ""
+"Layer is optional: the static media path is available only when your add-on "
+"product is installed if the :doc:`layer </views/layers>` is specified."
+msgstr ""
+
+#: ../../images/templates.rst:131
+msgid "Grok static media folder"
+msgstr ""
+
+#: ../../images/templates.rst:133
+msgid ""
+"This applies for add-on products using :doc:`five.grok </components/grok>` "
+"API."
+msgstr ""
+
+#: ../../images/templates.rst:135
+msgid "Create folder ``yourcompany.product/yourcompany/product/static``"
+msgstr ""
+
+#: ../../images/templates.rst:137
+msgid ""
+"This will be automatically picked up as ``++resource++yourcompany.product/``"
+" static media path when a Grok'ed add-on is launched."
+msgstr ""
+
+#: ../../images/templates.rst:142
+msgid "Rendering Image content items"
+msgstr ""
+
+#: ../../images/templates.rst:144
+msgid ""
+"You can refer to ``ATImage`` object's content data download by adding "
+"``/image`` to the URL:"
+msgstr ""
+
+#: ../../images/templates.rst:151
+msgid ""
+"The magic is done in the ``__bobo_traverse__`` method of ``ATImage`` by "
+"providing traversable hooks to access image download:"
+msgstr ""
+
+#: ../../images/templates.rst:157
+msgid "Rendering ``ImageField``"
+msgstr ""
+
+#: ../../images/templates.rst:159
+msgid ""
+"Archetypes's ``ImageField`` maps its data to the content object at attribute"
+" which is the field's name. If you have a field ``campaignVideoThumbnail`` "
+"you can generate an image tag as follows:"
+msgstr ""
+
+#: ../../images/templates.rst:168
+msgid ""
+"If you need more complex ``<img>`` output, create a helper function in your "
+"``BrowserView`` and use Python code to perform the ``ImageField`` "
+"manipulation."
+msgstr ""
+
+#: ../../images/templates.rst:172
+msgid "See ``ImageField`` for more information:"
+msgstr ""
+
+#: ../../images/templates.rst:177
+msgid "``tag()`` method"
+msgstr ""
+
+#: ../../images/templates.rst:181
+msgid "Using ``tag()`` is discouraged. Create your image tags manually."
+msgstr ""
+
+#: ../../images/templates.rst:183
+msgid ""
+"Some content provides a handy ``tag()`` method to generate ``<img src=\"\" "
+"/>`` tags with different image sizes."
+msgstr ""
+
+#: ../../images/templates.rst:187
+msgid "``tag()`` is available on"
+msgstr ""
+
+#: ../../images/templates.rst:189
+msgid "Archetypes ``ImageField``"
+msgstr ""
+
+#: ../../images/templates.rst:191
+msgid "``ATNewsItem``"
+msgstr ""
+
+#: ../../images/templates.rst:193
+msgid "``ATImage``"
+msgstr ""
+
+#: ../../images/templates.rst:195
+msgid "``FSImage`` (Zope 2 image object on the file-system)"
+msgstr ""
+
+#: ../../images/templates.rst:197
+msgid ""
+"``tag()`` is defined in `OFS.Image "
+"<http://svn.zope.org/Zope/trunk/src/OFS/Image.py?rev=96262&view=auto>`_."
+msgstr ""
+
+#: ../../images/templates.rst:200
+msgid "Scaling images"
+msgstr ""
+
+#: ../../images/templates.rst:202
+msgid ""
+"``tag()`` supports scaling. Scale sizes are predefined. When an ``ATImage`` "
+"is uploaded, various scaled versions of it are stored in the database."
+msgstr ""
+
+#: ../../images/templates.rst:206
+msgid "Displaying a version of the image using the \"preview\" scale::"
+msgstr ""
+
+#: ../../images/templates.rst:210
+msgid "This will generate:"
+msgstr ""
+
+#: ../../images/templates.rst:218
+msgid ""
+"If you are not using the ``alt`` attribute, you should set it to an empty "
+"string: ``alt=\"\"``. Otherwise screen readers will read the ``src`` "
+"attribute of the ``<img>`` tag aloud."
+msgstr ""
+
+#: ../../images/templates.rst:222
+msgid ""
+"In order to simplify accessing these image scales, use "
+"`archetypes.fieldtraverser "
+"<http://pypi.python.org/pypi/archetypes.fieldtraverser>`_. This package "
+"allows you to traverse to the stored image scales while still using "
+"``AnnotationStorage`` and is a lot simpler to get going (in the author's "
+"humble opinion :)."
+msgstr ""
+
+#: ../../images/templates.rst:228
+msgid ""
+"Default scale names and sizes are defined in ``ImageField`` declaration for "
+"custom ``ImageField``\\s. For ``ATImage``, those are in "
+"`Products.ATContentTypes.content.image "
+"<http://svn.plone.org/svn/collective/Products.ATContentTypes/trunk/Products/ATContentTypes/content/image.py>`_."
+msgstr ""
+
+#: ../../images/templates.rst:235
+msgid "Lightbox style image pop-ups"
+msgstr ""
+
+#: ../../images/templates.rst:237
+msgid ""
+"Plone comes with `plone.app.jquerytools "
+"<http://pypi.python.org/pypi/plone.app.jquerytools>`_ which offers easy "
+"integration for lightbox style image pop-ups."
+msgstr ""
+
+#: ../../images/templates.rst:240
+msgid ""
+"You can use Plone standard image content type, defining scales using "
+"`plone.app.imaging <https://github.com/plone/plone.app.imaging/>`_ or you "
+"can define image fields in your schema."
+msgstr ""
+
+#: ../../images/templates.rst:243
+msgid ""
+"In the example below we define custom image fields in Archetypes schema."
+msgstr ""
+
+#: ../../images/templates.rst:245
+msgid "contenttype.py::"
+msgstr ""
+
+#: ../../images/templates.rst:273
+msgid "Related view page template file"
+msgstr ""
+
+#: ../../images/templates.rst:285
+msgid ""
+"And then we activate all this in a Javascript using ``prepOverlay()`` from "
+"``plone.app.jquerytools``"
+msgstr ""
+
+#: ../../images/templates.rst:317
+msgid "Rotating banners"
+msgstr ""
+
+#: ../../images/templates.rst:319
+msgid ""
+"Simple rotating banneres can be done with `jQuery Cycle plug-in (lite) "
+"<http://jquery.malsup.com/cycle/>`_."
+msgstr ""
+
+#: ../../images/templates.rst:321
+msgid ""
+"Example TAL code... render list of content items and extract one image from "
+"each of them"
+msgstr ""
+
+#: ../../images/templates.rst:335
+msgid "Then use the the following Javascript to boostrap the cycling"
+msgstr ""
+
+#: ../../images/templates.rst:353
+msgid ""
+"You need to have this snippet and ``jquery.cycle.light.js`` in your "
+"portal_javascripts registry."
+msgstr ""
+
+#: ../../images/templates.rst:355
+msgid ""
+"You also may need to set pixel height for ``cycle`` elements, as they use "
+"absolute positioning making the element take otherwise 0 pixel of height."
+msgstr ""

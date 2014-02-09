@@ -1,0 +1,1070 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../performance/caching.rst:3
+msgid "Caching rules"
+msgstr ""
+
+#: ../../performance/caching.rst:7 ../../performance/decorators.rst:5
+#: ../../performance/instancesthreads.rst:7 ../../performance/tips.rst:7
+msgid "Description"
+msgstr ""
+
+#: ../../performance/caching.rst:9
+msgid ""
+"How to program front end caching server (Varnish, Apache) to cache the "
+"content from Plone site and thus make it faster."
+msgstr ""
+
+#: ../../performance/caching.rst:13 ../../performance/decorators.rst:13
+#: ../../performance/instancesthreads.rst:13 ../../performance/ramcache.rst:8
+msgid "Introduction"
+msgstr ""
+
+#: ../../performance/caching.rst:15
+msgid ""
+"Plone caching is configured using the `plone.app.caching "
+"<http://pypi.python.org/pypi/plone.app.caching>`_ add-on. It supplies a web "
+"user interface for cache configuration and default caching rules for Plone."
+msgstr ""
+
+#: ../../performance/caching.rst:20
+msgid ""
+"Using only the web user interface, ``plone.app.caching`` is very flexible "
+"already.  This document mainly deals how you can combine "
+"``plone.app.caching`` with your custom code."
+msgstr ""
+
+#: ../../performance/caching.rst:24
+msgid ""
+"Internally ``plone.app.caching`` uses `z3c.caching "
+"<http://pypi.python.org/pypi/z3c.caching/>`_ which defines programming level"
+" ZCML directives to create your cache rules."
+msgstr ""
+
+#: ../../performance/caching.rst:28
+msgid "``plone.app.caching`` does both:"
+msgstr ""
+
+#: ../../performance/caching.rst:30
+msgid "front end caching server support, and"
+msgstr ""
+
+#: ../../performance/caching.rst:32
+msgid "in-memory cache in Zope."
+msgstr ""
+
+#: ../../performance/caching.rst:34
+msgid ""
+"``plone.app.caching`` also defines default rules for various Plone out-of-"
+"the-box content views and item. See:"
+msgstr ""
+
+#: ../../performance/caching.rst:37
+msgid ""
+"https://github.com/plone/plone.app.caching/tree/master/plone/app/caching/caching.zcml"
+msgstr ""
+
+#: ../../performance/caching.rst:39
+msgid ""
+"The caching operations (strong, moderate, weak) are defined in Python code "
+"itself, as they have quite tricky conditions. You can find the default "
+"operations here:"
+msgstr ""
+
+#: ../../performance/caching.rst:43
+msgid ""
+"https://github.com/plone/plone.app.caching/tree/master/plone/app/caching/operations/default.py"
+msgstr ""
+
+#: ../../performance/caching.rst:47
+msgid ""
+"You usually don't need to override the operation classes itself. "
+"``plone.app.caching`` provides web UI to override parameters, like timeout, "
+"for each rule, on the *Detailed settings* tab in cache control panel (Create"
+" per-ruleset parameters link)."
+msgstr ""
+
+#: ../../performance/caching.rst:54
+msgid "Plone 3 has its own, older, caching mechanisms."
+msgstr ""
+
+#: ../../performance/caching.rst:58
+msgid "Setting per-view cache rules"
+msgstr ""
+
+#: ../../performance/caching.rst:60
+msgid ""
+"Here is an example how you can define a cache rules for your custom view "
+"class.  In this example we want to cache our site front page in Varnish, "
+"because is is very complex, and wakes up a lot of ZODB objects. The front "
+"page is programmed using ``five.grok.View`` class, but it could be any kind "
+"of view class that Plone understands."
+msgstr ""
+
+#: ../../performance/caching.rst:66
+msgid ""
+"Our front page is subject to moderate changes as new content comes in, but "
+"the changes are not time critical, so we define a one hour timeout for "
+"caching the front page."
+msgstr ""
+
+#: ../../performance/caching.rst:72
+msgid ""
+"Currently, setting caching rules for view classes is not supported through "
+"the web, but using ZCML or Python is the way to go."
+msgstr ""
+
+#: ../../performance/caching.rst:75
+msgid ""
+"In our case we are also using \"a dummy cache\" which does not provide "
+"purging through Plone |---| the only way to purge the front-end proxy is to "
+"do it from the Varnish control panel.  But that is OK, because if something "
+"bad ends up being cached, it will be gone in one hour."
+msgstr ""
+
+#: ../../performance/caching.rst:80
+msgid ""
+"Here is our ``configure.zcml`` for our custom add-on ``browser`` package:"
+msgstr ""
+
+#: ../../performance/caching.rst:111
+msgid ""
+"After defining the rule and checking that the rule appears in the caching "
+"control panel, we'll:"
+msgstr ""
+
+#: ../../performance/caching.rst:114
+msgid "assign *Moderate caching* operation to *Homepage*;"
+msgstr ""
+
+#: ../../performance/caching.rst:116
+msgid ""
+"on the *Detailed settings* tab we'll use the *Create per-ruleset* command to"
+" override timeout to be 1h instead of default 24h for *Homepage*."
+msgstr ""
+
+#: ../../performance/caching.rst:121
+msgid ""
+"Do not enable the Zope RAM cache for page templates. Somehow, at some point,"
+" you will end up having some bad page HTML in Zope's internal cache and you "
+"have no idea how to clear it."
+msgstr ""
+
+#: ../../performance/caching.rst:127
+msgid ""
+"If you are testing the rule on a local computer first, remember to re-do "
+"caching control panels in the production environment, as they are stored in "
+"the database."
+msgstr ""
+
+#: ../../performance/caching.rst:132
+msgid "Testing the rule"
+msgstr ""
+
+#: ../../performance/caching.rst:134
+msgid ""
+"First, we'll test the rule on our local development computer to make sure "
+"that it loads;"
+msgstr ""
+
+#: ../../performance/caching.rst:137
+msgid ""
+"then we'll test the rule in the production environment with Varnish to see "
+"that Varnish picks up ``Expires`` header"
+msgstr ""
+
+#: ../../performance/caching.rst:142
+msgid ""
+"To test ``plone.app.caching`` rules you need to run the site in production "
+"mode (not in the foreground).  Otherwise ``plone.app.caching`` is disabled."
+msgstr ""
+
+#: ../../performance/caching.rst:146
+msgid ""
+"Here is an example showing how to test loading the page using the ``wget`` "
+"UNIX command-line utility (discard the retrieved document and print the HTTP"
+" response headers)::"
+msgstr ""
+
+#: ../../performance/caching.rst:152
+msgid "The output looks like this::"
+msgstr ""
+
+#: ../../performance/caching.rst:172
+msgid ""
+"We see that ``X-Cache-Operation`` and ``X-Cache-Rule`` from "
+"``plone.app.caching`` debug info are present, so we know that it is setting "
+"HTTP headers correctly, so that the front end server (Varnish) will receive "
+"the appropriate directives."
+msgstr ""
+
+#: ../../performance/caching.rst:177
+msgid ""
+"After deploying the change in the production environment, we'll check "
+"Varnish is picking up the rule. We fetch the page twice: first run is *cold*"
+" (not yet cached), the second run should be cached::"
+msgstr ""
+
+#: ../../performance/caching.rst:184
+msgid "The output::"
+msgstr ""
+
+#: ../../performance/caching.rst:207
+msgid "We'll see that you have **two** numbers on line from Varnish::"
+msgstr ""
+
+#: ../../performance/caching.rst:211
+msgid ""
+"These are Varnish internal timestamps: when the request was pulled to the "
+"cache and when it was served. If you see only one number on subsequent "
+"requests it means that Varnish is not caching the request (because it's "
+"fetching the page from Plone every time). If you see two numbers you know it"
+" is OK (and you can feel the speed)."
+msgstr ""
+
+#: ../../performance/caching.rst:217 ../../performance/ramcache.rst:213
+#: ../../performance/tips.rst:141
+msgid "More info:"
+msgstr ""
+
+#: ../../performance/caching.rst:219
+msgid ""
+"http://stackoverflow.com/questions/6170962/plone-app-caching-for-front-page-"
+"only"
+msgstr ""
+
+#: ../../performance/caching.rst:222
+msgid "Creating a \"cache forever\" view"
+msgstr ""
+
+#: ../../performance/caching.rst:224
+msgid ""
+"You might create views which generate or produce resources (images, JS, CSS)"
+" in-fly. If you refer this views always through content unique URL you can "
+"cache the view result forever."
+msgstr ""
+
+#: ../../performance/caching.rst:228
+msgid "This can be done"
+msgstr ""
+
+#: ../../performance/caching.rst:230
+msgid ""
+"Using blob._p_mtime, or similar, to get the modified timestamp of the "
+"related content item. All persistent ZODB objects have _p_mtime"
+msgstr ""
+
+#: ../../performance/caching.rst:233
+msgid "Setting *plone.stableResource* ruleset on the view"
+msgstr ""
+
+#: ../../performance/caching.rst:235
+msgid "Related ZCML"
+msgstr ""
+
+#: ../../performance/caching.rst:261
+msgid "Related view code::"
+msgstr ""
+
+#: ../../performance/caching.rst:298
+msgid ""
+"When we refer to the view in ``<img src>`` we use modified time parameter::"
+msgstr ""
+
+#: ../../performance/decorators.rst:3
+msgid "Cache decorators"
+msgstr ""
+
+#: ../../performance/decorators.rst:7
+msgid ""
+"How to use the Python decorator pattern to cache the result values of your "
+"computationally expensive method calls."
+msgstr ""
+
+#: ../../performance/decorators.rst:15
+msgid ""
+"Cache decorators are convenient methods caching of function return values."
+msgstr ""
+
+#: ../../performance/decorators.rst:17
+msgid "Use them like this::"
+msgstr ""
+
+#: ../../performance/decorators.rst:26
+msgid ""
+"Cache decorators do not work with methods or functions that use generators "
+"(``yield``). The cache will end up storing an empty value."
+msgstr ""
+
+#: ../../performance/decorators.rst:30
+msgid ""
+"The `plone.memoize <http://pypi.python.org/pypi/plone.memoize>`_ package "
+"offers helpful function decorators to cache return values."
+msgstr ""
+
+#: ../../performance/decorators.rst:33
+msgid ""
+"See also :doc:`using memcached backend for memoizers "
+"</performance/ramcache>`."
+msgstr ""
+
+#: ../../performance/decorators.rst:36
+msgid "Cache result for process lifecycle"
+msgstr ""
+
+#: ../../performance/decorators.rst:38 ../../performance/decorators.rst:116
+#: ../../performance/ramcache.rst:55
+msgid "Example::"
+msgstr ""
+
+#: ../../performance/decorators.rst:55
+msgid "Timeout caches"
+msgstr ""
+
+#: ../../performance/decorators.rst:57
+msgid ""
+"The @ram.cache decorator takes a function argument and calls it to get a "
+"value. So long as that value is unchanged, the cached result of the "
+"decorated function is returned. This makes it easy to set a timeout cache::"
+msgstr ""
+
+#: ../../performance/decorators.rst:69
+msgid ""
+"time.time() returns the time in seconds as a floating point number. \"//\" "
+"is Python's integer division. So, the result of ``time() // (60 * 60)`` only"
+" changes once an hour. ``args`` passed are ignored."
+msgstr ""
+
+#: ../../performance/decorators.rst:75
+msgid "Caching per request"
+msgstr ""
+
+#: ../../performance/decorators.rst:77
+msgid ""
+"This pattern shows how to avoid recalculating the same value repeatedly "
+"during the lifecycle of an HTTP request."
+msgstr ""
+
+#: ../../performance/decorators.rst:81
+msgid "Caching on BrowserViews"
+msgstr ""
+
+#: ../../performance/decorators.rst:83
+msgid ""
+"This is useful if the same view/utility is going to be called many times "
+"from different places during the same HTTP request."
+msgstr ""
+
+#: ../../performance/decorators.rst:86
+msgid ""
+"The `plone.memoize.view "
+"<https://github.com/plone/plone.memoize/tree/master/plone/memoize/view.txt>`_"
+" package provides necessary decorators for ``BrowserView``-based classes."
+msgstr ""
+
+#: ../../performance/decorators.rst:110
+msgid "Caching on Archetypes accessors"
+msgstr ""
+
+#: ../../performance/decorators.rst:112
+msgid ""
+"If you have a custom :doc:`Archetypes accessor method "
+"</content/archetypes/fields>`, you can avoid recalculating it during the "
+"request processing."
+msgstr ""
+
+#: ../../performance/decorators.rst:136
+msgid "Caching using global HTTP request"
+msgstr ""
+
+#: ../../performance/decorators.rst:138
+msgid ""
+"This example uses the `five.globalrequest package "
+"<http://pypi.python.org/pypi/five.globalrequest>`_ for caching. Values are "
+"stored on the thread-local ``HTTPRequest`` object which lasts for the "
+"transaction lifecycle::"
+msgstr ""
+
+#: ../../performance/decorators.rst:173
+msgid "Testing memoized methods inside browser views"
+msgstr ""
+
+#: ../../performance/decorators.rst:175
+msgid ""
+"While testing browser views memoized methods you could find out that calling"
+" a method multiple times inside a test could result in getting the same "
+"result over and over, no mater what the parameters are, because you have the"
+" same context and request inside the test and the result is being cached."
+msgstr ""
+
+#: ../../performance/decorators.rst:180
+msgid ""
+"One approach to by-pass this is to put your code logic inside a private "
+"method while memoizing a public method with the same name that only calls "
+"the private one:"
+msgstr ""
+
+#: ../../performance/decorators.rst:203
+msgid "In your tests you can call the private method to avoid memoization."
+msgstr ""
+
+#: ../../performance/decorators.rst:207 ../../performance/ramcache.rst:220
+msgid "Other resources"
+msgstr ""
+
+#: ../../performance/decorators.rst:209
+msgid ""
+"`plone.memoize source code "
+"<https://github.com/plone/plone.memoize/tree/master/plone/memoize/>`_"
+msgstr ""
+
+#: ../../performance/decorators.rst:211 ../../performance/ramcache.rst:224
+msgid ""
+"`zope.app.cache source code "
+"<http://svn.zope.org/zope.app.cache/trunk/src/zope/app/cache/>`_"
+msgstr ""
+
+#: ../../performance/index.rst:3
+msgid "Performance and tuning"
+msgstr ""
+
+#: ../../performance/index.rst:5
+msgid "Tips how to optimize your Plone code for maximum performance."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:3
+msgid "About Instances and Threads, Performance and RAM consumption"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:9
+msgid ""
+"Understanding how instances-per-core, threads-per-instance and ZODB-caches "
+"are influencing performance."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:15
+msgid ""
+"In a usal production Zope/Plone setup there are some tunings possible. So "
+"you googled a bit and found that, for a certain size of site, you need more "
+"than one Zope-instance and use `HAproxy`_ or `Pound`_ to load-balance "
+"between them. Then you may ask yourself: How many instances do I need? Next "
+"you see there is value \"threads per instance\" and wonder about the "
+"different recommendations: Only one thread or two, or four? And how does it "
+"effect memory usage?"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:24
+msgid "Rule Of The Thumb"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:26
+msgid ""
+"A good **rule-of-the-thumb** for a common setup was and still is: **two "
+"instances per core, two threads per instance, adjust the number of objects "
+"in the ZODB cache to a number that your memory is used.**"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:30
+msgid ""
+"**But attention!** If your setup gets more complex, if you have several "
+"logged in users or only anonymous users, if you use official, fancy, "
+"specific or home-grown add-ons: This rule may not apply."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:34
+msgid ""
+"In this case you need to figure out yourself. It's more important to "
+"understand the mechanism behind than sticking to a rule."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:37
+msgid ""
+"With recent, faster hardware and the (sometimes odd) behaviour of virtual "
+"machines (which can be very very different dependent on the kind of VM) this"
+" needs slight or major adjustment."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:42
+msgid "Theory"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:49
+msgid "Threads:"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:45
+msgid ""
+"A Zope instance is running a pool of threads. It queues an incoming request "
+"and dispatches it to a free thread. If no thread is free the request remains"
+" in the queue and is dispatched when a thread was freed. If all threads are "
+"used by long-running request-to-response cycles this may block such simple "
+"tasks as publishing a tiny icon."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:56
+msgid "Database-Connection-Pool and its Cache:"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:52
+msgid ""
+"Once a thread runs, it requests a ZODB database connection from the "
+"connection pool. It locks the connection so no other thread can use it. The "
+"connection pool opens a new connection if all existing connections are "
+"already in use. If the request-to-response cycle is finished and the thread "
+"is freed the connection is released back to the pool."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:67
+msgid "Memory Cache:"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:59
+msgid ""
+"Each connection has its own memory cache. The file-system cache is shared by"
+" all connections. Each cache can have the configured number of objects in "
+"memory. Having them in memory is important, because they are unpickled if "
+"loaded from the DB - and the process of unpickling is still expensive."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:64
+msgid ""
+"An instance may never get enough load so that all available threads are used"
+" concurrently. In this case you may find in the ZMI (Zope-root -> "
+"Control_Panel -> Database -> Main DB) that there are only 2 connections, but"
+" you have 4 threads. That's because there were never 4 connections used in "
+"parallel."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:82
+msgid "Instances and memory:"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:70
+msgid ""
+"An instance creates only a minimal memory usage overhead. If you have two "
+"instances with each 2 threads or one with 4 threads and all threads are used"
+" in both cases it wont make much a difference (~15-20MB overhead per "
+"instance at time of writing)."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:75
+msgid ""
+"Now while Plone is running for some time another significant (but compared "
+"to ZODB cache low) amount of consumed RAM is used for RAM-caching inside "
+"Zope (i.e. with plone.memoize). RAM-cache is shared by all threads but not "
+"between instances. To optimize ram-caching in a multi-instance environment "
+"\"memcached\" may be used to optimize memory cache and cache-usage and "
+"reduce an instances memory footprint."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:82
+msgid "But anyway, most memory is used (in a common setup) to cache the ZODB."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:90
+msgid "Python GIL - global interpreter lock:"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:85
+msgid ""
+"Well yes, the GIL is mentioned here. In a threaded environment such as Zope "
+"is it has an impact on performance. But it is low and python was optimized "
+"over the years, also Zope has a lot of I/O which reduces the GIL impact. A "
+"good and important optimization is to set the right check interval for your "
+"machine. With `jarn.checkinterval`_ there's a good and simple to use tool to"
+" test for the right value."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:93
+msgid "Practice"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:95
+msgid ""
+"All theory is gray. But what does this mean for your setup if the rule-of-"
+"thumb above does not apply?"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:98
+msgid ""
+"Get measurements! First of all you need to check yourself what happens on "
+"your machine(s), go and learn how to use `Munin`_ (with `munin.zope`_), "
+"HAproxy (or Pound), [tool of your choice here]. After that you'll get graphs"
+" of RAM, CPU, and load and some zope related values. HAproxy or Pound may "
+"mark a node as down because all threads were blocked by long running "
+"requests, identify these requests, `collective.stats`_ helps here."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:105
+msgid ""
+"More instances or more threads? This question is asked often. And can not be"
+" answered without knowing more about the Plone system. We can divide it "
+"roughly into four kinds of systems:"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:109
+msgid "Only or almost logged in users,"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:110
+msgid "Only or almost only anonymous visitors,"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:111
+msgid "Mixed with many users and lots of hardware behind,"
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:112
+msgid "Mixed with few users and low-budget hardware."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:114
+msgid ""
+"If you deal with logged in users there is no easy way to cache html-pages "
+"(highly recommended anyway for all static items) in a reverse proxy cache "
+"(i.e. `Varnish`_) in front of Plone. So Zope has much more work rendering "
+"pages. To render pages, objects need to be loaded form the database. Loading"
+" is expensive. If an object is already in the DB RAM cache it decreases the "
+"time to render a page significantly. So in a setup with lots of logged in "
+"users we need to take care almost all objects are loaded already. Each "
+"thread fetches a connection from the pool, each connection has its cache. If"
+" a user now requests a page it is first logged in and zope need a bunch of "
+"objects for this from the ZODB. Also other user specific information is "
+"loaded. Then user may operate in an intranet within a specific area, so "
+"these objects also need to be loaded. If we now have i.e 1 instance with 5 "
+"threads we have up to 5 pools (5 caches). All objects of interest are loaded"
+" in worst case 5 times. If there's 1 instance with 1 thread (1 cache) data "
+"is loaded only once. But if there is only one instance with one thread a "
+"browser shooting at the web-server with lots of requests at one time fills "
+"up the request queue of the instance and may time out soon. Also a second "
+"user may want to access data at the same time, but the only thread is "
+"blocked and the CPU idles. So the best is to stick users in a load-balancer "
+"(bind it to the __ac cookie) to 1 instance with 2 threads (also this can be "
+"adjusted dependent on your setup, test it yourself). Provide as much "
+"instances as you can (memory-consumption and cpu-usage will stop you). In "
+"such a setup usage of `memcached`_ is highly encouraged."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:137
+msgid ""
+"If you have almost all anonymous users it is much easier. You can provide "
+"less instances (here rule-of-thumb 2 per core applies in most cases) and "
+"increase threads. Too many threads are not good, because of the GIL. You "
+"need to find the number yourself, it depends much on hardware. Here - w/o "
+"memcached configured - good results can be expected, because memory cache is"
+" used efficient. Increase objects per connection cache until your memory-"
+"consumption stops you and look always at your CPU usage."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:145
+msgid ""
+"In large mixed environments with enough budget for hardware it is easy: "
+"Divide your environment in two, one for logged in users, one for anonymous -"
+" so above applies."
+msgstr ""
+
+#: ../../performance/instancesthreads.rst:149
+msgid ""
+"In smaller mixed environments with less hardware behind you need to find "
+"your own balance. A good way is configuring your load balancer to stick "
+"logged-in users to one or two distinct instances. If there are more users "
+"this is kind of tricky and may take some time to figure out a good setup. So"
+" this is the most difficult setup."
+msgstr ""
+
+#: ../../performance/ramcache.rst:3
+msgid "RAM cache"
+msgstr ""
+
+#: ../../performance/ramcache.rst:10
+msgid "The RAM cache is a Zope facility to create custom in-process caches."
+msgstr ""
+
+#: ../../performance/ramcache.rst:13
+msgid "Using memcached backend"
+msgstr ""
+
+#: ../../performance/ramcache.rst:15
+msgid ""
+"By default, Zope uses an in-process memory cache. It is possible to replace "
+"this with ``memcached``."
+msgstr ""
+
+#: ../../performance/ramcache.rst:18
+msgid "Advantages:"
+msgstr ""
+
+#: ../../performance/ramcache.rst:20
+msgid "All front-end clients share the cache."
+msgstr ""
+
+#: ../../performance/ramcache.rst:22
+msgid "Cache survives over a client restart."
+msgstr ""
+
+#: ../../performance/ramcache.rst:25
+msgid "Memoizers"
+msgstr ""
+
+#: ../../performance/ramcache.rst:27
+msgid ""
+"Memoize's RAM cache can be replaced with a ``memcached`` backend with the "
+"following snippet."
+msgstr ""
+
+#: ../../performance/ramcache.rst:30
+msgid "See the set-up for the http://plone.org/ site as an example:"
+msgstr ""
+
+#: ../../performance/ramcache.rst:32
+msgid ""
+"https://github.com/plone/Products.PloneOrg/blob/master/src/Products/PloneOrg/caching.py"
+msgstr ""
+
+#: ../../performance/ramcache.rst:35
+msgid "RAM Cache"
+msgstr ""
+
+#: ../../performance/ramcache.rst:37
+msgid "The RAM cache is used e.g. as a rendered template cache backend."
+msgstr ""
+
+#: ../../performance/ramcache.rst:39
+msgid ""
+"You can add ``MemcachedManager`` to your Zope setup, and replace the "
+"RamCache instance in the ZMI with a new instance of ``MemcachedManager`` "
+"(keep the id the same)."
+msgstr ""
+
+#: ../../performance/ramcache.rst:43
+msgid "http://pypi.python.org/pypi/Products.MemcachedManager"
+msgstr ""
+
+#: ../../performance/ramcache.rst:46
+msgid "Using custom RAM cache"
+msgstr ""
+
+#: ../../performance/ramcache.rst:48
+msgid ""
+"You want to use a custom cache if you think cache size or saturation will "
+"pose problems."
+msgstr ""
+
+#: ../../performance/ramcache.rst:51
+msgid ""
+"The following advanced example shows how to enhance existing content type "
+"text and description accessors by performing HTML transformations and "
+"caching the result in a custom RAM cache."
+msgstr ""
+
+#: ../../performance/ramcache.rst:161
+msgid "ZCacheable"
+msgstr ""
+
+#: ../../performance/ramcache.rst:163
+msgid ""
+"``ZCacheable`` is an ancient Zope design pattern for caching.  It allows "
+"persistent objects that are subclasses of ``OFS.Cacheable`` to have the "
+"cache backend configured externally."
+msgstr ""
+
+#: ../../performance/ramcache.rst:167
+msgid ""
+"The cache type (cache id) in use is stored :doc:`persistently "
+"</persistency/persistent>` per cache user object, but the cache can be "
+"created at runtime (RAM cache) or externally (``memcached``) depending on "
+"the situation."
+msgstr ""
+
+#: ../../performance/ramcache.rst:174
+msgid "Do not use ``ZCacheable`` in new code."
+msgstr ""
+
+#: ../../performance/ramcache.rst:176
+msgid "It takes optional backends which must be explicitly set::"
+msgstr ""
+
+#: ../../performance/ramcache.rst:184
+msgid ""
+"The ``RAMCache`` above is per thread. You cannot clear this cache for all "
+"ZEO clients easily."
+msgstr ""
+
+#: ../../performance/ramcache.rst:187
+msgid "Some hints:"
+msgstr ""
+
+#: ../../performance/ramcache.rst:189
+msgid "It is enabled per persistent object::"
+msgstr ""
+
+#: ../../performance/ramcache.rst:197
+msgid "Get known cache backends::"
+msgstr ""
+
+#: ../../performance/ramcache.rst:202
+msgid "Disabling it (persistent change)::"
+msgstr ""
+
+#: ../../performance/ramcache.rst:215
+msgid "https://github.com/zopefoundation/Zope/blob/master/src/OFS/Cache.py"
+msgstr ""
+
+#: ../../performance/ramcache.rst:217
+msgid ""
+"https://github.com/plone/plone.app.ldap/tree/master/plone/app/ldap/ploneldap/util.py"
+msgstr ""
+
+#: ../../performance/ramcache.rst:222
+msgid ""
+"`plone.memoize source code "
+"<https://github.com/plone/plone.memoize/tree/master/plone/memoize/>`_."
+msgstr ""
+
+#: ../../performance/tips.rst:3
+msgid "Performance tips"
+msgstr ""
+
+#: ../../performance/tips.rst:9
+msgid ""
+"Tips for Plone performance tuning and making your add-on product and "
+"customizations faster."
+msgstr ""
+
+#: ../../performance/tips.rst:13
+msgid "Profiling Plone"
+msgstr ""
+
+#: ../../performance/tips.rst:15
+msgid "http://pypi.python.org/pypi/collective.profiler/"
+msgstr ""
+
+#: ../../performance/tips.rst:18
+msgid "Optimizing ZEO and threads"
+msgstr ""
+
+#: ../../performance/tips.rst:20
+msgid ""
+"For multicore systems, which basically all production systems nowadays are, "
+"you might want to optimize Python threading vs. processes. You may also tune"
+" how many Python interpreter instructions are run before doing green thread "
+"switches in the interpreter."
+msgstr ""
+
+#: ../../performance/tips.rst:25
+msgid "https://mail.zope.org/pipermail/zodb-dev/2010-December/013897.html"
+msgstr ""
+
+#: ../../performance/tips.rst:28
+msgid "Debugging slow threads in production"
+msgstr ""
+
+#: ../../performance/tips.rst:30
+msgid "http://pypi.python.org/pypi/Products.LongRequestLogger"
+msgstr ""
+
+#: ../../performance/tips.rst:33
+msgid "Memcached as session storage"
+msgstr ""
+
+#: ../../performance/tips.rst:35
+msgid ""
+"Storing sessions in ZEO/ZODB does not scale well, since they are very prone "
+"to raise ``ConflictErrors`` if there is considerable load on the system."
+msgstr ""
+
+#: ../../performance/tips.rst:38
+msgid "Memcached provides a more scalable session backend."
+msgstr ""
+
+#: ../../performance/tips.rst:40
+msgid ""
+"For more information, see `lovely.session add-on product "
+"<http://pypi.python.org/pypi/lovely.session/0.2.2>`_."
+msgstr ""
+
+#: ../../performance/tips.rst:44
+msgid "Input/output performance of the server"
+msgstr ""
+
+#: ../../performance/tips.rst:46
+msgid "http://plope.com/Members/chrism/iostat_debugging"
+msgstr ""
+
+#: ../../performance/tips.rst:48
+msgid "Summary::"
+msgstr ""
+
+#: ../../performance/tips.rst:55
+msgid "Tuning complex configurations"
+msgstr ""
+
+#: ../../performance/tips.rst:57
+msgid "http://www.lovelysystems.com/the-decathlon-of-computer-science/"
+msgstr ""
+
+#: ../../performance/tips.rst:60
+msgid "Reducing memory usage"
+msgstr ""
+
+#: ../../performance/tips.rst:62
+msgid ""
+"These tips are especially critical when running Plone on low-memory virtual "
+"private server (VPS). But using the memory tips below, and some filesystem "
+"and operating system tweaks, it is also perfectly possible to run Plone on "
+"an ARM-based Android stick, or a Raspberry Pi. See "
+"http://polyester.github.io/"
+msgstr ""
+
+#: ../../performance/tips.rst:67
+msgid "Disable extra languages"
+msgstr ""
+
+#: ../../performance/tips.rst:69
+msgid ""
+"Add ``PTS_LANGUAGES`` to ``buildout.cfg`` to declare which .po files are "
+"loaded on the start-up::"
+msgstr ""
+
+#: ../../performance/tips.rst:77
+msgid "Upgrade DateTime"
+msgstr ""
+
+#: ../../performance/tips.rst:79
+msgid ""
+"DateTime 3.x and higher use significant less memory than older versions. "
+"Pinning it to 3.0.3 (4.x not tested yet) has no known side effects on all "
+"Plone 4.1.x and 4.2.x sites, but can give up to a 20-25% reduction in memory"
+" use on lower-end hardware/virtualmachines."
+msgstr ""
+
+#: ../../performance/tips.rst:84
+msgid "Large files"
+msgstr ""
+
+#: ../../performance/tips.rst:86
+msgid "How to offload blob processing from Zope:"
+msgstr ""
+
+#: ../../performance/tips.rst:88
+msgid "http://www.slideshare.net/Jazkarta/large-files-without-the-trials"
+msgstr ""
+
+#: ../../performance/tips.rst:91
+msgid "LinguaPlone and multi-lingual sites"
+msgstr ""
+
+#: ../../performance/tips.rst:93
+msgid ""
+"Do not use ``LanguageIndex``, and update your ``LinguaPlone`` to version "
+"3.1."
+msgstr ""
+
+#: ../../performance/tips.rst:96
+msgid ""
+"http://plone.293351.n2.nabble.com/Products-LinguaPlone-LanguageIndex-vs-"
+"FieldIndex-tp5554729p5554729.html"
+msgstr ""
+
+#: ../../performance/tips.rst:98
+msgid ""
+"http://plone-regional-forums.221720.n2.nabble.com/New-LinguaPlone-releases-"
+"with-large-performance-improvements-td5578581.html"
+msgstr ""
+
+#: ../../performance/tips.rst:101
+msgid "Sessions and performance"
+msgstr ""
+
+#: ../../performance/tips.rst:103
+msgid "Write transactions much worse performance-wise than read transactions."
+msgstr ""
+
+#: ../../performance/tips.rst:105
+msgid ""
+"By default, every login is a write transaction. Also, Plone needs to update "
+"the logged-in user's session timestamp once in a while to keep the session "
+"active."
+msgstr ""
+
+#: ../../performance/tips.rst:109
+msgid ""
+"With a high amount of users, you may start seeing many ``ConflictErrors`` "
+"(read conflicts) with ZODB."
+msgstr ""
+
+#: ../../performance/tips.rst:112
+msgid "There are some tricks you can use here:"
+msgstr ""
+
+#: ../../performance/tips.rst:114
+msgid ""
+"http://plone.293351.n2.nabble.com/the-mysterious-case-of-the-zope-sessions-"
+"that-shouldn-t-tp5731395p5731395.html"
+msgstr ""
+
+#: ../../performance/tips.rst:116
+msgid "http://pypi.python.org/pypi/collective.beaker/"
+msgstr ""
+
+#: ../../performance/tips.rst:119
+msgid "ZServer thread count"
+msgstr ""
+
+#: ../../performance/tips.rst:121
+msgid ""
+"This specifies how many requests one ZEO front-end client (ZServer) can "
+"handle."
+msgstr ""
+
+#: ../../performance/tips.rst:124
+msgid "The default set by buildout default is 2."
+msgstr ""
+
+#: ../../performance/tips.rst:126
+msgid "Adjust it::"
+msgstr ""
+
+#: ../../performance/tips.rst:133
+msgid "Find good value by doing performance testing for your site."
+msgstr ""
+
+#: ../../performance/tips.rst:137
+msgid ""
+"Increasing thread count is useful if your Plone site does server-to-server "
+"traffic and your Plone site needs to wait for the other end, thus blocking "
+"Zope threads."
+msgstr ""
+
+#: ../../performance/tips.rst:143
+msgid "http://pypi.python.org/pypi/plone.recipe.zope2instance"
+msgstr ""
+
+#: ../../performance/tips.rst:146
+msgid "XSendFile"
+msgstr ""
+
+#: ../../performance/tips.rst:148
+msgid ""
+"XSendFile is an enhancement over HTTP front end proxy protocol which allows "
+"offloading of file uploads and downloads to the front end web server."
+msgstr ""
+
+#: ../../performance/tips.rst:151
+msgid "More info for Plone support:"
+msgstr ""
+
+#: ../../performance/tips.rst:153
+msgid "https://github.com/collective/collective.xsendfile"
+msgstr ""

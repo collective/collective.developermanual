@@ -1,0 +1,2178 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone Developer Documentation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-09 14:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../hosting/apache.rst:3
+msgid "Apache"
+msgstr ""
+
+#: ../../hosting/apache.rst:5 ../../hosting/nginx.rst:5
+#: ../../hosting/varnish.rst:5 ../../hosting/zope.rst:5
+msgid "Description"
+msgstr ""
+
+#: ../../hosting/apache.rst:7
+msgid "Tips and guides for hosting Plone with Apache web server."
+msgstr ""
+
+#: ../../hosting/apache.rst:12 ../../hosting/deliverance.rst:8
+#: ../../hosting/nginx.rst:12 ../../hosting/restarts.rst:8
+#: ../../hosting/varnish.rst:15 ../../hosting/wsgi.rst:8
+#: ../../hosting/zope.rst:16
+msgid "Introduction"
+msgstr ""
+
+#: ../../hosting/apache.rst:14
+msgid ""
+"Here are useful information and snippets when hosting Plone behind Apache."
+msgstr ""
+
+#: ../../hosting/apache.rst:17
+msgid "Installing Apache front-end for Plone"
+msgstr ""
+
+#: ../../hosting/apache.rst:19
+msgid ""
+"Apache runs on port 80. Plone runs on port 8080. Apache accepts all HTTP "
+"traffic to your internet domain."
+msgstr ""
+
+#: ../../hosting/apache.rst:22
+msgid "Here are quick instructions for Ubuntu / Debian."
+msgstr ""
+
+#: ../../hosting/apache.rst:24
+msgid "Install required software::"
+msgstr ""
+
+#: ../../hosting/apache.rst:33
+msgid ""
+"Add virtual host config file ``/etc/apache2/sites-enabled/yoursite.conf``. "
+"Assuming *Plone* is your site id in Zope Management Interface (capital "
+"lettering do matter) and your domain name is ``yoursite.com`` (note with or "
+"without www matters, see below)::"
+msgstr ""
+
+#: ../../hosting/apache.rst:73
+msgid ""
+"Eventually you have one virtual host configuration file per one domain on "
+"your server."
+msgstr ""
+
+#: ../../hosting/apache.rst:75
+msgid "Restart apache::"
+msgstr ""
+
+#: ../../hosting/apache.rst:80
+msgid "Check that Plone respondes::"
+msgstr ""
+
+#: ../../hosting/apache.rst:84
+msgid "Check that Apache responds::"
+msgstr ""
+
+#: ../../hosting/apache.rst:88
+msgid ""
+"If everything is good then your Plone site properly configured using Apache "
+"front-end."
+msgstr ""
+
+#: ../../hosting/apache.rst:90 ../../hosting/nginx.rst:122
+msgid ""
+"Content Security Policy (CSP) prevents a wide range of attacks, including "
+"cross-site scripting and other cross-site injections, but the CSP header "
+"setting may require careful tuning. To enable it, replace the Content-"
+"Security-Policy-Report-Only by Content-Security-Policy. The example above "
+"works with Plone 4.x (including TinyMCE) but it very wide. You may need to "
+"adjust it if you want to make CSP more restrictive or use additional Plone "
+"Products. For more information, see"
+msgstr ""
+
+#: ../../hosting/apache.rst:99 ../../hosting/nginx.rst:131
+msgid "http://www.w3.org/TR/CSP/"
+msgstr ""
+
+#: ../../hosting/apache.rst:101
+msgid "For an SSL configuration, just modify the rewrite rule from::"
+msgstr ""
+
+#: ../../hosting/apache.rst:105
+msgid "to::"
+msgstr ""
+
+#: ../../hosting/apache.rst:109
+msgid "Inside an SSL-enabled Apache virtual host definition."
+msgstr ""
+
+#: ../../hosting/apache.rst:112
+msgid "Apache and Plone guide (old)"
+msgstr ""
+
+#: ../../hosting/apache.rst:117
+msgid "Procedure to restart Apache in production environment"
+msgstr ""
+
+#: ../../hosting/apache.rst:119
+msgid ""
+"You might share the same Apache web server across several production sites. "
+"You don't want to hinder the performance of the other sites when doing "
+"Apache configuration changes to one site."
+msgstr ""
+
+#: ../../hosting/apache.rst:123
+msgid "The correct procedure to restart Apache is (on Ubuntu/Debian Linux)"
+msgstr ""
+
+#: ../../hosting/apache.rst:135
+msgid "www-redirects"
+msgstr ""
+
+#: ../../hosting/apache.rst:137
+msgid ""
+"If you wish to force people to use your site with or without www prefix you "
+"can use the rules below. Note that setting this kind of rule is very useful "
+"from the search engine optimization point of view also."
+msgstr ""
+
+#: ../../hosting/apache.rst:141
+msgid ""
+"Example in <VirtualHost> section to redirect www.site.com -> site.com::"
+msgstr ""
+
+#: ../../hosting/apache.rst:156
+msgid ""
+"Example in <VirtualHost> section to redirect site.com -> www.site.com::"
+msgstr ""
+
+#: ../../hosting/apache.rst:170
+msgid "Redirecting all the pages to the root of a new site:"
+msgstr ""
+
+#: ../../hosting/apache.rst:172
+msgid "RewriteEngine On RewriteRule (.*) http://www.newsite.com [L,R=302]"
+msgstr ""
+
+#: ../../hosting/apache.rst:176
+msgid "Migration redirects"
+msgstr ""
+
+#: ../../hosting/apache.rst:178
+msgid ""
+"To redirect traffic from all pages permanently (301) to the landing page of "
+"a new site::"
+msgstr ""
+
+#: ../../hosting/apache.rst:184
+msgid "Proxying other site under Plone URI space"
+msgstr ""
+
+#: ../../hosting/apache.rst:186
+msgid ""
+"The following rule can be used to put a static web site to sit in the same "
+"URI space with Plone. Put these rules **before** VirtualHost ProxyPass."
+msgstr ""
+
+#: ../../hosting/apache.rst:189
+msgid "Examples::"
+msgstr ""
+
+#: ../../hosting/apache.rst:195
+msgid "Reverse proxy host"
+msgstr ""
+
+#: ../../hosting/apache.rst:197
+msgid ""
+"By default, host name is correctly delivered from Apache to Plone. Otherwise"
+" you might see all your HTTP requests coming from localhost, Apache."
+msgstr ""
+
+#: ../../hosting/apache.rst:200
+msgid "You need::"
+msgstr ""
+
+#: ../../hosting/apache.rst:204
+msgid "For more information, see"
+msgstr ""
+
+#: ../../hosting/apache.rst:206
+msgid "http://macadames.wordpress.com/2009/05/23/some-deliverance-tips/"
+msgstr ""
+
+#: ../../hosting/apache.rst:209
+msgid "Redirecting certain URIs to old site"
+msgstr ""
+
+#: ../../hosting/apache.rst:211
+msgid ""
+"This is useful if you migrate to a Plone from some legacy technology and you"
+" still need to have some part of the URI space to point to the old server."
+msgstr ""
+
+#: ../../hosting/apache.rst:215
+msgid "Create alternative domain name for the existing old site (e.g. www2)"
+msgstr ""
+
+#: ../../hosting/apache.rst:217
+msgid ""
+"Modify Apache configuration so that URLs still being used are redirected to "
+"the old server with alternative name, Put in this rewrite"
+msgstr ""
+
+#: ../../hosting/apache.rst:227
+msgid "Virtual hosting Apache configuration generator"
+msgstr ""
+
+#: ../../hosting/apache.rst:229
+msgid "http://betabug.ch/zope/witch"
+msgstr ""
+
+#: ../../hosting/apache.rst:233
+msgid "Caching images"
+msgstr ""
+
+#: ../../hosting/apache.rst:235
+msgid "You can force caching of content types on apache"
+msgstr ""
+
+#: ../../hosting/apache.rst:238
+msgid "First you need to enable Apache modules::"
+msgstr ""
+
+#: ../../hosting/apache.rst:242
+msgid "On Debian this is::"
+msgstr ""
+
+#: ../../hosting/apache.rst:246
+msgid "Then you can add to your virtual host configuration::"
+msgstr ""
+
+#: ../../hosting/apache.rst:256
+msgid ""
+"Then install go to *Cache Configration* (Plone 4.1+) and configure `the "
+"caching options <http://pypi.python.org/pypi/plone.app.caching>`_."
+msgstr ""
+
+#: ../../hosting/apache.rst:260
+msgid "Unsetting language cookie for media content"
+msgstr ""
+
+#: ../../hosting/apache.rst:262
+msgid ""
+"Media like content can confuse and break language selector on multilingual "
+"sites."
+msgstr ""
+
+#: ../../hosting/apache.rst:264
+msgid "By default, Plone sets I18N_LANGUAGE cookie on"
+msgstr ""
+
+#: ../../hosting/apache.rst:266
+msgid "All page requests"
+msgstr ""
+
+#: ../../hosting/apache.rst:268
+msgid "All ATImage requests"
+msgstr ""
+
+#: ../../hosting/apache.rst:270
+msgid ""
+"Even if images are often language neutral, they still set I18N_LANGUAGE "
+"cookie on HTTP response. This is problematic if image gets cached and the "
+"user switches the language using the language selector. This happens when "
+"you enforce caching using Apache level rules (instead of using "
+"Products.CacheSetup or similar product). The user browsers received cached "
+"HTTP response image for the image and it contains Set-Cookie: I18N_LANGUAGE "
+"header for the wrong language -> browser language choice by cookie is reset."
+msgstr ""
+
+#: ../../hosting/apache.rst:278
+msgid "A workaround is to force language cookie off from media like content::"
+msgstr ""
+
+#: ../../hosting/apache.rst:296
+msgid "Testing cache headers"
+msgstr ""
+
+#: ../../hosting/apache.rst:298
+msgid "Use UNIX *wget* command. -S flag will display request headers."
+msgstr ""
+
+#: ../../hosting/apache.rst:300
+msgid ""
+"Remember to do different request for HTML, CSS, JS and image payloads - the "
+"cache rules might not be the same."
+msgstr ""
+
+#: ../../hosting/apache.rst:302
+msgid "HTTP example::"
+msgstr ""
+
+#: ../../hosting/apache.rst:324
+msgid "HTTPS example::"
+msgstr ""
+
+#: ../../hosting/apache.rst:331
+msgid "Flushing cache"
+msgstr ""
+
+#: ../../hosting/apache.rst:333
+msgid "Manually cleaning Apache disk cache::"
+msgstr ""
+
+#: ../../hosting/apache.rst:340
+msgid "Custom 500 internal error page"
+msgstr ""
+
+#: ../../hosting/apache.rst:342
+msgid ""
+"To make you look more pro when you update the server or Plone goes down"
+msgstr ""
+
+#: ../../hosting/apache.rst:344
+msgid "http://www.codestyle.org/sitemanager/apache/errors-500.shtml"
+msgstr ""
+
+#: ../../hosting/apache.rst:347
+msgid "Load balanced Apache virtual host configuration"
+msgstr ""
+
+#: ../../hosting/apache.rst:349
+msgid "This complex config example includes"
+msgstr ""
+
+#: ../../hosting/apache.rst:351
+msgid "HTTPS and SSL certificate set-up"
+msgstr ""
+
+#: ../../hosting/apache.rst:353
+msgid "Load balancing using ZEO front-ends and Apache load balancer module"
+msgstr ""
+
+#: ../../hosting/apache.rst:355
+msgid ""
+"Apache disk cache. This should provide static resource caching w/HTTPS "
+"support if you are using plone.app.caching."
+msgstr ""
+
+#: ../../hosting/apache.rst:358
+msgid "Server site https://production.yourorganization.org"
+msgstr ""
+
+#: ../../hosting/apache.rst:360 ../../hosting/varnish.rst:150
+msgid "See"
+msgstr ""
+
+#: ../../hosting/apache.rst:362
+msgid ""
+"http://stackoverflow.com/questions/5650716/are-sticky-sessions-needed-when-"
+"load-balancing-plone-3-3-5"
+msgstr ""
+
+#: ../../hosting/apache.rst:364
+msgid ""
+"More information about how to set a sticky session cookie if you need to "
+"support Zope sessions in your code"
+msgstr ""
+
+#: ../../hosting/apache.rst:366
+msgid ""
+"http://opensourcehacker.com/2011/04/15/sticky-session-load-balancing-with-"
+"apache-and-mod_balancer-on-ubuntu-linux/"
+msgstr ""
+
+#: ../../hosting/apache.rst:368 ../../hosting/deliverance.rst:15
+#: ../../hosting/deliverance.rst:40 ../../hosting/nginx.rst:308
+#: ../../hosting/varnish.rst:70 ../../hosting/varnish.rst:192
+#: ../../hosting/varnish.rst:330 ../../hosting/varnish.rst:658
+msgid "Example::"
+msgstr ""
+
+#: ../../hosting/deliverance.rst:3
+msgid "Deliverance"
+msgstr ""
+
+#: ../../hosting/deliverance.rst:10
+msgid ""
+"This page contains info for using Deliverance theming proxy with Plone."
+msgstr ""
+
+#: ../../hosting/deliverance.rst:13
+msgid "Simple start script"
+msgstr ""
+
+#: ../../hosting/deliverance.rst:36
+msgid "Buildout restart snippet"
+msgstr ""
+
+#: ../../hosting/deliverance.rst:38
+msgid "For *rundeliverance.sh* see above."
+msgstr ""
+
+#: ../../hosting/index.rst:3
+msgid "Hosting and deployment specifics"
+msgstr ""
+
+#: ../../hosting/index.rst:5
+msgid ""
+"How to manage Plone hosting and deployments, including reverse-proxy setup "
+"for popular servers and caches."
+msgstr ""
+
+#: ../../hosting/index.rst:7
+msgid ""
+"For a general introduction to issues involved in deploying Plone for "
+"production, see the :doc:`Plone Deployment Guide "
+"</reference_manuals/active/deployment/index>`"
+msgstr ""
+
+#: ../../hosting/nginx.rst:3
+msgid "Nginx"
+msgstr ""
+
+#: ../../hosting/nginx.rst:7
+msgid "Using the nginx web server to host Plone sites"
+msgstr ""
+
+#: ../../hosting/nginx.rst:14
+msgid "Nginx is an modern alternative server to Apache."
+msgstr ""
+
+#: ../../hosting/nginx.rst:16
+msgid "It acts as a proxy server and load balancer in front of Zope."
+msgstr ""
+
+#: ../../hosting/nginx.rst:17
+msgid "It handles rewrite rules."
+msgstr ""
+
+#: ../../hosting/nginx.rst:18
+msgid "It handles HTTPS."
+msgstr ""
+
+#: ../../hosting/nginx.rst:21
+msgid "Minimal Nginx front end configuration for Plone on Ubuntu/Debian Linux"
+msgstr ""
+
+#: ../../hosting/nginx.rst:23
+msgid ""
+"This is a minimal configuration to run nginx on Ubuntu/Debian in front of a "
+"Plone site.  These instructions are *not* for configurations where one uses "
+"the buildout configuration tool to build a static Nginx server."
+msgstr ""
+
+#: ../../hosting/nginx.rst:27
+msgid "Plone will by default be served on port 8080."
+msgstr ""
+
+#: ../../hosting/nginx.rst:29
+msgid ""
+"We use :term:`VirtualHostMonster` to pass the original protocol and hostname"
+" to Plone. VirtualHostMonster provides a way to rewrite the request path."
+msgstr ""
+
+#: ../../hosting/nginx.rst:33
+msgid ""
+"We also need to rewrite the request path, because you want to site be served"
+" from port 80 root (/), but Plone sites are nested in the Zope application "
+"server as paths */site1*, */site2* etc."
+msgstr ""
+
+#: ../../hosting/nginx.rst:37
+msgid ""
+"You don't need to configure VirtualHostMonster in Plone/Zope in any way, "
+"because all the installers will automatically install one for you. Nginx "
+"configuration is all you need to touch."
+msgstr ""
+
+#: ../../hosting/nginx.rst:41
+msgid ""
+"The URL passed to VirtualHostMonster is the URL Plone uses to construct "
+"links in the template (``portal_url`` in the code, also used by content "
+"``absolute_url()`` method). If your site loads without CSS styles usually it"
+" is a sign that VirtualHostMonster URL is incorrectly written -- Plone uses "
+"the URL to link stylesheets also."
+msgstr ""
+
+#: ../../hosting/nginx.rst:47
+msgid ""
+"Plone itself contains a mini web server (Medusa) which serves the requests "
+"from port 8080 -- Nginx acts simple as a HTTP proxy between Medusa and "
+"outgoing port 80 traffic.  Nginx does not spawn Plone process or anything "
+"like that, but Plone processes are externally controlled, usually by "
+"buildout-created ``bin/instance`` and ``bin/plonectl`` commands, or by a "
+"``supervisor`` instance."
+msgstr ""
+
+#: ../../hosting/nginx.rst:54
+msgid ""
+"Create file ``/etc/nginx/sites-available/yoursite.conf`` with contents::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:93
+msgid "Then enable the site by creating a symbolic link::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:99
+msgid "See that your nginx configuration is valid::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:107
+msgid ""
+"Alternatively your system might not provide ``configtest`` command and then "
+"you can test config with::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:112
+msgid "If the config was OK then restart::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:116 ../../hosting/zope.rst:602
+#: ../../hosting/zope.rst:658
+msgid "More info:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:118
+msgid ""
+"http://wiki.mediatemple.net/w/%28ve%29:Configure_virtual_hosts_with_Nginx_on_Ubuntu"
+msgstr ""
+
+#: ../../hosting/nginx.rst:120 ../../hosting/nginx.rst:590
+msgid "http://www.starzel.de/blog/securing-plone-sites-with-https-and-nginx"
+msgstr ""
+
+#: ../../hosting/nginx.rst:134
+msgid "Buildout and recipe"
+msgstr ""
+
+#: ../../hosting/nginx.rst:136
+msgid ""
+"If, and only if, you cannot use a platform install of nginx you may use the "
+"recipe and buildout example below to get started."
+msgstr ""
+
+#: ../../hosting/nginx.rst:138
+msgid ""
+"http://www.martinaspeli.net/articles/an-uber-buildout-for-a-production-"
+"plone-server"
+msgstr ""
+
+#: ../../hosting/nginx.rst:140
+msgid "http://pypi.python.org/pypi/gocept.nginx"
+msgstr ""
+
+#: ../../hosting/nginx.rst:142
+msgid ""
+"A buildout will download, install and configure nginx from scratch. The "
+"buildout file contains an nginx configuration which can use template "
+"variables from ``buildout.cfg`` itself."
+msgstr ""
+
+#: ../../hosting/nginx.rst:146
+msgid ""
+"When you change the configuration of nginx in buildout you probably don't "
+"want to rerun the whole buildout, but only the nginx part of it::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:152
+msgid "Config test"
+msgstr ""
+
+#: ../../hosting/nginx.rst:154
+msgid "Assuming you have a buildout nginx section called ``balancer``::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:163
+msgid "Deployment configuration"
+msgstr ""
+
+#: ../../hosting/nginx.rst:165
+msgid ""
+"`gocept.nginx <http://pypi.python.org/pypi/gocept.nginx/>`_ supports a "
+"special deployment configuration where you manually configure all "
+"directories. One important reason why you might wish to do this, is to "
+"change the location of the ``pid`` file. Normally this file would be created"
+" in ``parts``, which is deleted and recreated when you re-run buildout. This"
+" interferes with reliably restarting nginx, since the pid file may have been"
+" deleted since startup. In this case, you need to manually kill nginx to get"
+" things back on track."
+msgstr ""
+
+#: ../../hosting/nginx.rst:174
+msgid "Example deployment configuration in ``production.cfg``::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:196
+msgid "Install this part::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:200
+msgid "Then you can use the following cycle to update the configuration::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:212
+msgid "Manually killing nginx"
+msgstr ""
+
+#: ../../hosting/nginx.rst:214
+msgid ""
+"You have lost ``PID`` file, or the recorded ``PID`` does not match the real "
+"``PID`` any longer.  Use buildout's starter script as a search key:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:241
+msgid "Debugging nginx"
+msgstr ""
+
+#: ../../hosting/nginx.rst:243
+msgid "Set nginx logging to debug mode::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:248
+msgid "www-redirect"
+msgstr ""
+
+#: ../../hosting/nginx.rst:250
+msgid ""
+"Below is an example how to do a basic *yourdomain.com -> www.yourdomain.com*"
+" redirect."
+msgstr ""
+
+#: ../../hosting/nginx.rst:253
+msgid "Put the following in your ``gocept.nginx`` configuration::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:264
+msgid "Hosts are configured in a separate buildout section::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:271 ../../hosting/nginx.rst:319
+#: ../../hosting/nginx.rst:577 ../../hosting/varnish.rst:80
+#: ../../hosting/varnish.rst:513 ../../hosting/varnish.rst:537
+#: ../../hosting/varnish.rst:641 ../../hosting/zope.rst:57
+#: ../../hosting/zope.rst:190
+msgid "More info"
+msgstr ""
+
+#: ../../hosting/nginx.rst:273
+msgid ""
+"http://aleksandarsavic.com/nginx-redirect-wwwexamplecom-requests-to-"
+"examplecom-or-vice-versa/"
+msgstr ""
+
+#: ../../hosting/nginx.rst:276
+msgid "Permanent redirect"
+msgstr ""
+
+#: ../../hosting/nginx.rst:278
+msgid "Below is an example redirect rule::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:289
+msgid ""
+"Nginx location match evaluation rules are not always top-down. You can add "
+"more specific matches after location /."
+msgstr ""
+
+#: ../../hosting/nginx.rst:293
+msgid "Cleaning up query string"
+msgstr ""
+
+#: ../../hosting/nginx.rst:295
+msgid ""
+"By default, nginx includes all trailing ``HTTP GET`` query parameters in the"
+" redirect.  You can disable this behavior by adding a trailing ?::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:303
+msgid "Matching incoming query string"
+msgstr ""
+
+#: ../../hosting/nginx.rst:305
+msgid ""
+"The ``location`` directive does not support query strings.  Use the ``if`` "
+"directive from the HTTP rewrite module."
+msgstr ""
+
+#: ../../hosting/nginx.rst:321
+msgid "nginx location matching rules"
+msgstr ""
+
+#: ../../hosting/nginx.rst:323
+msgid "http://wiki.nginx.org/NginxHttpCoreModule#location"
+msgstr ""
+
+#: ../../hosting/nginx.rst:325
+msgid "nginx redirect module docs"
+msgstr ""
+
+#: ../../hosting/nginx.rst:327
+msgid "http://wiki.nginx.org/NginxHttpRewriteModule"
+msgstr ""
+
+#: ../../hosting/nginx.rst:329
+msgid "More info on nginx redirects"
+msgstr ""
+
+#: ../../hosting/nginx.rst:331
+msgid "http://scott.yang.id.au/2007/04/do-you-need-permalink-redirect/"
+msgstr ""
+
+#: ../../hosting/nginx.rst:333
+msgid ""
+"http://aleksandarsavic.com/nginx-and-wordpress-setup-clean-seo-friendly-"
+"urls/"
+msgstr ""
+
+#: ../../hosting/nginx.rst:337
+msgid "Make nginx aware where the request came from"
+msgstr ""
+
+#: ../../hosting/nginx.rst:339
+msgid ""
+"If you set up nginx to run in front of Zope, and set up a virtual host with "
+"it like this::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:350
+msgid ""
+"Zope will always get the request from ``127.0.0.1:8080`` and not from the "
+"actual host, due to the redirection. To solve this problem correct your "
+"configuration to be like this::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:367
+msgid "PHP with nginx and PHP-FPM"
+msgstr ""
+
+#: ../../hosting/nginx.rst:369
+msgid ""
+"If you are coming from Apache world, you may be used to the scenario where "
+"Apache handles all php-related stuff. With nginx, it's a bit different: "
+"nginx does not automatically spawn FCGI processes, so you must start them "
+"separately. In fact, FCGI is a lot like proxying, which means that PHP-FPM "
+"will run as a separate server and all we need to do is to forward the "
+"request to it."
+msgstr ""
+
+#: ../../hosting/nginx.rst:376
+msgid ""
+"A detailed tutorial on how to set it all up, configure and run it can be "
+"found here:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:379
+msgid "http://alasdoo.com/2010/12/xdv-plone-and-phpbb-under-one-nginx-roof/"
+msgstr ""
+
+#: ../../hosting/nginx.rst:383
+msgid "SSI: server-side include"
+msgstr ""
+
+#: ../../hosting/nginx.rst:385
+msgid ""
+"In order to include external content in a page (XDV), we must set up nginx "
+"to make these includes for us. For including external content we will use "
+"the SSI (server-side include) method, which means that on each request nginx"
+" will get the needed external content, put it in place and only then return "
+"the response. Here is a configuration that sets up the filtering and turns "
+"on SSI for a specific location::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:452
+msgid "Session affinity"
+msgstr ""
+
+#: ../../hosting/nginx.rst:454
+msgid ""
+"If you intend to use nginx for session balancing between ZEO processes, you "
+"need to be aware of session affinity.  By default, ZEO processes don't share"
+" session data. If you have site functionality which stores user-specific "
+"data on the server, let's say an ecommerce site shopping cart, you must "
+"always redirect users to the same ZEO client process or they will have "
+"1/number of processes chance to see the orignal data."
+msgstr ""
+
+#: ../../hosting/nginx.rst:461
+msgid ""
+"Make sure that your :doc:`Zope session cookie </sessions/cookies>` are not "
+"cleared by any front-end server (nginx, Varnish)."
+msgstr ""
+
+#: ../../hosting/nginx.rst:465
+msgid "By using IP addresses"
+msgstr ""
+
+#: ../../hosting/nginx.rst:467
+msgid ""
+"This is the most reliable way. nginx will balance each incoming request to a"
+" front end client by the request's source IP address."
+msgstr ""
+
+#: ../../hosting/nginx.rst:470
+msgid ""
+"This method is reliable as long as nginx can correctly extract IP address "
+"from the configuration."
+msgstr ""
+
+#: ../../hosting/nginx.rst:473
+msgid "http://wiki.nginx.org/NginxHttpUpstreamModule#ip_hash"
+msgstr ""
+
+#: ../../hosting/nginx.rst:476
+msgid "By using cookies"
+msgstr ""
+
+#: ../../hosting/nginx.rst:478
+msgid "These instructions assume you are installing nginx via buildout."
+msgstr ""
+
+#: ../../hosting/nginx.rst:480
+msgid ""
+"`Nginx sticky sessions module <http://nginx-sticky-"
+"module.googlecode.com/files/nginx-sticky-module-1.0-rc2.tar.gz>`_"
+msgstr ""
+
+#: ../../hosting/nginx.rst:482
+msgid "Manually extract ``nginx-sticky-module`` under ``src``:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:489
+msgid "Then add it to the ``nginx-build`` part in buildout:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:498
+msgid "Now test reinstalling nginx in buildout:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:505
+msgid ""
+"See that it compiles without errors. Here is the line of compiling sticky:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:515
+msgid "Now add ``sticky`` to the load-balancer section of nginx config:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:532
+msgid "Reinstall nginx balancer configs and start-up scripts:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:538
+msgid "Make sure that the generated configuration is ok:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:544
+msgid "Restart nginx:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:550
+msgid "Check that some (non-anonymous) page has the ``route`` cookie set:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:574
+msgid ""
+"Now test it by doing session-related activity and see that your shopping "
+"cart is not \"lost\"."
+msgstr ""
+
+#: ../../hosting/nginx.rst:579
+msgid ""
+"http://code.google.com/p/nginx-sticky-module/source/browse/trunk/README"
+msgstr ""
+
+#: ../../hosting/nginx.rst:581
+msgid ""
+"http://nathanvangheem.com/news/nginx-with-built-in-load-balancing-and-"
+"caching"
+msgstr ""
+
+#: ../../hosting/nginx.rst:585
+msgid "Securing Plone-Sites with https and nginx"
+msgstr ""
+
+#: ../../hosting/nginx.rst:587
+msgid ""
+"For instructions how to use SSL for all authenticated traffic see this blog-"
+"post:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:593
+msgid "Setting log files"
+msgstr ""
+
+#: ../../hosting/nginx.rst:595
+msgid "nginx.conf example::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:610
+msgid "Proxy Caching"
+msgstr ""
+
+#: ../../hosting/nginx.rst:612
+msgid ""
+"Nginx can do rudimentary proxy caching. It may be good enough for your "
+"needs. Turn on proxy caching by adding to your nginx.conf or a separate "
+"conf.d/proxy_cache.conf::"
+msgstr ""
+
+#: ../../hosting/nginx.rst:639
+msgid ""
+"Create a /var/www/cache directory owned by your nginx user (usually www-"
+"data)."
+msgstr ""
+
+#: ../../hosting/nginx.rst:641
+msgid "Limitations:"
+msgstr ""
+
+#: ../../hosting/nginx.rst:643
+msgid ""
+"Nginx does not support the vary header. That's why we use proxy_cache_bypass"
+" to turn off the cache for all authenticated users."
+msgstr ""
+
+#: ../../hosting/nginx.rst:646
+msgid ""
+"Nginx does not support the s-maxage cache-control directive. Only max-age. "
+"This means that moderate caching will do nothing. However, strong caching "
+"works and will cause all your static resources and registry items to be "
+"cached. Don't underestimate how valuable that is."
+msgstr ""
+
+#: ../../hosting/restarts.rst:3
+msgid "Automatic Plone (re)starts"
+msgstr ""
+
+#: ../../hosting/restarts.rst:10
+msgid "Tips on how to automatically start Plone on server boot."
+msgstr ""
+
+#: ../../hosting/restarts.rst:12
+msgid ""
+"This manual assumes, that you are installed Plone via the Unified-Installer "
+"as ``root install`` if you did a different install, please addjust the "
+"examples below for your own needs, the user as which you are running Plone "
+"maybe different for example."
+msgstr ""
+
+#: ../../hosting/restarts.rst:15
+msgid "plonectl script"
+msgstr ""
+
+#: ../../hosting/restarts.rst:17
+msgid ""
+"The general-purpose ``plonectl`` control command for Plone installations is:"
+msgstr ""
+
+#: ../../hosting/restarts.rst:23
+msgid ""
+"``yourbuildoutfolder`` is the topmost folder of your Plone installation. It "
+"will always contain a buildout.cfg file and a bin directory."
+msgstr ""
+
+#: ../../hosting/restarts.rst:26
+msgid ""
+"The ``plonectl`` command is a convenience script that controls standalone or"
+" cluster configurations. In a standalone installation, this will restart the"
+" ``instance`` part. In a ZEO cluster install it will restart the zeoserver "
+"and client parts."
+msgstr ""
+
+#: ../../hosting/restarts.rst:30
+msgid ""
+"If you have installed Plone in production mode, the Plone server components "
+"are meant to be run as a special user, usually ``plone_daemon``. (In older "
+"versions, this was typically ``plone``.) In this case, the start, stop and "
+"restart commands are:"
+msgstr ""
+
+#: ../../hosting/restarts.rst:44
+msgid "Starting on boot"
+msgstr ""
+
+#: ../../hosting/restarts.rst:46
+msgid ""
+"It is best practice to start Plone service if the server is rebooted. This "
+"way your site will automatically recover from power loss etc."
+msgstr ""
+
+#: ../../hosting/restarts.rst:49
+msgid ""
+"On a Linux or BSD system, you have two major alternatives to arrange "
+"automatic starting for a production install:"
+msgstr ""
+
+#: ../../hosting/restarts.rst:51
+msgid "A process-control system, like supervisor."
+msgstr ""
+
+#: ../../hosting/restarts.rst:53
+msgid "Through init.d (BSD rc.d) scripts."
+msgstr ""
+
+#: ../../hosting/restarts.rst:56
+msgid "Using supervisor"
+msgstr ""
+
+#: ../../hosting/restarts.rst:58
+msgid ""
+"`supervisor <http://supervisord.org/>`_ is a general-purpose process-control"
+" system that is well-known and highly recommended in the Plone community."
+msgstr ""
+
+#: ../../hosting/restarts.rst:60
+msgid ""
+"Process-control systems generally run their controlled programs as "
+"subprocesses. This means that the controlled program must not detach itself "
+"from the console (daemonize)."
+msgstr ""
+
+#: ../../hosting/restarts.rst:63
+msgid ""
+"Zope/Plone's \"start\" command does not work for this purpose. Instead use "
+"``console``. Do not use ``fg`` which turns on debug switches that will "
+"dramatically slow your site."
+msgstr ""
+
+#: ../../hosting/restarts.rst:67
+msgid ""
+"Supervisor is well-documented, easy to set up, and included as an instalable"
+" package with popular Linux and BSD distributions."
+msgstr ""
+
+#: ../../hosting/restarts.rst:70
+msgid "Debian LSBInitScripts"
+msgstr ""
+
+#: ../../hosting/restarts.rst:72
+msgid "Short documentation about how to make an Init Script LSB"
+msgstr ""
+
+#: ../../hosting/restarts.rst:74
+msgid "This example will start a plone site on boot::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:94
+msgid ""
+"Save this script as ``start_plone.sh`` in /etc/init.d and make it "
+"executable."
+msgstr ""
+
+#: ../../hosting/restarts.rst:96
+msgid "add the script to dependency-based booting::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:100
+msgid ""
+"Where ``start_plone.sh`` is an executable init script placed in /etc/init.d,"
+" insserv will produce no output if everything went OK. Examine the error "
+"code in $? if you want to be sure."
+msgstr ""
+
+#: ../../hosting/restarts.rst:103
+msgid "This another example (/etc/init.d/plone)::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:180
+msgid "Make sure to read:"
+msgstr ""
+
+#: ../../hosting/restarts.rst:182
+msgid "http://wiki.debian.org/LSBInitScripts"
+msgstr ""
+
+#: ../../hosting/restarts.rst:185
+msgid "Upstart"
+msgstr ""
+
+#: ../../hosting/restarts.rst:186
+msgid ""
+"Upstart is an event-based replacement for the /sbin/init daemon which "
+"handles starting of tasks and services during boot, stopping them during "
+"shutdown and supervising them while the system is running. It was originally"
+" developed for the Ubuntu distribution, but is intended to be suitable for "
+"deployment in all Linux distributions as a replacement for the venerable "
+"System-V init."
+msgstr ""
+
+#: ../../hosting/restarts.rst:189
+msgid ""
+"Example of a *plone.conf* file in */etc/init/* -> */etc/init/plone.conf*::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:207
+msgid "Make sure to read: http://upstart.ubuntu.com/"
+msgstr ""
+
+#: ../../hosting/restarts.rst:209
+msgid ""
+"Also check the original source of this sample file: "
+"http://chrigl.de/blogentries/my-plone-configuration"
+msgstr ""
+
+#: ../../hosting/restarts.rst:211
+msgid ""
+"The above sample has not been extensively tested and is intended for use "
+"with in a zeocluster configuration. To use the above sample for a normal "
+"(non-root) user installation, replace the last line with:"
+msgstr ""
+
+#: ../../hosting/restarts.rst:213
+msgid "exec /home/userid/Plone/plonectl start"
+msgstr ""
+
+#: ../../hosting/restarts.rst:216
+msgid "Systemd"
+msgstr ""
+
+#: ../../hosting/restarts.rst:217
+msgid "Create services file *plone.service* in */etc/systemd/system*::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:232
+msgid "Make systemd take notice of it::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:236
+msgid "Activate a service immediately::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:240
+msgid "Check status of service::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:244
+msgid "Enable a service to be started on bootup::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:248
+msgid "More detailed log information::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:252
+msgid "Make sure to read: http://www.freedesktop.org/wiki/Software/systemd/"
+msgstr ""
+
+#: ../../hosting/restarts.rst:256
+msgid "Crontab"
+msgstr ""
+
+#: ../../hosting/restarts.rst:258
+msgid "These instructions apply for Debian-based Linuxes."
+msgstr ""
+
+#: ../../hosting/restarts.rst:260
+msgid "Example crontab of *yourploneuser*::"
+msgstr ""
+
+#: ../../hosting/restarts.rst:265
+msgid "``rc.local`` script"
+msgstr ""
+
+#: ../../hosting/restarts.rst:267
+msgid ""
+"For Debian-based Linuxes, add the following line to the ``/etc/rc.local`` "
+"script:"
+msgstr ""
+
+#: ../../hosting/varnish.rst:3
+msgid "Varnish"
+msgstr ""
+
+#: ../../hosting/varnish.rst:7
+msgid ""
+"Varnish is a caching front-end server. This document has notes on how to use"
+" Varnish with Plone."
+msgstr ""
+
+#: ../../hosting/varnish.rst:17
+msgid ""
+"This chapter contains information about using the Varnish caching proxy with"
+" Plone."
+msgstr ""
+
+#: ../../hosting/varnish.rst:20
+msgid "http://varnish-cache.org/"
+msgstr ""
+
+#: ../../hosting/varnish.rst:22
+msgid "To use Varnish with Plone"
+msgstr ""
+
+#: ../../hosting/varnish.rst:24
+msgid "Learn how to install and configure Varnish"
+msgstr ""
+
+#: ../../hosting/varnish.rst:26
+msgid "Add Plone virtual hosting rule to the default varnish configuration"
+msgstr ""
+
+#: ../../hosting/varnish.rst:30
+msgid ""
+"Some of these examples were written for Varnish 2.x. Varnish 3.x (Feb 2013) "
+"has radically altered syntax of VCL language and command line tools, so you "
+"might need to adapt the examples a bit."
+msgstr ""
+
+#: ../../hosting/varnish.rst:35
+msgid "Installation"
+msgstr ""
+
+#: ../../hosting/varnish.rst:37
+msgid ""
+"The suggest method to install Varnish is to use your OS package manager."
+msgstr ""
+
+#: ../../hosting/varnish.rst:39
+msgid ""
+"You can install using packages (RPM/DEB) - consult your operating system "
+"instructions."
+msgstr ""
+
+#: ../../hosting/varnish.rst:41
+msgid ""
+"For more up to date packages for Debian you could check: https://www"
+".varnish-cache.org/installation/debian"
+msgstr ""
+
+#: ../../hosting/varnish.rst:43
+msgid "You can install backports"
+msgstr ""
+
+#: ../../hosting/varnish.rst:45
+msgid "You can install using buildout"
+msgstr ""
+
+#: ../../hosting/varnish.rst:47
+msgid "Buildout examples"
+msgstr ""
+
+#: ../../hosting/varnish.rst:49
+msgid "http://pypi.python.org/pypi/plone.recipe.varnish"
+msgstr ""
+
+#: ../../hosting/varnish.rst:52
+msgid "Management console"
+msgstr ""
+
+#: ../../hosting/varnish.rst:55
+msgid "``varnishadm``"
+msgstr ""
+
+#: ../../hosting/varnish.rst:57
+msgid "You can access Varnish admin console on your server by::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:62
+msgid "(Ubuntu/Debian installation)"
+msgstr ""
+
+#: ../../hosting/varnish.rst:65
+msgid "Telnet console"
+msgstr ""
+
+#: ../../hosting/varnish.rst:67
+msgid ""
+"The telnet management console is available on some configurations where "
+"``varnishadm`` cannot be used. The functionality is the same."
+msgstr ""
+
+#: ../../hosting/varnish.rst:78
+msgid "Port number depends on your Varnish settings."
+msgstr ""
+
+#: ../../hosting/varnish.rst:82 ../../hosting/varnish.rst:152
+msgid ""
+"http://opensourcehacker.com/2013/02/07/varnish-shell-singleliners-reload-"
+"config-purge-cache-and-test-hits/"
+msgstr ""
+
+#: ../../hosting/varnish.rst:85
+msgid "Quit console"
+msgstr ""
+
+#: ../../hosting/varnish.rst:87
+msgid "Quit command::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:92
+msgid "Purging the cache"
+msgstr ""
+
+#: ../../hosting/varnish.rst:94
+msgid "This will remove all entries from the Varnish cache::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:100
+msgid "Loading new VCL to live Varnish"
+msgstr ""
+
+#: ../../hosting/varnish.rst:102
+msgid ""
+"More often than not, it is beneficial to load new configuration without "
+"bringing the cache down for maintenance.  Using this method also checks the "
+"new VCL for syntax errors before activating it.  Logging in to Varnish CLI "
+"requires the ``varnishadm`` tool, the address of the management interface, "
+"and the secret file for authentication."
+msgstr ""
+
+#: ../../hosting/varnish.rst:108
+msgid "See the ``varnishadm`` man-page for details."
+msgstr ""
+
+#: ../../hosting/varnish.rst:110
+msgid ""
+"Opening a new CLI connection to the Varnish console, in a buildout-based "
+"Varnish installation::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:115
+msgid "Port 8088 is defined in ``buildout.cfg``::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:120
+msgid ""
+"Opening a new CLI connection to the Varnish console, in a system-wide "
+"Varnish installation on Ubuntu/Debian::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:125
+msgid "You can dynamically load and parse a new VCL config file to memory::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:129
+msgid "For example::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:133
+msgid "... or ... ::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:138
+msgid ""
+"``vcl.load`` will load and compile the new configuration. Compilation will "
+"fail and report on syntax errors.  Now that the new configuration has been "
+"loaded, it can be activated with::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:146
+msgid ""
+"Varnish remembers ``<name>`` in ``vcl.load``, so every time you need to "
+"reload your config you need to invent a new name for vcl.load / vcl.use "
+"command pair."
+msgstr ""
+
+#: ../../hosting/varnish.rst:155
+msgid "Logs"
+msgstr ""
+
+#: ../../hosting/varnish.rst:157
+msgid "To see a real-time log dump (in a system-wide Varnish configuration)::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:161
+msgid ""
+"By default, Varnish does not log to any file and keeps the log only in "
+"memory.  If you want to extract Apache-like logs from varnish, you need to "
+"use the ``varnishncsa`` utility."
+msgstr ""
+
+#: ../../hosting/varnish.rst:166
+msgid "Stats"
+msgstr ""
+
+#: ../../hosting/varnish.rst:168
+msgid "Check live \"top-like\" Varnish statistics::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:172
+msgid "Use the admin console to print stats for you::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:184
+msgid "Virtual hosting proxy rule"
+msgstr ""
+
+#: ../../hosting/varnish.rst:187
+msgid "Varnish 3.x example"
+msgstr ""
+
+#: ../../hosting/varnish.rst:189
+msgid ""
+"An example with two separate Plone installations (Zope standalone mode) "
+"behind Varnish 3.x HTTP 80 port."
+msgstr ""
+
+#: ../../hosting/varnish.rst:317
+msgid "Varnish 2.x example"
+msgstr ""
+
+#: ../../hosting/varnish.rst:319
+msgid ""
+"When Varnish has been set-up you need to include Plone virtual hosting rule "
+"in its configuration file."
+msgstr ""
+
+#: ../../hosting/varnish.rst:322
+msgid ""
+"If you want to map Varnish backend directly to Plone-as-a-virtualhost (i.e. "
+"Zope's VirtualHostMonster is used to map site name to Plone site instance "
+"id) use ``req.url`` mutating."
+msgstr ""
+
+#: ../../hosting/varnish.rst:326
+msgid ""
+"The following maps the Plone site id *plonecommunity* to the "
+"*plonecommunity.mobi* domain.  Plone is a single Zope instance, running on "
+"port 9999."
+msgstr ""
+
+#: ../../hosting/varnish.rst:350
+msgid "Varnishd port and IP address to listen"
+msgstr ""
+
+#: ../../hosting/varnish.rst:352
+msgid ""
+"You give IP address(s) and ports to Varnish to listen to on the ``varnishd``"
+" command line using -a switch. Edit ``/etc/default/varnish``::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:363
+msgid "Cached and editor subdomains"
+msgstr ""
+
+#: ../../hosting/varnish.rst:365
+msgid "You can provide an uncached version of the site for editors:"
+msgstr ""
+
+#: ../../hosting/varnish.rst:367
+msgid ""
+"http://serverfault.com/questions/297541/varnish-cached-and-non-cached-"
+"subdomains/297547#297547"
+msgstr ""
+
+#: ../../hosting/varnish.rst:370
+msgid "Varnish and I18N"
+msgstr ""
+
+#: ../../hosting/varnish.rst:372
+msgid "Please see :doc:`cache issues related to LinguaPlone </i18n/cache>`."
+msgstr ""
+
+#: ../../hosting/varnish.rst:375
+msgid "Sanitizing cookies"
+msgstr ""
+
+#: ../../hosting/varnish.rst:377
+msgid ""
+"Any cookie set on the server side (session cookie) or on the client-side "
+"(e.g. Google Analytics Javascript cookies) is poison for caching the "
+"anonymous visitor content."
+msgstr ""
+
+#: ../../hosting/varnish.rst:381
+msgid ""
+"HTTP caching needs to deal with both HTTP request and response cookie "
+"handling"
+msgstr ""
+
+#: ../../hosting/varnish.rst:383
+msgid ""
+"HTTP request *Cookie* header. The browser sending HTTP request with "
+"``Cookie`` header confuses Varnish cache look-up. This header can be set by "
+"Javascript also, not just by the server. ``Cookie`` can be preprocessed in "
+"varnish's ``vcl_recv`` step."
+msgstr ""
+
+#: ../../hosting/varnish.rst:388
+msgid ""
+"HTTP response ``Set-Cookie`` header. This sets a server-side cookie. If your"
+" server is setting cookies Varnish does not cache these responses by "
+"default. Howerver, this might be desirable behavior if e.g. multi-lingual "
+"content is served from one URL with language cookies. ``Set-Cookie`` can be "
+"post-processed in varnish's ``vcl_fetch`` step."
+msgstr ""
+
+#: ../../hosting/varnish.rst:396
+msgid ""
+"Example of removing all Plone-related cookies, besides ones dealing with the"
+" logged in users (content authors)::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:433
+msgid ""
+"The snippet for stripping out non-Plone cookies comes from "
+"http://www.phase2technology.com/node/1218/"
+msgstr ""
+
+#: ../../hosting/varnish.rst:436
+msgid ""
+"That article notes that \"this processing occurs only between Varnish and "
+"the backend [...]; the client, typically a user’s browser, still has all the"
+" cookies.  Nothing is happening to the client’s original request.\" While "
+"it's true that the browser still has the cookies, they never reach the "
+"backend and are therefor ignored."
+msgstr ""
+
+#: ../../hosting/varnish.rst:442
+msgid ""
+"Another example how to purge Google cookies only and allow other cookies by "
+"default::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:457
+msgid "Debugging cookie issues"
+msgstr ""
+
+#: ../../hosting/varnish.rst:459
+msgid ""
+"Use the following snippet to set a HTTP response debug header to see what "
+"the backend server sees as cookie after ``vcl_recv`` clean-up regexes::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:479
+msgid "And then test with ``wget``::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:504
+msgid "Plone Language cookie (I18N_LANGUAGE)"
+msgstr ""
+
+#: ../../hosting/varnish.rst:506
+msgid ""
+"This cookie could be removed in ``vcl_fetch`` response post-processing "
+"(how?). However, a better solution is to disable this cookie in the backend "
+"itself: in this case in Plone's ``portal_languages`` tool. Disable it by "
+":guilabel:`Use cookie for manual override` setting in ``portal_languages``."
+msgstr ""
+
+#: ../../hosting/varnish.rst:515
+msgid ":doc:`Plone cookies documentation </sessions/cookies>`"
+msgstr ""
+
+#: ../../hosting/varnish.rst:517
+msgid "https://www.varnish-cache.org/trac/wiki/VCLExampleCacheCookies"
+msgstr ""
+
+#: ../../hosting/varnish.rst:519
+msgid "https://www.varnish-cache.org/trac/wiki/VCLExampleRemovingSomeCookies"
+msgstr ""
+
+#: ../../hosting/varnish.rst:521
+msgid ""
+"http://blog.carumba.com/post/226455049/remove-google-analytics-cookies-in-"
+"varnish"
+msgstr ""
+
+#: ../../hosting/varnish.rst:524
+msgid "Do not cache error pages"
+msgstr ""
+
+#: ../../hosting/varnish.rst:526
+msgid ""
+"You can make sure that Varnish does not accidentally cache error pages. E.g."
+" it would cache front page when the site is down::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:539
+msgid ""
+"https://www.varnish-cache.org/lists/pipermail/varnish-"
+"misc/2010-February/003774.html"
+msgstr ""
+
+#: ../../hosting/varnish.rst:542
+msgid "Custom and full cache purges"
+msgstr ""
+
+#: ../../hosting/varnish.rst:544
+msgid ""
+"Below is an example how to create an action to purge the whole Varnish "
+"cache."
+msgstr ""
+
+#: ../../hosting/varnish.rst:546
+msgid ""
+"First you need to allow ``HTTP PURGE`` request in ``default.vcl`` from "
+"``localhost``. We'll create a special ``PURGE`` command which takes URLs to "
+"be purged out of the cache in a special header::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:573
+msgid ""
+"Then let's create a Plone view which will make a request from Plone to "
+"Varnish (``upstream localhost:80``) and issue the ``PURGE`` command. We do "
+"this using the `Requests <http://pypi.python.org/pypi/requests>`_ Python "
+"library."
+msgstr ""
+
+#: ../../hosting/varnish.rst:579
+msgid "Example view code::"
+msgstr ""
+
+#: ../../hosting/varnish.rst:643
+msgid "https://www.varnish-cache.org/trac/wiki/VCLExamplePurging"
+msgstr ""
+
+#: ../../hosting/varnish.rst:645
+msgid "https://github.com/kennethreitz/requests/tree/develop/requests"
+msgstr ""
+
+#: ../../hosting/varnish.rst:647
+msgid "http://kristianlyng.wordpress.com/2010/02/02/varnish-purges/"
+msgstr ""
+
+#: ../../hosting/varnish.rst:651
+msgid "Round-robin balancing"
+msgstr ""
+
+#: ../../hosting/varnish.rst:653
+msgid ""
+"Varnish can do round-robin load balancing internally. Use this if you want "
+"to distribute CPU-intensive load between several ZEO front end client "
+"instances, each listening on its own port."
+msgstr ""
+
+#: ../../hosting/wsgi.rst:3
+msgid "WSGI"
+msgstr ""
+
+#: ../../hosting/wsgi.rst:10
+msgid "WSGI is Python standard for hosting Python web services."
+msgstr ""
+
+#: ../../hosting/wsgi.rst:12
+msgid "http://www.wsgi.org/wsgi/"
+msgstr ""
+
+#: ../../hosting/wsgi.rst:14
+msgid "For using Plone on WSGI, please see Repoze project"
+msgstr ""
+
+#: ../../hosting/wsgi.rst:16
+msgid "http://repoze.org/quickstart.html"
+msgstr ""
+
+#: ../../hosting/wsgi.rst:18
+msgid "http://repoze.org/"
+msgstr ""
+
+#: ../../hosting/wsgi.rst:21
+msgid "Plone 4 and WSGI"
+msgstr ""
+
+#: ../../hosting/wsgi.rst:23
+msgid "http://comments.gmane.org/gmane.comp.web.zope.plone.devel/23886"
+msgstr ""
+
+#: ../../hosting/zope.rst:3
+msgid "Zope Application Server"
+msgstr ""
+
+#: ../../hosting/zope.rst:7
+msgid ""
+"Plone is usually run via the Zope application server. This document covers "
+"control and configuration of parts of the application server."
+msgstr ""
+
+#: ../../hosting/zope.rst:18
+msgid ""
+"This page contains instructions how to configure Zope application server."
+msgstr ""
+
+#: ../../hosting/zope.rst:21
+msgid "Zope control command"
+msgstr ""
+
+#: ../../hosting/zope.rst:23
+msgid ""
+"The command for Zope tasks is ``bin/instance`` in buildout-based Plones "
+"(depending on how the part(s) for the Zope instance(s) was named in the "
+"buildout configuration file; here, it's ``instance``)."
+msgstr ""
+
+#: ../../hosting/zope.rst:27
+msgid "List available commands::"
+msgstr ""
+
+#: ../../hosting/zope.rst:31
+msgid "For older Plone releases, the command is ``zopectl``."
+msgstr ""
+
+#: ../../hosting/zope.rst:33
+msgid ""
+"If you have installed a ZEO cluster, you may have multiple instances, "
+"typically named client1, client2 .... Substitute ``client#`` for "
+"``instance`` below. The zeoserver part must be running before you may "
+"directly use a client command::"
+msgstr ""
+
+#: ../../hosting/zope.rst:41
+msgid "Adding users from command-line (reset admin password)"
+msgstr ""
+
+#: ../../hosting/zope.rst:43
+msgid ""
+"You need to do this when you forget the admin password or the database is "
+"damaged."
+msgstr ""
+
+#: ../../hosting/zope.rst:46
+msgid "Add user with Zope Manager permissions::"
+msgstr ""
+
+#: ../../hosting/zope.rst:52
+msgid "You need to stop the site first."
+msgstr ""
+
+#: ../../hosting/zope.rst:54
+msgid ""
+"You also cannot override an existing ``admin`` user, so you probably want to"
+" add ``admin2``."
+msgstr ""
+
+#: ../../hosting/zope.rst:59
+msgid "https://plone.org/documentation/faq/locked-out"
+msgstr ""
+
+#: ../../hosting/zope.rst:62
+msgid "Timezone"
+msgstr ""
+
+#: ../../hosting/zope.rst:64
+msgid "Add to the ``[instance]`` part in ``buildout.cfg``:"
+msgstr ""
+
+#: ../../hosting/zope.rst:72
+msgid "Log level"
+msgstr ""
+
+#: ../../hosting/zope.rst:74
+msgid ""
+"The default log level in Zope is ``INFO``. This causes a lot of logging that"
+" is usually not needed."
+msgstr ""
+
+#: ../../hosting/zope.rst:77
+msgid ""
+"To reduce the size of log files and improve performance, add the following "
+"to the ``[instance]`` part (the part(s) that specify your Zope instances) in"
+" ``buildout.cfg``:"
+msgstr ""
+
+#: ../../hosting/zope.rst:88
+msgid "Creating additional debug instances"
+msgstr ""
+
+#: ../../hosting/zope.rst:90
+msgid ""
+"You might want to keep your production ``buildout.cfg`` and development "
+"configuration in sync automatically as possible."
+msgstr ""
+
+#: ../../hosting/zope.rst:94
+msgid ""
+"A good idea is to use the same ``buildout.cfg`` for every Plone environment."
+" For conditional things, such as turning debug mode on, extend the buildout "
+"sections, which in turn create scripts to launch additional Zope clients in "
+"the ``bin/`` folder:"
+msgstr ""
+
+#: ../../hosting/zope.rst:126
+msgid "And now you can start your **development** Zope as:"
+msgstr ""
+
+#: ../../hosting/zope.rst:132
+msgid "And your main Zope instance stays in production mode:"
+msgstr ""
+
+#: ../../hosting/zope.rst:140
+msgid ""
+"Starting Zope with the ``fg`` command forces it into debug mode, but does "
+"not change the log level."
+msgstr ""
+
+#: ../../hosting/zope.rst:144
+msgid "Virtual hosting"
+msgstr ""
+
+#: ../../hosting/zope.rst:146
+msgid ""
+"Zope has a component called `VirtualHostMonster "
+"<https://weblion.psu.edu/trac/weblion/wiki/VirtualHostMonster>`_ which does "
+"the virtual host mapping inside Zope. More information can be found in the "
+"`zope book <http://docs.zope.org/zope2/zope2book/VirtualHosting.html>`_"
+msgstr ""
+
+#: ../../hosting/zope.rst:151
+msgid "Suppressing virtual host monster"
+msgstr ""
+
+#: ../../hosting/zope.rst:153
+msgid ""
+"If you ever mess up your virtual hosting rules so that Zope locks you out of"
+" the management interface, you can add ``_SUPPRESS_ACCESSRULE`` to the URL "
+"to disable VirtualHostMonster."
+msgstr ""
+
+#: ../../hosting/zope.rst:159
+msgid "Import and export"
+msgstr ""
+
+#: ../../hosting/zope.rst:161
+msgid ""
+"Zope application server allows copying parts of the tree structure via "
+"import/export feature. The exported file is basically a Python pickle "
+"containing the chosen node and all child nodes."
+msgstr ""
+
+#: ../../hosting/zope.rst:166
+msgid ""
+"Importable ``.zexp`` files must be placed on ``/parts/instance/import`` "
+"buildout folder on the server. If you are using  clustered ZEO set-up, "
+"always run imports through a specific front-end instance by using direct "
+"port access. Note that ``parts`` folder structure is pruned on each buildout"
+" run."
+msgstr ""
+
+#: ../../hosting/zope.rst:173
+msgid ""
+"When files are placed on the server to correct folder, the "
+":guilabel:`Import/Export` tab in the :term:`ZMI` will pick them up in the "
+"selection drop down. You do not need to restart Zope."
+msgstr ""
+
+#: ../../hosting/zope.rst:177
+msgid "More information"
+msgstr ""
+
+#: ../../hosting/zope.rst:179
+msgid "http://quintagroup.com/services/support/tutorials/import-export-plone/"
+msgstr ""
+
+#: ../../hosting/zope.rst:182
+msgid "Regular database packing"
+msgstr ""
+
+#: ../../hosting/zope.rst:184
+msgid ""
+"The append-only nature of the :doc:`ZODB </persistency/database>` makes the "
+"database grow continuously even if you only edit old information and don't "
+"add any new content. To make sure your server's hard disk does not fill up, "
+"you need to pack the ZODB automatically and regularly."
+msgstr ""
+
+#: ../../hosting/zope.rst:192
+msgid ""
+"http://stackoverflow.com/questions/5300886/what-is-the-suggested-way-to-"
+"cron-automate-zodb-packs-for-a-production-plone-ins/"
+msgstr ""
+
+#: ../../hosting/zope.rst:195
+msgid "Copying a remote site database"
+msgstr ""
+
+#: ../../hosting/zope.rst:197
+msgid ""
+"Below is a UNIX shell script to copy a remote Plone site(s) database to your"
+" local computer. This is useful for synchronizing the development copy of a "
+"site from a live server."
+msgstr ""
+
+#: ../../hosting/zope.rst:201
+msgid "``copy-plone-site.sh``"
+msgstr ""
+
+#: ../../hosting/zope.rst:248
+msgid "Pack and copy big ``Data.fs``"
+msgstr ""
+
+#: ../../hosting/zope.rst:250
+msgid ""
+"Pack ``Data.fs`` using the `pbzip2 <http://compression.ca/pbzip2/>`_, "
+"efficient multicore bzip2 compressor, before copying:"
+msgstr ""
+
+#: ../../hosting/zope.rst:266
+msgid "Then copy to your own computer:"
+msgstr ""
+
+#: ../../hosting/zope.rst:272
+msgid "... or using ``rsync`` which can resume:"
+msgstr ""
+
+#: ../../hosting/zope.rst:279
+msgid "Creating a sanitized data drop"
+msgstr ""
+
+#: ../../hosting/zope.rst:281
+msgid "A *sanitized* data drop is a Plone site where:"
+msgstr ""
+
+#: ../../hosting/zope.rst:283
+msgid "all user passwords have been reset to one known one;"
+msgstr ""
+
+#: ../../hosting/zope.rst:285
+msgid ""
+"all history information is deleted (packed), so that it does not contain "
+"anything sensitive;"
+msgstr ""
+
+#: ../../hosting/zope.rst:288
+msgid "other possible sensitive data has been removed."
+msgstr ""
+
+#: ../../hosting/zope.rst:290
+msgid "It should safe to give a sanitized copy to a third party."
+msgstr ""
+
+#: ../../hosting/zope.rst:292
+msgid "Below is a sample script which will clean a Plone site in-place."
+msgstr ""
+
+#: ../../hosting/zope.rst:296
+msgid ""
+"Because sensitive data varies depending on your site this script is just an "
+"example."
+msgstr ""
+
+#: ../../hosting/zope.rst:299
+msgid "How to use:"
+msgstr ""
+
+#: ../../hosting/zope.rst:301
+msgid ""
+"Create a temporary copy of your Plone site on your server, running on a "
+"different port."
+msgstr ""
+
+#: ../../hosting/zope.rst:304
+msgid ""
+"Run the cleaner by entering the URL. It is useful to run the temporary copy "
+"in foreground to follow the progress."
+msgstr ""
+
+#: ../../hosting/zope.rst:307
+msgid "Give the sanitized copy away."
+msgstr ""
+
+#: ../../hosting/zope.rst:309
+msgid "This script has two options for purging data:"
+msgstr ""
+
+#: ../../hosting/zope.rst:311
+msgid "*Safe purge* using the Plone API (slow, calls all event handlers)."
+msgstr ""
+
+#: ../../hosting/zope.rst:313
+msgid ""
+"*Unsafe purge* by directly pruning data, rebuilding the catalog without "
+"triggering the event handlers."
+msgstr ""
+
+#: ../../hosting/zope.rst:316
+msgid "The sample ``clean.py``:"
+msgstr ""
+
+#: ../../hosting/zope.rst:497
+msgid ""
+"Example view registration in ZCML requiring admin privileges to run the "
+"cleaner:"
+msgstr ""
+
+#: ../../hosting/zope.rst:510
+msgid "Log rotate"
+msgstr ""
+
+#: ../../hosting/zope.rst:512
+msgid ""
+"Log rotation prevents log files from growing indefinitely by creating a new "
+"file for a certain timespan and dropping old files."
+msgstr ""
+
+#: ../../hosting/zope.rst:516
+msgid "Basic Log rotation for buildout users"
+msgstr ""
+
+#: ../../hosting/zope.rst:518
+msgid ""
+"If you are using buildout and the plone.recipe.zope2instance (>= 4.2.5) to "
+"create your zope installation, two parameters are available to enable log "
+"rotation. For example:"
+msgstr ""
+
+#: ../../hosting/zope.rst:522
+msgid "event-log-max-size = 10mb"
+msgstr ""
+
+#: ../../hosting/zope.rst:524
+msgid "event-log-old-files = 3"
+msgstr ""
+
+#: ../../hosting/zope.rst:526
+msgid ""
+"This will rotate the event log when it reaches 10mb in size. It will retain "
+"a maximum of 3 files. Similar direcives are also available for the access "
+"log."
+msgstr ""
+
+#: ../../hosting/zope.rst:529
+msgid "access-log-max-size = 100mb"
+msgstr ""
+
+#: ../../hosting/zope.rst:531
+msgid "access-log-old-files = 10"
+msgstr ""
+
+#: ../../hosting/zope.rst:534
+msgid "Using the unix tool ''logrotate''"
+msgstr ""
+
+#: ../../hosting/zope.rst:536
+msgid ""
+"You need to rotate Zope access and error logs, plus possible front-end web "
+"server logs. The latter is usually taken care of your operating system."
+msgstr ""
+
+#: ../../hosting/zope.rst:539
+msgid "To set-up log rotation for Plone:"
+msgstr ""
+
+#: ../../hosting/zope.rst:541
+msgid "Install ``logrotate`` on the system (if you don't already have one)."
+msgstr ""
+
+#: ../../hosting/zope.rst:543
+msgid "You need to know the effective UNIX user as which Plone processes run."
+msgstr ""
+
+#: ../../hosting/zope.rst:545
+msgid ""
+"Edit log rotation configuration files to include Plone log directories."
+msgstr ""
+
+#: ../../hosting/zope.rst:547
+msgid "Do a test run."
+msgstr ""
+
+#: ../../hosting/zope.rst:549
+msgid ""
+"To add a log rotation configuration file for Plone add a file "
+"``/etc/logrotate.d/yoursite`` as root."
+msgstr ""
+
+#: ../../hosting/zope.rst:554
+msgid ""
+"This recipe applies only for single-process Zope installs.  If you use ZEO "
+"clustering you need to do this little bit differently."
+msgstr ""
+
+#: ../../hosting/zope.rst:557
+msgid "The file contains:"
+msgstr ""
+
+#: ../../hosting/zope.rst:584
+msgid "Then do a test run of logrotate, as root:"
+msgstr ""
+
+#: ../../hosting/zope.rst:592
+msgid "And if you want to see the results right away:"
+msgstr ""
+
+#: ../../hosting/zope.rst:599
+msgid ""
+"In normal production, logrotate is added to your operating system *crontab* "
+"for daily runs automatically."
+msgstr ""
+
+#: ../../hosting/zope.rst:604
+msgid "http://linuxers.org/howto/howto-use-logrotate-manage-log-files"
+msgstr ""
+
+#: ../../hosting/zope.rst:606
+msgid "http://docs.zope.org/zope2/zope2book/MaintainingZope.html"
+msgstr ""
+
+#: ../../hosting/zope.rst:608
+msgid ""
+"http://serverfault.com/questions/57993/how-to-use-wildcards-within-"
+"logrotate-configuration-files"
+msgstr ""
+
+#: ../../hosting/zope.rst:611
+msgid "Log rotate and chroot"
+msgstr ""
+
+#: ../../hosting/zope.rst:613
+msgid ""
+"``chroot``'ed environments don't usually get their own cron. In this case "
+"you can trigger the log rotate from the parent system."
+msgstr ""
+
+#: ../../hosting/zope.rst:616
+msgid "Add in the parent ``/etc/cron.daily/yourchrootname-logrotate``"
+msgstr ""
+
+#: ../../hosting/zope.rst:624
+msgid "Log rotate generation via buildout using UNIX logrotate command"
+msgstr ""
+
+#: ../../hosting/zope.rst:626
+msgid "``buildout.cfg``:"
+msgstr ""
+
+#: ../../hosting/zope.rst:635
+msgid "``templates/logrotate.conf``::"
+msgstr ""
+
+#: ../../hosting/zope.rst:660
+msgid "http://stackoverflow.com/a/9437677/315168"
+msgstr ""
+
+#: ../../hosting/zope.rst:663
+msgid "Log rotate on Windows"
+msgstr ""
+
+#: ../../hosting/zope.rst:665
+msgid "Use ``iw.rotatezlogs``"
+msgstr ""
+
+#: ../../hosting/zope.rst:667
+msgid "http://stackoverflow.com/a/9434150/315168"
+msgstr ""
+
+#: ../../hosting/zope.rst:670
+msgid "Email notifications for errors"
+msgstr ""
+
+#: ../../hosting/zope.rst:672
+msgid "Please see:"
+msgstr ""
+
+#: ../../hosting/zope.rst:674
+msgid ""
+"http://stackoverflow.com/questions/5993334/error-notification-on-plone-4"
+msgstr ""
+
+#: ../../hosting/zope.rst:677
+msgid "Adding multiple file storage mount points"
+msgstr ""
+
+#: ../../hosting/zope.rst:679
+msgid "http://pypi.python.org/pypi/collective.recipe.filestorage"
+msgstr ""
+
+#: ../../hosting/zope.rst:681
+msgid ""
+"http://plone.org/documentation/kb/multiple-plone-sites-per-zope-instance-"
+"using-separate-data-fs-files-for-each-one/"
+msgstr ""
