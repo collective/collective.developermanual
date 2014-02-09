@@ -1419,11 +1419,7 @@ Example::
 
 If you are using Eclipse, ``idelauncher.py`` has been updated for Plone 4.
 
-* Remove ``bin/idelauncher.py`` from file system
 
-* Redownload it from `here <http://plone.org/documentation/kb/developing-plone-with-eclipse/ide-compatible-launcher-script>`_
-
-* ...or of you are using *collective.eclipsescripts* rerun command *Scripts -> Plone -> Import src folder as workspace*
 
 "PicklingError: Can't pickle <class 'collective.singing.async.IQueue'>: import of module collective.singing.async"
 --------------------------------------------------------------------------------------------------------------------

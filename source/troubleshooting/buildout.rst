@@ -164,13 +164,13 @@ See:
 
 * http://maurits.vanrees.org/weblog/archive/2010/04/nonewplone
 
-* http://plone.org/documentation/kb/repair-a-plone-3.1-buildout
+
 
 
 Common pindowns
 ===============
 
-Here is a latest pindown example from 2010/02:
+Here is a pindown example from 2010/02:
 
 .. code-block:: cfg
 

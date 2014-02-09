@@ -191,7 +191,7 @@ More info
 
 * http://plone.org/documentation/manual/theme-reference/elements/viewletmanager/anatomy/
 
-* http://plone.org/documentation/kb/customizing-main-template-viewlets/viewlets-registration
+
 
 Creating a viewlet manager: Grok way
 ============================================

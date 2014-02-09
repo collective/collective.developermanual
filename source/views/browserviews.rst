@@ -347,7 +347,7 @@ More info
 
 * http://plone.org/products/dexterity/documentation/manual/five.grok/browser-components/views
 
-* http://plone.org/documentation/kb/how-to-write-templates-for-plone-4
+
 
 Setting view permissions
 ``````````````````````````
