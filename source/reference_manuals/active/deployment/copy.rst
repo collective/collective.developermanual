@@ -47,16 +47,12 @@ be left empty.
 Copying and bootstrapping a Plone site to a new computer
 ========================================================
 
-- Create a new site in the destination using Plone installer and make sure you can log-in
-to the site with temporary admin account
-- Copy var/filestorage/Data.fs from the old system to the new system - note that admin 
-password is stored in Data.fs and the password given during the creation of a new site is 
-no longer effective after Data.fs copy
+- Create a new site in the destination using Plone installer and make sure you can log-in to the site with temporary admin account
+- Copy var/filestorage/Data.fs from the old system to the new system - note that admin password is stored in Data.fs and the password given during the creation of a new site is no longer effective after Data.fs copy
 - Copy blobs from the old system to the new system by copying var/blobstorage/ folder
 - Copy src/ folder from the old system if you have any custom development code there
 - Copy buildout.cfg and other .cfg files
-- Rerun buildout in order to automatically re-download and configure all Python packages 
-needed to run the site
+- Rerun buildout in order to automatically re-download and configure all Python packages needed to run the site
     - python bootstrap.py to make the buildout use new local Python interpreter
     - Then bin/buildout to regenerate parts/ folder
 
