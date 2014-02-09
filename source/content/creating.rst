@@ -266,9 +266,7 @@ Example::
 You can also override the ``contraintypes`` accessor method to have
 programmable logic regarding which types are addable and which not.
 
-More info:
 
-* http://plone.org/documentation/kb/restrict-addable-types
 
 Other restrictions
 ---------------------
@@ -334,9 +332,7 @@ following attribute to your class::
 
     _at_rename_after_creation = False
 
-See:
 
-* http://plone.org/documentation/kb/richdocument/controlling-creation
 
 Factory type information
 ========================
