@@ -111,9 +111,7 @@ Inside an SSL-enabled Apache virtual host definition.
 Apache and Plone guide (old)
 ==============================
 
-Basic tutorials are available
 
-* http://plone.org/documentation/kb/plone-apache
 
 Procedure to restart Apache in production environment
 ---------------------------------------------------------------

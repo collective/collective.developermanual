@@ -31,7 +31,7 @@ today's accepted code practices. You will also see use of Python libraries
 which are deprecated, and/or implement code where today a standard or 
 optional Python package would be preferred.
 
-Due to Plone's complexity it's important to keep the following in mind:
+It's important to keep the following in mind:
 
 * Plone has a high level of complexity
 * Plone has more than one way to accomplish many tasks. (Some of which are deprecated)

@@ -2136,9 +2136,7 @@ Further reading
 This example code was taken from the ``mfabrik.plonezohointegration``
 product which is in the Plone collective.
 
-Another tutorial:
 
-* http://plone.org/documentation/kb/using-z3c.form-forms-in-plone
 
 Validators
 ==========

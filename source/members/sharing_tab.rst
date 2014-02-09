@@ -118,7 +118,3 @@ Beware that this will set the local roles for the user to only ['Reader']. If th
 It will not affect inherited roles.
 
 
-Add sharing tab to a custom content type
-========================================
-
-* http://plone.org/documentation/kb/add-sharing-tab
