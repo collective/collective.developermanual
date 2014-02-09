@@ -1,162 +1,94 @@
 ================================
-Backing up your Plone deployment
+Copying a Plone site
 ================================
 
 .. admonition:: Description
 
-   Strategies for backing up operating Plone installations.
+   Quick instructions on how to create a copy of a Plone installation.
 
 .. contents:: :local:
 
-A guide to determining what to back up and how to back it up and restore it
-safely.
 
 Introduction
 ============
 
-The key rules of backing up a working system are probably:
+These instructions tell you the basics of creating a duplicate of Plone site
+for testing or back-up 
 
-* Back up everything
 
-* Maintain multiple generations of backup
+Prerequisites
+=============
 
-* Test restoring your backups
+* Ability to use file system manager to copy files from/to the remote server
 
-.. warning::
+* Ability to use the command line
 
-    This guide assumes that you are already doing this for your system as a
-    whole, and will only cover the considerations specific to Plone. When we
-    say we are assuming you're already doing this for the system as a whole,
-    what we mean is that your system backup mechanisms — rsync, bakula,
-    whatever — are already backing up the directories into which you've
-    installed Plone.
 
-So, your buildout and buildout caches are already backed up, and you've tested
-the restore process. So, your remaining consideration is making sure that
-Plone's database files are adequately backed up and recoverable.
+Plone site contents
+===================
 
-Objects in motion
------------------
+In order to copy a Plone site the following must be copied
 
-Objects in motion tend to remain in motion. Objects that are in motion are
-difficult or impossible to back up accurately.
-
-Translation: Plone is a long-lived process that is constantly changing its
-content database. The largest of these files, the Data.fs filestorage which
-contains everything except Binary Large OBjects (BLOBs), is always open for
-writing. The BLOB storage, a potentially very complex file hierarchy, is
-constantly changing and must be referentially synchronized to the filestorage.
-
-This means that most system backup schemes are incapable of making useful
-backups of the content database while it's in use. We assume you don't want
-to stop your Plone site just to backup, so you need to add procedures to
-make sure you have useful backups of Plone's data. (We assume that you know
-that the same thing is true of your relational database storage. If not, get
-to studying!)
-
-Where's my data?
-----------------
-
-Your Plone instance installation will contain a ./var directory (in the same
-directory as buildout.cfg) that contains the frequently changing data files
-for the instance. Much of what's in ./var, though, is not your actual content
-database. Rather, it's log, process id, and socket files.
-
-The directories that actually contain content data are:
-
-./var/filestorage
-
-    This is where Zope Object Database filestorage is maintained. Unless
-    you've multiple storages or have changed the name, the key file is
-    Data.fs. It's typically a large file and contains everything except
-    BLOBS.
-
-    The other files in filestorage, with extensions like .index, .lock,
-    .old, .tmp are ephemeral, and will be recreated by Zope if they're absent.
-
-./var/blobstorage
-
-    This directory contains a very deeply nested directory hierarchy that,
-    in turn, contains the BLOBs of your database: PDFs, image files, office
-    automation files and such.
-
-The key thing to know about filestorage and blobstorage is that they are
-maintained synchronously. The filestorage has references to BLOBs in the
-blobstorage. If the two storages are not perfectly synchronized, you'll
-get errors.
-
-collective.recipe.backup
-========================
-
-`collective.recipe.backup <http://pypi.python.org/pypi/collective.recipe.backup>`_
-is a well-maintained and well-supported recipe for solving the "objects in
-motion" problem for a live Plone database. It makes it easy to both back up
-and restore the object database. The recipe is basically a sophisticated
-wrapper around ``repozo`, a Zope database backup tool, and ``rsync``, the
-common file synchronization tool.
+- **buildout.cfg** - defines your site package configuration
+- **src folder** - all add-ons you have developed yourself
+- **var/filestorage/Data.fs** - ZODB database of your site
+- **var/blobstorage** folder which contains file-like objects of ZODB database (BLOBs)
 
 .. note::
 
-    Big thanks to Reinout van Rees, Maurits van Rees and community helpers for
-    creating and maintaining collective.recipe.backup. We all owe them drinks
-    of their choice.
+    BLOB storage is supported from Plone 4.x onwards. Older Plone installations do not 
+    have this folder.
 
-If you're using any of Plone's installation kits, collective.recipe.backup is
-included in your install. If not, you may add it to your buildout by adding
-a ``backup`` part:
 
-.. code-block:: ini
+Other folders (eggs, downloads, parts) etc. are generated by buildout command and may
+be left empty.
 
-    [buildout]
-    parts =
-        ...
-        backup
-        ...
 
-    [backup]
-    recipe = collective.recipe.backup
+Copying and bootstrapping a Plone site to a new computer
+========================================================
 
-There are several useful option settings for the recipe, all set by adding
-configuration information. All are documented on `the PyPI page
-<http://pypi.python.org/pypi/collective.recipe.backup>`_. Perhaps the most
-useful is the ``location`` option, which sets the destination for backup
-files:
+- Create a new site in the destination using Plone installer and make sure you can log-in
+to the site with temporary admin account
+- Copy var/filestorage/Data.fs from the old system to the new system - note that admin 
+password is stored in Data.fs and the password given during the creation of a new site is 
+no longer effective after Data.fs copy
+- Copy blobs from the old system to the new system by copying var/blobstorage/ folder
+- Copy src/ folder from the old system if you have any custom development code there
+- Copy buildout.cfg and other .cfg files
+- Rerun buildout in order to automatically re-download and configure all Python packages 
+needed to run the site
+    - python bootstrap.py to make the buildout use new local Python interpreter
+    - Then bin/buildout to regenerate parts/ folder
 
-.. code-block:: ini
+Copying site data in UNIX environment
+=====================================
 
-    [backup]
-    recipe = collective.recipe.backup
-    location = /path/to/reliably/attached/storage/filestorage
-    blobbackuplocation =  /path/to/reliably/attached/storage/blobstorage
+Below are example UNIX commands to copy a Plone site data from a computer to 
+another over SCP/SSH connection. The actual username and folder locations 
+depend on your system configuration.
 
-If this is unspecified, the backup destination is the buildout var directory.
-The backup destination, though, may be any reliably attached location —
-including another partition, drive or network storage.
+Note: a copy of the Plone site configuration must already exist on the target computer. 
+These instructions are only for copying / back-uping site data.
 
-Operation
----------
+This operation can be perfomed on a running system - Data.fs is append only file and you 
+will simply lose transactions which happened during the copying of the end of the file.
 
-Once you've run buildout, you'll have ``bin/backup`` and ``bin/restore``
-scripts in your buildout. Since all options are set via buildout, there are
-few command-line options, and operation is generally as simple as using the
-bare commands. ``bin/restore`` will accept a date-time argument if you're
-keeping multiple backups. See the docs for details.
+Copy local to remote
+====================
 
-Backup operations may be run without stopping Plone. Restore operations
-require that you stop Plone, then restart after the restore is complete.
+Run this command in your buildout Plone installation.
 
-``bin/backup`` is commonly included in a cron table for regular operation.
-Make sure you test backup/restore before relying on it.
+Copy Data.fs database:
 
-Incremental backups
--------------------
+    scp -C -o CompressionLevel=9 var/filestorage/Data.fs plone@server.com:/srv/plone/site/var/filestorage
 
-collective.recipe.backup offers both incremental and full backup and will
-maintain multiple generations of backups. Tune these to meet your needs.
+Copy BLOB files using rsync
+===========================
 
-When incremental backup is enabled, doing a database packing operation will
-automatically cause the next backup to be a full backup.
+BLOB files contain file and image data uploaded to your site. Since the actual 
+content of file rarely changes after upload, rsync can synchronize only changed 
+files using -a (archive) flag.
 
-If your backup continuity needs are extreme, your incremental backup may be
-equally extreme. There are Plone installations where incremental backups
-are run every few minutes.
+    rsync -av --compress-level=9 var/blobstorage plone@server.com:/srv/plone/site/var
+
+
