@@ -87,9 +87,64 @@ Creating a new content type
 These instructions apply to
 :doc:`Archetypes</content/archetypes/index>`-based content types.
 
-* You need to have an add-on product code skeleton created using paster's *archetypes* template.
+Install ZopeSkel
+----------------
 
-* Use the ``paster addcontent content`` command to create new content types. 
+Add ZopeSkel to your buildout.cfg and run buildout::
+
+    [buildout]
+    ...
+    parts =
+        instance
+        zopeskel
+
+    ...
+    [zopeskel]
+    recipe = zc.recipe.egg
+    eggs =
+       PasteScript
+       ZopeSkel
+    
+Create an archetypes product
+----------------------------
+
+Run the following command and answer the questions e.g. for the
+project name use my.product::
+
+    ./bin/paster create -t archetype
+
+Install the product
+-------------------
+
+Adjust your buildout.cfg and run buildout again::
+
+    [buildout]
+    develop = my.product
+    ...
+    parts =
+        instance
+        zopeskel
+    
+    ...
+    [instance]
+    eggs = my.product
+
+.. note::
+
+   You need to install your new product using buildout before you
+   can add a new content type in the next step. Otherwise paster
+   complains with the following message: "Command 'addcontent' not
+   known".
+
+Create a new content type
+-------------------------
+
+Change into the directory of the new product and then use paster to
+add a new content type::
+
+    cd my.product
+    ../bin/paster addcontent contenttype
+
 
 Related how-tos:
 
