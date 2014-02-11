@@ -453,6 +453,15 @@ Marketplace.
 **Vim** does syntax highlighting for RST files.
 There is also a nice plugin with enhanced functionalities called `Riv <https://github.com/Rykka/riv.vim>`_.
 
+**ReText** if you use Ubuntu or Debian you could also use **ReText** a Editor for **.rst** and **.md**
+
+.. code-block:: rst
+
+   apt-get install retext
+
+
+
+
 Style recommendations
 =====================
 
