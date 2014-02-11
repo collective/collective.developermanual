@@ -333,7 +333,7 @@ It is an evolved version of
 Example how to run the script for the last 30 transaction under a Zope egg
 environment using the ``zopepy`` script::
 
-    bin/zopepy -n 30 debug.py Data.fs
+    bin/zopepy debug.py -n 30 Data.fs
 
 .. Warning:: 
     The following is obsolete with current Zope. FileIterator does not
@@ -354,7 +354,7 @@ Code for debug.py::
     # FOR A PARTICULAR PURPOSE
     #
     ##############################################################################
-     """Tool to dump the last few transactions from a FileStorage."""
+    """Tool to dump the last few transactions from a FileStorage."""
 
     from ZODB.fstools import prev_txn
     from ZODB.serialize import ObjectReader, get_refs
