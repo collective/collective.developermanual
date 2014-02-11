@@ -1,11 +1,11 @@
-==================================
+==================
  Joining doc team
-==================================
+==================
 
 Plone documentation team team takes care of Plone documentation.
 
 Discussion channel and empowerment
-====================================
+==================================
 
 * **IRC**: Get yourself to #plone-docs IRC channel
 
