@@ -13,7 +13,9 @@ Introduction
 ==============
 
 WebDAV is enabled by default. A Zope server listening on port 8080 will also
-accept WebDAV traffic on that port.
+accept WebDAV traffic on that port. For common cases, client-side tools
+should work reasonably well.
+(http://plone.293351.n2.nabble.com/webdav-status-td7570063.html)
 (http://stackoverflow.com/questions/9127269/how-can-i-stop-people-accessing-a-plone-server-via-webdav)
 
 Enabling WebDAV on an extra port in Zope
@@ -42,7 +44,7 @@ some WebDAV clients::
        force-connection-close off
        </webdav-source-server>
 
-These snippets will be in the **generated** ``parts/instance/zope.conf``
+These snippets will be in the **generated** ``parts/instance/etc/zope.conf``
 after buildout has been re-run.
 
 This will enable the WebDAV server on http://www.mydomain.com:1980/. Note
