@@ -210,7 +210,8 @@ Also check the original source of this sample file: http://chrigl.de/blogentries
 
 The above sample has not been extensively tested and is intended for use with in a zeocluster configuration. 
 To use the above sample for a normal (non-root) user installation, replace the last line with:
-        exec /home/userid/Plone/plonectl start
+
+        exec /home/$USERID/Plone/plonectl start
 
 Systemd
 -------
