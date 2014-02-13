@@ -299,8 +299,8 @@ Example::
         </head>
         <body>
         <div id="page">
-        <h1>Sivu ei ole saatavissa</h1>
-        <p>Pahoittelemme,  ei ole saatavilla.</p>
+        <h1>This page is not available</h1>
+        <p>Sorry, not available.</p>
         <hr />
         <h4>Debug Info:</h4>
         <pre>Status: "} + obj.status + {"
