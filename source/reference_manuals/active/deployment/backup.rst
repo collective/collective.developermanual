@@ -92,7 +92,7 @@ collective.recipe.backup
 is a well-maintained and well-supported recipe for solving the "objects in
 motion" problem for a live Plone database. It makes it easy to both back up
 and restore the object database. The recipe is basically a sophisticated
-wrapper around ``repozo`, a Zope database backup tool, and ``rsync``, the
+wrapper around ``repozo``, a Zope database backup tool, and ``rsync``, the
 common file synchronization tool.
 
 .. note::
