@@ -2,8 +2,8 @@
 Preface
 =======
 
-Plone is an open source content management system that lets non-technical people 
-create and maintain web content from their broswer.  With a rich ecosystem of 
+Plone is an open source content management system that lets non-technical people
+create and maintain web content from their broswer.  With a rich ecosystem of
 add-on packages and a highly extensible layout system, Plone offers a robust platform
 for those wishing to enhance its core functionality.
 
@@ -16,7 +16,7 @@ Plone has a number of strengths:
   Oracle (By using Add-on products)
 * Plone scales well
 * Plone will grow with your expanding CMS needs. Many systems will be good
-  for simple sites, but will not be able to handle the expanding requirements 
+  for simple sites, but will not be able to handle the expanding requirements
   you are likely to encounter over time.
 * Plone is Open Source!
 
@@ -27,8 +27,8 @@ Plone developers/users know how do everything.
 
 Due to Plone's longevity it has spanned and outlasted some technologies and
 Python practices.  Thus you will see some Python usage which may not match
-today's accepted code practices. You will also see use of Python libraries 
-which are deprecated, and/or implement code where today a standard or 
+today's accepted code practices. You will also see use of Python libraries
+which are deprecated, and/or implement code where today a standard or
 optional Python package would be preferred.
 
 It's important to keep the following in mind:
@@ -40,20 +40,20 @@ It's important to keep the following in mind:
 When you encounter something you want to get accomplished, but you are unable
 to find direct examples of how to do it, use the following procedure:
 
-#. Formulate your question to represent your issue in a way that makes it easy for others to answer [1]_
+#. Formulate your question to represent your issue in a way that makes it easy for others to answer
 #. Search via google and/or stackoverflow
-#. Try the ``#plone`` IRC channel on freenode [2]_ 
-#. Join and send email to the product-developers email list [3]_. 
+#. Try the ``#plone`` IRC channel on freenode [2]_
+#. Join and send email to the product-developers email list [3]_.
 #. UTSL (Use The Source Luke). Plone is almost entirely Python code. You can always refer to the source to figure out anything about Plone. Plone source is made up of Python, ZCML, XML, Javascript and Page Template files.
 
-If you ask the community for help, it may not arrive instantly. Please remember 
-that People are voluntarily helping you. If you need help immediately your best 
+If you ask the community for help, it may not arrive instantly. Please remember
+that People are voluntarily helping you. If you need help immediately your best
 option may be to find paid support for your issues [4]_.
 
 Be patient. Be aware that you are dealing with a complex system and you need to
 reserve time to manage technology and minimize risks. The community is very supportive and will help you if you make an effort to make it easy for them to do so.
 
-.. [1] http://plone.org/documentation/kb/ask-for-help
+
 .. [2] http://plone.org/support/chat
 .. [3] http://plone.org/support/forums/addons
 .. [4] http://plone.org/support/providers
