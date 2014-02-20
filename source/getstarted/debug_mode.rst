@@ -5,7 +5,7 @@
 .. admonition:: Description
 
     Plone can be put in the debug mode where one can diagnose start up failures and
-    any changes to CSS, Javascript and page templates take effect immediately. 
+    any changes to CSS, Javascript and page templates take effect immediately.
 
 .. contents:: :local:
 
@@ -16,9 +16,9 @@ By default when you start Plone you start it in a **production mode**.
 
 * Plone is faster
 
-* CSS and Javascript files are *merged* instead of causing multiple HTTP request to load these assets. 
+* CSS and Javascript files are *merged* instead of causing multiple HTTP request to load these assets.
   CSS and Javascript behavior is different in production versus debug mode, especially with files with syntax errors
-  because of merging. 
+  because of merging.
 
 * Plone does not reload changed files from the disk
 
@@ -59,7 +59,7 @@ are not then you can tweak the settings for individual file in the corresponding
 management tool.
 
 Refresh issues
-===========================
+==============
 
 Plone **production mode** should re-read CSS and Javascript files on Plone start-up.
 
@@ -69,8 +69,7 @@ Possible things to debug and force refresh of static assets
 
 * Go to *portal_css*, press *Save* to force CSS rebundling
 
-* Make sure you are not using *plone.app.caching* and doing caching forever 
-
+* Make sure you are not using *plone.app.caching* and doing caching forever
 * Use `hard browser refresh <http://support.mozilla.org/en-US/questions/746138>`_ to override local cache
 
 
@@ -94,7 +93,6 @@ This quick start has been tested on Windows 7.  Installation remains the same on
 .. note::
    In the buildout bin directory you'll find the executable files to control Plone instance.
 
-For greater insight into the Windows installation process, `Plone 4 Windows Installer Notes <http://plone.org/documentation/kb/plone-4-windows-installer>`_ provides alternate deployment strategies for Windows.
 
 Starting and Stopping Plone
 ---------------------------
@@ -152,7 +150,7 @@ Enter to your installation folder using ``cd`` command (depends on where you hav
 
    cd ~/Plone/zintance # Default local user installation location
 
-For root installation the default location is ``/usr/local/Plone``.  
+For root installation the default location is ``/usr/local/Plone``.
 
 Type in command::
 
