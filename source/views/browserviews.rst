@@ -61,7 +61,6 @@ More information
 
 * `Zope view tutorial <http://plone.org/documentation/tutorial/borg/zope-3-views>`_.
 
-* `Grok view tutorial <http://plone.org/products/dexterity/documentation/manual/five.grok/browser-components/views>`_.
 
 View components
 ---------------
