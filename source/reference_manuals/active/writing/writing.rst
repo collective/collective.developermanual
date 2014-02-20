@@ -78,7 +78,7 @@ the time.
 .. code-block:: sh
 
    bin/buildout
-    
+
 * Edit the file(s) which you want to update.
 
 * Check that building with Sphinx does not give warnings:
@@ -107,7 +107,7 @@ Tab policy
 
 * No hard tabs
 
-* No trailing whitespaces 
+* No trailing whitespaces
 
 Headings and filenames
 -------------------------
