@@ -305,9 +305,8 @@ For Plone 4.1 and later, see these instructions:
 * https://docs.google.com/document/d/19-o6yYJWuvw7eyUiLs_b8br4C-Kb8RcyHcQSIf_4Pb4/edit
 
 If you wish to develop Plone on Windows you need to set-up a working MingW
-environment (this can be somewhat painful if you aren't used to it):
+environment (this can be somewhat painful if you aren't used to it)
 
-* http://plone.org/documentation/kb/using-buildout-on-windows
 
 OSX
 ----------------------------------------------------
