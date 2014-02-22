@@ -28,14 +28,6 @@ Let's break this down:
   Alternatively we could use e.g. the ``python:`` :term:`TALES` expression
   type and embed one line python of code to generate the attribute value.
 
-* Obviously we are rendering an ``<img>`` tag.
-
-* The ``src`` attribute is dynamically generated using a :term:`TALES` expression.
-
-* We use a *string comprehension* to create the ``src`` attribute. 
-  Alternatively, we could for example use the ``python:`` protocol
-  and embed one line of python code to generate the attribute value.
-  
 * We look up a helper view called :doc:`plone_portal_state </misc/context>`.
   This is a ``BrowserView`` shipped with Plone. Its purpose is to expose
   different helper methods to page templates and Python code.
