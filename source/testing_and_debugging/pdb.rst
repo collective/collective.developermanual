@@ -6,7 +6,7 @@
 
     Using Python command-line debugger (``pdb``) to debug Plone and Python
     applications.
-       
+
 .. contents:: :local:
 
 Introduction
@@ -26,13 +26,10 @@ add-on products.
 
 If you wish to play around with Zope in interactive Python shell or run
 scripts instead of debugging (exceptions), please read :doc:`Command line
-</misc/commandline>` documentation.        
+</misc/commandline>` documentation.
 
 See also
 
-* http://plone.org/documentation/kb/using-pdb
-
-* http://plone.org/documentation/kb/best-practices/debugging-plone
 
 Using ``pdb``
 =============
@@ -44,7 +41,7 @@ Using ``pdb``
 
 # After you have added ``import pdb; pdb.set_trace()`` to your code, stop
   Zope and start it in the foreground using the ``bin/instance fg`` command.
-  
+
 # TextMate support for ``pdb`` can be found at
   `http://pypi.python.org/pypi/PdbTextMateSupport/0.3
   <http://pypi.python.org/pypi/PdbTextMateSupport/0.3>`_.
@@ -71,7 +68,7 @@ Example::
             import pdb ; pdb.set_trace()
             constructor = ARFormConstructor(self.context, self.context.context, self.request)
             return constructor.getFields()
-            
+
 Pretty printing objects
 =======================
 
@@ -103,50 +100,50 @@ Example::
       'rights': '',
       'subject': (),
       'title': "Documents",
-      'workflow_history': {'folder_workflow': ({'action': None, 
-        'review_state': 'visible', 'comments': '', 'actor': 'gregweb', 
+      'workflow_history': {'folder_workflow': ({'action': None,
+        'review_state': 'visible', 'comments': '', 'actor': 'gregweb',
         'time': DateTime('2005/02/14 20:03:37.187 GMT+1')},)}
     }
-                
-            
+
+
 Useful ``pdb`` commands
 ========================
 
 Just type the command and hit enter.
 
-``s`` 
+``s``
     step into, go into the function in the cursor
 
-``n`` 
+``n``
     step over, execute the function under the cursor without stepping into it
 
-``c`` 
+``c``
     continue, resume program
 
-``w`` 
+``w``
     where am I? displays current location in stack trace
 
-``b`` 
+``b``
     set breakpoint
 
-``cl`` 
+``cl``
     clear breakpoint
 
-``bt`` 
+``bt``
     print stack trace
 
-``up`` 
-    go to the scope of the caller function           
+``up``
+    go to the scope of the caller function
 
-``pp`` 
+``pp``
     pretty print object
 
-``until`` 
+``until``
     Continue execution until the line with the line number greater than the
     current one is reached or when returning from current frame
 
 .. note::
-        
+
     The ``until`` command (or ``unt``) is available only on Plone 4.x or
     superior as it is a new feature provided by the ``pdb`` module under
     Python 2.6.
@@ -183,11 +180,11 @@ Executing code on the context of the current stack frame::
 
 
 .. note::
-         
+
      The example above will modify the previous value of the variable
      ``my_tags`` in the current stack frame.
 
-        
+
 Automatically start debugger when exception is raised (browser)
 ==================================================================
 
