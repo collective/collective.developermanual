@@ -1022,7 +1022,7 @@ Example traceback::
 
 Answer:
 
-You have ``i18n:attributes="title; description"`` in your portlets.xml. Remove it or declare i18n namespace in XML.
+You have ``i18n:attributes="title; description"`` in your portlets.xml. Remove it or declare i18n namespace in XML like this: ``<portlets xmlns:i18n="http://namespaces.zope.org/i18n">``. Similar applies for actions.xml, etc.
 
 ImportError: Couldn't import ZPublisherEventsBackport
 -----------------------------------------------------
