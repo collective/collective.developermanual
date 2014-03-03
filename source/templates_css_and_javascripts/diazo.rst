@@ -74,7 +74,8 @@ There are several reasons for this:
 With Diazo you can easily also have a separate ``admin.yoursite.com``
 domain where the Plone editing interface is untouched.  
 
-Related links
+R
+elated links
 -------------
 
 * http://pypi.python.org/pypi/plone.app.theming
@@ -85,7 +86,6 @@ Related links
 
 * http://plone.org/products/collective.examples.diazo
 
-* http://plone.org/documentation/kb/diazo-theme-snippets
 
 Creating your first Diazo theme package
 ---------------------------------------
