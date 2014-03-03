@@ -5,7 +5,7 @@ Functional testing
 .. admonition:: Description
 
         Functional testing tool allows you to use scripted
-        browser to load pages from your site and fill in 
+        browser to load pages from your site and fill in
         forms automatically.
 
 .. contents :: :local:
@@ -42,8 +42,6 @@ Recording tests
 
 You can record functional tests through the browser. Think it as a Microsoft Word macro recoder kind of thing.
 
-* http://plone.org/documentation/kb/testing/zope-testrecorder
-
 * http://pyyou.wordpress.com/2008/04/11/how-to-install-zopetestrecorder-with-buildout/
 
 * http://pypi.python.org/pypi/zope.testrecorder
@@ -51,7 +49,7 @@ You can record functional tests through the browser. Think it as a Microsoft Wor
 Functional test skeleton
 ------------------------
 
-First see collective.testlayer package which does some of the things 
+First see collective.testlayer package which does some of the things
 described below
 
 * http://pypi.python.org/pypi/collective.testcaselayer
@@ -152,7 +150,7 @@ Logout
 ------
 
 Example::
-   
+
     def logoutWithTestBrowser(self):
         """
         """
@@ -197,7 +195,7 @@ You can do the following to know what content your form has eaten
 
     # get the login form from the zope.testbrowser
     login_form = self.browser.getForm('login_form')
-    # get and print all controls 
+    # get and print all controls
     controls = login_form.mech_form.controls
     for control in controls:
        print "%s: %s" % (control.attrs['name'], control.attrs['type'])
@@ -218,21 +216,21 @@ You can manipulate ``value`` of various form input controls.
 
 Example how to submit Plone search page::
 
-        
+
         self.browser.open(self.portal.absolute_url() + "/search")
-        
+
         # Input some values to the search that we see we get
-        # zero hits and at least one hit        
+        # zero hits and at least one hit
         for search_terms in [u"Plone", u"youcantfindthis"]:
             form = self.browser.getForm("searchform")
-            
+
             # Fill in the search field
             input = form.getControl(name="SearchableText")
-            input.value = search_terms 
-            
+            input.value = search_terms
+
             # Submit the search form
             form.submit(u"Search")
-            
+
 
 
 Selecting a checkbox
@@ -256,7 +254,7 @@ on the Button labeled "Log in" in the login form, you do::
 
     login_form = self.browser.getForm('login_form')
     login_form.submit('Log in')
-        
+
 Checking Unauthorized response
 ------------------------------
 
@@ -264,24 +262,24 @@ Example::
 
     def checkIsUnauthorized(self, url):
         """
-        Check whether URL gives Unauthorized response. 
+        Check whether URL gives Unauthorized response.
         """
-        
-        import urllib2 
-        
+
+        import urllib2
+
         # Disable redirect on security error
         self.portal.acl_users.credentials_cookie_auth.login_path = ""
-        
+
         # Unfuse exception tracking for debugging
         # as set up in afterSetUp()
         self.browser.handleErrors = True
-        
+
         def raising(self, info):
             pass
         self.portal.error_log._ignored_exceptions = ("Unauthorized")
         from Products.SiteErrorLog.SiteErrorLog import SiteErrorLog
         SiteErrorLog.raising = raising
-        
+
         try:
             self.browser.open(url)
             raise AssertionError("No Unauthorized risen:" + url)
@@ -289,17 +287,17 @@ Example::
             # Mechanize, the engine under testbrowser
             # uses urlllib2 and will raise this exception
             self.assertEqual(e.code, 401, "Got HTTP response code:" + str(e.code))
-            
+
 Another example where test browser / Zope 2 publisher where invalidly handling Unauthorized exception::
 
     def test_anon_access_forum(self):
         """
         Anonymous users should not be able to open the forum page.
         """
-        
+
         self.portal.error_log._ignored_exceptions = ()
         self.portal.acl_users.credentials_cookie_auth.login_path = ""
-        
+
         exception = None
         try:
             self.browser.open(self.portal.intranet.forum.absolute_url())
@@ -308,15 +306,15 @@ Another example where test browser / Zope 2 publisher where invalidly handling U
             # test browser spits out an exception without a base class (WTF)
             import sys
             exception = sys.exc_info()[0]
-            
-        self.assertFalse(exception is None)            
+
+        self.assertFalse(exception is None)
 
 Checking a HTTP response header
 --------------------------------
 
 Exaple:
 
-        self.assertEqual(self.browser.headers["Content-type"], 'application/octet-stream')  
+        self.assertEqual(self.browser.headers["Content-type"], 'application/octet-stream')
 
 Checking HTTP exception
 -------------------------
@@ -325,7 +323,7 @@ Example how to check for HTTP 500 Internal Server Error::
 
     def test_no_language(self):
         """ Check that language parameter is needed and nothing is executed unless it is given. """
-        
+
         from urllib2 import HTTPError
         try:
             self.browser.handleErrors = True # Don't get HTTP 500 pages
@@ -334,7 +332,7 @@ Example how to check for HTTP 500 Internal Server Error::
             # should cause HTTPError: HTTP Error 500: Internal Server Error
             raise AssertionError("Should be never reached")
         except HTTPError, e:
-            pass      
+            pass
 
 Setting test browser headers
 -----------------------------
@@ -392,7 +390,7 @@ Example::
             mech_browser.handler_classes["http"] = PublisherHTTPHandler
             browser.Browser.__init__(self, url=url, mech_browser=mech_browser)
 
-     
+
 
 
 For more information, see
