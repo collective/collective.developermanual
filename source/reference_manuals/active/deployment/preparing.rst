@@ -110,10 +110,10 @@ Debian/Ubuntu
 Use ``apt-get install``. The matching package names are:
 
 * build-essential
-* libssl-def
+* libssl-dev
 * libz-dev
 * libjpeg-dev
-* readline-dev
+* libreadline-dev
 * libxml2-dev
 * libxslt-dev
 * python-dev
