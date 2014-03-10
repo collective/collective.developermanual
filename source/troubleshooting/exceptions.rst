@@ -58,6 +58,7 @@ Difference::
 
 vs.
 
+        from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 
 
 Iteration over non-sequence in _normalizeargs
