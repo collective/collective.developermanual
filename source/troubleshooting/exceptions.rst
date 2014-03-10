@@ -56,7 +56,7 @@ Difference::
 
         from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-vs.:
+vs.::
 
         from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 
