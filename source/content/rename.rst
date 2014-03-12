@@ -72,6 +72,10 @@ These checks performed before rename by the manage_renameObject()::
         on the content object. By default, this is not the case on unit tests. You need to call
         transaction.savepoint() to make _p_jar appear on persistent objects.
         
+        If you don't do this, you'll receive a "CopyError" when calling manage_renameObjects
+        that the operation is not supported.
+        
+        
 Unit testing example::
         
         import transaction
