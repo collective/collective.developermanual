@@ -37,7 +37,6 @@ Database files
 Usually Plone's database is configured to file ``var/filestorage/Data.fs``
 and uploaded files can be found as BLOBs in ``var/blobstorage``.
 
-* `Copying a Plone site <http://plone.org/documentation/kb/copying-a-plone-site>`_
 
 Object database features
 ===========================
