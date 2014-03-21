@@ -15,6 +15,38 @@ This document contains a list of common developer errors you might encounter and
 
 Please see :doc:`this tutorial </troubleshooting/basic>` for extracting Python tracebacks from your Plone logs.
 
+AttributeError: 'RelationList' object has no attribute 'source'
+---------------------------------------------------------------
+
+Example traceback::
+
+    2014-03-21 17:19:09 ERROR Zope.SiteErrorLog 1395433149.260.697467198696 http://localhost:8080/Plone/++add++MyType
+    Traceback (innermost last):
+      Module ZPublisher.Publish, line 138, in publish
+      Module ZPublisher.mapply, line 77, in mapply
+      Module ZPublisher.Publish, line 48, in call_object
+      Module plone.z3cform.layout, line 66, in __call__
+      Module plone.z3cform.layout, line 50, in update
+      Module plone.dexterity.browser.add, line 112, in update
+      Module plone.z3cform.fieldsets.extensible, line 59, in update
+      Module plone.z3cform.patch, line 30, in GroupForm_update
+      Module z3c.form.group, line 128, in update
+      Module z3c.form.form, line 134, in updateWidgets
+      Module z3c.form.field, line 277, in update
+      Module z3c.formwidget.query.widget, line 108, in update
+      Module z3c.formwidget.query.widget, line 95, in bound_source
+      Module z3c.formwidget.query.widget, line 90, in source
+    AttributeError: 'RelationList' object has no attribute 'source'
+
+You're trying to use a relation field on your Dexterity-based content type but
+`plone.app.relationfield`_ is not installed.
+
+Follow the instructions on the Dexterity documentation as
+`relation support is no longer included by default`_.
+
+.. _`plone.app.relationfield`: https://pypi.python.org/pypi/plone.app.relationfield
+.. _`relation support is no longer included by default`: https://pypi.python.org/pypi/plone.app.dexterity#relation-support-no-longer-included-by-default
+
 AttributeError: 'str' object has no attribute 'other' (Mixed zope.viewpagetemplate and Five.viewpagetemplate)
 --------------------------------------------------------------------------------------------------------------
 
