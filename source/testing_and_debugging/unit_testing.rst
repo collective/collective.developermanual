@@ -110,7 +110,7 @@ Test coverage
 Zope test running can show how much of your code is covered by automatic
 tests:
 
-* http://plone.org/documentation/kb/testing/code-coverage
+* https://pypi.python.org/pypi/plone.testing#coverage-reporting
 
 Running tests against Python egg
 ===================================
@@ -123,8 +123,6 @@ Creating unit tests
 ====================
 
 Pointers:
-
-* http://plone.org/documentation/kb/testing
 
 * http://pypi.python.org/pypi/plone.app.testing
 
