@@ -20,10 +20,8 @@ Test if view is protected::
     def test_view_is_protected(self):
         from AccessControl import Unauthorized
         self.logout()
-        self.assertRaises(
-            Unauthorized,
-            self.portal.restrictedTraverse,
-            '@@view-name')
+        with self.assertRaises(Unauthorized):
+            self.portal.restrictedTraverse('@@view-name')
 
 
 Test if object exists in folder::
