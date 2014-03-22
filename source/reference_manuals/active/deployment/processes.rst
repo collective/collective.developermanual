@@ -35,7 +35,7 @@ It's automatically used by "stop" and "restart" commands.
 Starting and stopping Plone with the server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can start and stop Plone with your server by adding and init.d (Linux
+You can start and stop Plone with your server by adding an init.d (Linux
 and other sys v heritage systems) or rc.d (BSD heritage) script that accepts
 start and stop commands.
 
