@@ -57,7 +57,41 @@ Example how to add ownership for additional user using local roles::
 .. note ::
 
         This does not update Dublin Core metadata fields like
-        creator.
+        creator.  See `Updating roles and metadata`_ to do 
+        this at the same time.
+        
+Updating roles and metadata
+---------------------------
+
+It's possible to update both the Creator metadata and local ownership
+roles on content all at once.  The following example replaces
+ownership roles and creator properties for all content against a path.
+
+
+.. code:: python
+
+    from Products.CMFPlone.utils import getToolByName
+    user_id = 'administrator'
+    catalog = getToolByName(context, 'portal_catalog')
+    results = catalog(path={ "query": "/siteid/path/to/content" })
+    for brain in results:
+        obj = brain.getObject()
+        obj.setCreators((user_id,))
+        obj.manage_setLocalRoles(user_id, ["Owner",])
+        obj.reindexObjectSecurity()
+        obj.reindexObject()
+
+Keep in mind that existing Creators will be replaced, and any other
+roles that the given ``user_id`` has will be replaced with the Owner
+role only.  
+
+You may wish to adapt the above to remove other users'
+local roles from the given objects if you are transferring ownership,
+or have other roles you wish to keep (such as just *removing* the
+Owner role and leaving everything else intact).  Iteration through
+``context.get_local_roles()`` should provide all you need to maniuplate
+the objects to your specifications.
+
         
 Contributors
 ------------
