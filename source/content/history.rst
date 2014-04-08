@@ -38,36 +38,26 @@ Below are some notes how to enable it.
 
         
     from Products.CMFCore.utils import getToolByName
-    from Products.CMFEditions.setuphandlers import VERSIONING_ACTIONS, ADD_POLICIES, DEFAULT_POLICIES   
-    
-    class DPSetup(object):
-    
-        def configureVersioning(self,portal):
-           """
-           Importing various settings
-           Big thanks to amir toole from plone-users
-           """
-    
-           for versioning_actions in ('MyositisPatient','MyositisVisit','MyositisOrdination','MyositisSeriousadverseevent','MyositisAdhoc','MyositisAdhoc1','MyositisAdhoc2','MyositisAdhoc3','MyositisAdhoc4'):
-            VERSIONING_ACTIONS[versioning_actions] = 'version_document_view'
-            portal_repository = getToolByName(portal, 'portal_repository')
-            portal_repository.setAutoApplyMode(True)
-            portal_repository.setVersionableContentTypes(VERSIONING_ACTIONS.keys())
-            portal_repository._migrateVersionPolicies()
-            portal_repository.manage_changePolicyDefs(ADD_POLICIES)
-            for ctype in VERSIONING_ACTIONS:
-             for policy_id in DEFAULT_POLICIES:
-                 portal_repository.addPolicyForContentType(ctype, policy_id)
 
-      ...
-      
-      def importFinalSteps(context):
+    def configureVersioning(context):
+        """http://developer.plone.org/content/history.html
         """
-        The last bit of code that runs as part of this setup profile.
-        """
-        site = context.getSite()
-        configurator = DPSetup()
-        configurator.configureVersioning(site)
+        site = getSite()
+        portal_repository = getToolByName(site, 'portal_repository')
+        versionable_types = list(
+            portal_repository.getVersionableContentTypes())
+
+        for type_id in ['File']:
+            if type_id not in versionable_types:
+                versionable_types.append(type_id)
+                for policy in portal_repository.listPolicies():
+                    portal_repository.addPolicyForContentType(
+                        type_id,
+                        policy.id
+                    )
+
+        portal_repository.setVersionableContentTypes(versionable_types)
+
         
 * To see which fields differ between versions, diff tool must be configured to support your custom content types. 
   GenericSetup support is available after Plone 3.2. For older you must manually create entries in portal_diff_tool.
