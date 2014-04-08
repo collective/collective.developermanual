@@ -299,3 +299,16 @@ buildout you can use operating system environment variables.
 For example, see:
 
 * http://pypi.python.org/pypi/Products.LongRequestLogger
+
+
+Remove a Configlet from Control Panel
+=====================================
+
+To remove a configlet from the control panel, you should add
+an upgrade step that invoke a code like the following::
+
+    def remove_configlet():
+        from plone import api
+        config_tool = api.portal.get_tool('portal_controlpanel')
+        configlet_id = 'MyConfigletId'
+        config_tool.unregisterConfiglet(configlet_id)
