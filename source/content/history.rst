@@ -16,23 +16,9 @@ See also
 
 * `Versioning tutorial for custom content types <http://www.uwosh.edu/ploneprojects/documentation/how-tos/how-to-enable-versioning-history-for-a-custom-content-type>`_. 
 
-Enabling versioning on your custom content type (Plone 3 ONLY)
-----------------------------------------------------------------
 
-.. note ::
-
-         This information applies for Plone 3 only.
-
-By default, version history is not enabled for custom content types.
-Below are some notes how to enable it.
-
-* Inherit HistoryAwareMixin in your content type class::
-
-    from Products.ATContentTypes.lib.historyaware import HistoryAwareMixin
-
-    ..
-
-    class CustomContent(base.ATCTContent, HistoryAwareMixin):
+Enabling versioning on types
+----------------------------
 
 * Add versioning migration code to your setuphandlers.py / custom import steps::
 
@@ -57,6 +43,25 @@ Below are some notes how to enable it.
                     )
 
         portal_repository.setVersionableContentTypes(versionable_types)
+
+
+Enabling versioning on your custom content type (Plone 3 ONLY)
+----------------------------------------------------------------
+
+.. note ::
+
+         This information applies for Plone 3 only.
+
+By default, version history is not enabled for custom content types.
+Below are some notes how to enable it.
+
+* Inherit HistoryAwareMixin in your content type class::
+
+    from Products.ATContentTypes.lib.historyaware import HistoryAwareMixin
+
+    ..
+
+    class CustomContent(base.ATCTContent, HistoryAwareMixin):
 
         
 * To see which fields differ between versions, diff tool must be configured to support your custom content types. 
