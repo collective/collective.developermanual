@@ -158,7 +158,7 @@ Creating a viewlet manager
 -----------------------------
 
 Viewlet managers contain viewlets. A viewlet manager is itself
-a Zope 3 interface which contains an OrdereredViewletManager implementation.
+a Zope 3 interface which contains an OrderedViewletManager implementation.
 OrderedViewletManagers store the order of the viewlets in the site database
 and provide the fancy /@@manage-viewlets output.
 
